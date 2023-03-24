@@ -1,17 +1,32 @@
+using Autofac.Core;
+using CloudVOffice.Web.Framework.Engine;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using Microsoft.Extensions.Hosting.Internal;
 using System.Reflection;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddMvc();
-builder.Services.AddControllers();
-builder.Services.AddRazorPages();
+builder.Services.AddHttpContextAccessor();
+var mvcCoreBuilder = builder.Services.AddMvcCore();
+
 Assembly assembly2 = Assembly.LoadFrom
          (@".\Plugins\Accounts.Base\Accounts.Base.dll");
 var part2 = new AssemblyPart(assembly2);
 builder.Services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
+
+builder.Services.AddMvc();
+builder.Services.AddControllers();
+builder.Services.AddRazorPages();
+
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    options.ViewLocationExpanders.Add(new MultiAssemblyViewLocationExpander());
+
+});
+// Add framework services.
 
 
 var app = builder.Build();

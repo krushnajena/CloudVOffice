@@ -17,7 +17,7 @@ namespace Accounts.Base.Controllers
         public IActionResult ChartOfAccountsList()
         {
            
-            return View("~/Plugins/Accounts.Base/Views/ChartOfAccountsList");
+            return View();
         }
 
 

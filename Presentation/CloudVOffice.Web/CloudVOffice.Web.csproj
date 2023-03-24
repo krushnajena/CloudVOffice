@@ -19,9 +19,7 @@
 		<Folder Include="Areas\Accounts\Models\" />
 		<Folder Include="Areas\Accounts\Views\" />
 		<Folder Include="Areas\" />
-		<Folder Include="Controllers\" />
-		<Folder Include="Plugins\" />
-
+		<Content Include="Plugins\**\*" />
 
 
 	</ItemGroup>

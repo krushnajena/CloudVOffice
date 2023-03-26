@@ -1,66 +1,76 @@
-using Autofac.Core;
-using CloudVOffice.Web.Framework.Engine;
+
+using CloudVOffice.Web;
+
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using Microsoft.Extensions.Hosting.Internal;
 using System.Reflection;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddHttpContextAccessor();
-var mvcCoreBuilder = builder.Services.AddMvcCore();
+var startup = new Startup(builder.Configuration);
+startup.ConfigureServices(builder.Services); // calling ConfigureServices method
 
-Assembly assembly2 = Assembly.LoadFrom
-         (@".\Plugins\Accounts.Base\Accounts.Base.dll");
-var part2 = new AssemblyPart(assembly2);
-builder.Services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
-
-builder.Services.AddMvc();
-builder.Services.AddControllers();
-builder.Services.AddRazorPages();
-
-builder.Services.Configure<RazorViewEngineOptions>(options =>
-{
-    options.ViewLocationExpanders.Add(new MultiAssemblyViewLocationExpander());
-
-});
-// Add framework services.
-
-
+    
 var app = builder.Build();
+startup.Configure(app, builder.Environment);
+// Add services to the container.
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+//var mvcCoreBuilder = builder.Services.AddMvcCore();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 
-app.UseRouting();
 
-app.UseAuthorization();
+//foreach (var directory in _fileProvider.GetDirectories(uploadedPath))
+//{
+//    var moveTo = _fileProvider.Combine(pluginsDirectory, _fileProvider.GetDirectoryNameOnly(directory));
 
-app.MapRazorPages();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-    name: "default",
-    pattern: "{area=Website}/{controller=Website}/{action=Home}/{id?}");
+//    if (_fileProvider.DirectoryExists(moveTo))
+//        _fileProvider.DeleteDirectory(moveTo);
 
-});
+//    _fileProvider.DirectoryMove(directory, moveTo);
+//}
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-    name: "H",
-    pattern: "{controller=Website}/{action=Home}/{id?}");
+//Assembly assembly2 = Assembly.LoadFrom
+//         (@".\Plugins\Accounts.Base\Accounts.Base.dll");
+//var part2 = new AssemblyPart(assembly2);
+//builder.Services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
 
-});
+//builder.Services.AddMvc();
+//builder.Services.AddControllers();
+//builder.Services.AddRazorPages();
 
-app.Run();
+//var app = builder.Build();
+
+//// Configure the HTTP request pipeline.
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Error");
+//    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+//    app.UseHsts();
+//}
+
+//app.UseHttpsRedirection();
+//app.UseStaticFiles();
+
+//app.UseRouting();
+
+//app.UseAuthorization();
+
+//app.MapRazorPages();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//app.MapControllerRoute(
+//    name: "area",
+//    pattern: "{Area=Dashbaord}/{controller=Home}/{action=Index}/{id?}");
+
+
+
+
+//app.Run();

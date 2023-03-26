@@ -21,6 +21,14 @@ namespace Accounts.Base.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult GetAccountsData()
+        {
+
+            return View("/Plugins/Accounts.Base/Views/ChartOfAccounts/GetAccountsData.cshtml");
+        }
+
+
     }
 
 }

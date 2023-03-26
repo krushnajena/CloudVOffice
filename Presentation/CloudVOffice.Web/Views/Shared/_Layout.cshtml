@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Framework</title>
+  
+ 
+
+    <link rel="manifest" href="https://nana12.odoo.com/web/manifest.webmanifest" crossorigin="use-credentials">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#714B67">
+
+    <link type="text/css" rel="stylesheet" href="~/application/web.assets_common.min.css" data-asset-bundle="web.assets_common" data-asset-version="7284253">
+    <link type="text/css" rel="stylesheet" href="~/application/web.assets_backend.min.css" data-asset-bundle="web.assets_backend" data-asset-version="6b8cadb">
+    <script type="text/javascript" src="~/application/web.assets_common.min.js.download" data-asset-bundle="web.assets_common" data-asset-version="7284253"></script>
+    <script type="text/javascript" src="~/application/web.assets_backend.min.js.download" data-asset-bundle="web.assets_backend" data-asset-version="6b8cadb"></script>
+    <script type="text/javascript" src="~/application/web.assets_backend_prod_only.min.js.download" data-asset-bundle="web.assets_backend_prod_only" data-asset-version="99a9fa3"></script>
+
+
+</head>
+<body class="o_web_client o_home_menu_background">
+    <header class="o_navbar">
+        <nav class="o_main_navbar" data-command-category="navbar">
+            <a href="https://nana12.odoo.com/web#" class="o_menu_toggle o_menu_toggle_back" accesskey="h" title="Previous view" aria-label="Previous view"><svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 14 14"><g fill="currentColor" id="o_menu_toggle_row_0"><rect width="4" height="4" x="0" y="0"></rect><rect width="4" height="4" x="5" y="0"></rect><rect width="4" height="4" x="10" y="0"></rect></g><g fill="currentColor" id="o_menu_toggle_row_1"><rect width="4" height="4" x="0" y="5"></rect><rect width="4" height="4" x="5" y="5"></rect><rect width="4" height="4" x="10" y="5"></rect></g><g fill="currentColor" id="o_menu_toggle_row_2"><rect width="4" height="4" x="0" y="10"></rect><rect width="4" height="4" x="5" y="10"></rect><rect width="4" height="4" x="10" y="10"></rect></g></svg></a><a class="dropdown-item o_menu_brand d-none d-md-block o_hidden" role="menuitem" tabindex="0" href="https://nana12.odoo.com/web#menu_id=1&amp;action=82" data-menu-xmlid="base.menu_administration" data-section="1">Settings</a><div class="o_menu_sections d-none d-md-flex flex-grow-1 flex-shrink-1 o_hidden" role="menu"><a class="dropdown-item o_nav_entry" role="menuitem" tabindex="0" href="https://nana12.odoo.com/web#menu_id=64&amp;action=82" data-hotkey="1" data-menu-xmlid="base_setup.menu_config" data-section="64">General Settings</a><div class="o-dropdown dropdown o-dropdown--no-caret"><button class="dropdown-toggle" data-hotkey="2" tabindex="0" aria-expanded="false" data-menu-xmlid="base.menu_users"><span data-section="4">Users &amp; Companies</span></button></div></div><div class="o_menu_systray d-flex flex-shrink-0 ms-auto" role="menu">
+                <div></div><span></span><div></div><div class="CallSystrayMenuContainer"><div class="o_CallSystrayMenu dropdown"><div class="o_CallInviteRequestPopupList position-absolute top-0 end-0 d-flex flex-column p-2"></div></div></div><div></div>
+
+<div></div><div class="MessagingMenuContainer"><div class="o_MessagingMenu dropdown"><a class="o_MessagingMenu_toggler dropdown-toggle o-no-caret o-dropdown--narrow" href="https://nana12.odoo.com/web#" title="Conversations" role="button" aria-haspopup="true" aria-expanded="false"><i class="o_MessagingMenu_icon fa fa-lg fa-comments" role="img" aria-label="Messages"></i><span class="o_MessagingMenu_counter badge">1</span></a></div></div><div></div><div class="o_ActivityMenuView dropdown"><a class="o_ActivityMenuView_dropdownToggle dropdown-toggle o-no-caret o-dropdown--narrow" title="Activities" href="https://nana12.odoo.com/web#" role="button" aria-expanded="false"><i class="fa fa-lg fa-clock-o" role="img" aria-label="Activities"></i> </a></div><div></div><div><button class="o_mobile_menu_toggle o-no-caret d-md-none border-0" title="Toggle menu" aria-label="Toggle menu"><i class="oi oi-panel-right"></i></button></div><div></div><div class="o-dropdown dropdown o_user_menu d-none d-md-block pe-0 o-dropdown--no-caret"><button class="dropdown-toggle py-1 py-lg-0" tabindex="0" aria-expanded="false"><img class="rounded-circle o_user_avatar h-75 py-1" alt="User" src="./Odoo_files/Krushna jena.svg"><span class="oe_topbar_name d-none d-lg-block ms-1">Krushna jena</span></button></div>
+            </div>
+        </nav>
+    </header>
+
+  
+            @RenderBody()
+     
+
+ 
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

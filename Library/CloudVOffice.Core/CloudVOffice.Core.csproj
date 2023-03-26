@@ -7,11 +7,6 @@
 	 
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Infrastructure\" />
-  </ItemGroup>
-
 
 
 	<ItemGroup>
@@ -30,6 +25,16 @@
 		<PackageReference Include="Nito.AsyncEx.Coordination" Version="5.1.2" />
 		<PackageReference Include="System.IO.FileSystem.AccessControl" Version="5.0.0" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <Folder Include="Configuration\" />
+	  <Folder Include="Domain\Address\" />
+	  <Folder Include="Domain\Company\" />
+	  <Folder Include="Domain\Contact\" />
+	  <Folder Include="Infrastructure\" />
 	</ItemGroup>
 	
 

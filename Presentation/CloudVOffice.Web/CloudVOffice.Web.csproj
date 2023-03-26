@@ -19,21 +19,16 @@
 		<Folder Include="Areas\Accounts\Models\" />
 		<Folder Include="Areas\Accounts\Views\" />
 		<Folder Include="Areas\" />
-		<Content Include="Plugins\**\*" />
+		<Folder Include="wwwroot\application\" />
 
 
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Remove="Plugins\**;Themes\**" />
-		<Compile Remove="Plugins\Uploaded\**" />
-		<Content Remove="Plugins\**;Themes\**" />
-		<Content Remove="Plugins\Uploaded\**" />
-		<EmbeddedResource Remove="Plugins\**;Themes\**" />
-		<EmbeddedResource Remove="Plugins\Uploaded\**" />
-		<None Remove="Plugins\**;Themes\**" />
-		<None Remove="Plugins\Uploaded\**" />
-		<None Include="Plugins\**" CopyToPublishDirectory="PreserveNewest" Exclude="Plugins\**\runtimes\**;Plugins\**\ref\**;Plugins\**\*.pdb" />
+		<Compile Remove="Themes\**" />
+		<Content Remove="Themes\**" />
+		<EmbeddedResource Remove="Themes\**" />
+		<None Remove="Themes\**" />
 
 		<Content Include="Themes\**" CopyToPublishDirectory="PreserveNewest" CopyToOutputDirectory="Never" />
 
@@ -41,6 +36,168 @@
 		<Content Include="Logs\**" CopyToPublishDirectory="PreserveNewest" />
 
 
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\login\fonts\boxicons.svg" />
+	  <None Include="wwwroot\login\fonts\boxicons.woff2" />
+	  <None Include="wwwroot\login\fonts\dripicons-v2.svg" />
+	  <None Include="wwwroot\login\fonts\fa-brands-400.svg" />
+	  <None Include="wwwroot\login\fonts\fa-brands-400.woff2" />
+	  <None Include="wwwroot\login\fonts\fa-regular-400.svg" />
+	  <None Include="wwwroot\login\fonts\fa-regular-400.woff2" />
+	  <None Include="wwwroot\login\fonts\fa-solid-900.svg" />
+	  <None Include="wwwroot\login\fonts\fa-solid-900.woff2" />
+	  <None Include="wwwroot\login\fonts\materialdesignicons-webfont.woff2" />
+	  <None Include="wwwroot\login\images\coming-soon.svg" />
+	  <None Include="wwwroot\login\images\logo-light.svg" />
+	  <None Include="wwwroot\login\images\logo.svg" />
+	  <None Include="wwwroot\login\images\maintenance.svg" />
+	  <None Include="wwwroot\login\js\app.js" />
+	  <None Include="wwwroot\login\js\pages\alerts.init.js" />
+	  <None Include="wwwroot\login\js\pages\apexcharts.init.js" />
+	  <None Include="wwwroot\login\js\pages\auth-2-carousel.init.js" />
+	  <None Include="wwwroot\login\js\pages\bootstrap-toastr.init.js" />
+	  <None Include="wwwroot\login\js\pages\calendar.init.js" />
+	  <None Include="wwwroot\login\js\pages\calendars-full.init.js" />
+	  <None Include="wwwroot\login\js\pages\calendars.js" />
+	  <None Include="wwwroot\login\js\pages\chartjs.init.js" />
+	  <None Include="wwwroot\login\js\pages\coming-soon.init.js" />
+	  <None Include="wwwroot\login\js\pages\crypto-dashboard.init.js" />
+	  <None Include="wwwroot\login\js\pages\crypto-exchange.init.js" />
+	  <None Include="wwwroot\login\js\pages\crypto-kyc-app.init.js" />
+	  <None Include="wwwroot\login\js\pages\crypto-orders.init.js" />
+	  <None Include="wwwroot\login\js\pages\crypto-wallet.init.js" />
+	  <None Include="wwwroot\login\js\pages\dashboard-blog.init.js" />
+	  <None Include="wwwroot\login\js\pages\dashboard.init.js" />
+	  <None Include="wwwroot\login\js\pages\datatables.init.js" />
+	  <None Include="wwwroot\login\js\pages\echarts.init.js" />
+	  <None Include="wwwroot\login\js\pages\ecommerce-cart.init.js" />
+	  <None Include="wwwroot\login\js\pages\ecommerce-select2.init.js" />
+	  <None Include="wwwroot\login\js\pages\email-editor.init.js" />
+	  <None Include="wwwroot\login\js\pages\file-manager.init.js" />
+	  <None Include="wwwroot\login\js\pages\flot.init.js" />
+	  <None Include="wwwroot\login\js\pages\fontawesome.init.js" />
+	  <None Include="wwwroot\login\js\pages\form-advanced.init.js" />
+	  <None Include="wwwroot\login\js\pages\form-editor.init.js" />
+	  <None Include="wwwroot\login\js\pages\form-mask.init.js" />
+	  <None Include="wwwroot\login\js\pages\form-repeater.int.js" />
+	  <None Include="wwwroot\login\js\pages\form-validation.init.js" />
+	  <None Include="wwwroot\login\js\pages\form-wizard.init.js" />
+	  <None Include="wwwroot\login\js\pages\form-xeditable.init.js" />
+	  <None Include="wwwroot\login\js\pages\gmaps.init.js" />
+	  <None Include="wwwroot\login\js\pages\ico-landing.init.js" />
+	  <None Include="wwwroot\login\js\pages\jquery-knob.init.js" />
+	  <None Include="wwwroot\login\js\pages\leaflet-map.init.js" />
+	  <None Include="wwwroot\login\js\pages\leaflet-us-states.js" />
+	  <None Include="wwwroot\login\js\pages\lightbox.init.js" />
+	  <None Include="wwwroot\login\js\pages\materialdesign.init.js" />
+	  <None Include="wwwroot\login\js\pages\modal.init.js" />
+	  <None Include="wwwroot\login\js\pages\product-filter-range.init.js" />
+	  <None Include="wwwroot\login\js\pages\profile.init.js" />
+	  <None Include="wwwroot\login\js\pages\project-overview.init.js" />
+	  <None Include="wwwroot\login\js\pages\range-sliders.init.js" />
+	  <None Include="wwwroot\login\js\pages\rating-init.js" />
+	  <None Include="wwwroot\login\js\pages\saas-dashboard.init.js" />
+	  <None Include="wwwroot\login\js\pages\schedules.js" />
+	  <None Include="wwwroot\login\js\pages\session-timeout.init.js" />
+	  <None Include="wwwroot\login\js\pages\sparklines.init.js" />
+	  <None Include="wwwroot\login\js\pages\sweet-alerts.init.js" />
+	  <None Include="wwwroot\login\js\pages\table-editable.int.js" />
+	  <None Include="wwwroot\login\js\pages\table-responsive.init.js" />
+	  <None Include="wwwroot\login\js\pages\task-create.init.js" />
+	  <None Include="wwwroot\login\js\pages\task-form.init.js" />
+	  <None Include="wwwroot\login\js\pages\task-kanban.init.js" />
+	  <None Include="wwwroot\login\js\pages\tasklist.init.js" />
+	  <None Include="wwwroot\login\js\pages\timeline.init.js" />
+	  <None Include="wwwroot\login\js\pages\toastr.init.js" />
+	  <None Include="wwwroot\login\js\pages\tui-charts.init.js" />
+	  <None Include="wwwroot\login\js\pages\two-step-verification.init.js" />
+	  <None Include="wwwroot\login\js\pages\validation.init.js" />
+	  <None Include="wwwroot\login\js\pages\vector-maps.init.js" />
+	  <None Include="wwwroot\login\libs\%40chenfengyuan\datepicker\datepicker.min.js" />
+	  <None Include="wwwroot\login\libs\%40curiosityx\bootstrap-session-timeout\index.js" />
+	  <None Include="wwwroot\login\libs\%40fullcalendar\bootstrap\main.min.js" />
+	  <None Include="wwwroot\login\libs\%40fullcalendar\core\main.min.js" />
+	  <None Include="wwwroot\login\libs\%40fullcalendar\daygrid\main.min.js" />
+	  <None Include="wwwroot\login\libs\%40fullcalendar\interaction\main.min.js" />
+	  <None Include="wwwroot\login\libs\%40fullcalendar\timegrid\main.min.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\jquery-jvectormap-1.2.2.min.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-au-mill-en.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-ca-lcc-en.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-in-mill-en.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-uk-mill-en.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-us-il-chicago-mill-en.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-us-merc-en.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\jquery.vectormap\maps\jquery-jvectormap-world-mill-en.js" />
+	  <None Include="wwwroot\login\libs\admin-resources\rwd-table\rwd-table.min.js" />
+	  <None Include="wwwroot\login\libs\apexcharts\apexcharts.min.js" />
+	  <None Include="wwwroot\login\libs\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
+	  <None Include="wwwroot\login\libs\bootstrap-editable\js\index.js" />
+	  <None Include="wwwroot\login\libs\bootstrap-maxlength\bootstrap-maxlength.min.js" />
+	  <None Include="wwwroot\login\libs\bootstrap-rating\bootstrap-rating.min.js" />
+	  <None Include="wwwroot\login\libs\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+	  <None Include="wwwroot\login\libs\bootstrap-touchspin\jquery.bootstrap-touchspin.min.js" />
+	  <None Include="wwwroot\login\libs\bootstrap\js\bootstrap.bundle.min.js" />
+	  <None Include="wwwroot\login\libs\chance\chance.min.js" />
+	  <None Include="wwwroot\login\libs\chart.js\Chart.bundle.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-bs4\js\dataTables.bootstrap4.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-buttons-bs4\js\buttons.bootstrap4.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-buttons\js\buttons.colVis.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-buttons\js\buttons.html5.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-buttons\js\buttons.print.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-buttons\js\dataTables.buttons.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net-responsive\js\dataTables.responsive.min.js" />
+	  <None Include="wwwroot\login\libs\datatables.net\js\jquery.dataTables.min.js" />
+	  <None Include="wwwroot\login\libs\dragula\dragula.min.js" />
+	  <None Include="wwwroot\login\libs\dropzone\min\dropzone.min.js" />
+	  <None Include="wwwroot\login\libs\echarts\echarts.min.js" />
+	  <None Include="wwwroot\login\libs\flot-charts\jquery.flot.crosshair.js" />
+	  <None Include="wwwroot\login\libs\flot-charts\jquery.flot.js" />
+	  <None Include="wwwroot\login\libs\flot-charts\jquery.flot.pie.js" />
+	  <None Include="wwwroot\login\libs\flot-charts\jquery.flot.resize.js" />
+	  <None Include="wwwroot\login\libs\flot-charts\jquery.flot.selection.js" />
+	  <None Include="wwwroot\login\libs\flot-charts\jquery.flot.stack.js" />
+	  <None Include="wwwroot\login\libs\flot-charts\jquery.flot.time.js" />
+	  <None Include="wwwroot\login\libs\gmaps\gmaps.min.js" />
+	  <None Include="wwwroot\login\libs\inputmask\min\jquery.inputmask.bundle.min.js" />
+	  <None Include="wwwroot\login\libs\ion-rangeslider\js\ion.rangeSlider.min.js" />
+	  <None Include="wwwroot\login\libs\jquery-countdown\jquery.countdown.min.js" />
+	  <None Include="wwwroot\login\libs\jquery-knob\jquery.knob.min.js" />
+	  <None Include="wwwroot\login\libs\jquery-sparkline\jquery.sparkline.min.js" />
+	  <None Include="wwwroot\login\libs\jquery-steps\build\jquery.steps.min.js" />
+	  <None Include="wwwroot\login\libs\jquery-ui-dist\jquery-ui.min.js" />
+	  <None Include="wwwroot\login\libs\jquery-validation\jquery.validate.min.js" />
+	  <None Include="wwwroot\login\libs\jquery.easing\jquery.easing.min.js" />
+	  <None Include="wwwroot\login\libs\jquery.flot.tooltip\js\jquery.flot.tooltip.min.js" />
+	  <None Include="wwwroot\login\libs\jquery.repeater\jquery.repeater.min.js" />
+	  <None Include="wwwroot\login\libs\jquery\jquery.min.js" />
+	  <None Include="wwwroot\login\libs\jszip\jszip.min.js" />
+	  <None Include="wwwroot\login\libs\leaflet\leaflet.js" />
+	  <None Include="wwwroot\login\libs\magnific-popup\jquery.magnific-popup.min.js" />
+	  <None Include="wwwroot\login\libs\masonry-layout\masonry.pkgd.min.js" />
+	  <None Include="wwwroot\login\libs\metismenu\metisMenu.min.js" />
+	  <None Include="wwwroot\login\libs\moment\min\moment.min.js" />
+	  <None Include="wwwroot\login\libs\node-waves\waves.min.js" />
+	  <None Include="wwwroot\login\libs\owl.carousel\owl.carousel.min.js" />
+	  <None Include="wwwroot\login\libs\parsleyjs\parsley.min.js" />
+	  <None Include="wwwroot\login\libs\pdfmake\build\pdfmake.min.js" />
+	  <None Include="wwwroot\login\libs\pdfmake\build\vfs_fonts.js" />
+	  <None Include="wwwroot\login\libs\select2\js\select2.min.js" />
+	  <None Include="wwwroot\login\libs\simplebar\simplebar.min.js" />
+	  <None Include="wwwroot\login\libs\spectrum-colorpicker2\spectrum.min.js" />
+	  <None Include="wwwroot\login\libs\summernote\font\summernote.woff2" />
+	  <None Include="wwwroot\login\libs\sweetalert2\sweetalert2.min.js" />
+	  <None Include="wwwroot\login\libs\table-edits\build\table-edits.min.js" />
+	  <None Include="wwwroot\login\libs\tinymce\tinymce.min.js" />
+	  <None Include="wwwroot\login\libs\toastr\build\toastr.min.js" />
+	  <None Include="wwwroot\login\libs\tui-calendar\tui-calendar.min.js" />
+	  <None Include="wwwroot\login\libs\tui-chart\maps\usa.js" />
+	  <None Include="wwwroot\login\libs\tui-chart\tui-chart-all.min.js" />
+	  <None Include="wwwroot\login\libs\tui-date-picker\tui-date-picker.min.js" />
+	  <None Include="wwwroot\login\libs\tui-dom\tui-dom.min.js" />
+	  <None Include="wwwroot\login\libs\tui-time-picker\tui-time-picker.min.js" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -52,11 +209,14 @@
 		<Content Update="**\*.config;**\*.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="PreserveNewest" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.5" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<ProjectReference Include="..\..\CloudVOffice.Web.Framework\CloudVOffice.Web.Framework.csproj" />
+	  <ProjectReference Include="..\CloudVOffice.Web.Framework\CloudVOffice.Web.Framework.csproj" />
 	</ItemGroup>
 
 </Project>

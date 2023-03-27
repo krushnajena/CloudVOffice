@@ -23,7 +23,7 @@ namespace CloudVOffice.Web.Controllers
         {
             return View();
         }
-     
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model, string? ReturnUrl)
         {
@@ -38,14 +38,18 @@ namespace CloudVOffice.Web.Controllers
                             var userDetails = await _userService.GetUserByEmailAsync(Email);
                             var claims = new List<Claim>
                             {
-                             new Claim(ClaimTypes.Name, userDetails.Email),
-                             new Claim("FirstName",userDetails.FirstName)
+                                new Claim(ClaimTypes.Email, userDetails.Email),
+                                new Claim("FirstName",userDetails.FirstName),
+                                new Claim("MiddleName",userDetails.MiddleName!=null?userDetails.MiddleName.ToString():""),
+                                new Claim("LastName",userDetails.LastName!=null?userDetails.LastName.ToString():""),
+                                new Claim("UserId",userDetails.Id.ToString()),
                             };
+                            claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));
                             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                             var authProperties = new AuthenticationProperties() { IsPersistent = true };
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
-                          
-                            return Redirect(ReturnUrl ==null? "/Applications" : ReturnUrl  );
+
+                            return Redirect(ReturnUrl == null ? "/Applications" : ReturnUrl);
                         }
                     case UserLoginResults.UserNotExist:
                         ModelState.AddModelError("Email", "User Not Exists.");
@@ -66,12 +70,20 @@ namespace CloudVOffice.Web.Controllers
             return View(model);
         }
 
-       
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            //SignOutAsync is Extension method for SignOut    
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //Redirect to home page    
+            return LocalRedirect("/User/Login");
+        }
+
         [HttpGet("/Applications")]
         [Authorize]
         public IActionResult Applications()
         {
-            return View();  
+            return View();
         }
     }
 }

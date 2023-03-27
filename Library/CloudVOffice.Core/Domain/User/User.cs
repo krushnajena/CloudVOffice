@@ -36,5 +36,7 @@ namespace CloudVOffice.Core.Domain.User
             get => (UserType)UserTypeId;
             set => UserTypeId = (int)value;
         }
+
+        public List<UserRoleMapping> UserRoleMappings { get; set; }   
     }
 }

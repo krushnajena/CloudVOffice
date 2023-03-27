@@ -10,5 +10,8 @@ namespace CloudVOffice.Core.Domain.User
     {
         public string RoleName { get; set; }
         public DateTime CreatedOn { get; set; }
+
+        public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
+
     }
 }

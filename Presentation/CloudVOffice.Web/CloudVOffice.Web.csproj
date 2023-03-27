@@ -19,6 +19,7 @@
 		<Folder Include="Areas\Accounts\Models\" />
 		<Folder Include="Areas\Accounts\Views\" />
 		<Folder Include="Areas\" />
+		<Folder Include="Plugins\" />
 		<Folder Include="wwwroot\application\" />
 
 

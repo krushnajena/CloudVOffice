@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Api",
+  "FriendlyName": "Api",
+  "SystemName": "CloudVOffice.WebApi",
+  "Version": "0.1",
+  "SupportedVersions": [ "0.1" ],
+  "Author": "Appman team",
+  "DisplayOrder": 1,
+  "FileName": "CloudVOffice.WebApi.dll",
+  "Description": ""
+}

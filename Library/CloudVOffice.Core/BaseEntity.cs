@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Core
 {
-    public   class BaseEntity
+    public  class BaseEntity
     {
         
         public Int64 Id { get; set; }
+        
     }
 }

@@ -18,7 +18,11 @@ startup.ConfigureServices(builder.Services); // calling ConfigureServices method
 
     
 var app = builder.Build();
+
+
 startup.Configure(app, builder.Environment);
+
+
 // Add services to the container.
 
 //var mvcCoreBuilder = builder.Services.AddMvcCore();

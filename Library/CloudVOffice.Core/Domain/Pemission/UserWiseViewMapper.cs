@@ -8,10 +8,11 @@ using Newtonsoft.Json;
 
 namespace CloudVOffice.Core.Domain.Pemission
 {
-    public class UserWiseViewMapper : BaseEntity, IAuditEntity, ISoftDeletedEntity
+    public class UserWiseViewMapper :  IAuditEntity, ISoftDeletedEntity
     {
-        public int? ApplicationId { get; set; }  
-        public int? UserId { get; set; }
+        public Int64 UserWiseViewMapperId { get; set; }
+        public int ApplicationId { get; set; }  
+        public Int64? UserId { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public int? UpdatedBy { get; set; }

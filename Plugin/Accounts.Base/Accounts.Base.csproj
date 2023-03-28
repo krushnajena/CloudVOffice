@@ -18,7 +18,6 @@
 	<ItemGroup>
 		<None Remove="logo.png" />
 		<None Remove="plugin.json" />
-		<None Remove="Views\ChartOfAccountsList.cshtml" />
 		<None Remove="Views\ChartOfAccounts\ChartOfAccountsList.cshtml" />
 		<None Remove="Views\ChartOfAccounts\GetAccountsData.cshtml" />
 	<None Remove="Views\_ViewImports.cshtml" />
@@ -29,9 +28,6 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="plugin.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-		<Content Include="Views\ChartOfAccountsList.cshtml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Views\ChartOfAccounts\ChartOfAccountsList.cshtml">

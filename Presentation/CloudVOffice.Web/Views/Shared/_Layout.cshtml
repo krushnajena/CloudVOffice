@@ -1,55 +1,189 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Unify Admin Panel">
+    <meta name="keywords" content="Admin, Dashboard, Bootstrap4, Sass, CSS3, HTML5, Responsive Dashboard, Responsive Admin Template, Admin Template, Best Admin Template, Bootstrap Template, Themeforest">
+    <meta name="author" content="Bootstrap Gallery">
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <title>Unify Admin Dashboard - Off Canvas Layout</title>
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Framework</title>
-  
- 
+    <link href="../../../css?family=Open+Sans:300,400,700" rel="stylesheet">
 
-    <link rel="manifest" href="https://nana12.odoo.com/web/manifest.webmanifest" crossorigin="use-credentials">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="theme-color" content="#714B67">
-
-    <link type="text/css" rel="stylesheet" href="~/application/web.assets_common.min.css" data-asset-bundle="web.assets_common" data-asset-version="7284253">
-    <link type="text/css" rel="stylesheet" href="~/application/web.assets_backend.min.css" data-asset-bundle="web.assets_backend" data-asset-version="6b8cadb">
-    <script type="text/javascript" src="~/application/web.assets_common.min.js.download" data-asset-bundle="web.assets_common" data-asset-version="7284253"></script>
-    <script type="text/javascript" src="~/application/web.assets_backend.min.js.download" data-asset-bundle="web.assets_backend" data-asset-version="6b8cadb"></script>
-    <script type="text/javascript" src="~/application/web.assets_backend_prod_only.min.js.download" data-asset-bundle="web.assets_backend_prod_only" data-asset-version="99a9fa3"></script>
-
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="~/app/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/app/fonts/icomoon/icomoon.css">
+    <link rel="stylesheet" href="~/app/css/main.css">
 
 </head>
-<body class="o_web_client o_home_menu_background">
-    <header class="o_navbar">
-        <nav class="o_main_navbar" data-command-category="navbar">
-            <a href="https://nana12.odoo.com/web#" class="o_menu_toggle o_menu_toggle_back" accesskey="h" title="Previous view" aria-label="Previous view">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 14 14">
-                    <g fill="currentColor" id="o_menu_toggle_row_0"><rect width="4" height="4" x="0" y="0"></rect><rect width="4" height="4" x="5" y="0"></rect><rect width="4" height="4" x="10" y="0"></rect></g><g fill="currentColor" id="o_menu_toggle_row_1"><rect width="4" height="4" x="0" y="5"></rect><rect width="4" height="4" x="5" y="5"></rect><rect width="4" height="4" x="10" y="5"></rect></g><g fill="currentColor" id="o_menu_toggle_row_2"><rect width="4" height="4" x="0" y="10"></rect><rect width="4" height="4" x="5" y="10"></rect><rect width="4" height="4" x="10" y="10"></rect></g></svg>
+<body class="full-screen">
 
-</a>
-<a class="dropdown-item o_menu_brand d-none d-md-block o_hidden" role="menuitem" tabindex="0" href="https://nana12.odoo.com/web#menu_id=1&amp;action=82" data-menu-xmlid="base.menu_administration" data-section="1">Settings</a><div class="o_menu_sections d-none d-md-flex flex-grow-1 flex-shrink-1 o_hidden" role="menu"><a class="dropdown-item o_nav_entry" role="menuitem" tabindex="0" href="https://nana12.odoo.com/web#menu_id=64&amp;action=82" data-hotkey="1" data-menu-xmlid="base_setup.menu_config" data-section="64">General Settings</a><div class="o-dropdown dropdown o-dropdown--no-caret"><button class="dropdown-toggle" data-hotkey="2" tabindex="0" aria-expanded="false" data-menu-xmlid="base.menu_users"><span data-section="4">Users &amp; Companies</span></button></div></div><div class="o_menu_systray d-flex flex-shrink-0 ms-auto" role="menu">
-                <div></div><span></span><div></div><div class="CallSystrayMenuContainer"><div class="o_CallSystrayMenu dropdown"><div class="o_CallInviteRequestPopupList position-absolute top-0 end-0 d-flex flex-column p-2"></div></div></div><div></div>
+	<!-- BEGIN .app-wrap -->
+	
+		<!-- BEGIN .app-heading -->
+		<header class="app-header">
+			<div class="container-fluid">
+				<div class="row gutters">
+					<div class="col-xl-5 col-lg-5 col-md-5 col-sm-3 col-4">
+						<a href="#app-side" data-toggle="onoffcanvas" class="onoffcanvas-toggler" aria-expanded="true">
+							<i class="icon-chevron-thin-left"></i>
+						</a>
+					</div>
+					<div class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-4">
+						<a href="index.html" class="logo">
+							<img src="img/unify.png" alt="Unify Admin Dashboard">
+						</a>
+					</div>
+					<div class="col-xl-5 col-lg-5 col-md-5 col-sm-3 col-4">
+						<ul class="header-actions">
+							<li class="dropdown">
+								<a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
+									<i class="icon-notifications_none"></i>
+									<span class="count-label"></span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right lg" aria-labelledby="notifications">
+									<ul class="imp-notify">
+										<li>
+											<div class="icon">W</div>
+											<div class="details">
+												<p><span>Wilson</span> The best Dashboard design I have seen ever.</p>
+											</div>
+										</li>
+										<li>
+											<div class="icon">J</div>
+											<div class="details">
+												<p><span>John Smith</span> Jhonny sent you a message. Read now!</p>
+											</div>
+										</li>
+										<li>
+											<div class="icon secondary">R</div>
+											<div class="details">
+												<p><span>Justin Mezzell</span> Stella, Added you as a Friend. Accept it!</p>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li>
+								<a href="#" id="todos" data-toggle="dropdown" aria-haspopup="true">
+									<i class="icon-person_outline"></i>
+									<span class="count-label red"></span>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right lg" aria-labelledby="todos">
+									<ul class="stats-widget">
+										<li>
+											<h4>$37895</h4>
+											<p>Revenue <span>+2%</span></p>
+											<div class="progress">
+												<div class="progress-bar" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%">
+													<span class="sr-only">87% Complete (success)</span>
+												</div>
+											</div>
+										</li>
+										<li>
+											<h4>4,897</h4>
+											<p>Downloads <span>+39%</span></p>
+											<div class="progress">
+												<div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+													<span class="sr-only">65% Complete (success)</span>
+												</div>
+											</div>
+										</li>
+										<li>
+											<h4>2,219</h4>
+											<p>Uploads <span class="text-secondary">-7%</span></p>
+											<div class="progress">
+												<div class="progress-bar bg-danger" role="progressbar" aria-valuenow="42" aria-valuemin="0" aria-valuemax="100" style="width: 42%">
+													<span class="sr-only">42% Complete (success)</span>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</li>
+							<li class="dropdown">
+								<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
+									<img class="avatar" src="img/user.png" alt="User Thumb">
+									<span class="user-name">Katy Perry</span>
+									<i class="icon-chevron-small-down"></i>
+								</a>
+								<div class="dropdown-menu lg dropdown-menu-right" aria-labelledby="userSettings">
+									<ul class="user-settings-list">
+										<li>
+											<a href="profile.html">
+												<div class="icon">
+													<i class="icon-account_circle"></i>
+												</div>
+												<p>Profile</p>
+											</a>
+										</li>
+										<li>
+											<a href="profile.html">
+												<div class="icon red">
+													<i class="icon-cog3"></i>
+												</div>
+												<p>Settings</p>
+											</a>
+										</li>
+										<li>
+											<a href="filters.html">
+												<div class="icon yellow">
+													<i class="icon-schedule"></i>
+												</div>
+												<p>Activity</p>
+											</a>
+										</li>
+									</ul>
+									<div class="logout-btn">
+										<a href="login.html" class="btn btn-primary">Logout</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- END: .app-heading -->
+		<!-- BEGIN .app-container -->
+		<div class="app-container">
 
-<div></div><div class="MessagingMenuContainer"><div class="o_MessagingMenu dropdown"><a class="o_MessagingMenu_toggler dropdown-toggle o-no-caret o-dropdown--narrow" href="https://nana12.odoo.com/web#" title="Conversations" role="button" aria-haspopup="true" aria-expanded="false"><i class="o_MessagingMenu_icon fa fa-lg fa-comments" role="img" aria-label="Messages"></i><span class="o_MessagingMenu_counter badge">1</span></a></div></div><div></div><div class="o_ActivityMenuView dropdown"><a class="o_ActivityMenuView_dropdownToggle dropdown-toggle o-no-caret o-dropdown--narrow" title="Activities" href="https://nana12.odoo.com/web#" role="button" aria-expanded="false"><i class="fa fa-lg fa-clock-o" role="img" aria-label="Activities"></i> </a></div><div></div><div><button class="o_mobile_menu_toggle o-no-caret d-md-none border-0" title="Toggle menu" aria-label="Toggle menu"><i class="oi oi-panel-right"></i></button></div><div></div><div class="o-dropdown dropdown o_user_menu d-none d-md-block pe-0 o-dropdown--no-caret"><button class="dropdown-toggle py-1 py-lg-0" tabindex="0" aria-expanded="false">
-                        <img class="rounded-circle o_user_avatar h-75 py-1" alt="User" src="./Odoo_files/Krushna jena.svg"><span class="oe_topbar_name d-none d-lg-block ms-1">
-                            @foreach(var claims in User.Claims)
-                            {
-                                        
-                            }
+			<!-- BEGIN .app-main -->
+			<div class="app-main">
+				<!-- BEGIN .main-heading -->
+				
+				<!-- END: .main-heading -->
+				<!-- BEGIN .main-content -->
+				<div class="main-content">
+					@RenderBody()
+				</div>
+				<!-- END: .main-content -->
+			</div>
+			<!-- END: .app-main -->
 
+		</div>
+		<!-- END: .app-container -->
+		<!-- BEGIN .main-footer -->
+		<footer class="main-footer fixed-btm">
+			Copyright Unify Admin 2017.
+		</footer>
+		<!-- END: .main-footer -->
+	
+	<!-- END: .app-wrap -->
+	<!-- jQuery first, then Tether, then other JS. -->
+	<script src="~/app/js/jquery.js"></script>
+	<script src="~/app/js/tether.min.js"></script>
+	<script src="~/app/js/bootstrap.min.js"></script>
+	<script src="~/app/vendor/unifyMenu/unifyMenu.js"></script>
+	<script src="~/app/vendor/onoffcanvas/onoffcanvas.js"></script>
+	<script src="~/app/js/moment.js"></script>
 
-    </span></button></div>
-            </div>
-        </nav>
-    </header>
-
-  
-            @RenderBody()
-     
-
- 
-    @await RenderSectionAsync("Scripts", required: false)
+	<!-- Common JS -->
+	<script src="~/app/js/common.js"></script>
 </body>
+@await RenderSectionAsync("Scripts", required: false)
 </html>

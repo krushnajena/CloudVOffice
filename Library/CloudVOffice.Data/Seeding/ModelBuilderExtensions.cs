@@ -112,7 +112,7 @@ namespace CloudVOffice.Data.Seeding
                         IsGroup = true,
                         Url = "/Applications/InstalledApps",
                         CreatedBy = 1,
-
+                        IconImageUrl="/appstatic/images/applications.png",
                         CreatedDate = System.DateTime.Now,
                         Deleted = false
                     },
@@ -124,7 +124,7 @@ namespace CloudVOffice.Data.Seeding
                           IsGroup = true,
                           Url = "/Setup/Dashboard",
                           CreatedBy = 1,
-
+                          IconImageUrl = "/appstatic/images/setup.png",
                           CreatedDate = System.DateTime.Now,
                           Deleted = false
 
@@ -132,7 +132,7 @@ namespace CloudVOffice.Data.Seeding
                       },
                        new Application
                        {
-                           ApplicationId = 2,
+                           ApplicationId = 3,
                            ApplicationName = "Company",
                            Parent = 2,
                            IsGroup = false,
@@ -146,9 +146,9 @@ namespace CloudVOffice.Data.Seeding
                        },
                         new Application
                         {
-                            ApplicationId = 2,
+                            ApplicationId = 4,
                             ApplicationName = "User",
-                            Parent = null,
+                            Parent = 2,
                             IsGroup = true,
                             Url = "",
                             CreatedBy = 1,
@@ -160,10 +160,10 @@ namespace CloudVOffice.Data.Seeding
                         },
                           new Application
                           {
-                              ApplicationId = 2,
+                              ApplicationId = 5,
                               ApplicationName = "User List",
-                              Parent = null,
-                              IsGroup = true,
+                              Parent = 4,
+                              IsGroup = false,
                               Url = "/User/UserList",
                               CreatedBy = 1,
 
@@ -174,10 +174,10 @@ namespace CloudVOffice.Data.Seeding
                           },
                           new Application
                           {
-                              ApplicationId = 2,
+                              ApplicationId = 6,
                               ApplicationName = "Users Activity Log",
                               Parent = null,
-                              IsGroup = true,
+                              IsGroup = false,
                               Url = "/User/ActivityLog",
                               CreatedBy = 1,
 
@@ -188,7 +188,154 @@ namespace CloudVOffice.Data.Seeding
                           }
 
                     );
+
             });
+
+
+            modelBuilder.Entity<RoleAndApplicationWisePermission>(b =>
+            {
+                b.HasKey(e => e.RoleAndApplicationWisePermissionId);
+
+                b.HasData(
+                    new RoleAndApplicationWisePermission
+                    {RoleAndApplicationWisePermissionId=1,
+                        ApplicationId = 1,
+                        RoleId = 1,
+                        CreatedBy = 1,
+                        
+                        CreatedDate = System.DateTime.Now,
+                        Deleted = false
+                    },
+                      new RoleAndApplicationWisePermission
+                      {
+                          RoleAndApplicationWisePermissionId = 2,
+                          ApplicationId = 2,
+                          RoleId = 1,
+                          CreatedBy = 1,
+
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false
+                      },
+                       new RoleAndApplicationWisePermission
+                       {
+                           RoleAndApplicationWisePermissionId = 3,
+                           ApplicationId = 3,
+                           RoleId = 1,
+                           CreatedBy = 1,
+
+                           CreatedDate = System.DateTime.Now,
+                           Deleted = false
+                       },
+                         new RoleAndApplicationWisePermission
+                         {
+                             RoleAndApplicationWisePermissionId = 4,
+                             ApplicationId = 4,
+                             RoleId = 1,
+                             CreatedBy = 1,
+
+                             CreatedDate = System.DateTime.Now,
+                             Deleted = false
+                         },
+                         new RoleAndApplicationWisePermission
+                         {RoleAndApplicationWisePermissionId = 5,
+                             ApplicationId = 5,
+                             RoleId = 1,
+                             CreatedBy = 1,
+
+                             CreatedDate = System.DateTime.Now,
+                             Deleted = false
+                         },
+                         new RoleAndApplicationWisePermission
+                         {RoleAndApplicationWisePermissionId = 6,
+                             ApplicationId = 6,
+                             RoleId = 1,
+                             CreatedBy = 1,
+
+                             CreatedDate = System.DateTime.Now,
+                             Deleted = false
+                         }
+
+
+
+
+                    );
+
+            });
+
+
+            modelBuilder.Entity<UserWiseViewMapper>(b =>
+            {
+                b.HasKey(e => e.UserWiseViewMapperId);
+
+                b.HasData(
+                    new UserWiseViewMapper
+                    {
+                        UserWiseViewMapperId = 1,
+                        ApplicationId = 1,
+                        UserId = 1,
+                        CreatedBy = 1,
+
+                        CreatedDate = System.DateTime.Now,
+                        Deleted = false
+                    },
+                     new UserWiseViewMapper
+                     {
+                         UserWiseViewMapperId = 2,
+                         ApplicationId = 2,
+                         UserId = 1,
+                         CreatedBy = 1,
+
+                         CreatedDate = System.DateTime.Now,
+                         Deleted = false
+                     },
+                     new UserWiseViewMapper
+                     {
+                         UserWiseViewMapperId = 3,
+                         ApplicationId = 3,
+                         UserId = 1,
+                         CreatedBy = 1,
+
+                         CreatedDate = System.DateTime.Now,
+                         Deleted = false
+                     },
+                     new UserWiseViewMapper
+                     {
+                         UserWiseViewMapperId = 4,
+                         ApplicationId = 4,
+                         UserId = 1,
+                         CreatedBy = 1,
+
+                         CreatedDate = System.DateTime.Now,
+                         Deleted = false
+                     },
+                     new UserWiseViewMapper
+                     {
+                         UserWiseViewMapperId = 5,
+                         ApplicationId = 5,
+                         UserId = 1,
+                         CreatedBy = 1,
+
+                         CreatedDate = System.DateTime.Now,
+                         Deleted = false
+                     },
+                     new UserWiseViewMapper
+                     {
+                         UserWiseViewMapperId = 6,
+                         ApplicationId = 6,
+                         UserId = 1,
+                         CreatedBy = 1,
+
+                         CreatedDate = System.DateTime.Now,
+                         Deleted = false
+                     }
+
+
+
+
+                    );
+
+            });
+
 
         }
     }

@@ -10,7 +10,7 @@ namespace CloudVOffice.Core.Domain.Pemission
 {
     public class RoleAndApplicationWisePermission :IAuditEntity, ISoftDeletedEntity
     {
-        public Int64 RoleAndModuleWisePermissionId { get; set; }
+        public Int64 RoleAndApplicationWisePermissionId { get; set; }
         public int ApplicationId { get; set; }
         public int RoleId { get; set; }
         public int CreatedBy { get; set; }

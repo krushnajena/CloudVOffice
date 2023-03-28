@@ -12,6 +12,7 @@ using CloudVOffice.Services.Authentication;
 using CloudVOffice.Web.Framework;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.FileProviders;
 
 namespace CloudVOffice.Web
 {
@@ -81,6 +82,13 @@ namespace CloudVOffice.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(env.ContentRootPath, "Plugins")),
+                RequestPath = "/Plugin"
+            });
+
             app.UseRouting();
             app.UseAuthorization();
             app.MapRazorPages();

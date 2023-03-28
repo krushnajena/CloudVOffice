@@ -44,6 +44,7 @@ namespace CloudVOffice.Web.Controllers
                                 new Claim("LastName",userDetails.LastName!=null?userDetails.LastName.ToString():""),
                                 new Claim("UserId",userDetails.UserId.ToString()),
                             };
+                            var a = userDetails.UserRoleMappings;
                             claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));
                             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                             var authProperties = new AuthenticationProperties() { IsPersistent = true };

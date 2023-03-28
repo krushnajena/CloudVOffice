@@ -14,20 +14,7 @@ namespace Accounts.Base.Controllers
     {
         public  ChartOfAccountsController() { }
 
-        public IActionResult ChartOfAccountsList()
-        {
-           
-            return View();
-        }
-
-
-        [HttpGet]
-        public IActionResult GetAccountsData()
-        {
-
-            return View("/Plugins/Accounts.Base/Views/ChartOfAccounts/GetAccountsData.cshtml");
-        }
-
+       
 
     }
 

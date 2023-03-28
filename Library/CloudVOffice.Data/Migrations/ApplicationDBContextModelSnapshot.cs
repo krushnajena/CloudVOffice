@@ -128,7 +128,314 @@ namespace CloudVOffice.Data.Migrations
                     b.ToTable("Logs");
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.User.Role", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Pemission.Application", b =>
+                {
+                    b.Property<int>("ApplicationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ApplicationId"));
+
+                    b.Property<int?>("ApplicationId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("IconClass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsGroup")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Parent")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ApplicationId");
+
+                    b.HasIndex("ApplicationId1");
+
+                    b.ToTable("Applications");
+
+                    b.HasData(
+                        new
+                        {
+                            ApplicationId = 1,
+                            ApplicationName = "Applications",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9076),
+                            Deleted = false,
+                            IconImageUrl = "/appstatic/images/applications.png",
+                            IsGroup = true,
+                            Url = "/Applications/InstalledApps"
+                        },
+                        new
+                        {
+                            ApplicationId = 2,
+                            ApplicationName = "Setup",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9080),
+                            Deleted = false,
+                            IconImageUrl = "/appstatic/images/setup.png",
+                            IsGroup = true,
+                            Url = "/Setup/Dashboard"
+                        },
+                        new
+                        {
+                            ApplicationId = 3,
+                            ApplicationName = "Company",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9081),
+                            Deleted = false,
+                            IsGroup = false,
+                            Parent = 2,
+                            Url = "/Setup/Company"
+                        },
+                        new
+                        {
+                            ApplicationId = 4,
+                            ApplicationName = "User",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9083),
+                            Deleted = false,
+                            IsGroup = true,
+                            Parent = 2,
+                            Url = ""
+                        },
+                        new
+                        {
+                            ApplicationId = 5,
+                            ApplicationName = "User List",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9084),
+                            Deleted = false,
+                            IsGroup = false,
+                            Parent = 4,
+                            Url = "/User/UserList"
+                        },
+                        new
+                        {
+                            ApplicationId = 6,
+                            ApplicationName = "Users Activity Log",
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9086),
+                            Deleted = false,
+                            IsGroup = false,
+                            Url = "/User/ActivityLog"
+                        });
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Pemission.RoleAndApplicationWisePermission", b =>
+                {
+                    b.Property<long>("RoleAndApplicationWisePermissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("RoleAndApplicationWisePermissionId"));
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RoleAndApplicationWisePermissionId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("RoleAndApplicationWisePermissions");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleAndApplicationWisePermissionId = 1L,
+                            ApplicationId = 1,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9184),
+                            Deleted = false,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RoleAndApplicationWisePermissionId = 2L,
+                            ApplicationId = 2,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9186),
+                            Deleted = false,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RoleAndApplicationWisePermissionId = 3L,
+                            ApplicationId = 3,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9188),
+                            Deleted = false,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RoleAndApplicationWisePermissionId = 4L,
+                            ApplicationId = 4,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9189),
+                            Deleted = false,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RoleAndApplicationWisePermissionId = 5L,
+                            ApplicationId = 5,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9190),
+                            Deleted = false,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RoleAndApplicationWisePermissionId = 6L,
+                            ApplicationId = 6,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9192),
+                            Deleted = false,
+                            RoleId = 1
+                        });
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Pemission.UserWiseViewMapper", b =>
+                {
+                    b.Property<long>("UserWiseViewMapperId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("UserWiseViewMapperId"));
+
+                    b.Property<int>("ApplicationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("UserWiseViewMapperId");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserWiseViewMappers");
+
+                    b.HasData(
+                        new
+                        {
+                            UserWiseViewMapperId = 1L,
+                            ApplicationId = 1,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9292),
+                            Deleted = false,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            UserWiseViewMapperId = 2L,
+                            ApplicationId = 2,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9296),
+                            Deleted = false,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            UserWiseViewMapperId = 3L,
+                            ApplicationId = 3,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9299),
+                            Deleted = false,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            UserWiseViewMapperId = 4L,
+                            ApplicationId = 4,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9301),
+                            Deleted = false,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            UserWiseViewMapperId = 5L,
+                            ApplicationId = 5,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9304),
+                            Deleted = false,
+                            UserId = 1L
+                        },
+                        new
+                        {
+                            UserWiseViewMapperId = 6L,
+                            ApplicationId = 6,
+                            CreatedBy = 1,
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(9306),
+                            Deleted = false,
+                            UserId = 1L
+                        });
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Users.Role", b =>
                 {
                     b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
@@ -168,7 +475,7 @@ namespace CloudVOffice.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.User.User", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Users.User", b =>
                 {
                     b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
@@ -245,7 +552,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             UserId = 1L,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2023, 3, 28, 15, 2, 20, 457, DateTimeKind.Local).AddTicks(9615),
+                            CreatedDate = new DateTime(2023, 3, 28, 23, 15, 56, 671, DateTimeKind.Local).AddTicks(8700),
                             Deleted = false,
                             Email = "admin@appman.in",
                             FirstName = "Administrator",
@@ -259,7 +566,7 @@ namespace CloudVOffice.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.User.UserRoleMapping", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Users.UserRoleMapping", b =>
                 {
                     b.Property<int>("UserRoleMappingId")
                         .ValueGeneratedOnAdd()
@@ -302,15 +609,58 @@ namespace CloudVOffice.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.User.UserRoleMapping", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Pemission.Application", b =>
                 {
-                    b.HasOne("CloudVOffice.Core.Domain.User.Role", "Role")
+                    b.HasOne("CloudVOffice.Core.Domain.Pemission.Application", null)
+                        .WithMany("Children")
+                        .HasForeignKey("ApplicationId1");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Pemission.RoleAndApplicationWisePermission", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.Pemission.Application", "Application")
+                        .WithMany("RoleAndModuleWisePermission")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CloudVOffice.Core.Domain.Users.Role", "Role")
+                        .WithMany("RoleAndApplicationWisePermission")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Pemission.UserWiseViewMapper", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.Pemission.Application", "Application")
+                        .WithMany("UserWiseViewMapper")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CloudVOffice.Core.Domain.Users.User", "User")
+                        .WithMany("UserWiseViewMapper")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Application");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Users.UserRoleMapping", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.Users.Role", "Role")
                         .WithMany("UserRoleMappings")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CloudVOffice.Core.Domain.User.User", "User")
+                    b.HasOne("CloudVOffice.Core.Domain.Users.User", "User")
                         .WithMany("UserRoleMappings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -321,14 +671,27 @@ namespace CloudVOffice.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.User.Role", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Pemission.Application", b =>
                 {
+                    b.Navigation("Children");
+
+                    b.Navigation("RoleAndModuleWisePermission");
+
+                    b.Navigation("UserWiseViewMapper");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Users.Role", b =>
+                {
+                    b.Navigation("RoleAndApplicationWisePermission");
+
                     b.Navigation("UserRoleMappings");
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.User.User", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Users.User", b =>
                 {
                     b.Navigation("UserRoleMappings");
+
+                    b.Navigation("UserWiseViewMapper");
                 });
 #pragma warning restore 612, 618
         }

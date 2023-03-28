@@ -1,13 +1,15 @@
-﻿using System;
+﻿using CloudVOffice.Core.Domain.Pemission;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Core.Domain.User
+namespace CloudVOffice.Core.Domain.Users
 {
-    public class User : BaseEntity, IAuditEntity, ISoftDeletedEntity
+    public class User: IAuditEntity, ISoftDeletedEntity
     {
+        public Int64 UserId { get; set; }
         public string FirstName { get; set; }
         public string? MiddleName { get; set; }
         public string? LastName { get; set; }
@@ -37,6 +39,8 @@ namespace CloudVOffice.Core.Domain.User
             set => UserTypeId = (int)value;
         }
 
-        public List<UserRoleMapping> UserRoleMappings { get; set; }   
+        public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
+        public ICollection<UserWiseViewMapper> UserWiseViewMapper { get; set; }
+        
     }
 }

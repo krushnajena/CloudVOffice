@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Pemission
 {
-    public class Module:BaseEntity,IAuditEntity, ISoftDeletedEntity
+    public class Application:IAuditEntity, ISoftDeletedEntity
     {
-        public string ModuleName { get; set; }
+        public int ApplicationId { get; set;  }
+       
+        public string ApplicationName { get; set; }
 
         public int? Parent { get; set; }
         public bool IsGroup { get; set; }
@@ -19,6 +21,9 @@ namespace CloudVOffice.Core.Domain.Pemission
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-        public ICollection<Module> Children { get; set; }
+        public ICollection<Application> Children { get; set; }
+
+        public ICollection<RoleAndApplicationWisePermission> RoleAndModuleWisePermission { get; set; }
+        public ICollection<UserWiseViewMapper> UserWiseViewMapper { get; set; }
     }
 }

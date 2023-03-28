@@ -1,4 +1,4 @@
-﻿using CloudVOffice.Core.Domain.User;
+﻿using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Model.User;
@@ -42,7 +42,7 @@ namespace CloudVOffice.Web.Controllers
                                 new Claim("FirstName",userDetails.FirstName),
                                 new Claim("MiddleName",userDetails.MiddleName!=null?userDetails.MiddleName.ToString():""),
                                 new Claim("LastName",userDetails.LastName!=null?userDetails.LastName.ToString():""),
-                                new Claim("UserId",userDetails.Id.ToString()),
+                                new Claim("UserId",userDetails.UserId.ToString()),
                             };
                             claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));
                             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

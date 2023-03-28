@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CloudVOffice.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class DBInitializeNewUser : Migration
+    public partial class DBInitialize : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -72,35 +72,21 @@ namespace CloudVOffice.Data.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserRoleMappings",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRoleMappings", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -111,8 +97,8 @@ namespace CloudVOffice.Data.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FailedLoginAttempts = table.Column<int>(type: "int", nullable: true),
                     LastIpAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastLoginDateUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastActivityDateUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastLoginDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastActivityDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     UserTypeId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
@@ -124,33 +110,69 @@ namespace CloudVOffice.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoleMappings",
+                columns: table => new
+                {
+                    UserRoleMappingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoleMappings", x => x.UserRoleMappingId);
+                    table.ForeignKey(
+                        name: "FK_UserRoleMappings_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserRoleMappings_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
-                columns: new[] { "Id", "CreatedOn", "RoleName" },
+                columns: new[] { "RoleId", "CreatedOn", "RoleName" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Administrator" },
-                    { 2L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DMS Manager" },
-                    { 3L, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DMS User" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "UserRoleMappings",
-                columns: new[] { "Id", "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { 1L, 1, 1 },
-                    { 2L, 2, 1 },
-                    { 3L, 3, 1 }
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Administrator" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DMS Manager" },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "DMS User" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "CreatedBy", "CreatedDate", "DateOfBirth", "Deleted", "Email", "FailedLoginAttempts", "FirstName", "IsActive", "LastActivityDateUtc", "LastIpAddress", "LastLoginDateUtc", "LastName", "MiddleName", "Password", "PhoneNo", "UpdatedBy", "UpdatedDate", "UserType", "UserTypeId" },
-                values: new object[] { 1L, 1, new DateTime(2023, 3, 26, 1, 49, 32, 257, DateTimeKind.Local).AddTicks(700), null, false, "admin@appman.in", null, "Administrator", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "", null, "r9NmU79/NE0x0el2cuI8PeI4GlVCdpOeB875sWPUeJw=", "9583000000", null, null, 1, 1 });
+                columns: new[] { "UserId", "CreatedBy", "CreatedDate", "DateOfBirth", "Deleted", "Email", "FailedLoginAttempts", "FirstName", "IsActive", "LastActivityDate", "LastIpAddress", "LastLoginDate", "LastName", "MiddleName", "Password", "PhoneNo", "UpdatedBy", "UpdatedDate", "UserType", "UserTypeId" },
+                values: new object[] { 1L, 1, new DateTime(2023, 3, 28, 15, 2, 20, 457, DateTimeKind.Local).AddTicks(9615), null, false, "admin@appman.in", null, "Administrator", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "", null, "r9NmU79/NE0x0el2cuI8PeI4GlVCdpOeB875sWPUeJw=", "9583000000", null, null, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "UserRoleMappings",
+                columns: new[] { "UserRoleMappingId", "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1L },
+                    { 2, 2, 1L },
+                    { 3, 3, 1L }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoleMappings_RoleId",
+                table: "UserRoleMappings",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoleMappings_UserId",
+                table: "UserRoleMappings",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -166,10 +188,10 @@ namespace CloudVOffice.Data.Migrations
                 name: "Logs");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "UserRoleMappings");
 
             migrationBuilder.DropTable(
-                name: "UserRoleMappings");
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Users");

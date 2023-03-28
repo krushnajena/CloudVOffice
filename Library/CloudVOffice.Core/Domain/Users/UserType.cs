@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Core.Domain.User
+namespace CloudVOffice.Core.Domain.Users    
 {
     public enum UserType
     {

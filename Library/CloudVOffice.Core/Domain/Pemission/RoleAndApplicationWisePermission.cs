@@ -1,17 +1,18 @@
-﻿using System;
+﻿using CloudVOffice.Core.Domain.Users;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CloudVOffice.Core.Domain.Users;
-using Newtonsoft.Json;
 
 namespace CloudVOffice.Core.Domain.Pemission
 {
-    public class UserWiseViewMapper : BaseEntity, IAuditEntity, ISoftDeletedEntity
+    public class RoleAndApplicationWisePermission :IAuditEntity, ISoftDeletedEntity
     {
-        public int? ApplicationId { get; set; }  
-        public int? UserId { get; set; }
+        public Int64 RoleAndModuleWisePermissionId { get; set; }
+        public int ApplicationId { get; set; }
+        public int RoleId { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public int? UpdatedBy { get; set; }
@@ -21,6 +22,6 @@ namespace CloudVOffice.Core.Domain.Pemission
         [JsonIgnore]
         public Application Application { get; set; }
         [JsonIgnore]
-        public User User { get; set; }
+        public Role Role { get; set; }
     }
 }

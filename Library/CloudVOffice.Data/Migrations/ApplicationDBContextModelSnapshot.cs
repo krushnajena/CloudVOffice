@@ -130,11 +130,11 @@ namespace CloudVOffice.Data.Migrations
 
             modelBuilder.Entity("CloudVOffice.Core.Domain.User.Role", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -143,26 +143,26 @@ namespace CloudVOffice.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("RoleId");
 
                     b.ToTable("Roles");
 
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            RoleId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleName = "Administrator"
                         },
                         new
                         {
-                            Id = 2L,
+                            RoleId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleName = "DMS Manager"
                         },
                         new
                         {
-                            Id = 3L,
+                            RoleId = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleName = "DMS User"
                         });
@@ -170,11 +170,11 @@ namespace CloudVOffice.Data.Migrations
 
             modelBuilder.Entity("CloudVOffice.Core.Domain.User.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("UserId"));
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -236,16 +236,16 @@ namespace CloudVOffice.Data.Migrations
                     b.Property<int>("UserTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
 
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            UserId = 1L,
                             CreatedBy = 1,
-                            CreatedDate = new DateTime(2023, 3, 26, 15, 41, 18, 778, DateTimeKind.Local).AddTicks(6194),
+                            CreatedDate = new DateTime(2023, 3, 28, 15, 2, 20, 457, DateTimeKind.Local).AddTicks(9615),
                             Deleted = false,
                             Email = "admin@appman.in",
                             FirstName = "Administrator",
@@ -261,41 +261,74 @@ namespace CloudVOffice.Data.Migrations
 
             modelBuilder.Entity("CloudVOffice.Core.Domain.User.UserRoleMapping", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("UserRoleMappingId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRoleMappingId"));
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserRoleMappingId");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserRoleMappings");
 
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            UserRoleMappingId = 1,
                             RoleId = 1,
-                            UserId = 1
+                            UserId = 1L
                         },
                         new
                         {
-                            Id = 2L,
+                            UserRoleMappingId = 2,
                             RoleId = 2,
-                            UserId = 1
+                            UserId = 1L
                         },
                         new
                         {
-                            Id = 3L,
+                            UserRoleMappingId = 3,
                             RoleId = 3,
-                            UserId = 1
+                            UserId = 1L
                         });
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.User.UserRoleMapping", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.User.Role", "Role")
+                        .WithMany("UserRoleMappings")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CloudVOffice.Core.Domain.User.User", "User")
+                        .WithMany("UserRoleMappings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.User.Role", b =>
+                {
+                    b.Navigation("UserRoleMappings");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.User.User", b =>
+                {
+                    b.Navigation("UserRoleMappings");
                 });
 #pragma warning restore 612, 618
         }

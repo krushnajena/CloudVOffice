@@ -1,4 +1,4 @@
-﻿using CloudVOffice.Core.Domain.User;
+﻿using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;

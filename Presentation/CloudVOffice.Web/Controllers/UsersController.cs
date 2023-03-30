@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CloudVOffice.Web.Controllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private readonly IUserAuthenticationService _userauthenticationService;
         private readonly IUserService _userService;
-        public UserController(IUserAuthenticationService userauthenticationService, IUserService userService)
+        public UsersController(IUserAuthenticationService userauthenticationService, IUserService userService)
         {
             _userauthenticationService = userauthenticationService;
             _userService = userService;
@@ -77,7 +77,7 @@ namespace CloudVOffice.Web.Controllers
             //SignOutAsync is Extension method for SignOut    
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             //Redirect to home page    
-            return LocalRedirect("/User/Login");
+            return LocalRedirect("/Users/Login");
         }
 
         [HttpGet("/Applications")]

@@ -86,5 +86,13 @@ namespace CloudVOffice.Web.Controllers
         {
             return View();
         }
-    }
+
+
+        [HttpGet]
+        public IActionResult GetMenu(int UserId)
+        {
+            return Ok(_userService.GetUserMenu(UserId));
+        }
+		
+	}
 }

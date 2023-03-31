@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Users;
+﻿using CloudVOffice.Core.Domain.Pemission;
+using CloudVOffice.Core.Domain.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace CloudVOffice.Services.Users
         public Task<User> GetUserByUserIdAsync(int UserId);
 
         public Task<UserRoleMapping> GetUserMappedRolesByUserIdAsync(int UserId);
+
+		public Task<List<Application>> GetUserMenu(int UserId);
     }
 }

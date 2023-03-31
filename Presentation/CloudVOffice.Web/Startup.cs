@@ -40,7 +40,7 @@ namespace CloudVOffice.Web
                 options.UseSqlServer(configRoot.GetConnectionString("ConnStringMssql"));
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(x => { x.LoginPath = "/User/Login";
+            .AddCookie(x => { x.LoginPath = "/Users/Login";
 
                 x.ExpireTimeSpan = TimeSpan.FromMinutes(2);
                 x.SlidingExpiration = true;
@@ -54,8 +54,7 @@ namespace CloudVOffice.Web
             foreach (string folder in Directory.GetDirectories(CloudVOfficePluginDefaults.PathName))
             {
                 string dllPath = @".\"+ CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
-                Console.WriteLine(dllPath);
-
+               
                 Assembly assembly2 = Assembly.LoadFrom
                     (dllPath);
                 var part2 = new AssemblyPart(assembly2);
@@ -94,7 +93,7 @@ namespace CloudVOffice.Web
             app.MapRazorPages();
             app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=User}/{action=Login}/{id?}");
+    pattern: "{controller=Users}/{action=Login}/{id?}");
 
             app.MapControllerRoute(
                 name: "area",

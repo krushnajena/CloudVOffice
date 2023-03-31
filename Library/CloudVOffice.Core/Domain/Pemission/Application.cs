@@ -23,7 +23,7 @@ namespace CloudVOffice.Core.Domain.Pemission
 
         public string? IconImageUrl { get; set; }
         public string? IconClass { get; set; }
-        public ICollection<Application> Children { get; set; }
+        public List<Application> Children { get; set; }
 
         public ICollection<RoleAndApplicationWisePermission> RoleAndModuleWisePermission { get; set; }
         public ICollection<UserWiseViewMapper> UserWiseViewMapper { get; set; }

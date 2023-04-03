@@ -41,7 +41,7 @@ namespace CloudVOffice.Services.Users
             throw new NotImplementedException();
         }
 
-		public async Task<List<Application>> GetUserMenu(int UserId)
+		public List<Application> GetUserMenu(int UserId)
 		{
 			var user = _context.Users.Include(s => s.UserRoleMappings).ThenInclude(a => a.Role)
 
@@ -68,17 +68,21 @@ namespace CloudVOffice.Services.Users
                         .Where(x => x.UserId == UserId && x.Deleted == false && x.Application.Parent == application[j].ApplicationId).ToList();
 					for (int k = 0; k < smenu.Count; k++)
 					{
-                        if (application[j].Children != null)
+						var slist = application[j].Children;
+						if (application[j].Children != null && application[j].Children.Count>0)
                         {
-							if (application.Where(x => x.Children[j].ApplicationId == smenu[k].ApplicationId).ToList().Count == 0)
+                            int sapplicationId = smenu[k].ApplicationId;
+                          
+							if (slist.Where(x => x.ApplicationId == sapplicationId).ToList().Count == 0)
 							{
-								application[j].Children = new List<Application>();
+								smenu[k].Application.Children = new List<Application>();
 								application[j].Children.Add(smenu[k].Application);
 							}
 						}
                         else
                         {
-							application[j].Children = new List<Application>();
+							smenu[k].Application.Children = new List<Application>();
+
 							application[j].Children.Add(smenu[k].Application);
 						}
 						
@@ -87,16 +91,21 @@ namespace CloudVOffice.Services.Users
                             .Where(x => x.UserId == UserId && x.Deleted == false && x.Application.Parent == application[j].Children[k].ApplicationId).ToList();
 						for (int l=0; l< tmenu.Count; l++)
                         {
-                            if (application[j].Children[k] != null)
+							var tlist = application[j].Children[k].Children;
+							if (tlist != null && tlist.Count>0)
                             {
-								if (application.Where(x => x.Children[j].Children[k].ApplicationId == tmenu[k].ApplicationId).ToList().Count == 0)
+								int tapplicationId = tmenu[l].ApplicationId;
+
+								if (tlist.Where(x => x.ApplicationId == tmenu[l].ApplicationId).ToList().Count == 0)
 								{
-									application[j].Children[k].Children.Add(tmenu[l].Application);
+									var napplication = tmenu[l].Application;
+									application[j].Children[k].Children.Add(napplication);
 								}
 							}
                             else
                             {
-								application[j].Children[k].Children.Add(tmenu[l].Application);
+                                var napplication = tmenu[l].Application;
+								application[j].Children[k].Children.Add(napplication);
 							}
                             
                         }

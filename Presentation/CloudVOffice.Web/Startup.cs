@@ -62,8 +62,11 @@ namespace CloudVOffice.Web
             }
           
             services.AddMvc();
-            services.AddControllers();
-            services.AddRazorPages();
+          
+			services.AddControllers().AddNewtonsoftJson(options =>
+	        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+			services.AddRazorPages();
             services.AddInfrastructure(configRoot);
 
             // services.AddScoped(IAuthenticationService, AuthenticationService);

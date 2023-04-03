@@ -1,50 +1,40 @@
-﻿@*
+﻿@using Newtonsoft.Json;
+@using CloudVOffice.Core.Domain.Pemission;
+@using System.Collections.Generic;
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
 <div class="apps container">
     <div class="apps">
+
+
+
+
+
         <div role="listbox" class=" row user-select-none mt-5">
-            <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Applications</div>
-            </a>
-            <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/setup.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Setup</div>
-            </a> 
-            
-            <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>   <a class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
-                <img class=" rounded" src="~/appstatic/images/applications.png" width="70px" height="70px">
-                <div class="w-100 text-center text-truncate mt-2">Discuss</div>
-            </a>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                var menu = @User.Claims.FirstOrDefault(x => x.Type == "Menu").Value.ToString();
+                {
+                    var newMenu = JsonConvert.DeserializeObject<List<Application>>(menu);
+                    for (int i = 0; i < newMenu.Count; i++)
+                    {
+
+                        <a href="@newMenu[i].Url" class="col-4 col-sm-3 col-md-2 p-2 mb-3 d-flex flex-column rounded justify-content-center align-items-center">
+                            <img class=" rounded" src="@newMenu[i].IconImageUrl" width="70px" height="70px">
+                            <div class="w-100 text-center text-truncate mt-2">@newMenu[i].ApplicationName</div>
+                        </a>
+                    }
+                }
+
+
+
+
+            }
+
         </div>
     </div>
 </div>

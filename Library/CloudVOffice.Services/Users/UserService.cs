@@ -41,7 +41,7 @@ namespace CloudVOffice.Services.Users
             throw new NotImplementedException();
         }
 
-		public List<Application> GetUserMenu(int UserId)
+		public List<Application> GetUserMenu(Int64 UserId)
 		{
 			var user = _context.Users.Include(s => s.UserRoleMappings).ThenInclude(a => a.Role)
 

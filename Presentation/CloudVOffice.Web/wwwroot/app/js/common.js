@@ -32,9 +32,7 @@ $(function () {
 		$("#onoffcanvas-nav i").toggleClass('icon-menu5 icon-sort');
 	});	
 
-	$('.onoffcanvas-toggler').on('click', function () {
-		$(".onoffcanvas-toggler i").toggleClass('icon-chevron-thin-left icon-chevron-thin-right');
-	});
+	
 });
 
 

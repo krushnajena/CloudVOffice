@@ -15,6 +15,6 @@ namespace CloudVOffice.Services.Users
 
         public Task<UserRoleMapping> GetUserMappedRolesByUserIdAsync(int UserId);
 
-		public List<Application> GetUserMenu(int UserId);
+		public List<Application> GetUserMenu(Int64 UserId);
     }
 }

@@ -13,6 +13,7 @@ using CloudVOffice.Web.Framework;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.FileProviders;
+using Syncfusion.Licensing;
 
 namespace CloudVOffice.Web
 {
@@ -27,7 +28,10 @@ namespace CloudVOffice.Web
         }
         public Startup(IConfiguration configuration)
         {
-            configRoot = configuration;
+
+			string licenseKey = "ODE4NkAzMTM5MmUzMjJlMzBjdUVOOVZZOW1XSGgrck5CendtZHZXbm91M2hhV3k1SEtPT25oUGVmQzc0PQ==";
+			SyncfusionLicenseProvider.RegisterLicense(licenseKey);
+			configRoot = configuration;
         }
         public void ConfigureServices(IServiceCollection services)
         {

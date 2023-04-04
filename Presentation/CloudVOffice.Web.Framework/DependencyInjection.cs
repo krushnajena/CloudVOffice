@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Authentication;
+using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Users;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +20,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped(typeof(ISqlRepository<>), typeof(SqlRepository<>));
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
             services.AddScoped<IUserService, UserService>();
-
+            services.AddScoped<IUserViewPermissions, UserViewPermissionService>();
             return services;
         }
     }

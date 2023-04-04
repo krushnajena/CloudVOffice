@@ -1,7 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
+using CloudVOffice.Core.Security;
+using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Permissions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,12 +18,17 @@ namespace CloudVOffice.Services.Users
     {
         private readonly ApplicationDBContext _context;
         private readonly ISqlRepository<User> _userRepo;
-        public UserService(ApplicationDBContext context, ISqlRepository<User> userRepo)
+        private readonly ISqlRepository<UserRoleMapping> _userrolemappingRepo;
+        private readonly ISqlRepository<UserWiseViewMapper> _userViewmappingRepo;
+        private readonly IUserViewPermissions _userViewPermissions;
+        public UserService(ApplicationDBContext context, ISqlRepository<User> userRepo, ISqlRepository<UserRoleMapping> userrolemappingRepo, IUserViewPermissions userViewPermissions)
         {
             _context = context;
             _userRepo = userRepo;
-
+            _userrolemappingRepo = userrolemappingRepo;
+            _userViewPermissions = userViewPermissions;
         }
+
 
         public async Task<User> GetUserByEmailAsync(string Email)
         {
@@ -116,5 +124,105 @@ namespace CloudVOffice.Services.Users
             return application;
             
 		}
-	}
+
+        public async Task<string> CreateUser(UserCreateDTO userCreateDTO)
+        {
+            var objCheck = _context.Users.SingleOrDefault(opt => opt.Email == userCreateDTO.Email && opt.Deleted == false);
+            try
+            {
+                if (objCheck == null)
+                {
+
+                    User users = new User();
+                    users.FirstName = userCreateDTO.FirstName;
+                    users.MiddleName = userCreateDTO.MiddleName;
+                    users.LastName = userCreateDTO.LastName;
+                    users.Email = userCreateDTO.Email;
+                    users.Password = Encrypt.EncryptPassword(userCreateDTO.Password, userCreateDTO.Email) ;
+                    users.PhoneNo = userCreateDTO.PhoneNo;
+                    users.DateOfBirth = userCreateDTO.DateOfBirth;
+                    users.UserTypeId = userCreateDTO.UserTypeId;
+                    users.IsActive = true;
+                    users.CreatedBy = userCreateDTO.CreatedBy;
+                    var obj = _userRepo.Insert(users);
+                    for(int i = 0; i < userCreateDTO.roles.Count; i++)
+                    {
+                        if (userCreateDTO.roles[i].IsSelected == true)
+                        {
+                            AssignRole(obj.UserId, userCreateDTO.roles[i].RoleId);
+                            _userViewPermissions.AssignViewPermissions(obj.UserId, userCreateDTO.roles[i].RoleId);
+                        }
+                        
+                    }
+                    return  "Success";
+
+                }
+                else if (objCheck != null)
+                {
+                     return  "Duplicate";
+                }
+                
+                return "Unexpected";
+            }
+            catch (Exception ex)
+            {
+                return "Error";
+            }
+        }
+
+        public string AssignRole(Int64 userid, int roleid)
+        {
+            var objCheck = _context.UserRoleMappings.SingleOrDefault(opt => opt.RoleId == roleid && opt.UserId == userid);
+            try
+            {
+                if (objCheck == null)
+                {
+
+                    UserRoleMapping userrolemapping = new UserRoleMapping();
+                    userrolemapping.RoleId = roleid;
+                    userrolemapping.UserId = userid;
+                    var obj = _userrolemappingRepo.Insert(userrolemapping);
+                    return "Role Sucessfully Assigned";
+
+                }
+                else if (objCheck != null)
+                {
+                    return "Duplicate";
+                }
+
+                return "Something unexpected!";
+            }
+            catch (Exception ex)
+            {
+                return "Error!";
+            }
+        }
+
+        public string UnAssignRole(Int64 userid, int roleid)
+        {
+            var objCheck = _context.UserRoleMappings.SingleOrDefault(opt => opt.RoleId == roleid && opt.UserId == userid);
+            try
+            {
+                if (objCheck != null)
+                {
+
+                    _userrolemappingRepo.Delete(objCheck);
+                    return "Role Sucessfully Un-Assigned";
+
+                }
+                else if (objCheck != null)
+                {
+                    return "Duplicate";
+                }
+
+                return "Something unexpected!";
+            }
+            catch (Exception ex)
+            {
+                return "Error!";
+            }
+        }
+
+    }
+
 }

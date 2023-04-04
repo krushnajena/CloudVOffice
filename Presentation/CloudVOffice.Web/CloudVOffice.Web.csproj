@@ -18,7 +18,8 @@
 		<Folder Include="Areas\Accounts\Data\" />
 		<Folder Include="Areas\Accounts\Models\" />
 		<Folder Include="Areas\Accounts\Views\" />
-		<Folder Include="Areas\" />
+		<Folder Include="Areas\Setup\Data\" />
+		<Folder Include="Areas\Setup\Models\" />
 		<Folder Include="Plugins\" />
 
 

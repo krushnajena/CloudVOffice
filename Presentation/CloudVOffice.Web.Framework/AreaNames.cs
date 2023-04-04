@@ -10,5 +10,6 @@
         /// </summary>
         public const string Admin = "Admin";
         public const string Accounts = "Accounts";
+        public const string Setup = "Setup";
     }
 }

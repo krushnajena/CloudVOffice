@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.FileProviders;
 using Syncfusion.Licensing;
+using Microsoft.AspNetCore.Builder;
 
 namespace CloudVOffice.Web
 {
@@ -44,7 +45,7 @@ namespace CloudVOffice.Web
                 options.UseSqlServer(configRoot.GetConnectionString("ConnStringMssql"));
             });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(x => { x.LoginPath = "/Users/Login";
+            .AddCookie(x => { x.LoginPath = "/App/Login";
 
                 x.ExpireTimeSpan = TimeSpan.FromMinutes(2);
                 x.SlidingExpiration = true;
@@ -52,7 +53,14 @@ namespace CloudVOffice.Web
             }) ;
             services.AddHttpContextAccessor();
             services.AddMvcCore();
-          
+
+            services.AddControllersWithViews()
+
+                .AddNewtonsoftJson(options =>
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+            services.AddRazorPages();
+            services.AddMvc();
             string[] subdirs = Directory.GetDirectories(CloudVOfficePluginDefaults.PathName);
 
             foreach (string folder in Directory.GetDirectories(CloudVOfficePluginDefaults.PathName))
@@ -64,13 +72,9 @@ namespace CloudVOffice.Web
                 var part2 = new AssemblyPart(assembly2);
                 services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
             }
+           
+         
           
-            services.AddMvc();
-          
-			services.AddControllers().AddNewtonsoftJson(options =>
-	        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
-			services.AddRazorPages();
             services.AddInfrastructure(configRoot);
 
             // services.AddScoped(IAuthenticationService, AuthenticationService);
@@ -97,15 +101,25 @@ namespace CloudVOffice.Web
 
             app.UseRouting();
             app.UseAuthorization();
-            app.MapRazorPages();
+           
+            
             app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Users}/{action=Login}/{id?}");
+    pattern: "{controller=App}/{action=Login}/{id?}");
 
-            app.MapControllerRoute(
-                name: "area",
-                pattern: "{Area=Dashbaord}/{controller=Home}/{action=Index}/{id?}");
+           
+
+
+            
+                app.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=App}/{action=Login}/{id?}"
+                );
+           
+
+            app.MapRazorPages();
             app.Run();
         }
+
     }
 }

@@ -8,13 +8,14 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
     [Area(AreaNames.Setup)]
     public class UserController : Controller
     {
-        private readonly UserService _userService;
-        public UserController(UserService userService) {
+        private readonly IUserService _userService;
+        public UserController(IUserService userService) {
 
             _userService = userService;
         }
         public IActionResult UserList()
         {
+            ViewBag.UserList = _userService.GetAllUsers();
             return View();
         }
         public IActionResult CreateUser()

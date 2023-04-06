@@ -2,7 +2,7 @@
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using CloudVOffice.Data.Users;
+using CloudVOffice.Data.DTO.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

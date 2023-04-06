@@ -21,5 +21,7 @@ namespace CloudVOffice.Services.Users
         public string AssignRole(Int64 userid, int roleid);
 
         public string UnAssignRole(Int64 userid,int RoleId    );
+
+        public List<User> GetAllUsers();
     }
 }

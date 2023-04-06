@@ -1,5 +1,327 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="Unify Admin Panel">
+	<meta name="keywords" content="Invoice, Admin, Dashboard, Bootstrap4, Sass, CSS3, HTML5, Responsive Dashboard, Responsive Admin Template, Admin Template, Best Admin Template, Bootstrap Template, Themeforest">
+	<meta name="author" content="Bootstrap Gallery">
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<title>Dashboard - @ViewData["Title"]</title>
+
+
+	<link href="~/css/bootstrap5.css" rel="stylesheet" />
+	<link href="~/css/adaptive.css" rel="stylesheet" />
+	<!-- Common CSS -->
+	<link rel="stylesheet" href="~/app/css/bootstrap.min.css">
+	<link rel="stylesheet" href="~/app/fonts/icomoon/icomoon.css">
+	<link rel="stylesheet" href="~/app/css/main.css">
+    <style>
+        .e-grid .e-gridheader {
+            background-color: #fff;
+            border-bottom-color: #dee2e6;
+            border-top-color: #dee2e6;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .e-grid .e-headercelldiv {
+            font-size: 15px;
+        }
+
+
+        .btn {
+            color: #ffffff
+        }
+    </style>
+    <style>
+        .fabric .empimg {
+            background-color: #0078d6;
+        }
+
+        .material .empimg {
+            background-color: #e3165b;
+        }
+
+        .highcontrast .empimg {
+            background-color: #ffd939;
+        }
+
+        .fluent .empimg {
+            background-color: #106EBE;
+        }
+
+        _:-ms-fullscreen, :root .highcontrast .e-userimg.sf-icon-Male::before,
+        _:-ms-fullscreen, :root .highcontrast .e-userimg.sf-icon-FeMale::before {
+            color: black;
+        }
+
+        .highcontrast .e-userimg.sf-icon-Male::before,
+        .highcontrast .e-userimg.sf-icon-FeMale::before {
+            color: black;
+        }
+
+        .bootstrap .empimg {
+            background-color: #0078d6;
+        }
+
+        .bootstrap4 .empimg {
+            background-color: #0078d6;
+        }
+
+        .bootstrap5 .empimg {
+            background-color: #0078d6;
+        }
+
+        #Emptext {
+            top: -12px;
+            left: 41px;
+            position: relative;
+        }
+
+        .e-grid.e-rtl #Emptext {
+            top: -12px;
+            left: -41px;
+            position: relative;
+        }
+
+        .empimg {
+            height: 27px;
+            width: 29px;
+            border-radius: 14px;
+        }
+
+        .e-userimg.sf-icon-Male::before,
+        .e-userimg.sf-icon-FeMale::before {
+            font-size: 13px;
+        }
+
+        .e-userimg.sf-icon-Male, .e-userimg.sf-icon-FeMale {
+            margin: 0px 8px;
+            line-height: 26px;
+            color: white;
+            font-size: 13px;
+        }
+
+            .e-userimg.sf-icon-Male::before {
+                content: '\e700';
+            }
+
+            .e-userimg.sf-icon-FeMale::before {
+                content: '\e701';
+            }
+
+        .highcontrast .e-grid td.e-rowcell.e-selectionbackground.e-active {
+            background-color: transparent;
+            color: white;
+        }
+
+        td.e-rowcell.e-selectionbackground.e-active {
+            background-color: transparent;
+        }
+
+        .highcontrast #msg {
+            color: #FFFFFF
+        }
+
+        .e-bigger .e-grid .statustxt {
+            position: relative;
+            top: -2px;
+        }
+
+        .rating .star {
+            font-size: 132%;
+            color: lightgrey;
+        }
+
+            .rating .star.checked {
+                color: #ffa600;
+            }
+
+            .rating .star:before {
+                content: '★';
+            }
+
+        td.e-rowcell .statustxt.e-activecolor {
+            color: #00cc00;
+            position: relative;
+            top: 9px;
+        }
+
+        td.e-rowcell .statustxt.e-inactivecolor {
+            color: #e60000;
+            position: relative;
+            top: 9px;
+        }
+
+        .bootstrap5 td.e-rowcell .statustxt.e-inactivecolor,
+        .bootstrap5 td.e-rowcell .statustxt.e-activecolor {
+            top: 8px;
+        }
+
+        .bootstrap5 .e-checkboxfiltertext .statustemp .statustxt.e-activecolor,
+        .bootstrap5 .e-checkboxfiltertext .statustemp .statustxt.e-inactivecolor {
+            position: relative;
+            top: 1.5px;
+        }
+
+        .e-bigger.bootstrap5 .e-checkboxfiltertext .statustemp .statustxt.e-activecolor,
+        .e-bigger.bootstrap5 .e-checkboxfiltertext .statustemp .statustxt.e-inactivecolor {
+            top: -0.5px;
+        }
+
+        .bootstrap5 .e-checkboxfiltertext #Trusttext {
+            margin-left: -4px;
+        }
+
+        .statustemp.e-inactivecolor {
+            background-color: #ffd7cc;
+        }
+
+        .statustemp.e-activecolor {
+            background-color: #ccffcc;
+        }
+
+        .statustxt.e-activecolor {
+            color: #00cc00;
+        }
+
+        .statustxt.e-inactivecolor {
+            color: #e60000;
+        }
+
+        #Trusttext {
+            position: relative;
+            top: 1px;
+        }
+
+        .e-image {
+            height: 13px;
+            width: 14px;
+        }
+
+        .statustemp.e-inactivecolor {
+            width: 64px;
+        }
+
+        .statustemp.e-activecolor {
+            width: 57px;
+        }
+
+        .statustemp {
+            position: relative;
+            height: 19px;
+            border-radius: 5px;
+            text-align: center
+        }
+
+        #msg {
+            font-family: "Segoe UI", "GeezaPro", "DejaVu Serif", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.95;
+            color: #333;
+            float: right;
+            margin-top: 3px;
+        }
+
+        @@media only screen and (max-width: 370px) {
+            #msg {
+                float: left;
+                margin-top: 3px;
+            }
+
+            #GridOverview {
+                margin-top: 36px;
+            }
+        }
+
+        #samplecontainer {
+            padding-top: 5px;
+        }
+
+        #myProgress {
+            position: relative;
+            height: 18px;
+            width: 10em;
+            text-align: left;
+            background-color: white;
+        }
+
+        .highcontrast .e-grid #myProgress {
+            background-color: black;
+        }
+
+        #myBar {
+            position: absolute;
+            width: 10%;
+            height: 100%;
+            background-color: #00b300;
+        }
+
+            #myBar.progressdisable {
+                background-color: #df2222;
+            }
+
+        #pbarlabel {
+            position: relative;
+            left: 10px;
+            line-height: 18px;
+            font-size: 10px;
+            color: white;
+        }
+    </style>
+	
+    <script src="~/app/js/ej2.min.js"></script>
+</head>
+<body>
+
+	<!-- BEGIN .app-wrap -->
+	<div class="app-wrap">
+		<!-- BEGIN .app-heading -->
+		@Html.Partial("_Header")
+		<!-- END: .app-heading -->
+		<!-- BEGIN .app-container -->
+		<div class="app-container">
+			<!-- BEGIN .app-side -->
+			@Html.Partial("_MainNavLayout")
+			<!-- END: .app-side -->
+			<!-- BEGIN .app-main -->
+			<div class="app-main">
+				@RenderBody()
+				<!-- BEGIN .main-heading -->
+				
+				<!-- END: .main-content -->
+			</div>
+			<!-- END: .app-main -->
+		</div>
+		<!-- END: .app-container -->
+		<!-- BEGIN .main-footer -->
+		
+			@Html.Partial("_Footer")
+		
+		<!-- END: .main-footer -->
+	</div>
+	<!-- END: .app-wrap -->
+	<!-- jQuery first, then Tether, then other JS. -->
+	<!-- END: .app-wrap -->
+	<!-- jQuery first, then Tether, then other JS. -->
+	<script src="~/app/js/jquery.js"></script>
+	<script src="~/app/js/tether.min.js"></script>
+	<script src="~/app/js/bootstrap.min.js"></script>
+	<script src="~/app/vendor/unifyMenu/unifyMenu.js"></script>
+	<script src="~/app/vendor/onoffcanvas/onoffcanvas.js"></script>
+	<script src="~/app/js/moment.js"></script>
+	<script src="~/app/vendor/slimscroll/slimscroll.min.js"></script>
+	<script src="~/app/vendor/slimscroll/custom-scrollbar.js"></script>
+	<!-- Common JS -->
+	<script src="~/app/js/common.js"></script>
+
+	<ejs-scripts></ejs-scripts>
+</body>
+
+</html>

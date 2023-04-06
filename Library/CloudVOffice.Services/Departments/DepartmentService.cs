@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 ﻿using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Permissions;
 using System;
+=======
+﻿/*using System;
+>>>>>>> 63e417145321f95ac729f28508a02161f31ec0c3
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Departments
 {
+<<<<<<< HEAD
     public class DepartmentService : IDepartmentService
     {
         private readonly ApplicationDBContext _context;
@@ -105,3 +110,10 @@ namespace CloudVOffice.Services.Departments
         }
     }
 }
+=======
+    public class DepartmentService
+    {
+    }
+}
+*/
+>>>>>>> 63e417145321f95ac729f28508a02161f31ec0c3

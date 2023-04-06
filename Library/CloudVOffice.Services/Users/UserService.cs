@@ -222,5 +222,10 @@ namespace CloudVOffice.Services.Users
                 return "Error!";
             }
         }
+
+        public List<User> GetAllUsers()
+        {
+            return _context.Users.Where(x => x.Deleted == false).ToList();
+        }
     }
 }

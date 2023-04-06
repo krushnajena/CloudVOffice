@@ -222,7 +222,5 @@ namespace CloudVOffice.Services.Users
                 return "Error!";
             }
         }
-
     }
-
 }

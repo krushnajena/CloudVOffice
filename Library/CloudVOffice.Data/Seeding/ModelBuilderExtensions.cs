@@ -26,21 +26,11 @@ namespace CloudVOffice.Data.Seeding
                     {
                         RoleId = 1,
                         RoleName = "Administrator",
+                        CreatedBy = 1,
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
 
-                    },
-
-                     new Role
-                     {
-                         RoleId = 2,
-                         RoleName = "DMS Manager",
-
-                     },
-                      new Role
-                      {
-                          RoleId = 3,
-                          RoleName = "DMS User",
-
-                      }
+                    }
 
                     );
             });

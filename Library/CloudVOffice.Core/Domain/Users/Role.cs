@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Users
 {
-    public class Role
-    {
+    public class Role : IAuditEntity, ISoftDeletedEntity
+	{
         public int RoleId { get; set; }
         public string RoleName { get; set; }
-        public DateTime CreatedOn { get; set; }
-
-        public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
+       
+		public int CreatedBy { get; set; }
+		public DateTime CreatedDate { get; set; }
+		public int? UpdatedBy { get; set; }
+		public DateTime? UpdatedDate { get; set; }
+		public bool Deleted { get; set; }
+		public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
         public ICollection<RoleAndApplicationWisePermission> RoleAndApplicationWisePermission { get; set; }
 
     }

@@ -1,6 +1,135 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CloudVOffice.Data.DTO.Users.UserCreateDTO;
 @{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "User Create";
 }
+
+@addTagHelper *, Syncfusion.EJ2
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>CRM Dashboard</h5>
+                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">Last Login: 2 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">User Create</div>
+				<div class="card-body">
+					
+					<div id="accordion" role="tablist">
+						<div class="card mb-0">
+							<div class="card-header" role="tab" id="headingOne">
+								<h5 class="mb-0">
+									<a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+										Basic Info
+									</a>
+								</h5>
+							</div>
+							<div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion" style="">
+								<div class="card-body">
+									<div class="form-row">
+										<div class="form-group col-md-6">
+											<label for="inputCity" class="col-form-label">City</label>
+											<input type="text" class="form-control" placeholder="City" id="inputCity">
+										</div>
+										<div class="form-group col-md-4">
+											<label for="inputState" class="col-form-label">State</label>
+											<select id="inputState" class="form-control">
+												<option>Choose</option>
+												<option>1</option>
+												<option>2</option>
+											</select>
+										</div>
+										<div class="form-group col-md-2">
+											<label for="inputZip" class="col-form-label">Zip</label>
+											<input type="text" class="form-control" placeholder="Zip" id="inputZip">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card mb-0">
+							<div class="card-header" role="tab" id="headingTwo">
+								<h5 class="mb-0">
+									<a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										More Information
+									</a>
+								</h5>
+							</div>
+							<div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion" style="">
+								<div class="card-body">
+									
+								
+								
+								
+								
+								</div>
+							</div>
+						</div>
+						<div class="card mb-0">
+							<div class="card-header" role="tab" id="headingThree">
+								<h5 class="mb-0">
+									<a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										Roles
+									</a>
+								</h5>
+							</div>
+							<div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion" style="">
+								<div class="card-body">
+									
+									@for(int i = 0; i < Model.roles.Count; i++)
+									{
+									
+										<div class="form-check form-check-inline col-md-3">
+											<label class="form-check-label">
+												<input asp-for="@Model.roles[i].IsSelected" type="checkbox" class="form-check-input" />
+												<label asp-for="@Model.roles[i].RoleId"> @Model.roles[i].RoleName</label>
+												<input asp-for="@Model.roles[i].RoleName" type="hidden" />
+												<input asp-for="@Model.roles[i].RoleId" type="hidden" />
+												
+											</label>
+										</div>
+										
+										
+									}
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
+
+					<div class="form-group">
+						<div class="form-check">
+							<label class="form-check-label">
+								<input class="form-check-input" type="checkbox"> Check me out
+							</label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+            </div>
+        </div>
+    </div>
+
+</div>

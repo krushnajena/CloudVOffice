@@ -1,6 +1,8 @@
 ﻿using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.DTO.Users;
+using CloudVOffice.Data.Persistence;
+using CloudVOffice.Data.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,8 @@ namespace CloudVOffice.Services.Users
 {
     public interface  IUserService
     {
-        public Task<User> GetUserByEmailAsync(string Email);
+		
+		public Task<User> GetUserByEmailAsync(string Email);
         public Task<User> GetUserByUserIdAsync(int UserId);
 
         public Task<UserRoleMapping> GetUserMappedRolesByUserIdAsync(int UserId);

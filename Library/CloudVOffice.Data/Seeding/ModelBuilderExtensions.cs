@@ -114,7 +114,9 @@ namespace CloudVOffice.Data.Seeding
                         CreatedBy = 1,
                         IconImageUrl="/appstatic/images/applications.png",
                         CreatedDate = System.DateTime.Now,
-                        Deleted = false
+                        AreaName = "Application",
+
+						Deleted = false
                     },
                       new Application
                       {
@@ -126,10 +128,11 @@ namespace CloudVOffice.Data.Seeding
                           CreatedBy = 1,
                           IconImageUrl = "/appstatic/images/setup.png",
                           CreatedDate = System.DateTime.Now,
-                          Deleted = false
+                          Deleted = false,
+						  AreaName = "Setup"
 
 
-                      },
+					  },
                        new Application
                        {
                            ApplicationId = 3,
@@ -140,10 +143,11 @@ namespace CloudVOffice.Data.Seeding
                            CreatedBy = 1,
 
                            CreatedDate = System.DateTime.Now,
-                           Deleted = false
+                           Deleted = false,
 
+						   AreaName = "Setup"
 
-                       },
+					   },
                         new Application
                         {
                             ApplicationId = 4,
@@ -154,10 +158,11 @@ namespace CloudVOffice.Data.Seeding
                             CreatedBy = 1,
 
                             CreatedDate = System.DateTime.Now,
-                            Deleted = false
+                            Deleted = false,
 
+							AreaName = "Setup"
 
-                        },
+						},
                           new Application
                           {
                               ApplicationId = 5,
@@ -168,10 +173,11 @@ namespace CloudVOffice.Data.Seeding
                               CreatedBy = 1,
 
                               CreatedDate = System.DateTime.Now,
-                              Deleted = false
+                              Deleted = false,
+							  AreaName = "Setup"
 
 
-                          },
+						  },
                           new Application
                           {
                               ApplicationId = 6,
@@ -182,10 +188,11 @@ namespace CloudVOffice.Data.Seeding
                               CreatedBy = 1,
 
                               CreatedDate = System.DateTime.Now,
-                              Deleted = false
+                              Deleted = false,
+							  AreaName = "Setup"
 
 
-                          }
+						  }
 
                     );
 

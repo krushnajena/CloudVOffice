@@ -1,0 +1,14 @@
+﻿{
+  "Group": "HR",
+  "FriendlyName": "HR",
+  "SystemName": "HR.Base",
+  "Version": "0.1",
+  "SupportedVersions": [ "0.1" ],
+  "Author": "Appman team",
+  "DisplayOrder": 1,
+  "FileName": "HR.Base.dll",
+  "Description": "",
+  "InstallationUrl": "/Hr/Installation/Install",
+  "UnInstallationUrl": "/Hr/Installation/UnInstall",
+  "Dependency": []
+}

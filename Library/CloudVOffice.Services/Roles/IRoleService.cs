@@ -15,7 +15,7 @@ namespace CloudVOffice.Services.Roles
         public string InsertRole(string rolename);
 
         /*public string GetRoleList();*/
-        public List<Role> GetAllBranch();
+        public List<Role> GetAllRole();
 
         public Role GetRoleinsingleid(int roleid);
         public string UpdateRole(int roleid, string rolename);

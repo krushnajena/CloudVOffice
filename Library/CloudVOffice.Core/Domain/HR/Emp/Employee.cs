@@ -17,7 +17,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public string Gender { get; set; }	
 		public DateTime? DateOfBirth { get; set; }
 		public DateTime? DateOfJoining { get; set; }
-		public int ErpUser { get; set; }
+		public Int64 ErpUser { get; set; }
 		public bool Status { get; set; }
 
 		public int? DepartmentId { get; set; }

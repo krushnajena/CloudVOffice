@@ -227,5 +227,18 @@ namespace CloudVOffice.Services.Users
         {
             return _context.Users.Where(x => x.Deleted == false).ToList();
         }
-    }
+
+        public object GetUserTypes()
+        {
+			var enumData = from UserType e in Enum.GetValues(typeof(UserType))
+						   select new
+						   {
+							   ID = (int)e,
+							   Name = e.ToString()
+						   };
+            return enumData;
+		}
+
+	
+	}
 }

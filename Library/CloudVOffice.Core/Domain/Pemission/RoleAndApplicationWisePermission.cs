@@ -13,9 +13,9 @@ namespace CloudVOffice.Core.Domain.Pemission
         public Int64 RoleAndApplicationWisePermissionId { get; set; }
         public int ApplicationId { get; set; }
         public int RoleId { get; set; }
-        public int CreatedBy { get; set; }
+        public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int? UpdatedBy { get; set; }
+        public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 

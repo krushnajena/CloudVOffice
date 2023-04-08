@@ -30,7 +30,7 @@ namespace CloudVOffice.Core.Domain.Logging
         /// <summary>
         /// Gets or sets the customer identifier
         /// </summary>
-        public int? UserId { get; set; }
+        public Int64? UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the page URL

@@ -2,7 +2,9 @@
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CloudVOffice.Web.Areas.Setup.Controllers
 {
@@ -26,23 +28,31 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
         }
         public IActionResult CreateUser()
         {
-			UserCreateDTO userCreateDTO = new UserCreateDTO();
+            UserCreateDTO userCreateDTO = new UserCreateDTO();
+            userCreateDTO.roles = new List<UserRolesDTO>();
             var roles = _roleService.GetAllRoles();
-            for (int i = 0; i < roles.Count; i++)
+           
+            ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
+			for (int i = 0; i < roles.Count; i++)
             {
-                userCreateDTO.roles.Add(new UserRolesDTO( ){
-                    IsSelected = false,
-                    RoleId = roles[i].RoleId,
-                    RoleName = roles[i].RoleName }) ;
+                UserRolesDTO userRolesDTO   = new UserRolesDTO();
+                userRolesDTO.IsSelected = false;
+                userRolesDTO.RoleId = roles[i].RoleId;
+                userRolesDTO.RoleName = roles[i].RoleName;
+                userCreateDTO.roles.Add(userRolesDTO) ;
 
 		    }
                
 			return View(userCreateDTO);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateUser(UserCreateDTO createUserDTO)
         {
-            if(ModelState.IsValid)
+
+            createUserDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+			if (ModelState.IsValid)
             {
               var a= await  _userService.CreateUser(createUserDTO); 
               if(a != null)
@@ -66,8 +76,9 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     ModelState.AddModelError("", "Un-Expected Error");
                 }
             }
+			ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
 
-            return  View(createUserDTO);
+			return View(createUserDTO);
         }
     }
 }

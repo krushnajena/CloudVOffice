@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Services.Users;
+﻿using CloudVOffice.Services.HR.Master;
+using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -7,23 +8,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace HR.Base.Controllers
 {
     [Area(AreaNames.HR)]
     public class BranchController : BasePluginController
     {
-        private readonly IUserService _userService;
-        public BranchController(IUserService userService)
-        {
-            _userService = userService;
+        private readonly IBranchService _branchService;
+        public BranchController(IBranchService branchService) {
+        
+            _branchService= branchService;
         }
 
         public IActionResult BranchView()
         {
-            ViewBag.Branches = _userService.GetAllUsers();
-            return View("~/Plugins/HR.Base/Views/Branch/BranchView.cshtml");
+            ViewBag.branches = _branchService.GetBranches();
+
+            return View("~/Plugins/View/Branch/BranchView.cshtml");
         }
-    
+
     }
 }

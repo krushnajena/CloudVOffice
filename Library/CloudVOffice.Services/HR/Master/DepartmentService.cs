@@ -32,8 +32,8 @@ namespace CloudVOffice.Services.HR.Master
                     _departmentRepo.Insert(new Department()
                     {
                         DepartmentName = departmentDTO.DepartmentName,
-                        DepartmentId = departmentDTO.DepartmentId,
-                        Parent = departmentDTO.Parent,
+                  
+                        Parent = departmentDTO.Parent ==0 ? null : departmentDTO.Parent,
                         IsGroup = departmentDTO.IsGroup,
                         CreatedBy = departmentDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
@@ -83,7 +83,7 @@ namespace CloudVOffice.Services.HR.Master
                     if (a != null)
                     {
                         a.DepartmentName = departmentDTO.DepartmentName;
-                        a.Parent = departmentDTO.Parent;
+                        a.Parent = departmentDTO.Parent==0? null: departmentDTO.Parent;
                         a.IsGroup = departmentDTO.IsGroup;
                         a.UpdatedBy = departmentDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
@@ -108,7 +108,17 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                return _dbContext.Departments.Where(x => x.IsGroup == true && x.Deleted ==false).ToList();
+                var a = _dbContext.Departments.Where(x => x.IsGroup == true && x.Deleted == false).ToList();
+                a.Insert(0, new Department()
+                {
+                    DepartmentName = "Primary",
+                    Deleted = false,
+                    DepartmentId = 0,
+                    Parent = null,
+                    CreatedBy = 1,
+                    CreatedDate = DateTime.Now
+                });
+                return a;
 
             }
             catch

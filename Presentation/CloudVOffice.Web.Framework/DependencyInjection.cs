@@ -2,6 +2,7 @@
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Authentication;
+using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
@@ -29,7 +30,13 @@ namespace CloudVOffice.Web.Framework
 
             services.AddScoped<IApplicationInstallationService, ApplicationInstallationService>();
 			services.AddScoped<IHttpWebClients, HttpWebClients>();
-			return services;
+
+            #region HR Services
+            #region Masters
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            #endregion
+            #endregion
+            return services;
         }
     }
 }

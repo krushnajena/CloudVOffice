@@ -1,14 +1,14 @@
 ﻿{
   "Group": "HR",
-  "FriendlyName": "HR",
+  "FriendlyName": "HR Base",
   "SystemName": "HR.Base",
   "Version": "0.1",
   "SupportedVersions": [ "0.1" ],
   "Author": "Appman team",
   "DisplayOrder": 1,
   "FileName": "HR.Base.dll",
-  "Description": "",
-  "InstallationUrl": "/Hr/Installation/Install",
-  "UnInstallationUrl": "/Hr/Installation/UnInstall",
+  "Description": "Basic Employee Record Management System.",
+  "InstallationUrl": "/HR/HRBASE/Install",
+  "UnInstallationUrl": "/HR/HRBASE/Installation/UnInstall",
   "Dependency": []
 }

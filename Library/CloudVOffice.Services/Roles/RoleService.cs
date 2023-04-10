@@ -17,7 +17,7 @@ namespace CloudVOffice.Services.Roles
 			_context = context; ;
 			_roleRepo = roleRepo;
 		}
-		public string CreateRole(string RoleName, int CreatedBy)
+		public Role CreateRole(string RoleName, Int64 CreatedBy)
 		{
 			throw new NotImplementedException();
 		}

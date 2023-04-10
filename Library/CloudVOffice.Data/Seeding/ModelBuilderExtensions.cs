@@ -100,7 +100,7 @@ namespace CloudVOffice.Data.Seeding
                         ApplicationName = "Applications",
                         Parent = null,
                         IsGroup = true,
-                        Url = "/Applications/InstalledApps",
+                        Url = "/Application/Applications/InstalledApps",
                         CreatedBy = 1,
                         IconImageUrl="/appstatic/images/applications.png",
                         CreatedDate = System.DateTime.Now,

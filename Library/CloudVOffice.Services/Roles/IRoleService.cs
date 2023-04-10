@@ -9,7 +9,7 @@ namespace CloudVOffice.Services.Roles
 {
 	public interface IRoleService
 	{
-		public string CreateRole(string RoleName,int CreatedBy);
+		public Role CreateRole(string RoleName,Int64 CreatedBy);
 		public List<Role> GetAllRoles();
 		public Role GetRoleById(string RoleId);
 		public Role GetRoleByName(string RoleName);

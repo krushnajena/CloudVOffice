@@ -50,11 +50,19 @@
                         var menu = @User.Claims.FirstOrDefault(x => x.Type == "Menu").Value.ToString();
                         {
                             var newMenu = JsonConvert.DeserializeObject<List<Application>>(menu);
-                         
-                            for(int k = 0; k < newMenu.Count; k++)
+
+                            for (int k = 0; k < newMenu.Count; k++)
                             {
                                 if (newMenu[k].AreaName == @ViewContext.RouteData.Values["area"].ToString())
                                 {
+                                    <li>
+                                        <a href="@newMenu[k].Url">
+                                            <span class="has-icon">
+                                                <i class="@newMenu[k].IconClass"></i>
+                                            </span>
+                                            <span class="nav-title">@newMenu[k].ApplicationName</span>
+                                        </a>
+                                    </li>
                                     var subMenus = newMenu[k].Children;
                                     for (int i = 0; i < subMenus.Count; i++)
                                     {
@@ -100,12 +108,12 @@
 
                         }
                     }
-                    
 
 
 
 
-                 
+
+
 
 
                 </ul>

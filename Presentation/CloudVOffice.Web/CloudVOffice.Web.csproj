@@ -18,6 +18,8 @@
 		<Folder Include="Areas\Accounts\Data\" />
 		<Folder Include="Areas\Accounts\Models\" />
 		<Folder Include="Areas\Accounts\Views\" />
+		<Folder Include="Areas\Application\Data\" />
+		<Folder Include="Areas\Application\Models\" />
 		<Folder Include="Areas\HR\Controllers\" />
 		<Folder Include="Areas\HR\Data\" />
 		<Folder Include="Areas\HR\Models\" />

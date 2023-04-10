@@ -31,9 +31,12 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<UserWiseViewMapper> UserWiseViewMappers { get; set; }
 
-		#region HR
-		    #region Master
-		public virtual DbSet<Branch> Branches { get; set; }
+
+        public virtual DbSet<InstalledApplication> InstalledApplications{ get; set; }
+
+        #region HR
+        #region Master
+        public virtual DbSet<Branch> Branches { get; set; }
 
 		public virtual DbSet<Department> Departments { get; set; }
 		public virtual DbSet<Designation> Designations { get; set; }

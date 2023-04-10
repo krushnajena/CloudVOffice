@@ -40,7 +40,7 @@ namespace HR.Base.Controllers
             string pluginDetails = jsonPath + "plugin.json";
             PluginConfig item = await JsonFileReader.ReadAsync<PluginConfig>(pluginDetails);
 
-            _applicationInstallationService.InstallApplication(item.SystemName, CreatedBy);
+            _applicationInstallationService.InstallApplication(item.SystemName, CreatedBy,item.Version);
 
 			for(int i = 0; i < item.Dependency.Count; i++)
 			{

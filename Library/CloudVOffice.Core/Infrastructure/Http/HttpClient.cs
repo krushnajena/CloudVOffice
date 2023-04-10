@@ -2,18 +2,21 @@
 
 using System.Text;
 using System.Net.Http.Headers;
-
+using Microsoft.AspNetCore.Http;
 
 namespace CloudVOffice.Core.Infrastructure.Http
 {
 
     public class HttpWebClients : IHttpWebClients
     {
-      
-        public HttpWebClients(  )
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public HttpWebClients( IHttpContextAccessor httpContextAccessor)
         {
-          
+            
+            _httpContextAccessor = httpContextAccessor;
         }
+        
       
 
         public string PostRequest(string Url, string parameterValues, bool isAnonymous)
@@ -60,12 +63,11 @@ namespace CloudVOffice.Core.Infrastructure.Http
 
                 string URL = Url;
                 string jsonString = null;
-                using (var client = new HttpClient())
+                string host = _httpContextAccessor.HttpContext.Request.Host.Value;
+            using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri(URL);
+                    client.BaseAddress = new Uri("https://"+host+URL);
                     client.DefaultRequestHeaders.Accept.Clear();
-                 // var jwt = GetJwt();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                   
                     //GET Method  
                     HttpResponseMessage response = client.GetAsync(URL).Result;

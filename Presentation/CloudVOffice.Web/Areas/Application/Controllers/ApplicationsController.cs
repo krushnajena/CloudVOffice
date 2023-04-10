@@ -62,7 +62,8 @@ namespace CloudVOffice.Web.Areas.Application.Controllers
         {
             _httpWebClient.GetRequest(InstallationUrl + "?CreatedBy=" + Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
 
-			return RedirectToAction("InstalledApps");
+
+            return Redirect("/Application/Applications/InstalledApps");
         }
     }
 }

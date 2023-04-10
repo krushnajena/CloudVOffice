@@ -47,12 +47,27 @@
                     @if (items.IsInstalled == false)
                     {
                         <div class="chartist custom-two">
-                            <a type="button" href="/Application/Application/InstallApplication?InstallationUrl=@items.InstallationUrl" class="btn btn-primary btn-sm" style="color:white">Install</a>
+                          
+                                          <a type="button" href="/Application/Applications/InstallApplication?InstallationUrl=@items.InstallationUrl" class="btn btn-primary btn-sm" style="color:white">Install</a>
+                      
+                            
+
                         </div>
+
                     }
                     else
                     {
-                        <span class="badge badge-pill badge-dark">Installed</span>
+
+                        @if (items.IsNewVersion == true)
+                        {
+                            <a type="button" href="/Application/Applications/InstallApplication?InstallationUrl=@items.InstallationUrl" class="btn btn-primary btn-sm" style="color:white">Upgrade</a>
+                        }
+                        else
+                        {
+                            <span class="badge badge-pill badge-dark">Installed</span>
+                        }
+
+                       
                     }
                 </div>
             </div>

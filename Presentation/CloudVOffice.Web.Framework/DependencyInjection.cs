@@ -1,9 +1,11 @@
-﻿using CloudVOffice.Data.Repository;
+﻿using CloudVOffice.Core.Infrastructure.Http;
+using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -26,7 +28,8 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IApplicationInstallationService, ApplicationInstallationService>();
-            return services;
+			services.AddScoped<IHttpWebClients, HttpWebClients>();
+			return services;
         }
     }
 }

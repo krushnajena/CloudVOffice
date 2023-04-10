@@ -17,9 +17,15 @@ namespace CloudVOffice.Services.Roles
 			_context = context; ;
 			_roleRepo = roleRepo;
 		}
-		public Role CreateRole(string RoleName, Int64 CreatedBy)
+		public async Task<Role> CreateRole(string RoleName, Int64 CreatedBy)
 		{
-			throw new NotImplementedException();
+			var role = _context.Roles.Where(x=>x.RoleName == RoleName && x.Deleted==false).FirstOrDefault();
+			if (role == null)
+			{
+				role =  _roleRepo.Insert(new Role { RoleName = RoleName, CreatedBy = CreatedBy, CreatedDate=System.DateTime.Now, Deleted= false });
+
+            }
+			 return role;
 		}
 
 		public string DeleteRole(int RoleId, int DeletedBy)

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using CloudVOffice.Core.Infrastructure.Http;
 
 namespace CloudVOffice.Web.Areas.Application.Controllers
 {
@@ -17,9 +18,12 @@ namespace CloudVOffice.Web.Areas.Application.Controllers
     public class ApplicationsController : Controller
     {
         private readonly IApplicationInstallationService _applicationInstallationService;
-        public ApplicationsController(IApplicationInstallationService applicationInstallationService) {
+		private readonly IHttpWebClients _httpWebClient;
+		public ApplicationsController(IApplicationInstallationService applicationInstallationService, IHttpWebClients httpWebClient) {
             _applicationInstallationService= applicationInstallationService;
-        }
+			_httpWebClient= httpWebClient;
+
+		}
         [HttpGet]
         public async Task<IActionResult> InstalledApps()
         {
@@ -33,19 +37,32 @@ namespace CloudVOffice.Web.Areas.Application.Controllers
                 if(applications.Where(x=>x.PackageName == item.SystemName).Count() > 0)
                 {
                     item.IsInstalled = true;
-                }
+					if (applications.Where(x => x.Version < item.Version).Count() > 0)
+					{
+						item.IsNewVersion = true;
+					}
+					else
+					{
+						item.IsNewVersion = false;
+					}
+				}
                 else
                 {
                     item.IsInstalled = false;
                 }
+
+
                 pluginConfigs.Add(item);
             }
             ViewBag.apps = pluginConfigs;
             return View();
         }
-        public async Task<IActionResult> InstallApplication(string ApplicationName)
+        
+        public async Task<IActionResult> InstallApplication(string InstallationUrl)
         {
-            return RedirectToAction("InstalledApps");
+            _httpWebClient.GetRequest(InstallationUrl + "?CreatedBy=" + Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
+
+			return RedirectToAction("InstalledApps");
         }
     }
 }

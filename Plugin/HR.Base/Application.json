@@ -1,5 +1,5 @@
 {
-  "Application": {
+  
     "ApplicationName": "HR",
     "Url": "/HR/Hr/Dasboard",
     "IconImageUrl": "/Plugins/HR.Base/logo.png",
@@ -32,5 +32,5 @@
 
 
     ]
-  }
+  
 }

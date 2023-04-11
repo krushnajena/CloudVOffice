@@ -82,7 +82,7 @@ namespace CloudVOffice.Services.Applications
 
         public InstalledApplication InstallApplication(string PackageName,Int64 CreatedBy, double v)
         {
-            var obj = _dbContext.InstalledApplications.Where(x => x.PackageName == PackageName && x.Deleted == false).FirstOrDefault();
+            var obj = _dbContext.InstalledApplications.Where(x => x.PackageName == PackageName && x.Deleted == false && x.Version == v).FirstOrDefault();
             if(obj == null)
             {
                 InstalledApplication installedApplication = new InstalledApplication();

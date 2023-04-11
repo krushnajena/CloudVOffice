@@ -3,6 +3,7 @@
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <header class="main-heading">
     <div class="container-fluid">
@@ -43,7 +44,7 @@
 
 								<label for="DepartmentName" class="form-label">Department Name</label>
 								<input asp-for="@Model.DepartmentName" type="text" class="form-control" autofocus="autofocus" placeholder="DepartmentName" />
-								<span asp-validation-for="Email"></span>
+								<span asp-validation-for="DepartmentName"></span>
 							</div>
 
 						</div>

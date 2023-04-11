@@ -20,6 +20,7 @@
     <None Remove="Views\Branch\BranchCreate.cshtml" />
     <None Remove="Views\Branch\BranchView.cshtml" />
     <None Remove="Views\Department\DepartmentCreate.cshtml" />
+    <None Remove="Views\EmploymentType\EmploymentTypeCreate.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
@@ -54,6 +55,9 @@
 	  <Content Include="Views\Department\DepartmentCreate.cshtml">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Views\EmploymentType\EmploymentTypeCreate.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Views\_ViewImports.cshtml">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -64,6 +68,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>
+
+	
 	<!-- This target execute after "Build" target -->
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->

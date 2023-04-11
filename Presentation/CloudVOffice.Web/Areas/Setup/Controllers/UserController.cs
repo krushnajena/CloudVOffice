@@ -23,7 +23,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		}
         public IActionResult UserList()
         {
-            ViewBag.UserList = _userService.GetAllUsers();
+            var a = _userService.GetAllUsers();
+            ViewBag.UserList = a;
             return View();
         }
         public IActionResult CreateUser()

@@ -23,7 +23,7 @@ namespace HR.Base.Controllers
         {
             ViewBag.branches = _branchService.GetBranches();
 
-            return View("~/Plugins/View/Branch/BranchView.cshtml");
+            return View("~/Plugins/Hr.Base/Views/Branch/BranchView.cshtml");
         }
 
     }

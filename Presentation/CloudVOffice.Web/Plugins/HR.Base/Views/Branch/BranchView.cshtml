@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
     Layout = "_MainAppLayout";
 }
@@ -14,7 +12,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>CRM Dashboard</h5>
+                    <h5>HR</h5>
                     <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
                 </div>
             </div>
@@ -32,7 +30,7 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Users</div>
+                <div class="card-header">Branches</div>
                 <div class="card-body">
                    
                     <ejs-grid id="GridOverview" dataSource="ViewBag.Branches"
@@ -51,12 +49,8 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="UserId" headerText="User Id" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="FirstName" headerText="Computer Name" textAlign="Left" width="120"></e-grid-column>
-
-                            <e-grid-column field="UserId" headerText="Application Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="UserId" headerText="Description" textAlign="Left" width="120"></e-grid-column>
-                          
+                            <e-grid-column field="BranchName" headerText="Branch Name" textAlign="Left" width="120"></e-grid-column>
+                           
                         </e-grid-columns>
                     </ejs-grid>
 

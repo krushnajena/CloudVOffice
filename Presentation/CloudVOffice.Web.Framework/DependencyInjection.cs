@@ -34,6 +34,9 @@ namespace CloudVOffice.Web.Framework
             #region HR Services
             #region Masters
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IDesignationService, DesignationService>();
+            services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
+            services.AddScoped<IBranchService, BranchService>();
             #endregion
             #endregion
             return services;

@@ -88,7 +88,7 @@ namespace CloudVOffice.Services.HR.Master
                         a.UpdatedBy = departmentDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _dbContext.SaveChanges();
-                        return "delete";
+                        return "Updated";
                     }
                     else
                         return "invalid";

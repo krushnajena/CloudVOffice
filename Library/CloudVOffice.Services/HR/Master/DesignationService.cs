@@ -1,5 +1,4 @@
-﻿using Azure.Security.KeyVault.Keys;
-using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -12,26 +11,29 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.HR.Master
 {
-    public class BranchService : IBranchService
+    public class DesignationService : IDesignationService
     {
         private readonly ApplicationDBContext _dbContext;
-        private readonly ISqlRepository<Branch> _branchRepo;
-        public BranchService(ApplicationDBContext dbContext, ISqlRepository<Branch> branchRepo) {
+        private readonly ISqlRepository<Designation> _designationRepo;
+        public DesignationService(ApplicationDBContext dbContext, ISqlRepository<Designation> designationRepo)
+        {
 
             _dbContext = dbContext;
-            _branchRepo = branchRepo;
+            _designationRepo = designationRepo;
         }
-        public string BranchCreate(BranchDTO branchDTO)
+        public string CreateDesignation(DesignationDTO designationDTO)
         {
+
             try
             {
-                var brach = _dbContext.Branches.Where(x => x.BranchName == branchDTO.BranchName && x.Deleted == false).FirstOrDefault();
+                var brach = _dbContext.Designations.Where(x => x.DesignationName == designationDTO.DesignationName && x.Deleted == false).FirstOrDefault();
                 if (brach == null)
                 {
-                    _branchRepo.Insert(new Branch()
+                    _designationRepo.Insert(new Designation()
                     {
-                        BranchName = branchDTO.BranchName,
-                        CreatedBy = branchDTO.CreatedBy,
+                        DesignationName = designationDTO.DesignationName,
+                        Description = designationDTO.Description,
+                        CreatedBy = designationDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
@@ -44,15 +46,13 @@ namespace CloudVOffice.Services.HR.Master
             {
                 throw;
             }
-          
-
         }
 
-        public string BranchDelete(int branchId, int DeletedBy)
+        public string DesignationDelete(int designationId, int DeletedBy)
         {
             try
             {
-                var a = _dbContext.Branches.Where(x => x.BranchId == branchId).FirstOrDefault();
+                var a = _dbContext.Designations.Where(x => x.DesignationId == designationId).FirstOrDefault();
                 if (a != null)
                 {
                     a.Deleted = true;
@@ -68,21 +68,21 @@ namespace CloudVOffice.Services.HR.Master
             {
                 throw;
             }
-            
         }
 
-        public string BranchUpdate(BranchDTO branchDTO)
+        public string DesignationUpdate(DesignationDTO designationDTO)
         {
             try
             {
-                var branch = _dbContext.Branches.Where(x => x.BranchId != branchDTO.BranchId && x.BranchName == branchDTO.BranchName && x.Deleted==false).FirstOrDefault();
-                if(branch == null)
+                var branch = _dbContext.Designations.Where(x => x.DesignationId != designationDTO.DesignationId && x.DesignationName == designationDTO.DesignationName && x.Deleted == false).FirstOrDefault();
+                if (branch == null)
                 {
-                    var a = _dbContext.Branches.Where(x => x.BranchId == branchDTO.BranchId).FirstOrDefault();
+                    var a = _dbContext.Designations.Where(x => x.DesignationId == designationDTO.DesignationId).FirstOrDefault();
                     if (a != null)
                     {
-                        a.BranchName = branchDTO.BranchName;
-                        a.UpdatedBy = branchDTO.CreatedBy;
+                        a.DesignationName = designationDTO.DesignationName;
+                        a.Description = designationDTO.Description;
+                        a.UpdatedBy = designationDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _dbContext.SaveChanges();
                         return "updated";
@@ -94,33 +94,6 @@ namespace CloudVOffice.Services.HR.Master
                 {
                     return "duplicate";
                 }
-                
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public Branch GetBranchByBranchId(int branchId)
-        {
-            try
-            {
-                return _dbContext.Branches.Where(x => x.BranchId == branchId && x.Deleted == false).SingleOrDefault();
-
-            }
-            catch
-            {
-                throw;
-            }
-          
-        }
-
-        public Branch GetBranchByBranchName(string branchName)
-        {
-            try
-            {
-                return _dbContext.Branches.Where(x => x.BranchName == branchName && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -129,11 +102,24 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public List<Branch> GetBranches()
+        public Designation GetDesignationById(int designationId)
         {
             try
             {
-                return _dbContext.Branches.Where(x =>  x.Deleted == false).ToList();
+                return _dbContext.Designations.Where(x => x.DesignationId == designationId && x.Deleted == false).SingleOrDefault();
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<Designation> GetDesignationList()
+        {
+            try
+            {
+                return _dbContext.Designations.Where(x => x.Deleted == false).ToList();
 
             }
             catch

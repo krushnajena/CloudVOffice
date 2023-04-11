@@ -51,7 +51,7 @@ namespace HR.Base.Controllers
                 if (employmenttypeDTO.EmploymentTypeId == null)
                 {
                     var a = _employmentTypeService.EmployementTypeCreate(employmenttypeDTO);
-                    if (a == "success")
+                    if (a == "Success")
                     {
                         return Redirect("/HR/EmploymentType/EmploymentTypeList");
                     }

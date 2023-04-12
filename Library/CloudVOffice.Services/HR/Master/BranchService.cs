@@ -1,4 +1,5 @@
 ﻿using Azure.Security.KeyVault.Keys;
+using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
@@ -21,7 +22,7 @@ namespace CloudVOffice.Services.HR.Master
             _Context = Context;
             _branchRepo = branchRepo;
         }
-        public string BranchCreate(BranchDTO branchDTO)
+        public MennsageEnum BranchCreate(BranchDTO branchDTO)
         {
             try
             {
@@ -35,10 +36,10 @@ namespace CloudVOffice.Services.HR.Master
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return "Success";
+                    return MennsageEnum.Success;
                 }
                 else
-                    return "duplicate";
+                    return MennsageEnum.Duplicate;
             }
             catch
             {
@@ -48,7 +49,7 @@ namespace CloudVOffice.Services.HR.Master
 
         }
 
-        public string BranchDelete(int branchId, int DeletedBy)
+        public MennsageEnum BranchDelete(int branchId, int DeletedBy)
         {
             try
             {
@@ -59,10 +60,10 @@ namespace CloudVOffice.Services.HR.Master
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _Context.SaveChanges();
-                    return "deleted";
+                    return MennsageEnum.Deleted;
                 }
                 else
-                    return "invalid";
+                    return MennsageEnum.Invalid;
             }
             catch
             {
@@ -71,7 +72,7 @@ namespace CloudVOffice.Services.HR.Master
             
         }
 
-        public string BranchUpdate(BranchDTO branchDTO)
+        public MennsageEnum BranchUpdate(BranchDTO branchDTO)
         {
             try
             {
@@ -85,14 +86,14 @@ namespace CloudVOffice.Services.HR.Master
                         a.UpdatedBy = branchDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
-                        return "updated";
+                        return MennsageEnum.Updated;
                     }
                     else
-                        return "invalid";
+                        return MennsageEnum.Invalid;
                 }
                 else
                 {
-                    return "duplicate";
+                    return MennsageEnum.Duplicate;
                 }
                 
             }

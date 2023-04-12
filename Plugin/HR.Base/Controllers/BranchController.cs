@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Users;
@@ -50,11 +51,11 @@ namespace HR.Base.Controllers
                 if (branchDTO.BranchId == null)
                 {
                     var a = _branchService.BranchCreate(branchDTO);
-                    if (a == "Success")
+                    if (a == MennsageEnum.Success)
                     {
                         return Redirect("/HR/Branch/BranchList");
                     }
-                    else if (a == "duplicate")
+                    else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Branch Already Exists");
                     }
@@ -66,11 +67,11 @@ namespace HR.Base.Controllers
                 else
                 {
                     var a = _branchService.BranchUpdate(branchDTO);
-                    if (a == "success")
+                    if (a == MennsageEnum.Success)
                     {
 
                     }
-                    else if (a == "duplicate")
+                    else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Branch Already Exists");
                     }

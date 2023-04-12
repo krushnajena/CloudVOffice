@@ -1,4 +1,7 @@
-﻿@{
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
@@ -11,7 +14,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>HR</h5>
+                    <h5>CRM Dashboard</h5>
                     <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
                 </div>
             </div>
@@ -29,10 +32,10 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Departments</div>
+                <div class="card-header">Designation</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.Departments"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.designations"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -48,10 +51,8 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="DepartmentsName" headerText="Departments Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Parent" headerText="Parent" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="IsGroup" headerText="IsGroup" textAlign="Left" width="120"></e-grid-column>
-
+                            <e-grid-column field="DesignationName" headerText="Designation Name" textAlign="Left" width="120"></e-grid-column>
+                           
                         </e-grid-columns>
                     </ejs-grid>
 

@@ -51,7 +51,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public string DepartmentDelete(int deprtmentid, int DeletedBy)
+        public MennsageEnum DepartmentDelete(int deprtmentid, int DeletedBy)
         {
             try
             {
@@ -62,10 +62,10 @@ namespace CloudVOffice.Services.HR.Master
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _dbContext.SaveChanges();
-                    return "deleted";
+                    return MennsageEnum.Deleted;
                 }
                 else
-                    return "invalid";
+                    return MennsageEnum.Invalid;
             }
             catch
             {
@@ -73,7 +73,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public string DepartmentUpdate(DepartmentDTO departmentDTO)
+        public MennsageEnum DepartmentUpdate(DepartmentDTO departmentDTO)
         {
 
             try
@@ -90,14 +90,14 @@ namespace CloudVOffice.Services.HR.Master
                         a.UpdatedBy = departmentDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _dbContext.SaveChanges();
-                        return "Updated";
+                        return MennsageEnum.Updated;
                     }
                     else
-                        return "invalid";
+                        return MennsageEnum.Invalid;
                 }
                 else
                 {
-                    return "duplicate";
+                    return MennsageEnum.Duplicate;
                 }
             }
             catch

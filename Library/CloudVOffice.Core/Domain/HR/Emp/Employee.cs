@@ -13,6 +13,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 {
 	public class Employee:IAuditEntity, ISoftDeletedEntity
 	{
+
 		public Int64 EmployeeId { get; set; }
 		public string EmployeeCode { get; set; }
 		public string Salutation { get; set; }

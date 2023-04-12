@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -21,7 +22,7 @@ namespace CloudVOffice.Services.HR.Master
             _dbContext = dbContext;
             _designationRepo = designationRepo;
         }
-        public string CreateDesignation(DesignationDTO designationDTO)
+        public MennsageEnum CreateDesignation(DesignationDTO designationDTO)
         {
 
             try
@@ -37,10 +38,10 @@ namespace CloudVOffice.Services.HR.Master
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return "Success";
+                    return MennsageEnum.Success;
                 }
                 else
-                    return "duplicate";
+                    return MennsageEnum.Duplicate;
             }
             catch
             {
@@ -48,7 +49,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public string DesignationDelete(int designationId, int DeletedBy)
+        public MennsageEnum DesignationDelete(int designationId, int DeletedBy)
         {
             try
             {
@@ -59,10 +60,10 @@ namespace CloudVOffice.Services.HR.Master
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _dbContext.SaveChanges();
-                    return "deleted";
+                    return MennsageEnum.Deleted;
                 }
                 else
-                    return "invalid";
+                    return MennsageEnum.Invalid;
             }
             catch
             {
@@ -70,7 +71,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public string DesignationUpdate(DesignationDTO designationDTO)
+        public MennsageEnum DesignationUpdate(DesignationDTO designationDTO)
         {
             try
             {
@@ -85,14 +86,14 @@ namespace CloudVOffice.Services.HR.Master
                         a.UpdatedBy = designationDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _dbContext.SaveChanges();
-                        return "updated";
+                        return MennsageEnum.Updated;
                     }
                     else
-                        return "invalid";
+                        return MennsageEnum.Invalid;
                 }
                 else
                 {
-                    return "duplicate";
+                    return MennsageEnum.Duplicate;
                 }
 
             }
@@ -126,6 +127,11 @@ namespace CloudVOffice.Services.HR.Master
             {
                 throw;
             }
+        }
+
+        MennsageEnum IDesignationService.DesignationUpdate(DesignationDTO designationDTO)
+        {
+            throw new NotImplementedException();
         }
     }
 }

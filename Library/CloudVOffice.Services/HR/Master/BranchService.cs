@@ -14,18 +14,18 @@ namespace CloudVOffice.Services.HR.Master
 {
     public class BranchService : IBranchService
     {
-        private readonly ApplicationDBContext _dbContext;
+        private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<Branch> _branchRepo;
-        public BranchService(ApplicationDBContext dbContext, ISqlRepository<Branch> branchRepo) {
+        public BranchService(ApplicationDBContext Context, ISqlRepository<Branch> branchRepo) {
 
-            _dbContext = dbContext;
+            _Context = Context;
             _branchRepo = branchRepo;
         }
         public string BranchCreate(BranchDTO branchDTO)
         {
             try
             {
-                var brach = _dbContext.Branches.Where(x => x.BranchName == branchDTO.BranchName && x.Deleted == false).FirstOrDefault();
+                var brach = _Context.Branches.Where(x => x.BranchName == branchDTO.BranchName && x.Deleted == false).FirstOrDefault();
                 if (brach == null)
                 {
                     _branchRepo.Insert(new Branch()
@@ -52,13 +52,13 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                var a = _dbContext.Branches.Where(x => x.BranchId == branchId).FirstOrDefault();
+                var a = _Context.Branches.Where(x => x.BranchId == branchId).FirstOrDefault();
                 if (a != null)
                 {
                     a.Deleted = true;
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
-                    _dbContext.SaveChanges();
+                    _Context.SaveChanges();
                     return "deleted";
                 }
                 else
@@ -75,16 +75,16 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                var branch = _dbContext.Branches.Where(x => x.BranchId != branchDTO.BranchId && x.BranchName == branchDTO.BranchName && x.Deleted==false).FirstOrDefault();
+                var branch = _Context.Branches.Where(x => x.BranchId != branchDTO.BranchId && x.BranchName == branchDTO.BranchName && x.Deleted==false).FirstOrDefault();
                 if(branch == null)
                 {
-                    var a = _dbContext.Branches.Where(x => x.BranchId == branchDTO.BranchId).FirstOrDefault();
+                    var a = _Context.Branches.Where(x => x.BranchId == branchDTO.BranchId).FirstOrDefault();
                     if (a != null)
                     {
                         a.BranchName = branchDTO.BranchName;
                         a.UpdatedBy = branchDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
-                        _dbContext.SaveChanges();
+                        _Context.SaveChanges();
                         return "updated";
                     }
                     else
@@ -106,7 +106,7 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                return _dbContext.Branches.Where(x => x.BranchId == branchId && x.Deleted == false).SingleOrDefault();
+                return _Context.Branches.Where(x => x.BranchId == branchId && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -120,7 +120,7 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                return _dbContext.Branches.Where(x => x.BranchName == branchName && x.Deleted == false).SingleOrDefault();
+                return _Context.Branches.Where(x => x.BranchName == branchName && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -133,7 +133,7 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                return _dbContext.Branches.Where(x =>  x.Deleted == false).ToList();
+                return _Context.Branches.Where(x =>  x.Deleted == false).ToList();
 
             }
             catch

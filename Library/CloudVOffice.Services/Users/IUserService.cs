@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Common;
+﻿using Azure.Security.KeyVault.Keys;
+using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.DTO.Users;
@@ -29,7 +30,7 @@ namespace CloudVOffice.Services.Users
         public List<User> GetAllUsers();
         public object GetUserTypes();
 
-        public MennsageEnum DeleteUser(Int64 UserId);
+        public MennsageEnum DeleteUser(Int64 UserId,Int64 deletedby);
 
 	}
 }

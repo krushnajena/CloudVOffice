@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Common;
+﻿using Azure.Security.KeyVault.Keys;
+using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LinqToDB.Reflection.Methods.LinqToDB;
 
 namespace CloudVOffice.Services.Users
 {
@@ -242,9 +244,26 @@ namespace CloudVOffice.Services.Users
             return enumData;
 		}
 
-		public MennsageEnum DeleteUser(Int64 UserId)
+		public MennsageEnum DeleteUser(Int64 UserId ,Int64 deletedby)
 		{
-			throw new NotImplementedException();
-		}
+            try
+            {
+                var a = _context.Users.Where(x => x.UserId == UserId).FirstOrDefault();
+                if (a != null)
+                {
+                    a.Deleted = true;
+                    a.UpdatedBy = deletedby;
+                    a.UpdatedDate = DateTime.Now;
+                    _context.SaveChanges();
+                    return MennsageEnum.Deleted;
+                }
+                else
+                    return MennsageEnum.Invalid;
+            }
+            catch
+            {
+                throw;
+            }
+        }
 	}
 }

@@ -132,7 +132,9 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
         [HttpGet]
         public IActionResult DeleteUser(Int64 UserId)
         {
-            var a = _userService.DeleteUser(UserId);
+            Int64 DeletedBy= Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+            var a = _userService.DeleteUser(UserId, DeletedBy);
 			return Redirect("/Setup/User/UserList");
 		}
     }

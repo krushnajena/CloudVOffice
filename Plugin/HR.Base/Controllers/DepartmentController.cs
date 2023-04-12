@@ -44,12 +44,13 @@ namespace HR.Base.Controllers
         [HttpPost]
         public IActionResult DepartmentCreate(DepartmentDTO departmentDTO)
         {
+            departmentDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             if (ModelState.IsValid)
             {
 				if (departmentDTO.DepartmentId == null)
 				{
                     var a = _departmentService.CreateDepartment(departmentDTO);
-                    if (a == "success")
+                    if (a == "Success")
                     {
                         return Redirect("/HR/Department/DepartmentList");
                     }
@@ -83,10 +84,12 @@ namespace HR.Base.Controllers
 
 			return View("~/Plugins/HR.Base/Views/Department/DepartmentCreate.cshtml", departmentDTO);
         }
+		public IActionResult DepartmentView()
+		{
+			ViewBag.Departments = _departmentService.GetDepartmentList();
 
-        public IActionResult DepartmentView()
-        {
-            ViewBag.Departments = _departmentService.GetDepartmentList();
+			return View("~/Plugins/HR.Base/Views/Department/DepartmentView.cshtml");
+		}
 
             return View("~/Plugins/Hr.Base/Views/Department/DepartmentView.cshtml");
         }

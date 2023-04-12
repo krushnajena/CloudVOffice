@@ -1,7 +1,9 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using LinqToDB;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,26 +24,26 @@ namespace CloudVOffice.Services.HR.Master
             _dbContext = dbContext;
             _departmentRepo = departmentRepo;
         }
-        public string CreateDepartment(DepartmentDTO departmentDTO)
+        public MennsageEnum CreateDepartment(DepartmentDTO departmentDTO)
         {
             try
             {
-                var department = _dbContext.Departments.Where(x => x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false && x.Parent==departmentDTO.Parent);
+                var department = _dbContext.Departments.Where(x => x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false && x.Parent== (departmentDTO.Parent == 0 ? null : departmentDTO.Parent)).FirstOrDefault();
                 if (department == null)
                 {
                     _departmentRepo.Insert(new Department()
                     {
                         DepartmentName = departmentDTO.DepartmentName,
-                  
-                        Parent = departmentDTO.Parent ==0 ? null : departmentDTO.Parent,
+
+                        Parent = departmentDTO.Parent == 0 ? null : departmentDTO.Parent,
                         IsGroup = departmentDTO.IsGroup,
                         CreatedBy = departmentDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                     });
-                    return "Success";
+                    return MennsageEnum.Success;
                 }
-                else return "duplicate";
+                else return MennsageEnum.Duplicate;
             }
             catch
             {

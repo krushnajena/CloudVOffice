@@ -18,6 +18,7 @@ namespace CloudVOffice.Core.Domain.Comunication
 
         public string EmailSignature { get; set; }
         public string EmailLogo { get; set; }
+        public bool IsDefaultSending { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public Int64? UpdatedBy { get; set; }

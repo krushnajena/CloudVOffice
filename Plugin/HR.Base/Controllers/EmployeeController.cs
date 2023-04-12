@@ -27,7 +27,7 @@ namespace HR.Base.Controllers
 		public IActionResult EmployeeCreat(int? EmployeeCode)
 		{
 			EmployeeCreateDTO employeeCreateDTO = new EmployeeCreateDTO();
-			ViewBag.ParentDepartmentList = new SelectList(_empolyeeService.GetBranches(), "BranchId", "BranchName");
+			//ViewBag.ParentDepartmentList = new SelectList(_empolyeeService.GetBranches(), "BranchId", "BranchName");
 			if (EmployeeCode != null)
 			{
 
@@ -60,41 +60,7 @@ namespace HR.Base.Controllers
 		[HttpPost]
 		public IActionResult EmployeeCreate(EmployeeCreateDTO employeeCreateDTO)
 		{
-			if (ModelState.IsValid)
-			{
-				if (employeeCreateDTO.EmployeeCode == null)
-				{
-					var a = _empolyeeService.CreateEmployee(employeeCreateDTO);
-					if (a == null)
-					{
-						return Redirect("/HR/Employee/EmployeeList");
-					}
-					else if (a != null)
-					{
-						ModelState.AddModelError("", "Department Already Exists");
-					}
-					else
-					{
-						ModelState.AddModelError("", "Un-Expected Error");
-					}
-				}
-				else
-				{
-					var a = _empolyeeService.UpdateEmployee(employeeCreateDTO);
-					if (a == "success")
-					{
-
-					}
-					else if (a == "duplicate")
-					{
-						ModelState.AddModelError("", "Department Already Exists");
-					}
-					else
-					{
-						ModelState.AddModelError("", "Un-Expected Error");
-					}
-				}
-			}
+			
 			ViewBag.ParentEmployeeList = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmps(), "EmployeeCode", "EmployeeName");
 
 			return View("~/Plugins/HR.Base/Views/Employee/EmployeeCreate.cshtml", employeeCreateDTO);

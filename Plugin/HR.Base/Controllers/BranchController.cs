@@ -67,10 +67,10 @@ namespace HR.Base.Controllers
                 else
                 {
                     var a = _branchService.BranchUpdate(branchDTO);
-                    if (a == MennsageEnum.Success)
+                    if (a == MennsageEnum.Updated)
                     {
-
-                    }
+						return Redirect("/HR/Branch/BranchList");
+					}
                     else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Branch Already Exists");

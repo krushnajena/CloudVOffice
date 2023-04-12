@@ -53,11 +53,11 @@ namespace CloudVOffice.Core.Domain.Users
             set => UserTypeId = (int)value;
         }
 
-        public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
-        public ICollection<UserWiseViewMapper> UserWiseViewMapper { get; set; }
+        public List<UserRoleMapping> UserRoleMappings { get; set; }
+        public List<UserWiseViewMapper> UserWiseViewMapper { get; set; }
 
 
-        public ICollection<ProjectUser> ProjectUsers { get; set; }
+        public List<ProjectUser> ProjectUsers { get; set; }
 
 
     }

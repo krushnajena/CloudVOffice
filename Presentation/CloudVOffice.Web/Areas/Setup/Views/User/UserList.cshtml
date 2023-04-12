@@ -59,7 +59,7 @@
                            
                             <e-grid-column field="IsActive" headerText="Status" template="#statusTemplate" width="50"></e-grid-column>
                             <e-grid-column field="UserType" headerText="User Type" textAlign="Left" width="80"></e-grid-column>
-                            <e-grid-column field="User.UserType" headerText="User Type" textAlign="Left" width="80"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -70,11 +70,14 @@
 
 </div>
 
+<script id="Actions" type="text/x-template">
+    <div class="link">
+        <a href="../../SetUp/User/CreateUser?UserId=${UserId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../SetUp/User/DeleteUser?UserId=${UserId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+    </div>
+</script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
-
-   
-    
 </script>
 <script>
 

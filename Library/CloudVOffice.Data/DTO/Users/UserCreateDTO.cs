@@ -11,6 +11,7 @@ namespace CloudVOffice.Data.DTO.Users
 {
     public class UserCreateDTO
     {
+        public Int64? UserId { get; set; }
 		[Required]
 		[DisplayName("First Name")]
         public string FirstName { get; set; }

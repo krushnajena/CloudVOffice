@@ -3,7 +3,8 @@
     Layout = "_MainAppLayout";
     ViewData["Title"] = "User Create";
 }
-
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <header class="main-heading">
     <div class="container-fluid">
@@ -40,9 +41,23 @@
 				<div class="card-body">
 					<div class="form-row">
 						<div class="form-group col-md-3">
+								<input asp-for="@Model.UserId" type="hidden" />
+
 
 							<label for="Email" class="form-label">Email</label>
-							<input asp-for="@Model.Email" type="email" class="form-control" autofocus="autofocus" placeholder="Email" />
+								@{
+									if (Model.UserId == null)
+									{
+										<input asp-for="@Model.Email" type="email" class="form-control" autofocus="autofocus" placeholder="Email" />
+
+									}
+									else
+									{
+										<input asp-for="@Model.Email" type="email" class="form-control" autofocus="autofocus" placeholder="Email" disabled />
+									}
+								}
+
+							
 							<span asp-validation-for="Email"></span>
 						</div>
 					
@@ -125,20 +140,27 @@
 				</div>
 
 
-				<div class="card-header"><b>Set A Password</b></div>
-				<div class="card-body">
-					<div class="form-row">
-						<div class="form-group col-md-3">
+				
+					@{
+						if (@Model.UserId == null)
+						{
+							<div class="card-header"><b>Set A Password</b></div>
+							<div class="card-body">
+								<div class="form-row">
+									<div class="form-group col-md-3">
 
-							<label for="Password" class="form-label">Password</label>
-							<input asp-for="@Model.Password" type="password" class="form-control" autofocus="autofocus" placeholder="Password" />
-							<span asp-validation-for="Password"></span>
-						</div>
-					
+										<label for="Password" class="form-label">Password</label>
+										<input asp-for="@Model.Password" type="password" class="form-control" autofocus="autofocus" placeholder="Password" />
+										<span asp-validation-for="Password"></span>
+									</div>
 
-					</div>
-				</div>
 
+								</div>
+							</div>
+
+						}
+					}
+			
 
 				<div class="card-body">
 

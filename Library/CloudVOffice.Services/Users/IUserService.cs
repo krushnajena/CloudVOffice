@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Pemission;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Data.Persistence;
@@ -15,7 +16,7 @@ namespace CloudVOffice.Services.Users
     {
 		
 		public Task<User> GetUserByEmailAsync(string Email);
-        public Task<User> GetUserByUserIdAsync(int UserId);
+        public User GetUserByUserId(Int64 UserId);
 
         public Task<UserRoleMapping> GetUserMappedRolesByUserIdAsync(int UserId);
 
@@ -27,6 +28,8 @@ namespace CloudVOffice.Services.Users
 
         public List<User> GetAllUsers();
         public object GetUserTypes();
+
+        public MennsageEnum DeleteUser(Int64 UserId);
 
 	}
 }

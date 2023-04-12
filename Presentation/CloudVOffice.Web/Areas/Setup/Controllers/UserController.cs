@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Data.DTO.Users;
+﻿using CloudVOffice.Core.Domain.Users;
+using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
@@ -27,22 +28,68 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
             ViewBag.UserList = a;
             return View();
         }
-        public IActionResult CreateUser()
+        public IActionResult CreateUser(Int64? UserId)
         {
-            UserCreateDTO userCreateDTO = new UserCreateDTO();
-            userCreateDTO.roles = new List<UserRolesDTO>();
-            var roles = _roleService.GetAllRoles();
-           
-            ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
-			for (int i = 0; i < roles.Count; i++)
-            {
-                UserRolesDTO userRolesDTO   = new UserRolesDTO();
-                userRolesDTO.IsSelected = false;
-                userRolesDTO.RoleId = roles[i].RoleId;
-                userRolesDTO.RoleName = roles[i].RoleName;
-                userCreateDTO.roles.Add(userRolesDTO) ;
 
-		    }
+            UserCreateDTO userCreateDTO;
+            var roles = _roleService.GetAllRoles();
+
+            if (UserId == null)
+            {
+                userCreateDTO = new UserCreateDTO();
+                userCreateDTO.roles = new List<UserRolesDTO>();
+                for (int i = 0; i < roles.Count; i++)
+                {
+                    UserRolesDTO userRolesDTO = new UserRolesDTO();
+
+                    userRolesDTO.IsSelected = false;
+                    userRolesDTO.RoleId = roles[i].RoleId;
+                    userRolesDTO.RoleName = roles[i].RoleName;
+                    userCreateDTO.roles.Add(userRolesDTO);
+
+                }
+            }
+            else
+            {
+                User user = _userService.GetUserByUserId(int.Parse(UserId.ToString()));
+                userCreateDTO = new UserCreateDTO();
+				userCreateDTO.UserId = user.UserId;
+				userCreateDTO.FirstName = user.FirstName;
+                userCreateDTO.MiddleName = user.MiddleName;
+                userCreateDTO.LastName = user.LastName;
+                userCreateDTO.Email = user.Email;
+                userCreateDTO.PhoneNo = user.PhoneNo;
+
+                userCreateDTO.DateOfBirth = user.DateOfBirth;
+                userCreateDTO.UserTypeId = user.UserTypeId;
+                userCreateDTO.roles = new List<UserRolesDTO>();
+                for (int i = 0; i < roles.Count; i++)
+                {
+                    UserRolesDTO userRolesDTO = new UserRolesDTO();
+                    userRolesDTO.IsSelected = false;
+                    for (int j=0; j < user.UserRoleMappings.Count; j++)
+                    {
+                        if (user.UserRoleMappings[j].RoleId == roles[i].RoleId)
+                        {
+                            userRolesDTO.IsSelected = true;
+                        }
+                       
+                    }
+                   
+                    userRolesDTO.RoleId = roles[i].RoleId;
+                    userRolesDTO.RoleName = roles[i].RoleName;
+                    userCreateDTO.roles.Add(userRolesDTO);
+
+                }
+
+            }
+           
+          
+            ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
+          
+			
+            
+
                
 			return View(userCreateDTO);
         }
@@ -81,5 +128,12 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 			return View(createUserDTO);
         }
+
+        [HttpGet]
+        public IActionResult DeleteUser(Int64 UserId)
+        {
+            var a = _userService.DeleteUser(UserId);
+			return Redirect("/Setup/User/UserList");
+		}
     }
 }

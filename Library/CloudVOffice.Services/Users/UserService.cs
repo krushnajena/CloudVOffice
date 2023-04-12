@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Pemission;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
 using CloudVOffice.Data.DTO.Users;
@@ -39,9 +40,11 @@ namespace CloudVOffice.Services.Users
             return user;
         }
 
-        public Task<User> GetUserByUserIdAsync(int UserId)
+        public User GetUserByUserId(Int64 UserId)
         {
-            throw new NotImplementedException();
+            return _context.Users
+                  .Include(x => x.UserRoleMappings)
+                .Where(x => x.Deleted == false && x.UserId == UserId).SingleOrDefault();
         }
 
         public Task<UserRoleMapping> GetUserMappedRolesByUserIdAsync(int UserId)
@@ -239,6 +242,9 @@ namespace CloudVOffice.Services.Users
             return enumData;
 		}
 
-	
+		public MennsageEnum DeleteUser(Int64 UserId)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

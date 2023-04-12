@@ -364,3 +364,4 @@ FodyWeavers.xsd
 
 # exclude everything
 Plugins/*
+Presentation/CloudVOffice.Web/Plugins/*

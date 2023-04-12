@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CloudVOffice.Core.Domain.HR.Master;
+using CloudVOffice.Core.Domain.Projects;
+using CloudVOffice.Core.Domain.Users;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -79,6 +83,12 @@ namespace CloudVOffice.Core.Domain.HR.Emp
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
+		public  ICollection<ProjectEmployee> ProjectEmployees { get; set; }
 
+		[JsonIgnore]
+		public User User { get; set; }
+
+    
+        public List<Employee> Employees { get; set; }
     }
 }

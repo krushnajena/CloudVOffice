@@ -32,8 +32,9 @@
 	<ItemGroup>
 	  <Folder Include="Configuration\" />
 	  <Folder Include="Domain\Address\" />
-	  <Folder Include="Domain\Company\" />
 	  <Folder Include="Domain\Contact\" />
+	  <Folder Include="Domain\Accounts\" />
+	  <Folder Include="Domain\CRM\" />
 	</ItemGroup>
 	
 

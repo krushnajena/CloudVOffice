@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Pemission;
+using CloudVOffice.Core.Domain.Projects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -54,6 +55,10 @@ namespace CloudVOffice.Core.Domain.Users
 
         public ICollection<UserRoleMapping> UserRoleMappings { get; set; }
         public ICollection<UserWiseViewMapper> UserWiseViewMapper { get; set; }
-        
+
+
+        public ICollection<ProjectUser> ProjectUsers { get; set; }
+
+
     }
 }

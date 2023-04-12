@@ -19,6 +19,8 @@
     <None Remove="roles.json" />
     <None Remove="Views\Branch\BranchView.cshtml" />
     <None Remove="Views\Department\DepartmentCreate.cshtml" />
+    <None Remove="Views\Designation\DesignationCreate.cshtml" />
+    <None Remove="Views\Designation\DesignationView.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
@@ -48,6 +50,12 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Views\Department\DepartmentCreate.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Designation\DesignationCreate.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\Designation\DesignationView.cshtml">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Views\_ViewImports.cshtml">

@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Web.Framework;
@@ -48,11 +49,11 @@ namespace HR.Base.Controllers
                 if (designationDTO.DesignationId == null)
                 {
                     var a = _designationService.CreateDesignation(designationDTO);
-                    if (a == "success")
+                    if (a == MennsageEnum.Success)
                     {
                         return Redirect("/HR/Designation/DesignationList");
                     }
-                    else if (a == "duplicate")
+                    else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Designation Already Exists");
                     }
@@ -64,11 +65,11 @@ namespace HR.Base.Controllers
                 else
                 {
                     var a = _designationService.DesignationUpdate(designationDTO);
-                    if (a == "success")
+                    if (a == MennsageEnum.Success)
                     {
 
                     }
-                    else if (a == "duplicate")
+                    else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Designation Already Exists");
                     }

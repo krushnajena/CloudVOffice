@@ -43,9 +43,9 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public int? DesignationId { get; set; }
 		public int? BranchId { get; set; }
 		public int? EmploymentTypeId { get; set;}
-		public int ? ReportToEmployeeId { get; set; }
+		public Int64 ? ReportToEmployeeId { get; set; }
 
-		public int? JobApplicantId { get; set; }
+		public Int64? JobApplicantId { get; set; }
 		public DateTime? OfferDate { get; set; }
 		public DateTime? ConfirmationDate { get; set; }
 		public DateTime? ContractEndDate { get; set; }

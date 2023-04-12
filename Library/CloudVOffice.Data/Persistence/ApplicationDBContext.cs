@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Logging;
 using CloudVOffice.Core.Domain.Pemission;
@@ -53,8 +54,12 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<Department> Departments { get; set; }
 		public virtual DbSet<Designation> Designations { get; set; }
 		public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
-        #endregion
-        #endregion
+		#endregion
+
+		#region Employee
+		public virtual DbSet<Employee> Employees { get; set; }
+		#endregion
+		
 
         #region Project
         public virtual DbSet<ProjectType> ProjectTypes { get; set; }

@@ -1,10 +1,10 @@
-﻿@model CloudVOffice.Data.DTO.HR.Master.BranchDTO;
+﻿@model CloudVOffice.Data.DTO.HR.Master.EmploymentTypeDTO;
+
 @{
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
-
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -25,14 +25,12 @@
         </div>
     </div>
 </header>
-
-
 <div class="main-content">
 	<div class="row gutters">
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="Hr/Branch/BranchCreate" method="post" autocomplete="off">
+				<form asp-route="Hr/EmploymentType/EmploymentTypeCreate" method="post" autocomplete="off">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
 
 
@@ -40,16 +38,15 @@
 					<div class="card-body">
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<input asp-for="@Model.BranchId" type="hidden" />
+								<input asp-for="@Model.EmploymentTypeId" type="hidden" />
 
-								<label for="BranchName" class="form-label">Branch Name</label>
-								<input asp-for="@Model.BranchName" type="text" class="form-control" autofocus="autofocus" placeholder="BranchName" />
-								<span asp-validation-for="BranchName"></span>
+								<label for="EmploymentTypeName" class="form-label">EmploymentType Name</label>
+								<input asp-for="@Model.EmploymentTypeName" type="text" class="form-control" autofocus="autofocus" placeholder="DepartmentName" />
+								<span asp-validation-for="EmploymentTypeName"></span>
 							</div>
 
 						</div>
-						
-					</div>
+				    </div>
 
 					<div class="card-body">
 

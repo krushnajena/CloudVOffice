@@ -17,8 +17,10 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="roles.json" />
+    <None Remove="Views\Branch\BranchCreate.cshtml" />
     <None Remove="Views\Branch\BranchView.cshtml" />
     <None Remove="Views\Department\DepartmentCreate.cshtml" />
+    <None Remove="Views\EmploymentType\EmploymentTypeCreate.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
@@ -42,12 +44,18 @@
 	  <Content Include="plugin.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="Views\Branch\BranchCreate.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	  <Content Include="Views\Branch\BranchView.cshtml">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Views\Department\DepartmentCreate.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\EmploymentType\EmploymentTypeCreate.cshtml">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="Views\_ViewImports.cshtml">
@@ -60,6 +68,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>
+
+	
 	<!-- This target execute after "Build" target -->
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->

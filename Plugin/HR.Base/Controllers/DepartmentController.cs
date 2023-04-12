@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Web.Framework;
@@ -50,11 +51,11 @@ namespace HR.Base.Controllers
 				if (departmentDTO.DepartmentId == null)
 				{
                     var a = _departmentService.CreateDepartment(departmentDTO);
-                    if (a == "Success")
+                    if (a == MennsageEnum.Success)
                     {
                         return Redirect("/HR/Department/DepartmentList");
                     }
-                    else if (a == "duplicate")
+                    else if (a == MennsageEnum.Duplicate)
                     {
 						ModelState.AddModelError("", "Department Already Exists");
 					}
@@ -66,11 +67,11 @@ namespace HR.Base.Controllers
                 else
                 {
 					var a = _departmentService.DepartmentUpdate(departmentDTO);
-					if (a == "success")
+					if (a == MennsageEnum.Success)
 					{
 
 					}
-					else if (a == "duplicate")
+					else if (a == MennsageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Department Already Exists");
 					}
@@ -91,5 +92,7 @@ namespace HR.Base.Controllers
 			return View("~/Plugins/HR.Base/Views/Department/DepartmentView.cshtml");
 		}
 
-	}
+            return View("~/Plugins/Hr.Base/Views/Department/DepartmentView.cshtml");
+        }
+    }
 }

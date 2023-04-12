@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CloudVOffice.Web.Framework;
+using CloudVOffice.Core.Domain.Common;
 
 namespace HR.Base.Controllers
 {
@@ -51,11 +52,11 @@ namespace HR.Base.Controllers
                 if (employmenttypeDTO.EmploymentTypeId == null)
                 {
                     var a = _employmentTypeService.EmployementTypeCreate(employmenttypeDTO);
-                    if (a == "Success")
+                    if (a == MennsageEnum.Success)
                     {
                         return Redirect("/HR/EmploymentType/EmploymentTypeList");
                     }
-                    else if (a == "duplicate")
+                    else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "EmploymentType Already Exists");
                     }
@@ -68,11 +69,11 @@ namespace HR.Base.Controllers
                 {
 
                     var a = _employmentTypeService.EmploymentTypeUpdate(employmenttypeDTO);
-                    if (a == "success")
+                    if (a == MennsageEnum.Success)
                     {
 
                     }
-                    else if (a == "duplicate")
+                    else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "EmploymentType Already Exists");
                     }
@@ -86,13 +87,13 @@ namespace HR.Base.Controllers
 
             return View("~/Plugins/HR.Base/Views/EmploymentType/EmploymentTypeCreate.cshtml", employmenttypeDTO);
         }
+
         public IActionResult EmploymentTypeView()
         {
             ViewBag.EmploymentTypes = _employmentTypeService.GetEmploymentTypes();
 
             return View("~/Plugins/Hr.Base/Views/EmploymentType/EmploymentTypeView.cshtml");
         }
-
 
 
 

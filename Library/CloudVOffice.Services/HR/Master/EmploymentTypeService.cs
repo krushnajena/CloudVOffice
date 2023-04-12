@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -21,7 +22,7 @@ namespace CloudVOffice.Services.HR.Master
             _dbContext = dbContext;
             _employmenttypeRepo = employmenttypeRepo;
         }
-        public string EmployementTypeCreate(EmploymentTypeDTO employmenttypeDTO)
+        public MennsageEnum EmployementTypeCreate(EmploymentTypeDTO employmenttypeDTO)
         {
             try
             {
@@ -35,10 +36,10 @@ namespace CloudVOffice.Services.HR.Master
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return "Success";
+                    return MennsageEnum.Success;
                 }
                 else
-                    return "duplicate";
+                    return MennsageEnum.Duplicate;
             }
             catch
             {
@@ -46,7 +47,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public string EmploymentTypeDelete(int employmenttypeId, int DeletedBy)
+        public MennsageEnum EmploymentTypeDelete(int employmenttypeId, int DeletedBy)
         {
             try
             {
@@ -57,10 +58,10 @@ namespace CloudVOffice.Services.HR.Master
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _dbContext.SaveChanges();
-                    return "deleted";
+                    return MennsageEnum.Deleted;
                 }
                 else
-                    return "invalid";
+                    return MennsageEnum.Invalid;
             }
             catch
             {
@@ -68,7 +69,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public string EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO)
+        public MennsageEnum EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO)
         {
             try
             {
@@ -82,14 +83,14 @@ namespace CloudVOffice.Services.HR.Master
                         a.UpdatedBy = employmenttypeDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _dbContext.SaveChanges();
-                        return "updated";
+                        return MennsageEnum.Updated;
                     }
                     else
-                        return "invalid";
+                        return MennsageEnum.Invalid;
                 }
                 else
                 {
-                    return "duplicate";
+                    return MennsageEnum.Duplicate;
                 }
 
             }

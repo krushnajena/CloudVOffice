@@ -42,7 +42,7 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<EmailDomain> EmailDomains { get; set; }
 
 
-        public virtual DbSet<EmailAccounts> EmailAccounts { get; set; }
+        public virtual DbSet<EmailAccount> EmailAccounts { get; set; }
         public virtual DbSet<LetterHead> LetterHeads { get; set; }
 
        
@@ -54,6 +54,7 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<Department> Departments { get; set; }
 		public virtual DbSet<Designation> Designations { get; set; }
 		public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
+		#endregion
 		#endregion
 
 		#region Employee

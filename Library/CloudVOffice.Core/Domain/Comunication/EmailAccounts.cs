@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Comunication
 {
-    public class EmailAccounts : IAuditEntity, ISoftDeletedEntity
-    {
-        public string EmailAddress { get; set; }
+    public class EmailAccount : IAuditEntity, ISoftDeletedEntity
+    { 
+        public int EmailAccountId { get; set; }
+
+		public string EmailAddress { get; set; }
         public int Domain { get; set; }
         public string EmailAccountName { get; set; }
         public string EmailPassword { get; set; }

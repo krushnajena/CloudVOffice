@@ -1,6 +1,10 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Company;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Logging;
 using CloudVOffice.Core.Domain.Pemission;
+using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.Seeding;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +38,15 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<InstalledApplication> InstalledApplications{ get; set; }
 
+
+        public virtual DbSet<EmailDomain> EmailDomains { get; set; }
+
+
+        public virtual DbSet<EmailAccount> EmailAccounts { get; set; }
+        public virtual DbSet<LetterHead> LetterHeads { get; set; }
+
+       
+
         #region HR
         #region Master
         public virtual DbSet<Branch> Branches { get; set; }
@@ -44,8 +57,20 @@ namespace CloudVOffice.Data.Persistence
 		#endregion
 		#endregion
 
+		#region Employee
+		public virtual DbSet<Employee> Employees { get; set; }
+		#endregion
+		
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        #region Project
+        public virtual DbSet<ProjectType> ProjectTypes { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<ProjectEmployee> ProjectEmployees { get; set; }
+        public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
+        #endregion
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.Seed();

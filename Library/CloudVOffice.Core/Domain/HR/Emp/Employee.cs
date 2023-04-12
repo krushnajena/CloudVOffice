@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CloudVOffice.Core.Domain.HR.Master;
+using CloudVOffice.Core.Domain.Projects;
+using CloudVOffice.Core.Domain.Users;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -39,9 +43,9 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public int? DesignationId { get; set; }
 		public int? BranchId { get; set; }
 		public int? EmploymentTypeId { get; set;}
-		public int ? ReportToEmployeeId { get; set; }
+		public Int64 ? ReportToEmployeeId { get; set; }
 
-		public int? JobApplicantId { get; set; }
+		public Int64? JobApplicantId { get; set; }
 		public DateTime? OfferDate { get; set; }
 		public DateTime? ConfirmationDate { get; set; }
 		public DateTime? ContractEndDate { get; set; }
@@ -79,6 +83,12 @@ namespace CloudVOffice.Core.Domain.HR.Emp
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
+		public  ICollection<ProjectEmployee> ProjectEmployees { get; set; }
 
+		[JsonIgnore]
+		public User User { get; set; }
+
+    
+        public List<Employee> Employees { get; set; }
     }
 }

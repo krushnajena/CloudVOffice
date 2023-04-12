@@ -55,12 +55,12 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<Designation> Designations { get; set; }
 		public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
 		#endregion
-		#endregion
+		
 
 		#region Employee
 		public virtual DbSet<Employee> Employees { get; set; }
-		#endregion
-		
+        #endregion
+        #endregion
 
         #region Project
         public virtual DbSet<ProjectType> ProjectTypes { get; set; }

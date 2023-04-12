@@ -84,6 +84,11 @@ namespace HR.Base.Controllers
 			return View("~/Plugins/HR.Base/Views/Department/DepartmentCreate.cshtml", departmentDTO);
         }
 
+        public IActionResult DepartmentView()
+        {
+            ViewBag.Departments = _departmentService.GetDepartmentList();
 
-	}
+            return View("~/Plugins/Hr.Base/Views/Department/DepartmentView.cshtml");
+        }
+    }
 }

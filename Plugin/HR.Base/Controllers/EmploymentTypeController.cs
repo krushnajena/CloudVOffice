@@ -86,7 +86,12 @@ namespace HR.Base.Controllers
 
             return View("~/Plugins/HR.Base/Views/EmploymentType/EmploymentTypeCreate.cshtml", employmenttypeDTO);
         }
+        public IActionResult EmploymentTypeView()
+        {
+            ViewBag.EmploymentTypes = _employmentTypeService.GetEmploymentTypes();
 
+            return View("~/Plugins/Hr.Base/Views/EmploymentType/EmploymentTypeView.cshtml");
+        }
 
 
 

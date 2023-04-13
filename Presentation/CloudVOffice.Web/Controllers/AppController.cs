@@ -88,18 +88,14 @@ namespace CloudVOffice.Web.Controllers
         }
 
         [HttpGet("/Applications")]
-     //   [Authorize]
+        [Authorize]
         public IActionResult Applications()
         {
             return View();
         }
 
 
-        [HttpGet]
-        public IActionResult GetMenu(int UserId)
-        {
-            return Ok(_userService.GetUserMenu(UserId));
-        }
+        
 		
 	}
 }

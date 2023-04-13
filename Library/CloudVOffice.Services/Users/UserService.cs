@@ -10,6 +10,7 @@ using CloudVOffice.Services.Permissions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -130,7 +131,7 @@ namespace CloudVOffice.Services.Users
             
 		}
 
-        public async Task<string> CreateUser(UserCreateDTO userCreateDTO)
+        public async Task<MennsageEnum> CreateUser(UserCreateDTO userCreateDTO)
         {
             var objCheck = _context.Users.SingleOrDefault(opt => opt.Email == userCreateDTO.Email && opt.Deleted == false);
             try
@@ -159,22 +160,42 @@ namespace CloudVOffice.Services.Users
                         }
                         
                     }
-                    return  "Success";
+                    return MennsageEnum.Success;
 
                 }
                 else if (objCheck != null)
                 {
-                     return  "Duplicate";
+                     return MennsageEnum.Duplicate;
                 }
                 
-                return "Unexpected";
+                return MennsageEnum.UnExpectedError;
             }
-            catch (Exception ex)
+            catch
             {
-                return "Error";
+                throw;
             }
         }
 
+        public async Task<MennsageEnum> UpdateUser(UserCreateDTO userCreateDTO)
+        {
+            var user = _context.Users.SingleOrDefault(opt => opt.UserId == userCreateDTO.UserId && opt.Deleted == false);
+            if (user != null)
+            {
+                user.FirstName = userCreateDTO.FirstName;
+                user.MiddleName = userCreateDTO.MiddleName;
+                user.LastName = userCreateDTO.LastName;
+
+                user.DateOfBirth = userCreateDTO.DateOfBirth;
+                user.PhoneNo= userCreateDTO.PhoneNo;
+                user.UserTypeId = userCreateDTO.UserTypeId;
+                user.UpdatedBy = userCreateDTO.CreatedBy;
+                user.UpdatedDate = DateTime.Now;
+
+                return MennsageEnum.Success;
+            }
+            else
+                return MennsageEnum.Invalid;
+        }
         public string AssignRole(Int64 userid, int roleid)
         {
             var objCheck = _context.UserRoleMappings.SingleOrDefault(opt => opt.RoleId == roleid && opt.UserId == userid);
@@ -265,5 +286,7 @@ namespace CloudVOffice.Services.Users
                 throw;
             }
         }
-	}
+
+       
+    }
 }

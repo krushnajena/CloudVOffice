@@ -48,7 +48,7 @@
 
 
                             <e-grid-column field="EmploymentTypeName" headerText="EmploymentType Name" textAlign="Left" width="120"></e-grid-column>
-
+                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -60,7 +60,7 @@
 </div>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../HR/EmploymentType/EmployementTypeCreate?EmploymentTypeId=${EmploymentTypeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../HR/EmploymentType/EmploymentTypeCreate?EmploymentTypeId=${EmploymentTypeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
         <a href="../../HR/EmploymentType/EmploymentTypeDelete?EmploymentTypeId=${EmploymentTypeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
     </div>
 </script>

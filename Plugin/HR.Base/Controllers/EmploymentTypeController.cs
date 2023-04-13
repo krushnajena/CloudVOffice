@@ -71,7 +71,7 @@ namespace HR.Base.Controllers
                     var a = _employmentTypeService.EmploymentTypeUpdate(employmenttypeDTO);
                     if (a == MennsageEnum.Success)
                     {
-
+                        return Redirect("/HR/EmploymentType/EmploymentTypeView");
                     }
                     else if (a == MennsageEnum.Duplicate)
                     {

@@ -47,7 +47,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public MennsageEnum EmploymentTypeDelete(int employmenttypeId, int DeletedBy)
+        public MennsageEnum EmploymentTypeDelete(Int64 employmenttypeId, Int64 DeletedBy)
         {
             try
             {
@@ -69,11 +69,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public MennsageEnum EmploymentTypeDelete(long employmenttypeId, long DeletedBy)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public MennsageEnum EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO)
         {
             try
@@ -107,7 +103,7 @@ namespace CloudVOffice.Services.HR.Master
 
        
 
-        public EmploymentType GetEmploymentTypeByEmploymentTypeId(int employmenttypeId)
+        public EmploymentType GetEmploymentTypeByEmploymentTypeId(Int64 employmenttypeId)
         {
             try
             {
@@ -120,10 +116,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public EmploymentType GetEmploymentTypeByEmploymentTypeId(long employmenttypeId)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public EmploymentType GetEmploymentTypeByEmploymentTypeName(string employmentTypeName)
         {

@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Users;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
@@ -22,12 +23,14 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
             _roleService= roleService;
 
 		}
+        [Authorize(Roles = "Administrator")]
         public IActionResult UserList()
         {
             var a = _userService.GetAllUsers();
             ViewBag.UserList = a;
             return View();
         }
+        [Authorize(Roles = "Administrator")]
         public IActionResult CreateUser(Int64? UserId)
         {
 
@@ -94,7 +97,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 			return View(userCreateDTO);
         }
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles ="Administrator")]
         public async Task<IActionResult> CreateUser(UserCreateDTO createUserDTO)
         {
 
@@ -105,11 +108,11 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
               var a= await  _userService.CreateUser(createUserDTO); 
               if(a != null)
                 {
-                    if(a== "Success")
+                    if(a== MennsageEnum.Success)
                     {
                         return Redirect("/Setup/User/UserList");
                     }
-                    else if (a == "Duplicate")
+                    else if (a==MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "User Already Exists");
                     }
@@ -130,9 +133,12 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public IActionResult DeleteUser(Int64 UserId)
         {
-            var a = _userService.DeleteUser(UserId);
+            Int64 DeletedBy= Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+            var a = _userService.DeleteUser(UserId, DeletedBy);
 			return Redirect("/Setup/User/UserList");
 		}
     }

@@ -24,6 +24,10 @@
 		<Folder Include="Areas\HR\Data\" />
 		<Folder Include="Areas\HR\Models\" />
 		<Folder Include="Areas\HR\Views\" />
+		<Folder Include="Areas\Projects\Controllers\" />
+		<Folder Include="Areas\Projects\Data\" />
+		<Folder Include="Areas\Projects\Models\" />
+		<Folder Include="Areas\Projects\Views\" />
 		<Folder Include="Areas\Setup\Data\" />
 		<Folder Include="Areas\Setup\Models\" />
 		<Folder Include="Plugins\" />

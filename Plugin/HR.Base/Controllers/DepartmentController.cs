@@ -27,7 +27,8 @@ namespace HR.Base.Controllers
         public IActionResult DepartmentCreate(int? DepartmentId)
         {
             DepartmentDTO departmentDTO = new DepartmentDTO();
-            ViewBag.ParentDepartmentList = new SelectList(_departmentService.GetAllDepartmentGroups(), "DepartmentId", "DepartmentName");
+
+            ViewBag.ParentDepartmentList =_departmentService.GetAllDepartmentGroups();
             if (DepartmentId != null)
             {
 

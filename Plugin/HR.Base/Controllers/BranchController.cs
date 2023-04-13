@@ -7,6 +7,7 @@ using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace HR.Base.Controllers
                     var a = _branchService.BranchCreate(branchDTO);
                     if (a == MennsageEnum.Success)
                     {
-                        return Redirect("/HR/Branch/BranchList");
+                        return Redirect("/HR/Branch/BranchView");
                     }
                     else if (a == MennsageEnum.Duplicate)
                     {
@@ -69,7 +70,7 @@ namespace HR.Base.Controllers
                     var a = _branchService.BranchUpdate(branchDTO);
                     if (a == MennsageEnum.Updated)
                     {
-						return Redirect("/HR/Branch/BranchList");
+						return Redirect("/HR/Branch/BranchView");
 					}
                     else if (a == MennsageEnum.Duplicate)
                     {
@@ -93,5 +94,13 @@ namespace HR.Base.Controllers
             return View("~/Plugins/Hr.Base/Views/Branch/BranchView.cshtml");
         }
 
+        [HttpGet]
+        public IActionResult DeleteBranch(Int64 branchId)
+        {
+            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+            var a = _branchService.BranchDelete( branchId, DeletedBy);
+            return Redirect("/HR/Branch/BranchView");
+        }
     }
 }

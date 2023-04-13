@@ -54,7 +54,7 @@ namespace HR.Base.Controllers
                     var a = _employmentTypeService.EmployementTypeCreate(employmenttypeDTO);
                     if (a == MennsageEnum.Success)
                     {
-                        return Redirect("/HR/EmploymentType/EmploymentTypeList");
+                        return Redirect("/HR/EmploymentType/EmploymentTypeView");
                     }
                     else if (a == MennsageEnum.Duplicate)
                     {
@@ -71,7 +71,7 @@ namespace HR.Base.Controllers
                     var a = _employmentTypeService.EmploymentTypeUpdate(employmenttypeDTO);
                     if (a == MennsageEnum.Success)
                     {
-
+                        return Redirect("/HR/EmploymentType/EmploymentTypeView");
                     }
                     else if (a == MennsageEnum.Duplicate)
                     {
@@ -93,6 +93,14 @@ namespace HR.Base.Controllers
             ViewBag.EmploymentTypes = _employmentTypeService.GetEmploymentTypes();
 
             return View("~/Plugins/Hr.Base/Views/EmploymentType/EmploymentTypeView.cshtml");
+        }
+        [HttpGet]
+        public IActionResult EmploymentTypeDelete(Int64 employmenttypeId)
+        {
+            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+            var a = _employmentTypeService.EmploymentTypeDelete(employmenttypeId, DeletedBy);
+            return Redirect("/HR/EmploymentType/EmploymentTypeView");
         }
 
 

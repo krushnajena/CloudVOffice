@@ -13,9 +13,9 @@ namespace CloudVOffice.Services.HR.Master
     {
         public MennsageEnum BranchCreate(BranchDTO branchDTO);
         public List<Branch> GetBranches();
-        public Branch GetBranchByBranchId(int branchId);
+        public Branch GetBranchByBranchId(Int64 branchId);
         public Branch GetBranchByBranchName(string branchName);
         public MennsageEnum BranchUpdate(BranchDTO branchDTO);
-        public MennsageEnum BranchDelete(int branchId, int DeletedBy);
+        public MennsageEnum BranchDelete(Int64 branchId, Int64 DeletedBy);
     }
 }

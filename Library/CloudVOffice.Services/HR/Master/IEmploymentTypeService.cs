@@ -13,9 +13,9 @@ namespace CloudVOffice.Services.HR.Master
     {
         public MennsageEnum EmployementTypeCreate(EmploymentTypeDTO employmenttypeDTO);
         public List<EmploymentType> GetEmploymentTypes();
-        public EmploymentType GetEmploymentTypeByEmploymentTypeId(int employmenttypeId);
+        public EmploymentType GetEmploymentTypeByEmploymentTypeId(Int64 employmenttypeId);
         public EmploymentType GetEmploymentTypeByEmploymentTypeName(string employmentTypeName);
         public MennsageEnum EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO);
-        public MennsageEnum EmploymentTypeDelete(int employmenttypeId, int DeletedBy);
+        public MennsageEnum EmploymentTypeDelete(Int64 employmenttypeId, Int64 DeletedBy);
     }
 }

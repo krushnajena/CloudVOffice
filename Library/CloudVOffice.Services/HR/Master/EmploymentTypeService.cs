@@ -69,6 +69,11 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
+        public MennsageEnum EmploymentTypeDelete(long employmenttypeId, long DeletedBy)
+        {
+            throw new NotImplementedException();
+        }
+
         public MennsageEnum EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO)
         {
             try
@@ -113,6 +118,11 @@ namespace CloudVOffice.Services.HR.Master
             {
                 throw;
             }
+        }
+
+        public EmploymentType GetEmploymentTypeByEmploymentTypeId(long employmenttypeId)
+        {
+            throw new NotImplementedException();
         }
 
         public EmploymentType GetEmploymentTypeByEmploymentTypeName(string employmentTypeName)

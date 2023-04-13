@@ -25,6 +25,7 @@ namespace CloudVOffice.Web.Areas.Application.Controllers
 
 		}
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> InstalledApps()
         {
             var applications = _applicationInstallationService.GetInstalledApplications();
@@ -57,7 +58,8 @@ namespace CloudVOffice.Web.Areas.Application.Controllers
             ViewBag.apps = pluginConfigs;
             return View();
         }
-        
+
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> InstallApplication(string InstallationUrl)
         {
             _httpWebClient.GetRequest(InstallationUrl + "?CreatedBy=" + Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));

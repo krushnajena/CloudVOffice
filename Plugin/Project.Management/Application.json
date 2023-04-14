@@ -1,36 +1,36 @@
 {
-  
-    "ApplicationName": "HR",
-    "Url": "/HR/Hr/Dasboard",
-    "IconImageUrl": "/Plugins/HR.Base/logo.png",
-    "IconClass": "",
-    "AreaName": "HR",
-    "Roles": ["HR Manager", "HR User"],
-    "Children": [
-      {
-        "ApplicationName": "Master",
-        "Url": "",
-        "IsGroup": true,
-        "IconImageUrl": "",
-        "IconClass": "icon-event_note",
-        "AreaName": "HR",
-        "Roles": [ "HR Manager", "HR User" ],
-        "Children": [
-          {
-            "ApplicationName": "Branch",
-            "IsGroup": false,
-            "Url": "/Hr/Branch/BranchView",
-            "IconImageUrl": "",
-            "IconClass": "icon-event_note",
-            "AreaName": "HR",
-            "Roles": [ "HR Manager" ]
-          }
+
+  "ApplicationName": "Projects",
+  "Url": "/PROJECT/Project/Dasboard",
+  "IconImageUrl": "/Plugins/Project.Management/logo.png",
+  "IconClass": "",
+  "AreaName": "Projects",
+  "Roles": [ "Project User", "Project Manager", "Employee", "Customer" ],
+//  "Children": [
+//    {
+//      "ApplicationName": "Master",
+//      "Url": "",
+//      "IsGroup": true,
+//      "IconImageUrl": "",
+//      "IconClass": "icon-event_note",
+//      "AreaName": "HR",
+//      "Roles": [ "HR Manager", "HR User" ],
+//      "Children": [
+//        {
+//          "ApplicationName": "Branch",
+//          "IsGroup": false,
+//          "Url": "/Hr/Branch/BranchView",
+//          "IconImageUrl": "",
+//          "IconClass": "icon-event_note",
+//          "AreaName": "HR",
+//          "Roles": [ "HR Manager" ]
+//        }
 
 
-        ]
-      }
+//      ]
+//    }
 
 
-    ]
-  
-}
+//  ]
+
+//}

@@ -1,14 +1,14 @@
 ﻿{
-  "Group": "HR",
-  "FriendlyName": "HR Base",
-  "SystemName": "HR.Base",
+  "Group": "Project",
+  "FriendlyName": "Project Management",
+  "SystemName": "Project.Management",
   "Version": 0.2,
   "SupportedVersions": [ "0.1" ],
   "Author": "Appman team",
   "DisplayOrder": 1,
-  "FileName": "HR.Base.dll",
+  "FileName": "Project.Management.dll",
   "Description": "Basic Employee Record Management System.",
-  "InstallationUrl": "/HR/HRBASE/Install",
-  "UnInstallationUrl": "/HR/HRBASE/Installation/UnInstall",
-  "Dependency": ["HR.Base"]
+  "InstallationUrl": "/PROJECT/PROJECTMANAGEMENT/Install",
+  "UnInstallationUrl": "/PROJECT/PROJECTMANAGEMENT/Installation/UnInstall",
+  "Dependency": [ "Project.Management" ]
 }

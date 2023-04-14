@@ -17,6 +17,8 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="roles.json" />
+    <None Remove="Views\ProjectType\ProjectTypeCreate.cshtml" />
+    <None Remove="Views\ProjectType\ProjectTypeView.cshtml" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -40,6 +42,12 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="roles.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\ProjectType\ProjectTypeCreate.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Views\ProjectType\ProjectTypeView.cshtml">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>

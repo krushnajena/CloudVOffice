@@ -20,16 +20,16 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Emp
 {
-	public class EmpolyeeService : IEmpolyeeService
+	public class EmployeeService : IEmployeeService
 	{
 		private readonly ApplicationDBContext _context;
 		private readonly ISqlRepository<Employee> _employeeRepo;
-		public EmpolyeeService(ApplicationDBContext context, ISqlRepository<Employee> employeeRepo)
+		public EmployeeService(ApplicationDBContext context, ISqlRepository<Employee> employeeRepo)
 		{
 			_context = context;
 			_employeeRepo = employeeRepo;
 		}
-		public async Task<MennsageEnum> CreateEmployee(EmployeeCreateDTO employeeCreateDTO)
+		public  MennsageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO)
 		{
 			var objCheck = _context.Employees.SingleOrDefault(opt => opt.EmployeeCode == employeeCreateDTO.EmployeeCode && opt.ErpUser == employeeCreateDTO.ErpUser && opt.Deleted == false);
 			try
@@ -68,7 +68,7 @@ namespace CloudVOffice.Services.Emp
 					employee.EmergencyPhone = employeeCreateDTO.EmergencyPhone;
 					employee.RelationWithEmergencyContactPerson = employeeCreateDTO.RelationWithEmergencyContactPerson;
 					employee.BiometricOrRfIdDeviceId = employeeCreateDTO.BiometricOrRfIdDeviceId;
-					employee.CTC  = employeeCreateDTO.CTC;
+					employee.CTC = employeeCreateDTO.CTC;
 					employee.PanNo = employeeCreateDTO.PanNo;
 					employee.ProvidentFundAccountNo = employeeCreateDTO.ProvidentFundAccountNo;
 					employee.MaritalStatus = employeeCreateDTO.MaritalStatus;

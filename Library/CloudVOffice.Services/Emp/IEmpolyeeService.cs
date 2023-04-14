@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Emp
 {
-	public interface IEmpolyeeService
+	public interface IEmployeeService
 	{
-		public  Task<MennsageEnum> CreateEmployee(EmployeeCreateDTO employeeCreateDTO);
+		public  MennsageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO);
 		public List<Employee> GetEmps();
 		public Employee GetEmployeeByCode(string employeecode);
 		public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO);

@@ -2,6 +2,7 @@
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Authentication;
+using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Roles;
@@ -38,6 +39,8 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
             services.AddScoped<IBranchService, BranchService>();
             #endregion
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
             #endregion
             return services;
         }

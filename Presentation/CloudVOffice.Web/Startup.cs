@@ -66,11 +66,13 @@ namespace CloudVOffice.Web
             foreach (string folder in Directory.GetDirectories(CloudVOfficePluginDefaults.PathName))
             {
                 string dllPath = @".\"+ CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
-               
-                Assembly assembly2 = Assembly.LoadFrom
+                if (File.Exists(dllPath))
+                {
+                    Assembly assembly2 = Assembly.LoadFrom
                     (dllPath);
-                var part2 = new AssemblyPart(assembly2);
-                services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
+                    var part2 = new AssemblyPart(assembly2);
+                    services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
+                }
             }
            
          

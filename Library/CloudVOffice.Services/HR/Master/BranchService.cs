@@ -26,8 +26,8 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                var brach = _Context.Branches.Where(x => x.BranchName == branchDTO.BranchName && x.Deleted == false).FirstOrDefault();
-                if (brach == null)
+                var branch = _Context.Branches.Where(x => x.BranchName == branchDTO.BranchName && x.Deleted == false).FirstOrDefault();
+                if (branch == null)
                 {
                     _branchRepo.Insert(new Branch()
                     {

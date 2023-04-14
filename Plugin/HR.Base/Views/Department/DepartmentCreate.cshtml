@@ -58,7 +58,7 @@
 
 
 
-								<ejs-dropdownlist id="Countries" dataSource="@(new SelectList((IEnumerable)ViewBag.ParentDepartmentList, "DepartmentId", "DepartmentName" ).Items)" placeholder="Select a Department" popupHeight="220px" allowFiltering="true" filtering="onParentDepartmentrfiltering">
+								<ejs-dropdownlist id="Parent" allowFiltering="true" ejs-for="@Model.Parent" filtering="onParentDepartmentrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ParentDepartmentList, "DepartmentId", "DepartmentName" ).Items)" placeholder="Select a Department" popupHeight="220px">
 									<e-dropdownlist-fields text="DepartmentName" value="DepartmentId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 

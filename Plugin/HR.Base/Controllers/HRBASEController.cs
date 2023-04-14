@@ -25,6 +25,7 @@ namespace HR.Base.Controllers
         private readonly IApplicationInstallationService _applicationInstallationService;
         private readonly IRoleService _roleService;
 		private readonly IHttpWebClients _httpClient;
+		private readonly string InstationPath = "Hr.Base";
 		public HRBASEController(IApplicationInstallationService applicationInstallationService, IRoleService roleService,
 			IHttpWebClients httpClient
 			) {
@@ -36,7 +37,7 @@ namespace HR.Base.Controllers
 		[Authorize(Roles ="Administrator")]
         public async Task<IActionResult> Install(Int64 CreatedBy)
         {
-            string jsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\Hr.Base\";
+            string jsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\"+ InstationPath + @"\";
             string pluginDetails = jsonPath + "plugin.json";
             PluginConfig item = await JsonFileReader.ReadAsync<PluginConfig>(pluginDetails);
 

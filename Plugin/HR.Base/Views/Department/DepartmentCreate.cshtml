@@ -54,6 +54,13 @@
 								<label for="Parent" class="form-label">Parent</label>
 								<select asp-for="@Model.Parent" asp-items="@ViewBag.ParentDepartmentList" class="form-control">
 								</select>
+
+
+								<ejs-dropdownlist id="Countries" dataSource="@ViewBag.ParentDepartmentList" placeholder="Select a Country" popupHeight="220px">
+									<e-dropdownlist-fields text="Department.DepartmentName" value="Department.DepartmentId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+								
 								
 								<span asp-validation-for="Parent"></span>
 							</div>

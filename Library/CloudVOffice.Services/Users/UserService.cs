@@ -10,6 +10,7 @@ using CloudVOffice.Services.Permissions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -130,9 +131,11 @@ namespace CloudVOffice.Services.Users
             
 		}
 
-        public async Task<string> CreateUser(UserCreateDTO userCreateDTO)
+        public async Task<MennsageEnum> CreateUser(UserCreateDTO userCreateDTO)
         {
-            var objCheck = _context.Users.SingleOrDefault(opt => opt.Email == userCreateDTO.Email && opt.Deleted == false);
+            var objCheck = _context.Users
+               
+                .SingleOrDefault(opt => opt.Email == userCreateDTO.Email && opt.Deleted == false);
             try
             {
                 if (objCheck == null)
@@ -159,22 +162,63 @@ namespace CloudVOffice.Services.Users
                         }
                         
                     }
-                    return  "Success";
+                    return MennsageEnum.Success;
 
                 }
                 else if (objCheck != null)
                 {
-                     return  "Duplicate";
+                     return MennsageEnum.Duplicate;
                 }
                 
-                return "Unexpected";
+                return MennsageEnum.UnExpectedError;
             }
-            catch (Exception ex)
+            catch
             {
-                return "Error";
+                throw;
             }
         }
 
+        public async Task<MennsageEnum> UpdateUser(UserCreateDTO userCreateDTO)
+        {
+            var user = _context.Users
+                .Include(x => x.UserRoleMappings)
+                .Include(x => x.UserWiseViewMapper)
+                .SingleOrDefault(opt => opt.UserId == userCreateDTO.UserId && opt.Deleted == false);
+            if (user != null)
+            {
+                user.FirstName = userCreateDTO.FirstName;
+                user.MiddleName = userCreateDTO.MiddleName;
+                user.LastName = userCreateDTO.LastName;
+
+                user.DateOfBirth = userCreateDTO.DateOfBirth;
+                user.PhoneNo= userCreateDTO.PhoneNo;
+                user.UserTypeId = userCreateDTO.UserTypeId;
+                user.UpdatedBy = userCreateDTO.CreatedBy;
+                user.UpdatedDate = DateTime.Now;
+                _context.SaveChanges();
+                var userAssignedRoles = user.UserRoleMappings.ToList();
+                var userRoles = userCreateDTO.roles.Where(x=>x.IsSelected==true).ToList();
+                var UnAsignedRoles = userAssignedRoles.Where(x=> !userRoles.Any(a=>a.RoleId==x.RoleId)).ToList();
+                for(int i=0; i<UnAsignedRoles.Count;i++)
+                {
+                    UnAssignRole(user.UserId, UnAsignedRoles[i].RoleId);
+                    _userViewPermissions.UnAssignViewPermissions(user.UserId, userCreateDTO.roles[i].RoleId);
+
+                }
+                for (int i = 0; i < userCreateDTO.roles.Count; i++)
+                {
+                    if (userCreateDTO.roles[i].IsSelected == true)
+                    {
+                        AssignRole(user.UserId, userCreateDTO.roles[i].RoleId);
+                        _userViewPermissions.AssignViewPermissions(user.UserId, userCreateDTO.roles[i].RoleId);
+                    }
+
+                }
+                return MennsageEnum.Success;
+            }
+            else
+                return MennsageEnum.Invalid;
+        }
         public string AssignRole(Int64 userid, int roleid)
         {
             var objCheck = _context.UserRoleMappings.SingleOrDefault(opt => opt.RoleId == roleid && opt.UserId == userid);
@@ -265,5 +309,7 @@ namespace CloudVOffice.Services.Users
                 throw;
             }
         }
-	}
+
+       
+    }
 }

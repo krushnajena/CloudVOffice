@@ -49,7 +49,7 @@ namespace CloudVOffice.Services.HR.Master
 
         }
 
-        public MennsageEnum BranchDelete(int branchId, int DeletedBy)
+        public MennsageEnum BranchDelete(Int64 branchId, Int64 DeletedBy)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public Branch GetBranchByBranchId(int branchId)
+        public Branch GetBranchByBranchId(Int64 branchId)
         {
             try
             {

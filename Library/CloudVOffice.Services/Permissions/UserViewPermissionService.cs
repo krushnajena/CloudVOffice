@@ -27,10 +27,32 @@ namespace CloudVOffice.Services.Permissions
             var roleWisePermissions = _context.RoleAndApplicationWisePermissions.Where(x => x.RoleId == RoleId).ToList();
             for (int j = 0; j < roleWisePermissions.Count; j++)
             {
-                UserWiseViewMapper userWiseViewMapper = new UserWiseViewMapper();
-                userWiseViewMapper.ApplicationId = roleWisePermissions[j].ApplicationId;
-                userWiseViewMapper.UserId = UserId;
-                _userWiseViewMapperRepo.Insert(userWiseViewMapper);
+                var obj = _context.UserWiseViewMappers.Where(x => x.Deleted == false && x.ApplicationId == roleWisePermissions[j].ApplicationId && x.UserId == UserId).SingleOrDefault();
+                if(obj == null)
+                {
+                    UserWiseViewMapper userWiseViewMapper = new UserWiseViewMapper();
+                    userWiseViewMapper.ApplicationId = roleWisePermissions[j].ApplicationId;
+                    userWiseViewMapper.UserId = UserId;
+                    _userWiseViewMapperRepo.Insert(userWiseViewMapper);
+                }
+               
+
+            }
+            return "Success";
+        }
+
+        public string UnAssignViewPermissions(long UserId, int RoleId)
+        {
+            var roleWisePermissions = _context.RoleAndApplicationWisePermissions.Where(x => x.RoleId == RoleId).ToList();
+            for (int j = 0; j < roleWisePermissions.Count; j++)
+            {
+                var obj = _context.UserWiseViewMappers.Where(x => x.Deleted == false && x.ApplicationId == roleWisePermissions[j].ApplicationId && x.UserId == UserId).SingleOrDefault();
+                if (obj != null)
+                {
+                    _userWiseViewMapperRepo.Delete(obj);
+                    
+                }
+
 
             }
             return "Success";

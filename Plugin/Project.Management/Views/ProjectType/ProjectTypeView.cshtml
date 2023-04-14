@@ -2,7 +2,6 @@
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
-
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -11,7 +10,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>HR</h5>
+                    <h5>Project</h5>
                     <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
                 </div>
             </div>
@@ -29,10 +28,10 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Departments</div>
+                <div class="card-header">ProjectTypes</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.Departments"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.ProjectTypes"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -48,9 +47,7 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="DepartmentName" headerText="Department Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Parent" headerText="Parent" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="IsGroup" headerText="IsGroup" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -63,14 +60,14 @@
 </div>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../HR/Department/DepartmentCreate?DepartmentId=${DepartmentId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../HR/Department/DeleteDepartment?DepartmentId=${DepartmentId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+        <a href="../../Projects/ProjectType/ProjectTypeCreate?ProjectTypeId=${ProjectTypeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../Projects/ProjectType/ProjectTypeDelete?ProjectTypeId=${ProjectTypeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
     </div>
-        
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];

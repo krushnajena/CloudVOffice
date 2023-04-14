@@ -1,6 +1,9 @@
-﻿@model CloudVOffice.Data.DTO.HR.Master.DepartmentDTO;
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@model CloudVOffice.Data.DTO.HR.Master.DepartmentDTO;
 @{
     Layout = "_MainAppLayout";
+	var departmenList = new SelectList((IEnumerable)ViewBag.ParentDepartmentList, "DepartmentId", "DepartmentName");
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -52,16 +55,16 @@
 							<div class="form-group col-md-3">
 
 								<label for="Parent" class="form-label">Parent</label>
-								<select asp-for="@Model.Parent" asp-items="@ViewBag.ParentDepartmentList" class="form-control">
-								</select>
 
 
-								<ejs-dropdownlist id="Countries" dataSource="@ViewBag.ParentDepartmentList" placeholder="Select a Country" popupHeight="220px">
-									<e-dropdownlist-fields text="Department.DepartmentName" value="Department.DepartmentId"></e-dropdownlist-fields>
+
+								<ejs-dropdownlist id="Countries" dataSource="@(new SelectList((IEnumerable)ViewBag.ParentDepartmentList, "DepartmentId", "DepartmentName" ).Items)" placeholder="Select a Department" popupHeight="220px" allowFiltering="true" filtering="onParentDepartmentrfiltering">
+									<e-dropdownlist-fields text="DepartmentName" value="DepartmentId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 
-								
-								
+
+
+
 								<span asp-validation-for="Parent"></span>
 							</div>
 							<div class="form-group col-md-3">
@@ -91,3 +94,10 @@
 	</div>
 
 </div>
+<script>
+	    function onParentDepartmentrfiltering(e) {
+        var query = new ej.data.Query();
+        query = (e.text !== '') ? query.where('DepartmentName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ParentDepartmentList)), query);
+    }
+</script>

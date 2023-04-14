@@ -51,7 +51,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public MennsageEnum DepartmentDelete(int deprtmentid, int DeletedBy)
+        public MennsageEnum DepartmentDelete(Int64 deprtmentid, Int64 DeletedBy)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public Department GetDepartmentById(int departmentId)
+        public Department GetDepartmentById(Int64 departmentId)
         {
             try
             {

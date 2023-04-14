@@ -5,6 +5,7 @@ using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
+using CloudVOffice.Services.Projects;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 
@@ -41,6 +42,9 @@ namespace CloudVOffice.Web.Framework
             #endregion
 
             services.AddScoped<IEmployeeService, EmployeeService>();
+            #endregion
+            #region Project Services
+            services.AddScoped<IProjectTypeService, ProjectTypeService>();
             #endregion
             return services;
         }

@@ -17,6 +17,8 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="roles.json" />
+    <None Remove="Views\ProjectType\ProjectTypeCreate.cshtml" />
+    <None Remove="Views\ProjectType\ProjectTypeView.cshtml" />
   </ItemGroup>
 
 	<ItemGroup>

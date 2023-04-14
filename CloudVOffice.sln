@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudVOffice.Data", "Librar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.Base", "Plugin\HR.Base\HR.Base.csproj", "{8285C181-3BFC-4209-A44E-AECD5A2E19BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project.Management", "PlugIn\Project.Management\Project.Management.csproj", "{A866870D-9E2B-4F17-BF6C-F5354EEC329A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Management", "PlugIn\Project.Management\Project.Management.csproj", "{A866870D-9E2B-4F17-BF6C-F5354EEC329A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

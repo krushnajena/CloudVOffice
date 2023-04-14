@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Logging;
@@ -69,6 +70,17 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
         #endregion
 
+        #region Desktop Monitering
+
+        public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
+
+
+        public virtual DbSet<DesktopActivityLog> DesktopActivityLogs { get; set; }
+
+
+        public virtual DbSet<DesktopKeyStroke> DesktopKeyStrokes { get; set; }
+        public virtual DbSet<DesktopSnapshot> DesktopSnapshots { get; set; }
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

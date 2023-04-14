@@ -12,22 +12,25 @@ using System.Threading.Tasks;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Data.DTO.Emp;
 using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Web.Framework;
 
 namespace HR.Base.Controllers
 {
-	public class EmployeeController : BasePluginController
+    [Area(AreaNames.HR)]
+    public class EmployeeController : BasePluginController
 	{
-		private readonly IEmpolyeeService _empolyeeService;
-		public EmployeeController(IEmpolyeeService empolyeeService)
+		private readonly IEmployeeService _empolyeeService;
+		public EmployeeController(IEmployeeService empolyeeService)
 		{
 			_empolyeeService = empolyeeService;
 		}
 
 		[HttpGet]
-		public IActionResult EmployeeCreat(int? EmployeeCode)
+		public IActionResult EmployeeCreate(int? EmployeeCode)
 		{
 			EmployeeCreateDTO employeeCreateDTO = new EmployeeCreateDTO();
-			//ViewBag.ParentDepartmentList = new SelectList(_empolyeeService.GetBranches(), "BranchId", "BranchName");
+			ViewBag.employee = new SelectList(_empolyeeService.GetEmps(), "EmployeeId", "EmployeeName");
 			if (EmployeeCode != null)
 			{
 
@@ -42,6 +45,18 @@ namespace HR.Base.Controllers
 				employeeCreateDTO.DateOfJoining = d.DateOfJoining;
 				employeeCreateDTO.DateOfBirth = d.DateOfBirth;
 				employeeCreateDTO.ErpUser = d.ErpUser;
+				employeeCreateDTO.Status = d.Status;
+				employeeCreateDTO.DepartmentId = d.DepartmentId;
+				employeeCreateDTO.DesignationId = d.DesignationId;
+				employeeCreateDTO.BranchId = d.BranchId;
+				employeeCreateDTO.EmploymentTypeId = d.EmploymentTypeId;
+				employeeCreateDTO.ReportToEmployeeId = d.ReportToEmployeeId;
+				employeeCreateDTO.JobApplicantId= d.JobApplicantId;
+				employeeCreateDTO.OfferDate = d.OfferDate;
+				employeeCreateDTO.ConfirmationDate = d.ConfirmationDate;
+				employeeCreateDTO.ContractEndDate = d.ContractEndDate;
+				employeeCreateDTO.NoticePeriodDays = d.NoticePeriodDays;
+				employeeCreateDTO.RetirementDate = d.RetirementDate;
 				employeeCreateDTO.MobileNo = d.MobileNo;
 				employeeCreateDTO.PersonalEmail = d.PersonalEmail;
 				employeeCreateDTO.CompanyEmail = d.CompanyEmail;
@@ -49,7 +64,20 @@ namespace HR.Base.Controllers
 				employeeCreateDTO.PermanentAddress = d.PermanentAddress;
 				employeeCreateDTO.EmergencyContactName = d.EmergencyContactName;
 				employeeCreateDTO.EmergencyPhone = d.EmergencyPhone;
-				employeeCreateDTO.Status = d.Status;
+				employeeCreateDTO.RelationWithEmergencyContactPerson = d.RelationWithEmergencyContactPerson;
+				employeeCreateDTO.BiometricOrRfIdDeviceId = d.BiometricOrRfIdDeviceId;
+				employeeCreateDTO.CTC = d.CTC;
+				employeeCreateDTO.PanNo = d.PanNo;
+				employeeCreateDTO.ProvidentFundAccountNo = d.ProvidentFundAccountNo;
+				employeeCreateDTO.MaritalStatus = d.MaritalStatus;
+				employeeCreateDTO.MarraigeDate = d.MarraigeDate;
+				employeeCreateDTO.BloodGroup = d.BloodGroup;
+				employeeCreateDTO.PassportNumber = d.PassportNumber;
+				employeeCreateDTO.PassportDateOfIssue = d.PassportDateOfIssue;
+				employeeCreateDTO.PassportValidUpto = d.PassportValidUpto;
+				employeeCreateDTO.PassportPlaceOfIssue = d.PassportPlaceOfIssue;
+				employeeCreateDTO.Photo = d.Photo;
+				
 
 			}
 
@@ -60,10 +88,54 @@ namespace HR.Base.Controllers
 		[HttpPost]
 		public IActionResult EmployeeCreate(EmployeeCreateDTO employeeCreateDTO)
 		{
-			
-			ViewBag.ParentEmployeeList = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmps(), "EmployeeCode", "EmployeeName");
+			employeeCreateDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "EmployeeId").Value.ToString());
+
+			if (ModelState.IsValid)
+			{
+				if (employeeCreateDTO.EmployeeCode == null)
+				{
+					var a = _empolyeeService.CreateEmployee(employeeCreateDTO);
+					if (a == MennsageEnum.Success)
+					{
+						return Redirect("/HR/Emplyoee/BranchList");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "Emplyoee Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+				else
+				{
+					var a = _empolyeeService.UpdateEmployee(employeeCreateDTO);
+					if (a == MennsageEnum.Updated)
+					{
+						return Redirect("/HR/Emplyoee/EmplyoeeList");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "Branch Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+			}
+
+			//ViewBag.ParentEmployeeList = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmps(), "EmployeeCode", "EmployeeName");
 
 			return View("~/Plugins/HR.Base/Views/Employee/EmployeeCreate.cshtml", employeeCreateDTO);
+		}
+
+		public IActionResult employeeView()
+		{
+			ViewBag.Employees = _empolyeeService.GetEmps();
+
+			return View("~/Plugins/Hr.Base/Views/Employee/EmployeeView.cshtml");
 		}
 	}
 }

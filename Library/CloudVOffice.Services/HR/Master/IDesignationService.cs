@@ -13,8 +13,9 @@ namespace CloudVOffice.Services.HR.Master
     {
         public MennsageEnum CreateDesignation(DesignationDTO designationDTO);
         public List<Designation> GetDesignationList();
-        public Designation GetDesignationById(int designationId);
+        public Designation GetDesignationById(Int64 designationId);
         public MennsageEnum DesignationUpdate(DesignationDTO designationDTO);
-        public MennsageEnum DesignationDelete(int designationId, int DeletedBy);
+        public MennsageEnum DesignationDelete(Int64 designationId, Int64 DeletedBy);
+       
     }
 }

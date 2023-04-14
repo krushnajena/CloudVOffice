@@ -105,27 +105,55 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 			if (ModelState.IsValid)
             {
-              var a= await  _userService.CreateUser(createUserDTO); 
-              if(a != null)
+                if(createUserDTO.UserId != null)
                 {
-                    if(a== MennsageEnum.Success)
+                    var a = await _userService.UpdateUser(createUserDTO);
+                    if (a != null)
                     {
-                        return Redirect("/Setup/User/UserList");
-                    }
-                    else if (a==MennsageEnum.Duplicate)
-                    {
-                        ModelState.AddModelError("", "User Already Exists");
+                        if (a == MennsageEnum.Success)
+                        {
+                            return Redirect("/Setup/User/UserList");
+                        }
+                        else if (a == MennsageEnum.Duplicate)
+                        {
+                            ModelState.AddModelError("", "User Already Exists");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Un-Expected Error");
+                        }
+
                     }
                     else
                     {
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
-
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Un-Expected Error");
+                    var a = await _userService.CreateUser(createUserDTO);
+                    if (a != null)
+                    {
+                        if (a == MennsageEnum.Success)
+                        {
+                            return Redirect("/Setup/User/UserList");
+                        }
+                        else if (a == MennsageEnum.Duplicate)
+                        {
+                            ModelState.AddModelError("", "User Already Exists");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Un-Expected Error");
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Un-Expected Error");
+                    }
                 }
+             
             }
 			ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
 

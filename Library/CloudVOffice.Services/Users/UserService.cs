@@ -133,7 +133,9 @@ namespace CloudVOffice.Services.Users
 
         public async Task<MennsageEnum> CreateUser(UserCreateDTO userCreateDTO)
         {
-            var objCheck = _context.Users.SingleOrDefault(opt => opt.Email == userCreateDTO.Email && opt.Deleted == false);
+            var objCheck = _context.Users
+               
+                .SingleOrDefault(opt => opt.Email == userCreateDTO.Email && opt.Deleted == false);
             try
             {
                 if (objCheck == null)
@@ -178,7 +180,10 @@ namespace CloudVOffice.Services.Users
 
         public async Task<MennsageEnum> UpdateUser(UserCreateDTO userCreateDTO)
         {
-            var user = _context.Users.SingleOrDefault(opt => opt.UserId == userCreateDTO.UserId && opt.Deleted == false);
+            var user = _context.Users
+                .Include(x => x.UserRoleMappings)
+                .Include(x => x.UserWiseViewMapper)
+                .SingleOrDefault(opt => opt.UserId == userCreateDTO.UserId && opt.Deleted == false);
             if (user != null)
             {
                 user.FirstName = userCreateDTO.FirstName;
@@ -190,7 +195,25 @@ namespace CloudVOffice.Services.Users
                 user.UserTypeId = userCreateDTO.UserTypeId;
                 user.UpdatedBy = userCreateDTO.CreatedBy;
                 user.UpdatedDate = DateTime.Now;
+                _context.SaveChanges();
+                var userAssignedRoles = user.UserRoleMappings.ToList();
+                var userRoles = userCreateDTO.roles.Where(x=>x.IsSelected==true).ToList();
+                var UnAsignedRoles = userAssignedRoles.Where(x=> !userRoles.Any(a=>a.RoleId==x.RoleId)).ToList();
+                for(int i=0; i<UnAsignedRoles.Count;i++)
+                {
+                    UnAssignRole(user.UserId, UnAsignedRoles[i].RoleId);
+                    _userViewPermissions.UnAssignViewPermissions(user.UserId, userCreateDTO.roles[i].RoleId);
 
+                }
+                for (int i = 0; i < userCreateDTO.roles.Count; i++)
+                {
+                    if (userCreateDTO.roles[i].IsSelected == true)
+                    {
+                        AssignRole(user.UserId, userCreateDTO.roles[i].RoleId);
+                        _userViewPermissions.AssignViewPermissions(user.UserId, userCreateDTO.roles[i].RoleId);
+                    }
+
+                }
                 return MennsageEnum.Success;
             }
             else

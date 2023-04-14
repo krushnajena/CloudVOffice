@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
 using Newtonsoft.Json;
@@ -91,5 +92,10 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 
     
         public List<Employee> Employees { get; set; }
+
+        public List<DesktopLogin> DesktopLogins { get; set; }
+        public List<DesktopActivityLog> DesktopActivityLogs { get; set; }
+
+        
     }
 }

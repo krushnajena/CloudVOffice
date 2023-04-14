@@ -1,0 +1,152 @@
+﻿@{
+    Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>EMP</h5>
+                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">Last Login: 2 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">Employee</div>
+                <div class="card-body">
+
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Employees"
+                              allowFiltering="true" allowSorting="true"
+                              allowExcelExport="true" allowGrouping="true"
+                              allowMultiSorting="true"
+                              allowPdfExport="true"
+                              height="600" rowHeight="38"
+                              enableHover="false" enableHeaderFocus="true"
+                              enableVirtualization="true" allowSelection="true"
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+
+                        <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
+
+                        <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
+                        <e-grid-columns>
+
+
+                            <e-grid-column field="EmployeeCode" headerText="EmployeeCode Code" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Salutation" headerText="Salutation" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="FirstName" headerText="First Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MiddleName" headerText="Middle Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="LastName" headerText="Last Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="DateOfBirth" headerText="Date Of Birth" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="DateOfJoining" headerText="Date Of Joining " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ErpUser" headerText="Erp User " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="DepartmentId" headerText="Department Id " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="DesignationId" headerText="Designation Id " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="BranchId" headerText="Branch Id " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="EmploymentTypeId" headerText="Employment Type Id " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ReportToEmployeeId" headerText="ReportTo Employee Id " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="JobApplicantId" headerText="Job Applicant Id " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="OfferDate" headerText="Offer Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ConfirmationDate" headerText="Confirmation Date " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ContractEndDate" headerText="Contract End Date " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="NoticePeriodDays" headerText="Notice Period Days" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="RetirementDate" headerText="Retirement Date " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MobileNo" headerText="Mobile No " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="PersonalEmail" headerText="Personal Email " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CompanyEmail" headerText="Company Email " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CurrentAddress" headerText="Current Address " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="PermanentAddress" headerText="Permanent Address " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="EmergencyContactName" headerText="Emergency Contact Name " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="EmergencyPhone" headerText="Emergency Phone " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="RelationWithEmergencyContactPerson" headerText="RelationWith Emergency ContactPerson " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="BiometricOrRfIdDeviceId" headerText="Biometric Or Rf Id Device Id " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CTC" headerText="CTC" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="PanNo" headerText="Pan No" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ProvidentFundAccountNo" headerText="Provident Fund AccountNo " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MaritalStatus" headerText="Marital Status " textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MarraigeDate" headerText="Marraige Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="BloodGroup" headerText="Blood Group" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="PassportNumber" headerText="Passport Number" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="PassportDateOfIssue" headerText="Passport Date Of Issue" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="PassportValidUpto" headerText="Passport Valid Upto" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="PassportPlaceOfIssue" headerText="Passport Place Of Issue" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Photo" headerText="Photo" textAlign="Left" width="120"></e-grid-column>
+                            
+                        </e-grid-columns>
+                    </ejs-grid>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script id="Actions" type="text/x-template">
+    <div class="link">
+        <a href="../../Emp/Employee/EmployeeCreate?EmployeeId=${EmployeeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../Emp/Employee/DeleteEmployee?EmployeeId=${EmployeeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+    </div>
+</script>
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+</script>
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
+        if (args.item.id === 'GridOverview_pdfexport') {
+            gridObj.pdfExport();
+        }
+        if (args.item.id === 'GridOverview_excelexport') {
+            gridObj.excelExport();
+        }
+        if (args.item.id === 'GridOverview_csvexport') {
+            gridObj.csvExport();
+        }
+    }
+    function exportQueryCellInfo(args) {
+        if (args.column.headerText === 'Employee Image') {
+            if (args.name === "excelQueryCellInfo") {
+                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
+            } else {
+                args.image = { base64: args.data["EmployeeImage"] };
+            }
+        }
+        if (args.column.headerText === 'Track') {
+            args.hyperLink = {
+                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
+                displayText: "Track"
+            };
+        }
+    };
+
+    function statusDetail(e) {
+
+        if (e.IsActive == true) {
+            return '<span class="badge badge-pill badge-success" > Active </span>';
+        } else {
+            return '<span class="badge badge-pill badge-dark">In-Active</span>';
+        }
+
+    }
+
+</script>

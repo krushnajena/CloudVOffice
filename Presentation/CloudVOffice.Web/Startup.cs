@@ -30,7 +30,7 @@ namespace CloudVOffice.Web
         public Startup(IConfiguration configuration)
         {
 
-			string licenseKey = "ODE4NkAzMTM5MmUzMjJlMzBjdUVOOVZZOW1XSGgrck5CendtZHZXbm91M2hhV3k1SEtPT25oUGVmQzc0PQ==";
+			string licenseKey = "Mgo+DSMBMAY9C3t2VFhhQlJBfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hSn5Xd0JiW39XdHNXRmBb\r\n";
 			SyncfusionLicenseProvider.RegisterLicense(licenseKey);
 			configRoot = configuration;
         }
@@ -47,7 +47,7 @@ namespace CloudVOffice.Web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(x => { x.LoginPath = "/App/Login";
 
-                x.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+                x.ExpireTimeSpan = TimeSpan.FromMinutes(20 );
                 x.SlidingExpiration = true;
                 x.AccessDeniedPath = "/Forbidden/";
             }) ;

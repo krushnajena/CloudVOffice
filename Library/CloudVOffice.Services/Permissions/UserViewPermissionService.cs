@@ -49,7 +49,7 @@ namespace CloudVOffice.Services.Permissions
                 var obj = _context.UserWiseViewMappers.Where(x => x.Deleted == false && x.ApplicationId == roleWisePermissions[j].ApplicationId && x.UserId == UserId).SingleOrDefault();
                 if (obj != null)
                 {
-                    _userWiseViewMapperRepo.Delete(obj);
+                    _userWiseViewMapperRepo.Delete(obj.UserWiseViewMapperId);
                     
                 }
 

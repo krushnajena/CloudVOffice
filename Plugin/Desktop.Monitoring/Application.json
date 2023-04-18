@@ -1,0 +1,45 @@
+{
+
+  "ApplicationName": "Desktop Monitoring",
+  "Url": "/DesktopMonitoring/DesktopMonitoring/Dasboard",
+  "IconImageUrl": "/Plugin/Desktop.Monitoring/logo.png",
+  "IconClass": "",
+  "AreaName": "DesktopMonitoring",
+  "Roles": [ "Desktop Monitoring Manager", "Desktop Monitoring User" ],
+  "Children": [
+    {
+      "ApplicationName": "Master",
+      "Url": "",
+      "IsGroup": true,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "DesktopMonitoring",
+      "Roles": [ "Desktop Monitoring Manager" ],
+      "Children": [
+        {
+          "ApplicationName": "Block Website",
+          "IsGroup": false,
+          "Url": "/DesktopMonitoring/DesktopMonitoring/BlockWebsiteView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "DesktopMonitoring",
+          "Roles": [ "Desktop Monitoring Manager" ]
+        }
+
+
+      ]
+    },
+    {
+      "ApplicationName": "Moniter User",
+      "Url": "/DesktopMonitoring/Monitering/Users",
+      "IsGroup": false,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "DesktopMonitoring",
+      "Roles": [ "Desktop Monitoring Manager", "Desktop Monitoring User" ],
+      "Children": []
+    }
+
+  ]
+
+}

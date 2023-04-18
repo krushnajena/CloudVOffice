@@ -23,6 +23,7 @@
 		public const string HelpDesk = "HelpDesk";
 
 		public const string Employee = "Employee";
+		public const string DesktopMonitoring = "DesktopMonitoring";
 
 	}
 }

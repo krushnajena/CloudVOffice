@@ -13,11 +13,11 @@ namespace CloudVOffice.Services.Projects
 {
     public interface IProjectTypeService
     {
-        public MennsageEnum ProjectTypeCreate(ProjectTypeDTO projectTypeDTO);
+        public MennsageEnum ProjectTypeCreate(ProjectTypeDTO projecttypeDTO);
         public List<ProjectType> GetProjectTypes();
         public ProjectType GetProjectTypeByProjectTypeId(Int64 projecttypeId);
         public ProjectType GetProjectTypeByProjectName(string projectName);
-        public MennsageEnum ProjectTypeUpdate(ProjectTypeDTO projectTypeDTO);
-        public MennsageEnum ProjectTypeDelete(Int64 projectTypeId, Int64 DeletedBy);
+        public MennsageEnum ProjectTypeUpdate(ProjectTypeDTO projecttypeDTO);
+        public MennsageEnum ProjectTypeDelete(Int64 projecttypeId, Int64 DeletedBy);
     }
 }

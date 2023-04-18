@@ -19,40 +19,41 @@ namespace Project.Management.Controllers
     [Area(AreaNames.Projects)]
     public class ProjectTypeController : BasePluginController
     {
-        private readonly IProjectTypeService _projectTypeService;
-        public ProjectTypeController(IProjectTypeService projectTypeService)
+        private readonly IProjectTypeService _projecttypeService;
+        public ProjectTypeController(IProjectTypeService projecttypeService)
         {
-            _projectTypeService = projectTypeService;
+
+            _projecttypeService = projecttypeService;
         }
         [HttpGet]
-        public IActionResult ProjectTypeCreate(int? ProjectTypeId)
+        public IActionResult ProjectTypeCreate(int? projecttypeId)
         {
-            ProjectTypeDTO projectTypeDTO = new ProjectTypeDTO();
-
-            if (ProjectTypeId != null)
+            ProjectTypeDTO projecttypeDTO = new ProjectTypeDTO();
+           
+            if (projecttypeId != null)
             {
 
-                ProjectType d = _projectTypeService.GetProjectTypeByProjectTypeId(int.Parse(ProjectTypeId.ToString()));
+                ProjectType d = _projecttypeService.GetProjectTypeByProjectTypeId(int.Parse(projecttypeId.ToString()));
 
-                projectTypeDTO.ProjectName = d.ProjectName;
-
+                projecttypeDTO.ProjectName = d.ProjectName;
 
             }
 
-            return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeCreate.cshtml", projectTypeDTO);
+            return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeCreate.cshtml", projecttypeDTO);
 
         }
-        [HttpPost]
-        public IActionResult ProjectTypeCreate(ProjectTypeDTO projectTypeDTO)
-        {
 
-            projectTypeDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+        [HttpPost]
+        public IActionResult ProjectTypeCreate(ProjectTypeDTO projecttypeDTO)
+        {
+            projecttypeDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
 
             if (ModelState.IsValid)
             {
-                if (projectTypeDTO.ProjectTypeId == null)
+                if (projecttypeDTO.ProjectTypeId == null)
                 {
-                    var a = _projectTypeService.ProjectTypeCreate(projectTypeDTO);
+                    var a = _projecttypeService.ProjectTypeCreate(projecttypeDTO);
                     if (a == MennsageEnum.Success)
                     {
                         return Redirect("/Projects/ProjectType/ProjectTypeView");
@@ -68,9 +69,8 @@ namespace Project.Management.Controllers
                 }
                 else
                 {
-
-                    var a = _projectTypeService.ProjectTypeUpdate(projectTypeDTO);
-                    if (a == MennsageEnum.Success)
+                    var a = _projecttypeService.ProjectTypeUpdate(projecttypeDTO);
+                    if (a == MennsageEnum.Updated)
                     {
                         return Redirect("/Projects/ProjectType/ProjectTypeView");
                     }
@@ -84,19 +84,24 @@ namespace Project.Management.Controllers
                     }
                 }
             }
-            return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeCreate.cshtml", projectTypeDTO);
+           
+
+            return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeCreate.cshtml", projecttypeDTO);
         }
+
         public IActionResult ProjectTypeView()
         {
-            ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
+            ViewBag.projecttypes = _projecttypeService.GetProjectTypes();
 
             return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeView.cshtml");
         }
-        public IActionResult ProjectTypeDelete(Int64 projectTypeId)
+
+        [HttpGet]
+        public IActionResult ProjectTypeDelete(Int64 projecttypeId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-            var a = _projectTypeService.ProjectTypeDelete(projectTypeId, DeletedBy);
+            var a = _projecttypeService.ProjectTypeDelete(projecttypeId, DeletedBy);
             return Redirect("/Projects/ProjectType/ProjectTypeView");
         }
     }

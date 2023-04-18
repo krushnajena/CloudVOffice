@@ -255,7 +255,7 @@ namespace CloudVOffice.Services.Users
                 if (objCheck != null)
                 {
 
-                    _userrolemappingRepo.Delete(objCheck);
+                    _userrolemappingRepo.Delete(objCheck.UserRoleMappingId);
                     return "Role Sucessfully Un-Assigned";
 
                 }

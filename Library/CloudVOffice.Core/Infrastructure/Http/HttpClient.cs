@@ -56,7 +56,7 @@ namespace CloudVOffice.Core.Infrastructure.Http
 
 
       
-        public string GetRequest(string Url, bool isAnonymous= true)
+        public async Task<string> GetRequest(string Url, bool isAnonymous= true)
         {
           
              
@@ -70,8 +70,10 @@ namespace CloudVOffice.Core.Infrastructure.Http
                     client.DefaultRequestHeaders.Accept.Clear();
                   
                     //GET Method  
-                    HttpResponseMessage response = client.GetAsync(URL).Result;
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    var response = await client.GetAsync(URL);
+                
+
+					if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         jsonString = response.Content.ReadAsStringAsync()
                                                        .Result

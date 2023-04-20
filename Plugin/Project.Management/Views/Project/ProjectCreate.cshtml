@@ -12,8 +12,7 @@
 					<i class="icon-laptop_windows"></i>
 				</div>
 				<div class="page-title">
-					<h5>CRM Dashboard</h5>
-					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+					<h5>Projects</h5>
 				</div>
 			</div>
 			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -27,122 +26,102 @@
 <div class="main-content">
 	<div class="row gutters">
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
 			<div class="card">
 				<form asp-route="Projects/Project/ProjectCreate" method="post" autocomplete="off">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
-
-					<div class="card-header"><b>Basic Info</b></div>
+					<div class="card-header"><b>New Project</b></div>
 					<div class="card-body">
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.ProjectId" type="hidden" />
-
 								<span asp-validation-for="ProjectCode"></span>
 							</div>
-
 						</div>
 						<div class="form-row">
-							<div class="form-group col-md-4">
-
-								<label for="ProjectId" class="form-label">Project Id</label>
-								<input asp-for="@Model.ProjectId" type="text" class="form-control" autofocus="autofocus" placeholder="Project Id" />
-								<span asp-validation-for="ProjectId"></span>
-							</div>
-							<div class="form-group col-md-4">
-
+							<div class="form-group col-md-3">
 								<label for="ProjectCode" class="form-label">Project Code</label>
 								<input asp-for="@Model.ProjectCode" type="text" class="form-control" autofocus="autofocus" placeholder="Project Code" />
 								<span asp-validation-for="ProjectCode"></span>
 							</div>
-							<div class="form-group col-md-4">
-
+							<div class="form-group col-md-3">
 								<label for="ProjectName" class="form-label">Project Name</label>
 								<input asp-for="@Model.ProjectName" type="text" class="form-control" autofocus="autofocus" placeholder="Project Name" />
 								<span asp-validation-for="ProjectName"></span>
 							</div>
-							
+							<div class="form-group col-md-3">
+								<label for="Status" class="form-label">Status</label>
+								<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
+									<option value="Open">Open</option>
+									<option value="Completed">Completed</option>
+									<option value="Cancelled">Cancelled</option>
+								</select>
+							</div>
 						</div>
 						<div class="form-row">
-					       <div class="form-group col-md-4">
-					    	<label for="Status" class="form-label">Status</label>
-					    	<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status" />
-							  
-					    	     <option value="Open">Open</option>
-					    	     <option value="Completed">Completed</option>
-					    	     <option value="Cancelled">Cancelled</option>
-					    	
-					    	  </select>
-					       </div>
-				           <div class="form-group col-md-4">
-				        
+				            <div class="form-group col-md-3">
 				        	   <label for="StartDate" class="form-label">Start Date</label>
 				        	   <input asp-for="@Model.StartDate" type="date" class="form-control" autofocus="autofocus" placeholder="Start Date" />
 				        	   <span asp-validation-for="StartDate"></span>
-				           </div>
-				           <div class="form-group col-md-4">
-				        
-				        	  <label for="EndDate" class="form-label">End Date</label>
-				        	  <input asp-for="@Model.EndDate" type="date" class="form-control" autofocus="autofocus" placeholder="End Date" />
-				        	  <span asp-validation-for="EndDate"></span>
-				           </div>
-						</div>
-					</div>    
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-4">
+				            </div>
+				            <div class="form-group col-md-3">
+				        	    <label for="EndDate" class="form-label">End Date</label>
+				        	    <input asp-for="@Model.EndDate" type="date" class="form-control" autofocus="autofocus" placeholder="End Date" />
+				        	    <span asp-validation-for="EndDate"></span>
+				            </div>
+							<div class="form-group col-md-3">
 								<label for="ProjectTypeId" class="form-label">Project Type Id</label>
 								<input asp-for="@Model.ProjectTypeId" type="text" class="form-control" autofocus="autofocus" placeholder="Project Type Id" />
 								<span asp-validation-for="ProjectTypeId"></span>
 							</div>
-							<div class="form-group col-md-4">
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
 								<label for="Priority" class="form-label">Priority</label>
-								<select input asp-for="@Model.Priority" type="text" class="form-control" autofocus="autofocus" placeholder="Priority" />
-								
-								<option value="Medium">Medium</option>
-								<option value="Low">Low</option>
-								<option value="High">High</option>
+								<select input asp-for="@Model.Priority" type="text" class="form-control" autofocus="autofocus" placeholder="Priority">
+								    <option value="Medium">Medium</option>
+								    <option value="Low">Low</option>
+								    <option value="High">High</option>
 								</select>
 							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<label for="CompleteMethod" class="form-label">Complete Method</label>
-								<input asp-for="@Model.CompleteMethod" type="text" class="form-control" autofocus="autofocus" placeholder="Complete Method" />
-								<span asp-validation-for="CompleteMethod"></span>
-							</div>	
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-4">
-								<label for="SalesOrderId" class="form-label">Sales Order Id</label>
-								<input asp-for="@Model.SalesOrderId" type="text" class="form-control" autofocus="autofocus" placeholder="Sales Order Id" />
-								<span asp-validation-for="SalesOrderId"></span>
+								<select input asp-for="@Model.CompleteMethod" type="text" class="form-control" autofocus="autofocus" placeholder="Complete Method">
+									<option value="Manual">Manual</option>
+									<option value="Task Completion">Task Completion</option>
+									<option value="Task Progress">Task Progress</option>
+									<option value="Task Weight">Task Weight</option>
+								</select>
 							</div>
-							<div class="form-group col-md-4">
-								<label for="ProjectNotes" class="form-label">Project Notes</label>
-								<input asp-for="@Model.ProjectNotes" type="text" class="form-control" autofocus="autofocus" placeholder="Project Notes" />
-								<span asp-validation-for="ProjectNotes"></span>
-							</div>
-							<div class="form-group col-md-4">
-								<label for="EstimatedCost" class="form-label">Estimated Cost</label>
-								<input asp-for="@Model.EstimatedCost" type="text" class="form-control" autofocus="autofocus" placeholder="Estimated Cost" />
-								<span asp-validation-for="EstimatedCost"></span>
-							</div>
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<label for="ProjectManager" class="form-label">Project Manager</label>
 								<input asp-for="@Model.ProjectManager" type="text" class="form-control" autofocus="autofocus" placeholder="Project Manager" />
 								<span asp-validation-for="ProjectManager"></span>
-							</div>	
+							</div>
 						</div>
 					</div>
+					<div class="card-header"><b>Customer Details </b></div>
+					<div class="form-group col-md-3">
+						<label for="SalesOrderId" class="form-label">Sales Order Id</label>
+						<input asp-for="@Model.SalesOrderId" type="text" class="form-control" autofocus="autofocus" placeholder="Sales Order Id" />
+						<span asp-validation-for="SalesOrderId"></span>
+					</div>
+					<div class="card-header"><b>Project Notes </b></div>
+					<div class="form-group col-md-3">
+						<label for="ProjectNotes" class="form-label">Project Notes</label>
+						<textarea asp-for="@Model.ProjectNotes" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Project Notes" style="height: 150px;"></textarea>
+						<span asp-validation-for="ProjectNotes"></span>
+					</div>
+					<div class="card-header"><b>Costing and Billing </b></div>
+					<div class="form-group col-md-3">
+						<label for="EstimatedCost" class="form-label">Estimated Cost</label>
+						<input asp-for="@Model.EstimatedCost" type="text" class="form-control" autofocus="autofocus" placeholder="Estimated Cost" />
+						<span asp-validation-for="EstimatedCost"></span>
+					</div>
 					<div class="card-body">
-
 						<div class="col-lg-2 col-md-2 col-sm-12">
 							<button type="submit" class="btn btn-primary">Save</button>
 						</div>
 					</div>
-
-
 				</form>
 			</div>
 		</div>

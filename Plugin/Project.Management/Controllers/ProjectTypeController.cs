@@ -1,4 +1,4 @@
-﻿using CloudVOffice.Core.Domain.Common;
+﻿    using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.HR.Master;
@@ -56,7 +56,7 @@ namespace Project.Management.Controllers
                     if (a == MennsageEnum.Success)
                     {
                         return Redirect("/Projects/ProjectType/ProjectTypeView");
-                    }
+                    }   
                     else if (a == MennsageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "ProjectType Already Exists");
@@ -92,6 +92,7 @@ namespace Project.Management.Controllers
 
             return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeView.cshtml");
         }
+        [HttpGet]
         public IActionResult ProjectTypeDelete(Int64 projectTypeId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

@@ -8,7 +8,7 @@ namespace CloudVOffice.Data.DTO.Emp
 {
     public class EmployeeCreateDTO
     {
-		public Int64? EmployeeId { get; set; }
+		public int? EmployeeId { get; set; }
 		public string EmployeeCode { get; set; }
         public string Salutation { get; set; }
         public string FirstName { get; set; }
@@ -26,8 +26,6 @@ namespace CloudVOffice.Data.DTO.Emp
 		public int? DesignationId { get; set; }
 		public int? BranchId { get; set; }
 		public int? EmploymentTypeId { get; set; }
-		public Int64? ReportToEmployeeId { get; set; }
-
 		public Int64? JobApplicantId { get; set; }
 		public DateTime? OfferDate { get; set; }
 		public DateTime? ConfirmationDate { get; set; }
@@ -46,7 +44,7 @@ namespace CloudVOffice.Data.DTO.Emp
 		public string RelationWithEmergencyContactPerson { get; set; }
 		public string BiometricOrRfIdDeviceId { get; set; }
 
-		public double? CTC { get; set; }
+		public string CTC { get; set; }
 		public string PanNo { get; set; }
 		public string ProvidentFundAccountNo { get; set; }
 

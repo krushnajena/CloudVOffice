@@ -92,9 +92,6 @@ namespace HR.Base.Controllers
 			ViewBag.Departments = _departmentService.GetDepartmentList();
 
 			return View("~/Plugins/HR.Base/Views/Department/DepartmentView.cshtml");
-		}
-
-          
-        
+		}        
     }
 }

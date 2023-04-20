@@ -14,27 +14,48 @@ using CloudVOffice.Data.DTO.Emp;
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Web.Framework;
+using Microsoft.CodeAnalysis.Operations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HR.Base.Controllers
 {
-    [Area(AreaNames.HR)]
-    public class EmployeeController : BasePluginController
+	[Area(AreaNames.HR)]
+	public class EmployeeController : BasePluginController
 	{
 		private readonly IEmployeeService _empolyeeService;
-		public EmployeeController(IEmployeeService empolyeeService)
+		private readonly IDepartmentService _departmentService;
+		private readonly IDesignationService _designationService;
+		private readonly IBranchService _branchService;
+		private readonly IEmploymentTypeService _employmentTypeService;
+
+		public EmployeeController(IEmployeeService empolyeeService, IDepartmentService departmentService, IDesignationService designationService, IBranchService branchService, IEmploymentTypeService employmentTypeService)
 		{
 			_empolyeeService = empolyeeService;
+			_departmentService = departmentService;
+			_designationService = designationService;
+			_branchService = branchService;
+			_employmentTypeService = employmentTypeService;
 		}
 
 		[HttpGet]
-		public IActionResult EmployeeCreate(int? EmployeeCode)
+		public IActionResult EmployeeCreate(int? employeeid)
 		{
 			EmployeeCreateDTO employeeCreateDTO = new EmployeeCreateDTO();
-			ViewBag.employee = new SelectList(_empolyeeService.GetEmps(), "EmployeeId", "EmployeeName");
-			if (EmployeeCode != null)
+			
+			var department = _departmentService.GetAllDepartmentGroups();
+			var desgination = _designationService.GetDesignationList();
+			var branch = _branchService.GetBranches();
+			var employmentType = _employmentTypeService.GetEmploymentTypes();
+		
+			ViewBag.Department = department;
+			ViewBag.Designation = desgination;
+			ViewBag.Branch = branch;
+			ViewBag.EmploymentType = employmentType;
+
+			if (employeeid != null)
 			{
 
-				Employee d = _empolyeeService.GetEmployeeByCode(string.Concat(EmployeeCode.ToString()));
+				Employee d = _empolyeeService.GetEmployeeById(int.Parse(employeeid.ToString()));
 
 				employeeCreateDTO.EmployeeCode = d.EmployeeCode;
 				employeeCreateDTO.Salutation = d.Salutation;
@@ -50,8 +71,7 @@ namespace HR.Base.Controllers
 				employeeCreateDTO.DesignationId = d.DesignationId;
 				employeeCreateDTO.BranchId = d.BranchId;
 				employeeCreateDTO.EmploymentTypeId = d.EmploymentTypeId;
-				employeeCreateDTO.ReportToEmployeeId = d.ReportToEmployeeId;
-				employeeCreateDTO.JobApplicantId= d.JobApplicantId;
+				employeeCreateDTO.JobApplicantId = d.JobApplicantId;
 				employeeCreateDTO.OfferDate = d.OfferDate;
 				employeeCreateDTO.ConfirmationDate = d.ConfirmationDate;
 				employeeCreateDTO.ContractEndDate = d.ContractEndDate;
@@ -77,7 +97,7 @@ namespace HR.Base.Controllers
 				employeeCreateDTO.PassportValidUpto = d.PassportValidUpto;
 				employeeCreateDTO.PassportPlaceOfIssue = d.PassportPlaceOfIssue;
 				employeeCreateDTO.Photo = d.Photo;
-				
+
 
 			}
 
@@ -88,16 +108,16 @@ namespace HR.Base.Controllers
 		[HttpPost]
 		public IActionResult EmployeeCreate(EmployeeCreateDTO employeeCreateDTO)
 		{
-			employeeCreateDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "EmployeeId").Value.ToString());
-
+			employeeCreateDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 			if (ModelState.IsValid)
 			{
-				if (employeeCreateDTO.EmployeeCode == null)
+				if (employeeCreateDTO.EmployeeId == null)
 				{
 					var a = _empolyeeService.CreateEmployee(employeeCreateDTO);
+
 					if (a == MennsageEnum.Success)
 					{
-						return Redirect("/HR/Emplyoee/BranchList");
+						return Redirect("/HR/Emplyoee/EmployeeView");
 					}
 					else if (a == MennsageEnum.Duplicate)
 					{
@@ -111,13 +131,13 @@ namespace HR.Base.Controllers
 				else
 				{
 					var a = _empolyeeService.UpdateEmployee(employeeCreateDTO);
-					if (a == MennsageEnum.Updated)
+					if (a == MennsageEnum.Success)
 					{
-						return Redirect("/HR/Emplyoee/EmplyoeeList");
+						return Redirect("/HR/Emplyoee/EmployeeView");
 					}
 					else if (a == MennsageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "Branch Already Exists");
+						ModelState.AddModelError("", "Emplyoee Already Exists");
 					}
 					else
 					{
@@ -126,16 +146,35 @@ namespace HR.Base.Controllers
 				}
 			}
 
-			//ViewBag.ParentEmployeeList = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmps(), "EmployeeCode", "EmployeeName");
+			ViewBag.Employee = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmployees(), "EmployeeId", "EmployeeName");
+			var department = _departmentService.GetAllDepartmentGroups();
+			var desgination = _designationService.GetDesignationList();
+			var branch = _branchService.GetBranches();
+			var employmentType = _employmentTypeService.GetEmploymentTypes();
 
+			ViewBag.Department = department;
+			ViewBag.Designation = desgination;
+			ViewBag.Branch = branch;
+			ViewBag.EmploymentType = employmentType;
 			return View("~/Plugins/HR.Base/Views/Employee/EmployeeCreate.cshtml", employeeCreateDTO);
 		}
 
 		public IActionResult employeeView()
 		{
-			ViewBag.Employees = _empolyeeService.GetEmps();
-
+			ViewBag.Department = _departmentService.GetDepartmentList();
+			ViewBag.Designation = _designationService.GetDesignationList();
+			ViewBag.Branch = _branchService.GetBranches();
+			ViewBag.EmploymentType = _employmentTypeService.GetEmploymentTypes();
 			return View("~/Plugins/Hr.Base/Views/Employee/EmployeeView.cshtml");
+		}
+
+		[HttpGet]
+		public IActionResult DeleteEmployee(int employeeid)
+		{
+			Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+			var a = _empolyeeService.DeleteEmployee(employeeid, DeletedBy);
+			return Redirect("/HR/Emplyoee/EmployeeView");
 		}
 	}
 }

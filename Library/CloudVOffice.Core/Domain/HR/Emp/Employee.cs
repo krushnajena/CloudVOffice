@@ -19,7 +19,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public string EmployeeCode { get; set; }
 		public string Salutation { get; set; }
 		public string FirstName { get; set; }
-		public string MiddleName { get; set; }	
+		public string? MiddleName { get; set; }	
 		public string LastName { get; set; }
         [NotMapped]
         public string FullName
@@ -45,7 +45,6 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public int? DesignationId { get; set; }
 		public int? BranchId { get; set; }
 		public int? EmploymentTypeId { get; set;}
-		public Int64 ? ReportToEmployeeId { get; set; }
 
 		public Int64? JobApplicantId { get; set; }
 		public DateTime? OfferDate { get; set; }
@@ -60,13 +59,13 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public string CompanyEmail { get; set; }
 		public string CurrentAddress { get; set; }
 		public string PermanentAddress { get; set; }
-		public string EmergencyContactName { get; set; }
-		public string EmergencyPhone { get; set; }
+		public string? EmergencyContactName { get; set; }
+		public string? EmergencyPhone { get; set; }
 
-		public string RelationWithEmergencyContactPerson { get; set; }
-		public string BiometricOrRfIdDeviceId { get; set; }
+		public string? RelationWithEmergencyContactPerson { get; set; }
+		public string? BiometricOrRfIdDeviceId { get; set; }
 
-		public double? CTC { get; set; }
+		public string CTC { get; set; }
 		public string PanNo { get; set; }
 		public string ProvidentFundAccountNo { get; set; }
 
@@ -77,7 +76,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public DateTime? PassportDateOfIssue { get; set; }
 		public DateTime? PassportValidUpto { get; set; }
 		public string PassportPlaceOfIssue { get; set; }
-		public string Photo { get; set; }
+		public string? Photo { get; set; }
 
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

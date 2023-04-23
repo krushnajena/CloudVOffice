@@ -5,6 +5,7 @@ using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,19 +16,19 @@ namespace CloudVOffice.Services.Projects
 {
     public class ProjectTypeService : IProjectTypeService
     {
-        private readonly ApplicationDBContext _dbContext;
+        private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<ProjectType> _projecttypeRepo;
-        public ProjectTypeService(ApplicationDBContext dbContext, ISqlRepository<ProjectType> projecttypeRepo)
+        public ProjectTypeService(ApplicationDBContext Context, ISqlRepository<ProjectType> projecttypeRepo)
         {
 
-            _dbContext = dbContext;
+            _Context = Context;
             _projecttypeRepo = projecttypeRepo;
         }
         public ProjectType GetProjectTypeByProjectName(string projectName)
         {
             try
             {
-                return _dbContext.ProjectTypes.Where(x => x.ProjectName == projectName && x.Deleted == false).SingleOrDefault();
+                return _Context.ProjectTypes.Where(x => x.ProjectName == projectName && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -40,7 +41,7 @@ namespace CloudVOffice.Services.Projects
         {
             try
             {
-                return _dbContext.ProjectTypes.Where(x => x.ProjectTypeId == projecttypeId && x.Deleted == false).SingleOrDefault();
+                return _Context.ProjectTypes.Where(x => x.ProjectTypeId == projecttypeId && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -53,7 +54,7 @@ namespace CloudVOffice.Services.Projects
         {
             try
             {
-                return _dbContext.ProjectTypes.Where(x => x.Deleted == false).ToList();
+                return _Context.ProjectTypes.Where(x => x.Deleted == false).ToList();
 
             }
             catch
@@ -62,17 +63,17 @@ namespace CloudVOffice.Services.Projects
             }
         }
 
-        public MennsageEnum ProjectTypeCreate(ProjectTypeDTO projectTypeDTO)
+        public MennsageEnum ProjectTypeCreate(ProjectTypeDTO projecttypeDTO)
         {
             try
             {
-                var projecttype = _dbContext.ProjectTypes.Where(x => x.ProjectName == projectTypeDTO.ProjectName && x.Deleted == false).FirstOrDefault();
+                var projecttype = _Context.ProjectTypes.Where(x => x.ProjectName == projecttypeDTO.ProjectName && x.Deleted == false).FirstOrDefault();
                 if (projecttype == null)
                 {
                     _projecttypeRepo.Insert(new ProjectType()
                     {
-                        ProjectName = projectTypeDTO.ProjectName,
-                        CreatedBy = projectTypeDTO.CreatedBy,
+                        ProjectName = projecttypeDTO.ProjectName,
+                        CreatedBy = projecttypeDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
@@ -85,19 +86,20 @@ namespace CloudVOffice.Services.Projects
             {
                 throw;
             }
+
         }
 
-        public MennsageEnum ProjectTypeDelete(Int64 projectTypeId, Int64 DeletedBy)
+        public MennsageEnum ProjectTypeDelete(Int64 projecttypeId, Int64 DeletedBy)
         {
             try
             {
-                var a = _dbContext.ProjectTypes.Where(x => x.ProjectTypeId == projectTypeId).FirstOrDefault();
+                var a = _Context.ProjectTypes.Where(x => x.ProjectTypeId == projecttypeId).FirstOrDefault();
                 if (a != null)
                 {
                     a.Deleted = true;
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
-                    _dbContext.SaveChanges();
+                    _Context.SaveChanges();
                     return MennsageEnum.Deleted;
                 }
                 else
@@ -109,20 +111,20 @@ namespace CloudVOffice.Services.Projects
             }
         }
 
-        public MennsageEnum ProjectTypeUpdate(ProjectTypeDTO projectTypeDTO)
+        public MennsageEnum ProjectTypeUpdate(ProjectTypeDTO projecttypeDTO)
         {
             try
             {
-                var employmenttype = _dbContext.ProjectTypes.Where(x => x.ProjectTypeId != projectTypeDTO.ProjectTypeId && x.ProjectName == projectTypeDTO.ProjectName && x.Deleted == false).FirstOrDefault();
-                if (employmenttype == null)
+                var projecttype = _Context.ProjectTypes.Where(x => x.ProjectTypeId != projecttypeDTO.ProjectTypeId && x.ProjectName == projecttypeDTO.ProjectName && x.Deleted == false).FirstOrDefault();
+                if (projecttype == null)
                 {
-                    var a = _dbContext.ProjectTypes.Where(x => x.ProjectTypeId == projectTypeDTO.ProjectTypeId).FirstOrDefault();
+                    var a = _Context.ProjectTypes.Where(x => x.ProjectTypeId == projecttypeDTO.ProjectTypeId).FirstOrDefault();
                     if (a != null)
                     {
-                        a.ProjectName = projectTypeDTO.ProjectName;
-                        a.UpdatedBy = projectTypeDTO.CreatedBy;
+                        a.ProjectName = projecttypeDTO.ProjectName;
+                        a.UpdatedBy = projecttypeDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
-                        _dbContext.SaveChanges();
+                        _Context.SaveChanges();
                         return MennsageEnum.Updated;
                     }
                     else

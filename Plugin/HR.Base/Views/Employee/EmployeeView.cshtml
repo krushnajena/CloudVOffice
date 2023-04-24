@@ -11,7 +11,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>EMP</h5>
+                    <h5>EMPLOYEE</h5>
                     <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <div class="card-header">Employee</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.Employees"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Emps"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -61,7 +61,6 @@
                             <e-grid-column field="DesignationId" headerText="Designation Id " textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="BranchId" headerText="Branch Id " textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="EmploymentTypeId" headerText="Employment Type Id " textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ReportToEmployeeId" headerText="ReportTo Employee Id " textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="JobApplicantId" headerText="Job Applicant Id " textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="OfferDate" headerText="Offer Date" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="ConfirmationDate" headerText="Confirmation Date " textAlign="Left" width="120"></e-grid-column>
@@ -88,7 +87,7 @@
                             <e-grid-column field="PassportValidUpto" headerText="Passport Valid Upto" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="PassportPlaceOfIssue" headerText="Passport Place Of Issue" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Photo" headerText="Photo" textAlign="Left" width="120"></e-grid-column>
-                            
+                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -103,8 +102,8 @@
 
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Emp/Employee/EmployeeCreate?EmployeeId=${EmployeeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../Emp/Employee/DeleteEmployee?EmployeeId=${EmployeeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+        <a href="../../HR/Employee/EmployeeCreate?EmployeeId=${EmployeeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../HR/Employee/DeleteEmployee?EmployeeId=${EmployeeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">

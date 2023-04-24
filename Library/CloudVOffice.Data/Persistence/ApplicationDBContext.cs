@@ -68,11 +68,12 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectEmployee> ProjectEmployees { get; set; }
         public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
-        #endregion
+		public virtual DbSet<ProjectActivityType> ProjectActivityTypes { get; set; }
+		#endregion
 
-        #region Desktop Monitering
+		#region Desktop Monitering
 
-        public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
+		public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
 
 
         public virtual DbSet<DesktopActivityLog> DesktopActivityLogs { get; set; }

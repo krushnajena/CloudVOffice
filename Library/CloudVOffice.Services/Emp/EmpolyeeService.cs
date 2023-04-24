@@ -22,16 +22,16 @@ namespace CloudVOffice.Services.Emp
 {
 	public class EmployeeService : IEmployeeService
 	{
-		private readonly ApplicationDBContext _context;
+		private readonly ApplicationDBContext _Dbcontext;
 		private readonly ISqlRepository<Employee> _employeeRepo;
-		public EmployeeService(ApplicationDBContext context, ISqlRepository<Employee> employeeRepo)
+		public EmployeeService(ApplicationDBContext Dbcontext, ISqlRepository<Employee> employeeRepo)
 		{
-			_context = context;
+			_Dbcontext = Dbcontext;
 			_employeeRepo = employeeRepo;
 		}
 		public  MennsageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO)
 		{
-			var objCheck = _context.Employees.SingleOrDefault(opt => opt.EmployeeCode == employeeCreateDTO.EmployeeCode && opt.ErpUser == employeeCreateDTO.ErpUser && opt.Deleted == false);
+			var objCheck = _Dbcontext.Employees.SingleOrDefault(opt => opt.EmployeeId == employeeCreateDTO.EmployeeId && opt.ErpUser == employeeCreateDTO.ErpUser && opt.Deleted == false);
 			try
 			{
 				if (objCheck == null)
@@ -52,7 +52,6 @@ namespace CloudVOffice.Services.Emp
 					employee.DesignationId = employeeCreateDTO.DesignationId;
 					employee.BranchId = employeeCreateDTO.BranchId;
 					employee.EmploymentTypeId = employeeCreateDTO.EmploymentTypeId;
-					employee.ReportToEmployeeId = employeeCreateDTO.ReportToEmployeeId;
 					employee.JobApplicantId = employeeCreateDTO.JobApplicantId;
 					employee.OfferDate = employeeCreateDTO.OfferDate;
 					employee.ConfirmationDate = employeeCreateDTO.ConfirmationDate;
@@ -98,17 +97,17 @@ namespace CloudVOffice.Services.Emp
 			}
 		}
 
-		public MennsageEnum DeleteEmployee(int employeeid, int DeletedBy)
+		public MennsageEnum DeleteEmployee(Int64 employeeid, Int64 DeletedBy)
 		{
 			try
 			{
-				var a = _context.Employees.Where(x => x.EmployeeId == employeeid).FirstOrDefault();
+				var a = _Dbcontext.Employees.Where(x => x.EmployeeId == employeeid).FirstOrDefault();
 				if (a != null)
 				{
 					a.Deleted = true;
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
-					_context.SaveChanges();
+					_Dbcontext.SaveChanges();
 					return MennsageEnum.Deleted;
 				}
 				else
@@ -121,11 +120,12 @@ namespace CloudVOffice.Services.Emp
 		}
 
 		
+
 		public Employee GetEmployeeByCode(string employeecode)
 		{
 			try
 			{
-				return _context.Employees.Where(x => x.EmployeeCode == employeecode && x.Deleted == false).SingleOrDefault();
+				return _Dbcontext.Employees.Where(x => x.EmployeeCode == employeecode && x.Deleted == false).SingleOrDefault();
 
 			}
 			catch
@@ -134,26 +134,41 @@ namespace CloudVOffice.Services.Emp
 			}
 		}
 
-		public List<Employee> GetEmps()
+		
+
+		public Employee GetEmployeeById(Int64 employeeid)
 		{
 			try
 			{
-				return _context.Employees.Where(x => x.Deleted == false).ToList();
+				return _Dbcontext.Employees.Where(x => x.EmployeeId == employeeid && x.Deleted == false).SingleOrDefault();
 			}
 			catch
 			{
 				throw;
 			}
 		}
+
+		public List<Employee> GetEmployees()
+		{
+			try
+			{
+				return _Dbcontext.Employees.Where(x => x.Deleted == false).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 
 		public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO)
 		{
 			try
 			{
-				var employee = _context.Employees.Where(x => x.EmployeeCode == employeeCreateDTO.EmployeeCode && x.ErpUser == employeeCreateDTO.ErpUser && x.EmployeeId==employeeCreateDTO.EmployeeId && x.Deleted == false).FirstOrDefault();
+				var employee = _Dbcontext.Employees.Where(x => x.EmployeeCode == employeeCreateDTO.EmployeeCode && x.ErpUser == employeeCreateDTO.ErpUser && x.EmployeeId==employeeCreateDTO.EmployeeId && x.Deleted == false).FirstOrDefault();
 				if (employee == null)
 				{
-					var a = _context.Employees.Where(x => x.EmployeeCode == employeeCreateDTO.EmployeeCode).FirstOrDefault();
+					var a = _Dbcontext.Employees.Where(x => x.EmployeeId == employeeCreateDTO.EmployeeId).FirstOrDefault();
 					if (a != null)
 					{
 						a.EmployeeCode = employeeCreateDTO.EmployeeCode;
@@ -170,7 +185,6 @@ namespace CloudVOffice.Services.Emp
 						a.DesignationId = employeeCreateDTO.DesignationId;
 						a.BranchId = employeeCreateDTO.BranchId;
 						a.EmploymentTypeId = employeeCreateDTO.EmploymentTypeId;
-						a.ReportToEmployeeId = employeeCreateDTO.ReportToEmployeeId;
 						a.JobApplicantId = employeeCreateDTO.JobApplicantId;
 						a.OfferDate = employeeCreateDTO.OfferDate;
 						a.ConfirmationDate = employeeCreateDTO.ConfirmationDate;
@@ -198,7 +212,7 @@ namespace CloudVOffice.Services.Emp
 						a.PassportPlaceOfIssue = employeeCreateDTO.PassportPlaceOfIssue;
 						a.Photo = employeeCreateDTO.Photo;
 						a.UpdatedDate = DateTime.Now;
-						_context.SaveChanges();
+						_Dbcontext.SaveChanges();
 						return MennsageEnum.Updated;
 					}
 					else

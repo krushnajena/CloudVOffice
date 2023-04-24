@@ -45,6 +45,8 @@ namespace CloudVOffice.Web.Framework
             #endregion
             #region Project Services
             services.AddScoped<IProjectTypeService, ProjectTypeService>();
+			services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IProjectActivityTypeService, ProjectActivityTypeService>();
             #endregion
             return services;
         }

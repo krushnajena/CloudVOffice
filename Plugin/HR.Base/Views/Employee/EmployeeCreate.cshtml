@@ -1,6 +1,12 @@
 ﻿@model CloudVOffice.Data.DTO.Emp.EmployeeCreateDTO;
+@using System.Collections;
+@using Newtonsoft.Json;
 @{
 	Layout = "_MainAppLayout";
+	var DepartmentList = new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName");
+	var DesignationList = new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName");
+	var BranchList = new SelectList((IEnumerable)ViewBag.Branch, "BranchId", "BranchName");
+	var EmploymentType = new SelectList((IEnumerable)ViewBag.EmploymentType, "EmploymentTypeId", "EmploymentTypeName");
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -30,302 +36,347 @@
 <div class="main-content">
 	<div class="row gutters">
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
 			<div class="card">
 				<form asp-route="Hr/Employee/EmployeeCreate" method="post" autocomplete="off">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
-
-					<div class="card-header"><b>Basic Info</b></div>
 					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-3">
-								<input asp-for="@Model.EmployeeId" type="hidden" />
+						<!-- Row start -->
+						<div class="row gutters">
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+								<div class="card">
+									<div class="card-header">Tabs</div>
+									<div class="card-body">
+										<ul class="nav nav-tabs" id="myTab" role="tablist">
+											<li class="nav-item">
+												<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Overview</a>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Joining</a>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">ID</a>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" id="address-tab" data-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="false">Address & Contacts</a>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" id="salary-tab" data-toggle="tab" href="#salary" role="tab" aria-controls="salary" aria-selected="false">Salary</a>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="false">Personal</a>
+											</li>
+
+										</ul>
+
+										<div class="tab-content" id="myTabContent">
+											<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 
 
-								<label for="Email" class="form-label">Email</label>
-								
+												<div class="card-body">
+													<div class="form-row">
+														<div class="form-group col-md-4">
 
-								<span asp-validation-for="EmployeeCode"></span>
-							</div>
+															<label for="EmployeeCode" class="form-label">EmployeeCode</label>
+															<input asp-for="@Model.EmployeeCode" type="text" class="form-control" autofocus="autofocus" placeholder="Employee Code" />
+															<span asp-validation-for="EmployeeCode"></span>
+														</div>
 
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-3">
+													</div>
+													<div class="form-row">
+														<div class="form-group col-md-4">
 
-								<label for="FirstName" class="form-label">First Name</label>
-								<input asp-for="@Model.FirstName" type="text" class="form-control" autofocus="autofocus" placeholder="First Name" />
-								<span asp-validation-for="FirstName"></span>
-							</div>
-							<div class="form-group col-md-3">
+															<label for="FirstName" class="form-label">First Name</label>
+															<input asp-for="@Model.FirstName" type="text" class="form-control" autofocus="autofocus" placeholder="First Name" />
+															<span asp-validation-for="FirstName"></span>
+														</div>
+														<div class="form-group col-md-4">
 
-								<label for="MiddleName" class="form-label">Middle Name</label>
-								<input asp-for="@Model.MiddleName" type="text" class="form-control" autofocus="autofocus" placeholder="Middle Name" />
-								<span asp-validation-for="MiddleName"></span>
-							</div>
-							<div class="form-group col-md-3">
+															<label for="MiddleName" class="form-label">Middle Name</label>
+															<input asp-for="@Model.MiddleName" type="text" class="form-control" autofocus="autofocus" placeholder="Middle Name" />
+															<span asp-validation-for="MiddleName"></span>
+														</div>
+														<div class="form-group col-md-4">
 
-								<label for="LastName" class="form-label">Last Name</label>
-								<input asp-for="@Model.LastName" type="text" class="form-control" autofocus="autofocus" placeholder="Last Name" />
-								<span asp-validation-for="LastName"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="Status" class="form-label">Status</label>
-							   	 <input asp-for="@Model.Status" type="checkbox" />
-								<span asp-validation-for="Status"></span>
-							</div>
-						</div>
-					</div>
+															<label for="LastName" class="form-label">Last Name</label>
+															<input asp-for="@Model.LastName" type="text" class="form-control" autofocus="autofocus" placeholder="Last Name" />
+															<span asp-validation-for="LastName"></span>
+														</div>
+
+													</div>
+													<div class="form-row">
+														<div class="form-group col-md-4">
+
+															<label for="Gender" class="form-label">Gender</label>
+															<input asp-for="@Model.Gender" type="text" class="form-control" autofocus="autofocus" placeholder="Gender" />
+															<span asp-validation-for="Gender"></span>
+														</div>
+														<div class="form-group col-md-4">
+
+															<label for="DateOfBirth" class="form-label">DOB</label>
+															<input asp-for="@Model.DateOfBirth" type="date" class="form-control" autofocus="autofocus" placeholder="DateOfBirth" />
+															<span asp-validation-for="DateOfBirth"></span>
+														</div>
+														<div class="form-group col-md-4">
+
+															<label for="DateOfJoining" class="form-label">Date Of Joining</label>
+															<input asp-for="@Model.DateOfJoining" type="date" class="form-control" autofocus="autofocus" placeholder="DateOfJoining" />
+															<span asp-validation-for="DateOfJoining"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="ErpUser" class="form-label">Erp User</label>
+															<input asp-for="@Model.ErpUser" type="text" class="form-control" autofocus="autofocus" placeholder="ErpUser" />
+															<span asp-validation-for="ErpUser"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="Status" class="form-label">Status</label>
+															<input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status" />
+															<span asp-validation-for="Status"></span>
+															@*<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
+
+																<option value="Active">Active</option>
+																<option value="Inactive">Inactive</option>
+																<option value="Suspended">Suspended</option>
+																<option value="Left">Left</option>
+															</select>
+*@
+														</div>
+													</div>
+												</div>
+
+											</div>
+
+											<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+												<div class="card-body">
+													<div class="form-row">
+														<div class="form-group col-md-4">
+															<label for="JobApplicantId" class="form-label">Job Applicant Id</label>
+															<input asp-for="@Model.JobApplicantId" type="text" class="form-control" autofocus="autofocus" placeholder="JobApplicantId" />
+															<span asp-validation-for="JobApplicantId"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="OfferDate" class="form-label">Offer Date</label>
+															<input asp-for="@Model.OfferDate" type="date" class="form-control" autofocus="autofocus" placeholder="OfferDate" />
+															<span asp-validation-for="OfferDate"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="ConfirmationDate" class="form-label">Confirmation Date</label>
+															<input asp-for="@Model.ConfirmationDate" type="date" class="form-control" autofocus="autofocus" placeholder="ConfirmationDate" />
+															<span asp-validation-for="ConfirmationDate"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="ContractEndDate" class="form-label">Contract End Date</label>
+															<input asp-for="@Model.ContractEndDate" type="date" class="form-control" autofocus="autofocus" placeholder="ContractEndDate" />
+															<span asp-validation-for="ContractEndDate"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="NoticePeriodDays" class="form-label">Notice Period Days</label>
+															<input asp-for="@Model.NoticePeriodDays" type="text" class="form-control" autofocus="autofocus" placeholder="NoticePeriodDays" />
+															<span asp-validation-for="NoticePeriodDays"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="RetirementDate" class="form-label">Retirement Date</label>
+															<input asp-for="@Model.RetirementDate" type="date" class="form-control" autofocus="autofocus" placeholder="RetirementDate" />
+															<span asp-validation-for="RetirementDate"></span>
+														</div>
+													</div>
+												</div>
+
+											</div>
+
+											<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 
 
-					<div class="card-header"><b>More Information</b></div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-3">
+												<div class="card-body">
+													<div class="form-row">
+														<div class="form-group col-md-4">
 
-								<label for="Gender" class="form-label">Gender</label>
-								<input asp-for="@Model.Gender" type="text" class="form-control" autofocus="autofocus" placeholder="Gender" />
-								<span asp-validation-for="Gender"></span>
-							</div>
-							<div class="form-group col-md-3">
-
-								<label for="DateOfBirth" class="form-label">DOB</label>
-								<input asp-for="@Model.DateOfBirth" type="date" class="form-control" autofocus="autofocus" placeholder="DateOfBirth" />
-								<span asp-validation-for="DateOfBirth"></span>
-							</div>
-							<div class="form-group col-md-3">
-
-								<label for="DateOfJoining" class="form-label">Date Of Joining</label>
-								<input asp-for="@Model.DateOfJoining" type="date" class="form-control" autofocus="autofocus" placeholder="DateOfJoining" />
-								<span asp-validation-for="DateOfJoining"></span>
-							</div>
-							<div class="form-group col-md-3"
-							>
-								<label for="ErpUser" class="form-label">Erp User</label>
-								<input asp-for="@Model.ErpUser" type="text" class="form-control" autofocus="autofocus" placeholder="ErpUser" />
-								<span asp-validation-for="ErpUser"></span>
-								
-							</div>
-
-						
-							<label for="Status" class="form-label">Status</label>
-							<input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status" />
-							<span asp-validation-for="Status"></span>
+															<label for="DepartmentId" class="form-label">DepartmentId</label>
+															<ejs-dropdownlist id="DepartmentId" allowFiltering="true" ejs-for="@Model.DepartmentId" filtering="onDepartmentrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName").Items)" placeholder="Select a Department" popupHeight="220px">
+																<e-dropdownlist-fields text="DepartmentName" value="DepartmentId"></e-dropdownlist-fields>
+															</ejs-dropdownlist>
 
 
-						</div>
-					</div>
+															<span asp-validation-for="DepartmentId"></span>
+														</div>
 
-					<div class="card-header"><b>ID</b></div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-3">
+														<div class="form-group col-md-4">
 
-								<label for="DepartmentId" class="form-label">Department Id</label>
-								<input asp-for="@Model.DepartmentId" type="text" class="form-control" autofocus="autofocus" placeholder="DepartmentId" />
-								<span asp-validation-for="DepartmentId"></span>
-								
-							</div>
+															<label for="DesignationId" class="form-label">DesignationId</label>
+															<ejs-dropdownlist id="DesignationId" allowFiltering="true" ejs-for="@Model.DesignationId" filtering="onDesignationrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName").Items)" placeholder="Select a Designation" popupHeight="220px">
+																<e-dropdownlist-fields text="DesignationName" value="DesignationId"></e-dropdownlist-fields>
+															</ejs-dropdownlist>
 
-							
+															<span asp-validation-for="DesignationId"></span>
+														</div>
 
-							<div class="form-group col-md-3">
+														<div class="form-group col-md-4">
+															<label for="BranchId" class="form-label">BranchId</label>
+															<ejs-dropdownlist id="BranchId" allowFiltering="true" ejs-for="@Model.BranchId" filtering="onBranchrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Branch, "BranchId , BranchName").Items)" placeholder="Select a Branch" popupHeight="220px">
+																<e-dropdownlist-fields text="BranchName" value="BranchId"></e-dropdownlist-fields>
+															</ejs-dropdownlist>
+															<span asp-validation-for="BranchId"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="EmploymentTypeId" class="form-label">EmploymentTypeId</label>
+															<ejs-dropdownlist id="EmploymentTypeId" allowFiltering="true" ejs-for="@Model.EmploymentTypeId" filtering="onEmploymentTypeIdrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.EmploymentType, "EmploymentTypeId , EmploymentTypeName").Items)" placeholder="Select a EmploymentTypeId" popupHeight="220px">
+																<e-dropdownlist-fields text="EmploymentTypeName" value="EmploymentTypeId"></e-dropdownlist-fields>
+															</ejs-dropdownlist>
 
-								<label for="DesignationId" class="form-label">Designation Id</label>
-								<input asp-for="@Model.DesignationId" type="text" class="form-control" autofocus="autofocus" placeholder="DesignationId" />
-								<span asp-validation-for="DesignationId"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="BranchId" class="form-label">Branch Id</label>
-								<input asp-for="@Model.BranchId" type="text" class="form-control" autofocus="autofocus" placeholder="BranchId" />
-								<span asp-validation-for="BranchId"></span>
+														</div>
 
-								
-							</div>
-							<div class="form-group col-md-3">
-								<label for="EmploymentTypeId" class="form-label">Employment Type Id</label>
-								<input asp-for="@Model.EmploymentTypeId" type="text" class="form-control" autofocus="autofocus" placeholder="EmploymentTypeId" />
-								<span asp-validation-for="EmploymentTypeId"></span>								
-							</div>
-							<div class="form-group col-md-3">
-							<label for="ReportToEmployeeId" class="form-label">Report To Employee Id</label>
-							<input asp-for="@Model.ReportToEmployeeId" type="text" class="form-control" autofocus="autofocus" placeholder="ReportToEmployeeId" />
-							<span asp-validation-for="ReportToEmployeeId"></span>
+													</div>
+												</div>
 
-							</div>
-						</div>
-					</div>
+											</div>
 
-					<div class="card-header"><b>DATE</b></div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-3">
+											<div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="contact-tab">
 
-								<label for="JobApplicantId" class="form-label">Job Applicant Id</label>
-								<input asp-for="@Model.JobApplicantId" type="text" class="form-control" autofocus="autofocus" placeholder="JobApplicantId" />
-								<span asp-validation-for="JobApplicantId"></span>
-								
-							</div>
-							<div class="form-group col-md-3">
+												<div class="card-body">
+													<div class="form-row">
+														<div class="form-group col-md-4">
+															<label for="MobileNo" class="form-label">Mobile No</label>
+															<input asp-for="@Model.MobileNo" type="text" class="form-control" autofocus="autofocus" placeholder="MobileNo" />
+															<span asp-validation-for="MobileNo"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="PersonalEmail" class="form-label">Personal Email</label>
+															<input asp-for="@Model.PersonalEmail" type="text" class="form-control" autofocus="autofocus" placeholder="PersonalEmail" />
+															<span asp-validation-for="PersonalEmail"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="CompanyEmail" class="form-label">Company Email</label>
+															<input asp-for="@Model.CompanyEmail" type="text" class="form-control" autofocus="autofocus" placeholder="CompanyEmail" />
+															<span asp-validation-for="CompanyEmail"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="CurrentAddress" class="form-label">Current Address</label>
+															<input asp-for="@Model.CurrentAddress" type="text" class="form-control" autofocus="autofocus" placeholder="CurrentAddress" />
+															<span asp-validation-for="CurrentAddress"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="PermanentAddress" class="form-label">Permanent Address</label>
+															<input asp-for="@Model.PermanentAddress" type="text" class="form-control" autofocus="autofocus" placeholder="PermanentAddress" />
+															<span asp-validation-for="PermanentAddress"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="EmergencyContactName" class="form-label">Emergency Contact Name</label>
+															<input asp-for="@Model.EmergencyContactName" type="text" class="form-control" autofocus="autofocus" placeholder="EmergencyContactName" />
+															<span asp-validation-for="EmergencyContactName"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="EmergencyPhone" class="form-label">Emergency Phone</label>
+															<input asp-for="@Model.EmergencyPhone" type="text" class="form-control" autofocus="autofocus" placeholder="EmergencyPhone" />
+															<span asp-validation-for="EmergencyPhone"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="RelationWithEmergencyContactPerson" class="form-label">Relation With Emergency Contact Person</label>
+															<input asp-for="@Model.RelationWithEmergencyContactPerson" type="text" class="form-control" autofocus="autofocus" placeholder="RelationWithEmergencyContactPerson" />
+															<span asp-validation-for="RelationWithEmergencyContactPerson"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="BiometricOrRfIdDeviceId" class="form-label">Biometric Or RfId Device Id</label>
+															<input asp-for="@Model.BiometricOrRfIdDeviceId" type="text" class="form-control" autofocus="autofocus" placeholder="BiometricOrRfIdDeviceId" />
+															<span asp-validation-for="BiometricOrRfIdDeviceId"></span>
+														</div>
+													</div>
+												</div>
 
-								<label for="OfferDate" class="form-label">Offer Date</label>
-								<input asp-for="@Model.OfferDate" type="date" class="form-control" autofocus="autofocus" placeholder="OfferDate" />
-								<span asp-validation-for="OfferDate"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="ConfirmationDate" class="form-label">Confirmation Date</label>
-								<input asp-for="@Model.ConfirmationDate" type="date" class="form-control" autofocus="autofocus" placeholder="ConfirmationDate" />
-								<span asp-validation-for="ConfirmationDate"></span>
+											</div>
 
-								
-							</div>
-							<div class="form-group col-md-3">
-								<label for="ContractEndDate" class="form-label">Contract End Date</label>
-								<input asp-for="@Model.ContractEndDate" type="date" class="form-control" autofocus="autofocus" placeholder="ContractEndDate" />
-								<span asp-validation-for="ContractEndDate"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="NoticePeriodDays" class="form-label">Notice Period Days</label>
-								<input asp-for="@Model.NoticePeriodDays" type="text" class="form-control" autofocus="autofocus" placeholder="NoticePeriodDays" />
-								<span asp-validation-for="NoticePeriodDays"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="RetirementDate" class="form-label">Retirement Date</label>
-								<input asp-for="@Model.RetirementDate" type="date" class="form-control" autofocus="autofocus" placeholder="RetirementDate" />
-								<span asp-validation-for="RetirementDate"></span>
-							</div>
-						</div>
-					</div>
+											<div class="tab-pane fade" id="salary" role="tabpanel" aria-labelledby="salary-tab">
 
-					<div class="card-header"><b>Deatels</b></div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-3">
+												<div class="card-body">
+													<div class="form-row">
+														<div class="form-group col-md-4">
+															<label for="CTC" class="form-label">CTC</label>
+															<input asp-for="@Model.CTC" type="text" class="form-control" autofocus="autofocus" placeholder="Cost to Company (CTC)" />
+															<span asp-validation-for="CTC"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="PanNo" class="form-label">Pan No</label>
+															<input asp-for="@Model.PanNo" type="text" class="form-control" autofocus="autofocus" placeholder="PanNo" />
+															<span asp-validation-for="PanNo"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="ProvidentFundAccountNo" class="form-label">Provident Fund Account No</label>
+															<input asp-for="@Model.ProvidentFundAccountNo" type="text" class="form-control" autofocus="autofocus" placeholder="ProvidentFundAccountNo" />
+															<span asp-validation-for="ProvidentFundAccountNo"></span>
+														</div>
+													</div>
+												</div>
 
-								<label for="MobileNo" class="form-label">Mobile No</label>
-								<input asp-for="@Model.MobileNo" type="text" class="form-control" autofocus="autofocus" placeholder="MobileNo" />
-								<span asp-validation-for="MobileNo"></span>
-							</div>
-							<div class="form-group col-md-3">
+											</div>
 
-								<label for="PersonalEmail" class="form-label">Personal Email</label>
-								<input asp-for="@Model.PersonalEmail" type="text" class="form-control" autofocus="autofocus" placeholder="PersonalEmail" />
-								<span asp-validation-for="PersonalEmail"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="CompanyEmail" class="form-label">Company Email</label>
-								<input asp-for="@Model.CompanyEmail" type="text" class="form-control" autofocus="autofocus" placeholder="CompanyEmail" />
-								<span asp-validation-for="CompanyEmail"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="CurrentAddress" class="form-label">Current Address</label>
-								<input asp-for="@Model.CurrentAddress" type="text" class="form-control" autofocus="autofocus" placeholder="CurrentAddress" />
-								<span asp-validation-for="CurrentAddress"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="PermanentAddress" class="form-label">Permanent Address</label>
-								<input asp-for="@Model.PermanentAddress" type="text" class="form-control" autofocus="autofocus" placeholder="PermanentAddress" />
-								<span asp-validation-for="PermanentAddress"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="EmergencyContactName" class="form-label">Emergency Contact Name</label>
-								<input asp-for="@Model.EmergencyContactName" type="text" class="form-control" autofocus="autofocus" placeholder="EmergencyContactName" />
-								<span asp-validation-for="EmergencyContactName"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="EmergencyPhone" class="form-label">Emergency Phone</label>
-								<input asp-for="@Model.EmergencyPhone" type="text" class="form-control" autofocus="autofocus" placeholder="EmergencyPhone" />
-								<span asp-validation-for="EmergencyPhone"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="RelationWithEmergencyContactPerson" class="form-label">Relation With Emergency Contact Person</label>
-								<input asp-for="@Model.RelationWithEmergencyContactPerson" type="text" class="form-control" autofocus="autofocus" placeholder="RelationWithEmergencyContactPerson" />
-								<span asp-validation-for="RelationWithEmergencyContactPerson"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="BiometricOrRfIdDeviceId" class="form-label">Biometric Or RfId Device Id</label>
-								<input asp-for="@Model.BiometricOrRfIdDeviceId" type="text" class="form-control" autofocus="autofocus" placeholder="BiometricOrRfIdDeviceId" />
-								<span asp-validation-for="BiometricOrRfIdDeviceId"></span>
-							</div>
-						</div>
-					</div>
+											<div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
 
-					<div class="card-header"><b>   </b></div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-3">
+												<div class="card-body">
+													<div class="form-row">
+														<div class="form-group col-md-4">
+															<label for="MaritalStatus" class="form-label">Marital Status</label>
+															<input asp-for="@Model.MaritalStatus" type="text" class="form-control" autofocus="autofocus" placeholder="MaritalStatus" />
+															<span asp-validation-for="MaritalStatus"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="MarraigeDate" class="form-label">MarraigeDate</label>
+															<input asp-for="@Model.MarraigeDate" type="date" class="form-control" autofocus="autofocus" placeholder="MarraigeDate" />
+															<span asp-validation-for="MarraigeDate"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="BloodGroup" class="form-label">Blood Group</label>
+															<input asp-for="@Model.BloodGroup" type="text" class="form-control" autofocus="autofocus" placeholder="BloodGroup" />
+															<span asp-validation-for="BloodGroup"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="PassportNumber" class="form-label">Passport Number</label>
+															<input asp-for="@Model.PassportNumber" type="text" class="form-control" autofocus="autofocus" placeholder="PassportNumber" />
+															<span asp-validation-for="PassportNumber"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="Salutation" class="form-label">Salutation</label>
+															<input asp-for="@Model.Salutation" type="text" class="form-control" autofocus="autofocus" placeholder="Salutation" />
+															<span asp-validation-for="Salutation"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="PassportValidUpto" class="form-label">Passport Valid Upto</label>
+															<input asp-for="@Model.PassportValidUpto" type="date" class="form-control" autofocus="autofocus" placeholder="PassportValidUpto" />
+															<span asp-validation-for="PassportValidUpto"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="PassportPlaceOfIssue" class="form-label">Passport Place Of Issue</label>
+															<input asp-for="@Model.PassportPlaceOfIssue" type="text" class="form-control" autofocus="autofocus" placeholder="PassportPlaceOfIssue" />
+															<span asp-validation-for="PassportPlaceOfIssue"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="PassportDateOfIssue" class="form-label">PassportDateOfIssue</label>
+															<input asp-for="@Model.PassportDateOfIssue" type="date" class="form-control" autofocus="autofocus" placeholder="PassportDateOfIssue" />
+															<span asp-validation-for="PassportDateOfIssue"></span>
+														</div>
+														<div class="form-group col-md-4">
+															<label for="Photo" class="form-label">Photo</label>
+															<input asp-for="@Model.Photo" type="text" class="form-control" autofocus="autofocus" placeholder="photo" />
+															<span asp-validation-for="PassportPlaceOfIssue"></span>
+														</div>
+													</div>
+												</div>
 
-								<label for="CTC" class="form-label">CTC</label>
-								<input asp-for="@Model.CTC" type="text" class="form-control" autofocus="autofocus" placeholder="CTC" />
-								<span asp-validation-for="CTC"></span>
-
-							</div>
-							<div class="form-group col-md-3">
-
-								<label for="PanNo" class="form-label">Pan No</label>
-								<input asp-for="@Model.PanNo" type="text" class="form-control" autofocus="autofocus" placeholder="PanNo" />
-								<span asp-validation-for="PanNo"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="ProvidentFundAccountNo" class="form-label">Provident Fund Account No</label>
-								<input asp-for="@Model.ProvidentFundAccountNo" type="text" class="form-control" autofocus="autofocus" placeholder="ProvidentFundAccountNo" />
-								<span asp-validation-for="ProvidentFundAccountNo"></span>
-							</div>							
-						</div>
-					</div>
-
-					<div class="card-header"><b>Information</b></div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-3">
-
-								<label for="MaritalStatus" class="form-label">Marital Status</label>
-								<input asp-for="@Model.MaritalStatus" type="text" class="form-control" autofocus="autofocus" placeholder="MaritalStatus" />
-								<span asp-validation-for="MaritalStatus"></span>							
-								
-							</div>
-							<div class="form-group col-md-3">
-
-								<label for="MarraigeDate" class="form-label">Marraige Date</label>
-								<input asp-for="@Model.MarraigeDate" type="date" class="form-control" autofocus="autofocus" placeholder="MarraigeDate" />
-								<span asp-validation-for="MarraigeDate"></span>							
-							</div>
-							<div class="form-group col-md-3">
-								<label for="BloodGroup" class="form-label">Blood Group</label>
-								<input asp-for="@Model.BloodGroup" type="text" class="form-control" autofocus="autofocus" placeholder="BloodGroup" />
-								<span asp-validation-for="BloodGroup"></span>								
-							</div>
-							<div class="form-group col-md-3">
-								<label for="PassportNumber" class="form-label">Passport Number</label>
-								<input asp-for="@Model.PassportNumber" type="text" class="form-control" autofocus="autofocus" placeholder="PassportNumber" />
-								<span asp-validation-for="PassportNumber"></span>								
-							</div>
-							<div class="form-group col-md-3">
-								<label for="Salutation" class="form-label">Salutation</label>
-								<input asp-for="@Model.PassportDateOfIssue" type="date" class="form-control" autofocus="autofocus" placeholder="Salutation" />
-								<span asp-validation-for="Salutation"></span>								
-							</div>
-								<div class="form-group col-md-3">
-									<label for="PassportValidUpto" class="form-label">Passport Valid Upto</label>
-									<input asp-for="@Model.PassportValidUpto" type="date" class="form-control" autofocus="autofocus" placeholder="PassportValidUpto" />
-									<span asp-validation-for="PassportValidUpto"></span>
+											</div>
+										</div>
+									</div>
 								</div>
-							<div class="form-group col-md-3">
-								<label for="PassportPlaceOfIssue" class="form-label">Passport Place Of Issue</label>
-								<input asp-for="@Model.PassportPlaceOfIssue" type="text" class="form-control" autofocus="autofocus" placeholder="PassportPlaceOfIssue" />
-								<span asp-validation-for="PassportPlaceOfIssue"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="Photo" class="form-label">Photo</label>
-								<input asp-for="@Model.Photo" type="image" class="form-control" autofocus="autofocus" placeholder="photo" />
-								<span asp-validation-for="PassportPlaceOfIssue"></span>
 							</div>
 						</div>
-					</div>
+						<!-- Row end -->
 
-					<div class="card-body">
-
-						<div class="col-lg-2 col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-primary">Save</button>
+						<div class="card-body">
+						     <div class="col-lg-2 col-md-2 col-sm-12">
+						     	<button type="submit" class="btn btn-primary">Save</button>
+						     </div>
 						</div>
 					</div>
 				</form>
@@ -333,3 +384,32 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function onDepartmentrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('DepartmentName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Department)), query);
+	}
+</script>
+<script>
+	function onDesignationrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('DesignationName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Designation)), query);
+	}
+</script>
+<script>
+	function onBranchrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('BranchName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Branch)), query);
+	}
+</script>
+<script>
+	function onEmploymentTypeIdrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('EmploymentTypeName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.EmploymentType)), query);
+	}
+</script>

@@ -20,6 +20,10 @@
 		<Folder Include="Areas\Accounts\Views\" />
 		<Folder Include="Areas\Application\Data\" />
 		<Folder Include="Areas\Application\Models\" />
+		<Folder Include="Areas\DesktopMonitoring\Controllers\" />
+		<Folder Include="Areas\DesktopMonitoring\Data\" />
+		<Folder Include="Areas\DesktopMonitoring\Models\" />
+		<Folder Include="Areas\DesktopMonitoring\Views\" />
 		<Folder Include="Areas\HR\Controllers\" />
 		<Folder Include="Areas\HR\Data\" />
 		<Folder Include="Areas\HR\Models\" />
@@ -30,7 +34,6 @@
 		<Folder Include="Areas\Projects\Views\" />
 		<Folder Include="Areas\Setup\Data\" />
 		<Folder Include="Areas\Setup\Models\" />
-		<Folder Include="Plugins\" />
 
 
 	</ItemGroup>

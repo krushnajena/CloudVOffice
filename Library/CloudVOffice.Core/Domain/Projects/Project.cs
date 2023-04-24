@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,5 +31,6 @@ namespace CloudVOffice.Core.Domain.Projects
         public List<ProjectUser> ProjectUsers { get; set;}
         public List<ProjectEmployee> ProjectEmployees { get; set;}
 
+        public virtual List<ProjectTask> ProjectTasks { get; set;}  
     }
 }

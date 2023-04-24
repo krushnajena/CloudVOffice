@@ -22,16 +22,14 @@
         </div>
     </div>
 </header>
-
-
 <div class="main-content">
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">ProjectTypes</div>
+                <div class="card-header">Projects</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.ProjectTypes"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Projects"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -45,10 +43,22 @@
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                                
 
+
+                            <e-grid-column field="ProjectId" headerText="Project Id" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="StartDate" headerText="Start Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="EndDate" headerText="End Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ProjectTypeId" headerText="Project Type Id" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Priority" headerText="Priority" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CompleteMethod" headerText="Complete Method" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="SalesOrderId" headerText="Sales Order Id" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ProjectNotes" headerText="Project Notes" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="EstimatedCost" headerText="Estimated Cost" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ProjectManager" headerText="Project Manager" textAlign="Left" width="120"></e-grid-column>
+                
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -60,14 +70,13 @@
 </div>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Projects/ProjectType/ProjectTypeCreate?ProjectTypeId=${ProjectTypeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../Projects/ProjectType/ProjectTypeDelete?ProjectTypeId=${ProjectTypeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+        <a href="../../Projects/Project/ProjectCreate?ProjectId=${ProjectId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../Projects/Project/ProjectDelete?ProjectId=${ProjectId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
-
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];

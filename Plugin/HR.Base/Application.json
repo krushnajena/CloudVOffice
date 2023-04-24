@@ -2,7 +2,7 @@
   
     "ApplicationName": "HR",
     "Url": "/HR/Hr/Dasboard",
-    "IconImageUrl": "/Plugins/HR.Base/logo.png",
+    "IconImageUrl": "/Plugin/HR.Base/logo.png",
     "IconClass": "",
     "AreaName": "HR",
     "Roles": ["HR Manager", "HR User"],

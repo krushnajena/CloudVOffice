@@ -1,0 +1,14 @@
+﻿{
+  "Group": "Desktop Monitoring",
+  "FriendlyName": "Desktop Monitoring",
+  "SystemName": "Desktop.Monitoring",
+  "Version": 0.2,
+  "SupportedVersions": [ "0.1" ],
+  "Author": "Appman team",
+  "DisplayOrder": 1,
+  "FileName": "Desktop.Monitoring.dll",
+  "Description": "Desktop Monitoring System to track Employees Desktops.",
+  "InstallationUrl": "/DesktopMonitoring/DesktopMonitoringInstallation/Install",
+  "UnInstallationUrl": "/DesktopMonitoring/DesktopMonitoringInstallation/UnInstall",
+  "Dependency": ["HR.Base"]
+}

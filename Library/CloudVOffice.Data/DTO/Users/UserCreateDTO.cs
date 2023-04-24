@@ -24,17 +24,17 @@ namespace CloudVOffice.Data.DTO.Users
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }
 
-        [Required]
+        
 		[DataType(DataType.Password)]
 		[DisplayName("Password")]
-		public string Password { get; set; }
+		public string? Password { get; set; }
         public string? PhoneNo { get; set; }
         public DateTime? DateOfBirth { get; set; }
 		[DisplayName("User Type")]
 		public int UserTypeId { get; set; }
         public Int64 CreatedBy { get; set; }
         public List<UserRolesDTO> roles { get; set; }
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
     }
     public class UserRolesDTO
     {

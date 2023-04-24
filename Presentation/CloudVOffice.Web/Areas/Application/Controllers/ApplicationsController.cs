@@ -62,7 +62,7 @@ namespace CloudVOffice.Web.Areas.Application.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> InstallApplication(string InstallationUrl)
         {
-            _httpWebClient.GetRequest(InstallationUrl + "?CreatedBy=" + Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
+           var a =await _httpWebClient.GetRequest(InstallationUrl + "?CreatedBy=" + Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
 
 
             return Redirect("/Application/Applications/InstalledApps");

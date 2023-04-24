@@ -146,9 +146,20 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                return _dbContext.Departments.Where(x => x.Deleted == false).ToList();
 
-            }
+				var query = from c1 in _dbContext.Departments
+							from c2 in _dbContext.Departments
+							where c1.Parent == null
+							where c1.Parent == c2.DepartmentId
+							select c2;
+
+				var crossSellProducts =  query.ToList();
+                return crossSellProducts;
+				
+
+
+
+			}
             catch
             {
                 throw;

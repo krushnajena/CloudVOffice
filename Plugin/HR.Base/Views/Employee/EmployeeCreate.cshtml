@@ -10,7 +10,73 @@
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<style>
+	.avatar-upload {
+		position: relative;
+		max-width: 135px;
+		
+	}
 
+		.avatar-upload .avatar-edit {
+			position: absolute;
+			right: 12px;
+			z-index: 1;
+			top: 10px;
+		}
+
+			.avatar-upload .avatar-edit input {
+				display: none;
+			}
+
+				.avatar-upload .avatar-edit input + label {
+					display: inline-block;
+					width: 34px;
+					height: 34px;
+					margin-bottom: 0;
+					border-radius: 100%;
+					background: #FFFFFF;
+					border: 1px solid transparent;
+					box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+					cursor: pointer;
+					font-weight: normal;
+					transition: all 0.2s ease-in-out;
+				}
+
+					.avatar-upload .avatar-edit input + label:hover {
+						background: #f1f1f1;
+						border-color: #d6d6d6;
+					}
+
+					.avatar-upload .avatar-edit input + label:after {
+						content: "\f040";
+						font-family: 'FontAwesome';
+						color: #757575;
+						position: absolute;
+						top: 10px;
+						left: 0;
+						right: 0;
+						text-align: center;
+						margin: auto;
+					}
+
+		.avatar-upload .avatar-preview {
+			width: 100px;
+			height: 100px;
+			position: relative;
+			border-radius: 100%;
+			border: 6px solid #F8F8F8;
+			box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+		}
+
+			.avatar-upload .avatar-preview > div {
+				width: 100%;
+				height: 100%;
+				border-radius: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+</style>
 <header class="main-heading">
 	<div class="container-fluid">
 		<div class="row">
@@ -37,7 +103,7 @@
 	<div class="row gutters">
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 			<div class="card">
-				<form asp-route="Hr/Employee/EmployeeCreate" method="post" autocomplete="off">
+				<form asp-route="Hr/Employee/EmployeeCreate" method="post" autocomplete="off" enctype="multipart/form-data">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
 					<div class="card-body">
 						<!-- Row start -->
@@ -56,7 +122,7 @@
 											</li>
 
 											<li class="nav-item">
-												<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">ID</a>
+												<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Company Details</a>
 											</li>
 
 											<li class="nav-item">
@@ -78,29 +144,85 @@
 
 
 												<div class="card-body">
-													<div class="form-row">
-														<div class="form-group col-md-4">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-row">
+																<div class="form-group col-md-6">
 
-															<label for="EmployeeCode" class="form-label">EmployeeCode</label>
-															<input asp-for="@Model.EmployeeCode" type="text" class="form-control" autofocus="autofocus" placeholder="Employee Code" />
-															<span asp-validation-for="EmployeeCode"></span>
+																	<label for="EmployeeCode" class="form-label">EmployeeCode</label>
+																	<input asp-for="@Model.EmployeeCode" type="text" class="form-control" autofocus="autofocus" placeholder="Employee Code" />
+																	<span asp-validation-for="EmployeeCode"></span>
+																</div>
+															
+
+
+
+															</div>
+															<div class="form-row">
+																<div class="form-group col-md-6">
+																	<label for="ErpUser" class="form-label">Erp User</label>
+
+																	<ejs-dropdownlist id="ErpUser" allowFiltering="true" ejs-for="@Model.ErpUser" filtering="onErpUserfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ErpUsers, "UserId", "FullName").Items)" placeholder="Select a User" popupHeight="220px">
+																		<e-dropdownlist-fields text="FullName" value="UserId"></e-dropdownlist-fields>
+																	</ejs-dropdownlist>
+
+																	<span asp-validation-for="ErpUser"></span>
+																</div>
+															</div>
 														</div>
+														<div class="form-group  col-md-2">
+															<div class="avatar-upload">
+																<div class="avatar-edit">
+																	<input type='file' asp-for="@Model.imageUpload" id="imageUpload" accept=".png, .jpg, .jpeg" />
+																	<label for="imageUpload"></label>
+																</div>
+																<div class="avatar-preview">
+																	<div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+																	</div>
+																</div>
+															</div>
+														</div>
+													
 
 													</div>
+												
 													<div class="form-row">
-														<div class="form-group col-md-4">
+
+														<div class="form-group col-md-2">
+															<label for="Salutation" class="form-label">Salutation</label>
+															<select asp-for="@Model.Salutation" class="form-control">
+																<option value="">--Select-</option>
+																<option value="Dr">Dr</option>
+																<option value="Madam">Madam</option>
+																<option value="Master">Master</option>
+
+																<option value="Miss">Miss</option>
+																<option value="Mr">Mr</option>
+																<option value="Mrs">Mrs</option>
+
+
+																<option value="Ms">Ms</option>
+																<option value="Mx">Mx</option>
+																<option value="Prof">Prof</option>
+
+																<option value="Mx">Mx</option>
+																<option value="Prof">Prof</option>
+															</select>
+															<span asp-validation-for="Salutation"></span>
+														</div>
+														<div class="form-group col-md-3">
 
 															<label for="FirstName" class="form-label">First Name</label>
 															<input asp-for="@Model.FirstName" type="text" class="form-control" autofocus="autofocus" placeholder="First Name" />
 															<span asp-validation-for="FirstName"></span>
 														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 
 															<label for="MiddleName" class="form-label">Middle Name</label>
 															<input asp-for="@Model.MiddleName" type="text" class="form-control" autofocus="autofocus" placeholder="Middle Name" />
 															<span asp-validation-for="MiddleName"></span>
 														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 
 															<label for="LastName" class="form-label">Last Name</label>
 															<input asp-for="@Model.LastName" type="text" class="form-control" autofocus="autofocus" placeholder="Last Name" />
@@ -109,42 +231,43 @@
 
 													</div>
 													<div class="form-row">
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-2">
 
 															<label for="Gender" class="form-label">Gender</label>
-															<input asp-for="@Model.Gender" type="text" class="form-control" autofocus="autofocus" placeholder="Gender" />
+															<select asp-for="@Model.Gender" class="form-control">
+																<option value="">--Select-</option>
+																<option value="Male">Male</option>
+																<option value="Female">Female</option>
+																<option value="Others">Others</option>
+															</select>
 															<span asp-validation-for="Gender"></span>
 														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 
 															<label for="DateOfBirth" class="form-label">DOB</label>
 															<input asp-for="@Model.DateOfBirth" type="date" class="form-control" autofocus="autofocus" placeholder="DateOfBirth" />
 															<span asp-validation-for="DateOfBirth"></span>
 														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 
 															<label for="DateOfJoining" class="form-label">Date Of Joining</label>
 															<input asp-for="@Model.DateOfJoining" type="date" class="form-control" autofocus="autofocus" placeholder="DateOfJoining" />
 															<span asp-validation-for="DateOfJoining"></span>
 														</div>
-														<div class="form-group col-md-4">
-															<label for="ErpUser" class="form-label">Erp User</label>
-															<input asp-for="@Model.ErpUser" type="text" class="form-control" autofocus="autofocus" placeholder="ErpUser" />
-															<span asp-validation-for="ErpUser"></span>
-														</div>
-														<div class="form-group col-md-4">
+														<div class="form-group col-md-3">
 															<label for="Status" class="form-label">Status</label>
-															<input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status" />
-															<span asp-validation-for="Status"></span>
-															@*<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
-
+															<select asp-for="@Model.Status" class="form-control">
 																<option value="Active">Active</option>
 																<option value="Inactive">Inactive</option>
 																<option value="Suspended">Suspended</option>
 																<option value="Left">Left</option>
+
 															</select>
-*@
+															<span asp-validation-for="Status"></span>
+
 														</div>
+													
+														
 													</div>
 												</div>
 
@@ -155,8 +278,11 @@
 												<div class="card-body">
 													<div class="form-row">
 														<div class="form-group col-md-4">
-															<label for="JobApplicantId" class="form-label">Job Applicant Id</label>
-															<input asp-for="@Model.JobApplicantId" type="text" class="form-control" autofocus="autofocus" placeholder="JobApplicantId" />
+															<label for="JobApplicant" class="form-label">Job Applicant Id</label>
+															<select asp-for="@Model.JobApplicantId" class="form-control">
+																
+
+															</select>
 															<span asp-validation-for="JobApplicantId"></span>
 														</div>
 														<div class="form-group col-md-4">
@@ -196,8 +322,8 @@
 													<div class="form-row">
 														<div class="form-group col-md-4">
 
-															<label for="DepartmentId" class="form-label">DepartmentId</label>
-															<ejs-dropdownlist id="DepartmentId" allowFiltering="true" ejs-for="@Model.DepartmentId" filtering="onDepartmentrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName").Items)" placeholder="Select a Department" popupHeight="220px">
+															<label for="DepartmentId" class="form-label">Department</label>
+															<ejs-dropdownlist id="DepartmentId" allowFiltering="true" ejs-for="@Model.DepartmentId" filtering="onDepartmentrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName").Items)" placeholder="Select Department" popupHeight="220px">
 																<e-dropdownlist-fields text="DepartmentName" value="DepartmentId"></e-dropdownlist-fields>
 															</ejs-dropdownlist>
 
@@ -207,8 +333,8 @@
 
 														<div class="form-group col-md-4">
 
-															<label for="DesignationId" class="form-label">DesignationId</label>
-															<ejs-dropdownlist id="DesignationId" allowFiltering="true" ejs-for="@Model.DesignationId" filtering="onDesignationrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName").Items)" placeholder="Select a Designation" popupHeight="220px">
+															<label for="DesignationId" class="form-label">Designation</label>
+															<ejs-dropdownlist id="DesignationId" allowFiltering="true" ejs-for="@Model.DesignationId" filtering="onDesignationrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName").Items)" placeholder="Select Designation" popupHeight="220px">
 																<e-dropdownlist-fields text="DesignationName" value="DesignationId"></e-dropdownlist-fields>
 															</ejs-dropdownlist>
 
@@ -216,19 +342,28 @@
 														</div>
 
 														<div class="form-group col-md-4">
-															<label for="BranchId" class="form-label">BranchId</label>
-															<ejs-dropdownlist id="BranchId" allowFiltering="true" ejs-for="@Model.BranchId" filtering="onBranchrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Branch, "BranchId , BranchName").Items)" placeholder="Select a Branch" popupHeight="220px">
+															<label for="BranchId" class="form-label">Branch</label>
+															<ejs-dropdownlist id="BranchId" allowFiltering="true" ejs-for="@Model.BranchId" filtering="onBranchrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Branch, "BranchId , BranchName").Items)" placeholder="Select Branch" popupHeight="220px">
 																<e-dropdownlist-fields text="BranchName" value="BranchId"></e-dropdownlist-fields>
 															</ejs-dropdownlist>
 															<span asp-validation-for="BranchId"></span>
 														</div>
 														<div class="form-group col-md-4">
-															<label for="EmploymentTypeId" class="form-label">EmploymentTypeId</label>
-															<ejs-dropdownlist id="EmploymentTypeId" allowFiltering="true" ejs-for="@Model.EmploymentTypeId" filtering="onEmploymentTypeIdrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.EmploymentType, "EmploymentTypeId , EmploymentTypeName").Items)" placeholder="Select a EmploymentTypeId" popupHeight="220px">
+															<label for="EmploymentTypeId" class="form-label">Employment Type</label>
+															<ejs-dropdownlist id="EmploymentTypeId" allowFiltering="true" ejs-for="@Model.EmploymentTypeId" filtering="onEmploymentTypeIdrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.EmploymentType, "EmploymentTypeId , EmploymentTypeName").Items)" placeholder="Select Employment Type" popupHeight="220px">
 																<e-dropdownlist-fields text="EmploymentTypeName" value="EmploymentTypeId"></e-dropdownlist-fields>
 															</ejs-dropdownlist>
 
 														</div>
+
+														<div class="form-group col-md-4">
+															<label for="ReportingAuthority" class="form-label">Reporting Authority</label>
+															<ejs-dropdownlist id="ReportingAuthority" allowFiltering="true" ejs-for="@Model.ReportingAuthority" filtering="onReportingAuthorityfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Ra, "EmployeeId , FullName").Items)" placeholder="Select Reporting Authority" popupHeight="220px">
+																<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+															</ejs-dropdownlist>
+
+														</div>
+												
 
 													</div>
 												</div>
@@ -319,7 +454,14 @@
 													<div class="form-row">
 														<div class="form-group col-md-4">
 															<label for="MaritalStatus" class="form-label">Marital Status</label>
-															<input asp-for="@Model.MaritalStatus" type="text" class="form-control" autofocus="autofocus" placeholder="MaritalStatus" />
+															<select asp-for="@Model.MaritalStatus" class="form-control">
+																<option value="">--Select-</option>
+
+																<option value="Single">Single</option>
+																<option value="Married">Married</option>
+																<option value="Divorced">Divorced</option>
+																<option value="Widowed">Widowed</option>
+															</select>
 															<span asp-validation-for="MaritalStatus"></span>
 														</div>
 														<div class="form-group col-md-4">
@@ -329,7 +471,19 @@
 														</div>
 														<div class="form-group col-md-4">
 															<label for="BloodGroup" class="form-label">Blood Group</label>
-															<input asp-for="@Model.BloodGroup" type="text" class="form-control" autofocus="autofocus" placeholder="BloodGroup" />
+															<select asp-for="@Model.BloodGroup" class="form-control">
+																<option value="">--Select-</option>
+																
+																<option value="A+">A+</option>
+																<option value="A-">A-</option>
+																<option value="B+">B+</option>
+																<option value="B-">B-</option>
+																<option value="AB+">AB+</option>
+																<option value="AB-">AB-</option>
+																<option value="O+">O+</option>
+																<option value="O-">O-</option>
+															</select>
+															
 															<span asp-validation-for="BloodGroup"></span>
 														</div>
 														<div class="form-group col-md-4">
@@ -337,11 +491,7 @@
 															<input asp-for="@Model.PassportNumber" type="text" class="form-control" autofocus="autofocus" placeholder="PassportNumber" />
 															<span asp-validation-for="PassportNumber"></span>
 														</div>
-														<div class="form-group col-md-4">
-															<label for="Salutation" class="form-label">Salutation</label>
-															<input asp-for="@Model.Salutation" type="text" class="form-control" autofocus="autofocus" placeholder="Salutation" />
-															<span asp-validation-for="Salutation"></span>
-														</div>
+													
 														<div class="form-group col-md-4">
 															<label for="PassportValidUpto" class="form-label">Passport Valid Upto</label>
 															<input asp-for="@Model.PassportValidUpto" type="date" class="form-control" autofocus="autofocus" placeholder="PassportValidUpto" />
@@ -357,11 +507,7 @@
 															<input asp-for="@Model.PassportDateOfIssue" type="date" class="form-control" autofocus="autofocus" placeholder="PassportDateOfIssue" />
 															<span asp-validation-for="PassportDateOfIssue"></span>
 														</div>
-														<div class="form-group col-md-4">
-															<label for="Photo" class="form-label">Photo</label>
-															<input asp-for="@Model.Photo" type="text" class="form-control" autofocus="autofocus" placeholder="photo" />
-															<span asp-validation-for="PassportPlaceOfIssue"></span>
-														</div>
+														
 													</div>
 												</div>
 
@@ -386,11 +532,25 @@
 </div>
 
 <script>
+	
+	function onReportingAuthorityfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Ra)), query);
+	}
+
 	function onDepartmentrfiltering(e) {
 		var query = new ej.data.Query();
 		query = (e.text !== '') ? query.where('DepartmentName', 'startswith', e.text, true) : query;
 		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Department)), query);
 	}
+
+	function onErpUserfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ErpUsers)), query);
+	}
+	
 </script>
 <script>
 	function onDesignationrfiltering(e) {
@@ -413,3 +573,21 @@
 		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.EmploymentType)), query);
 	}
 </script>
+@section scripts{
+	<script>
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+					$('#imagePreview').hide();
+					$('#imagePreview').fadeIn(650);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		$("#imageUpload").change(function () {
+			readURL(this);
+		});
+	</script>
+}

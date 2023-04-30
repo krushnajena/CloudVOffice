@@ -95,11 +95,11 @@ namespace Project.Management.Controllers
 
             return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeView.cshtml");
         }
-        public IActionResult ProjectTypeDelete(Int64 projectTypeId)
+        public IActionResult ProjectTypeDelete(int projectTypeId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-            var a = _projecttypeService.ProjectTypeDelete(projecttypeId, DeletedBy);
+            var a = _projecttypeService.ProjectTypeDelete(projectTypeId, DeletedBy);
             return Redirect("/Projects/ProjectType/ProjectTypeView");
         }
     }

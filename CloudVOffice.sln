@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Project.Management", "PlugI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop.Monitoring", "Plugin\Desktop.Monitoring\Desktop.Monitoring.csproj", "{3994B1EB-F292-48FB-BE22-EED144500337}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.API", "Plugin\Web.API\Web.API.csproj", "{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{3994B1EB-F292-48FB-BE22-EED144500337}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3994B1EB-F292-48FB-BE22-EED144500337}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3994B1EB-F292-48FB-BE22-EED144500337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{8285C181-3BFC-4209-A44E-AECD5A2E19BD} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
 		{A866870D-9E2B-4F17-BF6C-F5354EEC329A} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
 		{3994B1EB-F292-48FB-BE22-EED144500337} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
+		{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DEF2CA5-EC2C-4C0B-878F-AEA8D00FE3E6}

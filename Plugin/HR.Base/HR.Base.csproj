@@ -26,6 +26,7 @@
     <None Remove="Views\EmploymentType\EmploymentTypeCreate.cshtml" />
     <None Remove="Views\EmploymentType\EmploymentTypeView.cshtml" />
     <None Remove="Views\Designation\DesignationCreate.cshtml" />
+    <None Remove="Views\Hr\Dashboard.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 

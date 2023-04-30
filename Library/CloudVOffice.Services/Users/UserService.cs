@@ -310,6 +310,9 @@ namespace CloudVOffice.Services.Users
             }
         }
 
-       
+        public List<User> GetUsersByUserType(UserType userType)
+        {
+            return _context.Users.Where(x=>x.UserType == userType && x.Deleted == false).ToList();
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public string Salutation { get; set; }
 		public string FirstName { get; set; }
 		public string? MiddleName { get; set; }	
-		public string LastName { get; set; }
+		public string? LastName { get; set; }
         [NotMapped]
         public string FullName
         {
@@ -40,12 +40,13 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public DateTime? DateOfBirth { get; set; }
 		public DateTime? DateOfJoining { get; set; }
 		public Int64 ErpUser { get; set; }
-		public bool Status { get; set; }
+		public string Status { get; set; }
 
 		public int? DepartmentId { get; set; }
 		public int? DesignationId { get; set; }
 		public int? BranchId { get; set; }
 		public int? EmploymentTypeId { get; set;}
+		public	Int64? ReportingAuthority { get; set; }
 
 		public Int64? JobApplicantId { get; set; }
 		public DateTime? OfferDate { get; set; }
@@ -66,17 +67,17 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public string? RelationWithEmergencyContactPerson { get; set; }
 		public string? BiometricOrRfIdDeviceId { get; set; }
 
-		public string CTC { get; set; }
-		public string PanNo { get; set; }
-		public string ProvidentFundAccountNo { get; set; }
+		public string? CTC { get; set; }
+		public string? PanNo { get; set; }
+		public string? ProvidentFundAccountNo { get; set; }
 
-		public string MaritalStatus { get; set; }
+		public string? MaritalStatus { get; set; }
 		public DateTime? MarraigeDate { get; set; }
-		public string BloodGroup { get; set; }
-		public string PassportNumber { get; set; }
+		public string? BloodGroup { get; set; }
+		public string? PassportNumber { get; set; }
 		public DateTime? PassportDateOfIssue { get; set; }
 		public DateTime? PassportValidUpto { get; set; }
-		public string PassportPlaceOfIssue { get; set; }
+		public string? PassportPlaceOfIssue { get; set; }
 		public string? Photo { get; set; }
 
         public Int64 CreatedBy { get; set; }
@@ -87,10 +88,12 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 
 		public  ICollection<ProjectEmployee> ProjectEmployees { get; set; }
 
-		[JsonIgnore]
-		public User User { get; set; }
 
-    
+        [ForeignKey("DepartmentId")]
+        public Department Department { get; set; }
+        [ForeignKey("DesignationId")]
+        public Designation Designation { get; set; }
+
         public List<Employee> Employees { get; set; }
 
         public List<DesktopLogin> DesktopLogins { get; set; }

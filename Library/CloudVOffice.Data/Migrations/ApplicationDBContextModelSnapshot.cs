@@ -130,6 +130,9 @@ namespace CloudVOffice.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDefaultSending")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
 
@@ -202,6 +205,233 @@ namespace CloudVOffice.Data.Migrations
                     b.ToTable("EmailDomains");
                 });
 
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopActivityLog", b =>
+                {
+                    b.Property<long>("DesktopActivityLogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("DesktopActivityLogId"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AppOrWebPageName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ComputerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("DesktopLoginId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("EmployeeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Folder")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LogDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LogType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrinterName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProcessOrUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SyncedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("Todatetime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TypeOfApp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DesktopActivityLogId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("DesktopActivityLogs");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopKeyStroke", b =>
+                {
+                    b.Property<long>("DesktopKeyStrokeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("DesktopKeyStrokeId"));
+
+                    b.Property<long>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("DesktopActivityLogId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("KeyStrokeDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Keystrokes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SyncedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DesktopKeyStrokeId");
+
+                    b.HasIndex("DesktopActivityLogId");
+
+                    b.ToTable("DesktopKeyStrokes");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopLogin", b =>
+                {
+                    b.Property<long>("DesktopLoginId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("DesktopLoginId"));
+
+                    b.Property<long>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long>("EmployeeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActiveSession")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsAutoLogedOut")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LogOutDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LoginDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("SyncedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DesktopLoginId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("DesktopLogins");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopSnapshot", b =>
+                {
+                    b.Property<long>("DesktopSnapshotId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("DesktopSnapshotId"));
+
+                    b.Property<long>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("DesktopActivityLogId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("DesktopActivityLogId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LogType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SnapShot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SnapshotDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("DesktopSnapshotId");
+
+                    b.HasIndex("DesktopActivityLogId1");
+
+                    b.ToTable("DesktopSnapshots");
+                });
+
             modelBuilder.Entity("CloudVOffice.Core.Domain.HR.Emp.Employee", b =>
                 {
                     b.Property<long>("EmployeeId")
@@ -211,18 +441,16 @@ namespace CloudVOffice.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("EmployeeId"));
 
                     b.Property<string>("BiometricOrRfIdDeviceId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BloodGroup")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("BranchId")
                         .HasColumnType("int");
 
-                    b.Property<double?>("CTC")
-                        .HasColumnType("float");
+                    b.Property<string>("CTC")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyEmail")
                         .IsRequired()
@@ -254,17 +482,17 @@ namespace CloudVOffice.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("DepartmentId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("DesignationId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("EmergencyContactName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmergencyPhone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmployeeCode")
@@ -292,18 +520,15 @@ namespace CloudVOffice.Data.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaritalStatus")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("MarraigeDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MobileNo")
@@ -317,18 +542,15 @@ namespace CloudVOffice.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PanNo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PassportDateOfIssue")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PassportNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PassportPlaceOfIssue")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PassportValidUpto")
@@ -343,18 +565,15 @@ namespace CloudVOffice.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Photo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProvidentFundAccountNo")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RelationWithEmergencyContactPerson")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("ReportToEmployeeId")
+                    b.Property<long?>("ReportingAuthority")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime?>("RetirementDate")
@@ -364,8 +583,9 @@ namespace CloudVOffice.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("UpdatedBy")
                         .HasColumnType("bigint");
@@ -373,14 +593,13 @@ namespace CloudVOffice.Data.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("EmployeeId1");
+                    b.HasIndex("DepartmentId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("DesignationId");
+
+                    b.HasIndex("EmployeeId1");
 
                     b.ToTable("Employees");
                 });
@@ -696,7 +915,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Applications",
                             AreaName = "Application",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5057),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5552),
                             Deleted = false,
                             IconImageUrl = "/appstatic/images/applications.png",
                             IsGroup = true,
@@ -708,11 +927,11 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Setup",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5064),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5555),
                             Deleted = false,
                             IconImageUrl = "/appstatic/images/setup.png",
                             IsGroup = true,
-                            Url = "/Setup/Dashboard"
+                            Url = "/Setup/Setup/Dashboard"
                         },
                         new
                         {
@@ -720,11 +939,11 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Company",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5066),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5557),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 2,
-                            Url = "/Setup/Company"
+                            Url = "/Setup/Company/Company"
                         },
                         new
                         {
@@ -732,7 +951,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "User",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5068),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5559),
                             Deleted = false,
                             IsGroup = true,
                             Parent = 2,
@@ -744,11 +963,11 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "User List",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5069),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5560),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 4,
-                            Url = "/User/UserList"
+                            Url = "/Setup/User/UserList"
                         },
                         new
                         {
@@ -756,10 +975,10 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Users Activity Log",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5071),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5561),
                             Deleted = false,
                             IsGroup = false,
-                            Url = "/User/ActivityLog"
+                            Url = "/Setup/User/ActivityLog"
                         });
                 });
 
@@ -841,7 +1060,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 1L,
                             ApplicationId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5273),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5680),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -850,7 +1069,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 2L,
                             ApplicationId = 2,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5276),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5682),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -859,7 +1078,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 3L,
                             ApplicationId = 3,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5277),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5684),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -868,7 +1087,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 4L,
                             ApplicationId = 4,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5278),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5685),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -877,7 +1096,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 5L,
                             ApplicationId = 5,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5280),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5686),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -886,7 +1105,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 6L,
                             ApplicationId = 6,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5281),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5687),
                             Deleted = false,
                             RoleId = 1
                         });
@@ -935,7 +1154,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 1L,
                             ApplicationId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5461),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5816),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -944,7 +1163,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 2L,
                             ApplicationId = 2,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5463),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5818),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -953,7 +1172,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 3L,
                             ApplicationId = 3,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5465),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5820),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -962,7 +1181,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 4L,
                             ApplicationId = 4,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5467),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5821),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -971,7 +1190,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 5L,
                             ApplicationId = 5,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5469),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5822),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -980,7 +1199,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 6L,
                             ApplicationId = 6,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(5470),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5824),
                             Deleted = false,
                             UserId = 1L
                         });
@@ -1056,7 +1275,43 @@ namespace CloudVOffice.Data.Migrations
 
                     b.HasKey("ProjectId");
 
+                    b.HasIndex("ProjectManager");
+
+                    b.HasIndex("ProjectTypeId");
+
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Projects.ProjectActivityType", b =>
+                {
+                    b.Property<int>("ProjectActivityTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectActivityTypeId"));
+
+                    b.Property<long>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProjectActivityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long?>("UpdatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ProjectActivityTypeId");
+
+                    b.ToTable("ProjectActivityTypes");
                 });
 
             modelBuilder.Entity("CloudVOffice.Core.Domain.Projects.ProjectEmployee", b =>
@@ -1203,7 +1458,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             RoleId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(3177),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(3840),
                             Deleted = false,
                             RoleName = "Administrator"
                         });
@@ -1286,7 +1541,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             UserId = 1L,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 4, 12, 20, 24, 24, 114, DateTimeKind.Local).AddTicks(4503),
+                            CreatedDate = new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5207),
                             Deleted = false,
                             Email = "admin@appman.in",
                             FirstName = "Administrator",
@@ -1328,34 +1583,72 @@ namespace CloudVOffice.Data.Migrations
                             UserRoleMappingId = 1,
                             RoleId = 1,
                             UserId = 1L
-                        },
-                        new
-                        {
-                            UserRoleMappingId = 2,
-                            RoleId = 2,
-                            UserId = 1L
-                        },
-                        new
-                        {
-                            UserRoleMappingId = 3,
-                            RoleId = 3,
-                            UserId = 1L
                         });
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopActivityLog", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.HR.Emp.Employee", "Employee")
+                        .WithMany("DesktopActivityLogs")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopKeyStroke", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopActivityLog", "DesktopActivityLog")
+                        .WithMany("DesktopKeyStrokes")
+                        .HasForeignKey("DesktopActivityLogId");
+
+                    b.Navigation("DesktopActivityLog");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopLogin", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.HR.Emp.Employee", "Employee")
+                        .WithMany("DesktopLogins")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopSnapshot", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopActivityLog", "DesktopActivityLog")
+                        .WithMany("DesktopSnapshots")
+                        .HasForeignKey("DesktopActivityLogId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DesktopActivityLog");
                 });
 
             modelBuilder.Entity("CloudVOffice.Core.Domain.HR.Emp.Employee", b =>
                 {
+                    b.HasOne("CloudVOffice.Core.Domain.HR.Master.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CloudVOffice.Core.Domain.HR.Master.Designation", "Designation")
+                        .WithMany()
+                        .HasForeignKey("DesignationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CloudVOffice.Core.Domain.HR.Emp.Employee", null)
                         .WithMany("Employees")
                         .HasForeignKey("EmployeeId1");
 
-                    b.HasOne("CloudVOffice.Core.Domain.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Department");
 
-                    b.Navigation("User");
+                    b.Navigation("Designation");
                 });
 
             modelBuilder.Entity("CloudVOffice.Core.Domain.HR.Master.Department", b =>
@@ -1408,6 +1701,23 @@ namespace CloudVOffice.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Projects.Project", b =>
+                {
+                    b.HasOne("CloudVOffice.Core.Domain.HR.Emp.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("ProjectManager");
+
+                    b.HasOne("CloudVOffice.Core.Domain.Projects.ProjectType", "ProjectType")
+                        .WithMany()
+                        .HasForeignKey("ProjectTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("ProjectType");
+                });
+
             modelBuilder.Entity("CloudVOffice.Core.Domain.Projects.ProjectEmployee", b =>
                 {
                     b.HasOne("CloudVOffice.Core.Domain.HR.Emp.Employee", "Employee")
@@ -1417,7 +1727,7 @@ namespace CloudVOffice.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CloudVOffice.Core.Domain.Projects.Project", "Project")
-                        .WithMany("ProjectEmployees")
+                        .WithMany()
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1430,7 +1740,7 @@ namespace CloudVOffice.Data.Migrations
             modelBuilder.Entity("CloudVOffice.Core.Domain.Projects.ProjectUser", b =>
                 {
                     b.HasOne("CloudVOffice.Core.Domain.Projects.Project", "Project")
-                        .WithMany("ProjectUsers")
+                        .WithMany()
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1465,8 +1775,19 @@ namespace CloudVOffice.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopActivityLog", b =>
+                {
+                    b.Navigation("DesktopKeyStrokes");
+
+                    b.Navigation("DesktopSnapshots");
+                });
+
             modelBuilder.Entity("CloudVOffice.Core.Domain.HR.Emp.Employee", b =>
                 {
+                    b.Navigation("DesktopActivityLogs");
+
+                    b.Navigation("DesktopLogins");
+
                     b.Navigation("Employees");
 
                     b.Navigation("ProjectEmployees");
@@ -1484,13 +1805,6 @@ namespace CloudVOffice.Data.Migrations
                     b.Navigation("RoleAndModuleWisePermission");
 
                     b.Navigation("UserWiseViewMapper");
-                });
-
-            modelBuilder.Entity("CloudVOffice.Core.Domain.Projects.Project", b =>
-                {
-                    b.Navigation("ProjectEmployees");
-
-                    b.Navigation("ProjectUsers");
                 });
 
             modelBuilder.Entity("CloudVOffice.Core.Domain.Users.Role", b =>

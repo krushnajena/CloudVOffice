@@ -17,6 +17,8 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="roles.json" />
+    <None Remove="Views\DesktopMonitoring\MonitorUsers.cshtml" />
+    <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +49,13 @@
 
 	<ItemGroup>
 		<ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Views\_ViewImports.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 	<!-- This target execute after "Build" target -->
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">

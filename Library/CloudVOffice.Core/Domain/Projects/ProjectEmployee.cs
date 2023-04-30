@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -19,9 +20,12 @@ namespace CloudVOffice.Core.Domain.Projects
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-        [JsonIgnore]
+
+        [ForeignKey("ProjectId")]
         public Project Project { get; set; }
-        [JsonIgnore]
-        public Employee Employee { get; set; }
+
+        [ForeignKey("EmployeeId")]
+        public Employee Employee{ get; set; }
+
     }
 }

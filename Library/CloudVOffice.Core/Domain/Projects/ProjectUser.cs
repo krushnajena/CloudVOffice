@@ -1,6 +1,8 @@
-﻿using CloudVOffice.Core.Domain.Users;
+﻿using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.Users;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -20,9 +22,13 @@ namespace CloudVOffice.Core.Domain.Projects
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-        [JsonIgnore]
+
+        [ForeignKey("ProjectId")]
         public Project Project { get; set; }
-        [JsonIgnore]
+
+        [ForeignKey("UserId")]
         public User User { get; set; }
+
+
     }
 }

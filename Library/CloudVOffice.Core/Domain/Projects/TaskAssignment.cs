@@ -1,6 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.Users;
+using Microsoft.Extensions.FileSystemGlobbing.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,10 +31,30 @@ namespace CloudVOffice.Core.Domain.Projects
 		public DateTime? UpdatedDate { get; set; }
 		public bool Deleted { get; set; }
 
-	
-		public ProjectTask ProjectTask { get; set; }
 
 
-	}
+        [ForeignKey("TaskId")]
+        public ProjectTask ProjectTask { get; set; }
+
+
+        [ForeignKey("EmployeeId")]
+        public Employee Employee { get; set; }
+
+
+
+        [ForeignKey("AssignedBy")]
+        public Employee EmployeeAssignedBy { get; set; }
+
+
+        [ForeignKey("CompliteBy")]
+        public Employee EmployeeCompliteBy { get; set; }
+
+
+        [ForeignKey("DelayApprovedBy")]
+        public Employee EmployeeDelayApprovedBy { get; set; }
+        
+
+
+    }
 }
 

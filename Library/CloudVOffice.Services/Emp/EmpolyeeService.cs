@@ -9,12 +9,17 @@ using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Data.ViewModel.HR.Emp;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Users;
+using Humanizer;
+using LinqToDB.Tools;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,11 +52,12 @@ namespace CloudVOffice.Services.Emp
 					employee.DateOfBirth = employeeCreateDTO.DateOfBirth;
 					employee.DateOfJoining = employeeCreateDTO.DateOfJoining;
 					employee.ErpUser = employeeCreateDTO.ErpUser;
-					employee.Status = true;
+					employee.Status = employeeCreateDTO.Status;
 					employee.DepartmentId = employeeCreateDTO.DepartmentId;
 					employee.DesignationId = employeeCreateDTO.DesignationId;
 					employee.BranchId = employeeCreateDTO.BranchId;
 					employee.EmploymentTypeId = employeeCreateDTO.EmploymentTypeId;
+					employee.ReportingAuthority= employeeCreateDTO.ReportingAuthority;
 					employee.JobApplicantId = employeeCreateDTO.JobApplicantId;
 					employee.OfferDate = employeeCreateDTO.OfferDate;
 					employee.ConfirmationDate = employeeCreateDTO.ConfirmationDate;
@@ -125,7 +131,9 @@ namespace CloudVOffice.Services.Emp
 		{
 			try
 			{
-				return _Dbcontext.Employees.Where(x => x.EmployeeCode == employeecode && x.Deleted == false).SingleOrDefault();
+				return _Dbcontext.Employees
+					.Include(x=> x.Department)
+					.Where(x => x.EmployeeCode == employeecode && x.Deleted == false).SingleOrDefault();
 
 			}
 			catch
@@ -148,12 +156,82 @@ namespace CloudVOffice.Services.Emp
 			}
 		}
 
-		public List<Employee> GetEmployees()
+        public Employee GetEmployeeDetailsByUserId(long UserId)
+        {
+            var employee = _Dbcontext.Employees.Where(x => x.ErpUser == UserId &&x.Deleted == false).FirstOrDefault();
+			return employee;
+
+        }
+
+        public List<Employee> GetEmployees()
 		{
 			try
 			{
-				return _Dbcontext.Employees.Where(x => x.Deleted == false).ToList();
-			}
+				
+				//var a = (from u in _Dbcontext.Employees
+				//		join r in _Dbcontext.Departments on
+				//			  u.DepartmentId equals r.DepartmentId
+				//		join d in _Dbcontext.Designations on
+				//			  u.DesignationId equals d.DesignationId
+				//		select new {
+				//			u.EmployeeId,
+				//			u.EmployeeCode,
+				//			u.Salutation,
+
+				//			u.FirstName,
+				//			u.MiddleName,
+				//			u.LastName,
+				//			u.FullName,
+				//			u.Gender,
+				//			u.DateOfBirth,
+				//			u.DateOfJoining,
+				//			u.ErpUser,
+				//			u.Status,
+				//			u.DepartmentId,
+				//			u.DesignationId,
+				//			u.BranchId,
+				//			u.EmploymentTypeId,
+				//			u.ReportingAuthority,
+				//			u.JobApplicantId,
+				//			u.OfferDate,
+				//			u.ConfirmationDate,
+				//			u.ContractEndDate,
+				//			u.NoticePeriodDays,
+				//			u.RetirementDate,
+				//			u.MobileNo,
+				//			u.PersonalEmail,
+				//			u.CompanyEmail,
+				//			u.CurrentAddress,
+				//			u.PermanentAddress,
+				//			u.EmergencyContactName,
+				//			u.EmergencyPhone,
+				//			u.RelationWithEmergencyContactPerson,
+				//			u.BiometricOrRfIdDeviceId,
+				//			u.CTC,
+				//			u.PanNo,
+				//			u.ProvidentFundAccountNo,
+				//			u.MaritalStatus,
+				//			u.MarraigeDate,
+				//			u.BloodGroup,
+				//			u.PassportNumber,
+				//			u.PassportDateOfIssue,
+				//			u.PassportValidUpto,
+				//			u.PassportPlaceOfIssue,
+				//			u.Photo,
+				//			u.CreatedBy,
+				//			u.CreatedDate,
+				//			u.Deleted,
+
+
+
+				//			r.DepartmentName, d.DesignationName })
+				//						   .Where(x => x.Deleted == false).ToList() ;
+
+
+				return _Dbcontext.Employees
+					.Include(s=>s.Department)
+					.Where(x => x.Deleted == false).ToList();
+            }
 			catch
 			{
 				throw;
@@ -161,7 +239,53 @@ namespace CloudVOffice.Services.Emp
 		}
 
 
-		public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO)
+        public List<Employee> GetEmployeeSubContinent(long EmployeeId)
+        {
+
+			try
+			{
+				Employee employee = _Dbcontext.Employees.Where(x=>x.EmployeeId == EmployeeId).SingleOrDefault();	
+				if(employee != null)
+				{
+                    if (employee.ReportingAuthority == null)
+                    {
+						return _Dbcontext.Employees.Include(x=>x.Department).Include(x=>x.Designation).Where(x=>x.Deleted == false).ToList();
+                    }
+                    else
+                    {
+                        var result = new List<Employee>();
+
+                        var employees = _Dbcontext.Employees
+                            .Include(x => x.Department)
+							.Include(x => x.Designation)
+                            .Where(e => e.ReportingAuthority == EmployeeId || e.EmployeeId == EmployeeId)
+                            .ToList();
+
+
+                        foreach (var nemployee in employees)
+                        {
+                            result.Add(nemployee);
+                            result.AddRange(GetEmployeeSubContinent(nemployee.EmployeeId));
+                        }
+
+                        return result;
+
+							
+                    }
+                }
+				else
+				{
+					return null;
+				}
+				
+			}
+			catch
+			{
+				throw;
+			}
+        }
+
+        public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO)
 		{
 			try
 			{

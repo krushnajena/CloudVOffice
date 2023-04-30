@@ -34,6 +34,8 @@ namespace CloudVOffice.Services.Users
 
         public Task<MennsageEnum> UpdateUser(UserCreateDTO userCreateDTO);
 
+        public List<User> GetUsersByUserType(UserType userType);
+
 
 
     }

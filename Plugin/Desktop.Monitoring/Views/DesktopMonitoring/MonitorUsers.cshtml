@@ -49,14 +49,14 @@
 
 
                             <e-grid-column field="EmployeeCode" headerText="EmployeeCode Code" textAlign="Left" width="120"></e-grid-column>
-                        
+
                             <e-grid-column field="FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
-                           
-                            <e-grid-column field="DepartmentName" headerText="Department" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="DesgnationName" headerText="Desgnation" textAlign="Left" width="120"></e-grid-column>
-                           
+
+                            <e-grid-column field="Department.DepartmentName" headerText="Department" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Degnation.DesgnationName" headerText="Desgnation" textAlign="Left" width="120"></e-grid-column>
+
                             <e-grid-column field="Status" headerText="Status" textAlign="Left" width="120"></e-grid-column>
-                          
+
                             <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -72,9 +72,8 @@
 
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../HR/Employee/EmployeeCreate?EmployeeId=${EmployeeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../HR/Employee/DeleteEmployee?EmployeeId=${EmployeeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
-    </div>
+        <a href="../../DesktopMonitoring/DesktopMoniter/Track?EmployeeId=${EmployeeId}"><i class="icon-clock" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}

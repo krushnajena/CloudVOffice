@@ -70,19 +70,6 @@ namespace CloudVOffice.Data.Seeding
                         UserRoleMappingId = 1,
                         UserId = 1,
                         RoleId = 1
-                    },
-                    new UserRoleMapping
-                    {
-                        UserRoleMappingId = 2,
-                        UserId = 1,
-                        RoleId = 2
-                    }
-                    ,
-                    new UserRoleMapping
-                    {
-                        UserRoleMappingId = 3,
-                        UserId = 1,
-                        RoleId = 3
                     }
 
 
@@ -114,7 +101,7 @@ namespace CloudVOffice.Data.Seeding
                           ApplicationName = "Setup",
                           Parent = null,
                           IsGroup = true,
-                          Url = "/Setup/Dashboard",
+                          Url = "/Setup/Setup/Dashboard",
                           CreatedBy = 1,
                           IconImageUrl = "/appstatic/images/setup.png",
                           CreatedDate = System.DateTime.Now,
@@ -129,7 +116,7 @@ namespace CloudVOffice.Data.Seeding
                            ApplicationName = "Company",
                            Parent = 2,
                            IsGroup = false,
-                           Url = "/Setup/Company",
+                           Url = "/Setup/Company/Company",
                            CreatedBy = 1,
 
                            CreatedDate = System.DateTime.Now,
@@ -159,7 +146,7 @@ namespace CloudVOffice.Data.Seeding
                               ApplicationName = "User List",
                               Parent = 4,
                               IsGroup = false,
-                              Url = "/User/UserList",
+                              Url = "/Setup/User/UserList",
                               CreatedBy = 1,
 
                               CreatedDate = System.DateTime.Now,
@@ -172,9 +159,9 @@ namespace CloudVOffice.Data.Seeding
                           {
                               ApplicationId = 6,
                               ApplicationName = "Users Activity Log",
-                              Parent = null,
+                              Parent = 2,
                               IsGroup = false,
-                              Url = "/User/ActivityLog",
+                              Url = "/Setup/User/ActivityLog",
                               CreatedBy = 1,
 
                               CreatedDate = System.DateTime.Now,

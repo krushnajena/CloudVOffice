@@ -1,5 +1,7 @@
-﻿    using System;
+﻿using CloudVOffice.Core.Domain.HR.Emp;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,9 +30,12 @@ namespace CloudVOffice.Core.Domain.Projects
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-        public List<ProjectUser> ProjectUsers { get; set;}
-        public List<ProjectEmployee> ProjectEmployees { get; set;}
 
-        public virtual List<ProjectTask> ProjectTasks { get; set;}  
+        [ForeignKey("ProjectTypeId")]
+        public ProjectType ProjectType { get; set; }
+        [ForeignKey("ProjectManager")]
+        public Employee Employee { get; set; }
+
+
     }
 }

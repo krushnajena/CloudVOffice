@@ -2,6 +2,7 @@
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.Emp;
+using CloudVOffice.Data.ViewModel.HR.Emp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,10 @@ namespace CloudVOffice.Services.Emp
 		public Employee GetEmployeeById(Int64 employeeid);
 		public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO);
 		public MennsageEnum DeleteEmployee(Int64 employeeid, Int64 DeletedBy);
-		
-	}
+
+		public List<Employee> GetEmployeeSubContinent(Int64 EmployeeId);
+		public Employee GetEmployeeDetailsByUserId(Int64 UserId);
+
+
+    }
 }

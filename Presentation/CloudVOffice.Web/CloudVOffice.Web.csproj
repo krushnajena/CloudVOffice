@@ -380,6 +380,7 @@
 		<PackageReference Include="Syncfusion.XlsIORenderer.Net.Core" Version="21.1.38" />
 		<PackageReference Include="Syncfusion.SkiaSharpHelper.Net.Core" Version="21.1.38" />
 		<PackageReference Include="Syncfusion.EJ2.Spreadsheet.AspNet.Core" Version="21.1.38" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 
 	
 	</ItemGroup>

@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>trakolab.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="UserControls\IdelDurectionUc.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="22.png" />
+    <None Remove="Images\Max-1.jpg" />
+    <None Remove="settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="UserControls\IdelDurectionUc.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="trakolab.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+   
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="3.1.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="syncfusion.ui.wpf.net" Version="19.2.0.44" />
+	  <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Library\CloudVOffice.Core\CloudVOffice.Core.csproj" />
+    <ProjectReference Include="..\..\Library\CloudVOffice.Data\CloudVOffice.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Max-1.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\login_bg.png" />
+    <Resource Include="Resources\settings.png" />
+  </ItemGroup>
+
+</Project>

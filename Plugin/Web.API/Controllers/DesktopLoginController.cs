@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace Web.API.Controllers
         public DesktopLoginController()
         {
 
+        }
+
+        [HttpGet]
+        public IActionResult GetIns()
+        {
+            return Ok();
         }
     }
 }

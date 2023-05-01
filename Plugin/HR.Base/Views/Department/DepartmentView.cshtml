@@ -24,7 +24,6 @@
     </div>
 </header>
 
-
 <div class="main-content">
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -48,10 +47,10 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="DepartmentsName" headerText="Departments Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="DepartmentName" headerText="Department Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Parent" headerText="Parent" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="IsGroup" headerText="IsGroup" textAlign="Left" width="120"></e-grid-column>
-
+                            <e-grid-column field="IsGroup" headerText="Is Group" textAlign="Left" width="120"></e-grid-column>                            
+                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -61,6 +60,15 @@
     </div>
 
 </div>
+<script id="Actions" type="text/x-template">
+    <div class="link">
+        <a href="../../HR/Department/DepartmentCreate?DepartmentId=${DepartmentId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../HR/Department/DeleteDepartment?DepartmentId=${DepartmentId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+    </div>
+</script>
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+</script>
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];

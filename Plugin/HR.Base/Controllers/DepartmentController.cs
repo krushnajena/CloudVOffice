@@ -55,7 +55,7 @@ namespace HR.Base.Controllers
                     var a = _departmentService.CreateDepartment(departmentDTO);
                     if (a == MennsageEnum.Success)
                     {
-                        return Redirect("/HR/Department/DepartmentList");
+                        return Redirect("/HR/Department/DepartmentView");
                     }
                     else if (a == MennsageEnum.Duplicate)
                     {
@@ -71,8 +71,8 @@ namespace HR.Base.Controllers
 					var a = _departmentService.DepartmentUpdate(departmentDTO);
 					if (a == MennsageEnum.Success)
 					{
-
-					}
+                        return Redirect("/HR/Department/DepartmentView");
+                    }
 					else if (a == MennsageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Department Already Exists");
@@ -92,6 +92,16 @@ namespace HR.Base.Controllers
 			ViewBag.Departments = _departmentService.GetDepartmentList();
 
 			return View("~/Plugins/HR.Base/Views/Department/DepartmentView.cshtml");
-		}        
+		}
+        [HttpGet]
+        public IActionResult DeleteDepartment(Int64 deprtmentid)
+        {
+            Int64 DeletedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+            var a = _departmentService.DepartmentDelete(deprtmentid, DeletedBy);
+            return Redirect("/HR/Department/DepartmentView");
+        }
+
+
     }
 }

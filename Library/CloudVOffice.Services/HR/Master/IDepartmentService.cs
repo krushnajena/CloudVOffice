@@ -13,9 +13,9 @@ namespace CloudVOffice.Services.HR.Master
     {
         public MennsageEnum CreateDepartment(DepartmentDTO departmentDTO);
         public List<Department> GetDepartmentList();
-        public Department GetDepartmentById(int departmentId);
+        public Department GetDepartmentById(Int64 departmentId);
         public MennsageEnum DepartmentUpdate(DepartmentDTO departmentDTO);
-        public MennsageEnum DepartmentDelete(int deprtmentid, int DeletedBy);
+        public MennsageEnum DepartmentDelete(Int64 deprtmentid, Int64 DeletedBy);
         public List<Department> GetAllDepartmentGroups(); 
     }
 }

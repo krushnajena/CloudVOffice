@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Extensions.FileProviders;
 using Syncfusion.Licensing;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.OpenApi.Models;
 
 namespace CloudVOffice.Web
 {
@@ -83,6 +84,50 @@ namespace CloudVOffice.Web
             // services.AddScoped(IAuthenticationService, AuthenticationService);
             //  services.AddDbContext<ApplicationDBContext>()
 
+            #region Swagger Config
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "CloudVOffice Open API v1",
+                    Version = "v1",
+                    Description = "API to communicate with CloudVOffice Server API "
+                });
+                options.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                options.CustomSchemaIds(type => type.ToString());
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+
+                    }
+                });
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //options.IncludeXmlComments(xmlPath);
+            });
+
+
+            #endregion
+
         }
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
@@ -92,6 +137,9 @@ namespace CloudVOffice.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "CloudVOffice Open Api v1"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions

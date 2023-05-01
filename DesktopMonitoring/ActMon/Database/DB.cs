@@ -1,0 +1,435 @@
+﻿using System;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
+using ActivityMonitor.Application;
+using ActivityMonitor.ApplicationMonitor;
+using ActMon.Classes;
+using ActMon.Utils;
+using DesktopMonitoringSystem.Classes;
+using Newtonsoft.Json;
+using SQLite;
+
+namespace ActMon.Database
+{
+    public class DB
+    {
+       // private SqlConnection conn;
+        private string _dbServer;
+        private string _dbUsername;
+        private string _dbDatabase;
+        private string _dbPassword;
+
+        private bool _leaveConnectionOpen;
+        private bool _isActLogRunning;
+        
+        public DB(int connectionTimeout = 1)
+        {
+            
+
+           // conn = new SqlConnection("Data Source=DESKTOP-DFU5PTJ;Initial Catalog=dms;User id=sa;Password=Software@2016");
+        }
+
+       
+
+
+        public long RecordUser(UserSession uSession)
+        {
+            long lUserID;
+            SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+            var a = connection.Query<User>("select * from User").FirstOrDefault();
+            if (a != null)
+            {
+                uSession.UserID = a.UserId;
+                return a.UserId;
+            }
+            else
+            {
+                return 0;
+            }
+                
+              
+        }
+
+        public bool RecordSession(AppMonitor appMon)
+        {
+            _leaveConnectionOpen = true;
+
+            RecordUserSession(appMon.Session);
+
+            try
+            {
+                foreach (Application lApp in appMon.Applications)
+                {
+                   // RecordApplication(lApp);
+                    RecordApplicationSession(appMon.Session.SessionID, lApp, (int)appMon.Session.UserID,appMon.Session.ComputerName);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return true;
+            }
+            _leaveConnectionOpen = false;
+           
+            return true;
+        }
+
+        public bool RecordApplicationSession(long SessionID, Application sApp,int UserId,string ComputerName)
+        {
+            string sqlStr;
+
+            for(int i = 0; i < sApp.Usage.Count; i++)
+            {
+                if (sApp.Usage[i].IsClosed == true && sApp.Usage[i].IsSynced == false)
+                {
+                    DMSActivityLog dMSActivityLog = new DMSActivityLog();
+                    dMSActivityLog.DesktopLoginId = (int)SessionID;
+                    dMSActivityLog.UserId = (int)UserId;
+                    dMSActivityLog.LogDateTime = sApp.Usage[i].BeginTime;
+                    dMSActivityLog.ComputerName = ComputerName;
+                    dMSActivityLog.ProcessOrUrl = sApp.ExeName;
+                    dMSActivityLog.AppOrWebPageName = sApp.Usage[i].DetailedName;
+                    dMSActivityLog.TypeOfApp = "App";
+                    dMSActivityLog.CreatedBy = (int)UserId;
+                    dMSActivityLog.LogType = "ActivityLog";
+                    dMSActivityLog.Todatetime = sApp.Usage[i].EndTime;
+                    SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+                    var x = connection.Insert(dMSActivityLog);
+                    for(int j =0;j< sApp.Usage[i].ScreenShots.Count; j++)
+                    {
+                        DMSScreenShotLog dMSScreenShotLog = new DMSScreenShotLog();
+                        dMSScreenShotLog.LogType = "App";
+                        dMSScreenShotLog.DmsActivityLogId = dMSActivityLog.Id;
+                        dMSScreenShotLog.SnapShot = sApp.Usage[i].ScreenShots[j].ScreenshotName;
+                        dMSScreenShotLog.SnapshotDateTime =sApp.Usage[i].ScreenShots[j].SnapDatetime;
+
+                        var y = connection.Insert(dMSScreenShotLog);
+                    }
+
+                    sApp.Usage[i].UpdateSyncTime(dMSActivityLog.Id);
+
+                }
+               
+            }
+            return true;
+            //sqlStr = @"begin tran
+            //         if exists(select * from SessionApplicationsUsage with (updlock, serializable) where sessionID=@sessionID AND applicationID = @applicationID)
+            //         begin
+            //          update SessionApplicationsUsage set usageTime=@usageTime
+            //          where sessionID=@sessionID AND applicationID = @applicationID
+            //         end
+            //         else
+            //         begin
+            //         insert into SessionApplicationsUsage(sessionID, applicationID, usageTime)
+            //         values(@sessionID, @applicationID, @usageTime)
+            //         end
+            //         commit tran";
+
+            //using (SqlCommand sqlCommand = new SqlCommand())
+            //{
+            //    sqlCommand.Parameters.AddWithValue("@sessionID", (object)SessionID);
+            //    sqlCommand.Parameters.AddWithValue("@applicationID", (object)sApp.ApplicationID);
+            //    sqlCommand.Parameters.AddWithValue("@usageTime", (long)sApp.TotalUsageTime.TotalSeconds);
+
+            //    sqlCommand.Connection = conn;
+            //    sqlCommand.CommandText = sqlStr;
+
+            //    try
+            //    {
+            //        openConnection();
+            //        sqlCommand.ExecuteNonQuery();
+            //        closeConnection();
+            //        return true;
+            //    }
+            //    catch (SqlException ex)
+            //    {
+            //        return false;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Console.WriteLine(ex.Message);
+            //        return false;
+            //    }
+            //}
+        }
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            return "";
+        }
+
+        public bool RecordUserSession(UserSession uSession)
+        {
+            string sqlStr;
+
+            if (uSession.UserID == 0)
+            {
+                if (RecordUser(uSession) == 0) return false;
+            }
+
+            if (uSession.SessionID == 0)
+            {
+                DmsSessionLog dmsSessionLog = new DmsSessionLog();
+                dmsSessionLog.UserId = (int)uSession.UserID;
+                dmsSessionLog.MachineName = uSession.ComputerName;
+                dmsSessionLog.StartTime = uSession.SessionStarted;
+                dmsSessionLog.IpAddress = GetLocalIPAddress();
+                dmsSessionLog.IsSynced = false;
+                dmsSessionLog.IsAutoLogOut = false;
+                SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+                var x =  connection.Insert(dmsSessionLog);
+                uSession.SessionID = dmsSessionLog.Id;
+                return true;
+            }
+            else
+            {
+                SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+                var dmsSessionLog = connection.Query<DmsSessionLog>("select * from DmsSessionLog where Id="+ uSession.SessionID).FirstOrDefault();
+               
+                dmsSessionLog.Id = (int)uSession.SessionID;
+              
+                dmsSessionLog.EndDateTime = uSession.SessionEnded;
+                
+                    dmsSessionLog.IsAutoLogOut = false
+                        ;
+                
+                dmsSessionLog.IdelTime = (int)uSession.IdleTime.TotalSeconds;
+               
+                connection.Update(dmsSessionLog);
+                return true;
+            }
+         
+        }
+
+        public async void SyncSessionLogData()
+        {
+            SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+            var dmsSessionLog = connection.Query<DmsSessionLog>("select * from DmsSessionLog where Id<>(select Max(Id) from DmsSessionLog) and IsSynced=0").ToList();
+            if (dmsSessionLog != null)
+            {
+                for (int i = 0; i < dmsSessionLog.Count; i++)
+                {
+
+                   
+                    CreateDesktopLoginDTO createDesktopLoginDTO = new CreateDesktopLoginDTO();
+                    createDesktopLoginDTO.UserId = dmsSessionLog[i].UserId;
+                    createDesktopLoginDTO.LoginDateTime = dmsSessionLog[i].StartTime;
+                    createDesktopLoginDTO.LogOutDateTime = dmsSessionLog[i].EndDateTime;
+                    if (dmsSessionLog[i].EndDateTime == null)
+                    {
+                        createDesktopLoginDTO.IsAutoLogedOut = true;
+                    }
+                    else
+                    {
+                        createDesktopLoginDTO.IsAutoLogedOut = false;
+                    }
+
+                    createDesktopLoginDTO.SyncedOn = DateTime.Now;
+                    createDesktopLoginDTO.ComputerName = dmsSessionLog[i].MachineName;
+                    createDesktopLoginDTO.IpAddress = dmsSessionLog[i].IpAddress;
+                    createDesktopLoginDTO.CreatedBy = dmsSessionLog[i].UserId;
+                    if (dmsSessionLog[i].IdelTime == null)
+                    {
+                        createDesktopLoginDTO.IdelTime = 0;
+                    }
+                    else
+                    {
+                        createDesktopLoginDTO.IdelTime = (int)dmsSessionLog[i].IdelTime;
+                    }
+
+                    var a = await HttpClientRq.PostRequest(ApiUrls.postSessionLog, JsonConvert.SerializeObject(createDesktopLoginDTO));
+                    if (a.StatusCode == HttpStatusCode.OK)
+                    {
+                        var X = a.Content.ReadAsStringAsync()
+                                                             .Result
+                                                             //.Replace("\\", "")
+                                                             //.Replace("\r\n", "'")
+                                                             .Trim(new char[1] { '"' });
+                        var json = JsonConvert.DeserializeObject<
+                        DesktopLogin>(X);
+                        if (json != null)
+                        {
+                            dmsSessionLog[i].ServerSessionId = json.DesktopLoginId;
+                            dmsSessionLog[i].IsSynced = true;
+                            connection.Update(dmsSessionLog[i]);
+
+
+                        }
+
+                    }
+                }
+            }
+        
+        }
+
+        public async Task<bool> SyncLogDatan(DMSActivityLogVM dmsActivityLog)
+        {
+            SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+            ActivityLogDTO activityLogDTO = new ActivityLogDTO();
+            activityLogDTO.UserId = dmsActivityLog.UserId;
+            activityLogDTO.LogType = dmsActivityLog.LogType;
+            activityLogDTO.DesktopLoginId = dmsActivityLog.serversessionid;
+
+            activityLogDTO.LogDateTime = dmsActivityLog.LogDateTime;
+
+            activityLogDTO.ComputerName = dmsActivityLog.ComputerName;
+
+            activityLogDTO.ProcessOrUrl = dmsActivityLog.ProcessOrUrl;
+            activityLogDTO.AppOrWebPageName = dmsActivityLog.AppOrWebPageName;
+
+            activityLogDTO.SyncedOn = System.DateTime.Now;
+
+            activityLogDTO.CreatedBy = dmsActivityLog.UserId;
+
+            activityLogDTO.Action = dmsActivityLog.Action;
+
+            activityLogDTO.Source = dmsActivityLog.Source;
+
+            activityLogDTO.Folder = dmsActivityLog.Folder;
+
+
+
+            activityLogDTO.FileName = dmsActivityLog.FileName;
+
+            activityLogDTO.PrinterName = dmsActivityLog.PrinterName;
+
+            activityLogDTO.Todatetime = dmsActivityLog.Todatetime;
+            var ndmsActivityLog = connection.Query<DMSActivityLogVM>("SELECT * FROM DMSActivityLog WHERE DMSActivityLog.Id="+dmsActivityLog.ActId).FirstOrDefault();
+            if(ndmsActivityLog != null )
+            {
+                if (ndmsActivityLog.IsDeleted == false)
+                {
+                    var a = await HttpClientRq.PostRequest(ApiUrls.postActivityLog, JsonConvert.SerializeObject(activityLogDTO));
+
+                    if (a.StatusCode == HttpStatusCode.OK)
+                    {
+                        var X = a.Content.ReadAsStringAsync()
+                                                             .Result
+                                                             //.Replace("\\", "")
+                                                             //.Replace("\r\n", "'")
+                                                             .Trim(new char[1] { '"' });
+                        var json = JsonConvert.DeserializeObject<
+                        DMSActivityLogModel>(X);
+                        if (json != null)
+                        {
+                            DMSActivityLog dMSActivityLogMod = new DMSActivityLog();
+                            dMSActivityLogMod.Id = dmsActivityLog.Id;
+                            dMSActivityLogMod.IsDeleted = true;
+                            // connection.Update(dMSActivityLogMod);
+                            dMSActivityLogMod.ServerLogId = json.DMSActivityLogId;
+
+                            connection.Update(dMSActivityLogMod);
+                            UploadImage(dMSActivityLogMod);
+
+                        }
+                        else
+                        {
+                            DMSActivityLog dMSActivityLogMod = new DMSActivityLog();
+                            dMSActivityLogMod.Id = dmsActivityLog.Id;
+                            dMSActivityLogMod.IsDeleted = false;
+                           
+
+                            connection.Update(dMSActivityLogMod);
+
+                        }
+
+                    }
+                    else
+                    {
+                        DMSActivityLog dMSActivityLogMod = new DMSActivityLog();
+                        dMSActivityLogMod.Id = dmsActivityLog.Id;
+                        dMSActivityLogMod.IsDeleted = false;
+
+
+                        connection.Update(dMSActivityLogMod);
+
+                    }
+                }
+                else
+                {
+                    DMSActivityLog dMSActivityLogMod = new DMSActivityLog();
+                    dMSActivityLogMod.Id = dmsActivityLog.Id;
+                    dMSActivityLogMod.IsDeleted = false;
+
+
+                    connection.Update(dMSActivityLogMod);
+
+                }
+
+            }
+            else
+            {
+                DMSActivityLog dMSActivityLogMod = new DMSActivityLog();
+                dMSActivityLogMod.Id = dmsActivityLog.Id;
+                dMSActivityLogMod.IsDeleted = false;
+                connection.Update(dMSActivityLogMod);
+
+            }
+
+            return true;
+        }
+        public async void SyncLogData()
+        {
+            SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+            var dmsActivityLog = connection.Query<DMSActivityLogVM>("SELECT *,serversessionid ,DMSActivityLog.Id as ActId FROM DMSActivityLog INNER  JOIN DmsSessionLog  ON DmsSessionLog.ID = DMSActivityLog.desktoploginid WHERE DmsSessionLog.issynced=1 AND DMSActivityLog.IsDeleted=0 ").ToList();
+            if (dmsActivityLog != null)
+            {
+            
+
+                for (int i = 0; i < dmsActivityLog.Count; i++)
+                {
+                    DMSActivityLog dMSActivityLogMod = new DMSActivityLog();
+                    dMSActivityLogMod.Id = dmsActivityLog[i].Id;
+                    dMSActivityLogMod.IsDeleted = true;
+                    connection.Update(dMSActivityLogMod);
+                    var z=  await SyncLogDatan(dmsActivityLog[i]);
+                    
+
+                }
+            }
+        
+        }
+        public async void UploadImage(DMSActivityLog activityLog)
+        {
+            SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
+            var dmsScLog = connection.Query<DMSScreenShotLog>("SELECT *  FROM DMSScreenShotLog WHERE DmsActivityLogId= "+activityLog.Id).ToList();
+            if (dmsScLog != null)
+            {
+                for (int i = 0; i < dmsScLog.Count; i++)
+                {
+                    string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+                    // Combine the base folder with your specific folder....
+                    string specificFolder = Path.Combine(folder, "DMSSnaps");
+                    var a = await HttpClientRq.UploadFilesAsync(ApiUrls.imageUpload, specificFolder + @"\" + dmsScLog[i].SnapShot, activityLog.ServerLogId.ToString(), (DateTime)dmsScLog[i].SnapshotDateTime, dmsScLog[i].LogType, activityLog.UserId.ToString());
+
+                    if (a.StatusCode == HttpStatusCode.OK)
+                    {
+                    }
+                }
+            }
+
+        }
+
+
+
+
+    }
+}

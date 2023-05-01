@@ -1,0 +1,72 @@
+﻿<Page x:Class="DesktopMonitoringSystem.Pages.FileOperations"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+     xmlns:local="clr-namespace:DesktopMonitoringSystem.Pages"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+      xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+     xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="FileOperations">
+
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../Resources/ColorModel.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <Border Background="White" Grid.Column="2" Margin="10,10"   Grid.Row="1">
+            <Border CornerRadius="20" Background="#ebecf0" Padding="0"  Margin="10" >
+
+                <syncfusion:TabControlExt HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CloseButtonType="Hide"  
+                                          
+>
+                    <syncfusion:TabItemExt Header="Data" FontSize="18">
+                        <syncfusion:SfDataGrid x:Name="dg_FileOperation"
+                                                AllowDraggingColumns="True"
+                                      
+                                       AllowFiltering="True"
+                                       HeaderRowHeight="26"
+                                               
+                                       SelectionMode="Extended"
+                                       ColumnSizer="Auto"
+                                       AutoGenerateColumns="False"
+                                       FontWeight="Normal"
+                                        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentLight}"
+                                              
+                                               >
+
+
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn MappingName="LogDateTime" IsReadOnly="True" />
+                                <syncfusion:GridTextColumn MappingName="ComputerName" IsReadOnly="True"/>
+                                <syncfusion:GridTextColumn MappingName="Action" IsReadOnly="True"/>
+                                <syncfusion:GridTextColumn MappingName="Source" IsReadOnly="True"/>
+                                <syncfusion:GridTextColumn MappingName="Folder" IsReadOnly="True"/>
+                                <syncfusion:GridTextColumn MappingName="FileName" IsReadOnly="True"/>
+                                <syncfusion:GridTextColumn MappingName="TypeOfApp" IsReadOnly="True"  TextTrimming="CharacterEllipsis"/>
+
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+
+
+                    </syncfusion:TabItemExt>
+
+                </syncfusion:TabControlExt>
+
+            </Border>
+        </Border>
+    </Grid>
+</Page>

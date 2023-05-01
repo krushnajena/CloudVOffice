@@ -1,0 +1,157 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DesktopMonitoringSystem.Pages"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+     
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="DesktopMonitoringSystem.Pages.ActivityLog"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+        xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+     xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
+      Title="ActivityLog">
+
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="../Resources/ColorModel.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+          
+            <RowDefinition Height="*"/>
+
+        </Grid.RowDefinitions>
+      
+
+        <Border Background="White" Grid.Column="2" Margin="10,10"   Grid.Row="1">
+            <Border CornerRadius="20" Background="#ebecf0" Padding="0"  Margin="10" >
+
+                <syncfusion:TabControlExt HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CloseButtonType="Hide"  
+                                          
+>
+                    <syncfusion:TabItemExt Header="Activity Analytics" FontSize="18" >
+                        <chart:SfChart
+            x:Name="columnChart"
+            Margin="10"
+            Header="User Activty Analytics"
+            VerticalAlignment="Bottom">
+
+                            <chart:SfChart.PrimaryAxis>
+                                <chart:CategoryAxis
+                    Header="Application Names"
+                    LabelPlacement="BetweenTicks"
+                    ShowGridLines="False"/>
+                            </chart:SfChart.PrimaryAxis>
+
+                            <chart:SfChart.SecondaryAxis>
+                                <chart:NumericalAxis
+                    Header="Uses (in Hours)"
+                    Interval="1"
+                    Maximum="12"
+                    Minimum="0" />
+                            </chart:SfChart.SecondaryAxis>
+
+                            <chart:ColumnSeries
+                                x:Name="cc_activity"
+                EnableAnimation="True"
+                
+                Label="User Activity Analytics"
+                Palette="Custom"
+                ColorModel="{StaticResource CustomColor}"
+                XBindingPath="ApplicationName"
+                YBindingPath="Hours">
+                                <chart:ColumnSeries.AdornmentsInfo>
+                                    <chart:ChartAdornmentInfo
+                        ShowLabel="True"
+                        ShowMarker="True"
+                        LabelPosition="Inner">
+                                    </chart:ChartAdornmentInfo>
+                                </chart:ColumnSeries.AdornmentsInfo>
+                            </chart:ColumnSeries>
+
+                        </chart:SfChart>
+
+                    </syncfusion:TabItemExt>
+
+                    <syncfusion:TabItemExt Header="Web Activity Analytics" FontSize="18" >
+                        <chart:SfChart
+            x:Name="webcolumnChart"
+            Margin="10"
+            Header="User Web Activty Analytics"
+            VerticalAlignment="Bottom">
+
+                            <chart:SfChart.PrimaryAxis>
+                                <chart:CategoryAxis
+                    Header="Application Urls"
+                    LabelPlacement="OnTicks"
+                    ShowGridLines="False"/>
+                            </chart:SfChart.PrimaryAxis>
+
+                            <chart:SfChart.SecondaryAxis>
+                                <chart:NumericalAxis
+                    Header="Uses (in Hours)"
+                    Interval="1"
+                    Maximum="12"
+                    Minimum="0" />
+                            </chart:SfChart.SecondaryAxis>
+
+                            <chart:ColumnSeries
+                                x:Name="cc_webactivity"
+                EnableAnimation="True"
+                
+                Label="User Web Activity Analytics"
+                Palette="Custom"
+                ColorModel="{StaticResource CustomColor}"
+                XBindingPath="ApplicationName"
+                YBindingPath="Hours">
+                                <chart:ColumnSeries.AdornmentsInfo>
+                                    <chart:ChartAdornmentInfo
+                        ShowLabel="True"
+                        ShowMarker="True"
+                        LabelPosition="Inner">
+                                    </chart:ChartAdornmentInfo>
+                                </chart:ColumnSeries.AdornmentsInfo>
+                            </chart:ColumnSeries>
+
+                        </chart:SfChart>
+
+                    </syncfusion:TabItemExt>
+                    <syncfusion:TabItemExt Header="Data" FontSize="18">
+                        <syncfusion:SfDataGrid x:Name="dg_ActivityLog"
+                                                AllowDraggingColumns="True"
+                                      
+                                       AllowFiltering="True"
+                                       HeaderRowHeight="26"
+                                               
+                                       SelectionMode="Extended"
+                                       ColumnSizer="Auto"
+                                       AutoGenerateColumns="False"
+                                       FontWeight="Normal"
+                                        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentLight}" SelectionChanged="dg_ActivityLog_SelectionChanged"
+                                              
+                                               >
+
+
+                            <syncfusion:SfDataGrid.Columns>
+                                <syncfusion:GridTextColumn MappingName="LogDateTime" IsReadOnly="True" />
+                                <syncfusion:GridTextColumn MappingName="ComputerName" IsReadOnly="True"/>
+                                <syncfusion:GridTextColumn MappingName="ProcessOrUrl" IsReadOnly="True"/>
+                                <syncfusion:GridTextColumn MappingName="AppOrWebPageName" IsReadOnly="True"  TextTrimming="CharacterEllipsis"/>
+
+                            </syncfusion:SfDataGrid.Columns>
+                        </syncfusion:SfDataGrid>
+
+
+                    </syncfusion:TabItemExt>
+                    
+                </syncfusion:TabControlExt>
+
+            </Border>
+        </Border>
+    </Grid>
+</Page>

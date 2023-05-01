@@ -16,6 +16,8 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         public DateTime? LogOutDateTime { get; set; }
         public bool IsAutoLogedOut { get; set; }
         public bool IsActiveSession { get; set; }
+
+        public TimeSpan? IdelTime { get; set; }
         public DateTime? SyncedOn { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

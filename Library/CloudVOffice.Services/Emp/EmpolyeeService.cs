@@ -238,13 +238,31 @@ namespace CloudVOffice.Services.Emp
 			}
 		}
 
+		private List<Employee> GetSubEmployee(long EmployeeId)
+		{
+            var result = new List<Employee>();
+            //result.Add(employee);
+            var employees = _Dbcontext.Employees
+                .Include(x => x.Department)
+                .Include(x => x.Designation)
+                .Where(e => e.ReportingAuthority == EmployeeId)
+                .ToList();
 
+
+            foreach (var nemployee in employees)
+            {
+                result.Add(nemployee);
+                result.AddRange(GetSubEmployee(nemployee.EmployeeId));
+            }
+
+            return result;
+        }
         public List<Employee> GetEmployeeSubContinent(long EmployeeId)
         {
 
 			try
 			{
-				Employee employee = _Dbcontext.Employees.Where(x=>x.EmployeeId == EmployeeId).SingleOrDefault();	
+				Employee employee = _Dbcontext.Employees.Include(x => x.Department).Include(x => x.Designation).Where(x=>x.EmployeeId == EmployeeId).SingleOrDefault();	
 				if(employee != null)
 				{
                     if (employee.ReportingAuthority == null)
@@ -254,18 +272,18 @@ namespace CloudVOffice.Services.Emp
                     else
                     {
                         var result = new List<Employee>();
-
+						result.Add(employee);
                         var employees = _Dbcontext.Employees
                             .Include(x => x.Department)
 							.Include(x => x.Designation)
-                            .Where(e => e.ReportingAuthority == EmployeeId || e.EmployeeId == EmployeeId)
+                            .Where(e => e.ReportingAuthority == EmployeeId )
                             .ToList();
 
 
                         foreach (var nemployee in employees)
                         {
                             result.Add(nemployee);
-                            result.AddRange(GetEmployeeSubContinent(nemployee.EmployeeId));
+                            result.AddRange(GetSubEmployee(nemployee.EmployeeId));
                         }
 
                         return result;

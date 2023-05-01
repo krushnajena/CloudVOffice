@@ -17,7 +17,10 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="roles.json" />
+    <None Remove="Views\DesktopMonitoring\Dashboard.cshtml" />
     <None Remove="Views\DesktopMonitoring\MonitorUsers.cshtml" />
+    <None Remove="Views\DesktopMonitoring\Track.cshtml" />
+    <None Remove="Views\Shared\_EmployeeProfile.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 

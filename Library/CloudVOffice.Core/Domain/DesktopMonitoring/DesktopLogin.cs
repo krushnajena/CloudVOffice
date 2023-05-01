@@ -1,6 +1,8 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.HR.Master;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -18,6 +20,8 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         public bool IsActiveSession { get; set; }
 
         public TimeSpan? IdelTime { get; set; }
+        public string ComputerName { get; set; }
+        public string IpAddress { get; set; }
         public DateTime? SyncedOn { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -26,7 +30,8 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         public bool Deleted { get; set; }
 
 
-        [JsonIgnore]
+
+        [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
 
     }

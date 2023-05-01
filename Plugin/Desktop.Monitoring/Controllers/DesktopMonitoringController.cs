@@ -26,17 +26,22 @@ namespace Desktop.Monitoring.Controllers
             _employeeService = employeeService;
 
         }
+        public IActionResult Dashboard()
+        {
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Dashboard.cshtml");  
+        }
         public IActionResult MonitorUsers()
         {
             Int64 userId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Employee employee = _employeeService.GetEmployeeDetailsByUserId(userId);
             ViewBag.Employees = _employeeService.GetEmployeeSubContinent(employee.EmployeeId);
-            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoringUser/MonitorUsers.cshtml");
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/MonitorUsers.cshtml");
         }
 
         public IActionResult Track(Int64 EmployeeId)
         {
-            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoringUser/MonitorUsers.cshtml");
+            ViewBag.EmployeeeId = EmployeeId;
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Track.cshtml");
         }
     }
 }

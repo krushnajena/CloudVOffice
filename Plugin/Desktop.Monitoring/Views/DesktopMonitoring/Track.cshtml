@@ -1,0 +1,157 @@
+﻿@{
+    Layout = "_MainAppLayout";
+
+    int days = (int)DateTime.Now.DayOfWeek;
+    DateTime lastMonth = DateTime.Now.AddMonths(-1);
+    var weekStart = DateTime.Now.AddDays(-days);
+    var weekEnd = weekStart.AddDays(6);
+    var monthStart = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+    var monthEnd = monthStart.AddMonths(1).AddDays(-1);
+    var lastMonthStart = new DateTime(lastMonth.Year, lastMonth.Month, 1);
+    var lastMonthEnd = lastMonthStart.AddMonths(1).AddDays(-1);
+    var lastYearStart = new DateTime(DateTime.Now.Year - 1, 1, 1);
+    var lastYearEnd = new DateTime(DateTime.Now.Year - 1, 12, 31);
+}
+@addTagHelper *, Syncfusion.EJ2
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>EMPLOYEE</h5>
+                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">Last Login: 2 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+            @Html.Partial("../Shared/_EmployeeProfile.cshtml", (string)@ViewBag.EmployeeeId.ToString())
+        </div>
+
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+            <div class="card">
+                
+                <div class="card-body">
+                         <ejs-daterangepicker id="dp_session" placeholder="Choose a Range" startDate="monthStart" endDate="monthEnd">
+                        <e-daterangepicker-presets>
+                            <e-daterangepicker-preset id="week" label="This Week" start="weekStart" end="weekEnd"></e-daterangepicker-preset>
+                            <e-daterangepicker-preset id="month" label="This Month" start="monthStart" end="monthEnd"></e-daterangepicker-preset>
+                            <e-daterangepicker-preset id="lastmonth" label="Last Month" start="lastMonthStart" end="lastMonthEnd"></e-daterangepicker-preset>
+                            <e-daterangepicker-preset id="year" label="Last Year" start="lastYearStart" end="lastYearEnd"></e-daterangepicker-preset>
+                        </e-daterangepicker-presets>
+                    </ejs-daterangepicker>
+
+                  
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-body">
+                    <ejs-grid id="GridOverview" allowFiltering="true" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true" created="search"
+                              pdfQueryCellInfo="exportQueryCellInfo" toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport" , "CsvExport" ,"Search"})">
+                        <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
+
+                        <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
+                        <e-grid-columns>
+
+
+                            <e-grid-column field="loginDateTime" headerText="Login DateTime" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="logOutDateTime" headerText="LogOut DateTime" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="duration" headerText="Duration" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="idelDuration" headerText="Idel Duration" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="computerName" headerText="Computer Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ipAddress" headerText="IP Address" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column headerText="Snap" template="#template2" width="120"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    function OpenNewWindow(actid) {
+        window.open("../../../DMS/DesktopLogin/GetSnaps?type=session&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
+    }
+</script>
+
+<script id="template2" type="text/x-template">
+    <div class="link">
+
+            <button onClick="OpenNewWindow(${desktopLoginId})" style="background: transparent;border: none;"><i class="fa-solid fa-video"></i></button>
+    </div>
+</script>
+
+
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
+        if (args.item.id === 'GridOverview_pdfexport') {
+            gridObj.pdfExport();
+        }
+        if (args.item.id === 'GridOverview_excelexport') {
+            gridObj.excelExport();
+        }
+        if (args.item.id === 'GridOverview_csvexport') {
+            gridObj.csvExport();
+        }
+    }
+    function exportQueryCellInfo(args) {
+        if (args.column.headerText === 'Employee Image') {
+            if (args.name === "excelQueryCellInfo") {
+                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
+            } else {
+                args.image = { base64: args.data["EmployeeImage"] };
+            }
+        }
+        if (args.column.headerText === 'Track') {
+            args.hyperLink = {
+                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
+                displayText: "Track"
+            };
+        }
+    };
+
+    function statusDetail(e) {
+
+        if (e.Status == "Active") {
+            return '<span class="badge badge-pill badge-success" > Active </span>';
+        }
+        else if (e.Status == "Inactive") {
+            return '<span class="badge badge-pill badge-dark" > InActive </span>';
+        }
+        else if (e.Status == "Suspended") {
+            return '<span class="badge badge-pill badge-Primary">Suspended </span>';
+        }
+        else {
+            return '<span class="badge badge-pill badge-Secondary">Left</span>';
+        }
+
+    }
+
+</script>

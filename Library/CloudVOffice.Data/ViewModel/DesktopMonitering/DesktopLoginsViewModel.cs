@@ -21,6 +21,8 @@ namespace CloudVOffice.Data.ViewModel.DesktopMonitering
         public int? UpdatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public bool IsDeleted { get; set; }
+
+        public string EmployeeName { get; set; }
         public string UserName { get; set; }
         public string ApplicantName { get; set; }
         public string ComputerName { get; set; }

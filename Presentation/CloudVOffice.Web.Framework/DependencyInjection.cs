@@ -2,6 +2,7 @@
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Authentication;
+using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
@@ -47,6 +48,11 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IProjectTypeService, ProjectTypeService>();
 			services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IProjectActivityTypeService, ProjectActivityTypeService>();
+            #endregion
+
+            #region DesktopLogin
+            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+
             #endregion
             return services;
         }

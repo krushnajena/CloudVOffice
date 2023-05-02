@@ -1,10 +1,14 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Data.ViewModel.DesktopMonitering;
+using CloudVOffice.Services.Emp;
+using Humanizer;
 using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections.Generic;
@@ -18,11 +22,15 @@ namespace CloudVOffice.Services.DesktopMonitoring
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<DesktopLogin> _desktopLoginRepo;
-        public DesktoploginSevice(ApplicationDBContext Context, ISqlRepository<DesktopLogin> desktopLoginRepo)
+        private readonly IEmployeeService _employeeService;
+        public DesktoploginSevice(ApplicationDBContext Context, ISqlRepository<DesktopLogin> desktopLoginRepo,
+             IEmployeeService employeeService
+            )
         {
 
             _Context = Context;
             _desktopLoginRepo = desktopLoginRepo;
+            _employeeService = employeeService;
         }
         public MennsageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO)
         {
@@ -126,11 +134,52 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
         }
 
-        public List<DesktopLogin> GetDesktoplogins()
+        public List<DesktopLoginsViewModel> GetDesktoplogins(DesktopLoginFilterDTO desktopLoginFilterDTO)
         {
             try
             {
-                return _Context.DesktopLogins.Where(x => x.Deleted == false).ToList();
+                List<DesktopLoginsViewModel> loginsViewModels= new List<DesktopLoginsViewModel>();
+               var a =  _Context.DesktopLogins.Where(x => x.Deleted == false &&
+                                                          x.EmployeeId == desktopLoginFilterDTO.EmployeeId &&
+                                                          x.LoginDateTime >= desktopLoginFilterDTO.FromDate &&
+                                                          x.LoginDateTime <= desktopLoginFilterDTO.ToDate
+
+                                                          ).ToList();
+
+                var Employee = _employeeService.GetEmployeeById(desktopLoginFilterDTO.EmployeeId);
+
+                for(int i=0;i< a.Count; i++)
+                {
+
+                    var dateOne = a[i].LogOutDateTime;
+                    var dateTwo = a[i].LoginDateTime;
+                    var res = "";
+                    if (dateOne != null)
+                    {
+                        var diff = DateTime.Parse( dateTwo.ToString()).Subtract( DateTime.Parse( dateOne.ToString()));
+                        res = String.Format("{0}:{1}:{2}", diff.Hours, diff.Minutes, diff.Seconds);
+                    }
+
+
+                    loginsViewModels.Add(new DesktopLoginsViewModel{
+                        EmployeeName = Employee.FullName,
+                        ComputerName = a[i].ComputerName,
+                        IpAddress = a[i].IpAddress,
+                        LogDate = a[i].LoginDateTime.Value.Date,
+                        LoginDateTime = a[i].LoginDateTime,
+                        LogOutDateTime = a[i].LogOutDateTime,
+                        Duration = res,
+                        IdelDuration = a[i].IdelTime.ToString(),
+                        EmployeeId = a[i].EmployeeId,
+                        DesktopLoginId = a[i].DesktopLoginId
+                    }
+                    
+
+                        ) ;
+                }
+
+
+                return loginsViewModels;
 
             }
             catch

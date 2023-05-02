@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.DTO.HR.Master;
+using CloudVOffice.Data.ViewModel.DesktopMonitering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
     public interface IDesktoploginSevice
     {
         public MennsageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO);
-        public List<DesktopLogin> GetDesktoplogins();
+        public List<DesktopLoginsViewModel> GetDesktoplogins(DesktopLoginFilterDTO desktopLoginFilterDTO);
         public DesktopLogin GetDesktoploginByDesktoploginId(Int64 DesktopLoginId);       
         public MennsageEnum DesktopLoginUpdate(DesktopLoginDTO desktoploginDTO);
         public MennsageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy);

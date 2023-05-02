@@ -1,6 +1,8 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Infrastructure.Http;
+using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Services.Applications;
+using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Web.Framework;
@@ -18,12 +20,15 @@ namespace Desktop.Monitoring.Controllers
     {
 
         private readonly IEmployeeService _employeeService;
-       
 
-        public DesktopMonitoringController(IEmployeeService employeeService
+        private readonly IDesktoploginSevice _desktopLoginService;
+
+        public DesktopMonitoringController(IEmployeeService employeeService,
+            IDesktoploginSevice desktopLoginService
         )
         {
             _employeeService = employeeService;
+            _desktopLoginService = desktopLoginService;
 
         }
         public IActionResult Dashboard()
@@ -40,6 +45,11 @@ namespace Desktop.Monitoring.Controllers
 
         public IActionResult Track(Int64 EmployeeId)
         {
+
+            ViewBag.LoginSession = _desktopLoginService.GetDesktoplogins(new DesktopLoginFilterDTO
+            {
+                EmployeeId = EmployeeId
+            });
             ViewBag.EmployeeeId = EmployeeId;
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Track.cshtml");
         }

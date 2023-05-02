@@ -8,19 +8,13 @@ namespace CloudVOffice.Data.ViewModel.DesktopMonitering
 {
     public class DesktopLoginsViewModel
     {
-        public int DesktopLoginId { get; set; }
-        public int UserId { get; set; }
+        public Int64 DesktopLoginId { get; set; }
+        public Int64 EmployeeId { get; set; }
 
-        public DateTime LoginDateTime { get; set; }
+        public DateTime? LoginDateTime { get; set; }
         public DateTime? LogOutDateTime { get; set; }
-        public bool IsAutoLogedOut { get; set; }
-        public bool IsActiveSession { get; set; }
-        public DateTime? SyncedOn { get; set; }
-        public int CreatedBy { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public int? UpdatedBy { get; set; }
-        public DateTime? UpdatedOn { get; set; }
-        public bool IsDeleted { get; set; }
+    
+        public DateTime LogDate { get; set; }
 
         public string EmployeeName { get; set; }
         public string UserName { get; set; }

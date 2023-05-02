@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
+﻿using CloudVOffice.Data.DTO.DesktopMonitoring;
+using CloudVOffice.Services.DesktopMonitoring;
+using CloudVOffice.Services.Emp;
+using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,15 +16,35 @@ namespace Web.API.Controllers
     [ApiController]
     public class DesktopLoginController: Controller
     {
-        public DesktopLoginController()
+
+
+        private readonly IDesktoploginSevice _desktopLoginService;
+
+        public DesktopLoginController(
+            IDesktoploginSevice desktopLoginService
+        )
         {
+            _desktopLoginService = desktopLoginService;
 
         }
 
-        [HttpGet]
-        public IActionResult GetIns()
+        [HttpPost]
+        public IActionResult LoginSessionsWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
         {
-            return Ok();
+            try
+            {
+                var list = _desktopLoginService.GetDesktoplogins(desktopLoginDTO);
+
+
+
+                int totalRecords = list.Count();
+                return Ok(new { data = list, recordsTotal = totalRecords, recordsFiltered = totalRecords });
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
         }
+
     }
 }

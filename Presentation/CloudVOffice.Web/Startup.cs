@@ -51,6 +51,7 @@ namespace CloudVOffice.Web
                 x.ExpireTimeSpan = TimeSpan.FromMinutes(20 );
                 x.SlidingExpiration = true;
                 x.AccessDeniedPath = "/Forbidden/";
+                
             }) ;
             services.AddHttpContextAccessor();
             services.AddMvcCore();

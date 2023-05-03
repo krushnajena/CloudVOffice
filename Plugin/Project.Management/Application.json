@@ -1,36 +1,52 @@
 {
 
   "ApplicationName": "Projects",
-  "Url": "/PROJECT/Project/Dasboard",
-  "IconImageUrl": "/Plugins/Project.Management/logo.png",
+  "Url": "/Projects/Project/Dashboard",
+  "IconImageUrl": "/Plugin/Project.Management/logo.png",
   "IconClass": "",
   "AreaName": "Projects",
   "Roles": [ "Project User", "Project Manager", "Employee", "Customer" ],
-//  "Children": [
-//    {
-//      "ApplicationName": "Master",
-//      "Url": "",
-//      "IsGroup": true,
-//      "IconImageUrl": "",
-//      "IconClass": "icon-event_note",
-//      "AreaName": "HR",
-//      "Roles": [ "HR Manager", "HR User" ],
-//      "Children": [
-//        {
-//          "ApplicationName": "Branch",
-//          "IsGroup": false,
-//          "Url": "/Hr/Branch/BranchView",
-//          "IconImageUrl": "",
-//          "IconClass": "icon-event_note",
-//          "AreaName": "HR",
-//          "Roles": [ "HR Manager" ]
-//        }
+  "Children": [
+    {
+      "ApplicationName": "Master",
+      "Url": "",
+      "IsGroup": true,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "Projects",
+      "Roles": [ "Project Manager" ],
+      "Children": [
+        {
+          "ApplicationName": "Project Type",
+          "IsGroup": false,
+          "Url": "/Projects/ProjectType/ProjectTypeView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Projects",
+          "Roles": [ "Project Manager" ]
+        },
+        {
+          "ApplicationName": "Project Activity Type",
+          "IsGroup": false,
+          "Url": "/Projects/ProjectActivityType/ProjectActivityTypeView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Projects",
+          "Roles": [ "Project Manager" ]
+        }
+      ]
+    },
+    {
+      "ApplicationName": "Project",
+      "Url": "/Projects/Project/ProjectView",
+      "IsGroup": false,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "HR",
+      "Roles": [ "Project Manager", "Project User" ],
+      "Children": []
+    }
+  ]
 
 
-//      ]
-//    }
-
-
-//  ]
-
-//}
+}

@@ -38,9 +38,7 @@ namespace CloudVOffice.Web.Controllers
                     case UserLoginResults.Successful:
                         {
                             var userDetails = await _userService.GetUserByEmailAsync(Email);
-							var menu = _userService.GetUserMenu(userDetails.UserId);
-							var menujson = Newtonsoft.Json.JsonConvert.SerializeObject(menu);
-                            JsonConvert.DeserializeObject<List<Application>>(menujson);
+						
                             var claims = new List<Claim>
                             {
                                 new Claim(ClaimTypes.Email, userDetails.Email),
@@ -48,7 +46,7 @@ namespace CloudVOffice.Web.Controllers
                                 new Claim("MiddleName",userDetails.MiddleName!=null?userDetails.MiddleName.ToString():""),
                                 new Claim("LastName",userDetails.LastName!=null?userDetails.LastName.ToString():""),
                                 new Claim("UserId",userDetails.UserId.ToString()),
-								  new Claim("Menu",menujson),
+								//  new Claim("Menu",menujson),
 							};
                             var a = userDetails.UserRoleMappings;
                             claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));

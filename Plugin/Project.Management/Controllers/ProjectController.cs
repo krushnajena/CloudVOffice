@@ -24,7 +24,11 @@ namespace Projects.Management.Controller
 
 			_projectService = projectService;
 		}
-		[HttpGet]	
+		public IActionResult Dashboard()
+		{
+			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
+		}
+        [HttpGet]	
 		public IActionResult ProjectCreate(int? projectId)
 		{
 			ProjectDTO projectDTO = new ProjectDTO();

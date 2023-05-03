@@ -2,6 +2,8 @@
 @using CloudVOffice.Core.Domain.Pemission;
 @using System.Collections.Generic;
 @using Microsoft.AspNetCore.Http
+@using CloudVOffice.Services.Users;
+@inject IUserService _userService;
 <aside class="app-side fixed" id="app-side">
     <!-- BEGIN .side-content -->
     <div class="side-content ">
@@ -22,7 +24,10 @@
                 <ul class="unifyMenu" id="unifyMenu">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        var menu = @User.Claims.FirstOrDefault(x => x.Type == "Menu").Value.ToString();
+                        var nmenu =   _userService.GetUserMenu(Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
+                         var menujson = Newtonsoft.Json.JsonConvert.SerializeObject(nmenu);
+                            JsonConvert.DeserializeObject<List<Application>>(menujson);
+                        var menu = menujson;
                         {
                             var newMenu = JsonConvert.DeserializeObject<List<Application>>(menu);
 

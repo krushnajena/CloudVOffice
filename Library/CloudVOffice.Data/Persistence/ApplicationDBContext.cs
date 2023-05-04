@@ -18,6 +18,7 @@ namespace CloudVOffice.Data.Persistence
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
          : base(options)
         {
+
         }
         public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }

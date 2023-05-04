@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CloudVOffice.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class DesktopLoginss : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -573,9 +573,6 @@ namespace CloudVOffice.Data.Migrations
                     LogOutDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsAutoLogedOut = table.Column<bool>(type: "bit", nullable: false),
                     IsActiveSession = table.Column<bool>(type: "bit", nullable: false),
-                    IdelTime = table.Column<TimeSpan>(type: "time", nullable: true),
-                    ComputerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SyncedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -757,35 +754,35 @@ namespace CloudVOffice.Data.Migrations
                 columns: new[] { "ApplicationId", "ApplicationId1", "ApplicationName", "AreaName", "CreatedBy", "CreatedDate", "Deleted", "IconClass", "IconImageUrl", "IsGroup", "Parent", "UpdatedBy", "UpdatedDate", "Url" },
                 values: new object[,]
                 {
-                    { 1, null, "Applications", "Application", 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1773), false, null, "/appstatic/images/applications.png", true, null, null, null, "/Application/Applications/InstalledApps" },
-                    { 2, null, "Setup", "Setup", 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1777), false, null, "/appstatic/images/setup.png", true, null, null, null, "/Setup/Setup/Dashboard" },
-                    { 3, null, "Company", "Setup", 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1779), false, null, null, false, 2, null, null, "/Setup/Company/Company" },
-                    { 4, null, "User", "Setup", 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1780), false, null, null, true, 2, null, null, "" },
-                    { 5, null, "User List", "Setup", 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1782), false, null, null, false, 4, null, null, "/Setup/User/UserList" },
-                    { 6, null, "Users Activity Log", "Setup", 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1784), false, null, null, false, 2, null, null, "/Setup/User/ActivityLog" }
+                    { 1, null, "Applications", "Application", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5552), false, null, "/appstatic/images/applications.png", true, null, null, null, "/Application/Applications/InstalledApps" },
+                    { 2, null, "Setup", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5555), false, null, "/appstatic/images/setup.png", true, null, null, null, "/Setup/Setup/Dashboard" },
+                    { 3, null, "Company", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5557), false, null, null, false, 2, null, null, "/Setup/Company/Company" },
+                    { 4, null, "User", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5559), false, null, null, true, 2, null, null, "" },
+                    { 5, null, "User List", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5560), false, null, null, false, 4, null, null, "/Setup/User/UserList" },
+                    { 6, null, "Users Activity Log", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5561), false, null, null, false, null, null, null, "/Setup/User/ActivityLog" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "RoleId", "CreatedBy", "CreatedDate", "Deleted", "RoleName", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 1, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(81), false, "Administrator", null, null });
+                values: new object[] { 1, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(3840), false, "Administrator", null, null });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "CreatedBy", "CreatedDate", "DateOfBirth", "Deleted", "Email", "FailedLoginAttempts", "FirstName", "IsActive", "LastActivityDate", "LastIpAddress", "LastLoginDate", "LastName", "MiddleName", "Password", "PhoneNo", "UpdatedBy", "UpdatedDate", "UserType", "UserTypeId" },
-                values: new object[] { 1L, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1385), null, false, "admin@appman.in", null, "Administrator", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "", null, "r9NmU79/NE0x0el2cuI8PeI4GlVCdpOeB875sWPUeJw=", "9583000000", null, null, 1, 1 });
+                values: new object[] { 1L, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5207), null, false, "admin@appman.in", null, "Administrator", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "", null, "r9NmU79/NE0x0el2cuI8PeI4GlVCdpOeB875sWPUeJw=", "9583000000", null, null, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "RoleAndApplicationWisePermissions",
                 columns: new[] { "RoleAndApplicationWisePermissionId", "ApplicationId", "CreatedBy", "CreatedDate", "Deleted", "RoleId", "UpdatedBy", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1L, 1, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1920), false, 1, null, null },
-                    { 2L, 2, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1922), false, 1, null, null },
-                    { 3L, 3, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1923), false, 1, null, null },
-                    { 4L, 4, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1924), false, 1, null, null },
-                    { 5L, 5, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1926), false, 1, null, null },
-                    { 6L, 6, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(1927), false, 1, null, null }
+                    { 1L, 1, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5680), false, 1, null, null },
+                    { 2L, 2, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5682), false, 1, null, null },
+                    { 3L, 3, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5684), false, 1, null, null },
+                    { 4L, 4, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5685), false, 1, null, null },
+                    { 5L, 5, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5686), false, 1, null, null },
+                    { 6L, 6, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5687), false, 1, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -798,12 +795,12 @@ namespace CloudVOffice.Data.Migrations
                 columns: new[] { "UserWiseViewMapperId", "ApplicationId", "CreatedBy", "CreatedDate", "Deleted", "UpdatedBy", "UpdatedDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1L, 1, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(2029), false, null, null, 1L },
-                    { 2L, 2, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(2031), false, null, null, 1L },
-                    { 3L, 3, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(2033), false, null, null, 1L },
-                    { 4L, 4, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(2035), false, null, null, 1L },
-                    { 5L, 5, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(2036), false, null, null, 1L },
-                    { 6L, 6, 1L, new DateTime(2023, 5, 2, 23, 53, 47, 24, DateTimeKind.Local).AddTicks(2038), false, null, null, 1L }
+                    { 1L, 1, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5816), false, null, null, 1L },
+                    { 2L, 2, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5818), false, null, null, 1L },
+                    { 3L, 3, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5820), false, null, null, 1L },
+                    { 4L, 4, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5821), false, null, null, 1L },
+                    { 5L, 5, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5822), false, null, null, 1L },
+                    { 6L, 6, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5824), false, null, null, 1L }
                 });
 
             migrationBuilder.CreateIndex(

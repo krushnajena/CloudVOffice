@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloudVOffice.Data.DTO.DesktopMonitoring;
+using CloudVOffice.Services.DesktopMonitoring;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,33 @@ namespace Web.API.Controllers
     [ApiController]
     public class DesktopActivityLogContoller : Controller
     {
+
+        private readonly IDesktopActivityLogService _desktopActivityLogService;
+
+        public DesktopActivityLogContoller(
+            IDesktopActivityLogService desktopActivityLogService
+        )
+        {
+            _desktopActivityLogService = desktopActivityLogService;
+
+        }
+
+        [HttpPost]
+        public IActionResult LoginSessionsWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
+        {
+            try
+            {
+                var list = _desktopActivityLogService.GetAcivityLogsWithFilter(desktopLoginDTO);
+
+
+
+                int totalRecords = list.Count();
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
+        }
     }
 }

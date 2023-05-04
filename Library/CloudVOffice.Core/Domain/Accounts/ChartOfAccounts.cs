@@ -17,7 +17,7 @@ namespace CloudVOffice.Core.Domain.Accounts
         public int? ParentAccountGroupId { get; set; }
         public string AccountType { get; set; }
         public double? TaxRate { get; set; }
-        public string BalanceMustBe { get; set; }//Cr Dr
+        public string? BalanceMustBe { get; set; }//Cr Dr
 
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

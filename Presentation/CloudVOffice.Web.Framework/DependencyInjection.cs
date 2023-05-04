@@ -52,7 +52,7 @@ namespace CloudVOffice.Web.Framework
 
             #region DesktopLogin
             services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
-
+            services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
             #endregion
             return services;
         }

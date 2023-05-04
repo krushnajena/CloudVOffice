@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Company;
+﻿using CloudVOffice.Core.Domain.Accounts;
+using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.HR.Emp;
@@ -82,6 +83,11 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<DesktopKeyStroke> DesktopKeyStrokes { get; set; }
         public virtual DbSet<DesktopSnapshot> DesktopSnapshots { get; set; }
+        #endregion
+
+        #region Accounts
+        public virtual DbSet<ChartOfAccounts> ChartOfAccounts{ get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

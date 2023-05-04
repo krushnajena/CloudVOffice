@@ -129,6 +129,11 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
         }
 
+        public List<DesktopActivityLog> GetAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginFilterDTO)
+        {
+         return   _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots).Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog" && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate)).OrderByDescending(l => l.LogDateTime).ToList();
+        }
+
         public DesktopActivityLog GetDesktopActivityLogByDesktopActivityLogId(Int64 DesktopActivityLogId)
         {
             try

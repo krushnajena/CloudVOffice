@@ -97,7 +97,7 @@ namespace DesktopMonitoringSystem.Pages
                         TimeSpan t1 = TimeSpan.Parse(loginSessionModel.data[i].IdelDuration);
                         for (int k = 1; k < loginSessionModel.data.Count; k++)
                         {
-                            if (loginSessionModel.data[k].LoginDateTime.Date == dt.Date)
+                            if (DateTime.Parse( loginSessionModel.data[k].LoginDateTime.ToString()).Date == dt.Date)
                             {
                                 TimeSpan t2 = TimeSpan.Parse(loginSessionModel.data[k].IdelDuration);
                                 t1 = t1.Add(t2);

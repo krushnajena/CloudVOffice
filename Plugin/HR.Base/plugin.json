@@ -2,7 +2,7 @@
   "Group": "HR",
   "FriendlyName": "HR Base",
   "SystemName": "HR.Base",
-  "Version": 0.2,
+  "Version": 0.3,
   "SupportedVersions": [ "0.1" ],
   "Author": "Appman team",
   "DisplayOrder": 1,

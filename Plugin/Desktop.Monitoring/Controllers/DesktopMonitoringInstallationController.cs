@@ -36,8 +36,7 @@ namespace Desktop.Monitoring.Controllers
 
 		}
 
-		[Authorize(Roles = "Administrator")]
-		[HttpGet]
+		
 		public async Task<IActionResult> Install(Int64 CreatedBy)
 		{
 			string jsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\" + InstationPath + @"\";

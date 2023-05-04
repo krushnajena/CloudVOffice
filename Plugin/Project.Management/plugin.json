@@ -8,7 +8,7 @@
   "DisplayOrder": 1,
   "FileName": "Project.Management.dll",
   "Description": "Basic Employee Record Management System.",
-  "InstallationUrl": "/PROJECT/PROJECTMANAGEMENT/Install",
-  "UnInstallationUrl": "/PROJECT/PROJECTMANAGEMENT/Installation/UnInstall",
-  "Dependency": [ "Project.Management" ]
+  "InstallationUrl": "/Projects/PROJECTMANAGEMENT/Install",
+  "UnInstallationUrl": "/Projects/PROJECTMANAGEMENT/Installation/UnInstall",
+  "Dependency": [ "Hr.Base" ]
 }

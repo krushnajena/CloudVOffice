@@ -34,7 +34,7 @@ namespace HR.Base.Controllers
 			_httpClient = httpClient;
 
 		}
-		[Authorize(Roles ="Administrator")]
+	
         public async Task<IActionResult> Install(Int64 CreatedBy)
         {
             string jsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\"+ InstationPath + @"\";
@@ -43,13 +43,7 @@ namespace HR.Base.Controllers
 
             _applicationInstallationService.InstallApplication(item.SystemName, CreatedBy,item.Version);
 
-			for(int i = 0; i < item.Dependency.Count; i++)
-			{
-				string djsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\"+ item.Dependency[i] + @"\";
-				string dpluginDetails = djsonPath + "plugin.json";
-				PluginConfig ditem = await JsonFileReader.ReadAsync<PluginConfig>(dpluginDetails);
-				_httpClient.GetRequest(ditem.InstallationUrl+ "?CreatedBy="+ CreatedBy, true);
-			}
+			
 
 			string rolesJsonpath = jsonPath + "roles.json";
             RoleConfig roleJson = await JsonFileReader.ReadAsync<RoleConfig>(rolesJsonpath);
@@ -124,7 +118,7 @@ namespace HR.Base.Controllers
 					for (int k = 0; k < applicationJson.Children[i].Children[j].Roles.Count; k++)
 					{
 						int roleId = roles.Where(x => x.RoleName == applicationJson.Children[i].Children[j].Roles[k]).FirstOrDefault().RoleId;
-						 _applicationInstallationService.CreateRoleAndApplicationWisePermission(roleId, int.Parse(applicationJson.Children[i].ServerApplicationId.ToString()), CreatedBy);
+						 _applicationInstallationService.CreateRoleAndApplicationWisePermission(roleId, int.Parse(applicationJson.Children[i].Children[j].ServerApplicationId.ToString()), CreatedBy);
 					}
 
 				}

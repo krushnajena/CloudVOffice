@@ -1,4 +1,6 @@
-﻿@model CloudVOffice.Data.DTO.Projects.ProjectDTO;
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@model CloudVOffice.Data.DTO.Projects.ProjectDTO;
 @{
 	Layout = "_MainAppLayout";
 }
@@ -69,8 +71,10 @@
 				        	    <span asp-validation-for="EndDate"></span>
 				            </div>
 							<div class="form-group col-md-3">
-								<label for="ProjectTypeId" class="form-label">Project Type Id</label>
-								<input asp-for="@Model.ProjectTypeId" type="text" class="form-control" autofocus="autofocus" placeholder="Project Type Id" />
+								<label for="ProjectTypeId" class="form-label">Project Type </label>
+								<ejs-dropdownlist id="ErpUser" allowFiltering="true" ejs-for="@Model.ProjectTypeId" filtering="onErpUserfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectTypes, "ProjectTypeId", "ProjectTypeName").Items)" placeholder="Select a User" popupHeight="220px">
+									<e-dropdownlist-fields text="ProjectTypeName" value="ProjectTypeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
 								<span asp-validation-for="ProjectTypeId"></span>
 							</div>
 						</div>
@@ -127,3 +131,12 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+	function onProjectTypefiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('ProjectTypeName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Designation)), query);
+	}
+</script>

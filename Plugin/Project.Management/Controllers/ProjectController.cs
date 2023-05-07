@@ -19,11 +19,14 @@ namespace Projects.Management.Controller
 	public class ProjectController : BasePluginController
 	{
 		private readonly IProjectService _projectService;
-		public ProjectController(IProjectService projectService)
+        private readonly IProjectTypeService _projectTypeService;
+        public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService)
 		{
 
 			_projectService = projectService;
-		}
+            _projectTypeService= projectTypeService;
+
+        }
 		public IActionResult Dashboard()
 		{
 			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
@@ -33,6 +36,7 @@ namespace Projects.Management.Controller
 		{
 			ProjectDTO projectDTO = new ProjectDTO();
 			
+			ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
 			if (projectId != null)
 			{
 
@@ -64,8 +68,8 @@ namespace Projects.Management.Controller
 		public IActionResult ProjectCreate(ProjectDTO projectDTO)
 		{
 			projectDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-
-			if (ModelState.IsValid)
+         
+            if (ModelState.IsValid)
 			{
 				if (projectDTO.ProjectId == null)
 				{
@@ -101,9 +105,9 @@ namespace Projects.Management.Controller
 				}
 			}
 
-			
 
-			return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
+            ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
+            return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 		}
 		public IActionResult ProjectView()
 		{

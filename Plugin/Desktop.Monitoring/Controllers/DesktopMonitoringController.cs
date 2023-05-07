@@ -53,5 +53,11 @@ namespace Desktop.Monitoring.Controllers
             ViewBag.EmployeeeId = EmployeeId;
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Track.cshtml");
         }
+
+        public IActionResult ActivityLog(Int64 EmployeeId)
+        {
+            ViewBag.EmployeeeId = EmployeeId;
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/ActivityLog.cshtml");
+        }
     }
 }

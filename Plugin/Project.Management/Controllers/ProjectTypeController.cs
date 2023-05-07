@@ -35,7 +35,7 @@ namespace Project.Management.Controllers
 
                 ProjectType d = _projecttypeService.GetProjectTypeByProjectTypeId(int.Parse(projecttypeId.ToString()));
 
-                projecttypeDTO.ProjectName = d.ProjectName;
+                projecttypeDTO.ProjectTypeName = d.ProjectTypeName;
 
             }
 

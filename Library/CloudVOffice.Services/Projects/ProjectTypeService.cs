@@ -28,7 +28,7 @@ namespace CloudVOffice.Services.Projects
         {
             try
             {
-                return _Context.ProjectTypes.Where(x => x.ProjectName == projectName && x.Deleted == false).SingleOrDefault();
+                return _Context.ProjectTypes.Where(x => x.ProjectTypeName == projectName && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -67,12 +67,12 @@ namespace CloudVOffice.Services.Projects
         {
             try
             {
-                var projecttype = _Context.ProjectTypes.Where(x => x.ProjectName == projecttypeDTO.ProjectName && x.Deleted == false).FirstOrDefault();
+                var projecttype = _Context.ProjectTypes.Where(x => x.ProjectTypeName == projecttypeDTO.ProjectTypeName && x.Deleted == false).FirstOrDefault();
                 if (projecttype == null)
                 {
                     _projecttypeRepo.Insert(new ProjectType()
                     {
-                        ProjectName = projecttypeDTO.ProjectName,
+						ProjectTypeName = projecttypeDTO.ProjectTypeName,
                         CreatedBy = projecttypeDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
                         Deleted = false
@@ -115,13 +115,13 @@ namespace CloudVOffice.Services.Projects
         {
             try
             {
-                var projecttype = _Context.ProjectTypes.Where(x => x.ProjectTypeId != projecttypeDTO.ProjectTypeId && x.ProjectName == projecttypeDTO.ProjectName && x.Deleted == false).FirstOrDefault();
+                var projecttype = _Context.ProjectTypes.Where(x => x.ProjectTypeId != projecttypeDTO.ProjectTypeId && x.ProjectTypeName == projecttypeDTO.ProjectTypeName && x.Deleted == false).FirstOrDefault();
                 if (projecttype == null)
                 {
                     var a = _Context.ProjectTypes.Where(x => x.ProjectTypeId == projecttypeDTO.ProjectTypeId).FirstOrDefault();
                     if (a != null)
                     {
-                        a.ProjectName = projecttypeDTO.ProjectName;
+                        a.ProjectTypeName = projecttypeDTO.ProjectTypeName;
                         a.UpdatedBy = projecttypeDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();

@@ -11,12 +11,12 @@ namespace Web.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class DesktopActivityLogContoller : Controller
+    public class DesktopActivityLogController : Controller
     {
 
         private readonly IDesktopActivityLogService _desktopActivityLogService;
 
-        public DesktopActivityLogContoller(
+        public DesktopActivityLogController(
             IDesktopActivityLogService desktopActivityLogService
         )
         {
@@ -25,7 +25,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult LoginSessionsWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
+        public IActionResult ActivityLogWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
         {
             try
             {

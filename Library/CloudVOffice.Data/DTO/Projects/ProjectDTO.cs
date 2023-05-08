@@ -24,10 +24,14 @@ namespace CloudVOffice.Data.DTO.Projects
 		public Int64? ProjectManager { get; set; }
 		public Int64 CreatedBy { get; set; }
 
-		public List<Int64> ProjectEmployees { get; set; }
+		public List<ProjectEmployee> ProjectEmployees { get; set; }
 
 
 	}
 
-	
+	public class ProjectEmployee
+	{
+
+		public Int64 EmployeeId { get; set; }
+	}
 }

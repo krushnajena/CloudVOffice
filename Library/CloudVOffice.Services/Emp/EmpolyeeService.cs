@@ -168,65 +168,7 @@ namespace CloudVOffice.Services.Emp
 			try
 			{
 				
-				//var a = (from u in _Dbcontext.Employees
-				//		join r in _Dbcontext.Departments on
-				//			  u.DepartmentId equals r.DepartmentId
-				//		join d in _Dbcontext.Designations on
-				//			  u.DesignationId equals d.DesignationId
-				//		select new {
-				//			u.EmployeeId,
-				//			u.EmployeeCode,
-				//			u.Salutation,
-
-				//			u.FirstName,
-				//			u.MiddleName,
-				//			u.LastName,
-				//			u.FullName,
-				//			u.Gender,
-				//			u.DateOfBirth,
-				//			u.DateOfJoining,
-				//			u.ErpUser,
-				//			u.Status,
-				//			u.DepartmentId,
-				//			u.DesignationId,
-				//			u.BranchId,
-				//			u.EmploymentTypeId,
-				//			u.ReportingAuthority,
-				//			u.JobApplicantId,
-				//			u.OfferDate,
-				//			u.ConfirmationDate,
-				//			u.ContractEndDate,
-				//			u.NoticePeriodDays,
-				//			u.RetirementDate,
-				//			u.MobileNo,
-				//			u.PersonalEmail,
-				//			u.CompanyEmail,
-				//			u.CurrentAddress,
-				//			u.PermanentAddress,
-				//			u.EmergencyContactName,
-				//			u.EmergencyPhone,
-				//			u.RelationWithEmergencyContactPerson,
-				//			u.BiometricOrRfIdDeviceId,
-				//			u.CTC,
-				//			u.PanNo,
-				//			u.ProvidentFundAccountNo,
-				//			u.MaritalStatus,
-				//			u.MarraigeDate,
-				//			u.BloodGroup,
-				//			u.PassportNumber,
-				//			u.PassportDateOfIssue,
-				//			u.PassportValidUpto,
-				//			u.PassportPlaceOfIssue,
-				//			u.Photo,
-				//			u.CreatedBy,
-				//			u.CreatedDate,
-				//			u.Deleted,
-
-
-
-				//			r.DepartmentName, d.DesignationName })
-				//						   .Where(x => x.Deleted == false).ToList() ;
-
+				
 
 				return _Dbcontext.Employees
 					.Include(s=>s.Department)
@@ -237,6 +179,25 @@ namespace CloudVOffice.Services.Emp
 				throw;
 			}
 		}
+
+
+		public List<Employee> GetProjectManagerEmployees()
+		{
+			try
+			{
+
+
+
+				return _Dbcontext.Employees
+					.Include(s => s.Department)
+					.Where(x => x.Deleted == false).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 
 		private List<Employee> GetSubEmployee(long EmployeeId)
 		{

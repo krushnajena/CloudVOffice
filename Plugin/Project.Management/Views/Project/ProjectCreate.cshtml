@@ -3,6 +3,7 @@
 @model CloudVOffice.Data.DTO.Projects.ProjectDTO;
 @{
 	Layout = "_MainAppLayout";
+	var DropDownList = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.ProjectManager, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "EmployeeId", Text = "FullName" } };
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -25,6 +26,7 @@
 		</div>
 	</div>
 </header>
+
 <div class="main-content">
 	<div class="row gutters">
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
@@ -60,19 +62,19 @@
 							</div>
 						</div>
 						<div class="form-row">
-				            <div class="form-group col-md-3">
-				        	   <label for="StartDate" class="form-label">Start Date</label>
-				        	   <input asp-for="@Model.StartDate" type="date" class="form-control" autofocus="autofocus" placeholder="Start Date" />
-				        	   <span asp-validation-for="StartDate"></span>
-				            </div>
-				            <div class="form-group col-md-3">
-				        	    <label for="EndDate" class="form-label">End Date</label>
-				        	    <input asp-for="@Model.EndDate" type="date" class="form-control" autofocus="autofocus" placeholder="End Date" />
-				        	    <span asp-validation-for="EndDate"></span>
-				            </div>
+							<div class="form-group col-md-3">
+								<label for="StartDate" class="form-label">Start Date</label>
+								<input asp-for="@Model.StartDate" type="date" class="form-control" autofocus="autofocus" placeholder="Start Date" />
+								<span asp-validation-for="StartDate"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="EndDate" class="form-label">End Date</label>
+								<input asp-for="@Model.EndDate" type="date" class="form-control" autofocus="autofocus" placeholder="End Date" />
+								<span asp-validation-for="EndDate"></span>
+							</div>
 							<div class="form-group col-md-3">
 								<label for="ProjectTypeId" class="form-label">Project Type </label>
-								<ejs-dropdownlist id="ErpUser" allowFiltering="true" ejs-for="@Model.ProjectTypeId" filtering="onErpUserfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectTypes, "ProjectTypeId", "ProjectTypeName").Items)" placeholder="Select a User" popupHeight="220px">
+								<ejs-dropdownlist id="ProjectTypeId" allowFiltering="true" ejs-for="@Model.ProjectTypeId" filtering="onProjectTypefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectTypes, "ProjectTypeId", "ProjectTypeName").Items)" placeholder="Select a ProjectType" popupHeight="220px">
 									<e-dropdownlist-fields text="ProjectTypeName" value="ProjectTypeId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="ProjectTypeId"></span>
@@ -82,9 +84,9 @@
 							<div class="form-group col-md-3">
 								<label for="Priority" class="form-label">Priority</label>
 								<select input asp-for="@Model.Priority" type="text" class="form-control" autofocus="autofocus" placeholder="Priority">
-								    <option value="Medium">Medium</option>
-								    <option value="Low">Low</option>
-								    <option value="High">High</option>
+									<option value="Medium">Medium</option>
+									<option value="Low">Low</option>
+									<option value="High">High</option>
 								</select>
 							</div>
 							<div class="form-group col-md-3">
@@ -98,7 +100,11 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="ProjectManager" class="form-label">Project Manager</label>
-								<input asp-for="@Model.ProjectManager" type="text" class="form-control" autofocus="autofocus" placeholder="Project Manager" />
+
+
+								<ejs-dropdownlist id="ProjectManager" allowFiltering="true" ejs-for="@Model.ProjectManager" filtering="onProjectManagerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectManager, "EmployeeId", "FullName").Items)" placeholder="Select a ProjectManager" popupHeight="220px">
+									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
 								<span asp-validation-for="ProjectManager"></span>
 							</div>
 						</div>
@@ -121,6 +127,20 @@
 						<input asp-for="@Model.EstimatedCost" type="text" class="form-control" autofocus="autofocus" placeholder="Estimated Cost" />
 						<span asp-validation-for="EstimatedCost"></span>
 					</div>
+
+					<div class="card-header"><b>Assigned Employees</b></div>
+					<div class="form-group col-md-12">
+						<label for="EstimatedCost" class="form-label">Estimated Cost</label>
+						<ejs-grid id="Grid" dataSource="@Model.ProjectEmployees" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+							<e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
+
+							<e-grid-columns>
+								<e-grid-column field="FullName" headerText="EmployeeId" edit="new {@@params = DropDownList }" editType="dropdownedit" width="140"></e-grid-column>
+							</e-grid-columns>
+						</ejs-grid>
+
+
+					</div>
 					<div class="card-body">
 						<div class="col-lg-2 col-md-2 col-sm-12">
 							<button type="submit" class="btn btn-primary">Save</button>
@@ -137,6 +157,39 @@
 	function onProjectTypefiltering(e) {
 		var query = new ej.data.Query();
 		query = (e.text !== '') ? query.where('ProjectTypeName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Designation)), query);
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ProjectTypes)), query);
 	}
+
+	function onProjectManagerfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ProjectManager)), query);
+	}
+
+
 </script>
+<script>
+
+	function rowPositionChange(args) {
+		var grid = document.getElementById("Grid").ej2_instances[0];
+		grid.editSettings.newRowPosition = this.value;
+	}
+
+	function actionBegin(args) {
+		var grid = document.getElementById("Grid").ej2_instances[0];
+		if (args.requestType === 'save') {
+			if (grid.pageSettings.currentPage !== 1 && grid.editSettings.newRowPosition === 'Top') {
+				args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - grid.pageSettings.pageSize;
+			} else if (grid.editSettings.newRowPosition === 'Bottom') {
+				args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - 1;
+			}
+		}
+	}
+
+</script>
+
+<style>
+	#typeddl {
+		min-width: 100px;
+	}
+</style>

@@ -15,6 +15,7 @@ namespace CloudVOffice.Services.Emp
 	{
 		public  MennsageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO);
 		public List<Employee> GetEmployees();
+		public List<Employee> GetProjectManagerEmployees();
 		public Employee GetEmployeeByCode(string employeecode);
 		public Employee GetEmployeeById(Int64 employeeid);
 		public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO);

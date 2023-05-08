@@ -12,6 +12,7 @@ using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Web.Framework;
 using Microsoft.CodeAnalysis;
+using CloudVOffice.Services.Emp;
 
 namespace Projects.Management.Controller
 {
@@ -20,13 +21,15 @@ namespace Projects.Management.Controller
 	{
 		private readonly IProjectService _projectService;
         private readonly IProjectTypeService _projectTypeService;
-        public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService)
+		private readonly IEmployeeService _empolyeeService;
+		public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService, IEmployeeService empolyeeService)
 		{
 
 			_projectService = projectService;
             _projectTypeService= projectTypeService;
+			_empolyeeService = empolyeeService;
 
-        }
+		}
 		public IActionResult Dashboard()
 		{
 			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
@@ -37,6 +40,9 @@ namespace Projects.Management.Controller
 			ProjectDTO projectDTO = new ProjectDTO();
 			
 			ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
+			var projectManager = _empolyeeService.GetProjectManagerEmployees();
+			ViewBag.ProjectManager = projectManager;
+			projectDTO.ProjectEmployees = new List<ProjectEmployee>();
 			if (projectId != null)
 			{
 
@@ -107,7 +113,9 @@ namespace Projects.Management.Controller
 
 
             ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
-            return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
+			var projectManager = _empolyeeService.GetProjectManagerEmployees();
+			ViewBag.ProjectManager = projectManager;
+			return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 		}
 		public IActionResult ProjectView()
 		{

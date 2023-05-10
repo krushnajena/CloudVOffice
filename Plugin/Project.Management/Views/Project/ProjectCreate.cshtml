@@ -131,12 +131,13 @@
 					<div class="card-header"><b>Assigned Employees</b></div>
 					<div class="form-group col-md-12">
 						<label for="EstimatedCost" class="form-label">Estimated Cost</label>
+						<input type="hidden" asp-for="@Model.ProjectEmployees" id="ProjectEmployees" />
 						<ejs-grid id="Grid" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.ProjectEmployees" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
 							<e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
 
 							<e-grid-columns>
 								<e-grid-column field="EmployeeId" Visible="false" foreignKeyField="EmployeeId" headerText="Full Name" edit="new {@@params = DropDownList }" editType="dropdownedit" width="140"></e-grid-column>
-								<e-grid-column field="EmployeeName" foreignKeyField="EmployeeId" headerText="Employee Name" width="140"></e-grid-column>
+								<e-grid-column field="FullName" foreignKeyField="EmployeeId" headerText="Employee Name" width="140"></e-grid-column>
 							</e-grid-columns>
 						</ejs-grid>
 
@@ -170,13 +171,14 @@
 
 </script>
 <script>
+	var employeeName = '';
 	function onChange(args) {
 		var grid = document.getElementById('Grid').ej2_instances[0];
 		//grid id + field name
-		var customerIDele = document.querySelector('#' + grid.element.id + 'EmployeeName');
+		var customerIDele = document.querySelector('#' + grid.element.id + 'FullName');
 		// here we have retrieved the value of the shipcountry dropdown and applied the value on customerID field
 
-		customerIDele.value = args.itemData.FullName;
+		employeeName = args.itemData.FullName;
 	}
 
 	function rowPositionChange(args) {
@@ -189,12 +191,13 @@
 
 
 		if (args.requestType === 'save') {
+			args.data.FullName = employeeName
 			for (var i = 0; i < grid.columns.length; i++) {
 				if (grid.columns[i].field == "EmployeeId") {
 					grid.columns[i].visible = false
 					console.log(grid.columns[i]);
 				}
-				if (grid.columns[i].field == "EmployeeName") {
+				if (grid.columns[i].field == "FullName") {
 					grid.columns[i].visible = true
 				}
 
@@ -211,7 +214,7 @@
 				if (grid.columns[i].field == "EmployeeId") {
 					grid.columns[i].visible = true;
 				}
-				if (grid.columns[i].field == "EmployeeName") {
+				if (grid.columns[i].field == "FullName") {
 					grid.columns[i].visible = false
 				}
 
@@ -223,6 +226,7 @@
 	function actionComplete(args) {
 		if (args.requestType === 'save') {
 			arr.push(args.data);  //added records
+			$('#ProjectEmployees').val(JSON.stringify(arr));
 		}
 	}
 

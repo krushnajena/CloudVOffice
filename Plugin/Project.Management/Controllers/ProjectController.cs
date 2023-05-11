@@ -13,6 +13,7 @@ using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Web.Framework;
 using Microsoft.CodeAnalysis;
 using CloudVOffice.Services.Emp;
+using CloudVOffice.Services.Users;
 
 namespace Projects.Management.Controller
 {
@@ -22,12 +23,16 @@ namespace Projects.Management.Controller
 		private readonly IProjectService _projectService;
         private readonly IProjectTypeService _projectTypeService;
 		private readonly IEmployeeService _empolyeeService;
-		public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService, IEmployeeService empolyeeService)
+		private readonly IUserService _userService;
+		public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService, IEmployeeService empolyeeService,
+			IUserService userService
+			)
 		{
 
 			_projectService = projectService;
             _projectTypeService= projectTypeService;
 			_empolyeeService = empolyeeService;
+			_userService = userService;
 
 		}
 		public IActionResult Dashboard()
@@ -42,6 +47,11 @@ namespace Projects.Management.Controller
 			ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
 			var projectManager = _empolyeeService.GetProjectManagerEmployees();
 			ViewBag.ProjectManager = projectManager;
+
+			var employees = _empolyeeService.GetEmployees();
+			ViewBag.Employees = employees;
+
+			ViewBag.Users= _userService.GetAllUsers();
 			projectDTO.ProjectEmployees = new List<ProjectEmployee>();
 			if (projectId != null)
 			{
@@ -115,6 +125,11 @@ namespace Projects.Management.Controller
             ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
 			var projectManager = _empolyeeService.GetProjectManagerEmployees();
 			ViewBag.ProjectManager = projectManager;
+
+			var employees = _empolyeeService.GetEmployees();
+			ViewBag.Employees = employees;
+
+			ViewBag.Users = _userService.GetAllUsers();
 			return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 		}
 		public IActionResult ProjectView()

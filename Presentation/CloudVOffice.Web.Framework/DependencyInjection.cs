@@ -48,10 +48,11 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IProjectTypeService, ProjectTypeService>();
 			services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IProjectActivityTypeService, ProjectActivityTypeService>();
-            #endregion
+			services.AddScoped<IProjectTaskService, ProjectTaskService>();
+			#endregion
 
-            #region DesktopLogin
-            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
             #endregion
             return services;

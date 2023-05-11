@@ -3,7 +3,7 @@
 @model CloudVOffice.Data.DTO.Projects.ProjectDTO;
 @{
 	Layout = "_MainAppLayout";
-	var DropDownList = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.ProjectManager, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "EmployeeId", Text = "FullName" } };
+	var DropDownList = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.ProjectManager, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "EmployeeId", Text = "FullName" }, Change = "onChange" };
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -131,11 +131,13 @@
 					<div class="card-header"><b>Assigned Employees</b></div>
 					<div class="form-group col-md-12">
 						<label for="EstimatedCost" class="form-label">Estimated Cost</label>
-						<ejs-grid id="Grid" dataSource="@Model.ProjectEmployees" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+						<input type="hidden" asp-for="@Model.ProjectEmployees" id="ProjectEmployees" />
+						<ejs-grid id="Grid" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.ProjectEmployees" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
 							<e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
 
 							<e-grid-columns>
-								<e-grid-column field="FullName" headerText="EmployeeId" edit="new {@@params = DropDownList }" editType="dropdownedit" width="140"></e-grid-column>
+								<e-grid-column field="EmployeeId" Visible="false" foreignKeyField="EmployeeId" headerText="Full Name" edit="new {@@params = DropDownList }" editType="dropdownedit" width="140"></e-grid-column>
+								<e-grid-column field="FullName" foreignKeyField="EmployeeId" headerText="Employee Name" width="140"></e-grid-column>
 							</e-grid-columns>
 						</ejs-grid>
 					</div>
@@ -167,6 +169,15 @@
 
 </script>
 <script>
+	var employeeName = '';
+	function onChange(args) {
+		var grid = document.getElementById('Grid').ej2_instances[0];
+		//grid id + field name
+		var customerIDele = document.querySelector('#' + grid.element.id + 'FullName');
+		// here we have retrieved the value of the shipcountry dropdown and applied the value on customerID field
+
+		employeeName = args.itemData.FullName;
+	}
 
 	function rowPositionChange(args) {
 		var grid = document.getElementById("Grid").ej2_instances[0];
@@ -175,12 +186,45 @@
 
 	function actionBegin(args) {
 		var grid = document.getElementById("Grid").ej2_instances[0];
+
+
 		if (args.requestType === 'save') {
+			args.data.FullName = employeeName
+			for (var i = 0; i < grid.columns.length; i++) {
+				if (grid.columns[i].field == "EmployeeId") {
+					grid.columns[i].visible = false
+					console.log(grid.columns[i]);
+				}
+				if (grid.columns[i].field == "FullName") {
+					grid.columns[i].visible = true
+				}
+
+			}
 			if (grid.pageSettings.currentPage !== 1 && grid.editSettings.newRowPosition === 'Top') {
 				args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - grid.pageSettings.pageSize;
 			} else if (grid.editSettings.newRowPosition === 'Bottom') {
 				args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - 1;
 			}
+		}
+		else if (args.requestType === 'add' || args.requestType === 'beginEdit') {
+
+			for (var i = 0; i < grid.columns.length; i++) {
+				if (grid.columns[i].field == "EmployeeId") {
+					grid.columns[i].visible = true;
+				}
+				if (grid.columns[i].field == "FullName") {
+					grid.columns[i].visible = false
+				}
+
+			}
+
+		}
+	}
+	var arr = [];
+	function actionComplete(args) {
+		if (args.requestType === 'save') {
+			arr.push(args.data);  //added records
+			$('#ProjectEmployees').val(JSON.stringify(arr));
 		}
 	}
 
@@ -189,5 +233,11 @@
 <style>
 	#typeddl {
 		min-width: 100px;
+	}
+</style>
+
+<style>
+	.e-dropdownbase .e-list-item {
+		overflow: visible !important;
 	}
 </style>

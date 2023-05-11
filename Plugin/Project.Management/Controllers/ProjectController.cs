@@ -13,6 +13,9 @@ using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Web.Framework;
 using Microsoft.CodeAnalysis;
 using CloudVOffice.Services.Emp;
+using Newtonsoft.Json;
+using static LinqToDB.Common.Configuration;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Projects.Management.Controller
 {
@@ -74,8 +77,9 @@ namespace Projects.Management.Controller
 		public IActionResult ProjectCreate(ProjectDTO projectDTO)
 		{
 			projectDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-         
-            if (ModelState.IsValid)
+			var objects = JsonConvert.DeserializeObject<List<ProjectEmployee>>(projectDTO.ProjectEmployeeString);
+			projectDTO.ProjectEmployees = objects;
+			if (ModelState.IsValid)
 			{
 				if (projectDTO.ProjectId == null)
 				{

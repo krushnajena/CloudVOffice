@@ -23,11 +23,37 @@ namespace CloudVOffice.Services.Projects
 			_projectEmployeeRepo = projectEmployeeRepo;
 		}
 
+		public ProjectEmployee GetProjectEmployeeByFullName(string fullName)
+		{
+			try
+			{
+				return _Context.ProjectEmployees.Where(x => x.FullName == fullName && x.Deleted == false).SingleOrDefault();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public ProjectEmployee GetProjectEmployeeByProjectEmployeeId(Int64 projectEmployeeId)
 		{
 			try
 			{
 				return _Context.ProjectEmployees.Where(x => x.ProjectEmployeeId == projectEmployeeId && x.Deleted == false).SingleOrDefault();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public ProjectEmployee GetProjectEmployeeByProjectId(int projectId)
+		{
+			try
+			{
+				return _Context.ProjectEmployees.Where(x => x.ProjectId == projectId && x.Deleted == false).SingleOrDefault();
 
 			}
 			catch

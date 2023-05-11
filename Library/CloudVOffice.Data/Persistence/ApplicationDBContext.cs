@@ -72,6 +72,7 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
 		public virtual DbSet<ProjectActivityType> ProjectActivityTypes { get; set; }
 		public virtual DbSet<ProjectTask> ProjectTasks { get; set; }
+		
 		#endregion
 
 		#region Desktop Monitering

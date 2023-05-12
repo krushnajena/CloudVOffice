@@ -34,11 +34,11 @@ namespace CloudVOffice.Services.Projects
 			_projectEmployeeService = projectEmployeeService;
 		}
 
-		public Project GetMyAssignedPrpject(long EmployeeId, long UserId)
+		public List<Project> GetMyAssignedProject(Int64 EmployeeId, Int64 UserId)
 		{
 			try
 			{
-				return new Project();
+				return new List<Project>();
 			}
 			catch
 			{

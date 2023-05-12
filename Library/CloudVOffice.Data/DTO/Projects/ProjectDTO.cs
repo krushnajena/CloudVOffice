@@ -27,6 +27,9 @@ namespace CloudVOffice.Data.DTO.Projects
 		public List<ProjectEmployeeDTO> ProjectEmployees { get; set; }
 		public string ProjectEmployeeString { get; set; }
 
+		public List<ProjectUserDTO> ProjectUsers { get; set; }
+		public string ProjectUsersString { get; set; }
+
 
 	}
 

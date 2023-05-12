@@ -16,6 +16,7 @@ using CloudVOffice.Services.Emp;
 using Newtonsoft.Json;
 using static LinqToDB.Common.Configuration;
 using static System.Net.Mime.MediaTypeNames;
+using CloudVOffice.Services.Users;
 
 namespace Projects.Management.Controller
 {
@@ -25,12 +26,16 @@ namespace Projects.Management.Controller
 		private readonly IProjectService _projectService;
         private readonly IProjectTypeService _projectTypeService;
 		private readonly IEmployeeService _empolyeeService;
-		public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService, IEmployeeService empolyeeService)
+		private readonly IUserService _userService;
+		public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService, IEmployeeService empolyeeService,
+			IUserService userService
+			)
 		{
 
 			_projectService = projectService;
             _projectTypeService= projectTypeService;
 			_empolyeeService = empolyeeService;
+			_userService = userService;
 
 		}
 		public IActionResult Dashboard()
@@ -45,7 +50,12 @@ namespace Projects.Management.Controller
 			ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
 			var projectManager = _empolyeeService.GetProjectManagerEmployees();
 			ViewBag.ProjectManager = projectManager;
-			projectDTO.ProjectEmployees = new List<ProjectEmployee>();
+
+			var employees = _empolyeeService.GetEmployees();
+			ViewBag.Employees = employees;
+
+			ViewBag.Users= _userService.GetAllUsers();
+			projectDTO.ProjectEmployees = new List<ProjectEmployeeDTO>();
 			if (projectId != null)
 			{
 
@@ -77,8 +87,7 @@ namespace Projects.Management.Controller
 		public IActionResult ProjectCreate(ProjectDTO projectDTO)
 		{
 			projectDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			var objects = JsonConvert.DeserializeObject<List<ProjectEmployee>>(projectDTO.ProjectEmployeeString);
-			projectDTO.ProjectEmployees = objects;
+		
 			if (ModelState.IsValid)
 			{
 				if (projectDTO.ProjectId == null)
@@ -119,6 +128,11 @@ namespace Projects.Management.Controller
             ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
 			var projectManager = _empolyeeService.GetProjectManagerEmployees();
 			ViewBag.ProjectManager = projectManager;
+
+			var employees = _empolyeeService.GetEmployees();
+			ViewBag.Employees = employees;
+
+			ViewBag.Users = _userService.GetAllUsers();
 			return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 		}
 		public IActionResult ProjectView()

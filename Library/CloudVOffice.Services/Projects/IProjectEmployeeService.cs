@@ -14,6 +14,8 @@ namespace CloudVOffice.Services.Projects
 		public MennsageEnum ProjectEmployeeCreate(ProjectEmployeeDTO projectEmployeeDTO);
 		public List<ProjectEmployee> GetProjectEmployees();
 		public ProjectEmployee GetProjectEmployeeByProjectEmployeeId(Int64 projectEmployeeId);
+		public ProjectEmployee GetProjectEmployeeByProjectId(int projectId);
+		public ProjectEmployee GetProjectEmployeeByFullName(string fullName);
 		public MennsageEnum ProjectEmployeeUpdate(ProjectEmployeeDTO projectEmployeeDTO);
 		public MennsageEnum ProjectEmployeeDelete(Int64 projectEmployeeId, Int64 DeletedBy);
 

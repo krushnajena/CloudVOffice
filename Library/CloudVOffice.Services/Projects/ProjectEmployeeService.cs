@@ -3,6 +3,8 @@ using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
+using Pipelines.Sockets.Unofficial.Arenas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +25,7 @@ namespace CloudVOffice.Services.Projects
 			_projectEmployeeRepo = projectEmployeeRepo;
 		}
 
-		public ProjectEmployee GetProjectEmployeeByFullName(string fullName)
-		{
-			try
-			{
-				return _Context.ProjectEmployees.Where(x => x.FullName == fullName && x.Deleted == false).SingleOrDefault();
-
-			}
-			catch
-			{
-				throw;
-			}
-		}
+		
 
 		public ProjectEmployee GetProjectEmployeeByProjectEmployeeId(Int64 projectEmployeeId)
 		{
@@ -49,12 +40,13 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public ProjectEmployee GetProjectEmployeeByProjectId(int projectId)
+		public List<ProjectEmployee> GetProjectEmployeeByProjectId(int projectId)
 		{
 			try
 			{
-				return _Context.ProjectEmployees.Where(x => x.ProjectId == projectId && x.Deleted == false).SingleOrDefault();
-
+				return _Context.ProjectEmployees
+				.Include(c => c.Employee)
+						.Where(x => x.ProjectId == projectId && x.Deleted == false).ToList();
 			}
 			catch
 			{
@@ -62,6 +54,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+	
 		public List<ProjectEmployee> GetProjectEmployees()
 		{
 			try

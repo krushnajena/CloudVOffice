@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,17 @@ namespace CloudVOffice.Services.Projects
 			{
 				throw;
 			}
+		}
+
+		public List<ProjectUser> GetProjectUsersByProjectId(long ProjectId)
+		{
+			try
+			{
+				return _Context.ProjectUsers
+					.Include(c=>c.User)
+					.Where(x=>x.ProjectId ==  ProjectId &&x.Deleted == false).ToList();
+			}
+			catch { throw; }
 		}
 
 		public MennsageEnum ProjectUserCreate(ProjectUserDTO projectUserDTO)

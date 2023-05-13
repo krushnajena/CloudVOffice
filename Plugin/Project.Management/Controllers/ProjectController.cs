@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using static LinqToDB.Common.Configuration;
 using static System.Net.Mime.MediaTypeNames;
 using CloudVOffice.Services.Users;
+using CloudVOffice.Core.Domain.Projects;
 
 namespace Projects.Management.Controller
 {
@@ -27,8 +28,13 @@ namespace Projects.Management.Controller
         private readonly IProjectTypeService _projectTypeService;
 		private readonly IEmployeeService _empolyeeService;
 		private readonly IUserService _userService;
+
+		private readonly IProjectEmployeeService _projectempolyeeService;
+		private readonly IProjectUserService _projectuserService;
 		public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService, IEmployeeService empolyeeService,
-			IUserService userService
+			IUserService userService,
+			IProjectEmployeeService projectempolyeeService,
+			IProjectUserService projectuserService
 			)
 		{
 
@@ -36,6 +42,8 @@ namespace Projects.Management.Controller
             _projectTypeService= projectTypeService;
 			_empolyeeService = empolyeeService;
 			_userService = userService;
+			_projectempolyeeService = projectempolyeeService;
+			_projectuserService = projectuserService;
 
 		}
 		public IActionResult Dashboard()
@@ -75,8 +83,37 @@ namespace Projects.Management.Controller
 				projectDTO.ProjectNotes = d.ProjectNotes;
 				projectDTO.EstimatedCost = d.EstimatedCost;
 				projectDTO.ProjectManager = d.ProjectManager;
-				
-				
+				List<ProjectEmployeeDTO> projectEmployeeDTOs = new List<ProjectEmployeeDTO>();
+				var projectEmployees = _projectempolyeeService.GetProjectEmployeeByProjectId(int.Parse(projectId.ToString()));
+				for(int i=0;i< projectEmployees.Count; i++)
+				{
+					projectEmployeeDTOs.Add(new ProjectEmployeeDTO
+					{
+						FullName = projectEmployees[i].Employee.FullName,
+						EmployeeId = projectEmployees[i].EmployeeId,
+					});
+				}
+
+				projectDTO.ProjectEmployees = projectEmployeeDTOs;
+
+
+
+				List<ProjectUserDTO> projectUser= new List<ProjectUserDTO>();
+				var projectUsers = _projectuserService.GetProjectUsersByProjectId(int.Parse(projectId.ToString()));
+				for (int i = 0; i < projectUsers.Count; i++)
+				{
+					projectUser.Add(new ProjectUserDTO
+					{
+						FullName = projectUsers[i].User.FullName,
+						UserId = projectUsers[i].UserId,
+					});
+				}
+
+				projectDTO.ProjectUsers = projectUser;
+
+
+
+
 
 			}
 
@@ -87,7 +124,8 @@ namespace Projects.Management.Controller
 		public IActionResult ProjectCreate(ProjectDTO projectDTO)
 		{
 			projectDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-		
+			projectDTO.ProjectEmployees = JsonConvert.DeserializeObject<List<ProjectEmployeeDTO>>(projectDTO.ProjectEmployeeString);
+			projectDTO.ProjectUsers = JsonConvert.DeserializeObject<List<ProjectUserDTO>>(projectDTO.ProjectUsersString);
 			if (ModelState.IsValid)
 			{
 				if (projectDTO.ProjectId == null)
@@ -133,6 +171,8 @@ namespace Projects.Management.Controller
 			ViewBag.Employees = employees;
 
 			ViewBag.Users = _userService.GetAllUsers();
+
+		
 			return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 		}
 		public IActionResult ProjectView()

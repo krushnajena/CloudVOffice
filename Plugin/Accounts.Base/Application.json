@@ -1,0 +1,37 @@
+{
+
+  "ApplicationName": "Accounts",
+  "Url": "/Accounts/Account/Dashboard",
+  "IconImageUrl": "/Plugin/Accounts.Base/logo.png",
+  "IconClass": "",
+  "AreaName": "Accounts",
+  "Roles": [ "Accounts User", "Accounts Manager" ],
+  "Children": [
+    {
+      "ApplicationName": "Master",
+      "Url": "",
+      "IsGroup": true,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "Accounts",
+      "Roles": [ "Accounts Manager", "Accounts User" ],
+      "Children": [
+        {
+          "ApplicationName": "Chart Of Accounts",
+          "IsGroup": false,
+          "Url": "/Accounts/ChartOfAccounts/ChartOfAccountsView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Accounts",
+          "Roles": [ "Accounts Manager" ]
+        }
+
+
+      ]
+
+    }
+    
+
+  ]
+
+}

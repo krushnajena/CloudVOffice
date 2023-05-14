@@ -16,6 +16,8 @@ using Microsoft.Extensions.FileProviders;
 using Syncfusion.Licensing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace CloudVOffice.Web
 {
@@ -59,8 +61,18 @@ namespace CloudVOffice.Web
             services.AddControllersWithViews()
 
                 .AddNewtonsoftJson(options =>
-            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+
+                }
+
+                 
+
+            ); ;
             services.AddRazorPages();
             services.AddMvc();
             string[] subdirs = Directory.GetDirectories(CloudVOfficePluginDefaults.PathName);

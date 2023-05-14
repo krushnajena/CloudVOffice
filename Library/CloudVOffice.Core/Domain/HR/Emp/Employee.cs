@@ -86,7 +86,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-		public  ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+		
 
 
         [ForeignKey("DepartmentId")]
@@ -94,10 +94,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
 
-        public List<Employee> Employees { get; set; }
-
-        public List<DesktopLogin> DesktopLogins { get; set; }
-        public List<DesktopActivityLog> DesktopActivityLogs { get; set; }
+  
 
         
     }

@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
@@ -78,9 +79,11 @@ namespace CloudVOffice.Services.Projects
 				{
 
 					ProjectEmployee projectEmployee = new ProjectEmployee();
-					
-					projectEmployee.ProjectId = projectEmployeeDTO.ProjectId;
-					projectEmployee.CreatedBy = projectEmployeeDTO.CreatedBy;
+					projectEmployee.EmployeeId = Int64.Parse(projectEmployeeDTO.EmployeeId.ToString());
+					projectEmployee.ProjectId = int.Parse( projectEmployeeDTO.ProjectId.ToString());
+					projectEmployee.CreatedBy = Int64.Parse( projectEmployeeDTO.CreatedBy.ToString());
+
+					projectEmployee.CreatedDate = System.DateTime.Now;
 					var obj = _projectEmployeeRepo.Insert(projectEmployee);
 
 					return MennsageEnum.Success;
@@ -130,7 +133,7 @@ namespace CloudVOffice.Services.Projects
 				if (a != null)
 				{
 					
-					a.ProjectId = projectEmployeeDTO.ProjectId;
+					a.ProjectId = int.Parse( projectEmployeeDTO.ProjectId.ToString());
 					a.UpdatedBy = projectEmployeeDTO.CreatedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();

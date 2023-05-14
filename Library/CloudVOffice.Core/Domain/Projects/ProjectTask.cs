@@ -42,5 +42,7 @@ namespace CloudVOffice.Core.Domain.Projects
         [ForeignKey("ComplitedBy")]
         public Employee Employee { get; set; }
 
+
+
     }
 }

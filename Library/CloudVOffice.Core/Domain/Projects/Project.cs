@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +36,8 @@ namespace CloudVOffice.Core.Domain.Projects
         public ProjectType ProjectType { get; set; }
         [ForeignKey("ProjectManager")]
         public Employee Employee { get; set; }
+		public ICollection<ProjectEmployee> ProjectEmployees { get; set; }
+		public ICollection<ProjectUser> ProjectUsers{ get; set; }
 
-
-    }
+	}
 }

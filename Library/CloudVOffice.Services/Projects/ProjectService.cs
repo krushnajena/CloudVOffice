@@ -38,7 +38,14 @@ namespace CloudVOffice.Services.Projects
 		{
 			try
 			{
-				return new List<Project>();
+				return _Context.Projects
+					.Include(e=>e.Employee)
+					.Include(s=>s.ProjectEmployees)
+					.Include(t=>t.ProjectUsers)
+					.Where(x => x.Deleted == false && ( x.ProjectManager == EmployeeId
+					|| x.ProjectEmployees.Any(d=>d.EmployeeId == EmployeeId && d.Deleted == false)
+					|| x.ProjectUsers.Any(d => d.UserId == UserId && d.Deleted == false))
+					).ToList();
 			}
 			catch
 			{
@@ -76,7 +83,9 @@ namespace CloudVOffice.Services.Projects
 		{
 			try
 			{
-				return _Context.Projects.Where(x => x.Deleted == false).ToList();
+				return _Context.Projects
+					.Include(x=>x.ProjectType)
+					.Where(x => x.Deleted == false).ToList();
 
 			}
 			catch
@@ -115,6 +124,7 @@ namespace CloudVOffice.Services.Projects
 					{
 						projectEmployee[i].CreatedBy = projectDTO.CreatedBy;
 						projectEmployee[i].ProjectId = obj.ProjectId;
+					
 						_projectEmployeeService.ProjectEmployeeCreate(projectEmployee[i]);
 					}
 

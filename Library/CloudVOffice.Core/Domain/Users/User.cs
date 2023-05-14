@@ -57,7 +57,7 @@ namespace CloudVOffice.Core.Domain.Users
         public List<UserWiseViewMapper> UserWiseViewMapper { get; set; }
 
 
-        public List<ProjectUser> ProjectUsers { get; set; }
+  
 
 
     }

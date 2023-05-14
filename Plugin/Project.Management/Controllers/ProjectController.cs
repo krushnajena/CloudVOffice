@@ -54,16 +54,9 @@ namespace Projects.Management.Controller
 		public IActionResult ProjectCreate(int? projectId)
 		{
 			ProjectDTO projectDTO = new ProjectDTO();
+		
+		
 			
-			ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
-			var projectManager = _empolyeeService.GetProjectManagerEmployees();
-			ViewBag.ProjectManager = projectManager;
-
-			var employees = _empolyeeService.GetEmployees();
-			ViewBag.Employees = employees;
-
-			ViewBag.Users= _userService.GetAllUsers();
-			projectDTO.ProjectEmployees = new List<ProjectEmployeeDTO>();
 			if (projectId != null)
 			{
 
@@ -83,47 +76,62 @@ namespace Projects.Management.Controller
 				projectDTO.ProjectNotes = d.ProjectNotes;
 				projectDTO.EstimatedCost = d.EstimatedCost;
 				projectDTO.ProjectManager = d.ProjectManager;
-				List<ProjectEmployeeDTO> projectEmployeeDTOs = new List<ProjectEmployeeDTO>();
+				
 				var projectEmployees = _projectempolyeeService.GetProjectEmployeeByProjectId(int.Parse(projectId.ToString()));
-				for(int i=0;i< projectEmployees.Count; i++)
+				projectDTO.ProjectEmployees = new List<ProjectEmployeeDTO>();
+				for (int i = 0; i < projectEmployees.Count; i++)
 				{
-					projectEmployeeDTOs.Add(new ProjectEmployeeDTO
+					projectDTO.ProjectEmployees.Add(new ProjectEmployeeDTO
 					{
 						FullName = projectEmployees[i].Employee.FullName,
 						EmployeeId = projectEmployees[i].EmployeeId,
 					});
 				}
 
-				projectDTO.ProjectEmployees = projectEmployeeDTOs;
+				
 
+				projectDTO.ProjectEmployeeString = JsonConvert.SerializeObject(projectDTO.ProjectEmployees);
 
-
-				List<ProjectUserDTO> projectUser= new List<ProjectUserDTO>();
+			
 				var projectUsers = _projectuserService.GetProjectUsersByProjectId(int.Parse(projectId.ToString()));
+				projectDTO.ProjectUsers= new List<ProjectUserDTO>();
 				for (int i = 0; i < projectUsers.Count; i++)
 				{
-					projectUser.Add(new ProjectUserDTO
+					projectDTO.ProjectUsers.Add(new ProjectUserDTO
 					{
 						FullName = projectUsers[i].User.FullName,
 						UserId = projectUsers[i].UserId,
 					});
 				}
 
-				projectDTO.ProjectUsers = projectUser;
 
-
+				
+				projectDTO.ProjectUsersString = JsonConvert.SerializeObject(projectDTO.ProjectUsers);
 
 
 
 			}
+			else
+			{
+                projectDTO.ProjectEmployees = new List<ProjectEmployeeDTO>();
+                projectDTO.ProjectUsers = new List<ProjectUserDTO>();
+            }
 
+			ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();
+			var projectManager = _empolyeeService.GetProjectManagerEmployees();
+			ViewBag.ProjectManager = projectManager;
+
+			var employees = _empolyeeService.GetEmployees();
+			ViewBag.Employees = employees;
+
+			ViewBag.Users = _userService.GetAllUsers();
 			return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 
 		}
 		[HttpPost]
 		public IActionResult ProjectCreate(ProjectDTO projectDTO)
 		{
-			projectDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			projectDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 			projectDTO.ProjectEmployees = JsonConvert.DeserializeObject<List<ProjectEmployeeDTO>>(projectDTO.ProjectEmployeeString);
 			projectDTO.ProjectUsers = JsonConvert.DeserializeObject<List<ProjectUserDTO>>(projectDTO.ProjectUsersString);
 			if (ModelState.IsValid)
@@ -181,6 +189,8 @@ namespace Projects.Management.Controller
 
 			return View("~/Plugins/Project.Management/Views/Project/ProjectView.cshtml");
 		}
+
+		
         [HttpGet]
         public IActionResult ProjectDelete(Int64 projectId)
         {
@@ -189,5 +199,13 @@ namespace Projects.Management.Controller
             var a = _projectService.ProjectDelete(projectId, DeletedBy);
             return Redirect("/Projects/Project/ProjectView");
         }
-    }
+
+		public IActionResult MyProjects()
+		{
+			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+			var projects =  _projectService.GetMyAssignedProject(EmployeeId, UserId);
+			return View("~/Plugins/Project.Management/Views/Project/MyProjects.cshtml", projects);
+		}
+	}
 }

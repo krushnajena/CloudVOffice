@@ -48,7 +48,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public List<ProjectUser> GetProjectUsersByProjectId(long ProjectId)
+		public List<ProjectUser> GetProjectUsersByProjectId(int ProjectId)
 		{
 			try
 			{
@@ -68,10 +68,10 @@ namespace CloudVOffice.Services.Projects
 				{
 
 					ProjectUser projectUser = new ProjectUser();
-					projectUser.ProjectId = projectUserDTO.ProjectId;
+					projectUser.ProjectId = int.Parse( projectUserDTO.ProjectId.ToString());
 					projectUser.UserId = projectUserDTO.UserId;
 
-					projectUser.CreatedBy = projectUserDTO.CreatedBy;
+					projectUser.CreatedBy = Int64.Parse( projectUserDTO.CreatedBy.ToString());
 					var obj = _projectUserRepo.Insert(projectUser);
 
 					return MennsageEnum.Success;
@@ -122,7 +122,7 @@ namespace CloudVOffice.Services.Projects
 					var a = _Context.ProjectUsers.Where(x => x.ProjectUserId == projectUserDTO.ProjectUserId).FirstOrDefault();
 					if (a != null)
 					{
-						a.ProjectId = projectUserDTO.ProjectId;
+						a.ProjectId = int.Parse( projectUserDTO.ProjectId.ToString());
 					    a.UserId = projectUserDTO.UserId;
 					    a.UpdatedBy = projectUserDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;

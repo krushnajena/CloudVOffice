@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,17 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+		public List<ProjectUser> GetProjectUsersByProjectId(int ProjectId)
+		{
+			try
+			{
+				return _Context.ProjectUsers
+					.Include(c=>c.User)
+					.Where(x=>x.ProjectId ==  ProjectId &&x.Deleted == false).ToList();
+			}
+			catch { throw; }
+		}
+
 		public MennsageEnum ProjectUserCreate(ProjectUserDTO projectUserDTO)
 		{
 			var objCheck = _Context.ProjectUsers.SingleOrDefault(opt => opt.ProjectUserId == projectUserDTO.ProjectUserId && opt.Deleted == false);
@@ -56,10 +68,10 @@ namespace CloudVOffice.Services.Projects
 				{
 
 					ProjectUser projectUser = new ProjectUser();
-					projectUser.ProjectId = projectUserDTO.ProjectId;
+					projectUser.ProjectId = int.Parse( projectUserDTO.ProjectId.ToString());
 					projectUser.UserId = projectUserDTO.UserId;
 
-					projectUser.CreatedBy = projectUserDTO.CreatedBy;
+					projectUser.CreatedBy = Int64.Parse( projectUserDTO.CreatedBy.ToString());
 					var obj = _projectUserRepo.Insert(projectUser);
 
 					return MennsageEnum.Success;
@@ -110,7 +122,7 @@ namespace CloudVOffice.Services.Projects
 					var a = _Context.ProjectUsers.Where(x => x.ProjectUserId == projectUserDTO.ProjectUserId).FirstOrDefault();
 					if (a != null)
 					{
-						a.ProjectId = projectUserDTO.ProjectId;
+						a.ProjectId = int.Parse( projectUserDTO.ProjectId.ToString());
 					    a.UserId = projectUserDTO.UserId;
 					    a.UpdatedBy = projectUserDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;

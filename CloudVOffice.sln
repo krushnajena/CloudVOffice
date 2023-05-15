@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopMonitoringSystem", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActMon", "DesktopMonitoring\ActMon\ActMon.csproj", "{02A96D46-4003-45E5-9F29-B4EDB9F64621}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accounts.Base", "Plugin\Accounts.Base\Accounts.Base.csproj", "{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +121,7 @@ Global
 		{B1F7C3DB-FA75-43FC-8671-179F251F2FC4} = {6414E5A2-5828-4F12-BF1C-AA285B7999FF}
 		{A3879CBC-EE42-439B-9925-99F5FF4A28A6} = {6414E5A2-5828-4F12-BF1C-AA285B7999FF}
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621} = {6414E5A2-5828-4F12-BF1C-AA285B7999FF}
+		{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DEF2CA5-EC2C-4C0B-878F-AEA8D00FE3E6}

@@ -17,5 +17,7 @@ namespace CloudVOffice.Services.Projects
 		public MennsageEnum ProjectUserUpdate(ProjectUserDTO projectUserDTO);
 		public MennsageEnum ProjectUserDelete(Int64 projectUserId, Int64 DeletedBy);
 
-	 }
+		public List<ProjectUser> GetProjectUsersByProjectId(int ProjectId);
+
+	}
 }

@@ -24,8 +24,11 @@ namespace CloudVOffice.Data.DTO.Projects
 		public Int64? ProjectManager { get; set; }
 		public Int64 CreatedBy { get; set; }
 
-		public List<ProjectEmployeeDTO> ProjectEmployees { get; set; }
+		public List<ProjectEmployeeDTO>? ProjectEmployees { get; set; }
 		public string ProjectEmployeeString { get; set; }
+
+		public List<ProjectUserDTO>? ProjectUsers { get; set; }
+		public string ProjectUsersString { get; set; }
 
 
 	}
@@ -34,8 +37,8 @@ namespace CloudVOffice.Data.DTO.Projects
 	{
 
 		public Int64 EmployeeId { get; set; }
-		public int ProjectId { get; set; }
+		public int? ProjectId { get; set; }
 		public string FullName { get; set; }
-		public Int64 CreatedBy { get; set; }
+		public Int64? CreatedBy { get; set; }
 	}
 }

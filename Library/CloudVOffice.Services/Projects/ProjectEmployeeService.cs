@@ -1,8 +1,11 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
+using Pipelines.Sockets.Unofficial.Arenas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +26,7 @@ namespace CloudVOffice.Services.Projects
 			_projectEmployeeRepo = projectEmployeeRepo;
 		}
 
-		public ProjectEmployee GetProjectEmployeeByFullName(string fullName)
-		{
-			try
-			{
-				return _Context.ProjectEmployees.Where(x => x.FullName == fullName && x.Deleted == false).SingleOrDefault();
-
-			}
-			catch
-			{
-				throw;
-			}
-		}
+		
 
 		public ProjectEmployee GetProjectEmployeeByProjectEmployeeId(Int64 projectEmployeeId)
 		{
@@ -49,12 +41,13 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public ProjectEmployee GetProjectEmployeeByProjectId(int projectId)
+		public List<ProjectEmployee> GetProjectEmployeeByProjectId(int projectId)
 		{
 			try
 			{
-				return _Context.ProjectEmployees.Where(x => x.ProjectId == projectId && x.Deleted == false).SingleOrDefault();
-
+				return _Context.ProjectEmployees
+				.Include(c => c.Employee)
+						.Where(x => x.ProjectId == projectId && x.Deleted == false).ToList();
 			}
 			catch
 			{
@@ -62,6 +55,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+	
 		public List<ProjectEmployee> GetProjectEmployees()
 		{
 			try
@@ -85,9 +79,11 @@ namespace CloudVOffice.Services.Projects
 				{
 
 					ProjectEmployee projectEmployee = new ProjectEmployee();
-					
-					projectEmployee.ProjectId = projectEmployeeDTO.ProjectId;
-					projectEmployee.CreatedBy = projectEmployeeDTO.CreatedBy;
+					projectEmployee.EmployeeId = Int64.Parse(projectEmployeeDTO.EmployeeId.ToString());
+					projectEmployee.ProjectId = int.Parse( projectEmployeeDTO.ProjectId.ToString());
+					projectEmployee.CreatedBy = Int64.Parse( projectEmployeeDTO.CreatedBy.ToString());
+
+					projectEmployee.CreatedDate = System.DateTime.Now;
 					var obj = _projectEmployeeRepo.Insert(projectEmployee);
 
 					return MennsageEnum.Success;
@@ -137,7 +133,7 @@ namespace CloudVOffice.Services.Projects
 				if (a != null)
 				{
 					
-					a.ProjectId = projectEmployeeDTO.ProjectId;
+					a.ProjectId = int.Parse( projectEmployeeDTO.ProjectId.ToString());
 					a.UpdatedBy = projectEmployeeDTO.CreatedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();

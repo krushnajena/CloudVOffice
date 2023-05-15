@@ -1,0 +1,14 @@
+﻿{
+  "Group": "Accounts",
+  "FriendlyName": "Accouns Base",
+  "SystemName": "Accounts.Base",
+  "Version": 0.1,
+  "SupportedVersions": [ "0.1" ],
+  "Author": "Appman team",
+  "DisplayOrder": 1,
+  "FileName": "Accounts.Base.dll",
+  "Description": "Accounting Masetrs.",
+  "InstallationUrl": "/Accounts/Account/Install",
+  "UnInstallationUrl": "/Accounts/Account/UnInstall",
+  "Dependency": []
+}

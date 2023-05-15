@@ -5,6 +5,7 @@ using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,28 +18,55 @@ namespace CloudVOffice.Services.Projects
 	{
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<Project> _projectRepo;
-		public ProjectService(ApplicationDBContext Context, ISqlRepository<Project> projectRepo)
+
+		private readonly IProjectUserService _projectUserService;
+
+		private readonly IProjectEmployeeService _projectEmployeeService;
+		public ProjectService(ApplicationDBContext Context, ISqlRepository<Project> projectRepo,
+			 IProjectEmployeeService projectEmployeeService,
+			 IProjectUserService projectUserService
+			)
 		{
 
 			_Context = Context;
 			_projectRepo = projectRepo;
+			_projectUserService = projectUserService;
+			_projectEmployeeService = projectEmployeeService;
 		}
-		
 
-        public Project GetProjectByProjectId(Int64 projectId)
-        {
-            try
-            {
-                return _Context.Projects.Where(x => x.ProjectId == projectId && x.Deleted == false).SingleOrDefault();
+		public List<Project> GetMyAssignedProject(Int64 EmployeeId, Int64 UserId)
+		{
+			try
+			{
+				return _Context.Projects
+					.Include(e=>e.Employee)
+					.Include(s=>s.ProjectEmployees)
+					.Include(t=>t.ProjectUsers)
+					.Where(x => x.Deleted == false && ( x.ProjectManager == EmployeeId
+					|| x.ProjectEmployees.Any(d=>d.EmployeeId == EmployeeId && d.Deleted == false)
+					|| x.ProjectUsers.Any(d => d.UserId == UserId && d.Deleted == false))
+					).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
 
-            }
-            catch
-            {
-                throw;
-            }
-        }
+		public Project GetProjectByProjectId(Int64 projectId)
+		{
+			try
+			{
+				return _Context.Projects.Where(x => x.ProjectId == projectId && x.Deleted == false).SingleOrDefault();
 
-        public Project GetProjectByProjectName(string projectName)
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public Project GetProjectByProjectName(string projectName)
 		{
 			try
 			{
@@ -55,7 +83,9 @@ namespace CloudVOffice.Services.Projects
 		{
 			try
 			{
-				return _Context.Projects.Where(x => x.Deleted == false).ToList();
+				return _Context.Projects
+					.Include(x=>x.ProjectType)
+					.Where(x => x.Deleted == false).ToList();
 
 			}
 			catch
@@ -66,7 +96,7 @@ namespace CloudVOffice.Services.Projects
 
 		public MennsageEnum ProjectCreate(ProjectDTO projectDTO)
 		{
-			var objCheck = _Context.Projects.SingleOrDefault(opt => opt.ProjectId == projectDTO.ProjectId &&  opt.Deleted == false);
+			var objCheck = _Context.Projects.SingleOrDefault(opt => opt.ProjectId == projectDTO.ProjectId && opt.Deleted == false);
 			try
 			{
 				if (objCheck == null)
@@ -88,7 +118,25 @@ namespace CloudVOffice.Services.Projects
 					project.ProjectManager = projectDTO.ProjectManager;
 					project.CreatedBy = projectDTO.CreatedBy;
 					var obj = _projectRepo.Insert(project);
+					var projectEmployee = JsonConvert.DeserializeObject<List<ProjectEmployeeDTO>>(projectDTO.ProjectEmployeeString);
 
+					for (int i = 0; i < projectEmployee.Count; i++)
+					{
+						projectEmployee[i].CreatedBy = projectDTO.CreatedBy;
+						projectEmployee[i].ProjectId = obj.ProjectId;
+					
+						_projectEmployeeService.ProjectEmployeeCreate(projectEmployee[i]);
+					}
+
+
+					var projectUser = JsonConvert.DeserializeObject<List<ProjectUserDTO>>(projectDTO.ProjectUsersString);
+
+					for (int i = 0; i < projectUser.Count; i++)
+					{
+						projectUser[i].CreatedBy = projectDTO.CreatedBy;
+						projectUser[i].ProjectId = obj.ProjectId;
+						_projectUserService.ProjectUserCreate(projectUser[i]);
+					}
 					return MennsageEnum.Success;
 				}
 				else if (objCheck != null)

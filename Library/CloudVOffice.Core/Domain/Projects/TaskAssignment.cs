@@ -18,7 +18,7 @@ namespace CloudVOffice.Core.Domain.Projects
 		public Int64 EmployeeId { get; set; }
 		public Int64 AssignedBy { get; set; }
 		public DateTime? AssignedOn { get; set; }
-		public DateTime? CompliteBy { get; set; }
+		public Int64? CompliteBy { get; set; }
 		public DateTime? ActualCompliteOn { get;set; }
 		public string? DelayReason { get; set; }
 		public bool IsDelayApproved { get; set; }

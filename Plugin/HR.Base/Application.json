@@ -17,7 +17,7 @@
       "Roles": [ "HR Manager", "HR User" ],
       "Children": [
         {
-          "ApplicationName": "Branch",
+          "ApplicationName": "Branch",  
           "IsGroup": false,
           "Url": "/Hr/Branch/BranchView",
           "IconImageUrl": "",

@@ -149,7 +149,7 @@ namespace CloudVOffice.Services.Projects
 
 			}
 			catch
-			{
+			{	
 				throw;
 			}
 		}

@@ -1,9 +1,11 @@
 ﻿@model CloudVOffice.Data.DTO.Projects.ProjectTaskDTO;
 @{
-    Layout = "_MainAppLayout";
+	Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Collections;
+@using Newtonsoft.Json;
 <header class="main-heading">
 	<div class="container-fluid">
 		<div class="row">
@@ -28,7 +30,7 @@
 	<div class="row gutters">
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 			<div class="card">
-				<form asp-route="Projects/ProjectTask/ProjectTaskCreate" method="post" autocomplete="off">
+				<form asp-route="Projects/Task/TaskCreate" method="post" autocomplete="off">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
 					<div class="card-header"><b>New Task</b></div>
 					<div class="card-body">
@@ -40,8 +42,10 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<label for="ProjectId" class="form-label">Project Id</label>
-								<input asp-for="@Model.ProjectId" type="text" class="form-control" autofocus="autofocus" placeholder="Project Id" />
+								<label for="ProjectId" class="form-label">Project </label>
+								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.ProjectId" filtering="onProjectfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Projects, "ProjectId", "ProjectName").Items)" placeholder="Select a Project" popupHeight="220px">
+									<e-dropdownlist-fields t value="ProjectId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
 								<span asp-validation-for="ProjectId"></span>
 							</div>
 							<div class="form-group col-md-3">
@@ -49,7 +53,7 @@
 								<input asp-for="@Model.TaskName" type="text" class="form-control" autofocus="autofocus" placeholder="Task Name" />
 								<span asp-validation-for="TaskName"></span>
 							</div>
-							<div class="form-row">
+							
 								<div class="form-group col-md-3">
 									<label for="Priority" class="form-label">Priority</label>
 									<select input asp-for="@Model.Priority" type="text" class="form-control" autofocus="autofocus" placeholder="Priority">
@@ -58,79 +62,106 @@
 										<option value="High">High</option>
 									</select>
 								</div>
-						    </div>
-						<div class="form-row">
-							<div class="form-group col-md-3">
+						</div>
+							<div class="form-row">
+								<div class="form-group col-md-3">
 									<label for="ParentTaskId" class="form-label">Parent Task Id</label>
-									<input asp-for="@Model.ParentTaskId" type="date" class="form-control" autofocus="autofocus" placeholder="Parent Task Id" />
+									<input asp-for="@Model.ParentTaskId" type="text" class="form-control" autofocus="autofocus" placeholder="Parent Task Id" />
 									<span asp-validation-for="ParentTaskId"></span>
-							</div>
-							<div class="form-group col-md-3">
+								</div>
+								<div class="form-group col-md-3">
 									<label for="ExpectedStartDate" class="form-label">Expected Start Date</label>
 									<input asp-for="@Model.ExpectedStartDate" type="date" class="form-control" autofocus="autofocus" placeholder="Expected Start Date" />
 									<span asp-validation-for="ExpectedStartDate"></span>
-							</div>
-							<div class="form-group col-md-3">
+								</div>
+								<div class="form-group col-md-3">
 									<label for="ExpectedEndDate" class="form-label">Expected End Date</label>
 									<input asp-for="@Model.ExpectedEndDate" type="date" class="form-control" autofocus="autofocus" placeholder="Expected End Date" />
 									<span asp-validation-for="ExpectedEndDate"></span>
+								</div>
 							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-3">
+							<div class="form-row">
+								<div class="form-group col-md-3">
 									<label for="ExpectedTimeInHours" class="form-label">ExpectedTime InHours</label>
 									<input asp-for="@Model.ExpectedTimeInHours" type="text" class="form-control" autofocus="autofocus" placeholder="ExpectedTime InHours" />
 									<span asp-validation-for="ExpectedTimeInHours"></span>
-							</div>
-							<div class="form-group col-md-3">
+								</div>
+								<div class="form-group col-md-3">
 									<label for="Progress" class="form-label">Progress</label>
 									<input asp-for="@Model.Progress" type="text" class="form-control" autofocus="autofocus" placeholder="Progress	" />
 									<span asp-validation-for="Progress"></span>
+								</div>
+
+							  <div class="form-group col-md-3">
+								<label for="TaskStatus" class="form-label">Task Status</label>
+								<select input asp-for="@Model.TaskStatus" type="text" class="form-control" autofocus="autofocus" placeholder="Task Status">
+									<option value="Open">Open</option>
+									<option value="Completed">Completed</option>
+									<option value="Cancelled">Cancelled</option>
+								  </select>
+							   
+							  </div>
+							
+						   
 							</div>
-							<div class="form-group col-md-3">
-									<label for="TaskDescription" class="form-label">Task Description</label>
-									<input asp-for="@Model.TaskDescription" type="text" class="form-control" autofocus="autofocus" placeholder="Task Description" />
-									<span asp-validation-for="TaskDescription"></span>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-3">
+							<div class="form-row">
+								<div class="form-group col-md-3">
 									<label for="ComplitedOn" class="form-label">Complited On</label>
 									<input asp-for="@Model.ComplitedOn" type="date" class="form-control" autofocus="autofocus" placeholder="Complited On" />
 									<span asp-validation-for="ComplitedOn"></span>
-							</div>
-							<div class="form-group col-md-3">
+								</div>
+								<div class="form-group col-md-3">
 									<label for="TotalHoursByTimeSheet" class="form-label">TotalHoursBy TimeSheet</label>
 									<input asp-for="@Model.TotalHoursByTimeSheet" type="text" class="form-control" autofocus="autofocus" placeholder="TotalHours ByTimeSheet	" />
 									<span asp-validation-for="TotalHoursByTimeSheet"></span>
-							</div>
-							<div class="form-group col-md-3">
+								</div>
+								<div class="form-group col-md-3">
 									<label for="TotalBillableHourByTimeSheet" class="form-label">TotalBillableHour By TimeSheet</label>
 									<input asp-for="@Model.TotalBillableHourByTimeSheet" type="text" class="form-control" autofocus="autofocus" placeholder="TotalBillable HourBy TimeSheet" />
 									<span asp-validation-for="TotalBillableHourByTimeSheet"></span>
-							</div>
-								<div class="form-group col-md-3">
-
-									<label for="IsGroup" class="form-label">Is Group</label>
-									<input asp-for="@Model.IsGroup" type="checkbox" />
-									<span asp-validation-for="IsGroup"></span>
 								</div>
+								
+							</div>
+
+						<div class="form-group col-md-3">
+							<label for="ComplitedBy" class="form-label">Complited By</label>
+							<input asp-for="@Model.ComplitedBy" type="text" class="form-control" autofocus="autofocus" placeholder="Complited By" />
+							<span asp-validation-for="ComplitedBy"></span>
 						</div>
+						   <div class="form-group col-md-3">
+
+							     <label for="IsGroup" class="form-label">Is Group</label>
+							     <input asp-for="@Model.IsGroup" type="checkbox" />
+							     <span asp-validation-for="IsGroup"></span>
+						   </div>
+				     
+				    </div>
+					<div class="card-header"><b>Details </b></div>
+					<div class="form-group col-md-3">
+						<label for="TaskDescription" class="form-label">Task Description</label>
+						<textarea asp-for="@Model.TaskDescription" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Task Description" style="height: 150px;"></textarea>
+						<span asp-validation-for="TaskDescription"></span>
 					</div>
 
-					@*<div class="form-group col-md-3">
-						<label for="DelayApprovedOn" class="form-label">Delay Approved On</label>
-						<input asp-for="@Model.DelayApprovedOn" type="date" class="form-control" autofocus="autofocus" placeholder="Delay Approved On" />
-						<span asp-validation-for="DelayApprovedOn"></span>
-					</div>*@
-
-					<div class="card-body">
-						<div class="col-lg-2 col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-primary">Save</button>
+						<div class="card-body">
+							<div class="col-lg-2 col-md-2 col-sm-12">
+								<button type="submit" class="btn btn-primary">Save</button>
+							</div>
 						</div>
-					</div>
+				    
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	function onProjectfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('ProjectName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Projects)), query);
+	}
+
+	
+
+
+</script>

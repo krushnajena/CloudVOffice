@@ -18,19 +18,18 @@ namespace Project.Management.Controllers
     {
 
         private readonly IProjectTaskService _projectTaskService;
-
-        public TaskController(IProjectTaskService projectTaskService)
+		private readonly IProjectService _projectService;
+		public TaskController(IProjectTaskService projectTaskService ,IProjectService projectService)
         {
 
             _projectTaskService = projectTaskService;
-        }
-        public IActionResult Tasks(int ProjectId)
-        {
-            return View("~/Plugins/Project.Management/Views/Task/Tasks.cshtml");
-        }
+			_projectService = projectService;
+
+		}
+       
 
         [HttpGet]
-        public IActionResult ProjectTaskCreate(Int64 projectTaskId)
+        public IActionResult TaskCreate(Int64? projectTaskId)
         {
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();
 
@@ -54,12 +53,12 @@ namespace Project.Management.Controllers
                 projectTaskDTO.TotalBillableHourByTimeSheet = d.TotalBillableHourByTimeSheet;
 
             }
-
-            return View("~/Plugins/Project.Management/Views/ProjectTask/ProjectTaskCreate.cshtml", projectTaskDTO);
+			ViewBag.Projects = _projectService.GetProjects();
+			return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
 
         }
         [HttpPost]
-        public IActionResult ProjectTaskCreate(ProjectTaskDTO projectTaskDTO)
+        public IActionResult TaskCreate(ProjectTaskDTO projectTaskDTO)
         {
             projectTaskDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
@@ -71,11 +70,11 @@ namespace Project.Management.Controllers
                     var a = _projectTaskService.ProjectTaskCreate(projectTaskDTO);
                     if (a == MennsageEnum.Success)
                     {
-                        return Redirect("/Projects/ProjectTask/ProjectTaskView");
+                        return Redirect("/Projects/Task/TaskView");
                     }
                     else if (a == MennsageEnum.Duplicate)
                     {
-                        ModelState.AddModelError("", "ProjectTask Already Exists");
+                        ModelState.AddModelError("", "Task Already Exists");
                     }
                     else
                     {
@@ -87,11 +86,11 @@ namespace Project.Management.Controllers
                     var a = _projectTaskService.ProjectTaskUpdate(projectTaskDTO);
                     if (a == MennsageEnum.Updated)
                     {
-                        return Redirect("/Projects/ProjectTask/ProjectTaskView");
+                        return Redirect("/Projects/Task/TaskView");
                     }
                     else if (a == MennsageEnum.Duplicate)
                     {
-                        ModelState.AddModelError("", "ProjectTask Already Exists");
+                        ModelState.AddModelError("", "Task Already Exists");
                     }
                     else
                     {
@@ -99,22 +98,11 @@ namespace Project.Management.Controllers
                     }
                 }
             }
+            ViewBag.Projects = _projectService.GetProjects();
 
 
-            return View("~/Plugins/Project.Management/Views/ProjectTask/ProjectTaskCreate.cshtml", projectTaskDTO);
+			return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
         }
-        public IActionResult ProjectTypeView()
-        {
-            ViewBag.projecttypes = _projectTaskService.GetProjectTasks();
-
-            return View("~/Plugins/Project.Management/Views/ProjectTask/ProjectTaskView.cshtml");
-        }
-        public IActionResult ProjectTypeDelete(Int64 projectTaskId)
-        {
-            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-
-            var a = _projectTaskService.ProjectTaskDelete(projectTaskId, DeletedBy);
-            return Redirect("/Projects/ProjectTask/ProjectTaskView");
-        }
+       
     }
 }

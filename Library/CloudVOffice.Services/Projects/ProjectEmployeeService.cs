@@ -26,9 +26,12 @@ namespace CloudVOffice.Services.Projects
 			_projectEmployeeRepo = projectEmployeeRepo;
 		}
 
-		
+        public ProjectEmployee GetProjectEmployeeByFullName(string fullName)
+        {
+            throw new NotImplementedException();
+        }
 
-		public ProjectEmployee GetProjectEmployeeByProjectEmployeeId(Int64 projectEmployeeId)
+        public ProjectEmployee GetProjectEmployeeByProjectEmployeeId(Int64 projectEmployeeId)
 		{
 			try
 			{
@@ -150,6 +153,6 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		
-	}
+       
+    }
 }

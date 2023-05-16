@@ -1,0 +1,112 @@
+﻿@model CloudVOffice.Data.DTO.Projects.TaskAssignmentDTO;
+@{
+    Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+header class="main-heading">
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>CRM Dashboard</h5>
+					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">Last Login: 2 hours ago</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+			<div class="card">
+				<form asp-route="Projects/TaskAssignment/TaskAssignmentCreate" method="post" autocomplete="off">
+					<div asp-validation-summary="ModelOnly" class="message-error"></div>
+					<div class="card-header"><b>New Task</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<input asp-for="@Model.TaskAssignmentId" type="hidden" />
+								<span asp-validation-for="TaskAssignmentId"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="TaskId" class="form-label">Task Id</label>
+								<input asp-for="@Model.TaskId" type="text" class="form-control" autofocus="autofocus" placeholder="Task Id" />
+								<span asp-validation-for="TaskId"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="EmployeeId" class="form-label">Employee Id</label>
+								<input asp-for="@Model.EmployeeId" type="text" class="form-control" autofocus="autofocus" placeholder="Employee Id" />
+								<span asp-validation-for="EmployeeId"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="AssignedBy" class="form-label">Assigned By</label>
+								<input asp-for="@Model.AssignedBy" type="text" class="form-control" autofocus="autofocus" placeholder="Assigned By" />
+								<span asp-validation-for="AssignedBy"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="AssignedOn" class="form-label">Assigned On</label>
+								<input asp-for="@Model.AssignedOn" type="date" class="form-control" autofocus="autofocus" placeholder="Assigned On" />
+								<span asp-validation-for="AssignedOn"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="CompliteBy" class="form-label">Complite By</label>
+								<input asp-for="@Model.CompliteBy" type="text" class="form-control" autofocus="autofocus" placeholder="Complite By" />
+								<span asp-validation-for="CompliteBy"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="ActualCompliteOn" class="form-label">Actual Complite On</label>
+								<input asp-for="@Model.ActualCompliteOn" type="date" class="form-control" autofocus="autofocus" placeholder="Actual Complite On" />
+								<span asp-validation-for="ActualCompliteOn"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="DelayReason" class="form-label">Delay Reason</label>
+								<input asp-for="@Model.DelayReason" type="text" class="form-control" autofocus="autofocus" placeholder="Delay Reason" />
+								<span asp-validation-for="DelayReason"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="IsDelayApproved" class="form-label">IsDelay Approved</label>
+								<input asp-for="@Model.IsDelayApproved" type="text" class="form-control" autofocus="autofocus" placeholder="IsDelay Approved" />
+								<span asp-validation-for="IsDelayApproved"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="DelayApprovedBy" class="form-label">DelayApprovedBy</label>
+								<input asp-for="@Model.DelayApprovedBy" type="text" class="form-control" autofocus="autofocus" placeholder="Delay Approved By" />
+								<span asp-validation-for="DelayApprovedBy"></span>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group col-md-3">
+						<label for="DelayApprovedOn" class="form-label">Delay Approved On</label>
+						<input asp-for="@Model.DelayApprovedOn" type="date" class="form-control" autofocus="autofocus" placeholder="Delay Approved On" />
+						<span asp-validation-for="DelayApprovedOn"></span>
+					</div>
+					
+					<div class="card-body">
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+

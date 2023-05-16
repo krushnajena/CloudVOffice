@@ -1,0 +1,130 @@
+﻿@model CloudVOffice.Data.DTO.Projects.ProjectTaskDTO;
+@{
+    Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>CRM Dashboard</h5>
+					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">Last Login: 2 hours ago</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+			<div class="card">
+				<form asp-route="Projects/ProjectTask/ProjectTaskCreate" method="post" autocomplete="off">
+					<div asp-validation-summary="ModelOnly" class="message-error"></div>
+					<div class="card-header"><b>New Task</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<input asp-for="@Model.ProjectTaskId" type="hidden" />
+								<span asp-validation-for="ProjectTaskId"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="ProjectId" class="form-label">Project Id</label>
+								<input asp-for="@Model.ProjectId" type="text" class="form-control" autofocus="autofocus" placeholder="Project Id" />
+								<span asp-validation-for="ProjectId"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="TaskName" class="form-label">Task Name</label>
+								<input asp-for="@Model.TaskName" type="text" class="form-control" autofocus="autofocus" placeholder="Task Name" />
+								<span asp-validation-for="TaskName"></span>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label for="Priority" class="form-label">Priority</label>
+									<select input asp-for="@Model.Priority" type="text" class="form-control" autofocus="autofocus" placeholder="Priority">
+										<option value="Medium">Medium</option>
+										<option value="Low">Low</option>
+										<option value="High">High</option>
+									</select>
+								</div>
+						    </div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+									<label for="ParentTaskId" class="form-label">Parent Task Id</label>
+									<input asp-for="@Model.ParentTaskId" type="date" class="form-control" autofocus="autofocus" placeholder="Parent Task Id" />
+									<span asp-validation-for="ParentTaskId"></span>
+							</div>
+							<div class="form-group col-md-3">
+									<label for="ExpectedStartDate" class="form-label">Expected Start Date</label>
+									<input asp-for="@Model.ExpectedStartDate" type="date" class="form-control" autofocus="autofocus" placeholder="Expected Start Date" />
+									<span asp-validation-for="ExpectedStartDate"></span>
+							</div>
+							<div class="form-group col-md-3">
+									<label for="ExpectedEndDate" class="form-label">Expected End Date</label>
+									<input asp-for="@Model.ExpectedEndDate" type="date" class="form-control" autofocus="autofocus" placeholder="Expected End Date" />
+									<span asp-validation-for="ExpectedEndDate"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+									<label for="ExpectedTimeInHours" class="form-label">ExpectedTime InHours</label>
+									<input asp-for="@Model.ExpectedTimeInHours" type="text" class="form-control" autofocus="autofocus" placeholder="ExpectedTime InHours" />
+									<span asp-validation-for="ExpectedTimeInHours"></span>
+							</div>
+							<div class="form-group col-md-3">
+									<label for="Progress" class="form-label">Progress</label>
+									<input asp-for="@Model.Progress" type="text" class="form-control" autofocus="autofocus" placeholder="Progress	" />
+									<span asp-validation-for="Progress"></span>
+							</div>
+							<div class="form-group col-md-3">
+									<label for="TaskDescription" class="form-label">Task Description</label>
+									<input asp-for="@Model.TaskDescription" type="text" class="form-control" autofocus="autofocus" placeholder="Task Description" />
+									<span asp-validation-for="TaskDescription"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+									<label for="ComplitedOn" class="form-label">Complited On</label>
+									<input asp-for="@Model.ComplitedOn" type="date" class="form-control" autofocus="autofocus" placeholder="Complited On" />
+									<span asp-validation-for="ComplitedOn"></span>
+							</div>
+							<div class="form-group col-md-3">
+									<label for="TotalHoursByTimeSheet" class="form-label">TotalHoursBy TimeSheet</label>
+									<input asp-for="@Model.TotalHoursByTimeSheet" type="text" class="form-control" autofocus="autofocus" placeholder="TotalHours ByTimeSheet	" />
+									<span asp-validation-for="TotalHoursByTimeSheet"></span>
+							</div>
+							<div class="form-group col-md-3">
+									<label for="TotalBillableHourByTimeSheet" class="form-label">TotalBillableHour By TimeSheet</label>
+									<input asp-for="@Model.TotalBillableHourByTimeSheet" type="text" class="form-control" autofocus="autofocus" placeholder="TotalBillable HourBy TimeSheet" />
+									<span asp-validation-for="TotalBillableHourByTimeSheet"></span>
+							</div>
+						</div>
+					</div>
+
+					@*<div class="form-group col-md-3">
+						<label for="DelayApprovedOn" class="form-label">Delay Approved On</label>
+						<input asp-for="@Model.DelayApprovedOn" type="date" class="form-control" autofocus="autofocus" placeholder="Delay Approved On" />
+						<span asp-validation-for="DelayApprovedOn"></span>
+					</div>*@
+
+					<div class="card-body">
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

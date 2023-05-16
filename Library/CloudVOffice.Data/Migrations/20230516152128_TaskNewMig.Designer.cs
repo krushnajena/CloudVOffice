@@ -4,6 +4,7 @@ using CloudVOffice.Data.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudVOffice.Data.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230516152128_TaskNewMig")]
+    partial class TaskNewMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -977,7 +980,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Applications",
                             AreaName = "Application",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(8925),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1743),
                             Deleted = false,
                             IconImageUrl = "/appstatic/images/applications.png",
                             IsGroup = true,
@@ -989,7 +992,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Setup",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(8930),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1747),
                             Deleted = false,
                             IconImageUrl = "/appstatic/images/setup.png",
                             IsGroup = true,
@@ -1001,7 +1004,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Company",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(8932),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1749),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 2,
@@ -1013,7 +1016,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "User",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(8933),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1751),
                             Deleted = false,
                             IsGroup = true,
                             Parent = 2,
@@ -1025,7 +1028,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "User List",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(8935),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1752),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 4,
@@ -1037,7 +1040,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Users Activity Log",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(8936),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1754),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 2,
@@ -1123,7 +1126,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 1L,
                             ApplicationId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9062),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1863),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -1132,7 +1135,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 2L,
                             ApplicationId = 2,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9065),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1865),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -1141,7 +1144,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 3L,
                             ApplicationId = 3,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9066),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1866),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -1150,7 +1153,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 4L,
                             ApplicationId = 4,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9067),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1868),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -1159,7 +1162,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 5L,
                             ApplicationId = 5,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9068),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1869),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -1168,7 +1171,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 6L,
                             ApplicationId = 6,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9070),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1871),
                             Deleted = false,
                             RoleId = 1
                         });
@@ -1217,7 +1220,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 1L,
                             ApplicationId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9184),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1999),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -1226,7 +1229,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 2L,
                             ApplicationId = 2,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9186),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(2002),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -1235,7 +1238,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 3L,
                             ApplicationId = 3,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9188),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(2005),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -1244,7 +1247,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 4L,
                             ApplicationId = 4,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9189),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(2007),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -1253,7 +1256,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 5L,
                             ApplicationId = 5,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9190),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(2008),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -1262,7 +1265,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 6L,
                             ApplicationId = 6,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(9191),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(2009),
                             Deleted = false,
                             UserId = 1L
                         });
@@ -1608,7 +1611,7 @@ namespace CloudVOffice.Data.Migrations
                         .IsRequired()
                         .HasColumnType("bigint");
 
-                    b.Property<bool?>("IsDelayApproved")
+                    b.Property<bool>("IsDelayApproved")
                         .HasColumnType("bit");
 
                     b.Property<long>("TaskId")
@@ -1671,7 +1674,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             RoleId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(7349),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(72),
                             Deleted = false,
                             RoleName = "Administrator"
                         });
@@ -1754,7 +1757,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             UserId = 1L,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 5, 16, 21, 7, 14, 417, DateTimeKind.Local).AddTicks(8586),
+                            CreatedDate = new DateTime(2023, 5, 16, 20, 51, 27, 957, DateTimeKind.Local).AddTicks(1393),
                             Deleted = false,
                             Email = "admin@appman.in",
                             FirstName = "Administrator",

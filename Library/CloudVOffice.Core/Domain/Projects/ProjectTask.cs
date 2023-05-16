@@ -23,6 +23,7 @@ namespace CloudVOffice.Core.Domain.Projects
 		public double? ExpectedTimeInHours { get; set; }
 		public double? Progress { get;set; }
 		public string TaskDescription { get; set; }
+		public string TaskStatus { get; set; }
 		public Int64? ComplitedBy { get; set; }
 		public DateTime? ComplitedOn { get; set; }
 		public double? TotalHoursByTimeSheet { get; set; }

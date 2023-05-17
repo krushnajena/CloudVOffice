@@ -19,7 +19,6 @@
     <None Remove="roles.json" />
     <None Remove="Views\ProjectActivityType\ProjectActivityTypeCreate.cshtml" />
     <None Remove="Views\ProjectActivityType\ProjectActivityTypeView.cshtml" />
-    <None Remove="Views\ProjectTask\ProjectTaskCreate.cshtml" />
     <None Remove="Views\Project\Dashboard.cshtml" />
     <None Remove="Views\Project\kfxga2pn.kgx~" />
     <None Remove="Views\Project\MyProjects.cshtml" />
@@ -28,6 +27,7 @@
     <None Remove="Views\ProjectType\ProjectTypeView.cshtml" />
     <None Remove="Views\Project\ProjectView.cshtml" />
     <None Remove="Views\TaskAssignment\TaskAssignmentCreate.cshtml" />
+    <None Remove="Views\Task\TaskCreate.cshtml" />
     <None Remove="Views\Task\Tasks.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>

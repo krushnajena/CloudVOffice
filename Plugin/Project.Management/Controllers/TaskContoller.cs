@@ -1,7 +1,9 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
+using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Projects;
+using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -19,11 +21,16 @@ namespace Project.Management.Controllers
 
         private readonly IProjectTaskService _projectTaskService;
 		private readonly IProjectService _projectService;
-		public TaskController(IProjectTaskService projectTaskService ,IProjectService projectService)
+
+		private readonly IEmployeeService _empolyeeService;
+		
+		public TaskController(IProjectTaskService projectTaskService ,IProjectService projectService, IEmployeeService empolyeeService)
         {
 
             _projectTaskService = projectTaskService;
-        }
+            _projectService = projectService;
+			_empolyeeService = empolyeeService;
+		}
         public IActionResult Tasks(int ProjectId)
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
@@ -35,8 +42,10 @@ namespace Project.Management.Controllers
         public IActionResult TaskCreate(Int64? projectTaskId)
         {
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();
-
-            if (projectTaskId != null)
+			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+			var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+			if (projectTaskId != null)
             {
 
                 ProjectTask d = _projectTaskService.GetProjectTaskByProjectTaskId(Int64.Parse(projectTaskId.ToString()));
@@ -56,7 +65,8 @@ namespace Project.Management.Controllers
                 projectTaskDTO.TotalBillableHourByTimeSheet = d.TotalBillableHourByTimeSheet;
 
             }
-			ViewBag.Projects = _projectService.GetProjects();
+
+            ViewBag.Projects = projects;
 			return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
 
         }

@@ -14,6 +14,10 @@ namespace CloudVOffice.Core.Domain.Projects
 	{
 		public Int64? ProjectTaskId { get; set; }
 		public int ProjectId { get; set; }
+		public Int64? EmployeeId { get; set; }
+		public Int64? AssignedBy { get; set; }
+		public DateTime? AssignedOn { get; set; }
+		
 		public string TaskName { get; set; }
 		public string Priority { get; set; }
 		public Int64? ParentTaskId { get; set; }
@@ -26,6 +30,12 @@ namespace CloudVOffice.Core.Domain.Projects
 		public string TaskStatus { get; set; }
 		public Int64? ComplitedBy { get; set; }
 		public DateTime? ComplitedOn { get; set; }
+
+		public bool? IsDelayApproved { get; set; }
+		public string? DelayReason { get; set; }
+		public Int64? DelayApprovedBy { get; set; }
+		public DateTime? DelayApprovedOn { get; set; }
+		public string? DelayApprovalReason { get; set; }
 		public double? TotalHoursByTimeSheet { get; set; }
 		public double? TotalBillableHourByTimeSheet { get; set; }
 

@@ -62,6 +62,7 @@ namespace CloudVOffice.Data.Persistence
 
 		#region Employee
 		public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeeEducationalQualification> EmployeeEducationalQualifications { get; set; }
         #endregion
         #endregion
 
@@ -74,12 +75,16 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<ProjectTask> ProjectTasks { get; set; }
 
         public virtual DbSet<TaskAssignment> TaskAssignments { get; set; }
-		
-		#endregion
 
-		#region Desktop Monitering
 
-		public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
+        public virtual DbSet<Timesheet> Timesheets { get; set; }
+
+
+        #endregion
+
+        #region Desktop Monitering
+
+        public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
 
 
         public virtual DbSet<DesktopActivityLog> DesktopActivityLogs { get; set; }

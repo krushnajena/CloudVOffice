@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using Pipelines.Sockets.Unofficial.Arenas;
 using System;
 using System.Collections.Generic;
@@ -167,6 +168,24 @@ namespace CloudVOffice.Services.Projects
 				throw;
 			}
 		}
-	}
+
+        public List<ProjectTask> ProjectTaskByProjectId(int ProjectId)
+        {
+            try
+            {
+                return _Context.ProjectTasks
+					
+					.Include(a=>a.Project)
+                    .Include(x => x.TaskAssignments)
+					.ThenInclude(f=>f.Employee)
+                    .Where(x => x.ProjectId == ProjectId && x.Deleted == false).ToList();
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+    }
 }
 	

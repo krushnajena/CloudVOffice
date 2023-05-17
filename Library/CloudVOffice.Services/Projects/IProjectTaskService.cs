@@ -17,5 +17,7 @@ namespace CloudVOffice.Services.Projects
 		public ProjectTask GetProjectTaskByTaskName(string taskName);
 		public MennsageEnum ProjectTaskUpdate(ProjectTaskDTO projectTaskDTO);
 		public MennsageEnum ProjectTaskDelete(Int64 projectTaskId, Int64 DeletedBy);
-	}
+
+        public List<ProjectTask> ProjectTaskByProjectId(int ProjectId);
+    }
 }

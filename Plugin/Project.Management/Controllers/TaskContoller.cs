@@ -26,6 +26,8 @@ namespace Project.Management.Controllers
         }
         public IActionResult Tasks(int ProjectId)
         {
+            var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
+            ViewBag.Tasks = a.AsEnumerable();
             return View("~/Plugins/Project.Management/Views/Task/Tasks.cshtml");
         }
 

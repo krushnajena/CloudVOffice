@@ -85,7 +85,16 @@ namespace CloudVOffice.Web
                     Assembly assembly2 = Assembly.LoadFrom
                     (dllPath);
                     var part2 = new AssemblyPart(assembly2);
-                    services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
+                    services.AddControllersWithViews()
+                         .AddNewtonsoftJson(options =>
+                         {
+                           
+
+                             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+
+                         })
+                        .PartManager.ApplicationParts.Add(part2);
                 }
             }
            

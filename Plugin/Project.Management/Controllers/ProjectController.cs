@@ -103,7 +103,7 @@ namespace Projects.Management.Controller
 						UserId = projectUsers[i].UserId,
 					});
 				}
-
+				
 
 				
 				projectDTO.ProjectUsersString = JsonConvert.SerializeObject(projectDTO.ProjectUsers);

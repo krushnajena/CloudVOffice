@@ -29,6 +29,8 @@
     <None Remove="Views\TaskAssignment\TaskAssignmentCreate.cshtml" />
     <None Remove="Views\Task\TaskCreate.cshtml" />
     <None Remove="Views\Task\Tasks.cshtml" />
+    <None Remove="Views\Timesheet\TimesheetCreate.cshtml" />
+    <None Remove="Views\Timesheet\TimesheetView.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
 

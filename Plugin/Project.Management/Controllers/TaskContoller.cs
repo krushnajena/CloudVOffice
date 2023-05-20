@@ -43,8 +43,8 @@ namespace Project.Management.Controllers
         {
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
-			var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+            Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+            var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
 			if (projectTaskId != null)
             {
 

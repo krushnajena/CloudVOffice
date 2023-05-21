@@ -78,6 +78,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
             #endregion
             return services;
+
         }
     }
 }

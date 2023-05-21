@@ -8,7 +8,7 @@ namespace CloudVOffice.Data.DTO.Company
 {
 	public class CompanyDetailsDTO
 	{
-		public int CompanyDetailsId { get; set; }
+		public int? CompanyDetailsId { get; set; }
 		public string CompanyName { get; set; }
 		public string ABBR { get; set; }
 		public string CompanyLogo { get; set; }

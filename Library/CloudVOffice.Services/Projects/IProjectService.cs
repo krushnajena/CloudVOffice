@@ -19,5 +19,7 @@ namespace CloudVOffice.Services.Projects
 		public MennsageEnum ProjectDelete(Int64 projectId, Int64 DeletedBy);
 
 		public List<Project> GetMyAssignedProject(Int64 EmployeeId, Int64 UserId);
+
+
 	}
 }

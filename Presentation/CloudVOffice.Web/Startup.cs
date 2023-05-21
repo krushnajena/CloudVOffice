@@ -19,6 +19,9 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
+using CloudVOffice.Core.Domain.Users;
+using Microsoft.AspNetCore.Identity;
+
 namespace CloudVOffice.Web
 {
     public class Startup
@@ -39,15 +42,17 @@ namespace CloudVOffice.Web
         }
         public void ConfigureServices(IServiceCollection services)
         {
-             //services.AddPersistence(configRoot);
-            // services.AddDbContext<ApplicationDBContext>();
+      
 
             services.AddDbContext<ApplicationDBContext>(options =>
             {
                 //The name of the connection string is taken from appsetting.json under ConnectionStrings
                 options.UseSqlServer(configRoot.GetConnectionString("ConnStringMssql"));
             });
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+			
+
+           
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(x => { x.LoginPath = "/App/Login";
 
                 x.ExpireTimeSpan = TimeSpan.FromMinutes(20 );
@@ -97,10 +102,10 @@ namespace CloudVOffice.Web
                         .PartManager.ApplicationParts.Add(part2);
                 }
             }
-           
-         
-          
-            services.AddInfrastructure(configRoot);
+
+		
+		
+			services.AddInfrastructure(configRoot);
 
             // services.AddScoped(IAuthenticationService, AuthenticationService);
             // services.AddScoped(IAuthenticationService, AuthenticationService);

@@ -5,6 +5,7 @@ using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -35,7 +36,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
         {
 
             UserCreateDTO userCreateDTO;
-            var roles = _roleService.GetAllRoles();
+		
+			var roles = _roleService.GetAllRoles();
 
             if (UserId == null)
             {

@@ -36,6 +36,8 @@ namespace CloudVOffice.Services.Users
 
         public List<User> GetUsersByUserType(UserType userType);
 
+        public void SendWelcomeMessage(Int64 UserId);
+
 
 
     }

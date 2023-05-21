@@ -72,6 +72,18 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+		public List<ProjectEmployee> ProjectEmployeeByProjectId(int ProjectId)
+		{
+			try
+			{
+				return _Context.ProjectEmployees.Include(c=>c.Employee).Where(x => x.ProjectId == ProjectId && x.Deleted == false).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public MennsageEnum ProjectEmployeeCreate(ProjectEmployeeDTO projectEmployeeDTO)
 		{
 

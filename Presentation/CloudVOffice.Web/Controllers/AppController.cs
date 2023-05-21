@@ -9,6 +9,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using CloudVOffice.Core.Domain.Pemission;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNet.Identity;
 
 namespace CloudVOffice.Web.Controllers
 {
@@ -26,7 +28,7 @@ namespace CloudVOffice.Web.Controllers
             return View();
         }
 
-        [HttpPost]
+		[HttpPost]
         public async Task<IActionResult> Login(LoginModel model, string? ReturnUrl)
         {
             if (ModelState.IsValid)

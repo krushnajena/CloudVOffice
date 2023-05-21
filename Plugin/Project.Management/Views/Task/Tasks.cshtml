@@ -1,4 +1,4 @@
-﻿@*@using System.Collections;
+﻿@using System.Collections;
 @using Newtonsoft.Json;
 
 @{
@@ -37,18 +37,13 @@
                     <e-kanban-column headerText="Testing" keyField="Testing"></e-kanban-column>
                     <e-kanban-column headerText="Done" keyField="Close"></e-kanban-column>
                 </e-kanban-columns>
-            <e-kanban-cardsettings headerField="Title" template="#cardTemplate" selectionType="Multiple"></e-kanban-cardsettings>
-            <e-kanban-swimlanesettings keyField="Assignee"></e-kanban-swimlanesettings>
+            <e-kanban-cardsettings headerField="Title" template="#cardTemplate"></e-kanban-cardsettings>
+          
             </ejs-kanban>
     </div>
 </div>
 
-<script id="headerTemplate" type="text/x-jsrender">
-    <div class="header-template-wrap">
-        <div class="header-icon e-icons ${keyField}"></div>
-        <div class="header-text">${headerText}</div>
-    </div>
-</script>
+
 <script id="cardTemplate" type="text/x-jsrender">
     <div class='card-template'>
         <div class='e-card-header'>
@@ -60,8 +55,7 @@
             <div class='e-text'>${TaskDescription}</div>
         </div>
         <div class='e-card-custom-footer'>
-            ${getAssignments(data.TaskAssignments)}
-            <div class='e-card-avatar'> ${getString(data.Assignee)}</div>
+         
         </div>
     </div>
 </script>
@@ -170,4 +164,4 @@
             background: #4b5563;
             color: #fff;
         }
-    </style>*@
+    </style>

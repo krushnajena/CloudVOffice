@@ -19,14 +19,14 @@ namespace CloudVOffice.Core.Domain.Projects
 		public DateTime? AssignedOn { get; set; }
 		
 		public string TaskName { get; set; }
-		public string Priority { get; set; }
+		public string? Priority { get; set; }
 		public Int64? ParentTaskId { get; set; }
 		public bool IsGroup { get; set; }
 		public DateTime? ExpectedStartDate { get; set; }
 		public DateTime? ExpectedEndDate { get; set;}
 		public double? ExpectedTimeInHours { get; set; }
 		public double? Progress { get;set; }
-		public string TaskDescription { get; set; }
+		public string? TaskDescription { get; set; }
 		public string TaskStatus { get; set; }
 		public Int64? ComplitedBy { get; set; }
 		public DateTime? ComplitedOn { get; set; }

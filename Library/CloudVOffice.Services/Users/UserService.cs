@@ -7,6 +7,7 @@ using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Permissions;
+
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static LinqToDB.Reflection.Methods.LinqToDB;
+
 
 namespace CloudVOffice.Services.Users
 {
@@ -25,13 +26,15 @@ namespace CloudVOffice.Services.Users
         private readonly ISqlRepository<UserRoleMapping> _userrolemappingRepo;
         private readonly ISqlRepository<UserWiseViewMapper> _userViewmappingRepo;
         private readonly IUserViewPermissions _userViewPermissions;
-        public UserService(ApplicationDBContext context, ISqlRepository<User> userRepo, ISqlRepository<UserRoleMapping> userrolemappingRepo, IUserViewPermissions userViewPermissions)
+	
+		public UserService(ApplicationDBContext context, ISqlRepository<User> userRepo, ISqlRepository<UserRoleMapping> userrolemappingRepo, IUserViewPermissions userViewPermissions)
         {
             _context = context;
             _userRepo = userRepo;
             _userrolemappingRepo = userrolemappingRepo;
             _userViewPermissions = userViewPermissions;
-        }
+		
+		}
 
 
         public async Task<User> GetUserByEmailAsync(string Email)
@@ -162,7 +165,9 @@ namespace CloudVOffice.Services.Users
                         }
                         
                     }
-                    return MennsageEnum.Success;
+                    SendWelcomeMessage(obj.UserId);
+
+					return MennsageEnum.Success;
 
                 }
                 else if (objCheck != null)
@@ -314,5 +319,19 @@ namespace CloudVOffice.Services.Users
         {
             return _context.Users.Where(x=>x.UserType == userType && x.Deleted == false).ToList();
         }
-    }
+
+		public async void SendWelcomeMessage(long UserId)
+		{
+            try
+            {
+               
+
+		
+			}
+            catch
+            {
+                throw;
+            }
+		}
+	}
 }

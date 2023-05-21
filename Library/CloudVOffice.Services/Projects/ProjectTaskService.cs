@@ -33,6 +33,10 @@ namespace CloudVOffice.Services.Projects
 
 					ProjectTask projectTask = new ProjectTask();
 					projectTask.ProjectId = projectTaskDTO.ProjectId;
+					projectTask.EmployeeId = projectTaskDTO.EmployeeId;
+					projectTask.AssignedBy = projectTaskDTO.AssignedBy;
+					projectTask.AssignedOn = System.DateTime.Now;
+
 					projectTask.TaskName = projectTaskDTO.TaskName;
 					projectTask.Priority = projectTaskDTO.Priority;
 					projectTask.ParentTaskId = projectTaskDTO.ParentTaskId;
@@ -42,10 +46,7 @@ namespace CloudVOffice.Services.Projects
 					projectTask.ExpectedTimeInHours = projectTaskDTO.ExpectedTimeInHours;
 					projectTask.Progress = projectTaskDTO.Progress;
 					projectTask.TaskDescription = projectTaskDTO.TaskDescription;
-					projectTask.ComplitedBy = projectTaskDTO.ComplitedBy;
-					projectTask.ComplitedOn = projectTaskDTO.ComplitedOn;
-					projectTask.TotalHoursByTimeSheet = projectTaskDTO.TotalHoursByTimeSheet;
-					projectTask.TotalBillableHourByTimeSheet = projectTaskDTO.TotalBillableHourByTimeSheet;
+					projectTask.TaskStatus = projectTaskDTO.TaskStatus;
 					projectTask.CreatedBy = projectTaskDTO.CreatedBy;
 					var obj = _projectTaskRepo.Insert(projectTask);
 
@@ -146,10 +147,10 @@ namespace CloudVOffice.Services.Projects
 						a.ExpectedTimeInHours = projectTaskDTO.ExpectedTimeInHours;
 						a.Progress = projectTaskDTO.Progress;
 						a.TaskDescription = projectTaskDTO.TaskDescription;
-						a.ComplitedBy = projectTaskDTO.ComplitedBy;
-						a.ComplitedOn = projectTaskDTO.ComplitedOn;
-						a.TotalHoursByTimeSheet = projectTaskDTO.TotalHoursByTimeSheet;
-						a.TotalBillableHourByTimeSheet = projectTaskDTO.TotalBillableHourByTimeSheet;
+						//a.ComplitedBy = projectTaskDTO.ComplitedBy;
+						//a.ComplitedOn = projectTaskDTO.ComplitedOn;
+						//a.TotalHoursByTimeSheet = projectTaskDTO.TotalHoursByTimeSheet;
+						//a.TotalBillableHourByTimeSheet = projectTaskDTO.TotalBillableHourByTimeSheet;
 						a.UpdatedDate = DateTime.Now;
 						_Context.SaveChanges();
 						return MennsageEnum.Updated;
@@ -176,8 +177,8 @@ namespace CloudVOffice.Services.Projects
                 return _Context.ProjectTasks
 					
 					.Include(a=>a.Project)
-                    .Include(x => x.TaskAssignments)
-					.ThenInclude(f=>f.Employee)
+                   
+					.Include(f=>f.Employee)
                     .Where(x => x.ProjectId == ProjectId && x.Deleted == false).ToList();
 
             }
@@ -186,6 +187,21 @@ namespace CloudVOffice.Services.Projects
                 throw;
             }
         }
-    }
+
+		public List<ProjectTask> GroupProjectTaskByProjectId(int ProjectId)
+		{
+			try
+			{
+				return _Context.ProjectTasks
+
+					.Where(x => x.ProjectId == ProjectId && x.Deleted == false && x.IsGroup == true).ToList();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+	}
 }
 	

@@ -44,6 +44,7 @@ namespace CloudVOffice.Web.Framework
 
             services.AddScoped<IEmployeeService, EmployeeService>();
             #endregion
+
             #region Project Services
             services.AddScoped<IProjectTypeService, ProjectTypeService>();
 			services.AddScoped<IProjectService, ProjectService>();

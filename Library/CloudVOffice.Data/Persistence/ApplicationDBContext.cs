@@ -2,6 +2,7 @@
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Core.Domain.EmailTemplates;
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Logging;
@@ -21,7 +22,8 @@ namespace CloudVOffice.Data.Persistence
         {
 
         }
-        public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
+		#region
+		public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
 
@@ -48,11 +50,13 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<EmailAccount> EmailAccounts { get; set; }
         public virtual DbSet<LetterHead> LetterHeads { get; set; }
 
-       
+        public virtual DbSet<CompanyDetails> CompanyDetails { get; set; }   
+        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }    
+		#endregion
 
-        #region HR
-        #region Master
-        public virtual DbSet<Branch> Branches { get; set; }
+		#region HR
+		#region Master
+		public virtual DbSet<Branch> Branches { get; set; }
 
 		public virtual DbSet<Department> Departments { get; set; }
 		public virtual DbSet<Designation> Designations { get; set; }
@@ -74,7 +78,7 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<ProjectActivityType> ProjectActivityTypes { get; set; }
 		public virtual DbSet<ProjectTask> ProjectTasks { get; set; }
 
-        public virtual DbSet<TaskAssignment> TaskAssignments { get; set; }
+     
 
 
         public virtual DbSet<Timesheet> Timesheets { get; set; }

@@ -44,7 +44,10 @@ namespace Project.Management.Controllers
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
-			var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+            var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+			
+
+
 			if (projectTaskId != null)
             {
 
@@ -59,24 +62,30 @@ namespace Project.Management.Controllers
                 projectTaskDTO.ExpectedEndDate = d.ExpectedEndDate;
                 projectTaskDTO.ExpectedTimeInHours = d.ExpectedTimeInHours;
                 projectTaskDTO.Progress = d.Progress;
-                projectTaskDTO.ComplitedBy = d.ComplitedBy;
-                projectTaskDTO.ComplitedOn = d.ComplitedOn;
-                projectTaskDTO.TotalHoursByTimeSheet = d.TotalHoursByTimeSheet;
-                projectTaskDTO.TotalBillableHourByTimeSheet = d.TotalBillableHourByTimeSheet;
+            
 
             }
 
-            ViewBag.Projects = projects;
-			return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
+            ViewBag.Projects = from u in projects
+                               select new
+                               {
+                                   u.ProjectId,
+                                   u.ProjectName
+                               };
+
+            return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
 
         }
         [HttpPost]
         public IActionResult TaskCreate(ProjectTaskDTO projectTaskDTO)
         {
-            projectTaskDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            projectTaskDTO.CreatedBy = UserId;
+			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+            projectTaskDTO.AssignedBy = EmployeeId;
 
 
-            if (ModelState.IsValid)
+			if (ModelState.IsValid)
             {
                 if (projectTaskDTO.ProjectTaskId == null)
                 {
@@ -116,6 +125,20 @@ namespace Project.Management.Controllers
 
 			return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
         }
+
+        [HttpGet]
+        public IActionResult TaskList()
+        {
+
+            return View();
+        }
        
-    }
+        public JsonResult GroupProjectTaskByProjectId(int ProjectId)
+        {
+            return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));
+        }
+
+	}
+
+   
 }

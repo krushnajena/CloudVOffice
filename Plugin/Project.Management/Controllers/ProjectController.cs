@@ -18,6 +18,7 @@ using static LinqToDB.Common.Configuration;
 using static System.Net.Mime.MediaTypeNames;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Core.Domain.Projects;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Projects.Management.Controller
 {
@@ -50,7 +51,8 @@ namespace Projects.Management.Controller
 		{
 			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
 		}
-        [HttpGet]	
+        [HttpGet]
+		[Authorize(Roles ="Project Manager")]
 		public IActionResult ProjectCreate(int? projectId)
 		{
 			ProjectDTO projectDTO = new ProjectDTO();
@@ -206,6 +208,11 @@ namespace Projects.Management.Controller
 			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
 			var projects =  _projectService.GetMyAssignedProject(EmployeeId, UserId);
 			return View("~/Plugins/Project.Management/Views/Project/MyProjects.cshtml", projects);
+		}
+
+		public JsonResult ProjectEmployeeByProjectId(int projectId)
+		{
+			return Json(_projectempolyeeService.ProjectEmployeeByProjectId(projectId));
 		}
 	}
 }

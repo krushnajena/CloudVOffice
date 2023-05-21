@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using System;
@@ -19,6 +20,7 @@ namespace CloudVOffice.Services.Projects
 		public MennsageEnum ProjectEmployeeUpdate(ProjectEmployeeDTO projectEmployeeDTO);
 		public MennsageEnum ProjectEmployeeDelete(Int64 projectEmployeeId, Int64 DeletedBy);
 
+		public List<ProjectEmployee> ProjectEmployeeByProjectId(int ProjectId);
 		
 	}
 }

@@ -29,7 +29,7 @@ namespace CloudVOffice.Core.Domain.Users
             }
         }
 		public string Email { get; set; }
-        public string Password { get; set; }
+        public string? Password { get; set; }
         public string? PhoneNo { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
@@ -46,7 +46,8 @@ namespace CloudVOffice.Core.Domain.Users
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-
+        public string? ResetPasswordToken { get; set; }
+        public DateTime? ResetPasswordTokenExpirey { get; set; }    
         public UserType UserType
         {
             get => (UserType)UserTypeId;

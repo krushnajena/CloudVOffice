@@ -126,6 +126,10 @@ namespace HR.Base.Controllers
 					string filename = id.ToString() + extn;
 
 					string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/employee");
+					if (!Directory.Exists(uploadsFolder))
+					{
+						Directory.CreateDirectory(uploadsFolder);
+					}
 					string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
 					string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
 					employeeCreateDTO.imageUpload.CopyTo(new FileStream(imagePath, FileMode.Create));

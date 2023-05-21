@@ -2,6 +2,7 @@
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Authentication;
+using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Emp;
@@ -36,6 +37,7 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IHttpWebClients, HttpWebClients>();
 			services.AddScoped<IEmailAccountService, EmailAccountService>();
 			services.AddScoped<IEmailDomainService, EmailDomainService>();
+			services.AddScoped<ILetterHeadService, LetterHeadService>();
 			#region HR Services
 			#region Masters
 			services.AddScoped<IDepartmentService, DepartmentService>();

@@ -8,7 +8,7 @@ namespace CloudVOffice.Data.DTO.Comunication
 {
 	public class EmailDomainDTO
 	{
-		public int EmailDomainId { get; set; }
+		public int? EmailDomainId { get; set; }
 		public string DomainName { get; set; }
 		public string IncomingServer { get; set; }
 		public int IncomingPort { get; set; }

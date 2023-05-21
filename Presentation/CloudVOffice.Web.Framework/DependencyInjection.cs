@@ -35,6 +35,11 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IApplicationInstallationService, ApplicationInstallationService>();
 			services.AddScoped<IHttpWebClients, HttpWebClients>();
 			services.AddScoped<IEmailAccountService, EmailAccountService>();
+			services.AddScoped<IEmailDomainService, EmailDomainService>();
+			#region HR Services
+			#region Masters
+			services.AddScoped<IDepartmentService, DepartmentService>();
+			
 			#region HR Services
 			#region Masters
 			services.AddScoped<IDepartmentService, DepartmentService>();

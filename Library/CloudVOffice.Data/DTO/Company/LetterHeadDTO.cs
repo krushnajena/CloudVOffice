@@ -8,7 +8,7 @@ namespace CloudVOffice.Data.DTO.Company
 {
 	public class LetterHeadDTO
 	{
-		public int LetterHeadId { get; set; }
+		public int? LetterHeadId { get; set; }
 		public string LetterHeadName { get; set; }
 		public string LetterHeadImage { get; set; }
 		public string LetterHeadImageHeight { get; set; }

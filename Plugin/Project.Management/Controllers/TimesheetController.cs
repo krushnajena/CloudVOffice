@@ -1,0 +1,147 @@
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Projects;
+using CloudVOffice.Data.DTO.Projects;
+using CloudVOffice.Data.Migrations;
+using CloudVOffice.Services.Emp;
+using CloudVOffice.Services.Projects;
+using CloudVOffice.Web.Framework;
+using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Project.Management.Controllers
+{
+    [Area(AreaNames.Projects)]
+    public class TimesheetController : BasePluginController
+    {
+        private readonly ITimesheetService _timesheetService;
+        private readonly IEmployeeService _employeeService;
+        private readonly IProjectActivityTypeService _projectActivityTypeService;
+        private readonly IProjectService _projectService;
+        private readonly IProjectTaskService _projectTaskService;
+        public TimesheetController(ITimesheetService timesheetService, IEmployeeService employeeService, IProjectActivityTypeService projectActivityTypeService, IProjectService projectService,IProjectTaskService projectTaskService)
+        {
+
+            _timesheetService = timesheetService;
+			_employeeService = employeeService;
+            _projectActivityTypeService = projectActivityTypeService;
+			_projectService = projectService;
+			_projectTaskService = projectTaskService;
+		}
+        [HttpGet]
+        public  IActionResult TimesheetCreate(Int64? timesheetId)
+        {
+            TimesheetDTO timesheetDTO = new TimesheetDTO();
+
+            if (timesheetId != null)
+            {
+
+                Timesheet d = _timesheetService.GetTimesheetByTimesheetId(Int64.Parse(timesheetId.ToString()));
+
+                timesheetDTO.EmployeeId = d.EmployeeId;
+                timesheetDTO.TimeSheetForDate = d.TimeSheetForDate;
+                timesheetDTO.TimesheetActivityType = d.TimesheetActivityType;
+                timesheetDTO.ActivityId = d.ActivityId;
+                timesheetDTO.ProjectId = d.ProjectId;
+                timesheetDTO.TaskId = d.TaskId;
+                timesheetDTO.FromTime = d.FromTime;
+                timesheetDTO.ToTime = d.ToTime;
+                timesheetDTO.DurationInHours = d.DurationInHours;
+                timesheetDTO.Description = d.Description;
+                timesheetDTO.IsBillable = d.IsBillable;
+                timesheetDTO.HourlyRate = d.HourlyRate;
+                timesheetDTO.TimeSheetApprovalStatus = d.TimeSheetApprovalStatus;
+                timesheetDTO.TimesheetApprovedBy = d.TimesheetApprovedBy;
+                timesheetDTO.TimeSheetApprovedOn = d.TimeSheetApprovedOn;
+                timesheetDTO.TimeSheetApprovalRemarks = d.TimeSheetApprovalRemarks;
+            }
+
+            
+            var employees = _employeeService.GetEmployees();
+			ViewBag.Employees = employees;
+            var projectActivityTypes = _projectActivityTypeService.GetProjectActivityTypes();
+            ViewBag.ProjectActivityTypes = projectActivityTypes;
+            var projects = _projectService.GetProjects();
+            ViewBag.Projects = projects;
+            var projectTasks = _projectTaskService.GetProjectTasks();
+            ViewBag.projectTasks = projectTasks;
+            return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
+
+        }
+		
+
+
+		[HttpPost]
+        public IActionResult TimesheetCreate(TimesheetDTO timesheetDTO)
+        {
+            timesheetDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+
+            if (ModelState.IsValid)
+            {
+                if (timesheetDTO.TimesheetId == null)
+                {
+                    var a = _timesheetService.TimesheetCreate(timesheetDTO);
+                    if (a == MennsageEnum.Success)
+                    {
+                        return Redirect("/Projects/Timesheet/TimesheetView");
+                    }
+                    else if (a == MennsageEnum.Duplicate)
+                    {
+                        ModelState.AddModelError("", "Timesheet Already Exists");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Un-Expected Error");
+                    }
+                }
+                else
+                {
+                    var a = _timesheetService.TimesheetUpdate(timesheetDTO);
+                    if (a == MennsageEnum.Updated)
+                    {
+                        return Redirect("/Projects/Timesheet/TimesheetView");
+                    }
+                    else if (a == MennsageEnum.Duplicate)
+                    {
+                        ModelState.AddModelError("", "Timesheet Already Exists");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Un-Expected Error");
+                    }
+                }
+            }
+
+			var employees = _employeeService.GetEmployees();
+			ViewBag.Employees = employees;
+			var projectActivityTypes = _projectActivityTypeService.GetProjectActivityTypes();
+			ViewBag.ProjectActivityTypes = projectActivityTypes;
+			var projects = _projectService.GetProjects();
+			ViewBag.Projects = projects;
+            var projectTasks = _projectTaskService.GetProjectTasks();
+            ViewBag.projectTasks = projectTasks;
+            return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
+        }
+		public IActionResult TimesheetView()
+		{
+			ViewBag.Timesheets = _timesheetService.GetTimesheets();
+
+			return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetView.cshtml");
+		}
+
+		[HttpGet]
+		public IActionResult TimesheetDelete(Int64 timesheetId)
+		{
+			Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+			var a = _timesheetService.TimesheetDelete(timesheetId, DeletedBy);
+			return Redirect("/Projects/Timesheet/TimesheetView");
+		}
+		
+	}
+}

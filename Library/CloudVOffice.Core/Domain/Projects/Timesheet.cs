@@ -11,7 +11,7 @@ namespace CloudVOffice.Core.Domain.Projects
 {
 	public class Timesheet :  IAuditEntity, ISoftDeletedEntity
 	{
-		public Int64 TimesheetId { get; set; }
+		public Int64? TimesheetId { get; set; }
 		public Int64 EmployeeId { get; set; }
 		public DateTime? TimeSheetForDate { get; set; }
 		public string TimesheetActivityType { get; set; }//Project	Work, Meetings,
@@ -29,7 +29,6 @@ namespace CloudVOffice.Core.Domain.Projects
 		public Int64? TimesheetApprovedBy { get; set; }
 		public DateTime? TimeSheetApprovedOn { get; set; }
 		public string? TimeSheetApprovalRemarks { get; set; }
-
 		public Int64 CreatedBy { get; set; }
 		public DateTime CreatedDate { get; set; }
 		public Int64? UpdatedBy { get; set; }
@@ -47,8 +46,6 @@ namespace CloudVOffice.Core.Domain.Projects
 
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
-
-
         [ForeignKey("TimesheetApprovedBy")]
         public Employee TimesheetApprovedByEmployeeId { get; set; }
 

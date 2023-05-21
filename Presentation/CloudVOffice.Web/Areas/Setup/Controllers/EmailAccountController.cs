@@ -1,0 +1,123 @@
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Data.DTO.Comunication;
+using CloudVOffice.Data.DTO.Emp;
+using CloudVOffice.Services.Comunication;
+using CloudVOffice.Web.Framework;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CloudVOffice.Web.Areas.Setup.Controllers
+{
+	[Area(AreaNames.Setup)]
+	public class EmailAccountController : Controller
+	{
+		private readonly IEmailAccountService _emailAccountService;
+		private readonly IWebHostEnvironment _hostingEnvironment;
+		public EmailAccountController(IEmailAccountService emailAccountService, IWebHostEnvironment hostingEnvironment)
+		{
+			_emailAccountService = emailAccountService;
+			_hostingEnvironment = hostingEnvironment;
+		}
+
+		
+		[HttpGet]
+		public IActionResult EmailAccountCreate(int? EmailAccountId)
+		{
+			EmailAccountDTO emailAccountDTO = new EmailAccountDTO();
+
+			if (EmailAccountId != null)
+			{
+
+				EmailAccount d = _emailAccountService.GetEmailAccountByEmailAccountId(int.Parse(EmailAccountId.ToString()));
+
+				emailAccountDTO.EmailAddress = d.EmailAddress;
+				emailAccountDTO.Domain = d.Domain;
+				emailAccountDTO.EmailAccountName = d.EmailAccountName;
+				emailAccountDTO.EmailPassword = d.EmailPassword;
+				emailAccountDTO.AlternativeEmailAddress = d.AlternativeEmailAddress;
+				emailAccountDTO.EmailSignature = d.EmailSignature;
+				emailAccountDTO.EmailLogo = d.EmailLogo;
+				emailAccountDTO.IsDefaultSending = d.IsDefaultSending;
+			}
+
+			return View("~/Areas/Setup/Views/EmailAccount/EmailAccountCreate.cshtml", emailAccountDTO);
+
+		}
+
+		[HttpPost]
+		public IActionResult EmailAccountCreate(EmailAccountDTO emailAccountDTO)
+		{
+			emailAccountDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			if (ModelState.IsValid)
+			{
+				if (emailAccountDTO.EmailLogoUp != null)
+				{
+					FileInfo fileInfo = new FileInfo(emailAccountDTO.EmailLogoUp.FileName);
+					string extn = fileInfo.Extension.ToLower();
+					Guid id = Guid.NewGuid();
+					string filename = id.ToString() + extn;
+
+					string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
+					if (!Directory.Exists(uploadsFolder))
+					{
+						Directory.CreateDirectory(uploadsFolder);
+					}
+					string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+					string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
+					emailAccountDTO.EmailLogoUp.CopyTo(new FileStream(imagePath, FileMode.Create));
+					emailAccountDTO.EmailLogo = uniqueFileName;
+				}
+				if (emailAccountDTO.EmailAccountId == null)
+				{
+					var a = _emailAccountService.EmailAccountCreate(emailAccountDTO);
+					if (a == MennsageEnum.Success)
+					{
+						return Redirect("/Setup/EmailAccount/EmailAccountView");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "Emaiil Account Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+				else
+				{
+					var a = _emailAccountService.EmailAccountUpdate(emailAccountDTO);
+					if (a == MennsageEnum.Updated)
+					{
+						return Redirect("/Setup/EmailAccount/EmailAccountView");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "Email Account Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+			}
+			return View("~/Areas/Setup/Views/EmailAccount/EmailAccountCreate.cshtml", emailAccountDTO);
+		}
+		public IActionResult EmailAccountView()
+		{
+			ViewBag.emailAccounts = _emailAccountService.GetEmailAccounts();
+
+			return View("~/Areas/Setup/Views/EmailAccount/EmailAccountView.cshtml");
+		}
+
+		[HttpGet]
+		public IActionResult DeleteEmailAccount(int emailAccountId)
+		{
+			int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+			var a = _emailAccountService.EmailAccountDelete(emailAccountId, DeletedBy);
+			return Redirect("/Setup/EmailAccount/EmailAccountView");
+		}
+	}
+
+
+}

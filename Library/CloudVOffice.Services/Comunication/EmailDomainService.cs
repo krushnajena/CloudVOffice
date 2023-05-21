@@ -1,0 +1,150 @@
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Data.DTO.Comunication;
+using CloudVOffice.Data.Persistence;
+using CloudVOffice.Data.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CloudVOffice.Services.Comunication
+{
+	public class EmailDomainService : IEmailDomainService
+	{
+		private readonly ApplicationDBContext _Context;
+		private readonly ISqlRepository<EmailDomain> _emailDomainRepo;
+		public EmailDomainService(ApplicationDBContext Context, ISqlRepository<EmailDomain> emailDomainRepo)
+		{
+
+			_Context = Context;
+			_emailDomainRepo = emailDomainRepo;
+		}
+		public MennsageEnum EmailDomainCreate(EmailDomainDTO emailDomainDTO)
+		{
+			var objCheck = _Context.EmailDomains.SingleOrDefault(opt => opt.EmailDomainId == emailDomainDTO.EmailDomainId && opt.Deleted == false);
+			try
+			{
+				if (objCheck == null)
+				{
+
+					EmailDomain emailDomain = new EmailDomain();
+					emailDomain.DomainName = emailDomainDTO.DomainName;
+					emailDomain.IncomingServer = emailDomainDTO.IncomingServer;
+					emailDomain.IncomingPort = emailDomainDTO.IncomingPort;
+					emailDomain.IncomingIsIMAP = emailDomainDTO.IncomingIsIMAP;
+					emailDomain.IncomingIsSsl = emailDomainDTO.IncomingIsSsl;
+					emailDomain.IncomingIsStartTLs = emailDomainDTO.IncomingIsStartTLs;
+					emailDomain.OutingServer = emailDomainDTO.OutingServer;
+					emailDomain.OutgoingPort = emailDomainDTO.OutgoingPort;
+					emailDomain.OutgoingIsTLs = emailDomainDTO.OutgoingIsTLs;
+					emailDomain.OutgoingIsSsl = emailDomainDTO.OutgoingIsSsl;
+					emailDomain.CreatedBy = emailDomainDTO.CreatedBy;
+					var obj = _emailDomainRepo.Insert(emailDomain);
+
+					return MennsageEnum.Success;
+				}
+				else if (objCheck != null)
+				{
+					return MennsageEnum.Duplicate;
+				}
+
+				return MennsageEnum.UnExpectedError;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public MennsageEnum EmailDomainDelete(int emailDomainId, int DeletedBy)
+		{
+			try
+			{
+				var a = _Context.EmailDomains.Where(x => x.EmailDomainId == emailDomainId).FirstOrDefault();
+				if (a != null)
+				{
+					a.Deleted = true;
+					a.UpdatedBy = DeletedBy;
+					a.UpdatedDate = DateTime.Now;
+					_Context.SaveChanges();
+					return MennsageEnum.Deleted;
+				}
+				else
+					return MennsageEnum.Invalid;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public MennsageEnum EmailDomainUpdate(EmailDomainDTO emailDomainDTO)
+		{
+			try
+			{
+				var project = _Context.EmailDomains.Where(x => x.EmailDomainId == emailDomainDTO.EmailDomainId && x.Deleted == false).FirstOrDefault();
+				if (project == null)
+				{
+					var a = _Context.EmailDomains.Where(x => x.EmailDomainId == emailDomainDTO.EmailDomainId).FirstOrDefault();
+					if (a != null)
+					{
+						a.DomainName = emailDomainDTO.DomainName;
+						a.IncomingServer = emailDomainDTO.IncomingServer;
+						a.IncomingPort = emailDomainDTO.IncomingPort;
+						a.IncomingIsIMAP = emailDomainDTO.IncomingIsIMAP;
+						a.IncomingIsSsl = emailDomainDTO.IncomingIsSsl;
+						a.IncomingIsStartTLs = emailDomainDTO.IncomingIsStartTLs;
+						a.OutingServer = emailDomainDTO.OutingServer;
+						a.OutgoingPort = emailDomainDTO.OutgoingPort;
+						a.OutgoingIsTLs = emailDomainDTO.OutgoingIsTLs;
+						a.OutgoingIsSsl = emailDomainDTO.OutgoingIsSsl;
+						a.UpdatedDate = DateTime.Now;
+						_Context.SaveChanges();
+						return MennsageEnum.Updated;
+					}
+					else
+						return MennsageEnum.Invalid;
+				}
+				else
+				{
+					return MennsageEnum.Duplicate;
+				}
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public EmailDomain GetEmailDomainByEmailDomainId(int emailDomainId)
+		{
+			try
+			{
+				return _Context.EmailDomains.Where(x => x.EmailDomainId == emailDomainId && x.Deleted == false).SingleOrDefault();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public List<EmailDomain> GetEmailDomains()
+		{
+			try
+			{
+				return _Context.EmailDomains.Where(x => x.Deleted == false).ToList();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+	}
+
+		
+}

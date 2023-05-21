@@ -1,0 +1,217 @@
+﻿@model CloudVOffice.Data.DTO.Projects.TimesheetDTO;
+@{
+	Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>CRM Dashboard</h5>
+					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">Last Login: 2 hours ago</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+			<div class="card">
+				<form asp-route="Projects/Timesheet/TimesheetCreate" method="post" autocomplete="off">
+					<div asp-validation-summary="ModelOnly" class="message-error"></div>
+					<div class="card-header"><b>Timesheet</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<input asp-for="@Model.TimesheetId" type="hidden" />
+								<span asp-validation-for="TimesheetId"></span>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="ProjectId" class="form-label">Project</label>
+								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.ProjectId" filtering="onProjectfiltering"  dataSource="@(new SelectList((IEnumerable)ViewBag.Projects, "ProjectId", "ProjectName").Items)" placeholder="Select a Project" popupHeight="220px">
+									<e-dropdownlist-fields text="ProjectName" value="ProjectId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="ProjectId"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="ProjectTaskId" class="form-label">Project Task</label>
+								<ejs-dropdownlist id="ProjectTaskId" allowFiltering="true" ejs-for="@Model.TaskId" filtering="onProjectTaskfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectTasks, "ProjectTaskId", "TaskName").Items)" placeholder="Select a Project Task" popupHeight="220px">
+									<e-dropdownlist-fields text="TaskName" value="ProjectTaskId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="TaskId"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="ProjectActivityTypeId" class="form-label">Project Activity Type</label>
+								<ejs-dropdownlist id="ProjectActivityTypeId" allowFiltering="true" ejs-for="@Model.ActivityId" filtering="onProjectActivityTypefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectActivityTypes, "ProjectActivityTypeId", "ProjectActivityName").Items)" placeholder="Select a Project Activity Type" popupHeight="220px">
+									<e-dropdownlist-fields text="ProjectActivityName" value="ProjectActivityTypeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="ActivityId"></span>
+							</div>
+							
+							
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="EmployeeId" class="form-label">Employee</label>
+								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName").Items)" placeholder="Select a Employee" popupHeight="220px">
+									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="EmployeeId"></span>
+							</div>
+
+							<div class="form-group col-md-3">
+								<label for="TimeSheetForDate" class="form-label">TimeSheet For Date</label>
+								<input asp-for="@Model.TimeSheetForDate" type="date" class="form-control" autofocus="autofocus" placeholder="TimeSheet For Date" />
+								<span asp-validation-for="TimeSheetForDate"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="TimesheetActivityType" class="form-label">Timesheet Activity Type</label>
+								<input asp-for="@Model.TimesheetActivityType" type="text" class="form-control" autofocus="autofocus" placeholder="Timesheet Activity Type" />
+								<span asp-validation-for="TimesheetActivityType"></span>
+							</div>
+							
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="FromTime" class="form-label">From Time</label>
+								<input asp-for="@Model.FromTime" type="time" class="form-control" id="fromtime" autofocus="autofocus" placeholder="From Time" />
+								<span asp-validation-for="FromTime"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="ToTime" class="form-label">To Time</label>
+								<input asp-for="@Model.ToTime" type="time" class="form-control" id="totime" autofocus="autofocus" placeholder="To Time	" onchange="TestOnTextChange()" />
+								<span asp-validation-for="ToTime"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="DurationInHours" class="form-label">Duration In Hours</label>
+								<input asp-for="@Model.DurationInHours" type="time" id="duration" class="form-control" autofocus="autofocus" placeholder="Duration In Hours" />
+								<span asp-validation-for="DurationInHours"></span>
+							</div>
+							
+						</div>
+						
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="IsBillable" class="form-label">Is Billable</label>
+								<input asp-for="@Model.IsBillable" type="text" class="form-control" autofocus="autofocus" placeholder="Is Billable" />
+								<span asp-validation-for="IsBillable"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="HourlyRate" class="form-label">Hourly Rate</label>
+								<input asp-for="@Model.HourlyRate" type="text" class="form-control" autofocus="autofocus" placeholder="Hourly Rate	" />
+								<span asp-validation-for="HourlyRate"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="TimeSheetApprovalStatus" class="form-label">TimeSheet Approval Status</label>
+								<select input asp-for="@Model.TimeSheetApprovalStatus" type="text" class="form-control" autofocus="autofocus" placeholder="TimeSheet Approval Status">
+									<option value="0">Submitted</option>
+									<option value="1">Approved</option>
+									<option value="2">Rejected</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="form-row">
+							@*<div class="form-group col-md-3">
+								<label for="TimesheetApprovedBy" class="form-label">Timesheet Approved By</label>
+								<input asp-for="@Model.TimesheetApprovedBy" type="text" class="form-control" autofocus="autofocus" placeholder="Timesheet Approved By" />
+								<span asp-validation-for="TimesheetApprovedBy"></span>
+							</div>*@
+							<div class="form-group col-md-3">
+								<label for="TimeSheetApprovedOn" class="form-label">TimeSheet Approved On</label>
+								<input asp-for="@Model.TimeSheetApprovedOn" type="date" class="form-control" autofocus="autofocus" placeholder="TimeSheet Approved On	" />
+								<span asp-validation-for="TimeSheetApprovedOn"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="TimeSheetApprovalRemarks" class="form-label">TimeSheet Approval Remarks</label>
+								<input asp-for="@Model.TimeSheetApprovalRemarks" type="text" class="form-control" autofocus="autofocus" placeholder="TimeSheet Approval Remarks" />
+								<span asp-validation-for="TimeSheetApprovalRemarks"></span>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="card-header"><b>Description </b></div>
+					<div class="form-group col-md-3">
+						<label for="Description" class="form-label">Description</label>
+						<textarea asp-for="@Model.Description" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Description" style="height: 150px;"></textarea>
+						<span asp-validation-for="Description"></span>
+					</div>
+						
+					
+					
+					<div class="card-body">
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function onEmployeefiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
+	}
+	function onProjectActivityTypefiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('ProjectActivityName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ProjectActivityTypes)), query);
+	}
+	function onProjectfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('ProjectName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Projects)), query);
+	}
+	function onProjectTaskfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('TaskName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ProjectTasks)), query);
+	}
+
+
+	//Time Calculation
+	function pad(num) {
+		return ("0" + num).slice(-2);
+	}
+	function diffTime(start, end) {
+		var s = start.split(":"), sMin = +s[1] + s[0] * 60,
+			e = end.split(":"), eMin = +e[1] + e[0] * 60,
+			diff = eMin - sMin;
+		if (diff < 0) { sMin -= 12 * 60; diff = eMin - sMin }
+		var h = Math.floor(diff / 60),
+			m = diff % 60;
+		return "" + pad(h) + ":" + pad(m);
+	}
+	
+
+	function TestOnTextChange() {
+		document.getElementById('duration').value = diffTime(
+			document.getElementById('fromtime').value,
+			document.getElementById('totime').value
+		);
+	}
+	
+
+</script>

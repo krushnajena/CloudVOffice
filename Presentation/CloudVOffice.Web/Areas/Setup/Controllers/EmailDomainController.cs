@@ -1,0 +1,107 @@
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Data.DTO.Comunication;
+using CloudVOffice.Data.DTO.Projects;
+using CloudVOffice.Services.Comunication;
+using CloudVOffice.Services.Projects;
+using CloudVOffice.Web.Framework;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CloudVOffice.Web.Areas.Setup.Controllers
+{
+	[Area(AreaNames.Setup)]
+	public class EmailDomainController : Controller
+	{
+		
+		private readonly IEmailDomainService _emailDomainService;
+		public EmailDomainController(IEmailDomainService emailDomainService)
+		{
+
+			_emailDomainService = emailDomainService;
+		}
+		[HttpGet]
+		public IActionResult EmailDomainCreate(int? emailDomainId)
+		{
+			EmailDomainDTO emailDomainDTO = new EmailDomainDTO();
+
+			if (emailDomainId != null)
+			{
+
+				EmailDomain d = _emailDomainService.GetEmailDomainByEmailDomainId(int.Parse(emailDomainId.ToString()));
+
+				emailDomainDTO.DomainName = d.DomainName;
+				emailDomainDTO.IncomingServer = d.IncomingServer;
+				emailDomainDTO.IncomingPort = d.IncomingPort;
+				emailDomainDTO.IncomingIsIMAP = d.IncomingIsIMAP;
+				emailDomainDTO.IncomingIsSsl = d.IncomingIsSsl;
+				emailDomainDTO.IncomingIsStartTLs = d.IncomingIsStartTLs;
+				emailDomainDTO.OutingServer = d.OutingServer;
+				emailDomainDTO.OutgoingPort = d.OutgoingPort;
+				emailDomainDTO.OutgoingIsTLs = d.OutgoingIsTLs;
+				emailDomainDTO.OutgoingIsSsl = d.OutgoingIsSsl;
+				
+			}
+
+			return View("~/Areas/Setup/Views/EmailDomain/EmailDomainCreate.cshtml", emailDomainDTO);
+
+		}
+		[HttpPost]
+		public IActionResult EmailDomainCreate(EmailDomainDTO emailDomainDTO)
+		{
+			emailDomainDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+
+			if (ModelState.IsValid)
+			{
+				if (emailDomainDTO.EmailDomainId == null)
+				{
+					var a = _emailDomainService.EmailDomainCreate(emailDomainDTO);
+					if (a == MennsageEnum.Success)
+					{
+						return Redirect("/Setup/EmailDomain/EmailDomainView");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "EmailDomain Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+				else
+				{
+					var a = _emailDomainService.EmailDomainUpdate(emailDomainDTO);
+					if (a == MennsageEnum.Updated)
+					{
+						return Redirect("/Setup/EmailDomain/EmailDomainView");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "EmailDomain Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+			}
+
+
+			return View("~/Areas/Setup/Views/EmailDomain/EmailDomainCreate.cshtml", emailDomainDTO);
+		}
+        public IActionResult EmailDomainView()
+        {
+            ViewBag.emailDomains = _emailDomainService.GetEmailDomains();
+
+            return View("~/Areas/Setup/Views/EmailDomain/EmailDomainView.cshtml");
+        }
+        public IActionResult EmailDomainDelete(int emailDomainId)
+        {
+            int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+            var a = _emailDomainService.EmailDomainDelete(emailDomainId, DeletedBy);
+            return Redirect("/Setup/EmailDomain/EmailDomainView");
+        }
+    }
+}

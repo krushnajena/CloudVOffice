@@ -5,6 +5,7 @@ using CloudVOffice.Data.DTO.Comunication;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using Pipelines.Sockets.Unofficial.Arenas;
 using System;
 using System.Collections.Generic;
@@ -157,6 +158,20 @@ namespace CloudVOffice.Services.Comunication
 			catch
 			{
 				throw;
+			}
+		}
+
+		public EmailAccount GetDefaultEmail(int? AccountId)
+		{
+			if(AccountId == null)
+			{
+				return _Context.EmailAccounts
+							.Include(c => c.EmailDomain).Where(x => x.Deleted == false && x.IsDefaultSending == true).FirstOrDefault();
+			}
+			else
+			{
+				return _Context.EmailAccounts
+					.Include(c => c.EmailDomain).Where(x => x.Deleted == false && x.EmailAccountId == AccountId).FirstOrDefault();
 			}
 		}
 	}

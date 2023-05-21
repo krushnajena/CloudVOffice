@@ -38,9 +38,8 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IEmailAccountService, EmailAccountService>();
 			services.AddScoped<IEmailDomainService, EmailDomainService>();
 			services.AddScoped<ILetterHeadService, LetterHeadService>();
-			#region HR Services
-			#region Masters
-			services.AddScoped<IDepartmentService, DepartmentService>();
+			services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
+			
 			
 			#region HR Services
 			#region Masters
@@ -68,6 +67,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
             #endregion
             return services;
+
         }
     }
 }

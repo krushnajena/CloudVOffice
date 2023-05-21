@@ -36,6 +36,20 @@ namespace CloudVOffice.Services.Company
 			}
 		}
 
+		public LetterHead GetLetterHeadByLetterHeadId(int letterHeadId)
+		{
+
+			try
+			{
+				return _Context.LetterHeads.Where(x => x.LetterHeadId == letterHeadId && x.Deleted == false).SingleOrDefault();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public List<LetterHead> GetLetterHeads()
 		{
 			try
@@ -78,6 +92,67 @@ namespace CloudVOffice.Services.Company
 				}
 
 				return MennsageEnum.UnExpectedError;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public MennsageEnum LetterHeadDelete(int letterHeadId, int DeletedBy)
+		{
+			try
+			{
+				var a = _Context.LetterHeads.Where(x => x.LetterHeadId == letterHeadId).FirstOrDefault();
+				if (a != null)
+				{
+					a.Deleted = true;
+					a.UpdatedBy = DeletedBy;
+					a.UpdatedDate = DateTime.Now;
+					_Context.SaveChanges();
+					return MennsageEnum.Deleted;
+				}
+				else
+					return MennsageEnum.Invalid;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public MennsageEnum LetterHeadUpdate(LetterHeadDTO letterHeadDTO)
+		{
+			try
+			{
+				var letterHead = _Context.LetterHeads.Where(x => x.LetterHeadId == letterHeadDTO.LetterHeadId && x.Deleted == false).FirstOrDefault();
+				if (letterHead == null)
+				{
+					var a = _Context.LetterHeads.Where(x => x.LetterHeadId == letterHeadDTO.LetterHeadId).FirstOrDefault();
+					if (a != null)
+					{
+						a.LetterHeadName = letterHeadDTO.LetterHeadName;
+						a.LetterHeadImage = letterHeadDTO.LetterHeadImage;
+						a.LetterHeadImageHeight = letterHeadDTO.LetterHeadImageHeight;
+						a.LetterHeadImageWidth = letterHeadDTO.LetterHeadImageWidth;
+						a.LetterHeadImageWidth = letterHeadDTO.LetterHeadImageWidth;
+						a.LetterHeadAlign = letterHeadDTO.LetterHeadAlign;
+						a.LetterHeadFooterImage = letterHeadDTO.LetterHeadFooterImage;
+						a.LetterHeadImageFooterHeight = letterHeadDTO.LetterHeadImageFooterHeight;
+						a.LetterHeadImageFooterWidth = letterHeadDTO.LetterHeadImageFooterWidth;
+						a.LetterHeadFooterAlign = letterHeadDTO.LetterHeadFooterAlign;
+						a.UpdatedDate = DateTime.Now;
+						_Context.SaveChanges();
+						return MennsageEnum.Updated;
+					}
+					else
+						return MennsageEnum.Invalid;
+				}
+				else
+				{
+					return MennsageEnum.Duplicate;
+				}
+
 			}
 			catch
 			{

@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,7 +41,7 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IEmailDomainService, EmailDomainService>();
 
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
-
+			services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
 
 
 

@@ -6,6 +6,7 @@ using CloudVOffice.Core.Security;
 using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.EmailTemplates;
 using CloudVOffice.Services.Permissions;
 
 using Microsoft.EntityFrameworkCore;
@@ -26,14 +27,19 @@ namespace CloudVOffice.Services.Users
         private readonly ISqlRepository<UserRoleMapping> _userrolemappingRepo;
         private readonly ISqlRepository<UserWiseViewMapper> _userViewmappingRepo;
         private readonly IUserViewPermissions _userViewPermissions;
+		private readonly IEmailTemplateService _emailTemplateService;
 	
-		public UserService(ApplicationDBContext context, ISqlRepository<User> userRepo, ISqlRepository<UserRoleMapping> userrolemappingRepo, IUserViewPermissions userViewPermissions)
+		public UserService(ApplicationDBContext context,
+            ISqlRepository<User> userRepo,
+            ISqlRepository<UserRoleMapping> userrolemappingRepo,
+            IUserViewPermissions userViewPermissions,
+			 IEmailTemplateService emailTemplateService)
         {
             _context = context;
             _userRepo = userRepo;
             _userrolemappingRepo = userrolemappingRepo;
             _userViewPermissions = userViewPermissions;
-		
+			_emailTemplateService = emailTemplateService;
 		}
 
 

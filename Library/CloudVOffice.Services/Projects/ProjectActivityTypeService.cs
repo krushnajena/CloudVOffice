@@ -60,6 +60,18 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+		public List<ProjectActivityType> GetProjectActivityTypesByActivityCategory(string activityCategory)
+		{
+			try
+			{
+				return _Context.ProjectActivityTypes.Where(x => x.Deleted == false && x.ActivityCategory == activityCategory).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public MennsageEnum ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO)
 		{
 
@@ -71,6 +83,7 @@ namespace CloudVOffice.Services.Projects
 					_projectActivityTypeRepo.Insert(new ProjectActivityType()
 					{
 						ProjectActivityName = projectActivityTypeDTO.ProjectActivityName,
+						ActivityCategory = projectActivityTypeDTO.ActivityCategory,
 						CreatedBy = projectActivityTypeDTO.CreatedBy,
 						CreatedDate = DateTime.Now,
 						Deleted = false
@@ -121,6 +134,7 @@ namespace CloudVOffice.Services.Projects
 						a.ProjectActivityName = projectActivityTypeDTO.ProjectActivityName;
 						a.UpdatedBy = projectActivityTypeDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;
+						a.ActivityCategory = projectActivityTypeDTO.ActivityCategory;
 						_Context.SaveChanges();
 						return MennsageEnum.Updated;
 					}

@@ -11,6 +11,7 @@ namespace CloudVOffice.Core.Domain.Projects
 	{
 		public int ProjectActivityTypeId { get; set; }
 		public string ProjectActivityName { get; set; }
+		public string? ActivityCategory { get; set; }
 		public Int64 CreatedBy { get; set; }
 		public DateTime CreatedDate { get; set; }
 		public Int64? UpdatedBy { get; set; }

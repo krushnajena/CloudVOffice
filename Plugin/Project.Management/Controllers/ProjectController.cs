@@ -214,5 +214,20 @@ namespace Projects.Management.Controller
 		{
 			return Json(_projectempolyeeService.ProjectEmployeeByProjectId(projectId));
 		}
+
+		public JsonResult GetMyAssignedProjectByEmployee()
+		{
+			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+			var a = _projectService.GetMyAssignedProjectByEmployee(EmployeeId);
+			var projects = from u in a
+						   select new
+						   {
+							   u.ProjectName,
+							   u.ProjectId
+						   };
+			
+			return Json(projects);
+		}
 	}
 }

@@ -20,6 +20,8 @@ namespace CloudVOffice.Services.Projects
 
 		public List<Project> GetMyAssignedProject(Int64 EmployeeId, Int64 UserId);
 
+		public List<Project> GetMyAssignedProjectByEmployee(Int64 EmployeeId);
+
 
 	}
 }

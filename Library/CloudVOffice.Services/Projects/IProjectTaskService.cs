@@ -20,6 +20,7 @@ namespace CloudVOffice.Services.Projects
 
         public List<ProjectTask> ProjectTaskByProjectId(int ProjectId);
 		public List<ProjectTask> GroupProjectTaskByProjectId(int ProjectId);
+		public List<ProjectTask> NotCanceledTasksByProjectId(int projectId);
 
 	}
 }

@@ -1,7 +1,7 @@
 ﻿@model CloudVOffice.Data.DTO.Projects.TimesheetDTO;
 @{
 	Layout = "_MainAppLayout";
-    var activityCategory = new string[] {		,"Project Work"   
+	var activityCategory = new string[] {"Project Work"
 									,"Counselling /Discussion"
 									,"Documentation/Report/Policy/SOP/MIS"
 									,"Event Management & Participation"
@@ -62,7 +62,7 @@
 						</div>
 
 						<div class="form-row">
-						
+
 							<div class="form-group col-md-3">
 								<label for="TimeSheetForDate" class="form-label">TimeSheet For Date</label>
 								<input asp-for="@Model.TimeSheetForDate" type="date" class="form-control" autofocus="autofocus" placeholder="TimeSheet For Date" />
@@ -70,44 +70,44 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="TimesheetActivityType" class="form-label">Activity Category</label>
-								<ejs-dropdownlist id="TimesheetActivityType" allowFiltering="true" ejs-for="@Model.TimesheetActivityType" filtering="onProjectfiltering" dataSource="activityCategory" placeholder="Select a Project" popupHeight="220px">
-									<e-dropdownlist-fields text="ProjectName" value="ProjectId"></e-dropdownlist-fields>
+								<ejs-dropdownlist id="TimesheetActivityType" allowFiltering="true" ejs-for="@Model.TimesheetActivityType" dataSource="activityCategory" placeholder="Select Activity Category" popupHeight="220px" change="onChangeActivityCategory">
+
 								</ejs-dropdownlist>
 								<span asp-validation-for="TimesheetActivityType"></span>
 							</div>
-							
+
 
 							<div class="form-group col-md-3">
-								<label for="ProjectActivityTypeId" class="form-label">Project Activity Type</label>
-								<ejs-dropdownlist id="ProjectActivityTypeId" allowFiltering="true" ejs-for="@Model.ActivityId" filtering="onProjectActivityTypefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectActivityTypes, "ProjectActivityTypeId", "ProjectActivityName").Items)" placeholder="Select a Project Activity Type" popupHeight="220px">
-									<e-dropdownlist-fields text="ProjectActivityName" value="ProjectActivityTypeId"></e-dropdownlist-fields>
+								<label for="ActivityId" class="form-label"> Activity Type</label>
+								<ejs-dropdownlist id="ActivityId" allowFiltering="true" ejs-for="@Model.ActivityId" placeholder="Select Activity" popupHeight="220px">
+									<e-dropdownlist-fields text="projectActivityName" value="projectActivityTypeId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
-								<span asp-validation-for="ProjectActivityTypeId"></span>
+								<span asp-validation-for="ActivityId"></span>
 							</div>
 
 						</div>
-						<div class="form-row">
+						<div class="form-row" id="ProjectWork" style="display:none">
 							<div class="form-group col-md-3">
 								<label for="ProjectId" class="form-label">Project</label>
-								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.ProjectId" filtering="onProjectfiltering"  dataSource="@(new SelectList((IEnumerable)ViewBag.Projects, "ProjectId", "ProjectName").Items)" placeholder="Select a Project" popupHeight="220px">
-									<e-dropdownlist-fields text="ProjectName" value="ProjectId"></e-dropdownlist-fields>
+								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.ProjectId" placeholder="Select Project" popupHeight="220px" change="onChangeProject">
+									<e-dropdownlist-fields text="projectName" value="projectId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="ProjectId"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="ProjectTaskId" class="form-label">Project Task</label>
-								<ejs-dropdownlist id="ProjectTaskId" allowFiltering="true" ejs-for="@Model.TaskId" filtering="onProjectTaskfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectTasks, "ProjectTaskId", "TaskName").Items)" placeholder="Select a Project Task" popupHeight="220px">
-									<e-dropdownlist-fields text="TaskName" value="ProjectTaskId"></e-dropdownlist-fields>
+								<label for="TaskId" class="form-label">Project Task</label>
+								<ejs-dropdownlist id="TaskId" allowFiltering="true" ejs-for="@Model.TaskId" placeholder="Select a Project Task" popupHeight="220px">
+									<e-dropdownlist-fields text="taskName" value="projectTaskId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
-								<span asp-validation-for="ProjectTaskId"></span>
+								<span asp-validation-for="TaskId"></span>
 							</div>
-						
-							
-							
+
+
+
 						</div>
-					
+
 						<div class="form-row">
-							
+
 							<div class="form-group col-md-3">
 								<label for="FromTime" class="form-label">From Time</label>
 								<input asp-for="@Model.FromTime" type="time" class="form-control" id="fromtime" autofocus="autofocus" placeholder="From Time" />
@@ -120,12 +120,12 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="DurationInHours" class="form-label">Duration In Hours</label>
-								<input asp-for="@Model.DurationInHours" type="time" id="duration" class="form-control" autofocus="autofocus" placeholder="Duration In Hours" />
+								<input asp-for="@Model.DurationInHours" type="text" id="duration" class="form-control" autofocus="autofocus" placeholder="Duration In Hours" />
 								<span asp-validation-for="DurationInHours"></span>
 							</div>
-							
+
 						</div>
-						
+
 						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label for="IsBillable" class="form-label">Is Billable</label>
@@ -137,10 +137,10 @@
 								<input asp-for="@Model.HourlyRate" type="text" class="form-control" autofocus="autofocus" placeholder="Hourly Rate	" />
 								<span asp-validation-for="HourlyRate"></span>
 							</div>
-						
+
 
 						</div>
-						
+
 
 					</div>
 					<div class="card-header"><b>Description </b></div>
@@ -149,9 +149,9 @@
 						<textarea asp-for="@Model.Description" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Description" style="height: 150px;"></textarea>
 						<span asp-validation-for="Description"></span>
 					</div>
-						
-					
-					
+
+
+
 					<div class="card-body">
 						<div class="col-lg-2 col-md-2 col-sm-12">
 							<button type="submit" class="btn btn-primary">Save</button>
@@ -164,27 +164,7 @@
 	</div>
 </div>
 <script>
-	function onEmployeefiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
-	}
-	function onProjectActivityTypefiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('ProjectActivityName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ProjectActivityTypes)), query);
-	}
-	function onProjectfiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('ProjectName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Projects)), query);
-	}
-	function onProjectTaskfiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('TaskName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ProjectTasks)), query);
-	}
-
+	
 
 	//Time Calculation
 	function pad(num) {
@@ -197,9 +177,9 @@
 		if (diff < 0) { sMin -= 12 * 60; diff = eMin - sMin }
 		var h = Math.floor(diff / 60),
 			m = diff % 60;
-		return "" + pad(h) + ":" + pad(m);
+		return "" + pad(h) + "." + pad(m);
 	}
-	
+
 
 	function TestOnTextChange() {
 		document.getElementById('duration').value = diffTime(
@@ -211,7 +191,7 @@
 
 
 	function onChangeActivityCategory(args) {
-	
+
 		$.ajax({
 			type: "GET",
 			url: '/Projects/ProjectActivityType/GetProjectActivityTypesByActivityCategory',
@@ -219,8 +199,14 @@
 			contentType: "application/json;",
 			dataType: "json",
 			success: function (result) {
-
-				var projectActivityDropDown = document.getElementById("ProjectActivityTypeId").ej2_instances[0];
+				if (args.value == "Project Work"){
+					$('#ProjectWork').show();
+					bindProjects();
+				}
+				else{
+					$('#ProjectWork').hide();
+				}
+				var projectActivityDropDown = document.getElementById("ActivityId").ej2_instances[0];
 				projectActivityDropDown.dataSource = result;
 				//cityDropDown.refresh();
 				projectActivityDropDown.dataBind();
@@ -233,6 +219,54 @@
 
 
 	}
-	
+
+	function bindProjects(){
+		$.ajax({
+			type: "GET",
+			url: '/Projects/Project/GetMyAssignedProjectByEmployee',
+			
+			contentType: "application/json;",
+			dataType: "json",
+			success: function (result) {
+			
+				var projectActivityDropDown = document.getElementById("ProjectId").ej2_instances[0];
+				projectActivityDropDown.dataSource = result;
+				//cityDropDown.refresh();
+				projectActivityDropDown.dataBind();
+
+			},
+			error: function () {
+
+			}
+		});
+		
+	}
+
+
+
+	function onChangeProject(args) {
+
+		$.ajax({
+			type: "GET",
+			url: '/Projects/Task/NotCanceledTasksByProjectId',
+			data: { ProjectId: args.value },
+			contentType: "application/json;",
+			dataType: "json",
+			success: function (result) {
+				
+				var projectActivityDropDown = document.getElementById("TaskId").ej2_instances[0];
+				projectActivityDropDown.dataSource = result;
+				//cityDropDown.refresh();
+				projectActivityDropDown.dataBind();
+
+			},
+			error: function () {
+
+			}
+		});
+
+
+	}
+
 
 </script>

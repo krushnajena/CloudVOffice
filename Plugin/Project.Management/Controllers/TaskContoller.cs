@@ -138,7 +138,16 @@ namespace Project.Management.Controllers
             return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));
         }
 
+		public JsonResult NotCanceledTasksByProjectId(int ProjectId)
+		{
+            var a = _projectTaskService.NotCanceledTasksByProjectId(ProjectId);
+
+			return Json(a);
+		}
+
+
+
 	}
 
-   
+
 }

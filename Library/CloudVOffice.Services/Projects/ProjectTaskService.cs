@@ -202,6 +202,24 @@ namespace CloudVOffice.Services.Projects
 				throw;
 			}
 		}
+
+		public List<ProjectTask> NotCanceledTasksByProjectId(int projectId)
+		{
+			try
+			{
+				return _Context.ProjectTasks
+
+					.Include(a => a.Project)
+
+					.Include(f => f.Employee)
+					.Where(x => x.ProjectId == projectId && x.Deleted == false && x.TaskStatus !="Canceled").ToList();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
 	}
 }
 	

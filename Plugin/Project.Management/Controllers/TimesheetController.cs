@@ -60,15 +60,7 @@ namespace Project.Management.Controllers
                 timesheetDTO.TimeSheetApprovalRemarks = d.TimeSheetApprovalRemarks;
             }
 
-            
-            var employees = _employeeService.GetEmployees();
-			ViewBag.Employees = employees;
-            var projectActivityTypes = _projectActivityTypeService.GetProjectActivityTypes();
-            ViewBag.ProjectActivityTypes = projectActivityTypes;
-            var projects = _projectService.GetProjects();
-            ViewBag.Projects = projects;
-            var projectTasks = _projectTaskService.GetProjectTasks();
-            ViewBag.projectTasks = projectTasks;
+           
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
 
         }
@@ -79,7 +71,7 @@ namespace Project.Management.Controllers
         public IActionResult TimesheetCreate(TimesheetDTO timesheetDTO)
         {
             timesheetDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-
+            timesheetDTO.EmployeeId = _employeeService.GetEmployeeDetailsByUserId(timesheetDTO.CreatedBy).EmployeeId;
 
             if (ModelState.IsValid)
             {
@@ -117,14 +109,7 @@ namespace Project.Management.Controllers
                 }
             }
 
-			var employees = _employeeService.GetEmployees();
-			ViewBag.Employees = employees;
-			var projectActivityTypes = _projectActivityTypeService.GetProjectActivityTypes();
-			ViewBag.ProjectActivityTypes = projectActivityTypes;
-			var projects = _projectService.GetProjects();
-			ViewBag.Projects = projects;
-            var projectTasks = _projectTaskService.GetProjectTasks();
-            ViewBag.projectTasks = projectTasks;
+		
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
         }
 		public IActionResult TimesheetView()

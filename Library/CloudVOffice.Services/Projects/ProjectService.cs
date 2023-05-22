@@ -53,6 +53,23 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+		public List<Project> GetMyAssignedProjectByEmployee(long EmployeeId)
+		{
+			try
+			{
+				return  _Context.Projects
+					.Include(e => e.Employee)
+					.Include(s => s.ProjectEmployees)
+					.Where(x => x.Deleted == false && (x.ProjectManager == EmployeeId
+					|| x.ProjectEmployees.Any(d => d.EmployeeId == EmployeeId && d.Deleted == false))
+					).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public Project GetProjectByProjectId(Int64 projectId)
 		{
 			try

@@ -1,4 +1,4 @@
-﻿@*@using System.Collections;
+﻿@using System.Collections;
 @using Newtonsoft.Json;
 
 @{
@@ -32,10 +32,12 @@
     <div class="row gutters">
         <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks">
                 <e-kanban-columns>
-                    <e-kanban-column headerText="To Do" keyField="Open"></e-kanban-column>
-                    <e-kanban-column headerText="In Progress" keyField="InProgress"></e-kanban-column>
-                    <e-kanban-column headerText="Testing" keyField="Testing"></e-kanban-column>
-                    <e-kanban-column headerText="Done" keyField="Close"></e-kanban-column>
+                    <e-kanban-column headerText="Opem" keyField="Open"></e-kanban-column>
+                <e-kanban-column headerText="Working" keyField="Working"></e-kanban-column>
+                <e-kanban-column headerText="Pending Review" keyField="PendingReview"></e-kanban-column>
+                <e-kanban-column headerText="Overdue" keyField="Overdue"></e-kanban-column>
+                <e-kanban-column headerText="Completed" keyField="Completed"></e-kanban-column>
+                <e-kanban-column headerText="Cancelled" keyField="Cancelled"></e-kanban-column>
                 </e-kanban-columns>
             <e-kanban-cardsettings headerField="Title" template="#cardTemplate"></e-kanban-cardsettings>
           
@@ -55,7 +57,7 @@
             <div class='e-text'>${TaskDescription}</div>
         </div>
         <div class='e-card-custom-footer'>
-         
+         ${}
         </div>
     </div>
 </script>
@@ -164,4 +166,4 @@
             background: #4b5563;
             color: #fff;
         }
-    </style>*@
+    </style>

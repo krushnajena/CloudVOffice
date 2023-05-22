@@ -1,18 +1,30 @@
-﻿using Azure.Security.KeyVault.Keys;
+﻿using Azure.Core;
+using Azure.Security.KeyVault.Keys;
 using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Company;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Core.Domain.EmailTemplates;
 using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
 using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Company;
+using CloudVOffice.Services.Comunication;
+using CloudVOffice.Services.Email;
+using CloudVOffice.Services.EmailTemplates;
 using CloudVOffice.Services.Permissions;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,14 +38,34 @@ namespace CloudVOffice.Services.Users
         private readonly ISqlRepository<UserRoleMapping> _userrolemappingRepo;
         private readonly ISqlRepository<UserWiseViewMapper> _userViewmappingRepo;
         private readonly IUserViewPermissions _userViewPermissions;
-	
-		public UserService(ApplicationDBContext context, ISqlRepository<User> userRepo, ISqlRepository<UserRoleMapping> userrolemappingRepo, IUserViewPermissions userViewPermissions)
+		private readonly IEmailTemplateService _emailTemplateService;
+		private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICompanyDetailsService _companyDetailsService;
+        private readonly ILetterHeadService _letterHeadService;
+		private readonly IEmailAccountService _emailAccountService;
+        private readonly IEmailService _emailService;
+		public UserService(ApplicationDBContext context,
+            ISqlRepository<User> userRepo,
+            ISqlRepository<UserRoleMapping> userrolemappingRepo,
+            IUserViewPermissions userViewPermissions,
+			 IEmailTemplateService emailTemplateService,
+			 IHttpContextAccessor httpContextAccessor,
+			 ICompanyDetailsService companyDetailsService,
+			 ILetterHeadService letterHeadService,
+			 IEmailAccountService emailAccountService,
+		IEmailService emailService
+			 )
         {
             _context = context;
             _userRepo = userRepo;
             _userrolemappingRepo = userrolemappingRepo;
             _userViewPermissions = userViewPermissions;
-		
+			_emailTemplateService = emailTemplateService;
+			_httpContextAccessor = httpContextAccessor;
+			_letterHeadService = letterHeadService;
+            _companyDetailsService = companyDetailsService;
+			_emailAccountService = emailAccountService;
+            _emailService = emailService;
 		}
 
 
@@ -149,7 +181,7 @@ namespace CloudVOffice.Services.Users
                     users.MiddleName = userCreateDTO.MiddleName;
                     users.LastName = userCreateDTO.LastName;
                     users.Email = userCreateDTO.Email;
-                    users.Password = Encrypt.EncryptPassword(userCreateDTO.Password, userCreateDTO.Email) ;
+                    //users.Password = Encrypt.EncryptPassword(userCreateDTO.Password, userCreateDTO.Email) ;
                     users.PhoneNo = userCreateDTO.PhoneNo;
                     users.DateOfBirth = userCreateDTO.DateOfBirth;
                     users.UserTypeId = userCreateDTO.UserTypeId;
@@ -165,7 +197,7 @@ namespace CloudVOffice.Services.Users
                         }
                         
                     }
-                    SendWelcomeMessage(obj.UserId);
+                    SendWelcomeMessage(obj);
 
 					return MennsageEnum.Success;
 
@@ -319,19 +351,107 @@ namespace CloudVOffice.Services.Users
         {
             return _context.Users.Where(x=>x.UserType == userType && x.Deleted == false).ToList();
         }
+        private string GenerateResetToken(User user)
+        {
+			Guid obj = Guid.NewGuid();
+			user.ResetPasswordToken = Encrypt.EncryptPassword(obj.ToString(), user.Email);
+            user.ResetPasswordTokenExpirey = DateTime.Now.AddMinutes(60);
+			_context.SaveChanges();
+			return obj.ToString();
+		}
 
-		public async void SendWelcomeMessage(long UserId)
+     
+
+
+        public async void SendWelcomeMessage(User user)
 		{
             try
             {
-               
+                  string token = GenerateResetToken(user);
+                string baseUrl = _httpContextAccessor.HttpContext.Request.Scheme + "://" + _httpContextAccessor.HttpContext.Request.Host;
+				string url = baseUrl + "/App/SetPassword?token=" +token+"&email="+user.Email;
+                EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName("WelcomeEmail");
 
-		
+				string emailTemp = emailTemplate.EmailTemplateDescription.Trim();
+                CompanyDetails company = _companyDetailsService.GetCompanyDetails();
+                LetterHead letter = _letterHeadService.GetLetter();
+                EmailAccount emailA = _emailAccountService.GetDefaultEmail(emailTemplate.DefaultSendingAccount);
+                StringBuilder stringBuilder = new StringBuilder(emailTemp);
+
+				stringBuilder = stringBuilder.Replace("{%emailogo%}", "<img src='"+baseUrl+ "/uploads/setup/" + company.CompanyLogo+"' height=\"40\" style=\"border:0;margin:auto auto 10px;max-height:40px;outline:none;text-align:center;text-decoration:none;width:auto\" align=\"center\" width=\"auto\" class=\"CToWUd\" data-bit=\"iit\" jslog=\"138226; u014N:xr6bB; 53:WzAsMl0.\">");
+               
+					stringBuilder
+						 = stringBuilder.Replace(" {%welcometitle%} ", "Welcome to " + company.CompanyName);
+
+
+
+				stringBuilder = stringBuilder.Replace("{%helloname%}", "Hello " + user.FullName+",");
+				stringBuilder = stringBuilder.Replace(" {%accountcreatetionmessage%} ", "A new account has been created for you at <a href='"+baseUrl+"' style=\"color:#2d95f0\" target=\"_blank\" >"+ baseUrl + "</a>");
+
+				stringBuilder = stringBuilder.Replace(" {%loginidmessage%} ", "Your login id is: <b><a href=\'mailto:"+user.Email+"\' target=\"_blank\">"+ user.Email + "</a></b>");
+				stringBuilder = stringBuilder.Replace(" {%aditionalmessage%} ", "Click on the link below to complete your registration and set a new password.");
+				stringBuilder = stringBuilder.Replace(" {%setpasswordlink%} ", "<a href='"+ url + "' rel=\"nofollow\" style=\"color:#fff;background-color:#2490ef;border:1px solid;border-color:transparent;border-radius:6px;display:inline-block;font-size:13px;line-height:20px;padding:4px 20px;text-decoration:none\" bgcolor=\"#2490ef\" target=\"_blank\" >Complete Registration</a>");
+                stringBuilder = stringBuilder.Replace("{%emailsignature%}", emailA.EmailSignature);
+
+				stringBuilder = stringBuilder.Replace("{%copylinkfrommessage%} ", "You can also copy-paste following link in your browser<br/> <a href='"+url+"'  style=\"color:#2d95f0\" target=\"_blank\" >"+url+"</a>");
+				stringBuilder = stringBuilder.Replace("{%companyname%}", company.CompanyName);
+				stringBuilder = stringBuilder.Replace("{%address%}", company.AddressLine1+", "+company.AddressLine2+", "+company.City+", "+ company.State+", "+ company.Country+" - "+ company.PostalCode);
+				stringBuilder = stringBuilder.Replace("{%footerletterhera%}", "<img src='" + baseUrl + "/uploads/setup/" + letter.LetterHeadFooterImage + "' >");
+               
+              await  _emailService.SendEmailAsync(new MailRequest {
+			        SenderEmail =emailA.EmailAddress,
+					MailBoxName = emailA.EmailAccountName,
+					MailBoxEmail = emailA.AlternativeEmailAddress,
+					Host =  emailA.EmailDomain.OutingServer,
+					Port = emailA.EmailDomain.OutgoingPort,
+					AuthEmail = emailA.EmailAddress,
+                    AuthPassword =emailA.EmailPassword,
+					ToEmail = user.Email,
+					Subject = "Welcome to "+company.CompanyName,
+
+					Body = stringBuilder.ToString()
+
+				});
+
+
+
 			}
-            catch
+			catch
             {
                 throw;
             }
 		}
-	}
+
+        public MennsageEnum SetPassword(string password, string email, string token)
+        {
+            try
+            {
+                string encToken = Encrypt.EncryptPassword(token, email);
+                User user = _context.Users.Where(x => x.Email == email && x.ResetPasswordToken == encToken).FirstOrDefault();
+                if(user != null)
+                {
+                    if(DateTime.Now<= user.ResetPasswordTokenExpirey)
+                    {
+                        user.Password = Encrypt.EncryptPassword(password, email);
+                        user.ResetPasswordToken= "";
+                        user.ResetPasswordTokenExpirey = null;
+                        _context.SaveChanges();
+                        return MennsageEnum.Success;
+                    }
+                    else
+                    {
+                        return MennsageEnum.Error;
+                    }
+                }
+                else
+                {
+                    return MennsageEnum.Invalid;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+    }
 }

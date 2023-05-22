@@ -36,7 +36,9 @@ namespace CloudVOffice.Services.Users
 
         public List<User> GetUsersByUserType(UserType userType);
 
-        public void SendWelcomeMessage(Int64 UserId);
+        public void SendWelcomeMessage(User user);
+
+        public MennsageEnum SetPassword(string password, string email, string token);
 
 
 

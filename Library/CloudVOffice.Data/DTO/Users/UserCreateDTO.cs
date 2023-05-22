@@ -23,11 +23,6 @@ namespace CloudVOffice.Data.DTO.Users
 		[DisplayName("Email Id")]
 		[DataType(DataType.EmailAddress)]
 		public string Email { get; set; }
-
-        
-		[DataType(DataType.Password)]
-		[DisplayName("Password")]
-		public string? Password { get; set; }
         public string? PhoneNo { get; set; }
         public DateTime? DateOfBirth { get; set; }
 		[DisplayName("User Type")]

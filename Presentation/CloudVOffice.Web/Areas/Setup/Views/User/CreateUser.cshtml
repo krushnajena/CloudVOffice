@@ -141,25 +141,6 @@
 
 
 				
-					@{
-						if (@Model.UserId == null)
-						{
-							<div class="card-header"><b>Set A Password</b></div>
-							<div class="card-body">
-								<div class="form-row">
-									<div class="form-group col-md-3">
-
-										<label for="Password" class="form-label">Password</label>
-										<input asp-for="@Model.Password" type="password" class="form-control" autofocus="autofocus" placeholder="Password" />
-										<span asp-validation-for="Password"></span>
-									</div>
-
-
-								</div>
-							</div>
-
-						}
-					}
 			
 
 				<div class="card-body">

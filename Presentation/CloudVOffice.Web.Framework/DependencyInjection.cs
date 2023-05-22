@@ -5,6 +5,8 @@ using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Services.DesktopMonitoring;
+using CloudVOffice.Services.Email;
+using CloudVOffice.Services.EmailTemplates;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,10 +40,17 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IHttpWebClients, HttpWebClients>();
 			services.AddScoped<IEmailAccountService, EmailAccountService>();
 			services.AddScoped<IEmailDomainService, EmailDomainService>();
+
+			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+			services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
+			services.AddScoped<IEmailService, EmailService>();
+
+
+
+
+
 			services.AddScoped<ILetterHeadService, LetterHeadService>();
 			
-			#region Masters
-			services.AddScoped<IDepartmentService, DepartmentService>();
 			
 			#region HR Services
 			#region Masters
@@ -68,8 +78,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
             #endregion
             return services;
+
         }
     }
-
 }
-#endregion

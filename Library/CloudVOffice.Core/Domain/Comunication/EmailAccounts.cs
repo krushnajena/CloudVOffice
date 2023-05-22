@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CloudVOffice.Core.Domain.HR.Master;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,5 +26,7 @@ namespace CloudVOffice.Core.Domain.Comunication
         public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
-    }
+		[ForeignKey("Domain")]
+		public EmailDomain EmailDomain { get; set; }
+	}
 }

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
 using CloudVOffice.Core.Domain.Pemission;
 using Microsoft.AspNetCore.Identity;
-
+using CloudVOffice.Core.Domain.Common;
 
 namespace CloudVOffice.Web.Controllers
 {
@@ -25,10 +25,12 @@ namespace CloudVOffice.Web.Controllers
         }
         public IActionResult Login()
         {
-            return View();
+           
+
+			return View();
         }
 
-		[HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Login(LoginModel model, string? ReturnUrl)
         {
             if (ModelState.IsValid)
@@ -40,7 +42,7 @@ namespace CloudVOffice.Web.Controllers
                     case UserLoginResults.Successful:
                         {
                             var userDetails = await _userService.GetUserByEmailAsync(Email);
-						
+
                             var claims = new List<Claim>
                             {
                                 new Claim(ClaimTypes.Email, userDetails.Email),
@@ -55,9 +57,9 @@ namespace CloudVOffice.Web.Controllers
                             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                             var authProperties = new AuthenticationProperties() { IsPersistent = true };
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
-                            
-							
-							return Redirect(ReturnUrl == null ? "/Applications" : ReturnUrl);
+
+
+                            return Redirect(ReturnUrl == null ? "/Applications" : ReturnUrl);
                         }
                     case UserLoginResults.UserNotExist:
                         ModelState.AddModelError("Email", "User Not Exists.");
@@ -78,6 +80,7 @@ namespace CloudVOffice.Web.Controllers
             return View(model);
         }
 
+        
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {
@@ -94,8 +97,51 @@ namespace CloudVOffice.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult SetPassword(string token, string email)
+        {
+            SetPasswordModel setPasswordModel = new SetPasswordModel();
+            setPasswordModel.Token = token;
+            setPasswordModel.Email = email;
 
-        
-		
-	}
+			return View(setPasswordModel);
+        }
+
+        [HttpPost]
+        public IActionResult SetPassword(SetPasswordModel setPasswordModel)
+        {
+            if(ModelState.IsValid)
+            {
+                var a =_userService.SetPassword(setPasswordModel.Password, setPasswordModel.Email, setPasswordModel.Token);
+                if (a == MennsageEnum.Success)
+                {
+                    return RedirectToAction("PasswordSetSuccess");
+                }
+                else
+                {
+                    return RedirectToAction("PasswordSetFailure");
+                }
+            }
+            else
+            {
+                return View(setPasswordModel);
+            }
+        }
+
+        public IActionResult PasswordSetSuccess()
+        {
+            return View();
+        }
+        public IActionResult PasswordSetFailure()
+        {
+            return View();
+        }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+
+
+    }
 }

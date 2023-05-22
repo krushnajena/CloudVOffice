@@ -17,5 +17,7 @@ namespace CloudVOffice.Services.Projects
 		public ProjectActivityType GetProjectActivityTypeByProjectActivityName(string projectActivityName);
 		public MennsageEnum ProjectActivityTypeUpdate(ProjectActivityTypeDTO projectActivityTypeDTO);
 		public MennsageEnum ProjectActivityTypeDelete(Int64 projectActivityTypeId, Int64 DeletedBy);
+
+		public List<ProjectActivityType> GetProjectActivityTypesByActivityCategory(string activityCategory);	
 	}
 }

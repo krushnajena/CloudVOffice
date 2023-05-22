@@ -17,7 +17,9 @@ namespace CloudVOffice.Core.Domain.Projects
 		public string TimesheetActivityType { get; set; }//Project	Work, Meetings,
         public int ActivityId { get; set; }
         public int? ProjectId { get; set; }
-		
+		public int? OpportunityId { get; set; }
+
+
 		public Int64? TaskId { get; set; }
 		public	TimeSpan? FromTime { get; set; }
 		public TimeSpan? ToTime { get; set; }

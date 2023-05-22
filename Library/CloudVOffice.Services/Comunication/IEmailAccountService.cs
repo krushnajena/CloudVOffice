@@ -20,6 +20,8 @@ namespace CloudVOffice.Services.Comunication
 		public MennsageEnum EmailAccountUpdate(EmailAccountDTO emailAccountDTO);
 		public MennsageEnum EmailAccountDelete(int emailAccountId, int DeletedBy);
 
+		public EmailAccount GetDefaultEmail(int? AccountId);
+
 		
 	}
 }

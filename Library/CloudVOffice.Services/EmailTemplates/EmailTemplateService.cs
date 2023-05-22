@@ -23,7 +23,14 @@ namespace CloudVOffice.Services.EmailTemplates
 		
 		public EmailTemplate GetEmailTemplateByName(string name)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return _Context.EmailTemplates.Where(x=>x.EmailTemplateName== name && x.Deleted == false ).FirstOrDefault();	
+			}
+			catch
+			{
+				throw;
+			}
 		}
 	}
 }

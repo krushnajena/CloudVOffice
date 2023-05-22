@@ -33,6 +33,7 @@ namespace Project.Management.Controllers
 				ProjectActivityType d = _projectActivityTypeService.GetProjectActivityTypeByProjectActivityTypeId(int.Parse(projectActivityTypeId.ToString()));
 
 				projectActivityTypeDTO.ProjectActivityName = d.ProjectActivityName;
+				projectActivityTypeDTO.ActivityCategory = d.ActivityCategory;
 
 			}
 
@@ -98,6 +99,11 @@ namespace Project.Management.Controllers
 
 			var a = _projectActivityTypeService.ProjectActivityTypeDelete(projectActivityTypeId, DeletedBy);
 			return Redirect("/Projects/ProjectActivityType/ProjectActivityTypeView");
+		}
+
+		public JsonResult GetProjectActivityTypesByActivityCategory(string ActivityCategory)
+		{
+			return Json(_projectActivityTypeService.GetProjectActivityTypesByActivityCategory(ActivityCategory));
 		}
 	}
 

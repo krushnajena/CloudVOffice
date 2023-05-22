@@ -1,10 +1,13 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Company;
+using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.Company;
+using CloudVOffice.Data.DTO.Comunication;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.CodeAnalysis.Operations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +28,7 @@ namespace CloudVOffice.Services.Company
 		}
 		public MennsageEnum CompanyDetailsCreate(CompanyDetailsDTO companyDetailsDTO)
 		{
-			var ObjCheck = _dbContext.CompanyDetails.Where(x => x.CompanyName == companyDetailsDTO.CompanyName && x.Deleted == false).FirstOrDefault();
+			var ObjCheck = _dbContext.CompanyDetails.SingleOrDefault(opt => opt.CompanyDetailsId == companyDetailsDTO.CompanyDetailsId && opt.Deleted == false);
 			try
 			{
 				
@@ -70,11 +73,92 @@ namespace CloudVOffice.Services.Company
 
 		}
 
+		public MennsageEnum CompanyDetailsDelete(int companyDetailsId, int DeletedBy)
+		{
+			try
+			{
+				var a = _dbContext.CompanyDetails.Where(x => x.CompanyDetailsId == companyDetailsId).FirstOrDefault();
+				if (a != null)
+				{
+					a.Deleted = true;
+					a.UpdatedBy = DeletedBy;
+					a.UpdatedDate = DateTime.Now;
+					_dbContext.SaveChanges();
+					return MennsageEnum.Deleted;
+				}
+				else
+					return MennsageEnum.Invalid;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public MennsageEnum CompanyDetailsUpdate(CompanyDetailsDTO companyDetailsDTO)
+		{
+			try
+			{
+				var CompanyDetails = _dbContext.CompanyDetails.Where(x => x.CompanyDetailsId == companyDetailsDTO.CompanyDetailsId && x.Deleted == false).FirstOrDefault();
+				if (CompanyDetails == null)
+				{
+					var a = _dbContext.CompanyDetails.Where(x => x.CompanyDetailsId == companyDetailsDTO.CompanyDetailsId).FirstOrDefault();
+					if (a != null)
+					{
+						a.CompanyName = companyDetailsDTO.CompanyName;
+						a.ABBR = companyDetailsDTO.ABBR;
+						a.CompanyLogo = companyDetailsDTO.CompanyLogo;
+						a.TaxId = companyDetailsDTO.TaxId;
+						a.Domain = companyDetailsDTO.Domain;
+						a.DateOfEstablishment = companyDetailsDTO.DateOfEstablishment;
+						a.DateOfIncorporation = companyDetailsDTO.DateOfIncorporation;
+						a.AddressLine1 = companyDetailsDTO.AddressLine1;
+						a.AddressLine2 = companyDetailsDTO.AddressLine2;
+						a.City = companyDetailsDTO.City;
+						a.State = companyDetailsDTO.State;
+						a.Country = companyDetailsDTO.Country;
+						a.PostalCode = companyDetailsDTO.PostalCode;
+						a.EmailAddress = companyDetailsDTO.EmailAddress;
+						a.CompanyName = companyDetailsDTO.CompanyName;
+						a.Fax = companyDetailsDTO.Fax;
+						a.Website = companyDetailsDTO.Website;						
+						a.UpdatedDate = DateTime.Now;
+						_dbContext.SaveChanges();
+						return MennsageEnum.Updated;
+					}
+					else
+						return MennsageEnum.Invalid;
+				}
+				else
+				{
+					return MennsageEnum.Duplicate;
+				}
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public CompanyDetails GetCompanyDetails()
 		{
 			try
 			{
 				return _dbContext.CompanyDetails.Where(c => c.Deleted == false).FirstOrDefault();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public CompanyDetails GetCompanyDetailsByCompanyDetailsId(int companyDetailsId)
+		{
+			try
+			{
+				return _dbContext.CompanyDetails.Where(x => x.CompanyDetailsId == companyDetailsId && x.Deleted == false).SingleOrDefault();
+
 			}
 			catch
 			{

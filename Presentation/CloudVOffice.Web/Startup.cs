@@ -21,6 +21,10 @@ using Newtonsoft.Json.Serialization;
 
 using CloudVOffice.Core.Domain.Users;
 using Microsoft.AspNetCore.Identity;
+using Hangfire;
+
+
+using Hangfire.SqlServer;
 
 namespace CloudVOffice.Web
 {
@@ -60,6 +64,16 @@ namespace CloudVOffice.Web
                 x.AccessDeniedPath = "/Forbidden/";
                 
             }) ;
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(configRoot.GetConnectionString("ConnStringMssql")));
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
             services.AddHttpContextAccessor();
             services.AddMvcCore();
 
@@ -164,7 +178,7 @@ namespace CloudVOffice.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseHangfireDashboard();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "CloudVOffice Open Api v1"));
             app.UseHttpsRedirection();
@@ -192,8 +206,8 @@ namespace CloudVOffice.Web
                   name: "areas",
                   pattern: "{area:exists}/{controller=App}/{action=Login}/{id?}"
                 );
-           
 
+           
             app.MapRazorPages();
             app.Run();
         }

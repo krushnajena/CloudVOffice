@@ -1,0 +1,116 @@
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Company;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Data.DTO.Company;
+using CloudVOffice.Data.DTO.Comunication;
+using CloudVOffice.Services.Company;
+using CloudVOffice.Services.Comunication;
+using CloudVOffice.Web.Framework;
+using Microsoft.AspNetCore.Mvc;
+
+namespace CloudVOffice.Web.Areas.Setup.Controllers
+{
+	[Area(AreaNames.Setup)]
+	public class CompanyDetailsController : Controller
+	{
+		private readonly ICompanyDetailsService _companyDetailsService;
+		public CompanyDetailsController(ICompanyDetailsService companyDetailsService)
+		{
+
+			_companyDetailsService = companyDetailsService;
+		}
+		[HttpGet]
+		public IActionResult CompanyDetailsCreate(int? companyDetailsId)
+		{
+			CompanyDetailsDTO companyDetailsDTO = new CompanyDetailsDTO();
+
+			if (companyDetailsId != null)
+			{
+
+				CompanyDetails d = _companyDetailsService.GetCompanyDetailsByCompanyDetailsId(int.Parse(companyDetailsId.ToString()));
+
+				companyDetailsDTO.CompanyName = d.CompanyName;
+				companyDetailsDTO.ABBR = d.ABBR;
+				companyDetailsDTO.CompanyLogo = d.CompanyLogo;
+				companyDetailsDTO.TaxId = d.TaxId;
+				companyDetailsDTO.Domain = d.Domain;
+				companyDetailsDTO.DateOfEstablishment = d.DateOfEstablishment;
+				companyDetailsDTO.DateOfIncorporation = d.DateOfIncorporation;
+				companyDetailsDTO.AddressLine1 = d.AddressLine1;
+				companyDetailsDTO.AddressLine2 = d.AddressLine2;
+				companyDetailsDTO.City = d.City;
+				companyDetailsDTO.State = d.State;
+				companyDetailsDTO.Country = d.Country;
+				companyDetailsDTO.PostalCode = d.PostalCode;
+				companyDetailsDTO.EmailAddress = d.EmailAddress;
+				companyDetailsDTO.PhoneNumber = d.PhoneNumber;
+				companyDetailsDTO.Fax = d.Fax;
+				companyDetailsDTO.Website = d.Website;
+
+			}
+
+			return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
+
+		}
+
+		[HttpPost]
+		public IActionResult CompanyDetailsCreate(CompanyDetailsDTO companyDetailsDTO)
+		{
+			companyDetailsDTO.CreatedBy = int.Parse(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value.ToString());
+
+
+			if (ModelState.IsValid)
+			{
+				if (companyDetailsDTO.CompanyDetailsId == null)
+				{
+					var a = _companyDetailsService.CompanyDetailsCreate(companyDetailsDTO);
+					if (a == MennsageEnum.Success)
+					{
+						return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "Company Details Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+				else
+				{
+					var a = _companyDetailsService.CompanyDetailsUpdate(companyDetailsDTO);
+					if (a == MennsageEnum.Updated)
+					{
+						return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
+					}
+					else if (a == MennsageEnum.Duplicate)
+					{
+						ModelState.AddModelError("", "Company Details Already Exists");
+					}
+					else
+					{
+						ModelState.AddModelError("", "Un-Expected Error");
+					}
+				}
+			}
+
+
+			return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
+		}
+
+		public IActionResult CompanyDetailsView()
+		{
+			ViewBag.CompanyDetails = _companyDetailsService.GetCompanyDetailsList();
+
+			return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsView.cshtml");
+		}
+		public IActionResult CompanyDetailsDelete(int companyDetailsId)
+		{
+			int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+			var a = _companyDetailsService.CompanyDetailsDelete(companyDetailsId, DeletedBy);
+			return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
+		}
+	}	
+}

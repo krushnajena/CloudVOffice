@@ -1,6 +1,26 @@
 ﻿@model CloudVOffice.Data.DTO.Projects.TimesheetDTO;
 @{
 	Layout = "_MainAppLayout";
+    var activityCategory = new string[] {		,"Project Work"   
+									,"Counselling /Discussion"
+									,"Documentation/Report/Policy/SOP/MIS"
+									,"Event Management & Participation"
+									,"Imaginar"
+									,"Interviews"
+									,"Project & Process Audit"
+									,"Review & Monitor/Report Analysis/Meetings"
+									,"RFP Response"
+									,"R&D"
+									,"Project (CSR)"
+									,"Project (Product)"
+									,"Townhall"
+									,"Quality Review"
+									,"Performance Assessment"
+									,"Induction/knowledge sharing"
+									,"Training & Capacity Building"
+									,"Annual function"
+									,"Meetings & Reviews"
+									,"Travel for office Tour" };
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -42,6 +62,31 @@
 						</div>
 
 						<div class="form-row">
+						
+							<div class="form-group col-md-3">
+								<label for="TimeSheetForDate" class="form-label">TimeSheet For Date</label>
+								<input asp-for="@Model.TimeSheetForDate" type="date" class="form-control" autofocus="autofocus" placeholder="TimeSheet For Date" />
+								<span asp-validation-for="TimeSheetForDate"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="TimesheetActivityType" class="form-label">Activity Category</label>
+								<ejs-dropdownlist id="TimesheetActivityType" allowFiltering="true" ejs-for="@Model.TimesheetActivityType" filtering="onProjectfiltering" dataSource="activityCategory" placeholder="Select a Project" popupHeight="220px">
+									<e-dropdownlist-fields text="ProjectName" value="ProjectId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="TimesheetActivityType"></span>
+							</div>
+							
+
+							<div class="form-group col-md-3">
+								<label for="ProjectActivityTypeId" class="form-label">Project Activity Type</label>
+								<ejs-dropdownlist id="ProjectActivityTypeId" allowFiltering="true" ejs-for="@Model.ActivityId" filtering="onProjectActivityTypefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectActivityTypes, "ProjectActivityTypeId", "ProjectActivityName").Items)" placeholder="Select a Project Activity Type" popupHeight="220px">
+									<e-dropdownlist-fields text="ProjectActivityName" value="ProjectActivityTypeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="ProjectActivityTypeId"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label for="ProjectId" class="form-label">Project</label>
 								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.ProjectId" filtering="onProjectfiltering"  dataSource="@(new SelectList((IEnumerable)ViewBag.Projects, "ProjectId", "ProjectName").Items)" placeholder="Select a Project" popupHeight="220px">
@@ -54,41 +99,15 @@
 								<ejs-dropdownlist id="ProjectTaskId" allowFiltering="true" ejs-for="@Model.TaskId" filtering="onProjectTaskfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectTasks, "ProjectTaskId", "TaskName").Items)" placeholder="Select a Project Task" popupHeight="220px">
 									<e-dropdownlist-fields text="TaskName" value="ProjectTaskId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
-								<span asp-validation-for="TaskId"></span>
+								<span asp-validation-for="ProjectTaskId"></span>
 							</div>
-							<div class="form-group col-md-3">
-								<label for="ProjectActivityTypeId" class="form-label">Project Activity Type</label>
-								<ejs-dropdownlist id="ProjectActivityTypeId" allowFiltering="true" ejs-for="@Model.ActivityId" filtering="onProjectActivityTypefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectActivityTypes, "ProjectActivityTypeId", "ProjectActivityName").Items)" placeholder="Select a Project Activity Type" popupHeight="220px">
-									<e-dropdownlist-fields text="ProjectActivityName" value="ProjectActivityTypeId"></e-dropdownlist-fields>
-								</ejs-dropdownlist>
-								<span asp-validation-for="ActivityId"></span>
-							</div>
+						
 							
 							
 						</div>
+					
 						<div class="form-row">
-							<div class="form-group col-md-3">
-								<label for="EmployeeId" class="form-label">Employee</label>
-								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName").Items)" placeholder="Select a Employee" popupHeight="220px">
-									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
-								</ejs-dropdownlist>
-								<span asp-validation-for="EmployeeId"></span>
-							</div>
-
-							<div class="form-group col-md-3">
-								<label for="TimeSheetForDate" class="form-label">TimeSheet For Date</label>
-								<input asp-for="@Model.TimeSheetForDate" type="date" class="form-control" autofocus="autofocus" placeholder="TimeSheet For Date" />
-								<span asp-validation-for="TimeSheetForDate"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="TimesheetActivityType" class="form-label">Timesheet Activity Type</label>
-								<input asp-for="@Model.TimesheetActivityType" type="text" class="form-control" autofocus="autofocus" placeholder="Timesheet Activity Type" />
-								<span asp-validation-for="TimesheetActivityType"></span>
-							</div>
 							
-
-						</div>
-						<div class="form-row">
 							<div class="form-group col-md-3">
 								<label for="FromTime" class="form-label">From Time</label>
 								<input asp-for="@Model.FromTime" type="time" class="form-control" id="fromtime" autofocus="autofocus" placeholder="From Time" />
@@ -118,34 +137,10 @@
 								<input asp-for="@Model.HourlyRate" type="text" class="form-control" autofocus="autofocus" placeholder="Hourly Rate	" />
 								<span asp-validation-for="HourlyRate"></span>
 							</div>
-							<div class="form-group col-md-3">
-								<label for="TimeSheetApprovalStatus" class="form-label">TimeSheet Approval Status</label>
-								<select input asp-for="@Model.TimeSheetApprovalStatus" type="text" class="form-control" autofocus="autofocus" placeholder="TimeSheet Approval Status">
-									<option value="0">Submitted</option>
-									<option value="1">Approved</option>
-									<option value="2">Rejected</option>
-								</select>
-							</div>
+						
 
 						</div>
-						<div class="form-row">
-							@*<div class="form-group col-md-3">
-								<label for="TimesheetApprovedBy" class="form-label">Timesheet Approved By</label>
-								<input asp-for="@Model.TimesheetApprovedBy" type="text" class="form-control" autofocus="autofocus" placeholder="Timesheet Approved By" />
-								<span asp-validation-for="TimesheetApprovedBy"></span>
-							</div>*@
-							<div class="form-group col-md-3">
-								<label for="TimeSheetApprovedOn" class="form-label">TimeSheet Approved On</label>
-								<input asp-for="@Model.TimeSheetApprovedOn" type="date" class="form-control" autofocus="autofocus" placeholder="TimeSheet Approved On	" />
-								<span asp-validation-for="TimeSheetApprovedOn"></span>
-							</div>
-							<div class="form-group col-md-3">
-								<label for="TimeSheetApprovalRemarks" class="form-label">TimeSheet Approval Remarks</label>
-								<input asp-for="@Model.TimeSheetApprovalRemarks" type="text" class="form-control" autofocus="autofocus" placeholder="TimeSheet Approval Remarks" />
-								<span asp-validation-for="TimeSheetApprovalRemarks"></span>
-							</div>
-
-						</div>
+						
 
 					</div>
 					<div class="card-header"><b>Description </b></div>
@@ -211,6 +206,32 @@
 			document.getElementById('fromtime').value,
 			document.getElementById('totime').value
 		);
+	}
+
+
+
+	function onChangeActivityCategory(args) {
+	
+		$.ajax({
+			type: "GET",
+			url: '/Projects/ProjectActivityType/GetProjectActivityTypesByActivityCategory',
+			data: { ActivityCategory: args.value },
+			contentType: "application/json;",
+			dataType: "json",
+			success: function (result) {
+
+				var projectActivityDropDown = document.getElementById("ProjectActivityTypeId").ej2_instances[0];
+				projectActivityDropDown.dataSource = result;
+				//cityDropDown.refresh();
+				projectActivityDropDown.dataBind();
+
+			},
+			error: function () {
+
+			}
+		});
+
+
 	}
 	
 

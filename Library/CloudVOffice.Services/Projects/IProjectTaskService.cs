@@ -22,5 +22,6 @@ namespace CloudVOffice.Services.Projects
 		public List<ProjectTask> GroupProjectTaskByProjectId(int ProjectId);
 		public List<ProjectTask> NotCanceledTasksByProjectId(int projectId);
 
+		public List<ProjectTask> GetTaskComplitedByOthersReport( Int64? Userid, Int64? EmployeeId);
 	}
 }

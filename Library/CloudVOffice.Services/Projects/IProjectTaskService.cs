@@ -20,6 +20,6 @@ namespace CloudVOffice.Services.Projects
 
         public List<ProjectTask> ProjectTaskByProjectId(int ProjectId);
 		public List<ProjectTask> GroupProjectTaskByProjectId(int ProjectId);
-
+		public List<ProjectTask> GetTaskComplitedByOthersReport( Int64? Userid, Int64? EmployeeId);
 	}
 }

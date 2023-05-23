@@ -11,6 +11,7 @@ using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.Seeding;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 
 namespace CloudVOffice.Data.Persistence
@@ -106,11 +107,23 @@ namespace CloudVOffice.Data.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            modelBuilder.Entity<ProjectTask>()
+    .HasOne(r => r.Employee)
+    .WithMany()
+    .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProjectTask>()
+    .HasOne(r => r.AssignedTo)
+    .WithMany()
+    .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Seed();
 
-          
 
-          
+
+
+
+
 
         }
 

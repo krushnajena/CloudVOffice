@@ -34,6 +34,7 @@
 		<Folder Include="Areas\Projects\Views\" />
 		<Folder Include="Areas\Setup\Data\" />
 		<Folder Include="Areas\Setup\Models\" />
+		<Folder Include="Filters\" />
 		<Folder Include="wwwroot\uploads\employee\" />
 
 

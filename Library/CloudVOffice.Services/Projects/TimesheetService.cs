@@ -4,6 +4,7 @@ using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Migrations;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,35 @@ namespace CloudVOffice.Services.Projects
             }
             catch
             {
+                throw;
+            }
+        }
+
+        public List<Timesheet> GetTimeSheetsToValidate(long EmployeeId)
+        {
+            try
+            {
+                var projectTimesheets = _Context.Timesheets
+                         .Include(x=>x.Employee)
+                         .Include(x=>x.ProjectActivityType)
+                         .Include(x => x.Project)
+                         .Include(X=>X.ProjectTask).Where(x=>x.TimesheetActivityType == "Project Work"
+                                                            && x.TimeSheetApprovalStatus == 0 
+                                                            && x.Deleted==false 
+                                                            && x.Project.ProjectManager == EmployeeId)
+                    
+                    .ToList();
+
+                var otherThenProjectTimesheet = _Context.Timesheets
+                                               .Include(x => x.Employee)
+                                               .Include(x => x.ProjectActivityType).Where(x => x.TimesheetActivityType != "Project Work"
+                                                            && x.TimeSheetApprovalStatus == 0
+                                                            && x.Deleted == false
+                                                            && x.Employee.ReportingAuthority ==  EmployeeId);
+                projectTimesheets.AddRange(otherThenProjectTimesheet);
+                return projectTimesheets;
+            }
+            catch{
                 throw;
             }
         }

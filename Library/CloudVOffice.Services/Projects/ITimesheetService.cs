@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
+using StackExchange.Profiling.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace CloudVOffice.Services.Projects
         public Timesheet GetTimesheetByTimesheetId(Int64 timesheetId);
         public MennsageEnum TimesheetUpdate(TimesheetDTO timesheetDTO);
         public MennsageEnum TimesheetDelete(Int64 timesheetId, Int64 DeletedBy);
+
+        public List<Timesheet> GetTimeSheetsToValidate(Int64 EmployeeId);
     }
 }

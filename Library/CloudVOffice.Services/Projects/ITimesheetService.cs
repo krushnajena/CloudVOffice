@@ -16,6 +16,5 @@ namespace CloudVOffice.Services.Projects
         public Timesheet GetTimesheetByTimesheetId(Int64 timesheetId);
         public MennsageEnum TimesheetUpdate(TimesheetDTO timesheetDTO);
         public MennsageEnum TimesheetDelete(Int64 timesheetId, Int64 DeletedBy);
-
     }
 }

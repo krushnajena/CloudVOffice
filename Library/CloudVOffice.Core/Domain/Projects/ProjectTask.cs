@@ -31,8 +31,8 @@ namespace CloudVOffice.Core.Domain.Projects
 		public Int64? ComplitedBy { get; set; }
 		public DateTime? ComplitedOn { get; set; }
 
-		public string TaskComplitedByOthersReasonByAssign { get; set; }
-		public string TaskComplitedByOthersReasonByComplitedBy { get; set; }
+		public string? TaskComplitedByOthersReasonByAssign { get; set; }
+		public string? TaskComplitedByOthersReasonByComplitedBy { get; set; }
 		
 		public bool? IsDelayApproved { get; set; }
 		public string? DelayReason { get; set; }
@@ -51,13 +51,13 @@ namespace CloudVOffice.Core.Domain.Projects
 
 
         [ForeignKey("ProjectId")]
-        public Project Project { get; set; }
+        public Project? Project { get; set; }
 
 		[ForeignKey("EmployeeId")]
-		public Employee AssignedTo { get; set; }
+		public Employee? AssignedTo { get; set; }
 
 		[ForeignKey("ComplitedBy")]
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
 
 		public virtual ICollection<TaskAssignment> TaskAssignments { get; set; }
 

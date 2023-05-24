@@ -145,7 +145,27 @@ namespace Project.Management.Controllers
 			return Json(a);
 		}
 
+		public IActionResult TaskComplitedByOthersReport()
+		{
+			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+			var projecTasks = _projectTaskService.GetTaskComplitedByOthersReport(EmployeeId, UserId);
+			var data = from u in projecTasks
+					   select new
+					   {
+						   ProjectCode = u.Project.ProjectCode,
+						   ProjectName = u.Project.ProjectName,
+						   ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+						   TaskName = u.TaskName,
+						   AssignedTo = u.AssignedTo.FullName,
+						   TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
+						   ComplitedBy = u.Employee.FullName,
+						   TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
 
+					   };
+            ViewBag.tasks = data;
+			return View("~/Plugins/Project.Management/Views/Task/TaskComplitedByOthersReport.cshtml");
+		}
 
 	}
 

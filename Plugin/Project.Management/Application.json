@@ -6,47 +6,156 @@
   "IconClass": "",
   "AreaName": "Projects",
   "Roles": [ "Project User", "Project Manager", "Employee", "Customer" ],
-  "Children": [
-    {
-      "ApplicationName": "Master",
-      "Url": "",
-      "IsGroup": true,
-      "IconImageUrl": "",
-      "IconClass": "icon-event_note",
-      "AreaName": "Projects",
-      "Roles": [ "Project Manager" ],
-      "Children": [
-        {
-          "ApplicationName": "Project Type",
-          "IsGroup": false,
-          "Url": "/Projects/ProjectType/ProjectTypeView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Projects",
-          "Roles": [ "Project Manager" ]
-        },
-        {
-          "ApplicationName": "Project Activity Type",
-          "IsGroup": false,
-          "Url": "/Projects/ProjectActivityType/ProjectActivityTypeView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Projects",
-          "Roles": [ "Project Manager" ]
-        }
-      ]
-    },
-    {
-      "ApplicationName": "Project",
-      "Url": "/Projects/Project/ProjectView",
-      "IsGroup": false,
-      "IconImageUrl": "",
-      "IconClass": "icon-event_note",
-      "AreaName": "HR",
-      "Roles": [ "Project Manager", "Project User" ],
-      "Children": []
-    }
-  ]
+    "Children": [
+      {
+        "ApplicationName": "Master",
+        "Url": "",
+        "IsGroup": true,
+        "IconImageUrl": "",
+        "IconClass": "icon-event_note",
+        "AreaName": "Projects",
+        "Roles": [ "Project Manager" ],
+        "Children": [
+          {
+            "ApplicationName": "Project Type",
+            "IsGroup": false,
+            "Url": "/Projects/ProjectType/ProjectTypeView",
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [ "Project Manager" ]
+          },
+          {
+            "ApplicationName": "Project Activity Type",
+            "IsGroup": false,
+            "Url": "/Projects/ProjectActivityType/ProjectActivityTypeView",
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [ "Project Manager" ]
+          }
+        ]
+      },
+      {
+        "ApplicationName": "Project",
+        "Url": "/Projects/Project/ProjectView",
+        "IsGroup": false,
+        "IconImageUrl": "",
+        "IconClass": "icon-event_note",
+        "AreaName": "Projects",
+        "Roles": [ "Project Manager" ],
+        "Children": []
+      },
+      {
+        "ApplicationName": "My Project",
+        "Url": "/Projects/Project/MyProjects",
+        "IsGroup": false,
+        "IconImageUrl": "",
+        "IconClass": "icon-event_note",
+        "AreaName": "Projects",
+        "Roles": [
+          "Employee",
+          "Project Manager",
+          "Project User",
+          "Customer"
+        ],
+        "Children": []
+      },
+      {
+        "ApplicationName": "Task",
+        "Url": "",
+        "IsGroup": true,
+        "IconImageUrl": "",
+        "IconClass": "icon-event_note",
+        "AreaName": "Projects",
+        "Roles": [
+          "Project Manager",
+          "Employee",
+          "Project User"
+        ],
+        "Children": [
+          {
+            "ApplicationName": "Task List",
+            "Url": "/Projects/Task/TaskList",
+            "IsGroup": true,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager",
+              "Employee",
+              "Project User"
+            ],
+            "Children": [
+
+            ]
+          },
+          {
+            "ApplicationName": "My Task Delay List",
+            "Url": "/Projects/Task/MyTaskDelayList",
+            "IsGroup": true,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+
+              "Employee"
+
+            ],
+            "Children": [
+
+            ]
+          }
+        ]
+      },
+      {
+        "ApplicationName": "My Timesheet",
+        "Url": "/Projects/Timesheet/TimesheetView",
+        "IsGroup": false,
+        "IconImageUrl": "",
+        "IconClass": "icon-event_note",
+        "AreaName": "Projects",
+        "Roles": [
+          "Project Manager",
+          "Employee",
+          "Project User"
+
+        ],
+        "Children": [
+
+        ]
+      },
+      {
+        "ApplicationName": "Validation",
+        "Url": "/Projects/Timesheet/TimesheetView",
+        "IsGroup": false,
+        "IconImageUrl": "",
+        "IconClass": "icon-event_note",
+        "AreaName": "Projects",
+        "Roles": [
+          "Project Manager"
+
+        ],
+        "Children": [
+          {
+            "ApplicationName": "Validation",
+            "Url": "/Projects/Timesheet/TimesheetView",
+            "IsGroup": false,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager"
+
+            ],
+            "Children": [
+
+            ]
+          }
+        ]
+      }
+
+    ]
 
 
 }

@@ -1,3 +1,8 @@
 {
-  "Roles": ["Accounts User","Accounts Manager"]
+  "Roles": [
+    "Project User",
+    "Project Manager",
+    "Employee",
+    "Customer"
+  ]
 }

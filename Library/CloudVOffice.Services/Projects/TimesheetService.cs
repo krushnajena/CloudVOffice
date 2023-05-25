@@ -54,24 +54,37 @@ namespace CloudVOffice.Services.Projects
             try
             {
                 var projectTimesheets = _Context.Timesheets
-                         .Include(x=>x.Employee)
-                         .Include(x=>x.ProjectActivityType)
+                         .Include(x => x.Employee)
+                         .Include(x => x.ProjectActivityType)
                          .Include(x => x.Project)
-                         .Include(X=>X.ProjectTask).Where(x=>x.TimesheetActivityType == "Project Work"
-                                                            && x.TimeSheetApprovalStatus == 0 
-                                                            && x.Deleted==false 
-                                                            && x.Project.ProjectManager == EmployeeId)
+                         .Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType == "Project Work"
+                                                            && x.TimeSheetApprovalStatus == 0
+                                                            && x.Deleted == false
+                                                            && x.Project.ProjectManager == EmployeeId && x.Project.ProjectManager != x.EmployeeId)
                     
                     .ToList();
 
-                var otherThenProjectTimesheet = _Context.Timesheets
+				var projectTimesheetsToRa = _Context.Timesheets
+						.Include(x => x.Employee)
+						.Include(x => x.ProjectActivityType)
+						.Include(x => x.Project)
+						.Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType == "Project Work"
+														   && x.TimeSheetApprovalStatus == 0
+														   && x.Deleted == false
+														   && x.Project.ProjectManager == EmployeeId && x.Project.ProjectManager == x.EmployeeId &&   x.Employee.ReportingAuthority == EmployeeId)
+
+				   .ToList();
+
+
+				var otherThenProjectTimesheet = _Context.Timesheets
                                                .Include(x => x.Employee)
                                                .Include(x => x.ProjectActivityType).Where(x => x.TimesheetActivityType != "Project Work"
                                                             && x.TimeSheetApprovalStatus == 0
                                                             && x.Deleted == false
                                                             && x.Employee.ReportingAuthority ==  EmployeeId);
                 projectTimesheets.AddRange(otherThenProjectTimesheet);
-                return projectTimesheets;
+				projectTimesheets.AddRange(projectTimesheetsToRa);
+				return projectTimesheets;
             }
             catch{
                 throw;

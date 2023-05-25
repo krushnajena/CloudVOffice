@@ -10,7 +10,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Project</h5>
+                    <h5>Timesheet</h5>
                     <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
                 </div>
             </div>
@@ -26,10 +26,10 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Task</div>
+                <div class="card-header">TimeSheetsToValidate</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource=" ViewBag.tasks"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Timesheets"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -41,15 +41,16 @@
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="ProjectCode" headerText="Project Code" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ComplitedHour" headerText="Complited Hour " textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="TaskName" headerText="Task Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="AssignedTo" headerText="Assigned To" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="TaskComplitedByOthersReasonByAssign" headerText="Task ComplitedBy OthersReason ByAssign" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ComplitedBy" headerText="Complited By To" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="TaskComplitedByOthersReasonByComplitedBy" headerText="Task ComplitedBy OthersReason By ComplitedBy" textAlign="Left" width="200"></e-grid-column>
-                            @*<e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>*@
+                            <e-grid-column field="TimesheetDate" headerText="TimesheetDate" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="EmployeeName" headerText="TimeSheet EmployeeName" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ActivityCategory" headerText="ActivityCategory" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Project Activity Type" headerText="Project Activity Type" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ActivityName" headerText="ProjectActivityName" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Project" headerText="Project" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Task" headerText="ProjectTask" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="DurationinHours" headerText="DurationinHours" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Description" headerText="Description" textAlign="Left" width="120"></e-grid-column>
+                          
                         </e-grid-columns>
                     </ejs-grid>
                 </div>
@@ -60,8 +61,8 @@
 </div>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Projects/ProjectTask/ProjectTaskCreate?ProjectTaskId=${ProjectTaskId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        
+        <a href="../../Projects/Timesheet/TimesheetCreate?TimesheetId=${TimesheetId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../Projects/Timesheet/TimesheetDelete?TimesheetId=${TimesheetId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">

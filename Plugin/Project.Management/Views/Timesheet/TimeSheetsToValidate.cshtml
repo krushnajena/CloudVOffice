@@ -29,7 +29,7 @@
                 <div class="card-header">Task</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource=" ViewBag.tasks"
+                    <ejs-grid id="GridOverview" dataSource=" ViewBag.timeSheets"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -41,14 +41,14 @@
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="ProjectCode" headerText="Project Code" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ComplitedHour" headerText="Complited Hour " textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="TaskName" headerText="Task Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="AssignedTo" headerText="Assigned To" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="TaskComplitedByOthersReasonByAssign" headerText="Task ComplitedBy OthersReason ByAssign" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ComplitedBy" headerText="Complited By To" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="TaskComplitedByOthersReasonByComplitedBy" headerText="Task ComplitedBy OthersReason By ComplitedBy" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Timesheetdate" headerText="Timesheetdate" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="EmployeeName" headerText="EmployeeName" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ActvityCategory" headerText="ActvityCategory" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ActvityName" headerText="ActvityName" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Project" headerText="Project" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Task" headerText="Task" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="DurationInHours" headerText="DurationInHours" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Description" headerText="Description" textAlign="Left" width="120"></e-grid-column>
                             @*<e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>*@
                         </e-grid-columns>
                     </ejs-grid>
@@ -60,8 +60,8 @@
 </div>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Projects/ProjectTask/ProjectTaskCreate?ProjectTaskId=${ProjectTaskId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        
+        <a href="../../Projects/Timesheet/TimesheetCreate?TimesheetId=${TimesheetId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">

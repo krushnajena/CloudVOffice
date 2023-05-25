@@ -179,7 +179,7 @@ namespace CloudVOffice.Services.Projects
 					
 					.Include(a=>a.Project)
                    
-					.Include(f=>f.Employee)
+					.Include(f=>f.AssignedTo)
                     .Where(x => x.ProjectId == ProjectId && x.Deleted == false).ToList();
 
             }

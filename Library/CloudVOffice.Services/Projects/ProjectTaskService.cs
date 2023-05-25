@@ -179,7 +179,7 @@ namespace CloudVOffice.Services.Projects
 					
 					.Include(a=>a.Project)
                    
-					.Include(f=>f.Employee)
+					.Include(f=>f.AssignedTo)
                     .Where(x => x.ProjectId == ProjectId && x.Deleted == false).ToList();
 
             }
@@ -240,7 +240,9 @@ namespace CloudVOffice.Services.Projects
 					.Where(x => x.Deleted == false &&  (
 					x.Project.ProjectManager == EmployeeId
 					|| x.Project.ProjectEmployees.Any(d=>d.EmployeeId == EmployeeId && d.Deleted == false) 
-					|| x.Project.ProjectUsers.Any(d=>d.UserId == Userid && d.Deleted == false))).ToList();
+					|| x.Project.ProjectUsers.Any(d=>d.UserId == Userid && d.Deleted == false))
+					&& x.EmployeeId != x.ComplitedBy
+					).ToList();
 
 			}
 			catch
@@ -249,6 +251,34 @@ namespace CloudVOffice.Services.Projects
 			}
 
 		}
-	}
+
+		public List<ProjectTask> GetTaskDelayReport(Int64? Userid, Int64? EmployeeId)
+		{
+			try
+			{
+			      return _Context.ProjectTasks
+						.Include(a => a.Project)
+						.ThenInclude(a => a.ProjectEmployees)
+						.Include(a => a.Project)
+						.ThenInclude(x => x.ProjectUsers)
+						.Include(a => a.Employee)
+						.Include(a => a.AssignedTo)
+
+
+
+					.Where(x => x.Deleted == false && (
+					x.Project.ProjectManager == EmployeeId
+					|| x.Project.ProjectEmployees.Any(d => d.EmployeeId == EmployeeId && d.Deleted == false)
+					|| x.Project.ProjectUsers.Any(d => d.UserId == Userid && d.Deleted == false)) && x.ExpectedEndDate < x.ComplitedOn).ToList();
+
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+    }
 }
 	

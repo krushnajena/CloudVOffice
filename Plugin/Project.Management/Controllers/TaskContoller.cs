@@ -139,11 +139,37 @@ namespace Project.Management.Controllers
             return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));
         }
 
-		public JsonResult NotCanceledTasksByProjectId(int ProjectId)
+		
+		public IActionResult TaskDelayReport()
 		{
-            var a = _projectTaskService.NotCanceledTasksByProjectId(ProjectId);
-
-			return Json(a);
+			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0; 
+            }			
+            var projecTasks = _projectTaskService.GetTaskDelayReport(EmployeeId, UserId);
+			var data = from u in projecTasks
+					   select new
+					   {
+						   ProjectCode = u.Project.ProjectCode,
+						   ProjectName = u.Project.ProjectName,
+						   ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+						   TaskName = u.TaskName,
+						   AssignedTo = u.AssignedTo.FullName,
+                           EndDateAsPerPlan = u.ExpectedEndDate,
+                           ActualEndDate = u.ComplitedOn,
+                           DelayOnHour = u.ExpectedEndDate - u.ComplitedOn,
+                           DelayReason = u.DelayReason,
+                        //   DelayApprovalRemark = u.DelayApprovedBy.
+					   };
+            ViewBag.DelayReport = data;
+			return View("~/Plugins/Project.Management/Views/Task/TaskDelayReport.cshtml");
 		}
 
 		public IActionResult TaskComplitedByOthersReport()
@@ -180,6 +206,4 @@ namespace Project.Management.Controllers
 		}
 
 	}
-
-
 }

@@ -218,7 +218,19 @@ namespace Projects.Management.Controller
 		public JsonResult GetMyAssignedProjectByEmployee()
 		{
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+			Int64 EmployeeId;
+			var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+
+            if(employee != null)
+			{
+				EmployeeId = employee.EmployeeId;
+
+            }
+			else
+			{
+				EmployeeId = 0;	
+			}
+			
 			var a = _projectService.GetMyAssignedProjectByEmployee(EmployeeId);
 			var projects = from u in a
 						   select new

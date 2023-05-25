@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Emp;
@@ -148,8 +149,19 @@ namespace Project.Management.Controllers
 		public IActionResult TaskComplitedByOthersReport()
 		{
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
-			var projecTasks = _projectTaskService.GetTaskComplitedByOthersReport(EmployeeId, UserId);
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                   EmployeeId = 0;
+              
+            }
+               
+            var projecTasks = _projectTaskService.GetTaskComplitedByOthersReport(EmployeeId, UserId);
 			var data = from u in projecTasks
 					   select new
 					   {

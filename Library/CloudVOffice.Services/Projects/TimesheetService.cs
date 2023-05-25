@@ -23,6 +23,9 @@ namespace CloudVOffice.Services.Projects
             _Context = Context;
             _timesheetRepo = timesheetRepo;
         }
+
+       
+
         public Timesheet GetTimesheetByTimesheetId(Int64 timesheetId)
         {
             try
@@ -49,7 +52,7 @@ namespace CloudVOffice.Services.Projects
             }
         }
 
-        public List<Timesheet> GetTimeSheetsToValidate(long EmployeeId)
+        public List<Timesheet> GetTimeSheetsToValidate(Int64 EmployeeId)
         {
             try
             {

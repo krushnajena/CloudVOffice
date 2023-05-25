@@ -127,6 +127,25 @@ namespace Project.Management.Controllers
 			var a = _timesheetService.TimesheetDelete(timesheetId, DeletedBy);
 			return Redirect("/Projects/Timesheet/TimesheetView");
 		}
-		
-	}
+        public IActionResult GetTimeSheetsToValidate()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId = _employeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+            var Timesheet = _timesheetService .GetTimeSheetsToValidate(EmployeeId);
+            var data = from u in Timesheet
+                       select new
+                       {
+                           TimesheetDate = u.CreatedDate,
+                           EmployeeName = u.Employee.FullName,
+                           ActivityCategory = u.ProjectActivityType.ActivityCategory,
+                           ActivityName = u.ProjectActivityType.ProjectActivityName,
+                            Project = u.Project,
+                           Task = u.ProjectTask,
+                           DurationinHours = u.DurationInHours,
+                           Description = u.Description,
+
+                       };
+            return View("~/Plugins/Project.Management/Views/Task/Timesheet.cshtml", Timesheet);
+        }
+    }
 }

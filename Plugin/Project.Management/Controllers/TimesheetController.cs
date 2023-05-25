@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Migrations;
@@ -23,17 +24,17 @@ namespace Project.Management.Controllers
         private readonly IProjectActivityTypeService _projectActivityTypeService;
         private readonly IProjectService _projectService;
         private readonly IProjectTaskService _projectTaskService;
-        public TimesheetController(ITimesheetService timesheetService, IEmployeeService employeeService, IProjectActivityTypeService projectActivityTypeService, IProjectService projectService,IProjectTaskService projectTaskService)
+        public TimesheetController(ITimesheetService timesheetService, IEmployeeService employeeService, IProjectActivityTypeService projectActivityTypeService, IProjectService projectService, IProjectTaskService projectTaskService)
         {
 
             _timesheetService = timesheetService;
-			_employeeService = employeeService;
+            _employeeService = employeeService;
             _projectActivityTypeService = projectActivityTypeService;
-			_projectService = projectService;
-			_projectTaskService = projectTaskService;
-		}
+            _projectService = projectService;
+            _projectTaskService = projectTaskService;
+        }
         [HttpGet]
-        public  IActionResult TimesheetCreate(Int64? timesheetId)
+        public IActionResult TimesheetCreate(Int64? timesheetId)
         {
             TimesheetDTO timesheetDTO = new TimesheetDTO();
 
@@ -60,14 +61,14 @@ namespace Project.Management.Controllers
                 timesheetDTO.TimeSheetApprovalRemarks = d.TimeSheetApprovalRemarks;
             }
 
-           
+
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
 
         }
-		
 
 
-		[HttpPost]
+
+        [HttpPost]
         public IActionResult TimesheetCreate(TimesheetDTO timesheetDTO)
         {
             timesheetDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -109,24 +110,46 @@ namespace Project.Management.Controllers
                 }
             }
 
-		
+
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
         }
-		public IActionResult TimesheetView()
-		{
-			ViewBag.Timesheets = _timesheetService.GetTimesheets();
+        public IActionResult TimesheetView()
+        {
+            ViewBag.Timesheets = _timesheetService.GetTimesheets();
 
-			return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetView.cshtml");
-		}
+            return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetView.cshtml");
+        }
 
-		[HttpGet]
-		public IActionResult TimesheetDelete(Int64 timesheetId)
-		{
-			Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+        [HttpGet]
+        public IActionResult TimesheetDelete(Int64 timesheetId)
+        {
+            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-			var a = _timesheetService.TimesheetDelete(timesheetId, DeletedBy);
-			return Redirect("/Projects/Timesheet/TimesheetView");
-		}
-		
-	}
+            var a = _timesheetService.TimesheetDelete(timesheetId, DeletedBy);
+            return Redirect("/Projects/Timesheet/TimesheetView");
+        }
+
+        public IActionResult TimeSheetsToValidate()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId = _employeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+            var timesheets = _timesheetService.GetTimeSheetsToValidate(EmployeeId);
+            var data = from u in timesheets
+                       select new
+                       {
+                           Timesheetdate = u.CreatedDate,
+                           EmployeeName = u.Employee.FullName,
+                           ActvityCategory = u.ProjectActivityType.ActivityCategory,
+                           ActvityName = u.ProjectActivityType.ProjectActivityName,
+                           Project = u.Project,
+                           Task = u.ProjectTask,
+                           DurationInHours = u.DurationInHours,
+                           Description = u.Description,
+                       };
+            ViewBag.timeSheets = data;
+            return View("~/Plugins/Project.Management/Views/Timesheet/TimeSheetsToValidate.cshtml");
+        }
+        
+
+    }
 }

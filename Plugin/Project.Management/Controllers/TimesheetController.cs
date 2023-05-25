@@ -149,7 +149,17 @@ namespace Project.Management.Controllers
             ViewBag.timeSheets = data;
             return View("~/Plugins/Project.Management/Views/Timesheet/TimeSheetsToValidate.cshtml");
         }
-        
 
-    }
+        public IActionResult ProjectWiseEffortHourReport()
+        {
+            return View();
+        }
+        public IActionResult TimesheetReport()
+        {
+            return View();
+        }
+
+
+
+	}
 }

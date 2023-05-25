@@ -105,6 +105,22 @@
             "Children": [
 
             ]
+          },
+          {
+            "ApplicationName": "Task Complited By Others",
+            "Url": "/Projects/Task/MyTaskComplitedByOthers",
+            "IsGroup": true,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+
+              "Employee"
+
+            ],
+            "Children": [
+
+            ]
           }
         ]
       },
@@ -127,8 +143,8 @@
       },
       {
         "ApplicationName": "Validation",
-        "Url": "/Projects/Timesheet/TimesheetView",
-        "IsGroup": false,
+        "Url": "",
+        "IsGroup": true,
         "IconImageUrl": "",
         "IconClass": "icon-event_note",
         "AreaName": "Projects",
@@ -138,8 +154,24 @@
         ],
         "Children": [
           {
-            "ApplicationName": "Validation",
-            "Url": "/Projects/Timesheet/TimesheetView",
+            "ApplicationName": "Timesheet Validation",
+            "Url": "/Projects/Timesheet/TimeSheetsToValidate",
+            "IsGroup": false,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager"
+
+            ],
+            "Children": [
+
+            ]
+          },
+
+          {
+            "ApplicationName": "Task Delay Validation",
+            "Url": "/Projects/Task/DelayValidation",
             "IsGroup": false,
             "IconImageUrl": "",
             "IconClass": "icon-event_note",
@@ -153,7 +185,91 @@
             ]
           }
         ]
+      },
+
+      {
+        "ApplicationName": "Reports",
+        "Url": "",
+        "IsGroup": true,
+        "IconImageUrl": "",
+        "IconClass": "icon-event_note",
+        "AreaName": "Projects",
+        "Roles": [
+          "Project Manager",
+          "Project User"
+
+        ],
+        "Children": [
+          {
+            "ApplicationName": "Task Complited By Others",
+            "Url": "/Projects/Task/TaskComplitedByOthersReport",
+            "IsGroup": false,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager",
+              "Project User"
+
+            ],
+            "Children": [
+
+            ]
+          },
+
+          {
+            "ApplicationName": "Task Delay Report",
+            "Url": "/Projects/Task/TaskDelayReport",
+            "IsGroup": false,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager",
+              "Project User"
+
+            ],
+            "Children": [
+
+            ]
+          },
+          {
+            "ApplicationName": "Project Wise Effort Hour Report",
+            "Url": "/Projects/TimeSheet/ProjectWiseEffortHourReport",
+            "IsGroup": false,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager",
+              "Project User"
+
+            ],
+            "Children": [
+
+            ]
+          },
+
+          {
+            "ApplicationName": "Timesheet Report",
+            "Url": "/Projects/TimeSheet/TimesheetReport",
+            "IsGroup": false,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager",
+              "Project User"
+
+            ],
+            "Children": [
+
+            ]
+          }
+        ]
       }
+
+
 
     ]
 

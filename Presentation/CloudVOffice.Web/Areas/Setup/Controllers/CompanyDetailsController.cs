@@ -14,10 +14,12 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 	public class CompanyDetailsController : Controller
 	{
 		private readonly ICompanyDetailsService _companyDetailsService;
-		public CompanyDetailsController(ICompanyDetailsService companyDetailsService)
+		private readonly IWebHostEnvironment _hostingEnvironment;
+		public CompanyDetailsController(ICompanyDetailsService companyDetailsService, IWebHostEnvironment hostingEnvironment)
 		{
 
 			_companyDetailsService = companyDetailsService;
+			_hostingEnvironment = hostingEnvironment;
 		}
 		[HttpGet]
 		public IActionResult CompanyDetailsCreate(int? companyDetailsId)
@@ -61,21 +63,38 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 			if (ModelState.IsValid)
 			{
+				if (companyDetailsDTO.CompanyLogoUp != null)
+				{
+					FileInfo fileInfo = new FileInfo(companyDetailsDTO.CompanyLogoUp.FileName);
+					string extn = fileInfo.Extension.ToLower();
+					Guid id = Guid.NewGuid();
+					string filename = id.ToString() + extn;
+
+					string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
+					if (!Directory.Exists(uploadsFolder))
+					{
+						Directory.CreateDirectory(uploadsFolder);
+					}
+					string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+					string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
+					companyDetailsDTO.CompanyLogoUp.CopyTo(new FileStream(imagePath, FileMode.Create));
+					companyDetailsDTO.CompanyLogo = uniqueFileName;
+				}
 				if (companyDetailsDTO.CompanyDetailsId == null)
 				{
-					var a = _companyDetailsService.CompanyDetailsCreate(companyDetailsDTO);
-					if (a == MennsageEnum.Success)
-					{
-						return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
-					}
-					else if (a == MennsageEnum.Duplicate)
-					{
-						ModelState.AddModelError("", "Company Details Already Exists");
-					}
-					else
-					{
-						ModelState.AddModelError("", "Un-Expected Error");
-					}
+					   var a = _companyDetailsService.CompanyDetailsCreate(companyDetailsDTO);
+					   if (a == MennsageEnum.Success)
+					   {
+					   	 return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
+					   }
+					   else if (a == MennsageEnum.Duplicate)
+					   {
+					   	 ModelState.AddModelError("", "Company Details Already Exists");
+					   }
+					   else
+					   {
+					   	 ModelState.AddModelError("", "Un-Expected Error");
+					   }
 				}
 				else
 				{
@@ -114,3 +133,5 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		}
 	}	
 }
+
+

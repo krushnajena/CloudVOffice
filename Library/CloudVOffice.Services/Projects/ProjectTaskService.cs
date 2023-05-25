@@ -279,10 +279,14 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-        public List<ProjectTask> GetMyTaskDelayList(Int64? Userid, Int64? EmployeeId)
-        {
-            throw new NotImplementedException();
-        }
-    }
+      
+
+       
+
+		public List<ProjectTask> GetMYTaskComplitedByOthersReport( Int64? EmployeeId)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
 	

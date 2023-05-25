@@ -14,10 +14,12 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 	public class LetterHeadController : Controller
 	{
 		private readonly ILetterHeadService _letterHeadService;
-		public LetterHeadController(ILetterHeadService letterHeadService)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public LetterHeadController(ILetterHeadService letterHeadService , IWebHostEnvironment hostEnvironment)
 		{
 
 			_letterHeadService = letterHeadService;
+			_hostingEnvironment = hostEnvironment;
 		}
 		[HttpGet]
 		public IActionResult LetterHeadCreate(int? letterHeadId)
@@ -55,6 +57,41 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 			{
 				if (letterHeadDTO.LetterHeadId == null)
 				{
+
+					if (letterHeadDTO.LetterHeadImageUp != null)
+					{
+						FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadImageUp.FileName);
+						string extn = fileInfo.Extension.ToLower();
+						Guid id = Guid.NewGuid();
+						string filename = id.ToString() + extn;
+
+						string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
+						if (!Directory.Exists(uploadsFolder))
+						{
+							Directory.CreateDirectory(uploadsFolder);
+						}
+						string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+						string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        letterHeadDTO.LetterHeadImageUp.CopyTo(new FileStream(imagePath, FileMode.Create));
+                        letterHeadDTO.LetterHeadImage= uniqueFileName;
+					}
+					if (letterHeadDTO.LetterHeadFooterImageUP != null)
+					{
+						FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadFooterImageUP.FileName);
+						string extn = fileInfo.Extension.ToLower();
+						Guid id = Guid.NewGuid();
+						string filename = id.ToString() + extn;
+
+						string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
+						if (!Directory.Exists(uploadsFolder))
+						{
+							Directory.CreateDirectory(uploadsFolder);
+						}
+						string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+						string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
+						letterHeadDTO.LetterHeadFooterImageUP.CopyTo(new FileStream(imagePath, FileMode.Create));
+						letterHeadDTO.LetterHeadFooterImage = uniqueFileName;
+					}
 					var a = _letterHeadService.LetterHeadCreate(letterHeadDTO);
 					if (a == MennsageEnum.Success)
 					{

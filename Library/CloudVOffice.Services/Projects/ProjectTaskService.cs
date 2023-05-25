@@ -279,6 +279,20 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+        public List<ProjectTask> GetMyDelayTaskList(Int64? EmployeeId)
+        {
+			try
+			{
+				return _Context.ProjectTasks
+					.Include(a => a.Project)
+					.Include(b => b.Employee)
+
+					.Where(x => x.Deleted == false && x.EmployeeId == EmployeeId && x.ComplitedOn> x.ExpectedEndDate).ToList(); 
+			}
+			catch
+			{
+				throw;
+			}
+        }
     }
 }
-	

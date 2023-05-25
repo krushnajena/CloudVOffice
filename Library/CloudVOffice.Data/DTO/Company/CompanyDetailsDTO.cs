@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,5 +30,6 @@ namespace CloudVOffice.Data.DTO.Company
 
 
 		public Int64 CreatedBy { get; set; }
+		public IFormFile CompanyLogoUp { get; set; }
 	}
 }

@@ -285,8 +285,32 @@ namespace CloudVOffice.Services.Projects
 
 		public List<ProjectTask> GetMYTaskComplitedByOthersReport( Int64? EmployeeId)
 		{
-			throw new NotImplementedException();
+			try
+			{
+
+				return _Context.ProjectTasks
+						.Include(a => a.Project)
+						.ThenInclude(a => a.ProjectEmployees)				
+						.Include(a => a.Employee)
+						.Include(a => a.AssignedTo)
+
+
+
+					.Where(x => x.Deleted == false  && ((x.ComplitedBy!=EmployeeId && x.EmployeeId ==  EmployeeId ) || (x.ComplitedBy == EmployeeId && x.EmployeeId != EmployeeId))).ToList();
+
+
+			}
+			catch
+			{
+				throw;
+			}
+
 		}
-	}
+
+        public List<ProjectTask> GetMyDelayTaskList(Int64? EmployeeId)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 	

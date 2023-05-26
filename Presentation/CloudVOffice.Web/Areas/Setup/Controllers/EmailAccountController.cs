@@ -107,7 +107,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 				}
 			}
 
-            ViewBag.EmailDomains = _emailDomainService.GetEmailDomains();
+			var emailDomain = _emailDomainService.GetEmailDomains();
+			ViewBag.EmailDomains = emailDomain;
 
 
 			return View("~/Areas/Setup/Views/EmailAccount/EmailAccountCreate.cshtml", emailAccountDTO);

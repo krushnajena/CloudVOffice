@@ -26,6 +26,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		{
 			CompanyDetailsDTO companyDetailsDTO = new CompanyDetailsDTO();
 
+
 			if (companyDetailsId != null)
 			{
 
@@ -113,9 +114,9 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 					}
 				}
 			}
+           
 
-
-			return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
+            return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
 		}
 
 		public IActionResult CompanyDetailsView()

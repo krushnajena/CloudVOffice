@@ -3,7 +3,8 @@
 @model CloudVOffice.Data.DTO.Comunication.EmailAccountDTO;
 @{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "EmailAccount Create";
+	ViewData["Title"] = "EmailAccount Create";
+	var domainList = new SelectList((IEnumerable)ViewBag.EmailDomains, "DomainId", "DomainName");
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -52,18 +53,17 @@
 								<input asp-for="@Model.EmailAddress" type="text" class="form-control" autofocus="autofocus" placeholder="EmailAddress" />
 								<span asp-validation-for="EmailAddress"></span>
 							</div>
-							
+						
 							<div class="form-group col-md-3">
 
-								<label for="Domain" class="form-label">Domain</label>
-								<ejs-dropdownlist id="Domain" allowFiltering="true" ejs-for="@Model.Domain" filtering="onDomainrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.EmailDomains, "DomainId", "DomainName").Items)" placeholder="Select Domain" popupHeight="220px">
-									<e-dropdownlist-fields text="DomainName" value="Domain"></e-dropdownlist-fields>
+								<label for="EmailDomainId" class="form-label">Domain</label>
+								<ejs-dropdownlist id="EmailDomainId" allowFiltering="true" ejs-for="@Model.Domain" filtering="onDomainrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.EmailDomains, "EmailDomainId", "DomainName").Items)" placeholder="Select Domain" popupHeight="220px">
+									<e-dropdownlist-fields text="DomainName" value="EmailDomainId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 
 
 								<span asp-validation-for="Domain"></span>
 							</div>
-							
 
 						</div>
 						<div class="form-row">

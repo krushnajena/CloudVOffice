@@ -36,6 +36,7 @@ namespace Project.Management.Controllers
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
             ViewBag.Tasks = a.AsEnumerable();
+            ViewBag.DelayTask = a.AsEnumerable();
             return View("~/Plugins/Project.Management/Views/Task/Tasks.cshtml");
         }
 
@@ -225,12 +226,15 @@ namespace Project.Management.Controllers
                            ProjectCode = u.Project.ProjectCode,
                            ProjectName = u.Project.ProjectName,
                            TaskName = u.TaskName,
-                           AssignedTo = u.AssignedTo.FullName,
+						   ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
                            EndDateAsPerPlan = u.ExpectedEndDate,
-                           ActualEndDate = u.ComplitedOn,
+						   DelayOnHour = u.ExpectedEndDate - u.ComplitedOn,
+						   ActualEndDate = u.ComplitedOn,
+                           DelayReasion = u.DelayReason,
                        };
-            return View();
-        }
+			ViewBag.DelayTask = data;
+			return View("~/Plugins/Project.Management/Views/Task/MyTaskDelayList.cshtml");
+		}
 
 	}
 }

@@ -31,6 +31,7 @@
     <None Remove="Views\Task\TaskCreate.cshtml" />
     <None Remove="Views\Task\TaskDelayReport.cshtml" />
     <None Remove="Views\Task\Tasks.cshtml" />
+    <None Remove="Views\Task\TasksForDelayValidation.cshtml" />
     <None Remove="Views\Timesheet\GetTimeSheetsToValidate.cshtml" />
     <None Remove="Views\Timesheet\TimesheetCreate.cshtml" />
     <None Remove="Views\Timesheet\TimeSheetsToValidate.cshtml" />

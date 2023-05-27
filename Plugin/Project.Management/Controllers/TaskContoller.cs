@@ -231,6 +231,42 @@ namespace Project.Management.Controllers
                        };
             return View();
         }
+        public IActionResult TasksForDelayValidation() 
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee == null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            var projectTasks = _projectTaskService.GetTasksForDelayValidation( EmployeeId ,UserId);
+            var data = from u in projectTasks
+                       select new
+                       {
 
-	}
+                           ProjectCode = u.Project.ProjectCode,
+                           ProjectName = u.Project.ProjectName,
+                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+                           TaskName = u.TaskName,
+                           AssignedTo = u.AssignedTo.FullName,
+                           ProjectEmployees = u.Project.ProjectEmployees,
+                         
+
+                          
+
+
+
+                       };
+            ViewBag.tasks = data;
+            return View("~/Plugins/Project.Management/Views/Task/TasksForDelayValidation.cshtml");
+
+        }
+
+
+    }
 }

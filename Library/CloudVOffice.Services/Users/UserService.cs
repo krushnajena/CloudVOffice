@@ -396,7 +396,7 @@ namespace CloudVOffice.Services.Users
 				stringBuilder = stringBuilder.Replace("{%copylinkfrommessage%} ", "You can also copy-paste following link in your browser<br/> <a href='"+url+"'  style=\"color:#2d95f0\" target=\"_blank\" >"+url+"</a>");
 				stringBuilder = stringBuilder.Replace("{%companyname%}", company.CompanyName);
 				stringBuilder = stringBuilder.Replace("{%address%}", company.AddressLine1+", "+company.AddressLine2+", "+company.City+", "+ company.State+", "+ company.Country+" - "+ company.PostalCode);
-				stringBuilder = stringBuilder.Replace("{%footerletterhera%}", "<img src='" + baseUrl + "/uploads/setup/" + letter.LetterHeadFooterImage + "' >");
+				stringBuilder = stringBuilder.Replace("{%footerletterhera%}", "<img src='" + baseUrl + "/uploads/setup/" + letter.LetterHeadFooterImage + "' style='hight:"+ letter .LetterHeadImageFooterHeight+ "; width:"+letter.LetterHeadImageFooterWidth+"'>");
                
               await  _emailService.SendEmailAsync(new MailRequest {
 			        SenderEmail =emailA.EmailAddress,

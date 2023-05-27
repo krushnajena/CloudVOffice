@@ -279,6 +279,45 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+        public MennsageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
+        {
+			try
+			{
+				var projectTask = _Context.ProjectTasks.Where(x=>x.ProjectTaskId== projectTaskDTO.ProjectId).FirstOrDefault();
+				projectTask.TaskStatus  = projectTaskDTO.TaskStatus;
+				projectTask.UpdatedBy = projectTaskDTO.CreatedBy;
+				projectTask.UpdatedDate = System.DateTime.Now;	
+				if(projectTask.TaskStatus == "Open")
+				{
+					projectTask.Progress = 0;
+
+                }
+				else if (projectTask.TaskStatus == "Working")
+                {
+                    projectTask.Progress = 30;
+
+                }
+                else if (projectTask.TaskStatus == "PendingReview")
+                {
+                    projectTask.Progress = 80;
+
+                }
+                else if (projectTask.TaskStatus == "Completed")
+                {
+                    projectTask.Progress = 100;
+                    projectTask.ComplitedBy = projectTaskDTO.EmployeeId;
+                    projectTask.ComplitedOn = DateTime.Now;
+
+                }
+                _Context.SaveChanges();
+				return MennsageEnum.Success;
+
+            }
+			catch
+			{
+				throw;
+			}
+        }
     }
 }
 	

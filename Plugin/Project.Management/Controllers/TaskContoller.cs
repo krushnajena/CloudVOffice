@@ -35,11 +35,23 @@ namespace Project.Management.Controllers
         public IActionResult Tasks(int ProjectId)
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
-            ViewBag.Tasks = a.AsEnumerable();
+            ViewBag.ProjectId = ProjectId;
             return View("~/Plugins/Project.Management/Views/Task/Tasks.cshtml");
         }
+        public IActionResult GetProjectTasks(int ProjectId)
+        {
+            var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
+            return Json(a);
+        }
+        [HttpPost]
+        public void UpdateCard([FromBody] object param)
+        {
+            // this block of code will execute while inserting the new cards
+           
+        
+    }
 
-        [HttpGet]
+    [HttpGet]
         public IActionResult TaskCreate(Int64? projectTaskId)
         {
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();

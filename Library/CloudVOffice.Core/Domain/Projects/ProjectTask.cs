@@ -34,7 +34,7 @@ namespace CloudVOffice.Core.Domain.Projects
 		public string? TaskComplitedByOthersReasonByAssign { get; set; }
 		public string? TaskComplitedByOthersReasonByComplitedBy { get; set; }
 		
-		public bool? IsDelayApproved { get; set; }
+		public int? IsDelayApproved { get; set; }//0=Submitted,1 = Approved, 2 = Rejected,
 		public string? DelayReason { get; set; }
 		public Int64? DelayApprovedBy { get; set; }
 		public DateTime? DelayApprovedOn { get; set; }

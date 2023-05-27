@@ -251,8 +251,8 @@ namespace Project.Management.Controllers
 					   {
 						   ProjectCode = u.Project.ProjectCode,
 						   ProjectName = u.Project.ProjectName,
-						   TaskName = u.TaskName,
-						   AssignedTo = u.AssignedTo.FullName,
+                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+                           TaskName = u.TaskName,						   
 						   TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
 						   ComplitedBy = u.Employee.FullName,
 						   TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,

@@ -54,7 +54,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public List<Project> GetMyAssignedProjectByEmployee(long EmployeeId)
+		public List<Project> GetMyAssignedProjectByEmployee(Int64 EmployeeId)
 		{
 			try
 			{

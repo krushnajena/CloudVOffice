@@ -1,7 +1,7 @@
   {
 
   "ApplicationName": "Projects",
-  "Url": "/Projects/Project/Dashboard",
+  "Url": "/Projects/Project/Dashboard", 
   "IconImageUrl": "/Plugin/Project.Management/logo.png",
   "IconClass": "",
   "AreaName": "Projects",

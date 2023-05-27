@@ -205,7 +205,64 @@ namespace Project.Management.Controllers
             ViewBag.tasks = data;
 			return View("~/Plugins/Project.Management/Views/Task/TaskComplitedByOthersReport.cshtml");
 		}
-        public IActionResult MyTaskDelayList()
+        //public IActionResult MyTaskDelayList()
+        //{
+        //    Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+        //    Int64 EmployeeId;
+        //    var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+        //    if (employee == null)
+        //    {
+        //        EmployeeId = employee.EmployeeId;
+        //    }
+        //    else
+        //    {
+        //        EmployeeId = 0;
+        //    }
+
+        //    var projectTasks = _projectTaskService.GetMyDelayTaskList(EmployeeId);
+        //    var data = from u in projectTasks
+        //               select new
+        //               {
+        //                   ProjectCode = u.Project.ProjectCode,
+        //                   ProjectName = u.Project.ProjectName,
+        //                   TaskName = u.TaskName,
+        //                   AssignedTo = u.AssignedTo.FullName,
+        //                   EndDateAsPerPlan = u.ExpectedEndDate,
+        //                   ActualEndDate = u.ComplitedOn,
+        //               };
+        //    return View();
+        //}
+        public IActionResult MYTaskComplitedByOthersReport()
+        {
+			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			Int64 EmployeeId;
+			var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+			if (employee == null)
+			{
+				EmployeeId = employee.EmployeeId;
+			}
+			else
+			{
+				EmployeeId = 0;
+			}
+
+			var projectTasks = _projectTaskService.GetMYTaskComplitedByOthersReport(EmployeeId);
+			var data = from u in projectTasks
+					   select new
+					   {
+						   ProjectCode = u.Project.ProjectCode,
+						   ProjectName = u.Project.ProjectName,
+                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+                           TaskName = u.TaskName,						   
+						   TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
+						   ComplitedBy = u.Employee.FullName,
+						   TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
+
+					   };
+            ViewBag.tasks = data;
+            return View("~/Plugins/Project.Management/Views/Task/MYTaskComplitedByOthersReport.cshtml");
+        }
+        public IActionResult TasksForDelayValidation() 
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -218,23 +275,29 @@ namespace Project.Management.Controllers
             {
                 EmployeeId = 0;
             }
-
-            var projectTasks = _projectTaskService.GetMyDelayTaskList(EmployeeId);
+            var projectTasks = _projectTaskService.GetTasksForDelayValidation( EmployeeId ,UserId);
             var data = from u in projectTasks
                        select new
                        {
+
                            ProjectCode = u.Project.ProjectCode,
                            ProjectName = u.Project.ProjectName,
+                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
                            TaskName = u.TaskName,
-						   ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
-                           EndDateAsPerPlan = u.ExpectedEndDate,
-						   DelayOnHour = u.ExpectedEndDate - u.ComplitedOn,
-						   ActualEndDate = u.ComplitedOn,
-                           DelayReasion = u.DelayReason,
-                       };
-			ViewBag.DelayTask = data;
-			return View("~/Plugins/Project.Management/Views/Task/MyTaskDelayList.cshtml");
-		}
+                           AssignedTo = u.AssignedTo.FullName,
+                           ProjectEmployees = u.Project.ProjectEmployees,
+                         
 
-	}
+                          
+
+
+
+                       };
+            ViewBag.tasks = data;
+            return View("~/Plugins/Project.Management/Views/Task/TasksForDelayValidation.cshtml");
+
+        }
+
+
+    }
 }

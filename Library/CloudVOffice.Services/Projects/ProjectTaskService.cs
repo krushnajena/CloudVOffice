@@ -279,20 +279,48 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-        public List<ProjectTask> GetMyDelayTaskList(Int64? EmployeeId)
-        {
-			try
-			{
-				return _Context.ProjectTasks
-					.Include(a => a.Project)
-					.Include(b => b.Employee)
+      
 
-					.Where(x => x.Deleted == false && x.EmployeeId == EmployeeId && x.ComplitedOn> x.ExpectedEndDate).ToList(); 
-			}
-			catch
-			{
-				throw;
-			}
+       
+
+		public List<ProjectTask> GetMYTaskComplitedByOthersReport( Int64? EmployeeId)
+
+		{
+			throw new NotImplementedException();
+		}
+
+
+        public List<ProjectTask> GetTasksForDelayValidation(Int64? Userid, Int64? EmployeeId)
+		{
+            try
+            {
+                return _Context.ProjectTasks
+                      .Include(a => a.Project)
+                      .ThenInclude(b => b.ProjectEmployees)
+                      .Include(c => c.Project)
+                      .ThenInclude(x => x.ProjectUsers)
+                      .Include(a => a.Employee)
+                   
+
+
+
+                  .Where(x => x.Deleted == false && 
+                  x.Project.ProjectManager == EmployeeId && x.ComplitedOn> x.ExpectedEndDate).ToList();
+
+
+            }
+            catch
+            {
+                throw;
+            }
+
+
+        }
+
+        public List<ProjectTask> GetMyDelayTaskList(long EmployeeId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
+	

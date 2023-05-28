@@ -29,6 +29,7 @@ namespace CloudVOffice.Web.Controllers
 
 			return View();
         }
+       
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model, string? ReturnUrl)
@@ -93,6 +94,11 @@ namespace CloudVOffice.Web.Controllers
         [HttpGet("/Applications")]
         [Authorize]
         public IActionResult Applications()
+        {
+            return View();
+        }
+        [HttpGet("/Forbidden")]
+        public IActionResult Forbidden()
         {
             return View();
         }

@@ -27,10 +27,13 @@
     <None Remove="Views\ProjectType\ProjectTypeView.cshtml" />
     <None Remove="Views\Project\ProjectView.cshtml" />
     <None Remove="Views\TaskAssignment\TaskAssignmentCreate.cshtml" />
+    <None Remove="Views\Task\MYTaskComplitedByOthersReport.cshtml" />
+    <None Remove="Views\Task\MyDelayTaskList.cshtml" />
     <None Remove="Views\Task\TaskComplitedByOthersReport.cshtml" />
     <None Remove="Views\Task\TaskCreate.cshtml" />
     <None Remove="Views\Task\TaskDelayReport.cshtml" />
     <None Remove="Views\Task\Tasks.cshtml" />
+    <None Remove="Views\Task\TasksForDelayValidation.cshtml" />
     <None Remove="Views\Timesheet\GetTimeSheetsToValidate.cshtml" />
     <None Remove="Views\Timesheet\TimesheetCreate.cshtml" />
     <None Remove="Views\Timesheet\TimeSheetsToValidate.cshtml" />

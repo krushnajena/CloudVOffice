@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,7 @@ namespace CloudVOffice.Data.DTO.Company
 		public string LetterHeadFooterAlign { get; set; }
 
 		public Int64 CreatedBy { get; set; }
-	}
+        public IFormFile LetterHeadImageUp { get; set; }
+        public IFormFile LetterHeadFooterImageUP { get; set; }
+    }
 }

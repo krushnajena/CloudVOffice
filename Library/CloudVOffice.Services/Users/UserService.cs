@@ -381,19 +381,19 @@ namespace CloudVOffice.Services.Users
 				stringBuilder = stringBuilder.Replace("{%emailogo%}", "<img src='"+baseUrl+ "/uploads/setup/" + company.CompanyLogo+"' height=\"40\" style=\"border:0;margin:auto auto 10px;max-height:40px;outline:none;text-align:center;text-decoration:none;width:auto\" align=\"center\" width=\"auto\" class=\"CToWUd\" data-bit=\"iit\" jslog=\"138226; u014N:xr6bB; 53:WzAsMl0.\">");
                
 					stringBuilder
-						 = stringBuilder.Replace(" {%welcometitle%} ", "Welcome to " + company.CompanyName);
+						 = stringBuilder.Replace("{%welcometitle%}", "Welcome to " + company.CompanyName);
 
 
 
 				stringBuilder = stringBuilder.Replace("{%helloname%}", "Hello " + user.FullName+",");
-				stringBuilder = stringBuilder.Replace(" {%accountcreatetionmessage%} ", "A new account has been created for you at <a href='"+baseUrl+"' style=\"color:#2d95f0\" target=\"_blank\" >"+ baseUrl + "</a>");
+				stringBuilder = stringBuilder.Replace("{%accountcreatetionmessage%}", "A new account has been created for you at <a href='"+baseUrl+"' style=\"color:#2d95f0\" target=\"_blank\" >"+ baseUrl + "</a>");
 
-				stringBuilder = stringBuilder.Replace(" {%loginidmessage%} ", "Your login id is: <b><a href=\'mailto:"+user.Email+"\' target=\"_blank\">"+ user.Email + "</a></b>");
-				stringBuilder = stringBuilder.Replace(" {%aditionalmessage%} ", "Click on the link below to complete your registration and set a new password.");
-				stringBuilder = stringBuilder.Replace(" {%setpasswordlink%} ", "<a href='"+ url + "' rel=\"nofollow\" style=\"color:#fff;background-color:#2490ef;border:1px solid;border-color:transparent;border-radius:6px;display:inline-block;font-size:13px;line-height:20px;padding:4px 20px;text-decoration:none\" bgcolor=\"#2490ef\" target=\"_blank\" >Complete Registration</a>");
+				stringBuilder = stringBuilder.Replace("{%loginidmessage%}", "Your login id is: <b><a href=\'mailto:"+user.Email+"\' target=\"_blank\">"+ user.Email + "</a></b>");
+				stringBuilder = stringBuilder.Replace("{%aditionalmessage%}", "Click on the link below to complete your registration and set a new password.");
+				stringBuilder = stringBuilder.Replace("{%setpasswordlink%}", "<a href='"+ url + "'  target=\"_blank\" rel=\"noopener noreferrer\" style=\"background-color:#e54d42; padding:10px 8px 10px 8px; text-decoration:none; color:#fff; border-radius:5px; font-size:10px\">Complete Registration</a>");
                 stringBuilder = stringBuilder.Replace("{%emailsignature%}", emailA.EmailSignature);
 
-				stringBuilder = stringBuilder.Replace("{%copylinkfrommessage%} ", "You can also copy-paste following link in your browser<br/> <a href='"+url+"'  style=\"color:#2d95f0\" target=\"_blank\" >"+url+"</a>");
+				stringBuilder = stringBuilder.Replace("{%copylinkfrommessage%}", "You can also copy-paste following link in your browser<br/> <a href='"+url+"'  style=\"color:#2d95f0\" target=\"_blank\" >"+url+"</a>");
 				stringBuilder = stringBuilder.Replace("{%companyname%}", company.CompanyName);
 				stringBuilder = stringBuilder.Replace("{%address%}", company.AddressLine1+", "+company.AddressLine2+", "+company.City+", "+ company.State+", "+ company.Country+" - "+ company.PostalCode);
 				stringBuilder = stringBuilder.Replace("{%footerletterhera%}", "<img src='" + baseUrl + "/uploads/setup/" + letter.LetterHeadFooterImage + "' style='hight:"+ letter .LetterHeadImageFooterHeight+ "; width:"+letter.LetterHeadImageFooterWidth+"'>");

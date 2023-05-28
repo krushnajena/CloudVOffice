@@ -101,13 +101,30 @@ namespace CloudVOffice.Web
                 string dllPath = @".\"+ CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
                 if (File.Exists(dllPath))
                 {
-                    Assembly assembly2 = Assembly.LoadFrom
+                    Assembly assembly2 = Assembly.UnsafeLoadFrom
                     (dllPath);
                     var part2 = new AssemblyPart(assembly2);
                     services.AddControllersWithViews()
                          .AddNewtonsoftJson(options =>
                          {
                            
+
+                             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+
+                         })
+                        .PartManager.ApplicationParts.Add(part2);
+                }
+                dllPath = CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
+                if (File.Exists(dllPath))
+                {
+                    Assembly assembly2 = Assembly.UnsafeLoadFrom
+                    (dllPath);
+                    var part2 = new AssemblyPart(assembly2);
+                    services.AddControllersWithViews()
+                         .AddNewtonsoftJson(options =>
+                         {
+
 
                              options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 

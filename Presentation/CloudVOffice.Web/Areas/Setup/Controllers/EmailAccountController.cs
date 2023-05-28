@@ -5,6 +5,7 @@ using CloudVOffice.Data.DTO.Emp;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Web.Framework;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CloudVOffice.Web.Areas.Setup.Controllers
 {
@@ -13,10 +14,12 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 	{
 		private readonly IEmailAccountService _emailAccountService;
 		private readonly IWebHostEnvironment _hostingEnvironment;
-		public EmailAccountController(IEmailAccountService emailAccountService, IWebHostEnvironment hostingEnvironment)
+		private readonly IEmailDomainService _emailDomainService;
+		public EmailAccountController(IEmailAccountService emailAccountService, IWebHostEnvironment hostingEnvironment, IEmailDomainService emailDomainService)
 		{
 			_emailAccountService = emailAccountService;
 			_hostingEnvironment = hostingEnvironment;
+			_emailDomainService = emailDomainService;
 		}
 
 		
@@ -24,6 +27,9 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		public IActionResult EmailAccountCreate(int? EmailAccountId)
 		{
 			EmailAccountDTO emailAccountDTO = new EmailAccountDTO();
+
+			var emailDomain = _emailDomainService.GetEmailDomains();
+			ViewBag.EmailDomains = emailDomain;
 
 			if (EmailAccountId != null)
 			{
@@ -100,6 +106,11 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 					}
 				}
 			}
+
+			var emailDomain = _emailDomainService.GetEmailDomains();
+			ViewBag.EmailDomains = emailDomain;
+
+
 			return View("~/Areas/Setup/Views/EmailAccount/EmailAccountCreate.cshtml", emailAccountDTO);
 		}
 		public IActionResult EmailAccountView()

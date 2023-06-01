@@ -25,6 +25,9 @@ using Hangfire;
 
 
 using Hangfire.SqlServer;
+using Microsoft.AspNetCore.Hosting;
+using WebOptimizer;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CloudVOffice.Web
 {
@@ -64,73 +67,52 @@ namespace CloudVOffice.Web
                 x.AccessDeniedPath = "/Forbidden/";
                 
             }) ;
-            // Add Hangfire services.
-            services.AddHangfire(configuration => configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseSqlServerStorage(configRoot.GetConnectionString("ConnStringMssql")));
-            // Add the processing server as IHostedService
-            services.AddHangfireServer();
-            // Add the processing server as IHostedService
-            services.AddHangfireServer();
+            //// Add Hangfire services.
+            //services.AddHangfire(configuration => configuration
+            //    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+            //    .UseSimpleAssemblyNameTypeSerializer()
+            //    .UseRecommendedSerializerSettings()
+            //    .UseSqlServerStorage(configRoot.GetConnectionString("ConnStringMssql")));
+            //// Add the processing server as IHostedService
+            //services.AddHangfireServer();
+            //// Add the processing server as IHostedService
+            //services.AddHangfireServer();
             services.AddHttpContextAccessor();
             services.AddMvcCore();
-
-            services.AddControllersWithViews()
-
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-
-
-                }
-
-                 
-
-            ); ;
+            services.AddControllersWithViews().AddNewtonsoftJson(delegate (MvcNewtonsoftJsonOptions options)
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             services.AddRazorPages();
             services.AddMvc();
+            
             string[] subdirs = Directory.GetDirectories(CloudVOfficePluginDefaults.PathName);
 
             foreach (string folder in Directory.GetDirectories(CloudVOfficePluginDefaults.PathName))
             {
-                string dllPath = @".\"+ CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
+                //string dllPath = @".\"+ CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
+                //if (File.Exists(dllPath))
+                //{
+                //    Assembly assembly2 = Assembly.UnsafeLoadFrom
+                //    (dllPath);
+                //    var part2 = new AssemblyPart(assembly2);
+                //    services.AddControllersWithViews()
+                //         .AddNewtonsoftJson(options =>
+                //         {
+
+
+                //             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
+
+                //         })
+                //        .PartManager.ApplicationParts.Add(part2);
+                //}
+                string dllPath = CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
                 if (File.Exists(dllPath))
                 {
-                    Assembly assembly2 = Assembly.UnsafeLoadFrom
-                    (dllPath);
-                    var part2 = new AssemblyPart(assembly2);
-                    services.AddControllersWithViews()
-                         .AddNewtonsoftJson(options =>
-                         {
-                           
-
-                             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-
-
-                         })
-                        .PartManager.ApplicationParts.Add(part2);
-                }
-                dllPath = CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
-                if (File.Exists(dllPath))
-                {
-                    Assembly assembly2 = Assembly.UnsafeLoadFrom
-                    (dllPath);
-                    var part2 = new AssemblyPart(assembly2);
-                    services.AddControllersWithViews()
-                         .AddNewtonsoftJson(options =>
-                         {
-
-
-                             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-
-
-                         })
-                        .PartManager.ApplicationParts.Add(part2);
+                    Assembly assembly2 = Assembly.LoadFrom(dllPath);
+                    AssemblyPart part2 = new AssemblyPart(assembly2);
+                    services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
                 }
             }
 
@@ -195,7 +177,7 @@ namespace CloudVOffice.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHangfireDashboard();
+           // app.UseHangfireDashboard();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "CloudVOffice Open Api v1"));
             app.UseHttpsRedirection();
@@ -210,7 +192,7 @@ namespace CloudVOffice.Web
             app.UseRouting();
             app.UseAuthorization();
            
-            
+
             app.MapControllerRoute(
             name: "default",
             pattern: "{controller=App}/{action=Login}/{id?}");

@@ -49,7 +49,7 @@ namespace Projects.Management.Controller
 		}
 		public IActionResult Dashboard()
 		{
-			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
+			return View("/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
 		}
         [HttpGet]
 		[Authorize(Roles ="Project Manager")]
@@ -127,7 +127,7 @@ namespace Projects.Management.Controller
 			ViewBag.Employees = employees;
 
 			ViewBag.Users = _userService.GetAllUsers();
-			return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
+			return View("Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 
 		}
 		[HttpPost]
@@ -189,7 +189,7 @@ namespace Projects.Management.Controller
 		{
 			ViewBag.Projects = _projectService.GetProjects();
 
-			return View("~/Plugins/Project.Management/Views/Project/ProjectView.cshtml");
+			return View("ProjectView.cshtml");
 		}
 
 		

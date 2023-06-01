@@ -25,34 +25,40 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		public IActionResult CompanyDetailsCreate(int? companyDetailsId)
 		{
 			CompanyDetailsDTO companyDetailsDTO = new CompanyDetailsDTO();
-
-
-			if (companyDetailsId != null)
+			if (_companyDetailsService.GetCompanyDetails() == null)
 			{
 
-				CompanyDetails d = _companyDetailsService.GetCompanyDetailsByCompanyDetailsId(int.Parse(companyDetailsId.ToString()));
+				if (companyDetailsId != null)
+				{
 
-				companyDetailsDTO.CompanyName = d.CompanyName;
-				companyDetailsDTO.ABBR = d.ABBR;
-				companyDetailsDTO.CompanyLogo = d.CompanyLogo;
-				companyDetailsDTO.TaxId = d.TaxId;
-				companyDetailsDTO.Domain = d.Domain;
-				companyDetailsDTO.DateOfEstablishment = d.DateOfEstablishment;
-				companyDetailsDTO.DateOfIncorporation = d.DateOfIncorporation;
-				companyDetailsDTO.AddressLine1 = d.AddressLine1;
-				companyDetailsDTO.AddressLine2 = d.AddressLine2;
-				companyDetailsDTO.City = d.City;
-				companyDetailsDTO.State = d.State;
-				companyDetailsDTO.Country = d.Country;
-				companyDetailsDTO.PostalCode = d.PostalCode;
-				companyDetailsDTO.EmailAddress = d.EmailAddress;
-				companyDetailsDTO.PhoneNumber = d.PhoneNumber;
-				companyDetailsDTO.Fax = d.Fax;
-				companyDetailsDTO.Website = d.Website;
+					CompanyDetails d = _companyDetailsService.GetCompanyDetailsByCompanyDetailsId(int.Parse(companyDetailsId.ToString()));
 
+					companyDetailsDTO.CompanyName = d.CompanyName;
+					companyDetailsDTO.ABBR = d.ABBR;
+					companyDetailsDTO.CompanyLogo = d.CompanyLogo;
+					companyDetailsDTO.TaxId = d.TaxId;
+					companyDetailsDTO.Domain = d.Domain;
+					companyDetailsDTO.DateOfEstablishment = d.DateOfEstablishment;
+					companyDetailsDTO.DateOfIncorporation = d.DateOfIncorporation;
+					companyDetailsDTO.AddressLine1 = d.AddressLine1;
+					companyDetailsDTO.AddressLine2 = d.AddressLine2;
+					companyDetailsDTO.City = d.City;
+					companyDetailsDTO.State = d.State;
+					companyDetailsDTO.Country = d.Country;
+					companyDetailsDTO.PostalCode = d.PostalCode;
+					companyDetailsDTO.EmailAddress = d.EmailAddress;
+					companyDetailsDTO.PhoneNumber = d.PhoneNumber;
+					companyDetailsDTO.Fax = d.Fax;
+					companyDetailsDTO.Website = d.Website;
+
+				}
+
+				return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
 			}
-
-			return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
+			else
+			{
+				return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
+            }
 
 		}
 

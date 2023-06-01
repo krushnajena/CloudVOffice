@@ -26,7 +26,18 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Company Details </div>
+                <div class="card-header">
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            Company Details
+                        </div>
+                        <div class="col-md-2 float-right">
+                            <a href="/Setup/CompanyDetails/CompanyDetailsCreate" class="btn btn-primary btn-sm">Add Company</a>
+
+                        </div>
+                    </div>
+                    </div>
                 <div class="card-body">
 
                     <ejs-grid id="GridOverview" dataSource="ViewBag.CompanyDetails"
@@ -41,18 +52,14 @@
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="CompanyName" headerText="Company Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CompanyName" headerText="Company Name" textAlign="Left" width="350"></e-grid-column>
                             <e-grid-column field="DateOfIncorporation" headerText="DateOfIncorporation" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="AddressLine1" headerText="AddressLine1" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="AddressLine2" headerText="AddressLine2" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="City" headerText="City" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="State" headerText="State" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Country" headerText="Country" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="PostalCode" headerText="PostalCode" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="EmailAddress" headerText="EmailAddress" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="PhoneNumber" headerText="PhoneNumber" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Fax" headerText="Fax" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Website" headerText="Website" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>

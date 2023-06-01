@@ -25,26 +25,33 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		public IActionResult LetterHeadCreate(int? letterHeadId)
 		{
 			LetterHeadDTO letterHeadDTO = new LetterHeadDTO();
-
-			if (letterHeadId != null)
+			if (_letterHeadService.GetLetter() == null)
 			{
+				if (letterHeadId != null)
+				{
 
-				LetterHead d = _letterHeadService.GetLetterHeadByLetterHeadId(int.Parse(letterHeadId.ToString()));
+					LetterHead d = _letterHeadService.GetLetterHeadByLetterHeadId(int.Parse(letterHeadId.ToString()));
 
-				letterHeadDTO.LetterHeadName = d.LetterHeadName;
-				letterHeadDTO.LetterHeadImage = d.LetterHeadImage;
-				letterHeadDTO.LetterHeadImageHeight = d.LetterHeadImageHeight;
-				letterHeadDTO.LetterHeadImageWidth = d.LetterHeadImageWidth;
-				letterHeadDTO.LetterHeadAlign = d.LetterHeadAlign;
-				letterHeadDTO.LetterHeadFooterImage = d.LetterHeadFooterImage;
-				letterHeadDTO.LetterHeadImageFooterHeight = d.LetterHeadImageFooterHeight;
-				letterHeadDTO.LetterHeadImageFooterWidth = d.LetterHeadImageFooterWidth;
-				letterHeadDTO.LetterHeadFooterAlign = d.LetterHeadFooterAlign;
-				
+					letterHeadDTO.LetterHeadName = d.LetterHeadName;
+					letterHeadDTO.LetterHeadImage = d.LetterHeadImage;
+					letterHeadDTO.LetterHeadImageHeight = d.LetterHeadImageHeight;
+					letterHeadDTO.LetterHeadImageWidth = d.LetterHeadImageWidth;
+					letterHeadDTO.LetterHeadAlign = d.LetterHeadAlign;
+					letterHeadDTO.LetterHeadFooterImage = d.LetterHeadFooterImage;
+					letterHeadDTO.LetterHeadImageFooterHeight = d.LetterHeadImageFooterHeight;
+					letterHeadDTO.LetterHeadImageFooterWidth = d.LetterHeadImageFooterWidth;
+					letterHeadDTO.LetterHeadFooterAlign = d.LetterHeadFooterAlign;
 
+
+				}
+
+				return View("~/Areas/Setup/Views/LetterHead/LetterHeadCreate.cshtml", letterHeadDTO);
 			}
-
-			return View("~/Areas/Setup/Views/LetterHead/LetterHeadCreate.cshtml", letterHeadDTO);
+			else
+			{
+                return Redirect("/Setup/LetterHead/LetterHeadView");
+            }
+			
 
 		}
 		[HttpPost]

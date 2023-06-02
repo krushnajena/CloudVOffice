@@ -21,6 +21,6 @@ namespace CloudVOffice.Data.DTO.Comunication
 		public string? EmailLogo { get; set; }
 		public bool IsDefaultSending { get; set; }
 		public Int64 CreatedBy { get; set; }
-		public IFormFile EmailLogoUp { get; set; }
+		public IFormFile? EmailLogoUp { get; set; }
 	}
 }

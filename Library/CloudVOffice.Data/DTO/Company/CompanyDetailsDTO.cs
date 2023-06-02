@@ -30,6 +30,6 @@ namespace CloudVOffice.Data.DTO.Company
 
 
 		public Int64 CreatedBy { get; set; }
-		public IFormFile CompanyLogoUp { get; set; }
+		public IFormFile? CompanyLogoUp { get; set; }
 	}
 }

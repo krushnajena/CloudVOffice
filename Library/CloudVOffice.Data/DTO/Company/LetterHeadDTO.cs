@@ -21,7 +21,7 @@ namespace CloudVOffice.Data.DTO.Company
 		public string LetterHeadFooterAlign { get; set; }
 
 		public Int64 CreatedBy { get; set; }
-        public IFormFile LetterHeadImageUp { get; set; }
-        public IFormFile LetterHeadFooterImageUP { get; set; }
+        public IFormFile? LetterHeadImageUp { get; set; }
+        public IFormFile? LetterHeadFooterImageUP { get; set; }
     }
 }

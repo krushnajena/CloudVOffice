@@ -86,9 +86,9 @@ namespace CloudVOffice.Services.Comunication
 		{
 			try
 			{
-				var project = _Context.EmailAccounts.Where(x => x.EmailAccountId == emailAccountDTO.EmailAccountId && x.Deleted == false).FirstOrDefault();
-				if (project == null)
-				{
+				var project = _Context.EmailAccounts.Where(x => x.EmailAccountId != emailAccountDTO.EmailAccountId && x.EmailAddress == emailAccountDTO.EmailAddress && x.Deleted == false).FirstOrDefault();
+                if (project == null)
+                {
 					var a = _Context.EmailAccounts.Where(x => x.EmailAccountId == emailAccountDTO.EmailAccountId).FirstOrDefault();
 					if (a != null)
 					{

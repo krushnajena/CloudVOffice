@@ -2,7 +2,7 @@
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
-
+@using CloudVOffice.Core.Domain.Common;
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -32,13 +32,13 @@
                 <div class="card-header">
 
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             Designation
-                        </div>
-                        <div class="col-md-2 float-right">
-                            <a href="/HR/Designation/DesignationCreate" class="btn btn-primary btn-sm">Add Designation</a>
+                        </div>                       
+                        <div class="col-md-4 text-right float-right">
+                            <a href="/HR/Designation/DesignationCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Designation</a>
 
-                        </div>
+                        </div>                      
                     </div>
                 </div>
                 <div class="card-body">
@@ -73,11 +73,98 @@
     </div>
 
 </div>
+
+
+@{
+
+    if (TempData["msg"] != null)
+    {
+        <script type="text/javascript">
+            const message = "@TempData["msg"]";
+            if (message == "@((int)MessageEnum.Success)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Designation",
+                    text: "Successfully created.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Updated)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Designation",
+                    text: "Successfully updated.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Deleted)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Designation",
+                    text: "Successfully Deleted.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.UnExpectedError)") {
+                sweetAlert({
+                    html: true,
+                    icon: "danger",
+                    title: "Designation",
+                    text: "There is somthing going wrong.",
+                    type: "danger"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Error)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Designation",
+                    text: "There is somthing going wrong.",
+                    type: "error"
+                });
+            }
+            else {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Designation",
+                    text: message,
+                    type: "error"
+                });
+            }
+        </script>
+    }
+}
+
+<script type="text/javascript">
+    function Delete(Id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            confirmButtonColor: "#DD6B55",
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location.href = "../../HR/Designation/DeleteDesignation?DesignationId=" + Id;
+            }
+        })
+    }
+</script>
+
+
 <script id="Actions" type="text/x-template">
     <div class="link">
         <a href="../../HR/Designation/DesignationCreate?DesignationId=${DesignationId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../HR/Designation/DeleteDesignation?DesignationId=${DesignationId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
-    </div>
+
+        <button onClick="Delete(${DesignationId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>    </div>
 </script>
 
 <script id="statusTemplate" type="text/x-template">

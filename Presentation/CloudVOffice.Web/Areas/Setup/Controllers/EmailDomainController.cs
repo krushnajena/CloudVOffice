@@ -41,8 +41,18 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 				emailDomainDTO.OutgoingIsSsl = d.OutgoingIsSsl;
 				
 			}
+            else
+            {
+                if (_emailDomainService.GetEmailDomains() == null)
+                {
+                    TempData["msg"] = MessageEnum.AlreadyCreate;
+                    return Redirect("/Setup/EmailDomain/EmailDomainView");
+                }
 
-			return View("~/Areas/Setup/Views/EmailDomain/EmailDomainCreate.cshtml", emailDomainDTO);
+
+            }
+
+            return View("~/Areas/Setup/Views/EmailDomain/EmailDomainCreate.cshtml", emailDomainDTO);
 
 		}
 		[HttpPost]
@@ -56,17 +66,24 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 				if (emailDomainDTO.EmailDomainId == null)
 				{
 					var a = _emailDomainService.EmailDomainCreate(emailDomainDTO);
-					if (a == MessageEnum.Success)
+					if (a != null)
 					{
-						return Redirect("/Setup/EmailDomain/EmailDomainView");
-					}
-					else if (a == MessageEnum.Duplicate)
-					{
-						ModelState.AddModelError("", "EmailDomain Already Exists");
-					}
-					else
-					{
-						ModelState.AddModelError("", "Un-Expected Error");
+						if (a == MessageEnum.Success)
+						{
+                            TempData["msg"] = MessageEnum.Success;
+                            return Redirect("/Setup/EmailDomain/EmailDomainView");
+						}
+						else if (a == MessageEnum.AlreadyCreate)
+						{
+							TempData["msg"] = MessageEnum.AlreadyCreate;
+                           
+                            ModelState.AddModelError("", "EmailDomain Already Exists");
+						}
+						else
+						{
+                            TempData["msg"] = MessageEnum.UnExpectedError;
+                            ModelState.AddModelError("", "Un-Expected Error");
+						}
 					}
 				}
 				else
@@ -74,15 +91,18 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 					var a = _emailDomainService.EmailDomainUpdate(emailDomainDTO);
 					if (a == MessageEnum.Updated)
 					{
+						TempData["msg"] = MessageEnum.Updated;
 						return Redirect("/Setup/EmailDomain/EmailDomainView");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "EmailDomain Already Exists");
+                        TempData["msg"] = MessageEnum.Duplicate;
+                        ModelState.AddModelError("", "EmailDomain Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 			}
@@ -101,6 +121,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
             int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _emailDomainService.EmailDomainDelete(emailDomainId, DeletedBy);
+           
             return Redirect("/Setup/EmailDomain/EmailDomainView");
         }
     }

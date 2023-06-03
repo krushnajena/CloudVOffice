@@ -23,7 +23,7 @@ namespace CloudVOffice.Services.Comunication
 		}
 		public MessageEnum EmailDomainCreate(EmailDomainDTO emailDomainDTO)
 		{
-			var objCheck = _Context.EmailDomains.SingleOrDefault(opt => opt.EmailDomainId == emailDomainDTO.EmailDomainId && opt.Deleted == false);
+			var objCheck = _Context.EmailDomains.SingleOrDefault(opt => opt.DomainName == emailDomainDTO.DomainName && opt.Deleted == false);
 			try
 			{
 				if (objCheck == null)
@@ -84,7 +84,7 @@ namespace CloudVOffice.Services.Comunication
 		{
 			try
 			{
-				var project = _Context.EmailDomains.Where(x => x.EmailDomainId != emailDomainDTO.EmailDomainId && x.Deleted == false).FirstOrDefault();
+				var project = _Context.EmailDomains.Where(x => x.EmailDomainId != emailDomainDTO.EmailDomainId && x.DomainName==emailDomainDTO.DomainName && x.Deleted == false).FirstOrDefault();
 				if (project == null)
 				{
 					var a = _Context.EmailDomains.Where(x => x.EmailDomainId == emailDomainDTO.EmailDomainId).FirstOrDefault();

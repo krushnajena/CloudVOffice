@@ -2,7 +2,7 @@
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
-
+@using CloudVOffice.Core.Domain.Common;
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -29,14 +29,16 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
+                   
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-10">
+                                Department
+                            </div>
+                            <div class="col-md-2 text-right float-right">
+                                <a href="/HR/Department/DepartmentCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Department</a>
 
-                    <div class="row">
-                        <div class="col-md-10">
-                            Department
-                        </div>
-                        <div class="col-md-2 float-right">
-                            <a href="/HR/Department/DepartmentCreate" class="btn btn-primary btn-sm">Add Department</a>
-
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,10 +73,95 @@
     </div>
 
 </div>
+
+@{
+
+    if (TempData["msg"] != null)
+    {
+        <script type="text/javascript">
+            const message = "@TempData["msg"]";
+            if (message == "@((int)MessageEnum.Success)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Department",
+                    text: "Successfully created.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Updated)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Department",
+                    text: "Successfully updated.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Deleted)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Department",
+                    text: "Successfully Deleted.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.UnExpectedError)") {
+                sweetAlert({
+                    html: true,
+                    icon: "danger",
+                    title: "Department",
+                    text: "There is somthing going wrong.",
+                    type: "danger"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Error)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Department",
+                    text: "There is somthing going wrong.",
+                    type: "error"
+                });
+            }
+            else {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Department",
+                    text: message,
+                    type: "error"
+                });
+            }
+        </script>
+    }
+}
+
+<script type="text/javascript">
+    function Delete(Id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            confirmButtonColor: "#DD6B55",
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location.href = "../../HR/Department/DeleteDepartment?DepartmentId=" + Id;
+            }
+        })
+    }
+</script>
+
 <script id="Actions" type="text/x-template">
     <div class="link">
         <a href="../../HR/Department/DepartmentCreate?DepartmentId=${DepartmentId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../HR/Department/DeleteDepartment?DepartmentId=${DepartmentId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+        <button onClick="Delete(${DepartmentId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">

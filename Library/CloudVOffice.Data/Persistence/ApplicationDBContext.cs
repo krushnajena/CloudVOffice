@@ -83,9 +83,12 @@ namespace CloudVOffice.Data.Persistence
 
 
         public virtual DbSet<Timesheet> Timesheets { get; set; }
+        public virtual DbSet<TimesheetActivityCategory> TimesheetActivityCategories { get; set; }
 
 
         #endregion
+
+
 
         #region Desktop Monitering
 
@@ -106,6 +109,300 @@ namespace CloudVOffice.Data.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            #region Base
+
+            modelBuilder.Entity<Role>()
+        .Property(s => s.CreatedDate)
+        .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Role>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<User>()
+        .Property(s => s.CreatedDate)
+        .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<User>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<Application>()
+        .Property(s => s.CreatedDate)
+        .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Application>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<RoleAndApplicationWisePermission>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<RoleAndApplicationWisePermission>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+            modelBuilder.Entity<UserWiseViewMapper>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<UserWiseViewMapper>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<InstalledApplication>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<InstalledApplication>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<EmailDomain>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<EmailDomain>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<EmailAccount>()
+.Property(s => s.CreatedDate)
+.HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<EmailAccount>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+
+            modelBuilder.Entity<LetterHead>()
+.Property(s => s.CreatedDate)
+.HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<LetterHead>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<CompanyDetails>()
+.Property(s => s.CreatedDate)
+.HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<CompanyDetails>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<EmailTemplate>()
+.Property(s => s.CreatedDate)
+.HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<EmailTemplate>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            #endregion
+
+
+            #region HR
+            modelBuilder.Entity<Branch>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Branch>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<Department>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Department>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<Designation>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Designation>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<EmploymentType>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<EmploymentType>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<Employee>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Employee>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+            modelBuilder.Entity<EmployeeEducationalQualification>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<EmployeeEducationalQualification>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+
+            #endregion
+
+
+            #region
+            modelBuilder.Entity<ProjectType>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<ProjectType>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<Project>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Project>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+            modelBuilder.Entity<ProjectEmployee>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<ProjectEmployee>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+
+            modelBuilder.Entity<ProjectUser>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<ProjectUser>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+
+            modelBuilder.Entity<ProjectActivityType>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<ProjectActivityType>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+            modelBuilder.Entity<ProjectTask>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<ProjectTask>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+
+
+
+            modelBuilder.Entity<Timesheet>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Timesheet>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+            modelBuilder.Entity<TimesheetActivityCategory>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<TimesheetActivityCategory>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            #endregion
 
             modelBuilder.Entity<ProjectTask>()
     .HasOne(r => r.Employee)

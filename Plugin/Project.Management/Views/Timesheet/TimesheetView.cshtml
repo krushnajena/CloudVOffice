@@ -2,6 +2,7 @@
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
+@using CloudVOffice.Core.Domain.Common;
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -28,6 +29,16 @@
             <div class="card">
                 <div class="card-header">Timesheet</div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            Time Sheet
+                        </div>
+
+                        <div class="col-md-2 text-right float-right">
+                            <a href="~/Projects/Timesheet/TimesheetCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add  Time Sheet</a>
+                        </div>
+                    </div>
+
 
                     <ejs-grid id="GridOverview" dataSource="ViewBag.Timesheets"
                               allowFiltering="true" allowSorting="true"
@@ -62,10 +73,102 @@
     </div>
 
 </div>
+@{
+
+    if (TempData["msg"] != null)
+    {
+        <script type="text/javascript">
+            const message = "@TempData["msg"]";
+            if (message == "@((int)MessageEnum.Success)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Time sheet",
+                    text: "Successfully created.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Updated)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Time sheet",
+                    text: "Successfully updated.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Deleted)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Time sheet",
+                    text: "Successfully Deleted.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Duplicate)") {
+                sweetAlert({
+                    html: true,
+                    icon: "warning",
+                    title: "Time sheet",
+                    text: "You Have Already Created a Time sheet. You can add only one Time sheet.",
+                    type: "warning"
+                });
+            }
+            else if (message == "@((int)MessageEnum.UnExpectedError)") {
+                sweetAlert({
+                    html: true,
+                    icon: "danger",
+                    title: "Time sheet",
+                    text: "There is somthing going wrong.",
+                    type: "danger"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Error)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Time sheet",
+                    text: "There is somthing going wrong.",
+                    type: "error"
+                });
+            }
+            else {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Time sheet",
+                    text: message,
+                    type: "error"
+                });
+            }
+        </script>
+    }
+}
+<script type="text/javascript">
+    function Delete(Id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            confirmButtonColor: "#DD6B55",
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location.href = "../../Projects/Timesheet/TimesheetDelete?TimesheetId=" + Id;
+            }
+        })
+    }
+</script>
 <script id="Actions" type="text/x-template">
     <div class="link">
         <a href="../../Projects/Timesheet/TimesheetCreate?TimesheetId=${TimesheetId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../Projects/Timesheet/TimesheetDelete?TimesheetId=${TimesheetId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+         <button onClick="Delete(${TimesheetId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+       
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">

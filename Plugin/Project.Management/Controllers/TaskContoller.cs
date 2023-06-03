@@ -78,6 +78,7 @@ namespace Project.Management.Controllers
             
 
             }
+           
 
             ViewBag.Projects = from u in projects
                                select new
@@ -105,14 +106,17 @@ namespace Project.Management.Controllers
                     var a = _projectTaskService.ProjectTaskCreate(projectTaskDTO);
                     if (a == MessageEnum.Success)
                     {
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/Projects/Task/TaskView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "Task Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -121,14 +125,17 @@ namespace Project.Management.Controllers
                     var a = _projectTaskService.ProjectTaskUpdate(projectTaskDTO);
                     if (a == MessageEnum.Updated)
                     {
+                        TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/Projects/Task/TaskView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "Task Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -151,7 +158,6 @@ namespace Project.Management.Controllers
             return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));
         }
 
-		
 		public IActionResult TaskDelayReport()
 		{
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -254,7 +260,7 @@ namespace Project.Management.Controllers
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 			Int64 EmployeeId;
 			var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
-			if (employee == null)
+			if ((employee != null))
 			{
 				EmployeeId = employee.EmployeeId;
 			}
@@ -284,7 +290,7 @@ namespace Project.Management.Controllers
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
             var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
-            if (employee == null)
+            if (employee != null)
             {
                 EmployeeId = employee.EmployeeId;
             }
@@ -303,12 +309,7 @@ namespace Project.Management.Controllers
                            TaskName = u.TaskName,
                            AssignedTo = u.AssignedTo.FullName,
                            ProjectEmployees = u.Project.ProjectEmployees,
-                         
-
-                          
-
-
-
+                    
                        };
             ViewBag.tasks = data;
             return View("~/Plugins/Project.Management/Views/Task/TasksForDelayValidation.cshtml");

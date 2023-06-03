@@ -81,14 +81,17 @@ namespace Project.Management.Controllers
                     var a = _timesheetService.TimesheetCreate(timesheetDTO);
                     if (a == MessageEnum.Success)
                     {
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/Projects/Timesheet/TimesheetView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "Timesheet Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -97,14 +100,17 @@ namespace Project.Management.Controllers
                     var a = _timesheetService.TimesheetUpdate(timesheetDTO);
                     if (a == MessageEnum.Updated)
                     {
+                        TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/Projects/Timesheet/TimesheetView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "Timesheet Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -126,13 +132,24 @@ namespace Project.Management.Controllers
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _timesheetService.TimesheetDelete(timesheetId, DeletedBy);
+            TempData["msg"] = a;
             return Redirect("/Projects/Timesheet/TimesheetView");
         }
 
         public IActionResult TimeSheetsToValidate()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-            Int64 EmployeeId = _employeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+
+            }
             var timesheets = _timesheetService.GetTimeSheetsToValidate(EmployeeId);
             var data = from u in timesheets
                        select new

@@ -144,7 +144,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		{
 			ViewBag.letterHeads = _letterHeadService.GetLetterHeads();
 
-			return View("~/Areas/Setup/Views/LetterHead/LetterHeadView.cshtml");
+			return View("~/Areas/Setup/Views/LetterHead/LetterHeadView.cshtml");	
 		}
 		public IActionResult LetterHeadDelete(int letterHeadId)
 		{

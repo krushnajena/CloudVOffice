@@ -143,15 +143,18 @@ namespace Projects.Management.Controller
 					var a = _projectService.ProjectCreate(projectDTO);
 					if (a == MessageEnum.Success)
 					{
-						return Redirect("/Projects/Project/ProjectView");
+                        TempData["msg"] = MessageEnum.Success;
+                        return Redirect("/Projects/Project/ProjectView");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "Project Already Exists");
+                        TempData["msg"] = MessageEnum.Duplicate;
+                        ModelState.AddModelError("", "Project Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 				else
@@ -159,15 +162,19 @@ namespace Projects.Management.Controller
 					var a = _projectService.ProjectUpdate(projectDTO);
 					if (a == MessageEnum.Updated)
 					{
-						return Redirect("/Projects/Project/ProjectView");
+                        TempData["msg"] = MessageEnum.Updated;
+                        return Redirect("/Projects/Project/ProjectView");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "Project Already Exists");
+						TempData["msg"] = MessageEnum.Duplicate;
+
+                        ModelState.AddModelError("", "Project Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 			}
@@ -199,15 +206,35 @@ namespace Projects.Management.Controller
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _projectService.ProjectDelete(projectId, DeletedBy);
+            TempData["msg"] = a;
             return Redirect("~/Plugins/Project.Management/Views/Project/ProjectView");
         }
 
 		public IActionResult MyProjects()
 		{
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
-			var projects =  _projectService.GetMyAssignedProject(EmployeeId, UserId);
-			return View("~/Plugins/Project.Management/Views/Project/MyProjects.cshtml", projects);
+			Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            var projects =  _projectService.GetMyAssignedProject(EmployeeId, UserId);
+			var data = from u in projects
+					   select new
+					   {
+						   u.ProjectName,
+						   u.ProjectId,
+					   };
+			ViewBag.projects = data;
+			return View("~/Plugins/Project.Management/Views/Project/MyProjects.cshtml");
 		}
 
 		public JsonResult ProjectEmployeeByProjectId(int projectId)
@@ -224,7 +251,7 @@ namespace Projects.Management.Controller
             if(employee != null)
 			{
 				EmployeeId = employee.EmployeeId;
-
+					
             }
 			else
 			{

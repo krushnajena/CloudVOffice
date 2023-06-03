@@ -156,7 +156,7 @@ namespace CloudVOffice.Services.Emp
 			}
 		}
 
-        public Employee GetEmployeeDetailsByUserId(long UserId)
+        public Employee GetEmployeeDetailsByUserId(Int64 UserId)
         {
             var employee = _Dbcontext.Employees.Where(x => x.ErpUser == UserId &&x.Deleted == false).FirstOrDefault();
 			return employee;

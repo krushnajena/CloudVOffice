@@ -22,7 +22,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 			_emailDomainService = emailDomainService;
 		}
 
-		
+
 		[HttpGet]
 		public IActionResult EmailAccountCreate(int? EmailAccountId)
 		{
@@ -78,14 +78,17 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 					var a = _emailAccountService.EmailAccountCreate(emailAccountDTO);
 					if (a == MessageEnum.Success)
 					{
+						TempData["msg"] = MessageEnum.Success;
 						return Redirect("/Setup/EmailAccount/EmailAccountView");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
+						TempData["msg"] = MessageEnum.AlreadyCreate;
 						ModelState.AddModelError("", "Emaiil Account Already Exists");
 					}
 					else
 					{
+						TempData["msg"] = MessageEnum.UnExpectedError;
 						ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
@@ -94,14 +97,18 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 					var a = _emailAccountService.EmailAccountUpdate(emailAccountDTO);
 					if (a == MessageEnum.Updated)
 					{
+						TempData["msg"] = MessageEnum.Updated;
 						return Redirect("/Setup/EmailAccount/EmailAccountView");
 					}
 					else if (a == MessageEnum.Duplicate)
+
 					{
+						TempData["msg"] = MessageEnum.Duplicate;
 						ModelState.AddModelError("", "Email Account Already Exists");
 					}
 					else
 					{
+						TempData["msg"] = MessageEnum.UnExpectedError;
 						ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}

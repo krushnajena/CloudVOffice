@@ -1,7 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
-using CloudVOffice.Data.Migrations;
+
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using Microsoft.EntityFrameworkCore;

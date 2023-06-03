@@ -52,7 +52,7 @@ namespace CloudVOffice.Data.Migrations
                 columns: table => new
                 {
                     ApplicationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:Identity", "10000, 1"),
                     ApplicationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Parent = table.Column<int>(type: "int", nullable: true),
                     IsGroup = table.Column<bool>(type: "bit", nullable: false),
@@ -93,6 +93,72 @@ namespace CloudVOffice.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Branches", x => x.BranchId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChartOfAccounts",
+                columns: table => new
+                {
+                    ChartOfAccountsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsGroup = table.Column<bool>(type: "bit", nullable: false),
+                    RootType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReportType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ParentAccountGroupId = table.Column<int>(type: "int", nullable: true),
+                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxRate = table.Column<double>(type: "float", nullable: true),
+                    BalanceMustBe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ChartOfAccountsId1 = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChartOfAccounts", x => x.ChartOfAccountsId);
+                    table.ForeignKey(
+                        name: "FK_ChartOfAccounts_ChartOfAccounts_ChartOfAccountsId1",
+                        column: x => x.ChartOfAccountsId1,
+                        principalTable: "ChartOfAccounts",
+                        principalColumn: "ChartOfAccountsId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CompanyDetails",
+                columns: table => new
+                {
+                    CompanyDetailsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ABBR = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyLogo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Domain = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfEstablishment = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateOfIncorporation = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    AddressLine1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AddressLine2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Fax = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyDetails", x => x.CompanyDetailsId);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,31 +207,6 @@ namespace CloudVOffice.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmailAccounts",
-                columns: table => new
-                {
-                    EmailAccountId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Domain = table.Column<int>(type: "int", nullable: false),
-                    EmailAccountName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AlternativeEmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailSignature = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmailLogo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsDefaultSending = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmailAccounts", x => x.EmailAccountId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EmailDomains",
                 columns: table => new
                 {
@@ -190,6 +231,27 @@ namespace CloudVOffice.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EmailDomains", x => x.EmailDomainId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailTemplates",
+                columns: table => new
+                {
+                    EmailTemplateId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailTemplateName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailTemplateDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DefaultSendingAccount = table.Column<int>(type: "int", nullable: true),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailTemplates", x => x.EmailTemplateId);
                 });
 
             migrationBuilder.CreateTable(
@@ -283,6 +345,7 @@ namespace CloudVOffice.Data.Migrations
                     ProjectActivityTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProjectActivityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActivityCategory = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
@@ -300,7 +363,7 @@ namespace CloudVOffice.Data.Migrations
                 {
                     ProjectTypeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProjectName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProjectTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
@@ -340,7 +403,7 @@ namespace CloudVOffice.Data.Migrations
                     MiddleName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FailedLoginAttempts = table.Column<int>(type: "int", nullable: true),
@@ -354,6 +417,8 @@ namespace CloudVOffice.Data.Migrations
                     UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
+                    ResetPasswordToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResetPasswordTokenExpirey = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -412,8 +477,7 @@ namespace CloudVOffice.Data.Migrations
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    EmployeeId1 = table.Column<long>(type: "bigint", nullable: true)
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -430,11 +494,37 @@ namespace CloudVOffice.Data.Migrations
                         principalTable: "Designations",
                         principalColumn: "DesignationId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmailAccounts",
+                columns: table => new
+                {
+                    EmailAccountId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Domain = table.Column<int>(type: "int", nullable: false),
+                    EmailAccountName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AlternativeEmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailSignature = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailLogo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDefaultSending = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmailAccounts", x => x.EmailAccountId);
                     table.ForeignKey(
-                        name: "FK_Employees_Employees_EmployeeId1",
-                        column: x => x.EmployeeId1,
-                        principalTable: "Employees",
-                        principalColumn: "EmployeeId");
+                        name: "FK_EmailAccounts_EmailDomains_Domain",
+                        column: x => x.Domain,
+                        principalTable: "EmailDomains",
+                        principalColumn: "EmailDomainId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -442,7 +532,7 @@ namespace CloudVOffice.Data.Migrations
                 columns: table => new
                 {
                     RoleAndApplicationWisePermissionId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:Identity", "10000, 1"),
                     ApplicationId = table.Column<int>(type: "int", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
@@ -499,7 +589,7 @@ namespace CloudVOffice.Data.Migrations
                 columns: table => new
                 {
                     UserWiseViewMapperId = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:Identity", "10000, 1"),
                     ApplicationId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: true),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
@@ -534,16 +624,16 @@ namespace CloudVOffice.Data.Migrations
                     LogType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DesktopLoginId = table.Column<long>(type: "bigint", nullable: true),
                     LogDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ComputerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProcessOrUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AppOrWebPageName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TypeOfApp = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ComputerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProcessOrUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AppOrWebPageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TypeOfApp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SyncedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Action = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Source = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Folder = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PrinterName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Action = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Source = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Folder = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PrinterName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Todatetime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -573,6 +663,9 @@ namespace CloudVOffice.Data.Migrations
                     LogOutDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsAutoLogedOut = table.Column<bool>(type: "bit", nullable: false),
                     IsActiveSession = table.Column<bool>(type: "bit", nullable: false),
+                    IdelTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    ComputerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SyncedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -585,6 +678,35 @@ namespace CloudVOffice.Data.Migrations
                     table.PrimaryKey("PK_DesktopLogins", x => x.DesktopLoginId);
                     table.ForeignKey(
                         name: "FK_DesktopLogins_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EmployeeEducationalQualifications",
+                columns: table => new
+                {
+                    EmployeeEducationalQualificationId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<long>(type: "bigint", nullable: false),
+                    SchoolOrUniversityName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Qualification = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Level = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    YearOfPassing = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Percentage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeEducationalQualifications", x => x.EmployeeEducationalQualificationId);
+                    table.ForeignKey(
+                        name: "FK_EmployeeEducationalQualifications_Employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
@@ -719,6 +841,66 @@ namespace CloudVOffice.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProjectTasks",
+                columns: table => new
+                {
+                    ProjectTaskId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<long>(type: "bigint", nullable: true),
+                    AssignedBy = table.Column<long>(type: "bigint", nullable: true),
+                    AssignedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaskName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Priority = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentTaskId = table.Column<long>(type: "bigint", nullable: true),
+                    IsGroup = table.Column<bool>(type: "bit", nullable: false),
+                    ExpectedStartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ExpectedEndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ExpectedTimeInHours = table.Column<double>(type: "float", nullable: true),
+                    Progress = table.Column<double>(type: "float", nullable: true),
+                    TaskDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TaskStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ComplitedBy = table.Column<long>(type: "bigint", nullable: true),
+                    ComplitedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TaskComplitedByOthersReasonByAssign = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TaskComplitedByOthersReasonByComplitedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDelayApproved = table.Column<int>(type: "int", nullable: true),
+                    DelayReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DelayApprovedBy = table.Column<long>(type: "bigint", nullable: true),
+                    DelayApprovedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DelayApprovalReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalHoursByTimeSheet = table.Column<double>(type: "float", nullable: true),
+                    TotalBillableHourByTimeSheet = table.Column<double>(type: "float", nullable: true),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectTasks", x => x.ProjectTaskId);
+                    table.ForeignKey(
+                        name: "FK_ProjectTasks_Employees_ComplitedBy",
+                        column: x => x.ComplitedBy,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProjectTasks_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ProjectTasks_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProjectUsers",
                 columns: table => new
                 {
@@ -749,40 +931,169 @@ namespace CloudVOffice.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TaskAssignment",
+                columns: table => new
+                {
+                    TaskAssignmentId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TaskId = table.Column<long>(type: "bigint", nullable: false),
+                    EmployeeId = table.Column<long>(type: "bigint", nullable: false),
+                    AssignedBy = table.Column<long>(type: "bigint", nullable: true),
+                    AssignedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CompliteBy = table.Column<long>(type: "bigint", nullable: true),
+                    ActualCompliteOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DelayReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDelayApproved = table.Column<bool>(type: "bit", nullable: true),
+                    DelayApprovedBy = table.Column<long>(type: "bigint", nullable: true),
+                    DelayApprovedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TaskAssignment", x => x.TaskAssignmentId);
+                    table.ForeignKey(
+                        name: "FK_TaskAssignment_Employees_AssignedBy",
+                        column: x => x.AssignedBy,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId");
+                    table.ForeignKey(
+                        name: "FK_TaskAssignment_Employees_CompliteBy",
+                        column: x => x.CompliteBy,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId");
+                    table.ForeignKey(
+                        name: "FK_TaskAssignment_Employees_DelayApprovedBy",
+                        column: x => x.DelayApprovedBy,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId");
+                    table.ForeignKey(
+                        name: "FK_TaskAssignment_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TaskAssignment_ProjectTasks_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "ProjectTasks",
+                        principalColumn: "ProjectTaskId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Timesheets",
+                columns: table => new
+                {
+                    TimesheetId = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<long>(type: "bigint", nullable: false),
+                    TimeSheetForDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TimesheetActivityType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    OpportunityId = table.Column<int>(type: "int", nullable: true),
+                    TaskId = table.Column<long>(type: "bigint", nullable: true),
+                    FromTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    ToTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    DurationInHours = table.Column<double>(type: "float", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsBillable = table.Column<bool>(type: "bit", nullable: false),
+                    HourlyRate = table.Column<double>(type: "float", nullable: true),
+                    TimeSheetApprovalStatus = table.Column<int>(type: "int", nullable: false),
+                    TimesheetApprovedBy = table.Column<long>(type: "bigint", nullable: true),
+                    TimeSheetApprovedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TimeSheetApprovalRemarks = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Deleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Timesheets", x => x.TimesheetId);
+                    table.ForeignKey(
+                        name: "FK_Timesheets_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Timesheets_Employees_TimesheetApprovedBy",
+                        column: x => x.TimesheetApprovedBy,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId");
+                    table.ForeignKey(
+                        name: "FK_Timesheets_ProjectActivityTypes_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "ProjectActivityTypes",
+                        principalColumn: "ProjectActivityTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Timesheets_ProjectTasks_TaskId",
+                        column: x => x.TaskId,
+                        principalTable: "ProjectTasks",
+                        principalColumn: "ProjectTaskId");
+                    table.ForeignKey(
+                        name: "FK_Timesheets_Projects_ProjectId",
+                        column: x => x.ProjectId,
+                        principalTable: "Projects",
+                        principalColumn: "ProjectId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Applications",
                 columns: new[] { "ApplicationId", "ApplicationId1", "ApplicationName", "AreaName", "CreatedBy", "CreatedDate", "Deleted", "IconClass", "IconImageUrl", "IsGroup", "Parent", "UpdatedBy", "UpdatedDate", "Url" },
                 values: new object[,]
                 {
-                    { 1, null, "Applications", "Application", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5552), false, null, "/appstatic/images/applications.png", true, null, null, null, "/Application/Applications/InstalledApps" },
-                    { 2, null, "Setup", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5555), false, null, "/appstatic/images/setup.png", true, null, null, null, "/Setup/Setup/Dashboard" },
-                    { 3, null, "Company", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5557), false, null, null, false, 2, null, null, "/Setup/Company/Company" },
-                    { 4, null, "User", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5559), false, null, null, true, 2, null, null, "" },
-                    { 5, null, "User List", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5560), false, null, null, false, 4, null, null, "/Setup/User/UserList" },
-                    { 6, null, "Users Activity Log", "Setup", 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5561), false, null, null, false, null, null, null, "/Setup/User/ActivityLog" }
+                    { 1, null, "Applications", "Application", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4552), false, null, "/appstatic/images/applications.png", true, null, null, null, "/Application/Applications/InstalledApps" },
+                    { 2, null, "Setup", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4557), false, null, "/appstatic/images/setup.png", true, null, null, null, "/Setup/Setup/Dashboard" },
+                    { 3, null, "Company Settings", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4559), false, null, null, true, 2, null, null, "" },
+                    { 4, null, "Company", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4605), false, null, null, false, 3, null, null, "/Setup/CompanyDetails/CompanyDetailsView" },
+                    { 5, null, "Letter Head", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4607), false, null, null, false, 3, null, null, "/Setup/LetterHead/LetterHeadView" },
+                    { 6, null, "User", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4608), false, null, null, true, 2, null, null, "" },
+                    { 7, null, "User List", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4610), false, null, null, false, 6, null, null, "/Setup/User/UserList" },
+                    { 8, null, "Email Setup", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4611), false, null, null, true, 2, null, null, "" },
+                    { 9, null, "Domain", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4613), false, null, null, true, 8, null, null, "/Setup/EmailDomain/EmailDomainView" },
+                    { 10, null, "Email Account", "Setup", 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(4614), false, null, null, true, 8, null, null, "/Setup/EmailAccount/EmailAccountView" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "EmailTemplates",
+                columns: new[] { "EmailTemplateId", "CreatedBy", "CreatedDate", "DefaultSendingAccount", "Deleted", "EmailTemplateDescription", "EmailTemplateName", "Subject", "UpdatedBy", "UpdatedDate" },
+                values: new object[] { 1, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5998), null, false, "<div role=\"document\">\r\n    <div class=\"_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark\" style=\"display: none;\"></div>  <div autoid=\"_rp_w\" class=\"_rp_T4\" style=\"display: none;\"></div>  <div autoid=\"_rp_x\" class=\"_rp_T4\" id=\"Item.MessagePartBody\" style=\"\">\r\n        <div class=\"_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass\" id=\"Item.MessageUniqueBody\" style=\"font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;\">\r\n            <div class=\"rps_ad57\">\r\n                <div>\r\n                    <div>\r\n                        <div style=\"margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);\">\r\n                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate\">\r\n                                <tbody>\r\n                                    <tr>\r\n                                        <td align=\"center\">\r\n                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none\">\r\n                                                <tbody>\r\n                                                    <tr>\r\n                                                        <td></td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td align=\"center\" style=\"min-width:590px\">\r\n                                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding:20px 0 0; border-collapse:separate\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td valign=\"middle\">\r\n                                                                            <h1 style=\"color:#676767; font-weight:400; margin:0px\">{%welcometitle%} </h1>\r\n                                                                        </td>\r\n                                                                        <td valign=\"middle\" align=\"right\" width=\"200px\">{%emailogo%}</td>\r\n                                                                    </tr>\r\n                                                                    <tr>\r\n                                                                        <td colspan=\"2\" style=\"text-align:center\">\r\n                                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px\">\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td style=\"min-width:590px\">\r\n                                                            <table border=\"0\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td>\r\n                                                                            <div style=\"margin-left:1.2rem; margin-bottom:1em\">\r\n                                                                                <h5 style=\"font-weight:400; margin-bottom:0; font-size:16px; color:#676767\"><span style=\"color:rgb(22,123,158); font-size:16px; margin-right:2px; font-weight:600\"></span>{%helloname%}</h5>\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">{%accountcreatetionmessage%}</p>\r\n\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">{%loginidmessage%}</p>\r\n\r\n\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">{%aditionalmessage%}</p>\r\n                                                                                <div style=\"margin:20px 0 0 0; text-align:center\">{%setpasswordlink%}</div>\r\n                                                                                <br />\r\n                                                                                {%copylinkfrommessage%}\r\n                                                                            </div>\r\n                                                                         \r\n                                                                            <div style=\"margin-left:1.2rem; margin-bottom:1em\">\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">\r\n                                                                                    {%emailsignature%}\r\n                                                                                </p>\r\n                                                                            </div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td>\r\n                                                            <table border=\"0\" style=\"width:100%\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td>\r\n                                                                            <div style=\"text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px\">\r\n                                                                                <p style=\"color:rgb(115,115,115); font-size:10px\">© Copyright {%companyname%}, {%address%} </p>\r\n                                                                            </div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                    <tr>\r\n                                                                        <td align=\"right\">\r\n                                                                            <div style=\" margin:0 20px\">{%footerletterhera%}</div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td>\r\n                                                            <table border=\"0\" style=\"width:100%\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td>\r\n                                                                            <div style=\"text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px\">\r\n                                                                                <p style=\"color:rgb(115,115,115); margin:0; font-size:10px\">\r\n                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential\r\n                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,\r\n                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.\r\n                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately\r\n                                                                                    and permanently delete the message and any attachments. Thank you.\r\n                                                                                </p>\r\n                                                                            </div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                </tbody>\r\n                                            </table>\r\n                                        </td>\r\n                                    </tr>\r\n                                </tbody>\r\n                            </table>\r\n                        </div>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div> <div class=\"_rp_c5\" style=\"display: none;\"></div>\r\n    </div>  <span class=\"PersonaPaneLauncher\"><div ariatabindex=\"-1\" class=\"_pe_d _pe_62\" aria-expanded=\"false\" tabindex=\"-1\" aria-haspopup=\"false\">  <div style=\"display: none;\"></div> </div></span>\r\n</div>", "WelcomeEmail", "", null, null });
 
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "RoleId", "CreatedBy", "CreatedDate", "Deleted", "RoleName", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { 1, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(3840), false, "Administrator", null, null });
+                values: new object[] { 1, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(2313), false, "Administrator", null, null });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "CreatedBy", "CreatedDate", "DateOfBirth", "Deleted", "Email", "FailedLoginAttempts", "FirstName", "IsActive", "LastActivityDate", "LastIpAddress", "LastLoginDate", "LastName", "MiddleName", "Password", "PhoneNo", "UpdatedBy", "UpdatedDate", "UserType", "UserTypeId" },
-                values: new object[] { 1L, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5207), null, false, "admin@appman.in", null, "Administrator", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "", null, "r9NmU79/NE0x0el2cuI8PeI4GlVCdpOeB875sWPUeJw=", "9583000000", null, null, 1, 1 });
+                columns: new[] { "UserId", "CreatedBy", "CreatedDate", "DateOfBirth", "Deleted", "Email", "FailedLoginAttempts", "FirstName", "IsActive", "LastActivityDate", "LastIpAddress", "LastLoginDate", "LastName", "MiddleName", "Password", "PhoneNo", "ResetPasswordToken", "ResetPasswordTokenExpirey", "UpdatedBy", "UpdatedDate", "UserType", "UserTypeId" },
+                values: new object[] { 1L, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(3696), null, false, "admin@appman.in", null, "Administrator", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "", null, "r9NmU79/NE0x0el2cuI8PeI4GlVCdpOeB875sWPUeJw=", "9583000000", null, null, null, null, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "RoleAndApplicationWisePermissions",
                 columns: new[] { "RoleAndApplicationWisePermissionId", "ApplicationId", "CreatedBy", "CreatedDate", "Deleted", "RoleId", "UpdatedBy", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1L, 1, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5680), false, 1, null, null },
-                    { 2L, 2, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5682), false, 1, null, null },
-                    { 3L, 3, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5684), false, 1, null, null },
-                    { 4L, 4, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5685), false, 1, null, null },
-                    { 5L, 5, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5686), false, 1, null, null },
-                    { 6L, 6, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5687), false, 1, null, null }
+                    { 1L, 1, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5175), false, 1, null, null },
+                    { 2L, 2, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5179), false, 1, null, null },
+                    { 3L, 3, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5181), false, 1, null, null },
+                    { 4L, 4, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5182), false, 1, null, null },
+                    { 5L, 5, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5183), false, 1, null, null },
+                    { 6L, 6, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5184), false, 1, null, null },
+                    { 7L, 7, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5186), false, 1, null, null },
+                    { 8L, 8, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5187), false, 1, null, null },
+                    { 9L, 9, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5188), false, 1, null, null },
+                    { 10L, 10, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5189), false, 1, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -795,18 +1106,27 @@ namespace CloudVOffice.Data.Migrations
                 columns: new[] { "UserWiseViewMapperId", "ApplicationId", "CreatedBy", "CreatedDate", "Deleted", "UpdatedBy", "UpdatedDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1L, 1, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5816), false, null, null, 1L },
-                    { 2L, 2, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5818), false, null, null, 1L },
-                    { 3L, 3, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5820), false, null, null, 1L },
-                    { 4L, 4, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5821), false, null, null, 1L },
-                    { 5L, 5, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5822), false, null, null, 1L },
-                    { 6L, 6, 1L, new DateTime(2023, 4, 30, 10, 27, 18, 858, DateTimeKind.Local).AddTicks(5824), false, null, null, 1L }
+                    { 1L, 1, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5771), false, null, null, 1L },
+                    { 2L, 2, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5775), false, null, null, 1L },
+                    { 3L, 3, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5778), false, null, null, 1L },
+                    { 4L, 4, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5780), false, null, null, 1L },
+                    { 5L, 5, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5781), false, null, null, 1L },
+                    { 6L, 6, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5782), false, null, null, 1L },
+                    { 7L, 7, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5784), false, null, null, 1L },
+                    { 8L, 8, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5791), false, null, null, 1L },
+                    { 9L, 9, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5804), false, null, null, 1L },
+                    { 10L, 10, 1L, new DateTime(2023, 6, 3, 12, 31, 4, 638, DateTimeKind.Local).AddTicks(5805), false, null, null, 1L }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Applications_ApplicationId1",
                 table: "Applications",
                 column: "ApplicationId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChartOfAccounts_ChartOfAccountsId1",
+                table: "ChartOfAccounts",
+                column: "ChartOfAccountsId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_DepartmentId1",
@@ -834,6 +1154,16 @@ namespace CloudVOffice.Data.Migrations
                 column: "DesktopActivityLogId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmailAccounts_Domain",
+                table: "EmailAccounts",
+                column: "Domain");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeEducationalQualifications_EmployeeId",
+                table: "EmployeeEducationalQualifications",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_DepartmentId",
                 table: "Employees",
                 column: "DepartmentId");
@@ -842,11 +1172,6 @@ namespace CloudVOffice.Data.Migrations
                 name: "IX_Employees_DesignationId",
                 table: "Employees",
                 column: "DesignationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_EmployeeId1",
-                table: "Employees",
-                column: "EmployeeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectEmployees_EmployeeId",
@@ -869,6 +1194,21 @@ namespace CloudVOffice.Data.Migrations
                 column: "ProjectTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProjectTasks_ComplitedBy",
+                table: "ProjectTasks",
+                column: "ComplitedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectTasks_EmployeeId",
+                table: "ProjectTasks",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProjectTasks_ProjectId",
+                table: "ProjectTasks",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProjectUsers_ProjectId",
                 table: "ProjectUsers",
                 column: "ProjectId");
@@ -887,6 +1227,56 @@ namespace CloudVOffice.Data.Migrations
                 name: "IX_RoleAndApplicationWisePermissions_RoleId",
                 table: "RoleAndApplicationWisePermissions",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskAssignment_AssignedBy",
+                table: "TaskAssignment",
+                column: "AssignedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskAssignment_CompliteBy",
+                table: "TaskAssignment",
+                column: "CompliteBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskAssignment_DelayApprovedBy",
+                table: "TaskAssignment",
+                column: "DelayApprovedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskAssignment_EmployeeId",
+                table: "TaskAssignment",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskAssignment_TaskId",
+                table: "TaskAssignment",
+                column: "TaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Timesheets_ActivityId",
+                table: "Timesheets",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Timesheets_EmployeeId",
+                table: "Timesheets",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Timesheets_ProjectId",
+                table: "Timesheets",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Timesheets_TaskId",
+                table: "Timesheets",
+                column: "TaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Timesheets_TimesheetApprovedBy",
+                table: "Timesheets",
+                column: "TimesheetApprovedBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoleMappings_RoleId",
@@ -922,6 +1312,12 @@ namespace CloudVOffice.Data.Migrations
                 name: "Branches");
 
             migrationBuilder.DropTable(
+                name: "ChartOfAccounts");
+
+            migrationBuilder.DropTable(
+                name: "CompanyDetails");
+
+            migrationBuilder.DropTable(
                 name: "DesktopKeyStrokes");
 
             migrationBuilder.DropTable(
@@ -934,7 +1330,10 @@ namespace CloudVOffice.Data.Migrations
                 name: "EmailAccounts");
 
             migrationBuilder.DropTable(
-                name: "EmailDomains");
+                name: "EmailTemplates");
+
+            migrationBuilder.DropTable(
+                name: "EmployeeEducationalQualifications");
 
             migrationBuilder.DropTable(
                 name: "EmploymentTypes");
@@ -949,9 +1348,6 @@ namespace CloudVOffice.Data.Migrations
                 name: "Logs");
 
             migrationBuilder.DropTable(
-                name: "ProjectActivityTypes");
-
-            migrationBuilder.DropTable(
                 name: "ProjectEmployees");
 
             migrationBuilder.DropTable(
@@ -959,6 +1355,12 @@ namespace CloudVOffice.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoleAndApplicationWisePermissions");
+
+            migrationBuilder.DropTable(
+                name: "TaskAssignment");
+
+            migrationBuilder.DropTable(
+                name: "Timesheets");
 
             migrationBuilder.DropTable(
                 name: "UserRoleMappings");
@@ -970,7 +1372,13 @@ namespace CloudVOffice.Data.Migrations
                 name: "DesktopActivityLogs");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "EmailDomains");
+
+            migrationBuilder.DropTable(
+                name: "ProjectActivityTypes");
+
+            migrationBuilder.DropTable(
+                name: "ProjectTasks");
 
             migrationBuilder.DropTable(
                 name: "Roles");
@@ -980,6 +1388,9 @@ namespace CloudVOffice.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "Employees");

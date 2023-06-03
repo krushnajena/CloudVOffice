@@ -75,12 +75,13 @@ namespace CloudVOffice.Data.Seeding
 
 
                     );
+               
             });
 
             modelBuilder.Entity<Application>(b =>
             {
                 b.HasKey(e => e.ApplicationId);
-
+                b.Property(x => x.ApplicationId).ValueGeneratedOnAdd().UseIdentityColumn(10000, 1);
                 b.HasData(
                     new Application
                     {
@@ -243,7 +244,7 @@ namespace CloudVOffice.Data.Seeding
             modelBuilder.Entity<RoleAndApplicationWisePermission>(b =>
             {
                 b.HasKey(e => e.RoleAndApplicationWisePermissionId);
-
+                b.Property(x => x.RoleAndApplicationWisePermissionId).ValueGeneratedOnAdd().UseIdentityColumn(10000, 1);
                 b.HasData(
                     new RoleAndApplicationWisePermission
                     {RoleAndApplicationWisePermissionId=1,
@@ -357,7 +358,7 @@ namespace CloudVOffice.Data.Seeding
             modelBuilder.Entity<UserWiseViewMapper>(b =>
             {
                 b.HasKey(e => e.UserWiseViewMapperId);
-
+                b.Property(x => x.UserWiseViewMapperId).ValueGeneratedOnAdd().UseIdentityColumn(10000, 1);
                 b.HasData(
                     new UserWiseViewMapper
                     {

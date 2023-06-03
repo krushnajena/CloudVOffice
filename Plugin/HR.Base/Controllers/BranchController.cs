@@ -54,14 +54,17 @@ namespace HR.Base.Controllers
                     var a = _branchService.BranchCreate(branchDTO);
                     if (a == MessageEnum.Success)
                     {
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/HR/Branch/BranchView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "Branch Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -70,20 +73,21 @@ namespace HR.Base.Controllers
                     var a = _branchService.BranchUpdate(branchDTO);
                     if (a == MessageEnum.Updated)
                     {
-						return Redirect("/HR/Branch/BranchView");
+                        TempData["msg"] = MessageEnum.Updated;
+                        return Redirect("/HR/Branch/BranchView");
 					}
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "Branch Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
             }
-            //ViewBag.ParentDepartmentList = new SelectList((System.Collections.IEnumerable)_departmentService.GetAllDepartmentGroups(), "DepartmentId", "DepartmentName");
-
             return View("~/Plugins/HR.Base/Views/Branch/BranchCreate.cshtml", branchDTO);
         }
 
@@ -97,9 +101,10 @@ namespace HR.Base.Controllers
         [HttpGet]
         public IActionResult DeleteBranch(Int64 branchId)
         {
-            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 DeletedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _branchService.BranchDelete( branchId, DeletedBy);
+            TempData["msg"] = a;
             return Redirect("/HR/Branch/BranchView");
         }
     }

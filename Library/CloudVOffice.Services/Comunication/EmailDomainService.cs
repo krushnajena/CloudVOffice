@@ -23,7 +23,7 @@ namespace CloudVOffice.Services.Comunication
 		}
 		public MessageEnum EmailDomainCreate(EmailDomainDTO emailDomainDTO)
 		{
-			var objCheck = _Context.EmailDomains.SingleOrDefault(opt => opt.EmailDomainId == emailDomainDTO.EmailDomainId && opt.Deleted == false);
+			var objCheck = _Context.EmailDomains.SingleOrDefault(opt => opt.DomainName == emailDomainDTO.DomainName && opt.Deleted == false);
 			try
 			{
 				if (objCheck == null)

@@ -114,21 +114,26 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     {
                         if (a == MessageEnum.Updated)
                         {
-                            return Redirect("/Setup/User/UserList");
+                            TempData["msg"] = MessageEnum.Updated;
+
+							return Redirect("/Setup/User/UserList");
                         }
                         else if (a == MessageEnum.Duplicate)
                         {
-                            ModelState.AddModelError("", "User Already Exists");
+							TempData["msg"] = MessageEnum.Duplicate;
+							ModelState.AddModelError("", "User Already Exists");
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Un-Expected Error");
+							TempData["msg"] = MessageEnum.UnExpectedError;
+							ModelState.AddModelError("", "Un-Expected Error");
                         }
 
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Un-Expected Error");
+						TempData["msg"] = MessageEnum.UnExpectedError;
+						ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
                 else
@@ -138,7 +143,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     {
                         if (a == MessageEnum.Success)
                         {
-                            if (createUserDTO.WantToStayOnThisPage)
+							TempData["msg"] = MessageEnum.Success;
+							if (createUserDTO.WantToStayOnThisPage)
                             {
                                 return Redirect("/Setup/User/CreateUser");
                             }
@@ -147,17 +153,20 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                         }
                         else if (a == MessageEnum.Duplicate)
                         {
-                            ModelState.AddModelError("", "User Already Exists");
+							TempData["msg"] = MessageEnum.Duplicate;
+							ModelState.AddModelError("", "User Already Exists");
                         }
                         else
                         {
-                            ModelState.AddModelError("", "Un-Expected Error");
+							TempData["msg"] = MessageEnum.UnExpectedError;
+							ModelState.AddModelError("", "Un-Expected Error");
                         }
 
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Un-Expected Error");
+						TempData["msg"] = MessageEnum.UnExpectedError;
+						ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
              
@@ -174,7 +183,13 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
             Int64 DeletedBy= Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _userService.DeleteUser(UserId, DeletedBy);
+            TempData["msg"] = a;
 			return Redirect("/Setup/User/UserList");
 		}
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
     }
 }

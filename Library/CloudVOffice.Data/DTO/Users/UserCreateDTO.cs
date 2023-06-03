@@ -30,6 +30,7 @@ namespace CloudVOffice.Data.DTO.Users
         public Int64 CreatedBy { get; set; }
         public List<UserRolesDTO> roles { get; set; }
         public long? UserId { get; set; }
+        public bool WantToStayOnThisPage { get; set; }
     }
     public class UserRolesDTO
     {

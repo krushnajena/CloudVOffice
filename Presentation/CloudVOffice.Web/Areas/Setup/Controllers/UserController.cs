@@ -112,7 +112,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     var a = await _userService.UpdateUser(createUserDTO);
                     if (a != null)
                     {
-                        if (a == MessageEnum.Success)
+                        if (a == MessageEnum.Updated)
                         {
                             return Redirect("/Setup/User/UserList");
                         }
@@ -138,7 +138,12 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     {
                         if (a == MessageEnum.Success)
                         {
-                            return Redirect("/Setup/User/UserList");
+                            if (createUserDTO.WantToStayOnThisPage)
+                            {
+                                return Redirect("/Setup/User/CreateUser");
+                            }
+                            else
+                                return Redirect("/Setup/User/UserList");
                         }
                         else if (a == MessageEnum.Duplicate)
                         {

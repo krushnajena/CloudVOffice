@@ -63,9 +63,9 @@ namespace CloudVOffice.Services.Company
 			}
 		}
 
-		public MennsageEnum LetterHeadCreate(LetterHeadDTO letterHeadDTO)
+		public MessageEnum LetterHeadCreate(LetterHeadDTO letterHeadDTO)
 		{
-			var objCheck = _Context.LetterHeads.SingleOrDefault(opt => opt.LetterHeadId == letterHeadDTO.LetterHeadId && opt.Deleted == false);
+			var objCheck = _Context.LetterHeads.FirstOrDefault(opt=> opt.Deleted == false);
 			try
 			{
 				if (objCheck == null)
@@ -84,14 +84,14 @@ namespace CloudVOffice.Services.Company
 					letterHead.CreatedBy = letterHeadDTO.CreatedBy;
 					var obj = _letterHeadRepo.Insert(letterHead);
 
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 				}
 				else if (objCheck != null)
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.AlreadyCreate;
 				}
 
-				return MennsageEnum.UnExpectedError;
+				return MessageEnum.UnExpectedError;
 			}
 			catch
 			{
@@ -99,7 +99,7 @@ namespace CloudVOffice.Services.Company
 			}
 		}
 
-		public MennsageEnum LetterHeadDelete(int letterHeadId, int DeletedBy)
+		public MessageEnum LetterHeadDelete(int letterHeadId, int DeletedBy)
 		{
 			try
 			{
@@ -110,10 +110,10 @@ namespace CloudVOffice.Services.Company
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -121,13 +121,11 @@ namespace CloudVOffice.Services.Company
 			}
 		}
 
-		public MennsageEnum LetterHeadUpdate(LetterHeadDTO letterHeadDTO)
+		public MessageEnum LetterHeadUpdate(LetterHeadDTO letterHeadDTO)
 		{
 			try
 			{
-				var letterHead = _Context.LetterHeads.Where(x => x.LetterHeadId == letterHeadDTO.LetterHeadId && x.Deleted == false).FirstOrDefault();
-				if (letterHead == null)
-				{
+				
 					var a = _Context.LetterHeads.Where(x => x.LetterHeadId == letterHeadDTO.LetterHeadId).FirstOrDefault();
 					if (a != null)
 					{
@@ -143,16 +141,11 @@ namespace CloudVOffice.Services.Company
 						a.LetterHeadFooterAlign = letterHeadDTO.LetterHeadFooterAlign;
 						a.UpdatedDate = DateTime.Now;
 						_Context.SaveChanges();
-						return MennsageEnum.Updated;
+						return MessageEnum.Updated;
 					}
 					else
-						return MennsageEnum.Invalid;
-				}
-				else
-				{
-					return MennsageEnum.Duplicate;
-				}
-
+						return MessageEnum.Invalid;
+				
 			}
 			catch
 			{

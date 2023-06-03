@@ -94,7 +94,7 @@ namespace CloudVOffice.Services.Projects
             }
         }
 
-        public MennsageEnum TimesheetCreate(TimesheetDTO timesheetDTO)
+        public MessageEnum TimesheetCreate(TimesheetDTO timesheetDTO)
         {
 
             var objCheck = _Context.Timesheets.SingleOrDefault(opt => opt.TimesheetId == timesheetDTO.TimesheetId && opt.Deleted == false);
@@ -126,7 +126,7 @@ namespace CloudVOffice.Services.Projects
                 
                 
 
-                return MennsageEnum.UnExpectedError;
+                return MessageEnum.UnExpectedError;
             }
             catch
             {
@@ -134,7 +134,7 @@ namespace CloudVOffice.Services.Projects
             }
         }
 
-        public MennsageEnum TimesheetDelete(Int64 timesheetId, Int64 DeletedBy)
+        public MessageEnum TimesheetDelete(Int64 timesheetId, Int64 DeletedBy)
         {
 
             try
@@ -146,10 +146,10 @@ namespace CloudVOffice.Services.Projects
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _Context.SaveChanges();
-                    return MennsageEnum.Deleted;
+                    return MessageEnum.Deleted;
                 }
                 else
-                    return MennsageEnum.Invalid;
+                    return MessageEnum.Invalid;
             }
             catch
             {
@@ -157,7 +157,7 @@ namespace CloudVOffice.Services.Projects
             }
         }
 
-        public MennsageEnum TimesheetUpdate(TimesheetDTO timesheetDTO)
+        public MessageEnum TimesheetUpdate(TimesheetDTO timesheetDTO)
         {
 
             try
@@ -186,14 +186,14 @@ namespace CloudVOffice.Services.Projects
                         a.TimeSheetApprovalRemarks = timesheetDTO.TimeSheetApprovalRemarks;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
-                        return MennsageEnum.Updated;
+                        return MessageEnum.Updated;
                     }
                     else
-                        return MennsageEnum.Invalid;
+                        return MessageEnum.Invalid;
                 }
                 else
                 {
-                    return MennsageEnum.Duplicate;
+                    return MessageEnum.Duplicate;
                 }
 
             }

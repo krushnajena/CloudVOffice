@@ -11,11 +11,11 @@ namespace CloudVOffice.Services.HR.Master
 {
     public interface IEmploymentTypeService
     {
-        public MennsageEnum EmployementTypeCreate(EmploymentTypeDTO employmenttypeDTO);
+        public MessageEnum EmployementTypeCreate(EmploymentTypeDTO employmenttypeDTO);
         public List<EmploymentType> GetEmploymentTypes();
         public EmploymentType GetEmploymentTypeByEmploymentTypeId(Int64 employmenttypeId);
         public EmploymentType GetEmploymentTypeByEmploymentTypeName(string employmentTypeName);
-        public MennsageEnum EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO);
-        public MennsageEnum EmploymentTypeDelete(Int64 employmenttypeId, Int64 DeletedBy);
+        public MessageEnum EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO);
+        public MessageEnum EmploymentTypeDelete(Int64 employmenttypeId, Int64 DeletedBy);
     }
 }

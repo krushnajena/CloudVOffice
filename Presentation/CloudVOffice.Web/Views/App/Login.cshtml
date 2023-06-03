@@ -28,7 +28,11 @@
     <link href="~/login/css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="~/login/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
-
+<style>
+        .field-validation-error{
+            color:red
+        }
+</style>
 </head>
 
 <body class="auth-body-bg">
@@ -116,7 +120,7 @@
 
                                                 <label for="Email" class="form-label">Email</label>
                                                 <input asp-for="Email" class="form-control" autofocus="autofocus" placeholder="Enter Email Id" />
-                                                <span asp-validation-for="Email"></span>
+                                                <span asp-validation-for="Email" class="danger"></span>
                                             </div>
 
 
@@ -131,7 +135,7 @@
                                                     <input asp-for="Password" class="form-control" autofocus="autofocus" placeholder="Enter Password" aria-label="Password" aria-describedby="password-addon" />
                                                     <button class="btn btn-light " type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
                                                 </div>
-                                                <span asp-validation-for="Password"></span>
+                                                <span asp-validation-for="Password" class="danger"></span>
                                             </div>
                                                 
 

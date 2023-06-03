@@ -166,7 +166,7 @@ namespace CloudVOffice.Services.Users
             
 		}
 
-        public async Task<MennsageEnum> CreateUser(UserCreateDTO userCreateDTO)
+        public async Task<MessageEnum> CreateUser(UserCreateDTO userCreateDTO)
         {
             var objCheck = _context.Users
                
@@ -199,15 +199,15 @@ namespace CloudVOffice.Services.Users
                     }
                     SendWelcomeMessage(obj);
 
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 
                 }
                 else if (objCheck != null)
                 {
-                     return MennsageEnum.Duplicate;
+                     return MessageEnum.Duplicate;
                 }
                 
-                return MennsageEnum.UnExpectedError;
+                return MessageEnum.UnExpectedError;
             }
             catch
             {
@@ -215,7 +215,7 @@ namespace CloudVOffice.Services.Users
             }
         }
 
-        public async Task<MennsageEnum> UpdateUser(UserCreateDTO userCreateDTO)
+        public async Task<MessageEnum> UpdateUser(UserCreateDTO userCreateDTO)
         {
             var user = _context.Users
                 .Include(x => x.UserRoleMappings)
@@ -251,10 +251,10 @@ namespace CloudVOffice.Services.Users
                     }
 
                 }
-                return MennsageEnum.Success;
+                return MessageEnum.Success;
             }
             else
-                return MennsageEnum.Invalid;
+                return MessageEnum.Invalid;
         }
         public string AssignRole(Int64 userid, int roleid)
         {
@@ -325,7 +325,7 @@ namespace CloudVOffice.Services.Users
             return enumData;
 		}
 
-		public MennsageEnum DeleteUser(Int64 UserId ,Int64 deletedby)
+		public MessageEnum DeleteUser(Int64 UserId ,Int64 deletedby)
 		{
             try
             {
@@ -336,10 +336,10 @@ namespace CloudVOffice.Services.Users
                     a.UpdatedBy = deletedby;
                     a.UpdatedDate = DateTime.Now;
                     _context.SaveChanges();
-                    return MennsageEnum.Deleted;
+                    return MessageEnum.Deleted;
                 }
                 else
-                    return MennsageEnum.Invalid;
+                    return MessageEnum.Invalid;
             }
             catch
             {
@@ -422,7 +422,7 @@ namespace CloudVOffice.Services.Users
             }
 		}
 
-        public MennsageEnum SetPassword(string password, string email, string token)
+        public MessageEnum SetPassword(string password, string email, string token)
         {
             try
             {
@@ -436,16 +436,16 @@ namespace CloudVOffice.Services.Users
                         user.ResetPasswordToken= "";
                         user.ResetPasswordTokenExpirey = null;
                         _context.SaveChanges();
-                        return MennsageEnum.Success;
+                        return MessageEnum.Success;
                     }
                     else
                     {
-                        return MennsageEnum.Error;
+                        return MessageEnum.Error;
                     }
                 }
                 else
                 {
-                    return MennsageEnum.Invalid;
+                    return MessageEnum.Invalid;
                 }
             }
             catch

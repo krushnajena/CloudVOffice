@@ -14,8 +14,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 	public class LetterHeadController : Controller
 	{
 		private readonly ILetterHeadService _letterHeadService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        public LetterHeadController(ILetterHeadService letterHeadService , IWebHostEnvironment hostEnvironment)
+		private readonly IWebHostEnvironment _hostingEnvironment;
+		public LetterHeadController(ILetterHeadService letterHeadService, IWebHostEnvironment hostEnvironment)
 		{
 
 			_letterHeadService = letterHeadService;
@@ -25,33 +25,36 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		public IActionResult LetterHeadCreate(int? letterHeadId)
 		{
 			LetterHeadDTO letterHeadDTO = new LetterHeadDTO();
-			if (_letterHeadService.GetLetter() == null)
+
+			if (letterHeadId != null)
 			{
-				if (letterHeadId != null)
-				{
 
-					LetterHead d = _letterHeadService.GetLetterHeadByLetterHeadId(int.Parse(letterHeadId.ToString()));
+				LetterHead d = _letterHeadService.GetLetterHeadByLetterHeadId(int.Parse(letterHeadId.ToString()));
 
-					letterHeadDTO.LetterHeadName = d.LetterHeadName;
-					letterHeadDTO.LetterHeadImage = d.LetterHeadImage;
-					letterHeadDTO.LetterHeadImageHeight = d.LetterHeadImageHeight;
-					letterHeadDTO.LetterHeadImageWidth = d.LetterHeadImageWidth;
-					letterHeadDTO.LetterHeadAlign = d.LetterHeadAlign;
-					letterHeadDTO.LetterHeadFooterImage = d.LetterHeadFooterImage;
-					letterHeadDTO.LetterHeadImageFooterHeight = d.LetterHeadImageFooterHeight;
-					letterHeadDTO.LetterHeadImageFooterWidth = d.LetterHeadImageFooterWidth;
-					letterHeadDTO.LetterHeadFooterAlign = d.LetterHeadFooterAlign;
+				letterHeadDTO.LetterHeadName = d.LetterHeadName;
+				letterHeadDTO.LetterHeadImage = d.LetterHeadImage;
+				letterHeadDTO.LetterHeadImageHeight = d.LetterHeadImageHeight;
+				letterHeadDTO.LetterHeadImageWidth = d.LetterHeadImageWidth;
+				letterHeadDTO.LetterHeadAlign = d.LetterHeadAlign;
+				letterHeadDTO.LetterHeadFooterImage = d.LetterHeadFooterImage;
+				letterHeadDTO.LetterHeadImageFooterHeight = d.LetterHeadImageFooterHeight;
+				letterHeadDTO.LetterHeadImageFooterWidth = d.LetterHeadImageFooterWidth;
+				letterHeadDTO.LetterHeadFooterAlign = d.LetterHeadFooterAlign;
 
 
-				}
-
-				return View("~/Areas/Setup/Views/LetterHead/LetterHeadCreate.cshtml", letterHeadDTO);
 			}
 			else
 			{
-                return Redirect("/Setup/LetterHead/LetterHeadView");
-            }
-			
+				if (_letterHeadService.GetLetter() != null)
+				{
+					TempData["msg"] = MessageEnum.AlreadyCreate;
+					return Redirect("/Setup/LetterHead/LetterHeadView");
+				}
+
+
+			}
+
+			return View("~/Areas/Setup/Views/LetterHead/LetterHeadCreate.cshtml", letterHeadDTO);
 
 		}
 		[HttpPost]
@@ -62,70 +65,73 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 			if (ModelState.IsValid)
 			{
+				if (letterHeadDTO.LetterHeadImageUp != null)
+				{
+					FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadImageUp.FileName);
+					string extn = fileInfo.Extension.ToLower();
+					Guid id = Guid.NewGuid();
+					string filename = id.ToString() + extn;
+
+					string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
+					if (!Directory.Exists(uploadsFolder))
+					{
+						Directory.CreateDirectory(uploadsFolder);
+					}
+					string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+					string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
+					letterHeadDTO.LetterHeadImageUp.CopyTo(new FileStream(imagePath, FileMode.Create));
+					letterHeadDTO.LetterHeadImage = uniqueFileName;
+				}
+				if (letterHeadDTO.LetterHeadFooterImageUP != null)
+				{
+					FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadFooterImageUP.FileName);
+					string extn = fileInfo.Extension.ToLower();
+					Guid id = Guid.NewGuid();
+					string filename = id.ToString() + extn;
+
+					string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
+					if (!Directory.Exists(uploadsFolder))
+					{
+						Directory.CreateDirectory(uploadsFolder);
+					}
+					string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+					string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
+					letterHeadDTO.LetterHeadFooterImageUP.CopyTo(new FileStream(imagePath, FileMode.Create));
+					letterHeadDTO.LetterHeadFooterImage = uniqueFileName;
+				}
 				if (letterHeadDTO.LetterHeadId == null)
 				{
 
-					if (letterHeadDTO.LetterHeadImageUp != null)
-					{
-						FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadImageUp.FileName);
-						string extn = fileInfo.Extension.ToLower();
-						Guid id = Guid.NewGuid();
-						string filename = id.ToString() + extn;
-
-						string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
-						if (!Directory.Exists(uploadsFolder))
-						{
-							Directory.CreateDirectory(uploadsFolder);
-						}
-						string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
-						string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        letterHeadDTO.LetterHeadImageUp.CopyTo(new FileStream(imagePath, FileMode.Create));
-                        letterHeadDTO.LetterHeadImage= uniqueFileName;
-					}
-					if (letterHeadDTO.LetterHeadFooterImageUP != null)
-					{
-						FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadFooterImageUP.FileName);
-						string extn = fileInfo.Extension.ToLower();
-						Guid id = Guid.NewGuid();
-						string filename = id.ToString() + extn;
-
-						string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/setup");
-						if (!Directory.Exists(uploadsFolder))
-						{
-							Directory.CreateDirectory(uploadsFolder);
-						}
-						string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
-						string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
-						letterHeadDTO.LetterHeadFooterImageUP.CopyTo(new FileStream(imagePath, FileMode.Create));
-						letterHeadDTO.LetterHeadFooterImage = uniqueFileName;
-					}
+				
 					var a = _letterHeadService.LetterHeadCreate(letterHeadDTO);
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
+						TempData["msg"] = MessageEnum.Success;
 						return Redirect("/Setup/LetterHead/LetterHeadView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.AlreadyCreate)
 					{
-						ModelState.AddModelError("", "LetterHead Already Exists");	
+						TempData["msg"] = MessageEnum.AlreadyCreate;
+						ModelState.AddModelError("", "LetterHead Already Exists");
 					}
 					else
 					{
+						TempData["msg"] = MessageEnum.UnExpectedError;
 						ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 				else
 				{
 					var a = _letterHeadService.LetterHeadUpdate(letterHeadDTO);
-					if (a == MennsageEnum.Updated)
+					if (a == MessageEnum.Updated)
 					{
+						TempData["msg"] = MessageEnum.Updated;
 						return Redirect("/Setup/LetterHead/LetterHeadView");
 					}
-					else if (a == MennsageEnum.Duplicate)
-					{
-						ModelState.AddModelError("", "LetterHead Already Exists");
-					}
+					
 					else
 					{
+						TempData["msg"] = MessageEnum.UnExpectedError;
 						ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
@@ -134,18 +140,19 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 			return View("~/Areas/Setup/Views/LetterHead/LetterHeadCreate.cshtml", letterHeadDTO);
 		}
-        public IActionResult LetterHeadView()
-        {
-            ViewBag.letterHeads = _letterHeadService.GetLetterHeads();
+		public IActionResult LetterHeadView()
+		{
+			ViewBag.letterHeads = _letterHeadService.GetLetterHeads();
 
-            return View("~/Areas/Setup/Views/LetterHead/LetterHeadView.cshtml");
-        }
-        public IActionResult LetterHeadDelete(int letterHeadId)
-        {
-            int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			return View("~/Areas/Setup/Views/LetterHead/LetterHeadView.cshtml");
+		}
+		public IActionResult LetterHeadDelete(int letterHeadId)
+		{
+			int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-            var a = _letterHeadService.LetterHeadDelete(letterHeadId, DeletedBy);
-            return Redirect("/Setup/LetterHead/LetterHeadView");
-        }
-    }
+			var a = _letterHeadService.LetterHeadDelete(letterHeadId, DeletedBy);
+			TempData["msg"] = a;
+			return Redirect("/Setup/LetterHead/LetterHeadView");
+		}
+	}
 }

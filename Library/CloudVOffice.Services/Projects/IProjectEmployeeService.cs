@@ -12,13 +12,13 @@ namespace CloudVOffice.Services.Projects
 {
 	public interface IProjectEmployeeService
 	{
-		public MennsageEnum ProjectEmployeeCreate(ProjectEmployeeDTO projectEmployeeDTO);
+		public MessageEnum ProjectEmployeeCreate(ProjectEmployeeDTO projectEmployeeDTO);
 		public List<ProjectEmployee> GetProjectEmployees();
 		public ProjectEmployee GetProjectEmployeeByProjectEmployeeId(Int64 projectEmployeeId);
 		public List<ProjectEmployee> GetProjectEmployeeByProjectId(int projectId);
 	
-		public MennsageEnum ProjectEmployeeUpdate(ProjectEmployeeDTO projectEmployeeDTO);
-		public MennsageEnum ProjectEmployeeDelete(Int64 projectEmployeeId, Int64 DeletedBy);
+		public MessageEnum ProjectEmployeeUpdate(ProjectEmployeeDTO projectEmployeeDTO);
+		public MessageEnum ProjectEmployeeDelete(Int64 projectEmployeeId, Int64 DeletedBy);
 
 		public List<ProjectEmployee> ProjectEmployeeByProjectId(int ProjectId);
 

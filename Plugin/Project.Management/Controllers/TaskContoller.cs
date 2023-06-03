@@ -103,11 +103,11 @@ namespace Project.Management.Controllers
                 if (projectTaskDTO.ProjectTaskId == null)
                 {
                     var a = _projectTaskService.ProjectTaskCreate(projectTaskDTO);
-                    if (a == MennsageEnum.Success)
+                    if (a == MessageEnum.Success)
                     {
                         return Redirect("/Projects/Task/TaskView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Task Already Exists");
                     }
@@ -119,11 +119,11 @@ namespace Project.Management.Controllers
                 else
                 {
                     var a = _projectTaskService.ProjectTaskUpdate(projectTaskDTO);
-                    if (a == MennsageEnum.Updated)
+                    if (a == MessageEnum.Updated)
                     {
                         return Redirect("/Projects/Task/TaskView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Task Already Exists");
                     }

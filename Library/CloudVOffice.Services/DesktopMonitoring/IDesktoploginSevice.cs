@@ -14,10 +14,10 @@ namespace CloudVOffice.Services.DesktopMonitoring
 {
     public interface IDesktoploginSevice
     {
-        public MennsageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO);
+        public MessageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO);
         public List<DesktopLoginsViewModel> GetDesktoplogins(DesktopLoginFilterDTO desktopLoginFilterDTO);
         public DesktopLogin GetDesktoploginByDesktoploginId(Int64 DesktopLoginId);       
-        public MennsageEnum DesktopLoginUpdate(DesktopLoginDTO desktoploginDTO);
-        public MennsageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy);
+        public MessageEnum DesktopLoginUpdate(DesktopLoginDTO desktoploginDTO);
+        public MessageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy);
     }
 }

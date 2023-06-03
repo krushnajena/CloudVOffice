@@ -11,11 +11,11 @@ namespace CloudVOffice.Services.Projects
 {
 	 public interface IProjectUserService
 	 {
-		public MennsageEnum ProjectUserCreate(ProjectUserDTO projectUserDTO);
+		public MessageEnum ProjectUserCreate(ProjectUserDTO projectUserDTO);
 		public List<ProjectUser> GetProjectUsers();
 		public ProjectUser GetProjectUserByProjectUserId(Int64 projectUserId);
-		public MennsageEnum ProjectUserUpdate(ProjectUserDTO projectUserDTO);
-		public MennsageEnum ProjectUserDelete(Int64 projectUserId, Int64 DeletedBy);
+		public MessageEnum ProjectUserUpdate(ProjectUserDTO projectUserDTO);
+		public MessageEnum ProjectUserDelete(Int64 projectUserId, Int64 DeletedBy);
 
 		public List<ProjectUser> GetProjectUsersByProjectId(int ProjectId);
 

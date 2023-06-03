@@ -14,11 +14,11 @@ namespace CloudVOffice.Services.Company
 {
 	public interface ICompanyDetailsService
 	{
-		public MennsageEnum CompanyDetailsCreate(CompanyDetailsDTO companyDetailsDTO);
+		public MessageEnum CompanyDetailsCreate(CompanyDetailsDTO companyDetailsDTO);
 		public CompanyDetails GetCompanyDetailsByCompanyDetailsId(int companyDetailsId);
 		public List<CompanyDetails> GetCompanyDetailsList();
 		public CompanyDetails GetCompanyDetails();
-		public MennsageEnum CompanyDetailsUpdate(CompanyDetailsDTO companyDetailsDTO);
-		public MennsageEnum CompanyDetailsDelete(int companyDetailsId, int DeletedBy);
+		public MessageEnum CompanyDetailsUpdate(CompanyDetailsDTO companyDetailsDTO);
+		public MessageEnum CompanyDetailsDelete(int companyDetailsId, int DeletedBy);
 	}
 }

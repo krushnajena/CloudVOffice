@@ -24,7 +24,7 @@ namespace CloudVOffice.Services.Projects
 			_Context = Context;
 			_projectTaskRepo = projectTaskRepo;
 		}
-		public MennsageEnum ProjectTaskCreate(ProjectTaskDTO projectTaskDTO)
+		public MessageEnum ProjectTaskCreate(ProjectTaskDTO projectTaskDTO)
 		{
 			var objCheck = _Context.ProjectTasks.SingleOrDefault(opt => opt.ProjectTaskId == projectTaskDTO.ProjectTaskId && opt.Deleted == false);
 			try
@@ -51,14 +51,14 @@ namespace CloudVOffice.Services.Projects
 					projectTask.CreatedBy = projectTaskDTO.CreatedBy;
 					var obj = _projectTaskRepo.Insert(projectTask);
 
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 				}
 				else if (objCheck != null)
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
-				return MennsageEnum.UnExpectedError;
+				return MessageEnum.UnExpectedError;
 			}
 			catch
 			{
@@ -106,7 +106,7 @@ namespace CloudVOffice.Services.Projects
 
 		
 
-		public MennsageEnum ProjectTaskDelete(Int64 projectTaskId, Int64 DeletedBy)
+		public MessageEnum ProjectTaskDelete(Int64 projectTaskId, Int64 DeletedBy)
 		{
 			try
 			{
@@ -117,10 +117,10 @@ namespace CloudVOffice.Services.Projects
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -128,7 +128,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectTaskUpdate(ProjectTaskDTO projectTaskDTO)
+		public MessageEnum ProjectTaskUpdate(ProjectTaskDTO projectTaskDTO)
 		{
 			try
 			{
@@ -154,14 +154,14 @@ namespace CloudVOffice.Services.Projects
 						//a.TotalBillableHourByTimeSheet = projectTaskDTO.TotalBillableHourByTimeSheet;
 						a.UpdatedDate = DateTime.Now;
 						_Context.SaveChanges();
-						return MennsageEnum.Updated;
+						return MessageEnum.Updated;
 					}
 					else
-						return MennsageEnum.Invalid;
+						return MessageEnum.Invalid;
 				}
 				else
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
 			}
@@ -279,7 +279,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-        public MennsageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
+        public MessageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
         {
 			try
 			{
@@ -310,7 +310,7 @@ namespace CloudVOffice.Services.Projects
 
                 }
                 _Context.SaveChanges();
-				return MennsageEnum.Success;
+				return MessageEnum.Success;
 
             }
 			catch

@@ -11,12 +11,12 @@ namespace CloudVOffice.Services.Projects
 {
 	public interface IProjectActivityTypeService
 	{
-		public MennsageEnum ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO);
+		public MessageEnum ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO);
 		public List<ProjectActivityType> GetProjectActivityTypes();
 		public ProjectActivityType GetProjectActivityTypeByProjectActivityTypeId(Int64 projectActivityTypeId);
 		public ProjectActivityType GetProjectActivityTypeByProjectActivityName(string projectActivityName);
-		public MennsageEnum ProjectActivityTypeUpdate(ProjectActivityTypeDTO projectActivityTypeDTO);
-		public MennsageEnum ProjectActivityTypeDelete(Int64 projectActivityTypeId, Int64 DeletedBy);
+		public MessageEnum ProjectActivityTypeUpdate(ProjectActivityTypeDTO projectActivityTypeDTO);
+		public MessageEnum ProjectActivityTypeDelete(Int64 projectActivityTypeId, Int64 DeletedBy);
 
 		public List<ProjectActivityType> GetProjectActivityTypesByActivityCategory(string activityCategory);	
 	}

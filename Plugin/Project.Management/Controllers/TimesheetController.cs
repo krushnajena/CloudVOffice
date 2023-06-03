@@ -79,11 +79,11 @@ namespace Project.Management.Controllers
                 if (timesheetDTO.TimesheetId == null)
                 {
                     var a = _timesheetService.TimesheetCreate(timesheetDTO);
-                    if (a == MennsageEnum.Success)
+                    if (a == MessageEnum.Success)
                     {
                         return Redirect("/Projects/Timesheet/TimesheetView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Timesheet Already Exists");
                     }
@@ -95,11 +95,11 @@ namespace Project.Management.Controllers
                 else
                 {
                     var a = _timesheetService.TimesheetUpdate(timesheetDTO);
-                    if (a == MennsageEnum.Updated)
+                    if (a == MessageEnum.Updated)
                     {
                         return Redirect("/Projects/Timesheet/TimesheetView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Timesheet Already Exists");
                     }

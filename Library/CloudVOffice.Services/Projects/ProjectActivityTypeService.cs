@@ -72,7 +72,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO)
+		public MessageEnum ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO)
 		{
 
 			try
@@ -88,10 +88,10 @@ namespace CloudVOffice.Services.Projects
 						CreatedDate = DateTime.Now,
 						Deleted = false
 					});
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 				}
 				else
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 			}
 			catch
 			{
@@ -99,7 +99,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectActivityTypeDelete(Int64 projectActivityTypeId, Int64 DeletedBy)
+		public MessageEnum ProjectActivityTypeDelete(Int64 projectActivityTypeId, Int64 DeletedBy)
 		{
 			try
 			{
@@ -110,10 +110,10 @@ namespace CloudVOffice.Services.Projects
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -121,7 +121,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectActivityTypeUpdate(ProjectActivityTypeDTO projectActivityTypeDTO)
+		public MessageEnum ProjectActivityTypeUpdate(ProjectActivityTypeDTO projectActivityTypeDTO)
 		{
 			try
 			{
@@ -136,14 +136,14 @@ namespace CloudVOffice.Services.Projects
 						a.UpdatedDate = DateTime.Now;
 						a.ActivityCategory = projectActivityTypeDTO.ActivityCategory;
 						_Context.SaveChanges();
-						return MennsageEnum.Updated;
+						return MessageEnum.Updated;
 					}
 					else
-						return MennsageEnum.Invalid;
+						return MessageEnum.Invalid;
 				}
 				else
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
 			}

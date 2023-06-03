@@ -52,11 +52,11 @@ namespace HR.Base.Controllers
                 if (employmenttypeDTO.EmploymentTypeId == null)
                 {
                     var a = _employmentTypeService.EmployementTypeCreate(employmenttypeDTO);
-                    if (a == MennsageEnum.Success)
+                    if (a == MessageEnum.Success)
                     {
                         return Redirect("/HR/EmploymentType/EmploymentTypeView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "EmploymentType Already Exists");
                     }
@@ -69,11 +69,11 @@ namespace HR.Base.Controllers
                 {
 
                     var a = _employmentTypeService.EmploymentTypeUpdate(employmenttypeDTO);
-                    if (a == MennsageEnum.Success)
+                    if (a == MessageEnum.Success)
                     {
                         return Redirect("/HR/EmploymentType/EmploymentTypeView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "EmploymentType Already Exists");
                     }

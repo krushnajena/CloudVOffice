@@ -12,11 +12,11 @@ namespace CloudVOffice.Services.Projects
 {
     public interface ITimesheetService
     {
-        public MennsageEnum TimesheetCreate(TimesheetDTO timesheetDTO);
+        public MessageEnum TimesheetCreate(TimesheetDTO timesheetDTO);
         public List<Timesheet> GetTimesheets();
         public Timesheet GetTimesheetByTimesheetId(Int64 timesheetId);
-        public MennsageEnum TimesheetUpdate(TimesheetDTO timesheetDTO);
-        public MennsageEnum TimesheetDelete(Int64 timesheetId, Int64 DeletedBy);
+        public MessageEnum TimesheetUpdate(TimesheetDTO timesheetDTO);
+        public MessageEnum TimesheetDelete(Int64 timesheetId, Int64 DeletedBy);
 
         public List<Timesheet> GetTimeSheetsToValidate(Int64 EmployeeId);
        

@@ -32,7 +32,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _desktopLoginRepo = desktopLoginRepo;
             _employeeService = employeeService;
         }
-        public MennsageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO)
+        public MessageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO)
         {
             try
             {
@@ -51,10 +51,10 @@ namespace CloudVOffice.Services.DesktopMonitoring
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return MennsageEnum.Success;
+                    return MessageEnum.Success;
                 }
                 else
-                    return MennsageEnum.Duplicate;
+                    return MessageEnum.Duplicate;
             }
             catch
             {
@@ -62,7 +62,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
         }
 
-        public MennsageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy)
+        public MessageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy)
         {
             try
             {
@@ -73,10 +73,10 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _Context.SaveChanges();
-                    return MennsageEnum.Deleted;
+                    return MessageEnum.Deleted;
                 }
                 else
-                    return MennsageEnum.Invalid;
+                    return MessageEnum.Invalid;
             }
             catch
             {
@@ -85,7 +85,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         }
 
-        public MennsageEnum DesktopLoginUpdate(DesktopLoginDTO desktoploginDTO)
+        public MessageEnum DesktopLoginUpdate(DesktopLoginDTO desktoploginDTO)
         {
             try
             {
@@ -104,14 +104,14 @@ namespace CloudVOffice.Services.DesktopMonitoring
                         a.UpdatedBy = desktoploginDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
-                        return MennsageEnum.Updated;
+                        return MessageEnum.Updated;
                     }
                     else
-                        return MennsageEnum.Invalid;
+                        return MessageEnum.Invalid;
                 }
                 else
                 {
-                    return MennsageEnum.Duplicate;
+                    return MessageEnum.Duplicate;
                 }
 
             }

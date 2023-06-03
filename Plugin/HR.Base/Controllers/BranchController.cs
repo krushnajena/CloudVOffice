@@ -52,11 +52,11 @@ namespace HR.Base.Controllers
                 if (branchDTO.BranchId == null)
                 {
                     var a = _branchService.BranchCreate(branchDTO);
-                    if (a == MennsageEnum.Success)
+                    if (a == MessageEnum.Success)
                     {
                         return Redirect("/HR/Branch/BranchView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Branch Already Exists");
                     }
@@ -68,11 +68,11 @@ namespace HR.Base.Controllers
                 else
                 {
                     var a = _branchService.BranchUpdate(branchDTO);
-                    if (a == MennsageEnum.Updated)
+                    if (a == MessageEnum.Updated)
                     {
 						return Redirect("/HR/Branch/BranchView");
 					}
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
                         ModelState.AddModelError("", "Branch Already Exists");
                     }

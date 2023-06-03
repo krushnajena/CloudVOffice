@@ -22,7 +22,7 @@ namespace CloudVOffice.Services.Users
         public Task<UserRoleMapping> GetUserMappedRolesByUserIdAsync(int UserId);
 
 		public List<Application> GetUserMenu(Int64 UserId);
-        public Task<MennsageEnum> CreateUser(UserCreateDTO userCreateDTO);
+        public Task<MessageEnum> CreateUser(UserCreateDTO userCreateDTO);
         public string AssignRole(Int64 userid, int roleid);
 
         public string UnAssignRole(Int64 userid,int RoleId    );
@@ -30,15 +30,15 @@ namespace CloudVOffice.Services.Users
         public List<User> GetAllUsers();
         public object GetUserTypes();
 
-        public MennsageEnum DeleteUser(Int64 UserId,Int64 deletedby);
+        public MessageEnum DeleteUser(Int64 UserId,Int64 deletedby);
 
-        public Task<MennsageEnum> UpdateUser(UserCreateDTO userCreateDTO);
+        public Task<MessageEnum> UpdateUser(UserCreateDTO userCreateDTO);
 
         public List<User> GetUsersByUserType(UserType userType);
 
         public void SendWelcomeMessage(User user);
 
-        public MennsageEnum SetPassword(string password, string email, string token);
+        public MessageEnum SetPassword(string password, string email, string token);
 
 
 

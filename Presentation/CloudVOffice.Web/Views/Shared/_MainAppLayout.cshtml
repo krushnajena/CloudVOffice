@@ -15,7 +15,7 @@
 	<meta name="keywords" content="Invoice, Admin, Dashboard, Bootstrap4, Sass, CSS3, HTML5, Responsive Dashboard, Responsive Admin Template, Admin Template, Best Admin Template, Bootstrap Template, Themeforest">
 	<meta name="author" content="Bootstrap Gallery">
 	<link rel="shortcut icon" href="img/favicon.ico">
-	<title>Dashboard - @ViewData["Title"]</title>
+	<title>ERP - @ViewData["Title"]</title>
 
 
 	<link href="~/css/bootstrap5.css" rel="stylesheet" />
@@ -25,6 +25,7 @@
 	<link rel="stylesheet" href="~/app/css/bootstrap.min.css">
 	<link rel="stylesheet" href="~/app/fonts/icomoon/icomoon.css">
 	<link rel="stylesheet" href="~/app/css/main.css">
+
     <style>
         .main-content {
             position: relative;
@@ -441,8 +442,15 @@
             -moz-osx-font-smoothing: grayscale;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        .field-validation-error {
+            color: red
+        }
+    </style>
 	
     <script src="~/app/js/ej2.min.js"></script>
+
 </head>
 <body>
 
@@ -486,8 +494,7 @@
 	<script src="~/app/vendor/slimscroll/custom-scrollbar.js"></script>
 	<!-- Common JS -->
 	<script src="~/app/js/common.js"></script>
-
-	<ejs-scripts></ejs-scripts>
+ 	<ejs-scripts></ejs-scripts>
         @RenderSection("scripts", false);
 </body>
 

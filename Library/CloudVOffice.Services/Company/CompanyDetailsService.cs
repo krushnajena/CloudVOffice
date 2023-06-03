@@ -26,9 +26,9 @@ namespace CloudVOffice.Services.Company
 			_dbContext = dbContext;
 			_companyDetailsRepo = companyDetailsRepo;
 		}
-		public MennsageEnum CompanyDetailsCreate(CompanyDetailsDTO companyDetailsDTO)
+		public MessageEnum CompanyDetailsCreate(CompanyDetailsDTO companyDetailsDTO)
 		{
-			var ObjCheck = _dbContext.CompanyDetails.SingleOrDefault(opt => opt.CompanyDetailsId == companyDetailsDTO.CompanyDetailsId && opt.Deleted == false);
+			var ObjCheck = _dbContext.CompanyDetails.FirstOrDefault(opt => opt.Deleted == false);
 			try
 			{
 				
@@ -57,13 +57,13 @@ namespace CloudVOffice.Services.Company
 						companyDetails.CreatedBy = companyDetailsDTO.CreatedBy;
 						var obj = _companyDetailsRepo.Insert(companyDetails);
 
-						return MennsageEnum.Success;
+						return MessageEnum.Success;
 				}
 				else if (ObjCheck != null)
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.AlreadyCreate;
 				}
-				return MennsageEnum.UnExpectedError;
+				return MessageEnum.UnExpectedError;
 			}
 			catch
 			{
@@ -73,7 +73,7 @@ namespace CloudVOffice.Services.Company
 
 		}
 
-		public MennsageEnum CompanyDetailsDelete(int companyDetailsId, int DeletedBy)
+		public MessageEnum CompanyDetailsDelete(int companyDetailsId, int DeletedBy)
 		{
 			try
 			{
@@ -84,10 +84,10 @@ namespace CloudVOffice.Services.Company
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_dbContext.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -95,13 +95,11 @@ namespace CloudVOffice.Services.Company
 			}
 		}
 
-		public MennsageEnum CompanyDetailsUpdate(CompanyDetailsDTO companyDetailsDTO)
+		public MessageEnum CompanyDetailsUpdate(CompanyDetailsDTO companyDetailsDTO)
 		{
 			try
 			{
-				var CompanyDetails = _dbContext.CompanyDetails.Where(x => x.CompanyDetailsId == companyDetailsDTO.CompanyDetailsId && x.Deleted == false).FirstOrDefault();
-				if (CompanyDetails == null)
-				{
+				
 					var a = _dbContext.CompanyDetails.Where(x => x.CompanyDetailsId == companyDetailsDTO.CompanyDetailsId).FirstOrDefault();
 					if (a != null)
 					{
@@ -124,15 +122,11 @@ namespace CloudVOffice.Services.Company
 						a.Website = companyDetailsDTO.Website;						
 						a.UpdatedDate = DateTime.Now;
 						_dbContext.SaveChanges();
-						return MennsageEnum.Updated;
+						return MessageEnum.Updated;
 					}
 					else
-						return MennsageEnum.Invalid;
-				}
-				else
-				{
-					return MennsageEnum.Duplicate;
-				}
+						return MessageEnum.Invalid;
+			
 
 			}
 			catch

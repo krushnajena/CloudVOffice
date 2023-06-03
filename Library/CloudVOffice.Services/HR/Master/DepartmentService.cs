@@ -24,7 +24,7 @@ namespace CloudVOffice.Services.HR.Master
             _dbContext = dbContext;
             _departmentRepo = departmentRepo;
         }
-        public MennsageEnum CreateDepartment(DepartmentDTO departmentDTO)
+        public MessageEnum CreateDepartment(DepartmentDTO departmentDTO)
         {
             try
             {
@@ -41,9 +41,9 @@ namespace CloudVOffice.Services.HR.Master
                         CreatedDate = DateTime.Now,
                         Deleted = false,
                     });
-                    return MennsageEnum.Success;
+                    return MessageEnum.Success;
                 }
-                else return MennsageEnum.Duplicate;
+                else return MessageEnum.Duplicate;
             }
             catch
             {
@@ -51,7 +51,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public MennsageEnum DepartmentDelete(Int64 deprtmentid, Int64 DeletedBy)
+        public MessageEnum DepartmentDelete(Int64 deprtmentid, Int64 DeletedBy)
         {
             try
             {
@@ -62,10 +62,10 @@ namespace CloudVOffice.Services.HR.Master
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _dbContext.SaveChanges();
-                    return MennsageEnum.Deleted;
+                    return MessageEnum.Deleted;
                 }
                 else
-                    return MennsageEnum.Invalid;
+                    return MessageEnum.Invalid;
             }
             catch
             {
@@ -73,7 +73,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public MennsageEnum DepartmentUpdate(DepartmentDTO departmentDTO)
+        public MessageEnum DepartmentUpdate(DepartmentDTO departmentDTO)
         {
 
             try
@@ -90,14 +90,14 @@ namespace CloudVOffice.Services.HR.Master
                         a.UpdatedBy = departmentDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _dbContext.SaveChanges();
-                        return MennsageEnum.Updated;
+                        return MessageEnum.Updated;
                     }
                     else
-                        return MennsageEnum.Invalid;
+                        return MessageEnum.Invalid;
                 }
                 else
                 {
-                    return MennsageEnum.Duplicate;
+                    return MessageEnum.Duplicate;
                 }
             }
             catch

@@ -12,11 +12,11 @@ namespace CloudVOffice.Services.DesktopMonitoring
 {
     public interface IDesktopActivityLogService
     {
-        public MennsageEnum DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO);
+        public MessageEnum DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO);
         public List<DesktopActivityLog> GetDesktopActivityLogs();
         public DesktopActivityLog GetDesktopActivityLogByDesktopActivityLogId(Int64 DesktopActivityLogId);
-        public MennsageEnum DesktopActivityLogUpdate(DesktopActivityLogDTO desktopactivitylogDTO);
-        public MennsageEnum DesktopActivityLogDelete(Int64 DesktopActivityLogId, Int64 DeletedBy);
+        public MessageEnum DesktopActivityLogUpdate(DesktopActivityLogDTO desktopactivitylogDTO);
+        public MessageEnum DesktopActivityLogDelete(Int64 DesktopActivityLogId, Int64 DeletedBy);
 
         public List<DesktopActivityLog> GetAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginFilterDTO);
     }

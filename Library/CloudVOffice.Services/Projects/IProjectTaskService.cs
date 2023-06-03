@@ -12,12 +12,12 @@ namespace CloudVOffice.Services.Projects
 {
 	public interface IProjectTaskService
 	{
-		public MennsageEnum ProjectTaskCreate(ProjectTaskDTO projectTaskDTO);
+		public MessageEnum ProjectTaskCreate(ProjectTaskDTO projectTaskDTO);
 		public List<ProjectTask> GetProjectTasks();
 		public ProjectTask GetProjectTaskByProjectTaskId(Int64 projectTaskId);
 		public ProjectTask GetProjectTaskByTaskName(string taskName);
-		public MennsageEnum ProjectTaskUpdate(ProjectTaskDTO projectTaskDTO);
-		public MennsageEnum ProjectTaskDelete(Int64 projectTaskId, Int64 DeletedBy);
+		public MessageEnum ProjectTaskUpdate(ProjectTaskDTO projectTaskDTO);
+		public MessageEnum ProjectTaskDelete(Int64 projectTaskId, Int64 DeletedBy);
 
         public List<ProjectTask> ProjectTaskByProjectId(int ProjectId);
 		public List<ProjectTask> GroupProjectTaskByProjectId(int ProjectId);
@@ -31,7 +31,7 @@ namespace CloudVOffice.Services.Projects
         public List<ProjectTask> GetMYTaskComplitedByOthersReport( Int64? EmployeeId);
         public List<ProjectTask> GetTasksForDelayValidation(Int64? Userid, Int64? EmployeeId);
 
-		public MennsageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO);
+		public MessageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO);
 
 	}
 }

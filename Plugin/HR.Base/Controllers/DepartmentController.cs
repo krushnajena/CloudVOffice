@@ -53,11 +53,11 @@ namespace HR.Base.Controllers
 				if (departmentDTO.DepartmentId == null)
 				{
                     var a = _departmentService.CreateDepartment(departmentDTO);
-                    if (a == MennsageEnum.Success)
+                    if (a == MessageEnum.Success)
                     {
                         return Redirect("/HR/Department/DepartmentView");
                     }
-                    else if (a == MennsageEnum.Duplicate)
+                    else if (a == MessageEnum.Duplicate)
                     {
 						ModelState.AddModelError("", "Department Already Exists");
 					}
@@ -69,11 +69,11 @@ namespace HR.Base.Controllers
                 else
                 {
 					var a = _departmentService.DepartmentUpdate(departmentDTO);
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
                         return Redirect("/HR/Department/DepartmentView");
                     }
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Department Already Exists");
 					}

@@ -141,11 +141,11 @@ namespace Projects.Management.Controller
 				if (projectDTO.ProjectId == null)
 				{
 					var a = _projectService.ProjectCreate(projectDTO);
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
 						return Redirect("/Projects/Project/ProjectView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Project Already Exists");
 					}
@@ -157,11 +157,11 @@ namespace Projects.Management.Controller
 				else
 				{
 					var a = _projectService.ProjectUpdate(projectDTO);
-					if (a == MennsageEnum.Updated)
+					if (a == MessageEnum.Updated)
 					{
 						return Redirect("/Projects/Project/ProjectView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Project Already Exists");
 					}

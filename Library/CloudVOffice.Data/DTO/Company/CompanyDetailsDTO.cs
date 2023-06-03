@@ -12,7 +12,7 @@ namespace CloudVOffice.Data.DTO.Company
 		public int? CompanyDetailsId { get; set; }
 		public string CompanyName { get; set; }
 		public string ABBR { get; set; }
-		public string CompanyLogo { get; set; }
+		public string? CompanyLogo { get; set; }
 		public string? TaxId { get; set; }
 		public string? Domain { get; set; }
 		public DateTime? DateOfEstablishment { get; set; }

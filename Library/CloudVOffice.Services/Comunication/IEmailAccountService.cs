@@ -13,12 +13,12 @@ namespace CloudVOffice.Services.Comunication
 {
 	public interface IEmailAccountService
 	{
-		public MennsageEnum EmailAccountCreate(EmailAccountDTO emailAccountDTO);
+		public MessageEnum EmailAccountCreate(EmailAccountDTO emailAccountDTO);
 		public List<EmailAccount> GetEmailAccounts();
 		public EmailAccount GetEmailAccountByEmailAccountId(int emailAccountId);
 		public EmailAccount GetEmailAccountByEmailAccountName(string emailAccountName);
-		public MennsageEnum EmailAccountUpdate(EmailAccountDTO emailAccountDTO);
-		public MennsageEnum EmailAccountDelete(int emailAccountId, int DeletedBy);
+		public MessageEnum EmailAccountUpdate(EmailAccountDTO emailAccountDTO);
+		public MessageEnum EmailAccountDelete(int emailAccountId, int DeletedBy);
 
 		public EmailAccount GetDefaultEmail(int? AccountId);
 

@@ -114,7 +114,7 @@ namespace CloudVOffice.Services.Projects
 
 			
 
-		public MennsageEnum ProjectCreate(ProjectDTO projectDTO)
+		public MessageEnum ProjectCreate(ProjectDTO projectDTO)
 		{
 			var objCheck = _Context.Projects.SingleOrDefault(opt => opt.ProjectId == projectDTO.ProjectId && opt.Deleted == false);
 			try
@@ -157,14 +157,14 @@ namespace CloudVOffice.Services.Projects
 						projectUser[i].ProjectId = obj.ProjectId;
 						_projectUserService.ProjectUserCreate(projectUser[i]);
 					}
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 				}
 				else if (objCheck != null)
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
-				return MennsageEnum.UnExpectedError;
+				return MessageEnum.UnExpectedError;
 			}
 			catch
 			{
@@ -172,7 +172,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectDelete(Int64 projectId, Int64 DeletedBy)
+		public MessageEnum ProjectDelete(Int64 projectId, Int64 DeletedBy)
 		{
 			try
 			{
@@ -183,10 +183,10 @@ namespace CloudVOffice.Services.Projects
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -194,7 +194,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectUpdate(ProjectDTO projectDTO)
+		public MessageEnum ProjectUpdate(ProjectDTO projectDTO)
 		{
 			try
 			{
@@ -219,14 +219,14 @@ namespace CloudVOffice.Services.Projects
 						a.ProjectManager = projectDTO.ProjectManager;
 						a.UpdatedDate = DateTime.Now;
 						_Context.SaveChanges();
-						return MennsageEnum.Updated;
+						return MessageEnum.Updated;
 					}
 					else
-						return MennsageEnum.Invalid;
+						return MessageEnum.Invalid;
 				}
 				else
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
 			}

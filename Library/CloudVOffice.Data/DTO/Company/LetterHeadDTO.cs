@@ -11,11 +11,11 @@ namespace CloudVOffice.Data.DTO.Company
 	{
 		public int? LetterHeadId { get; set; }
 		public string LetterHeadName { get; set; }
-		public string LetterHeadImage { get; set; }
+		public string? LetterHeadImage { get; set; }
 		public string LetterHeadImageHeight { get; set; }
 		public string LetterHeadImageWidth { get; set; }
 		public string LetterHeadAlign { get; set; }
-		public string LetterHeadFooterImage { get; set; }
+		public string? LetterHeadFooterImage { get; set; }
 		public string LetterHeadImageFooterHeight { get; set; }
 		public string LetterHeadImageFooterWidth { get; set; }
 		public string LetterHeadFooterAlign { get; set; }

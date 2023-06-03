@@ -84,7 +84,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectEmployeeCreate(ProjectEmployeeDTO projectEmployeeDTO)
+		public MessageEnum ProjectEmployeeCreate(ProjectEmployeeDTO projectEmployeeDTO)
 		{
 
 			var objCheck = _Context.ProjectEmployees.SingleOrDefault(opt => opt.EmployeeId == projectEmployeeDTO.EmployeeId && opt.Deleted == false);
@@ -101,14 +101,14 @@ namespace CloudVOffice.Services.Projects
 					projectEmployee.CreatedDate = System.DateTime.Now;
 					var obj = _projectEmployeeRepo.Insert(projectEmployee);
 
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 				}
 				else if (objCheck != null)
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
-				return MennsageEnum.UnExpectedError;
+				return MessageEnum.UnExpectedError;
 			}
 			catch
 			{
@@ -116,7 +116,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectEmployeeDelete(Int64 projectEmployeeId, Int64 DeletedBy)
+		public MessageEnum ProjectEmployeeDelete(Int64 projectEmployeeId, Int64 DeletedBy)
 		{
 
 			try
@@ -128,10 +128,10 @@ namespace CloudVOffice.Services.Projects
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -139,7 +139,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectEmployeeUpdate(ProjectEmployeeDTO projectEmployeeDTO)
+		public MessageEnum ProjectEmployeeUpdate(ProjectEmployeeDTO projectEmployeeDTO)
 		{
 			try
 			{
@@ -152,10 +152,10 @@ namespace CloudVOffice.Services.Projects
 					a.UpdatedBy = projectEmployeeDTO.CreatedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-					return MennsageEnum.Updated;
+					return MessageEnum.Updated;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 
 
 			}

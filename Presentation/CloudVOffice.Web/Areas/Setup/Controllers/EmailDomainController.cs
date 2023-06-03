@@ -56,11 +56,11 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 				if (emailDomainDTO.EmailDomainId == null)
 				{
 					var a = _emailDomainService.EmailDomainCreate(emailDomainDTO);
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
 						return Redirect("/Setup/EmailDomain/EmailDomainView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "EmailDomain Already Exists");
 					}
@@ -72,11 +72,11 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 				else
 				{
 					var a = _emailDomainService.EmailDomainUpdate(emailDomainDTO);
-					if (a == MennsageEnum.Updated)
+					if (a == MessageEnum.Updated)
 					{
 						return Redirect("/Setup/EmailDomain/EmailDomainView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "EmailDomain Already Exists");
 					}

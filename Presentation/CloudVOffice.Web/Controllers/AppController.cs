@@ -119,7 +119,7 @@ namespace CloudVOffice.Web.Controllers
             if(ModelState.IsValid)
             {
                 var a =_userService.SetPassword(setPasswordModel.Password, setPasswordModel.Email, setPasswordModel.Token);
-                if (a == MennsageEnum.Success)
+                if (a == MessageEnum.Success)
                 {
                     return RedirectToAction("PasswordSetSuccess");
                 }

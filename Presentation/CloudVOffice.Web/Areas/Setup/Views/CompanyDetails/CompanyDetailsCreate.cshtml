@@ -66,8 +66,15 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="CompanyLogo" class="form-label">Company Logo</label>
-								<input asp-for="@Model.CompanyLogo" type="file" class="form-control" autofocus="autofocus" placeholder="Company Logo" />
+								<input asp-for="@Model.CompanyLogoUp" type="file" class="form-control" autofocus="autofocus" placeholder="Company Logo" />
 								<span asp-validation-for="CompanyLogo"></span>
+								@{
+									if(Model.CompanyLogo != null)
+									{
+										<img src="/uploads/setup/@Model.CompanyLogo" style="height:100px; width:100px" />
+										<input type="hidden" asp-for="@Model.CompanyLogo">
+									}
+								}
 							</div>
 						</div>
 

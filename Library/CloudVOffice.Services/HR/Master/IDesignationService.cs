@@ -11,11 +11,11 @@ namespace CloudVOffice.Services.HR.Master
 {
     public interface IDesignationService
     {
-        public MennsageEnum CreateDesignation(DesignationDTO designationDTO);
+        public MessageEnum CreateDesignation(DesignationDTO designationDTO);
         public List<Designation> GetDesignationList();
         public Designation GetDesignationById(Int64 designationId);
-        public MennsageEnum DesignationUpdate(DesignationDTO designationDTO);
-        public MennsageEnum DesignationDelete(Int64 designationId, Int64 DeletedBy);
+        public MessageEnum DesignationUpdate(DesignationDTO designationDTO);
+        public MessageEnum DesignationDelete(Int64 designationId, Int64 DeletedBy);
        
     }
 }

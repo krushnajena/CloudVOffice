@@ -139,11 +139,11 @@ namespace HR.Base.Controllers
 				{
 					var a = _empolyeeService.CreateEmployee(employeeCreateDTO);
 
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
 						return Redirect("/HR/Employee/EmployeeView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Emplyoee Already Exists");
 					}
@@ -155,11 +155,11 @@ namespace HR.Base.Controllers
 				else
 				{
 					var a = _empolyeeService.UpdateEmployee(employeeCreateDTO);
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
 						return Redirect("/HR/Employee/EmployeeView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Emplyoee Already Exists");
 					}

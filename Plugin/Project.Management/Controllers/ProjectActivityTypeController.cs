@@ -51,11 +51,11 @@ namespace Project.Management.Controllers
 				if (projectActivityTypeDTO.ProjectActivityTypeId == null)
 				{
 					var a = _projectActivityTypeService.ProjectActivityTypeCreate(projectActivityTypeDTO);
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
 						return Redirect("/Projects/ProjectActivityType/ProjectActivityTypeView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "ProjectActivityType Already Exists");
 					}
@@ -67,11 +67,11 @@ namespace Project.Management.Controllers
 				else
 				{
 					var a = _projectActivityTypeService.ProjectActivityTypeUpdate(projectActivityTypeDTO);
-					if (a == MennsageEnum.Updated)
+					if (a == MessageEnum.Updated)
 					{
 						return Redirect("/Projects/ProjectActivityType/ProjectActivityTypeView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "ProjectActivityType Already Exists");
 					}

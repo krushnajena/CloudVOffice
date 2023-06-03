@@ -51,11 +51,11 @@ namespace HR.Base.Controllers
 				if (designationDTO.DesignationId == null)
 				{
 					var a = _designationService.CreateDesignation(designationDTO);
-					if (a == MennsageEnum.Success)
+					if (a == MessageEnum.Success)
 					{
 						return Redirect("/HR/Designation/DesignationView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Designation Already Exists");
 					}
@@ -67,11 +67,11 @@ namespace HR.Base.Controllers
 				else
 				{
 					var a = _designationService.DesignationUpdate(designationDTO);
-					if (a == MennsageEnum.Updated)
+					if (a == MessageEnum.Updated)
 					{
 						return Redirect("/HR/Designation/DesignationView");
 					}
-					else if (a == MennsageEnum.Duplicate)
+					else if (a == MessageEnum.Duplicate)
 					{
 						ModelState.AddModelError("", "Designation Already Exists");
 					}

@@ -13,13 +13,13 @@ namespace CloudVOffice.Services.Emp
 {
 	public interface IEmployeeService
 	{
-		public  MennsageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO);
+		public  MessageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO);
 		public List<Employee> GetEmployees();
 		public List<Employee> GetProjectManagerEmployees();
 		public Employee GetEmployeeByCode(string employeecode);
 		public Employee GetEmployeeById(Int64 employeeid);
-		public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO);
-		public MennsageEnum DeleteEmployee(Int64 employeeid, Int64 DeletedBy);
+		public MessageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO);
+		public MessageEnum DeleteEmployee(Int64 employeeid, Int64 DeletedBy);
 
 		public List<Employee> GetEmployeeSubContinent(Int64 EmployeeId);
 		public Employee GetEmployeeDetailsByUserId(Int64 UserId);

@@ -59,7 +59,7 @@ namespace CloudVOffice.Services.Projects
 			catch { throw; }
 		}
 
-		public MennsageEnum ProjectUserCreate(ProjectUserDTO projectUserDTO)
+		public MessageEnum ProjectUserCreate(ProjectUserDTO projectUserDTO)
 		{
 			var objCheck = _Context.ProjectUsers.SingleOrDefault(opt => opt.ProjectUserId == projectUserDTO.ProjectUserId && opt.Deleted == false);
 			try
@@ -74,14 +74,14 @@ namespace CloudVOffice.Services.Projects
 					projectUser.CreatedBy = Int64.Parse( projectUserDTO.CreatedBy.ToString());
 					var obj = _projectUserRepo.Insert(projectUser);
 
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 				}
 				else if (objCheck != null)
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
-				return MennsageEnum.UnExpectedError;
+				return MessageEnum.UnExpectedError;
 			}
 			catch
 			{
@@ -90,7 +90,7 @@ namespace CloudVOffice.Services.Projects
 
 		}
 
-		public MennsageEnum ProjectUserDelete(Int64 projectUserId, Int64 DeletedBy)
+		public MessageEnum ProjectUserDelete(Int64 projectUserId, Int64 DeletedBy)
 		{
 
 			try
@@ -102,10 +102,10 @@ namespace CloudVOffice.Services.Projects
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -113,7 +113,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public MennsageEnum ProjectUserUpdate(ProjectUserDTO projectUserDTO)
+		public MessageEnum ProjectUserUpdate(ProjectUserDTO projectUserDTO)
 		{
 
 			try
@@ -127,10 +127,10 @@ namespace CloudVOffice.Services.Projects
 					    a.UpdatedBy = projectUserDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;
 						_Context.SaveChanges();
-						return MennsageEnum.Updated;
+						return MessageEnum.Updated;
 					}
 					else
-						return MennsageEnum.Invalid;
+						return MessageEnum.Invalid;
 				
 
 			}

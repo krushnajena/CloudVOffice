@@ -112,11 +112,11 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     var a = await _userService.UpdateUser(createUserDTO);
                     if (a != null)
                     {
-                        if (a == MennsageEnum.Success)
+                        if (a == MessageEnum.Success)
                         {
                             return Redirect("/Setup/User/UserList");
                         }
-                        else if (a == MennsageEnum.Duplicate)
+                        else if (a == MessageEnum.Duplicate)
                         {
                             ModelState.AddModelError("", "User Already Exists");
                         }
@@ -136,11 +136,11 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     var a = await _userService.CreateUser(createUserDTO);
                     if (a != null)
                     {
-                        if (a == MennsageEnum.Success)
+                        if (a == MessageEnum.Success)
                         {
                             return Redirect("/Setup/User/UserList");
                         }
-                        else if (a == MennsageEnum.Duplicate)
+                        else if (a == MessageEnum.Duplicate)
                         {
                             ModelState.AddModelError("", "User Already Exists");
                         }

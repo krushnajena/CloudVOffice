@@ -12,10 +12,10 @@ namespace CloudVOffice.Services.Comunication
 	
 	public	interface IEmailDomainService
 	{
-		public MennsageEnum EmailDomainCreate(EmailDomainDTO emailDomainDTO);
+		public MessageEnum EmailDomainCreate(EmailDomainDTO emailDomainDTO);
 		public List<EmailDomain> GetEmailDomains();
 		public EmailDomain GetEmailDomainByEmailDomainId(int emailDomainId);
-		public MennsageEnum EmailDomainUpdate(EmailDomainDTO emailDomainDTO);
-		public MennsageEnum EmailDomainDelete(int emailDomainId, int DeletedBy);
+		public MessageEnum EmailDomainUpdate(EmailDomainDTO emailDomainDTO);
+		public MessageEnum EmailDomainDelete(int emailDomainId, int DeletedBy);
 	}
 }

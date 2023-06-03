@@ -34,7 +34,7 @@ namespace CloudVOffice.Services.Emp
 			_Dbcontext = Dbcontext;
 			_employeeRepo = employeeRepo;
 		}
-		public  MennsageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO)
+		public  MessageEnum CreateEmployee(EmployeeCreateDTO employeeCreateDTO)
 		{
 			var objCheck = _Dbcontext.Employees.SingleOrDefault(opt => opt.EmployeeId == employeeCreateDTO.EmployeeId && opt.ErpUser == employeeCreateDTO.ErpUser && opt.Deleted == false);
 			try
@@ -88,14 +88,14 @@ namespace CloudVOffice.Services.Emp
 					employee.Deleted = false;
 					var obj = _employeeRepo.Insert(employee);
 
-					return MennsageEnum.Success;
+					return MessageEnum.Success;
 				}
 				else if (objCheck != null)
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
-				return MennsageEnum.UnExpectedError;
+				return MessageEnum.UnExpectedError;
 			}
 			catch
 			{
@@ -103,7 +103,7 @@ namespace CloudVOffice.Services.Emp
 			}
 		}
 
-		public MennsageEnum DeleteEmployee(Int64 employeeid, Int64 DeletedBy)
+		public MessageEnum DeleteEmployee(Int64 employeeid, Int64 DeletedBy)
 		{
 			try
 			{
@@ -114,10 +114,10 @@ namespace CloudVOffice.Services.Emp
 					a.UpdatedBy = DeletedBy;
 					a.UpdatedDate = DateTime.Now;
 					_Dbcontext.SaveChanges();
-					return MennsageEnum.Deleted;
+					return MessageEnum.Deleted;
 				}
 				else
-					return MennsageEnum.Invalid;
+					return MessageEnum.Invalid;
 			}
 			catch
 			{
@@ -264,7 +264,7 @@ namespace CloudVOffice.Services.Emp
 			}
         }
 
-        public MennsageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO)
+        public MessageEnum UpdateEmployee(EmployeeCreateDTO employeeCreateDTO)
 		{
 			try
 			{
@@ -316,14 +316,14 @@ namespace CloudVOffice.Services.Emp
 						a.Photo = employeeCreateDTO.Photo;
 						a.UpdatedDate = DateTime.Now;
 						_Dbcontext.SaveChanges();
-						return MennsageEnum.Updated;
+						return MessageEnum.Updated;
 					}
 					else
-						return MennsageEnum.Invalid;
+						return MessageEnum.Invalid;
 				}
 				else
 				{
-					return MennsageEnum.Duplicate;
+					return MessageEnum.Duplicate;
 				}
 
 			}

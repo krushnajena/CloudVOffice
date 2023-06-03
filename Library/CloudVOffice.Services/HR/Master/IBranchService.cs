@@ -11,11 +11,11 @@ namespace CloudVOffice.Services.HR.Master
 {
     public interface IBranchService
     {
-        public MennsageEnum BranchCreate(BranchDTO branchDTO);
+        public MessageEnum BranchCreate(BranchDTO branchDTO);
         public List<Branch> GetBranches();
         public Branch GetBranchByBranchId(Int64 branchId);
         public Branch GetBranchByBranchName(string branchName);
-        public MennsageEnum BranchUpdate(BranchDTO branchDTO);
-        public MennsageEnum BranchDelete(Int64 branchId, Int64 DeletedBy);
+        public MessageEnum BranchUpdate(BranchDTO branchDTO);
+        public MessageEnum BranchDelete(Int64 branchId, Int64 DeletedBy);
     }
 }

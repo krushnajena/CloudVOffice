@@ -22,7 +22,7 @@ namespace CloudVOffice.Services.HR.Master
             _Context = Context;
             _branchRepo = branchRepo;
         }
-        public MennsageEnum BranchCreate(BranchDTO branchDTO)
+        public MessageEnum BranchCreate(BranchDTO branchDTO)
         {
             try
             {
@@ -36,10 +36,10 @@ namespace CloudVOffice.Services.HR.Master
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return MennsageEnum.Success;
+                    return MessageEnum.Success;
                 }
                 else
-                    return MennsageEnum.Duplicate;
+                    return MessageEnum.Duplicate;
             }
             catch
             {
@@ -49,7 +49,7 @@ namespace CloudVOffice.Services.HR.Master
 
         }
 
-        public MennsageEnum BranchDelete(Int64 branchId, Int64 DeletedBy)
+        public MessageEnum BranchDelete(Int64 branchId, Int64 DeletedBy)
         {
             try
             {
@@ -60,10 +60,10 @@ namespace CloudVOffice.Services.HR.Master
                     a.UpdatedBy = DeletedBy;
                     a.UpdatedDate = DateTime.Now;
                     _Context.SaveChanges();
-                    return MennsageEnum.Deleted;
+                    return MessageEnum.Deleted;
                 }
                 else
-                    return MennsageEnum.Invalid;
+                    return MessageEnum.Invalid;
             }
             catch
             {
@@ -72,7 +72,7 @@ namespace CloudVOffice.Services.HR.Master
             
         }
 
-        public MennsageEnum BranchUpdate(BranchDTO branchDTO)
+        public MessageEnum BranchUpdate(BranchDTO branchDTO)
         {
             try
             {
@@ -86,14 +86,14 @@ namespace CloudVOffice.Services.HR.Master
                         a.UpdatedBy = branchDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
-                        return MennsageEnum.Updated;
+                        return MessageEnum.Updated;
                     }
                     else
-                        return MennsageEnum.Invalid;
+                        return MessageEnum.Invalid;
                 }
                 else
                 {
-                    return MennsageEnum.Duplicate;
+                    return MessageEnum.Duplicate;
                 }
                 
             }

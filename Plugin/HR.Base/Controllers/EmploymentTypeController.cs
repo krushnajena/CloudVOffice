@@ -54,14 +54,17 @@ namespace HR.Base.Controllers
                     var a = _employmentTypeService.EmployementTypeCreate(employmenttypeDTO);
                     if (a == MessageEnum.Success)
                     {
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/HR/EmploymentType/EmploymentTypeView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "EmploymentType Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -71,14 +74,17 @@ namespace HR.Base.Controllers
                     var a = _employmentTypeService.EmploymentTypeUpdate(employmenttypeDTO);
                     if (a == MessageEnum.Success)
                     {
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/HR/EmploymentType/EmploymentTypeView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "EmploymentType Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -100,14 +106,8 @@ namespace HR.Base.Controllers
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _employmentTypeService.EmploymentTypeDelete(employmenttypeId, DeletedBy);
+            TempData["msg"] = a;
             return Redirect("/HR/EmploymentType/EmploymentTypeView");
         }
-
-
-
-
-
-
-
     }
 }

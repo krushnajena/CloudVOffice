@@ -55,15 +55,18 @@ namespace HR.Base.Controllers
                     var a = _departmentService.CreateDepartment(departmentDTO);
                     if (a == MessageEnum.Success)
                     {
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/HR/Department/DepartmentView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
-						ModelState.AddModelError("", "Department Already Exists");
+                        TempData["msg"] = MessageEnum.Duplicate;
+                        ModelState.AddModelError("", "Department Already Exists");
 					}
 					else 
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
                 else
@@ -71,15 +74,18 @@ namespace HR.Base.Controllers
 					var a = _departmentService.DepartmentUpdate(departmentDTO);
 					if (a == MessageEnum.Success)
 					{
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/HR/Department/DepartmentView");
                     }
 					else if (a == MessageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "Department Already Exists");
+                        TempData["msg"] = MessageEnum.Duplicate;
+                        ModelState.AddModelError("", "Department Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 			}

@@ -2,7 +2,7 @@
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
-
+@using CloudVOffice.Core.Domain.Common;
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -31,11 +31,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             Employee
                         </div>
-                        <div class="col-md-2 float-right">
-                            <a href="/HR/Employee/EmployeeCreate" class="btn btn-primary btn-sm">Add Employee</a>
+                            <div class="col-md-4 text-right float-right">
+                            <a href="/HR/Employee/EmployeeCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Employee</a>
 
                         </div>
                     </div>
@@ -80,11 +80,106 @@
 </div>
 
 
+@{
+
+    if (TempData["msg"] != null)
+    {
+        <script type="text/javascript">
+            const message = "@TempData["msg"]";
+            if (message == "@((int)MessageEnum.Success)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Employee",
+                    text: "Successfully created.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Updated)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Employee",
+                    text: "Successfully updated.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Deleted)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Employee",
+                    text: "Successfully Deleted.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.AlreadyCreate)") {
+                sweetAlert({
+                    html: true,
+                    icon: "warning",
+                    title: "Employee",
+                    text: "You Have Already Created a Company. You can add only one company.",
+                    type: "warning"
+                });
+            }
+            else if (message == "@((int)MessageEnum.UnExpectedError)") {
+                sweetAlert({
+                    html: true,
+                    icon: "danger",
+                    title: "Employee",
+                    text: "There is somthing going wrong.",
+                    type: "danger"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Error)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Employee",
+                    text: "There is somthing going wrong.",
+                    type: "error"
+                });
+            }
+            else {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Employee",
+                    text: message,
+                    type: "error"
+                });
+            }
+        </script>
+    }
+}
+
+<script type="text/javascript">
+    function Delete(Id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            confirmButtonColor: "#DD6B55",
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location.href = "../../HR/Employee/DeleteEmployee?EmployeeId=" + Id;
+            }
+        })
+    }
+</script>
+
 
 <script id="Actions" type="text/x-template">
     <div class="link">
         <a href="../../HR/Employee/EmployeeCreate?EmployeeId=${EmployeeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../HR/Employee/DeleteEmployee?EmployeeId=${EmployeeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+
+        <button onClick="Delete(${EmployeeId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+        
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">

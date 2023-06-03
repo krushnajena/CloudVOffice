@@ -53,15 +53,18 @@ namespace HR.Base.Controllers
 					var a = _designationService.CreateDesignation(designationDTO);
 					if (a == MessageEnum.Success)
 					{
-						return Redirect("/HR/Designation/DesignationView");
+                        TempData["msg"] = MessageEnum.Success;
+                        return Redirect("/HR/Designation/DesignationView");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "Designation Already Exists");
+                        TempData["msg"] = MessageEnum.Duplicate;
+                        ModelState.AddModelError("", "Designation Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 				else
@@ -69,15 +72,18 @@ namespace HR.Base.Controllers
 					var a = _designationService.DesignationUpdate(designationDTO);
 					if (a == MessageEnum.Updated)
 					{
-						return Redirect("/HR/Designation/DesignationView");
+                        TempData["msg"] = MessageEnum.Updated;
+                        return Redirect("/HR/Designation/DesignationView");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "Designation Already Exists");
+                        TempData["msg"] = MessageEnum.Duplicate;
+                        ModelState.AddModelError("", "Designation Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 			}
@@ -98,6 +104,7 @@ namespace HR.Base.Controllers
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _designationService.DesignationDelete(designationId, DeletedBy);
+			TempData["msg"] = a;
             return Redirect("/HR/Designation/DesignationView");
         }
     }

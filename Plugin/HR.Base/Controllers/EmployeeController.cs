@@ -141,31 +141,37 @@ namespace HR.Base.Controllers
 
 					if (a == MessageEnum.Success)
 					{
-						return Redirect("/HR/Employee/EmployeeView");
+                        TempData["msg"] = MessageEnum.Success;
+                        return Redirect("/HR/Employee/EmployeeView");
 					}
-					else if (a == MessageEnum.Duplicate)
+					else if (a == MessageEnum.AlreadyCreate)
 					{
-						ModelState.AddModelError("", "Emplyoee Already Exists");
+                        TempData["msg"] = MessageEnum.AlreadyCreate;
+                        ModelState.AddModelError("", "Emplyoee Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 				else
 				{
 					var a = _empolyeeService.UpdateEmployee(employeeCreateDTO);
-					if (a == MessageEnum.Success)
+					if (a == MessageEnum.Updated)
 					{
-						return Redirect("/HR/Employee/EmployeeView");
+                        TempData["msg"] = MessageEnum.Updated;
+                        return Redirect("/HR/Employee/EmployeeView");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
-						ModelState.AddModelError("", "Emplyoee Already Exists");
+                        TempData["msg"] = MessageEnum.Duplicate;
+                        ModelState.AddModelError("", "Emplyoee Already Exists");
 					}
 					else
 					{
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
 					}
 				}
 			}
@@ -199,7 +205,8 @@ namespace HR.Base.Controllers
 			Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
 			var a = _empolyeeService.DeleteEmployee(employeeid, DeletedBy);
-			return Redirect("/HR/Emplyoee/EmployeeView");
+            TempData["msg"] = a;
+            return Redirect("/HR/Emplyoee/EmployeeView");
 		}
 	}
 }

@@ -4,6 +4,7 @@ using CloudVOffice.Data.DTO.Comunication;
 using CloudVOffice.Data.DTO.Emp;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Web.Framework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -24,7 +25,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 
 		[HttpGet]
-		public IActionResult EmailAccountCreate(int? EmailAccountId)
+        [Authorize(Roles = "Administrator")]
+        public IActionResult EmailAccountCreate(int? EmailAccountId)
 		{
 			EmailAccountDTO emailAccountDTO = new EmailAccountDTO();
 
@@ -51,7 +53,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult EmailAccountCreate(EmailAccountDTO emailAccountDTO)
+        [Authorize(Roles = "Administrator")]
+        public IActionResult EmailAccountCreate(EmailAccountDTO emailAccountDTO)
 		{
 			emailAccountDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 			if (ModelState.IsValid)
@@ -120,7 +123,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 			return View("~/Areas/Setup/Views/EmailAccount/EmailAccountCreate.cshtml", emailAccountDTO);
 		}
-		public IActionResult EmailAccountView()
+        [Authorize(Roles = "Administrator")]
+        public IActionResult EmailAccountView()
 		{
 			ViewBag.emailAccounts = _emailAccountService.GetEmailAccounts();
 
@@ -128,7 +132,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult DeleteEmailAccount(int emailAccountId)
+        [Authorize(Roles = "Administrator")]
+        public IActionResult DeleteEmailAccount(int emailAccountId)
 		{
 			int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 

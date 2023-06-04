@@ -4,6 +4,7 @@ using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace HR.Base.Controllers
 {
     [Area(AreaNames.HR)]
+
     public class DepartmentController : BasePluginController
     {
         private readonly IDepartmentService _departmentService;
@@ -24,6 +26,7 @@ namespace HR.Base.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult DepartmentCreate(int? DepartmentId)
         {
             DepartmentDTO departmentDTO = new DepartmentDTO();
@@ -45,6 +48,7 @@ namespace HR.Base.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult DepartmentCreate(DepartmentDTO departmentDTO)
         {
             departmentDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -93,13 +97,15 @@ namespace HR.Base.Controllers
 
 			return View("~/Plugins/HR.Base/Views/Department/DepartmentCreate.cshtml", departmentDTO);
         }
-		public IActionResult DepartmentView()
+        [Authorize(Roles = "HR Manager")]
+        public IActionResult DepartmentView()
 		{
 			ViewBag.Departments = _departmentService.GetDepartmentList();
 
 			return View("~/Plugins/HR.Base/Views/Department/DepartmentView.cshtml");
 		}
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult DeleteDepartment(Int64 deprtmentid)
         {
             Int64 DeletedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

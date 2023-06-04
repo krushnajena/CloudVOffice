@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace HR.Base.Controllers
 
         }
         [HttpGet]
+        [Authorize(Roles = "HR Manager, HR User")]
         public IActionResult Dashboard()
         {
             return View("~/Plugins/HR.Base/Views/Hr/Dashboard.cshtml");

@@ -6,6 +6,7 @@ using CloudVOffice.Data.DTO.Comunication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Web.Framework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudVOffice.Web.Areas.Setup.Controllers
@@ -22,7 +23,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 			_hostingEnvironment = hostEnvironment;
 		}
 		[HttpGet]
-		public IActionResult LetterHeadCreate(int? letterHeadId)
+        [Authorize(Roles = "Administrator")]
+        public IActionResult LetterHeadCreate(int? letterHeadId)
 		{
 			LetterHeadDTO letterHeadDTO = new LetterHeadDTO();
 
@@ -57,14 +59,16 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 			return View("~/Areas/Setup/Views/LetterHead/LetterHeadCreate.cshtml", letterHeadDTO);
 
 		}
+
 		[HttpPost]
-		public IActionResult LetterHeadCreate(LetterHeadDTO letterHeadDTO)
+        [Authorize(Roles = "Administrator")]
+        public IActionResult LetterHeadCreate(LetterHeadDTO letterHeadDTO)
 		{
 			letterHeadDTO.CreatedBy = int.Parse(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value.ToString());
 
-
 			if (ModelState.IsValid)
 			{
+
 				if (letterHeadDTO.LetterHeadImageUp != null)
 				{
 					FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadImageUp.FileName);
@@ -82,6 +86,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 					letterHeadDTO.LetterHeadImageUp.CopyTo(new FileStream(imagePath, FileMode.Create));
 					letterHeadDTO.LetterHeadImage = uniqueFileName;
 				}
+
 				if (letterHeadDTO.LetterHeadFooterImageUP != null)
 				{
 					FileInfo fileInfo = new FileInfo(letterHeadDTO.LetterHeadFooterImageUP.FileName);
@@ -99,9 +104,10 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 					letterHeadDTO.LetterHeadFooterImageUP.CopyTo(new FileStream(imagePath, FileMode.Create));
 					letterHeadDTO.LetterHeadFooterImage = uniqueFileName;
 				}
+
 				if (letterHeadDTO.LetterHeadId == null)
 				{
-
+					
 				
 					var a = _letterHeadService.LetterHeadCreate(letterHeadDTO);
 					if (a == MessageEnum.Success)
@@ -122,6 +128,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 				}
 				else
 				{
+
 					var a = _letterHeadService.LetterHeadUpdate(letterHeadDTO);
 					if (a == MessageEnum.Updated)
 					{
@@ -140,13 +147,15 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
 
 			return View("~/Areas/Setup/Views/LetterHead/LetterHeadCreate.cshtml", letterHeadDTO);
 		}
-		public IActionResult LetterHeadView()
+        [Authorize(Roles = "Administrator")]
+        public IActionResult LetterHeadView()
 		{
 			ViewBag.letterHeads = _letterHeadService.GetLetterHeads();
 
 			return View("~/Areas/Setup/Views/LetterHead/LetterHeadView.cshtml");	
 		}
-		public IActionResult LetterHeadDelete(int letterHeadId)
+        [Authorize(Roles = "Administrator")]
+        public IActionResult LetterHeadDelete(int letterHeadId)
 		{
 			int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 

@@ -5,6 +5,7 @@ using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Operations;
@@ -24,6 +25,7 @@ namespace HR.Base.Controllers
             _branchService= branchService;
         }
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult BranchCreate(int? branchId)
         {
             BranchDTO branchDTO = new BranchDTO();
@@ -42,6 +44,7 @@ namespace HR.Base.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult BranchCreate(BranchDTO branchDTO)
         {
 			branchDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -91,6 +94,7 @@ namespace HR.Base.Controllers
             return View("~/Plugins/HR.Base/Views/Branch/BranchCreate.cshtml", branchDTO);
         }
 
+        [Authorize(Roles = "HR Manager")]
         public IActionResult BranchView()
         {
             ViewBag.branches = _branchService.GetBranches();
@@ -99,6 +103,7 @@ namespace HR.Base.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult DeleteBranch(Int64 branchId)
         {
             Int64 DeletedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

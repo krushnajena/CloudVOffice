@@ -47,8 +47,15 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="LetterHeadImage" class="form-label">LetterHead Image</label>
-								<input asp-for="@Model.LetterHeadImage" type="file" class="form-control" autofocus="autofocus" placeholder="LetterHead Image" />
+								<input asp-for="@Model.LetterHeadImageUp" type="file" class="form-control" autofocus="autofocus" placeholder="LetterHead Image" />
 								<span asp-validation-for="LetterHeadImage"></span>
+								@{
+									if (Model.LetterHeadImage != null)
+									{
+										<img src="/uploads/setup/@Model.LetterHeadImage" style="height:100px; width:100px" />
+										<input type="hidden" asp-for="@Model.LetterHeadImage">
+									}
+								}
 							</div>
 							<div class="form-group col-md-3">
 								<label for="LetterHeadImageHeight" class="form-label">LetterHead ImageHeight</label>
@@ -72,8 +79,16 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="LetterHeadFooterImage" class="form-label">LetterHead FooterImage</label>
-								<input asp-for="@Model.LetterHeadFooterImage" type="file" class="form-control" autofocus="autofocus" placeholder="LetterHead FooterImage" />
+								<input asp-for="@Model.LetterHeadFooterImageUP" type="file" class="form-control" autofocus="autofocus" placeholder="LetterHead FooterImage" />
 								<span asp-validation-for="LetterHeadFooterImage"></span>
+								@{
+									if (Model.LetterHeadFooterImage != null)
+									{
+										<img src="/uploads/setup/@Model.LetterHeadFooterImage" style="height:100px; width:100px" />
+										<input type="hidden" asp-for="@Model.LetterHeadFooterImage">
+									}
+								}
+
 							</div>
 						</div>
 						<div class="form-row">

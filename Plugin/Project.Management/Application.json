@@ -26,6 +26,15 @@
             "Roles": [ "Project Manager" ]
           },
           {
+            "ApplicationName": "Project Activity Category",
+            "IsGroup": false,
+            "Url": "/Projects/ProjectActivityType/ProjectActivityTypeView",
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [ "Project Manager" ]
+          },
+          {
             "ApplicationName": "Project Activity Type",
             "IsGroup": false,
             "Url": "/Projects/ProjectActivityType/ProjectActivityTypeView",

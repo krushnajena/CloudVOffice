@@ -6,6 +6,7 @@ using CloudVOffice.Data.DTO.Comunication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Web.Framework;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudVOffice.Web.Areas.Setup.Controllers
@@ -22,6 +23,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public IActionResult CompanyDetailsCreate(int? companyDetailsId)
         {
             CompanyDetailsDTO companyDetailsDTO = new CompanyDetailsDTO();
@@ -68,6 +70,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public IActionResult CompanyDetailsCreate(CompanyDetailsDTO companyDetailsDTO)
         {
             companyDetailsDTO.CreatedBy = int.Parse(User.Claims.SingleOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -133,12 +136,14 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
             return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult CompanyDetailsView()
         {
             ViewBag.CompanyDetails = _companyDetailsService.GetCompanyDetailsList();
 
             return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsView.cshtml");
         }
+        [Authorize(Roles = "Administrator")]
         public IActionResult CompanyDetailsDelete(int companyDetailsId)
         {
             int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

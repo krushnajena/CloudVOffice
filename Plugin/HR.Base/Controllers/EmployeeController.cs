@@ -43,7 +43,8 @@ namespace HR.Base.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult EmployeeCreate(Int64? employeeid)
+        [Authorize(Roles = "HR Manager, HR User")]
+        public IActionResult EmployeeCreate(Int64? employeeid)
 		{
 			EmployeeCreateDTO employeeCreateDTO = new EmployeeCreateDTO();
 			
@@ -113,7 +114,8 @@ namespace HR.Base.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult EmployeeCreate(EmployeeCreateDTO employeeCreateDTO)
+        [Authorize(Roles = "HR Manager, HR User")]
+        public IActionResult EmployeeCreate(EmployeeCreateDTO employeeCreateDTO)
 		{
 			employeeCreateDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 			if (ModelState.IsValid)
@@ -191,8 +193,8 @@ namespace HR.Base.Controllers
 			ViewBag.Ra = ra;
 			return View("~/Plugins/HR.Base/Views/Employee/EmployeeCreate.cshtml", employeeCreateDTO);
 		}
-
-		public IActionResult EmployeeView()
+        [Authorize(Roles = "HR Manager, HR User")]
+        public IActionResult EmployeeView()
 		{
 			
 			ViewBag.Employees = _empolyeeService.GetEmployees();
@@ -200,7 +202,8 @@ namespace HR.Base.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult DeleteEmployee(int employeeid)
+        [Authorize(Roles = "HR Manager, HR User")]
+        public IActionResult DeleteEmployee(int employeeid)
 		{
 			Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 

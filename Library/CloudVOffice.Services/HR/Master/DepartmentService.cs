@@ -78,7 +78,7 @@ namespace CloudVOffice.Services.HR.Master
 
             try
             {
-                var department = _dbContext.Departments.Where(x => x.DepartmentId != departmentDTO.DepartmentId && x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false & x.Parent==departmentDTO.Parent).FirstOrDefault();
+                var department = _dbContext.Departments.Where(x => x.DepartmentId != departmentDTO.DepartmentId && x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false).FirstOrDefault();
                 if (department == null)
                 {
                     var a = _dbContext.Departments.Where(x => x.DepartmentId == departmentDTO.DepartmentId).FirstOrDefault();
@@ -147,14 +147,7 @@ namespace CloudVOffice.Services.HR.Master
             try
             {
 
-				var query = from c1 in _dbContext.Departments
-							from c2 in _dbContext.Departments
-							where c1.Parent == null
-							where c1.Parent == c2.DepartmentId
-							select c2;
-
-				var crossSellProducts =  query.ToList();
-                return crossSellProducts;
+                return _dbContext.Departments.Where(x => x.Deleted == false).ToList();
 				
 
 

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Core.Domain.Common;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HR.Base.Controllers
 {
@@ -24,6 +25,7 @@ namespace HR.Base.Controllers
             _employmentTypeService = employmentTypeService;
         }
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult EmploymentTypeCreate(int? EmploymentTypeId)
         {
             EmploymentTypeDTO employmenttypeDTO = new EmploymentTypeDTO();
@@ -42,6 +44,7 @@ namespace HR.Base.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult EmploymentTypeCreate(EmploymentTypeDTO employmenttypeDTO)
         {
 
@@ -93,7 +96,7 @@ namespace HR.Base.Controllers
 
             return View("~/Plugins/HR.Base/Views/EmploymentType/EmploymentTypeCreate.cshtml", employmenttypeDTO);
         }
-
+        [Authorize(Roles = "HR Manager")]
         public IActionResult EmploymentTypeView()
         {
             ViewBag.EmploymentTypes = _employmentTypeService.GetEmploymentTypes();
@@ -101,6 +104,7 @@ namespace HR.Base.Controllers
             return View("~/Plugins/Hr.Base/Views/EmploymentType/EmploymentTypeView.cshtml");
         }
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult EmploymentTypeDelete(Int64 employmenttypeId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

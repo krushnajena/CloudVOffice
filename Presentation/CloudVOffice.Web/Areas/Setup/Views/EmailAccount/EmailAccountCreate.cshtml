@@ -101,6 +101,13 @@
 								<label for="EmailLogo" class="form-label">Email Logo</label>
 								<input asp-for="@Model.EmailLogoUp" type="file" class="form-control" autofocus="autofocus" placeholder="EmailLogo" />
 								<span asp-validation-for="EmailLogo"></span>
+								@{
+									if (Model.EmailLogo != null)
+									{
+										<img src="/uploads/setup/@Model.EmailLogo" style="height:100px; width:100px" />
+										<input type="hidden" asp-for="@Model.EmailLogo">
+									}
+								}
 							</div>
 						
 

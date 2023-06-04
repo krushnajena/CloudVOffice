@@ -4,6 +4,7 @@ using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,8 @@ namespace HR.Base.Controllers
 			_designationService = designationService;
 		}
 		[HttpGet]
-		public IActionResult DesignationCreate(int? designationId)
+        [Authorize(Roles = "HR Manager")]
+        public IActionResult DesignationCreate(int? designationId)
 		{
 			DesignationDTO designationDTO = new DesignationDTO();
 			//ViewBag.ParentDepartmentList = new SelectList(_branchService.GetBranches(), "BranchId", "BranchName");
@@ -41,7 +43,8 @@ namespace HR.Base.Controllers
 
 		}
 		[HttpPost]
-		public IActionResult DesignationCreate(DesignationDTO designationDTO)
+        [Authorize(Roles = "HR Manager")]
+        public IActionResult DesignationCreate(DesignationDTO designationDTO)
 		{
 			designationDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
@@ -91,7 +94,8 @@ namespace HR.Base.Controllers
 
 			return View("~/Plugins/HR.Base/Views/Designation/DesignationCreate.cshtml", designationDTO);
 		}
-		public IActionResult DesignationView()
+        [Authorize(Roles = "HR Manager")]
+        public IActionResult DesignationView()
 		{
 			ViewBag.designations = _designationService.GetDesignationList();
 
@@ -99,6 +103,7 @@ namespace HR.Base.Controllers
 		}
 
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult DeleteDesignation(Int64 designationId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

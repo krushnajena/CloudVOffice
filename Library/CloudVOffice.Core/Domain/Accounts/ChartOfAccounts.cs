@@ -10,12 +10,12 @@ namespace CloudVOffice.Core.Domain.Accounts
     {
         public int ChartOfAccountsId { get; set; }
         public string AccountName { get; set; }
-        public string AccountNumber { get; set; }
+        public string? AccountNumber { get; set; }
         public bool IsGroup { get; set; }
         public string RootType { get; set; } // Asset, Income, Expense , Liab
         public string ReportType { get; set; } // Balance Sheet, PL
         public int? ParentAccountGroupId { get; set; }
-        public string AccountType { get; set; }
+        public int? AccountType { get; set; }
         public double? TaxRate { get; set; }
         public string? BalanceMustBe { get; set; }//Cr Dr
 

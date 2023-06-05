@@ -78,7 +78,7 @@ namespace CloudVOffice.Services.HR.Master
 
             try
             {
-                var department = _dbContext.Departments.Where(x => x.DepartmentId != departmentDTO.DepartmentId && x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false).FirstOrDefault();
+                var department = _dbContext.Departments.Where(x => x.DepartmentId != departmentDTO.DepartmentId && x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false && x.Parent == departmentDTO.Parent).FirstOrDefault();
                 if (department == null)
                 {
                     var a = _dbContext.Departments.Where(x => x.DepartmentId == departmentDTO.DepartmentId).FirstOrDefault();

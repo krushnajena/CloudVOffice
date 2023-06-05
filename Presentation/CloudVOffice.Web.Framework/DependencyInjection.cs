@@ -1,5 +1,6 @@
 ﻿ using CloudVOffice.Core.Infrastructure.Http;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Accounts;
 using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
@@ -77,8 +78,11 @@ namespace CloudVOffice.Web.Framework
 			#region DesktopLogin
 			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
-            #endregion
-            return services;
+			#endregion
+			#region Accounts Services
+			services.AddScoped<IFinancialYearService, FinancialYearService>();
+			#endregion
+			return services;
 
         }
     }

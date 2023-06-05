@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.EmailTemplates;
+using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Logging;
@@ -69,6 +70,12 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeEducationalQualification> EmployeeEducationalQualifications { get; set; }
         #endregion
+
+
+        #region Attendance
+
+        public virtual DbSet<ShiftType> ShiftTypes { get; set; }
+        #endregion
         #endregion
 
         #region Project
@@ -103,6 +110,7 @@ namespace CloudVOffice.Data.Persistence
         #endregion
 
         #region Accounts
+        public virtual DbSet<AccountType> AccountTypes{ get; set; }
         public virtual DbSet<ChartOfAccounts> ChartOfAccounts{ get; set; }
 
         public virtual DbSet<FinancialYear> FinancialYears { get; set; }
@@ -238,6 +246,18 @@ namespace CloudVOffice.Data.Persistence
 
 
             #region HR
+
+            modelBuilder.Entity<ShiftType>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<ShiftType>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
             modelBuilder.Entity<Branch>()
        .Property(s => s.CreatedDate)
        .HasDefaultValueSql("getdate()");
@@ -322,6 +342,19 @@ namespace CloudVOffice.Data.Persistence
   .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<FinancialYear>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+
+            modelBuilder.Entity<AccountType>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<AccountType>()
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();

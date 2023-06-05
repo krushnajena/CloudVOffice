@@ -76,9 +76,9 @@ namespace HR.Base.Controllers
                 else
                 {
 					var a = _departmentService.DepartmentUpdate(departmentDTO);
-					if (a == MessageEnum.Success)
+					if (a == MessageEnum.Updated)
 					{
-                        TempData["msg"] = MessageEnum.Success;
+                        TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/HR/Department/DepartmentView");
                     }
 					else if (a == MessageEnum.Duplicate)

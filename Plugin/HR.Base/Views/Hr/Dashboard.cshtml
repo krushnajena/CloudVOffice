@@ -26,9 +26,9 @@
 
 <div class="main-content">
     <div class="row gutters">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
             <div class="card">
-                <div class="card-header">EmploymentTypes</div>
+                <div class="card-header">Employee Directory</div>
                 <div class="card-body">
 
                    
@@ -38,43 +38,5 @@
     </div>
 
 </div>
-<script id="Actions" type="text/x-template">
-    <div class="link">
-        <a href="../../HR/EmploymentType/EmploymentTypeCreate?EmploymentTypeId=${EmploymentTypeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../HR/EmploymentType/EmploymentTypeDelete?EmploymentTypeId=${EmploymentTypeId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
-    </div>
-</script>
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
-</script>
 
-<script>
-    function toolbarClick(args) {
-        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
-        if (args.item.id === 'GridOverview_pdfexport') {
-            gridObj.pdfExport();
-        }
-        if (args.item.id === 'GridOverview_excelexport') {
-            gridObj.excelExport();
-        }
-        if (args.item.id === 'GridOverview_csvexport') {
-            gridObj.csvExport();
-        }
-    }
-    function exportQueryCellInfo(args) {
-        if (args.column.headerText === 'Employee Image') {
-            if (args.name === "excelQueryCellInfo") {
-                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
-            } else {
-                args.image = { base64: args.data["EmployeeImage"] };
-            }
-        }
-        if (args.column.headerText === 'Track') {
-            args.hyperLink = {
-                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
-                displayText: "Track"
-            };
-        }
-    };
 
-</script>

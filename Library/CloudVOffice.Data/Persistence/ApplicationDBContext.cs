@@ -103,6 +103,7 @@ namespace CloudVOffice.Data.Persistence
         #endregion
 
         #region Accounts
+        public virtual DbSet<AccountType> AccountTypes{ get; set; }
         public virtual DbSet<ChartOfAccounts> ChartOfAccounts{ get; set; }
 
         public virtual DbSet<FinancialYear> FinancialYears { get; set; }
@@ -322,6 +323,19 @@ namespace CloudVOffice.Data.Persistence
   .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<FinancialYear>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+
+
+
+            modelBuilder.Entity<AccountType>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<AccountType>()
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();

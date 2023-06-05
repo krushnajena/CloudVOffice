@@ -1,12 +1,15 @@
-﻿using CloudVOffice.Core.Domain.EmailTemplates;
+﻿using CloudVOffice.Core.Domain.Accounts;
+using CloudVOffice.Core.Domain.EmailTemplates;
 using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -75,7 +78,7 @@ namespace CloudVOffice.Data.Seeding
 
 
                     );
-               
+
             });
 
             modelBuilder.Entity<Application>(b =>
@@ -91,11 +94,11 @@ namespace CloudVOffice.Data.Seeding
                         IsGroup = true,
                         Url = "/Application/Applications/InstalledApps",
                         CreatedBy = 1,
-                        IconImageUrl="/appstatic/images/applications.png",
+                        IconImageUrl = "/appstatic/images/applications.png",
                         CreatedDate = System.DateTime.Now,
                         AreaName = "Application",
 
-						Deleted = false
+                        Deleted = false
                     },
                       new Application
                       {
@@ -108,10 +111,10 @@ namespace CloudVOffice.Data.Seeding
                           IconImageUrl = "/appstatic/images/setup.png",
                           CreatedDate = System.DateTime.Now,
                           Deleted = false,
-						  AreaName = "Setup"
+                          AreaName = "Setup"
 
 
-					  },
+                      },
                        new Application
                        {
                            ApplicationId = 3,
@@ -124,9 +127,9 @@ namespace CloudVOffice.Data.Seeding
                            CreatedDate = System.DateTime.Now,
                            Deleted = false,
 
-						   AreaName = "Setup"
+                           AreaName = "Setup"
 
-					   },
+                       },
 
                         new Application
                         {
@@ -170,9 +173,9 @@ namespace CloudVOffice.Data.Seeding
                             CreatedDate = System.DateTime.Now,
                             Deleted = false,
 
-							AreaName = "Setup"
+                            AreaName = "Setup"
 
-						},
+                        },
                           new Application
                           {
                               ApplicationId = 7,
@@ -184,11 +187,11 @@ namespace CloudVOffice.Data.Seeding
 
                               CreatedDate = System.DateTime.Now,
                               Deleted = false,
-							  AreaName = "Setup"
+                              AreaName = "Setup"
 
 
-						  },
-                         
+                          },
+
 
                             new Application
                             {
@@ -247,11 +250,12 @@ namespace CloudVOffice.Data.Seeding
                 b.Property(x => x.RoleAndApplicationWisePermissionId).ValueGeneratedOnAdd().UseIdentityColumn(10000, 1);
                 b.HasData(
                     new RoleAndApplicationWisePermission
-                    {RoleAndApplicationWisePermissionId=1,
+                    {
+                        RoleAndApplicationWisePermissionId = 1,
                         ApplicationId = 1,
                         RoleId = 1,
                         CreatedBy = 1,
-                        
+
                         CreatedDate = System.DateTime.Now,
                         Deleted = false
                     },
@@ -286,7 +290,8 @@ namespace CloudVOffice.Data.Seeding
                              Deleted = false
                          },
                          new RoleAndApplicationWisePermission
-                         {RoleAndApplicationWisePermissionId = 5,
+                         {
+                             RoleAndApplicationWisePermissionId = 5,
                              ApplicationId = 5,
                              RoleId = 1,
                              CreatedBy = 1,
@@ -295,7 +300,8 @@ namespace CloudVOffice.Data.Seeding
                              Deleted = false
                          },
                          new RoleAndApplicationWisePermission
-                         {RoleAndApplicationWisePermissionId = 6,
+                         {
+                             RoleAndApplicationWisePermissionId = 6,
                              ApplicationId = 6,
                              RoleId = 1,
                              CreatedBy = 1,
@@ -599,7 +605,7 @@ namespace CloudVOffice.Data.Seeding
             </div>
         </div> <div class=""_rp_c5"" style=""display: none;""></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""></div> </div></span>
-</div>"     ,       
+</div>",
                         CreatedBy = 1,
                         CreatedDate = System.DateTime.Now,
                         Deleted = false,
@@ -607,8 +613,1617 @@ namespace CloudVOffice.Data.Seeding
 
 
                     }
-                    ) ;
+                    );
             });
+
+
+            #region Account Type
+            modelBuilder.Entity<AccountType>(b =>
+            {
+                b.HasKey(e => e.AccountTypeId);
+
+                b.HasData(
+                    new AccountType
+                    {
+                        AccountTypeId = 1,
+                        AccountTypeName = "Accumulated Depreciation",
+                        CreatedBy = 1,
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+                    },
+
+                     new AccountType
+                     {
+                         AccountTypeId = 2,
+                         AccountTypeName = "Asset Received But Not Billed",
+                         CreatedBy = 1,
+                         CreatedDate = DateTime.Now,
+                         Deleted = false,
+                     },
+                       new AccountType
+                       {
+                           AccountTypeId = 3,
+                           AccountTypeName = "Bank",
+                           CreatedBy = 1,
+                           CreatedDate = DateTime.Now,
+                           Deleted = false,
+                       },
+
+                       new AccountType
+                       {
+                           AccountTypeId = 4,
+                           AccountTypeName = "Cash",
+                           CreatedBy = 1,
+                           CreatedDate = DateTime.Now,
+                           Deleted = false,
+                       },
+                         new AccountType
+                         {
+                             AccountTypeId = 5,
+                             AccountTypeName = "Chargeable",
+                             CreatedBy = 1,
+                             CreatedDate = DateTime.Now,
+                             Deleted = false,
+                         },
+                          new AccountType
+                          {
+                              AccountTypeId = 6,
+                              AccountTypeName = "Capital Work in Progress",
+                              CreatedBy = 1,
+                              CreatedDate = DateTime.Now,
+                              Deleted = false,
+                          },
+
+                           new AccountType
+                           {
+                               AccountTypeId = 7,
+                               AccountTypeName = "Cost of Goods Sold",
+                               CreatedBy = 1,
+                               CreatedDate = DateTime.Now,
+                               Deleted = false,
+                           },
+                            new AccountType
+                            {
+                                AccountTypeId = 8,
+                                AccountTypeName = "Depreciation",
+                                CreatedBy = 1,
+                                CreatedDate = DateTime.Now,
+                                Deleted = false,
+                            },
+                            new AccountType
+                            {
+                                AccountTypeId = 9,
+                                AccountTypeName = "Equity",
+                                CreatedBy = 1,
+                                CreatedDate = DateTime.Now,
+                                Deleted = false,
+                            },
+                              new AccountType
+                              {
+                                  AccountTypeId = 10,
+                                  AccountTypeName = "Expense Account",
+                                  CreatedBy = 1,
+                                  CreatedDate = DateTime.Now,
+                                  Deleted = false,
+                              },
+
+                              new AccountType
+                              {
+                                  AccountTypeId = 11,
+                                  AccountTypeName = "Expenses Included In Asset Valuation",
+                                  CreatedBy = 1,
+                                  CreatedDate = DateTime.Now,
+                                  Deleted = false,
+                              },
+
+
+                              new AccountType
+                              {
+                                  AccountTypeId = 12,
+                                  AccountTypeName = "Expenses Included In Valuation",
+                                  CreatedBy = 1,
+                                  CreatedDate = DateTime.Now,
+                                  Deleted = false,
+                              },
+                              new AccountType
+                              {
+                                  AccountTypeId = 13,
+                                  AccountTypeName = "Fixed Asset",
+                                  CreatedBy = 1,
+                                  CreatedDate = DateTime.Now,
+                                  Deleted = false,
+                              },
+                                new AccountType
+                                {
+                                    AccountTypeId = 14,
+                                    AccountTypeName = "Income Account",
+                                    CreatedBy = 1,
+                                    CreatedDate = DateTime.Now,
+                                    Deleted = false,
+                                },
+                                   new AccountType
+                                   {
+                                       AccountTypeId = 15,
+                                       AccountTypeName = "Payable",
+                                       CreatedBy = 1,
+                                       CreatedDate = DateTime.Now,
+                                       Deleted = false,
+                                   },
+                                     new AccountType
+                                     {
+                                         AccountTypeId = 16,
+                                         AccountTypeName = "Receivable",
+                                         CreatedBy = 1,
+                                         CreatedDate = DateTime.Now,
+                                         Deleted = false,
+                                     },
+                                       new AccountType
+                                       {
+                                           AccountTypeId = 17,
+                                           AccountTypeName = "Round Off",
+                                           CreatedBy = 1,
+                                           CreatedDate = DateTime.Now,
+                                           Deleted = false,
+                                       },
+                                         new AccountType
+                                         {
+                                             AccountTypeId = 18,
+                                             AccountTypeName = "Stock",
+                                             CreatedBy = 1,
+                                             CreatedDate = DateTime.Now,
+                                             Deleted = false,
+                                         },
+                                           new AccountType
+                                           {
+                                               AccountTypeId = 19,
+                                               AccountTypeName = "Stock Adjustment",
+                                               CreatedBy = 1,
+                                               CreatedDate = DateTime.Now,
+                                               Deleted = false,
+                                           },
+                                            new AccountType
+                                            {
+                                                AccountTypeId = 20,
+                                                AccountTypeName = "Stock Received But Not Billed",
+                                                CreatedBy = 1,
+                                                CreatedDate = DateTime.Now,
+                                                Deleted = false,
+                                            },
+                                               new AccountType
+                                               {
+                                                   AccountTypeId = 21,
+                                                   AccountTypeName = "Service Received But Not Billed",
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+                                                    new AccountType
+                                                    {
+                                                        AccountTypeId = 22,
+                                                        AccountTypeName = "Tax",
+                                                        CreatedBy = 1,
+                                                        CreatedDate = DateTime.Now,
+                                                        Deleted = false,
+                                                    },
+
+                                                      new AccountType
+                                                      {
+                                                          AccountTypeId = 23,
+                                                          AccountTypeName = "Temporary",
+                                                          CreatedBy = 1,
+                                                          CreatedDate = DateTime.Now,
+                                                          Deleted = false,
+                                                      }
+
+
+
+
+                    );
+            });
+
+
+            modelBuilder.Entity<ChartOfAccounts>(b =>
+            {
+                b.HasKey(e => e.ChartOfAccountsId);
+
+                b.HasData(
+                #region Asset 1
+                     new ChartOfAccounts
+                     {
+                         ChartOfAccountsId = 1,
+                         AccountName = "Application of Funds (Assets)",
+                         IsGroup = true,
+                         RootType = "Assets",
+                         ReportType = "Balance Sheet",
+                         ParentAccountGroupId = null,
+                         AccountType = null,
+                         AccountNumber = null,
+                         TaxRate = null,
+                         BalanceMustBe = null,
+
+                         CreatedBy = 1,
+                         CreatedDate = DateTime.Now,
+                         Deleted = false,
+                     },
+
+
+                       new ChartOfAccounts
+                       {
+                           ChartOfAccountsId = 2,
+                           AccountName = "Current Assets",
+                           IsGroup = true,
+                           RootType = "Assets",
+                           ReportType = "Balance Sheet",
+                           ParentAccountGroupId = 1,
+                           AccountType = null,
+                           AccountNumber = null,
+                           TaxRate = null,
+                           BalanceMustBe = null,
+
+                           CreatedBy = 1,
+                           CreatedDate = DateTime.Now,
+                           Deleted = false,
+                       },
+
+                       new ChartOfAccounts
+                       {
+                           ChartOfAccountsId = 3,
+                           AccountName = "Accounts Receivable",
+                           IsGroup = true,
+                           RootType = "Assets",
+                           ReportType = "Balance Sheet",
+                           ParentAccountGroupId = 2,
+                           AccountType = null,
+                           AccountNumber = null,
+                           TaxRate = null,
+                           BalanceMustBe = null,
+
+                           CreatedBy = 1,
+                           CreatedDate = DateTime.Now,
+                           Deleted = false,
+                       },
+                        new ChartOfAccounts
+                        {
+                            ChartOfAccountsId = 4,
+                            AccountName = "Debtors",
+                            IsGroup = false,
+                            RootType = "Assets",
+                            ReportType = "Balance Sheet",
+                            ParentAccountGroupId = 3,
+                            AccountType = null,
+                            AccountNumber = null,
+                            TaxRate = null,
+                            BalanceMustBe = null,
+
+                            CreatedBy = 1,
+                            CreatedDate = DateTime.Now,
+                            Deleted = false,
+                        },
+
+
+                           new ChartOfAccounts
+                           {
+                               ChartOfAccountsId = 5,
+                               AccountName = "Bank Accounts",
+                               IsGroup = true,
+                               RootType = "Assets",
+                               ReportType = "Balance Sheet",
+                               ParentAccountGroupId = 2,
+                               AccountType = null,
+                               AccountNumber = null,
+                               TaxRate = null,
+                               BalanceMustBe = null,
+
+                               CreatedBy = 1,
+                               CreatedDate = DateTime.Now,
+                               Deleted = false,
+                           },
+
+
+
+                           new ChartOfAccounts
+                           {
+                               ChartOfAccountsId = 6,
+                               AccountName = "Cash In Hand",
+                               IsGroup = true,
+                               RootType = "Assets",
+                               ReportType = "Balance Sheet",
+                               ParentAccountGroupId = 2,
+                               AccountType = null,
+                               AccountNumber = null,
+                               TaxRate = null,
+                               BalanceMustBe = null,
+
+                               CreatedBy = 1,
+                               CreatedDate = DateTime.Now,
+                               Deleted = false,
+                           },
+
+
+
+
+                           new ChartOfAccounts
+                           {
+                               ChartOfAccountsId = 7,
+                               AccountName = "Cash",
+                               IsGroup = false,
+                               RootType = "Assets",
+                               ReportType = "Balance Sheet",
+                               ParentAccountGroupId = 6,
+                               AccountType = null,
+                               AccountNumber = null,
+                               TaxRate = null,
+                               BalanceMustBe = null,
+
+                               CreatedBy = 1,
+                               CreatedDate = DateTime.Now,
+                               Deleted = false,
+                           },
+
+
+
+                           new ChartOfAccounts
+                           {
+                               ChartOfAccountsId = 8,
+                               AccountName = "Loans and Advances (Assets)",
+                               IsGroup = true,
+                               RootType = "Assets",
+                               ReportType = "Balance Sheet",
+                               ParentAccountGroupId = 2,
+                               AccountType = null,
+                               AccountNumber = null,
+                               TaxRate = null,
+                               BalanceMustBe = null,
+
+                               CreatedBy = 1,
+                               CreatedDate = DateTime.Now,
+                               Deleted = false,
+                           },
+
+
+                             new ChartOfAccounts
+                             {
+                                 ChartOfAccountsId = 9,
+                                 AccountName = "Securities and Deposits",
+                                 IsGroup = true,
+                                 RootType = "Assets",
+                                 ReportType = "Balance Sheet",
+                                 ParentAccountGroupId = 2,
+                                 AccountType = null,
+                                 AccountNumber = null,
+                                 TaxRate = null,
+                                 BalanceMustBe = null,
+
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+                             },
+
+
+                               new ChartOfAccounts
+                               {
+                                   ChartOfAccountsId = 10,
+                                   AccountName = "Earnest Money",
+                                   IsGroup = false,
+                                   RootType = "Assets",
+                                   ReportType = "Balance Sheet",
+                                   ParentAccountGroupId = 9,
+                                   AccountType = null,
+                                   AccountNumber = null,
+                                   TaxRate = null,
+                                   BalanceMustBe = null,
+
+                                   CreatedBy = 1,
+                                   CreatedDate = DateTime.Now,
+                                   Deleted = false,
+                               },
+
+
+                                    new ChartOfAccounts
+                                    {
+                                        ChartOfAccountsId = 11,
+                                        AccountName = "Stock Assets",
+                                        IsGroup = true,
+                                        RootType = "Assets",
+                                        ReportType = "Balance Sheet",
+                                        ParentAccountGroupId = 2,
+                                        AccountType = null,
+                                        AccountNumber = null,
+                                        TaxRate = null,
+                                        BalanceMustBe = null,
+
+                                        CreatedBy = 1,
+                                        CreatedDate = DateTime.Now,
+                                        Deleted = false,
+                                    },
+
+
+
+                                    new ChartOfAccounts
+                                    {
+                                        ChartOfAccountsId = 12,
+                                        AccountName = "Stock In Hand",
+                                        IsGroup = false,
+                                        RootType = "Assets",
+                                        ReportType = "Balance Sheet",
+                                        ParentAccountGroupId = 11,
+                                        AccountType = null,
+                                        AccountNumber = null,
+                                        TaxRate = null,
+                                        BalanceMustBe = null,
+
+                                        CreatedBy = 1,
+                                        CreatedDate = DateTime.Now,
+                                        Deleted = false,
+                                    },
+
+
+                                       new ChartOfAccounts
+                                       {
+                                           ChartOfAccountsId = 13,
+                                           AccountName = "Tax Assets",
+                                           IsGroup = true,
+                                           RootType = "Assets",
+                                           ReportType = "Balance Sheet",
+                                           ParentAccountGroupId = 2,
+                                           AccountType = null,
+                                           AccountNumber = null,
+                                           TaxRate = null,
+                                           BalanceMustBe = null,
+
+                                           CreatedBy = 1,
+                                           CreatedDate = DateTime.Now,
+                                           Deleted = false,
+                                       },
+
+
+                                            new ChartOfAccounts
+                                            {
+                                                ChartOfAccountsId = 14,
+                                                AccountName = "Fixed Assets",
+                                                IsGroup = true,
+                                                RootType = "Assets",
+                                                ReportType = "Balance Sheet",
+                                                ParentAccountGroupId = 1,
+                                                AccountType = null,
+                                                AccountNumber = null,
+                                                TaxRate = null,
+                                                BalanceMustBe = null,
+
+                                                CreatedBy = 1,
+                                                CreatedDate = DateTime.Now,
+                                                Deleted = false,
+                                            },
+
+
+                                               new ChartOfAccounts
+                                               {
+                                                   ChartOfAccountsId = 15,
+                                                   AccountName = "Accumulated Depreciations",
+                                                   IsGroup = false,
+                                                   RootType = "Assets",
+                                                   ReportType = "Balance Sheet",
+                                                   ParentAccountGroupId = 14,
+                                                   AccountType = null,
+                                                   AccountNumber = null,
+                                                   TaxRate = null,
+                                                   BalanceMustBe = null,
+
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+
+
+
+
+
+
+                                               new ChartOfAccounts
+                                               {
+                                                   ChartOfAccountsId = 16,
+                                                   AccountName = "Accumulated Depreciations",
+                                                   IsGroup = false,
+                                                   RootType = "Assets",
+                                                   ReportType = "Balance Sheet",
+                                                   ParentAccountGroupId = 14,
+                                                   AccountType = null,
+                                                   AccountNumber = null,
+                                                   TaxRate = null,
+                                                   BalanceMustBe = null,
+
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+                                               new ChartOfAccounts
+                                               {
+                                                   ChartOfAccountsId = 17,
+                                                   AccountName = "Buildings",
+                                                   IsGroup = false,
+                                                   RootType = "Assets",
+                                                   ReportType = "Balance Sheet",
+                                                   ParentAccountGroupId = 14,
+                                                   AccountType = null,
+                                                   AccountNumber = null,
+                                                   TaxRate = null,
+                                                   BalanceMustBe = null,
+
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+                                               new ChartOfAccounts
+                                               {
+                                                   ChartOfAccountsId = 18,
+                                                   AccountName = "Capital Equipments",
+                                                   IsGroup = false,
+                                                   RootType = "Assets",
+                                                   ReportType = "Balance Sheet",
+                                                   ParentAccountGroupId = 14,
+                                                   AccountType = null,
+                                                   AccountNumber = null,
+                                                   TaxRate = null,
+                                                   BalanceMustBe = null,
+
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+                                               new ChartOfAccounts
+                                               {
+                                                   ChartOfAccountsId = 19,
+                                                   AccountName = "Electronic Equipments",
+                                                   IsGroup = false,
+                                                   RootType = "Assets",
+                                                   ReportType = "Balance Sheet",
+                                                   ParentAccountGroupId = 14,
+                                                   AccountType = null,
+                                                   AccountNumber = null,
+                                                   TaxRate = null,
+                                                   BalanceMustBe = null,
+
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+                                               new ChartOfAccounts
+                                               {
+                                                   ChartOfAccountsId = 20,
+                                                   AccountName = "Furnitures and Fixtures",
+                                                   IsGroup = false,
+                                                   RootType = "Assets",
+                                                   ReportType = "Balance Sheet",
+                                                   ParentAccountGroupId = 14,
+                                                   AccountType = null,
+                                                   AccountNumber = null,
+                                                   TaxRate = null,
+                                                   BalanceMustBe = null,
+
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+
+
+                                                   new ChartOfAccounts
+                                                   {
+                                                       ChartOfAccountsId = 21,
+                                                       AccountName = "Office Equipments",
+                                                       IsGroup = false,
+                                                       RootType = "Assets",
+                                                       ReportType = "Balance Sheet",
+                                                       ParentAccountGroupId = 14,
+                                                       AccountType = null,
+                                                       AccountNumber = null,
+                                                       TaxRate = null,
+                                                       BalanceMustBe = null,
+
+                                                       CreatedBy = 1,
+                                                       CreatedDate = DateTime.Now,
+                                                       Deleted = false,
+                                                   },
+                                               new ChartOfAccounts
+                                               {
+                                                   ChartOfAccountsId = 22,
+                                                   AccountName = "Plants and Machineries",
+                                                   IsGroup = false,
+                                                   RootType = "Assets",
+                                                   ReportType = "Balance Sheet",
+                                                   ParentAccountGroupId = 14,
+                                                   AccountType = null,
+                                                   AccountNumber = null,
+                                                   TaxRate = null,
+                                                   BalanceMustBe = null,
+
+                                                   CreatedBy = 1,
+                                                   CreatedDate = DateTime.Now,
+                                                   Deleted = false,
+                                               },
+
+                                                   new ChartOfAccounts
+                                                   {
+                                                       ChartOfAccountsId = 23,
+                                                       AccountName = "Investments",
+                                                       IsGroup = true,
+                                                       RootType = "Assets",
+                                                       ReportType = "Balance Sheet",
+                                                       ParentAccountGroupId = 1,
+                                                       AccountType = null,
+                                                       AccountNumber = null,
+                                                       TaxRate = null,
+                                                       BalanceMustBe = null,
+
+                                                       CreatedBy = 1,
+                                                       CreatedDate = DateTime.Now,
+                                                       Deleted = false,
+                                                   },
+
+
+                                                   new ChartOfAccounts
+                                                   {
+                                                       ChartOfAccountsId = 24,
+                                                       AccountName = "Temporary Accounts",
+                                                       IsGroup = true,
+                                                       RootType = "Assets",
+                                                       ReportType = "Balance Sheet",
+                                                       ParentAccountGroupId = 1,
+                                                       AccountType = null,
+                                                       AccountNumber = null,
+                                                       TaxRate = null,
+                                                       BalanceMustBe = null,
+
+                                                       CreatedBy = 1,
+                                                       CreatedDate = DateTime.Now,
+                                                       Deleted = false,
+                                                   },
+                                                    new ChartOfAccounts
+                                                    {
+                                                        ChartOfAccountsId = 25,
+                                                        AccountName = "Temporary Opening",
+                                                        IsGroup = false,
+                                                        RootType = "Assets",
+                                                        ReportType = "Balance Sheet",
+                                                        ParentAccountGroupId = 24,
+                                                        AccountType = null,
+                                                        AccountNumber = null,
+                                                        TaxRate = null,
+                                                        BalanceMustBe = null,
+
+                                                        CreatedBy = 1,
+                                                        CreatedDate = DateTime.Now,
+                                                        Deleted = false,
+                                                    },
+
+
+
+
+
+                #endregion Asset 1
+
+                #region Liabilities 26
+
+                                                      new ChartOfAccounts
+                                                      {
+                                                          ChartOfAccountsId = 26,
+                                                          AccountName = "Source of Funds (Liabilities)",
+                                                          IsGroup = true,
+                                                          RootType = "Liability",
+                                                          ReportType = "Balance Sheet",
+                                                          ParentAccountGroupId = null,
+                                                          AccountType = null,
+                                                          AccountNumber = null,
+                                                          TaxRate = null,
+                                                          BalanceMustBe = null,
+
+                                                          CreatedBy = 1,
+                                                          CreatedDate = DateTime.Now,
+                                                          Deleted = false,
+                                                      },
+
+
+                                                        new ChartOfAccounts
+                                                        {
+                                                            ChartOfAccountsId = 27,
+                                                            AccountName = "Capital Account",
+                                                            IsGroup = true,
+                                                            RootType = "Liability",
+                                                            ReportType = "Balance Sheet",
+                                                            ParentAccountGroupId = 26,
+                                                            AccountType = null,
+                                                            AccountNumber = null,
+                                                            TaxRate = null,
+                                                            BalanceMustBe = null,
+
+                                                            CreatedBy = 1,
+                                                            CreatedDate = DateTime.Now,
+                                                            Deleted = false,
+                                                        },
+
+                                                         new ChartOfAccounts
+                                                         {
+                                                             ChartOfAccountsId = 28,
+                                                             AccountName = "Reserves and Surplus",
+                                                             IsGroup = false,
+                                                             RootType = "Liability",
+                                                             ReportType = "Balance Sheet",
+                                                             ParentAccountGroupId = 27,
+                                                             AccountType = null,
+                                                             AccountNumber = null,
+                                                             TaxRate = null,
+                                                             BalanceMustBe = null,
+
+                                                             CreatedBy = 1,
+                                                             CreatedDate = DateTime.Now,
+                                                             Deleted = false,
+                                                         },
+
+                                                          new ChartOfAccounts
+                                                          {
+                                                              ChartOfAccountsId = 29,
+                                                              AccountName = "Shareholders Funds",
+                                                              IsGroup = false,
+                                                              RootType = "Liability",
+                                                              ReportType = "Balance Sheet",
+                                                              ParentAccountGroupId = 27,
+                                                              AccountType = null,
+                                                              AccountNumber = null,
+                                                              TaxRate = null,
+                                                              BalanceMustBe = null,
+
+                                                              CreatedBy = 1,
+                                                              CreatedDate = DateTime.Now,
+                                                              Deleted = false,
+                                                          },
+
+
+                                                          new ChartOfAccounts
+                                                          {
+                                                              ChartOfAccountsId = 30,
+                                                              AccountName = "Current Liabilities",
+                                                              IsGroup = true,
+                                                              RootType = "Liability",
+                                                              ReportType = "Balance Sheet",
+                                                              ParentAccountGroupId = 26,
+                                                              AccountType = null,
+                                                              AccountNumber = null,
+                                                              TaxRate = null,
+                                                              BalanceMustBe = null,
+
+                                                              CreatedBy = 1,
+                                                              CreatedDate = DateTime.Now,
+                                                              Deleted = false,
+                                                          },
+
+
+                                                             new ChartOfAccounts
+                                                             {
+                                                                 ChartOfAccountsId = 31,
+                                                                 AccountName = "Accounts Payable",
+                                                                 IsGroup = true,
+                                                                 RootType = "Liability",
+                                                                 ReportType = "Balance Sheet",
+                                                                 ParentAccountGroupId = 30,
+                                                                 AccountType = null,
+                                                                 AccountNumber = null,
+                                                                 TaxRate = null,
+                                                                 BalanceMustBe = null,
+
+                                                                 CreatedBy = 1,
+                                                                 CreatedDate = DateTime.Now,
+                                                                 Deleted = false,
+                                                             },
+
+
+                                                                   new ChartOfAccounts
+                                                                   {
+                                                                       ChartOfAccountsId = 32,
+                                                                       AccountName = "Creditors",
+                                                                       IsGroup = false,
+                                                                       RootType = "Liability",
+                                                                       ReportType = "Balance Sheet",
+                                                                       ParentAccountGroupId = 31,
+                                                                       AccountType = null,
+                                                                       AccountNumber = null,
+                                                                       TaxRate = null,
+                                                                       BalanceMustBe = null,
+
+                                                                       CreatedBy = 1,
+                                                                       CreatedDate = DateTime.Now,
+                                                                       Deleted = false,
+                                                                   },
+
+                                                                    new ChartOfAccounts
+                                                                    {
+                                                                        ChartOfAccountsId = 33,
+                                                                        AccountName = "Payroll Payable",
+                                                                        IsGroup = false,
+                                                                        RootType = "Liability",
+                                                                        ReportType = "Balance Sheet",
+                                                                        ParentAccountGroupId = 31,
+                                                                        AccountType = null,
+                                                                        AccountNumber = null,
+                                                                        TaxRate = null,
+                                                                        BalanceMustBe = null,
+
+                                                                        CreatedBy = 1,
+                                                                        CreatedDate = DateTime.Now,
+                                                                        Deleted = false,
+                                                                    },
+
+
+
+                                                                       new ChartOfAccounts
+                                                                       {
+                                                                           ChartOfAccountsId = 34,
+                                                                           AccountName = "Duties and Taxes",
+                                                                           IsGroup = true,
+                                                                           RootType = "Liability",
+                                                                           ReportType = "Balance Sheet",
+                                                                           ParentAccountGroupId = 30,
+                                                                           AccountType = null,
+                                                                           AccountNumber = null,
+                                                                           TaxRate = null,
+                                                                           BalanceMustBe = null,
+
+                                                                           CreatedBy = 1,
+                                                                           CreatedDate = DateTime.Now,
+                                                                           Deleted = false,
+                                                                       },
+
+                                                                         new ChartOfAccounts
+                                                                         {
+                                                                             ChartOfAccountsId = 35,
+                                                                             AccountName = "TDS",
+                                                                             IsGroup = false,
+                                                                             RootType = "Liability",
+                                                                             ReportType = "Balance Sheet",
+                                                                             ParentAccountGroupId = 34,
+                                                                             AccountType = null,
+                                                                             AccountNumber = null,
+                                                                             TaxRate = null,
+                                                                             BalanceMustBe = null,
+
+                                                                             CreatedBy = 1,
+                                                                             CreatedDate = DateTime.Now,
+                                                                             Deleted = false,
+                                                                         },
+
+
+
+                                                                       new ChartOfAccounts
+                                                                       {
+                                                                           ChartOfAccountsId = 36,
+                                                                           AccountName = "Loans (Liabilities)",
+                                                                           IsGroup = true,
+                                                                           RootType = "Liability",
+                                                                           ReportType = "Balance Sheet",
+                                                                           ParentAccountGroupId = 30,
+                                                                           AccountType = null,
+                                                                           AccountNumber = null,
+                                                                           TaxRate = null,
+                                                                           BalanceMustBe = null,
+
+                                                                           CreatedBy = 1,
+                                                                           CreatedDate = DateTime.Now,
+                                                                           Deleted = false,
+                                                                       },
+
+
+
+                                                                           new ChartOfAccounts
+                                                                           {
+                                                                               ChartOfAccountsId = 37,
+                                                                               AccountName = "Bank Overdraft Account",
+                                                                               IsGroup = false,
+                                                                               RootType = "Liability",
+                                                                               ReportType = "Balance Sheet",
+                                                                               ParentAccountGroupId = 36,
+                                                                               AccountType = null,
+                                                                               AccountNumber = null,
+                                                                               TaxRate = null,
+                                                                               BalanceMustBe = null,
+
+                                                                               CreatedBy = 1,
+                                                                               CreatedDate = DateTime.Now,
+                                                                               Deleted = false,
+                                                                           },
+
+
+                                                                               new ChartOfAccounts
+                                                                               {
+                                                                                   ChartOfAccountsId = 38,
+                                                                                   AccountName = "Secured Loans",
+                                                                                   IsGroup = false,
+                                                                                   RootType = "Liability",
+                                                                                   ReportType = "Balance Sheet",
+                                                                                   ParentAccountGroupId = 36,
+                                                                                   AccountType = null,
+                                                                                   AccountNumber = null,
+                                                                                   TaxRate = null,
+                                                                                   BalanceMustBe = null,
+
+                                                                                   CreatedBy = 1,
+                                                                                   CreatedDate = DateTime.Now,
+                                                                                   Deleted = false,
+                                                                               },
+
+                                                                                   new ChartOfAccounts
+                                                                                   {
+                                                                                       ChartOfAccountsId = 39,
+                                                                                       AccountName = "Unsecured Loans",
+                                                                                       IsGroup = false,
+                                                                                       RootType = "Liability",
+                                                                                       ReportType = "Balance Sheet",
+                                                                                       ParentAccountGroupId = 36,
+                                                                                       AccountType = null,
+                                                                                       AccountNumber = null,
+                                                                                       TaxRate = null,
+                                                                                       BalanceMustBe = null,
+
+                                                                                       CreatedBy = 1,
+                                                                                       CreatedDate = DateTime.Now,
+                                                                                       Deleted = false,
+                                                                                   },
+
+
+                                                                                     new ChartOfAccounts
+                                                                                     {
+                                                                                         ChartOfAccountsId = 40,
+                                                                                         AccountName = "Stock Liabilities",
+                                                                                         IsGroup = true,
+                                                                                         RootType = "Liability",
+                                                                                         ReportType = "Balance Sheet",
+                                                                                         ParentAccountGroupId = 30,
+                                                                                         AccountType = null,
+                                                                                         AccountNumber = null,
+                                                                                         TaxRate = null,
+                                                                                         BalanceMustBe = null,
+
+                                                                                         CreatedBy = 1,
+                                                                                         CreatedDate = DateTime.Now,
+                                                                                         Deleted = false,
+                                                                                     },
+
+                                                                                       new ChartOfAccounts
+                                                                                       {
+                                                                                           ChartOfAccountsId = 41,
+                                                                                           AccountName = "Stock Received But Not Billed",
+                                                                                           IsGroup = false,
+                                                                                           RootType = "Liability",
+                                                                                           ReportType = "Balance Sheet",
+                                                                                           ParentAccountGroupId = 40,
+                                                                                           AccountType = null,
+                                                                                           AccountNumber = null,
+                                                                                           TaxRate = null,
+                                                                                           BalanceMustBe = null,
+
+                                                                                           CreatedBy = 1,
+                                                                                           CreatedDate = DateTime.Now,
+                                                                                           Deleted = false,
+                                                                                       },
+
+
+
+
+
+
+                #endregion Liabilities 26
+
+
+                #region Income 42
+
+   new ChartOfAccounts
+   {
+       ChartOfAccountsId = 42,
+       AccountName = "Income",
+       IsGroup = true,
+       RootType = "Income",
+       ReportType = "Profit and Loss",
+       ParentAccountGroupId = null,
+       AccountType = null,
+       AccountNumber = null,
+       TaxRate = null,
+       BalanceMustBe = null,
+
+       CreatedBy = 1,
+       CreatedDate = DateTime.Now,
+       Deleted = false,
+   },
+
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 43,
+         AccountName = "Direct Income",
+         IsGroup = true,
+         RootType = "Income",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 42,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+
+
+       new ChartOfAccounts
+       {
+           ChartOfAccountsId = 44,
+           AccountName = "Sales",
+           IsGroup = false,
+           RootType = "Income",
+           ReportType = "Profit and Loss",
+           ParentAccountGroupId = 43,
+           AccountType = null,
+           AccountNumber = null,
+           TaxRate = null,
+           BalanceMustBe = null,
+
+           CreatedBy = 1,
+           CreatedDate = DateTime.Now,
+           Deleted = false,
+       },
+
+
+         new ChartOfAccounts
+         {
+             ChartOfAccountsId = 45,
+             AccountName = "Service",
+             IsGroup = false,
+             RootType = "Income",
+             ReportType = "Profit and Loss",
+             ParentAccountGroupId = 43,
+             AccountType = null,
+             AccountNumber = null,
+             TaxRate = null,
+             BalanceMustBe = null,
+
+             CreatedBy = 1,
+             CreatedDate = DateTime.Now,
+             Deleted = false,
+         },
+
+          new ChartOfAccounts
+          {
+              ChartOfAccountsId = 46,
+              AccountName = "Indirect Income",
+              IsGroup = true,
+              RootType = "Income",
+              ReportType = "Profit and Loss",
+              ParentAccountGroupId = 42,
+              AccountType = null,
+              AccountNumber = null,
+              TaxRate = null,
+              BalanceMustBe = null,
+
+              CreatedBy = 1,
+              CreatedDate = DateTime.Now,
+              Deleted = false,
+          },
+
+
+                #endregion Income 42
+
+
+                #region Expense 47
+             new ChartOfAccounts
+             {
+                 ChartOfAccountsId = 47,
+                 AccountName = "Expenses",
+                 IsGroup = true,
+                 RootType = "Expense",
+                 ReportType = "Profit and Loss",
+                 ParentAccountGroupId = null,
+                 AccountType = null,
+                 AccountNumber = null,
+                 TaxRate = null,
+                 BalanceMustBe = null,
+
+                 CreatedBy = 1,
+                 CreatedDate = DateTime.Now,
+                 Deleted = false,
+             },
+
+              new ChartOfAccounts
+              {
+                  ChartOfAccountsId = 48,
+                  AccountName = "Direct Expenses",
+                  IsGroup = true,
+                  RootType = "Expense",
+                  ReportType = "Profit and Loss",
+                  ParentAccountGroupId = 47,
+                  AccountType = null,
+                  AccountNumber = null,
+                  TaxRate = null,
+                  BalanceMustBe = null,
+
+                  CreatedBy = 1,
+                  CreatedDate = DateTime.Now,
+                  Deleted = false,
+              },
+               new ChartOfAccounts
+               {
+                   ChartOfAccountsId = 49,
+                   AccountName = "Stock Expenses",
+                   IsGroup = true,
+                   RootType = "Expense",
+                   ReportType = "Profit and Loss",
+                   ParentAccountGroupId = 48,
+                   AccountType = null,
+                   AccountNumber = null,
+                   TaxRate = null,
+                   BalanceMustBe = null,
+
+                   CreatedBy = 1,
+                   CreatedDate = DateTime.Now,
+                   Deleted = false,
+               },
+
+
+
+                  new ChartOfAccounts
+                  {
+                      ChartOfAccountsId = 50,
+                      AccountName = "Cost of Goods Sold",
+                      IsGroup = false,
+                      RootType = "Expense",
+                      ReportType = "Profit and Loss",
+                      ParentAccountGroupId = 49,
+                      AccountType = null,
+                      AccountNumber = null,
+                      TaxRate = null,
+                      BalanceMustBe = null,
+
+                      CreatedBy = 1,
+                      CreatedDate = DateTime.Now,
+                      Deleted = false,
+                  },
+
+
+                  new ChartOfAccounts
+                  {
+                      ChartOfAccountsId = 51,
+                      AccountName = "Expenses Included In Valuation",
+                      IsGroup = false,
+                      RootType = "Expense",
+                      ReportType = "Profit and Loss",
+                      ParentAccountGroupId = 49,
+                      AccountType = null,
+                      AccountNumber = null,
+                      TaxRate = null,
+                      BalanceMustBe = null,
+
+                      CreatedBy = 1,
+                      CreatedDate = DateTime.Now,
+                      Deleted = false,
+                  },
+                  new ChartOfAccounts
+                  {
+                      ChartOfAccountsId = 52,
+                      AccountName = "Stock Adjustment",
+                      IsGroup = false,
+                      RootType = "Expense",
+                      ReportType = "Profit and Loss",
+                      ParentAccountGroupId = 49,
+                      AccountType = null,
+                      AccountNumber = null,
+                      TaxRate = null,
+                      BalanceMustBe = null,
+
+                      CreatedBy = 1,
+                      CreatedDate = DateTime.Now,
+                      Deleted = false,
+                  },
+
+
+                      new ChartOfAccounts
+                      {
+                          ChartOfAccountsId = 53,
+                          AccountName = "Indirect Expenses",
+                          IsGroup = true,
+                          RootType = "Expense",
+                          ReportType = "Profit and Loss",
+                          ParentAccountGroupId = 47,
+                          AccountType = null,
+                          AccountNumber = null,
+                          TaxRate = null,
+                          BalanceMustBe = null,
+
+                          CreatedBy = 1,
+                          CreatedDate = DateTime.Now,
+                          Deleted = false,
+                      },
+
+
+
+
+
+
+
+
+                       new ChartOfAccounts
+                       {
+                           ChartOfAccountsId = 54,
+                           AccountName = "Administrative Expenses",
+                           IsGroup = false,
+                           RootType = "Expense",
+                           ReportType = "Profit and Loss",
+                           ParentAccountGroupId = 53,
+                           AccountType = null,
+                           AccountNumber = null,
+                           TaxRate = null,
+                           BalanceMustBe = null,
+
+                           CreatedBy = 1,
+                           CreatedDate = DateTime.Now,
+                           Deleted = false,
+                       },
+
+                            new ChartOfAccounts
+                            {
+                                ChartOfAccountsId = 55,
+                                AccountName = "Commission on Sales",
+                                IsGroup = false,
+                                RootType = "Expense",
+                                ReportType = "Profit and Loss",
+                                ParentAccountGroupId = 53,
+                                AccountType = null,
+                                AccountNumber = null,
+                                TaxRate = null,
+                                BalanceMustBe = null,
+
+                                CreatedBy = 1,
+                                CreatedDate = DateTime.Now,
+                                Deleted = false,
+                            },
+
+                                 new ChartOfAccounts
+                                 {
+                                     ChartOfAccountsId = 56,
+                                     AccountName = "Depreciation",
+                                     IsGroup = false,
+                                     RootType = "Expense",
+                                     ReportType = "Profit and Loss",
+                                     ParentAccountGroupId = 53,
+                                     AccountType = null,
+                                     AccountNumber = null,
+                                     TaxRate = null,
+                                     BalanceMustBe = null,
+
+                                     CreatedBy = 1,
+                                     CreatedDate = DateTime.Now,
+                                     Deleted = false,
+                                 },
+
+                                      new ChartOfAccounts
+                                      {
+                                          ChartOfAccountsId = 57,
+                                          AccountName = "Entertainment Expenses",
+                                          IsGroup = false,
+                                          RootType = "Expense",
+                                          ReportType = "Profit and Loss",
+                                          ParentAccountGroupId = 53,
+                                          AccountType = null,
+                                          AccountNumber = null,
+                                          TaxRate = null,
+                                          BalanceMustBe = null,
+
+                                          CreatedBy = 1,
+                                          CreatedDate = DateTime.Now,
+                                          Deleted = false,
+                                      },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 58,
+         AccountName = "Exchange Gain/Loss",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 59,
+         AccountName = "Freight and Forwarding Charges",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 60,
+         AccountName = "Gain/Loss on Asset Disposal",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 61,
+         AccountName = "Legal Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 62,
+         AccountName = "Marketing Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 63,
+         AccountName = "Miscellaneous Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 64,
+         AccountName = "Office Maintenance Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 65,
+         AccountName = "Office Rent",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 66,
+         AccountName = "Postal Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 67,
+         AccountName = "Print and Stationary",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 68,
+         AccountName = "Rounded Off",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 69,
+         AccountName = "Salary",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 70,
+         AccountName = "Sales Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 71,
+         AccountName = "Telephone Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+
+
+
+
+
+       new ChartOfAccounts
+       {
+           ChartOfAccountsId = 72,
+           AccountName = "Travel Expenses",
+           IsGroup = false,
+           RootType = "Expense",
+           ReportType = "Profit and Loss",
+           ParentAccountGroupId = 53,
+           AccountType = null,
+           AccountNumber = null,
+           TaxRate = null,
+           BalanceMustBe = null,
+
+           CreatedBy = 1,
+           CreatedDate = DateTime.Now,
+           Deleted = false,
+       },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 73,
+         AccountName = "Utility Expenses",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     },
+     new ChartOfAccounts
+     {
+         ChartOfAccountsId = 74,
+         AccountName = "Write Off",
+         IsGroup = false,
+         RootType = "Expense",
+         ReportType = "Profit and Loss",
+         ParentAccountGroupId = 53,
+         AccountType = null,
+         AccountNumber = null,
+         TaxRate = null,
+         BalanceMustBe = null,
+
+         CreatedBy = 1,
+         CreatedDate = DateTime.Now,
+         Deleted = false,
+     }
+
+
+
+
+
+     #endregion Expense 47
+                    );
+            });
+
+
+
+
+
+            #endregion
 
 
         }

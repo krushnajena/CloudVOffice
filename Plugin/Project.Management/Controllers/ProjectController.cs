@@ -226,15 +226,10 @@ namespace Projects.Management.Controller
                 EmployeeId = 0;
             }
 
-            var projects =  _projectService.GetMyAssignedProject(EmployeeId, UserId);
-			var data = from u in projects
-					   select new
-					   {
-						   u.ProjectName,
-						   u.ProjectId,
-					   };
-			ViewBag.projects = data;
-			return View("~/Plugins/Project.Management/Views/Project/MyProjects.cshtml");
+           var projects =  _projectService.GetMyAssignedProject(EmployeeId, UserId);
+		
+		//	ViewBag.projects = projects;
+			return View("~/Plugins/Project.Management/Views/Project/MyProjects.cshtml", projects);
 		}
 
 		public JsonResult ProjectEmployeeByProjectId(int projectId)

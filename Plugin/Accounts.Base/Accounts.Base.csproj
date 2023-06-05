@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -45,6 +44,10 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->

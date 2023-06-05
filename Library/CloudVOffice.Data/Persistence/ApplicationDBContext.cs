@@ -105,6 +105,8 @@ namespace CloudVOffice.Data.Persistence
         #region Accounts
         public virtual DbSet<ChartOfAccounts> ChartOfAccounts{ get; set; }
 
+        public virtual DbSet<FinancialYear> FinancialYears { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -303,8 +305,30 @@ namespace CloudVOffice.Data.Persistence
 
             #endregion
 
+            #region Accounts
 
-            #region
+            modelBuilder.Entity<ChartOfAccounts>()
+  .Property(s => s.CreatedDate)
+  .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<ChartOfAccounts>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<FinancialYear>()
+  .Property(s => s.CreatedDate)
+  .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<FinancialYear>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            #endregion
+
+            #region Project
             modelBuilder.Entity<ProjectType>()
     .Property(s => s.CreatedDate)
     .HasDefaultValueSql("getdate()");

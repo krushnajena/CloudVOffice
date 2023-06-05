@@ -71,6 +71,7 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IProjectUserService, ProjectUserService>();
 			services.AddScoped<IProjectEmployeeService, ProjectEmployeeService>();
 			services.AddScoped<ITimesheetService, TimesheetService>();
+			services.AddScoped<ITimesheetActivityCategoryService, TimesheetActivityCategoryService>();
 			#endregion
 
 			#region DesktopLogin

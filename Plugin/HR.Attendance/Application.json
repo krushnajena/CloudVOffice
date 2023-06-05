@@ -1,0 +1,76 @@
+{
+
+  "ApplicationName": "HR",
+  "Url": "/HR/Hr/Dashboard",
+  "IconImageUrl": "/Plugin/HR.Base/logo.png",
+  "IconClass": "",
+  "AreaName": "HR",
+  "Roles": [ "HR Manager", "HR User" ],
+  "Children": [
+    {
+      "ApplicationName": "Master",
+      "Url": "",
+      "IsGroup": true,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "HR",
+      "Roles": [ "HR Manager", "HR User" ],
+      "Children": [
+        {
+          "ApplicationName": "Branch",  
+          "IsGroup": false,
+          "Url": "/Hr/Branch/BranchView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "HR",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "Department",
+          "IsGroup": false,
+          "Url": "/Hr/Department/DepartmentView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "HR",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "Designation",
+          "IsGroup": false,
+          "Url": "/Hr/Designation/DesignationView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "HR",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "Employment Type",
+          "IsGroup": false,
+          "Url": "/Hr/EmploymentType/EmploymentTypeView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "HR",
+          "Roles": [ "HR Manager" ]
+        }
+
+
+      ]
+
+    },
+    {
+      "ApplicationName": "Employee",
+      "Url": "/Hr/Employee/EmployeeView",
+      "IsGroup": false,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "HR",
+      "Roles": [ "HR Manager", "HR User" ],
+      "Children": [
+
+      ]
+
+    }
+
+  ]
+
+}

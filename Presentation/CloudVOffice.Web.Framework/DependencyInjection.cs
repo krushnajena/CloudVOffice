@@ -5,6 +5,7 @@ using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
+using CloudVOffice.Services.Customer;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Email;
 using CloudVOffice.Services.EmailTemplates;
@@ -81,8 +82,9 @@ namespace CloudVOffice.Web.Framework
 			#endregion
 			#region Accounts Services
 			services.AddScoped<IFinancialYearService, FinancialYearService>();
-			#endregion
-			return services;
+            services.AddScoped<ICustomerGroupService, CustomerGroupService>();
+            #endregion
+            return services;
 
         }
     }

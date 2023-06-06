@@ -89,15 +89,7 @@
                     type: "success"
                 });
             }
-            else if (message == "@((int)MessageEnum.Duplicate)") {
-                sweetAlert({
-                    html: true,
-                    icon: "warning",
-                    title: "Task",
-                    text: "You Have Already Created a Task. You can add only one Task.",
-                    type: "warning"
-                });
-            }
+           
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,

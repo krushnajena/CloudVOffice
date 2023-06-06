@@ -106,15 +106,7 @@
                     type: "success"
                 });
             }
-            else if (message == "@((int)MessageEnum.Duplicate)") {
-                sweetAlert({
-                    html: true,
-                    icon: "warning",
-                    title: "Time sheet",
-                    text: "You Have Already Created a Time sheet. You can add only one Time sheet.",
-                    type: "warning"
-                });
-            }
+           
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,

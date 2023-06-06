@@ -364,6 +364,27 @@ namespace CloudVOffice.Data.Persistence
              .HasDefaultValue(false)
              .ValueGeneratedNever();
 
+
+
+            modelBuilder.Entity<CustomerGroup>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<CustomerGroup>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            modelBuilder.Entity<Customer>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<Customer>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
             #endregion
 
             #region Project

@@ -1,4 +1,4 @@
-﻿@model CloudVOffice.Data.DTO.Projects.TimesheetActivityCategoryDTO;
+﻿@model CloudVOffice.Data.DTO.Customer.CustomerGroupDTO;
 @{
 	Layout = "_MainAppLayout";
 }
@@ -12,7 +12,7 @@
 					<i class="icon-laptop_windows"></i>
 				</div>
 				<div class="page-title">
-					<h5>Timesheet Activity Category</h5>
+					<h5>Customer Group</h5>
 					@*<h6 class="sub-heading">Welcome to Unify Admin Template</h6>*@
 				</div>
 			</div>
@@ -29,24 +29,24 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="Projects/TimesheetActivityCategory/TimesheetActivityCategoryCreate" method="post" autocomplete="off">
+				<form asp-route="Accounts/CustomerGroup/CustomerGroupCreate" method="post" autocomplete="off">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
 
 
-					<div class="card-header"><b> Timesheet Activity Category</b></div>
+					<div class="card-header"><b> Customer Group</b></div>
 					<div class="card-body">
 						<div class="form-row">
 							<div class="form-group col-md-5">
-								<input asp-for="@Model.TimesheetActivityCategoryId" type="hidden" />
+								<input asp-for="@Model.CustomerGroupId" type="hidden" />
 
-								<label for="TimesheetActivityCategoryName" class="form-label">Timesheet Activity Category Name</label>
-								<input asp-for="@Model.TimesheetActivityCategoryName" type="text" class="form-control" autofocus="autofocus" placeholder="Timesheet Activity Category Name" />
-								<span asp-validation-for="TimesheetActivityCategoryName"></span>
+								<label for="CustomerGroupName" class="form-label">Customer Group Name</label>
+								<input asp-for="@Model.CustomerGroupName" type="text" class="form-control" autofocus="autofocus" placeholder="Customer Group Name" />
+								<span asp-validation-for="CustomerGroupName"></span>
 							</div>
-					    </div>
+						</div>
 					</div>
 
-							
+
 
 					<div class="card-body">
 

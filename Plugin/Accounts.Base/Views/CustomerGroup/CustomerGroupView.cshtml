@@ -11,8 +11,8 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Project</h5>
-                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                    <h5> Customer Group</h5>
+                    @*<h6 class="sub-heading">Welcome to Unify Admin Template</h6>*@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -23,14 +23,24 @@
         </div>
     </div>
 </header>
+
+
 <div class="main-content">
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Task</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            Customer Group
+                        </div>
+                        <div class="col-md-4 text-right float-right">
+                            <a href="/Accounts/CustomerGroup/CustomerGroupCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Customer Group</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
-
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.ProjectTasks"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.CustomerGroups"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -42,14 +52,11 @@
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="Project" headerText="Project" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="TaskName" headerText="TaskName" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Priority" headerText="Priority " textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Progress" headerText="Progress" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="TaskStatus" headerText="Task Status" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
+                            <e-grid-column field="CustomerGroupName" headerText="Customer Group Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
+
                 </div>
             </div>
         </div>
@@ -66,7 +73,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Task",
+                    title: "CustomerGroup",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -75,7 +82,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Task",
+                    title: "CustomerGroup",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -84,17 +91,17 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Task",
+                    title: "CustomerGroup",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
             }
-           
+
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "Task",
+                    title: "CustomerGroup",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -103,7 +110,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Task",
+                    title: "CustomerGroup",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -112,7 +119,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Task",
+                    title: "CustomerGroup",
                     text: message,
                     type: "error"
                 });
@@ -134,21 +141,22 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Projects/ProjectTask/ProjectTaskDelete=" + Id;
+                window.location.href = "../../Accounts/CustomerGroup/CustomerGroupDelete?CustomerGroupId=" + Id;
             }
         })
     }
 </script>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Projects/ProjectTask/ProjectTaskCreate?ProjectTaskId=${ProjectTaskId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-         <button onClick="Delete(${ProjectTaskId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
-       
+        <a href="../../Accounts/CustomerGroup/CustomerGroupCreate?CustomerGroupId=${CustomerGroupId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${CustomerGroupId})" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button >
+
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];

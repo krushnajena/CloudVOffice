@@ -6,6 +6,7 @@ using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
+using CloudVOffice.Services.Customer;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Email;
 using CloudVOffice.Services.EmailTemplates;
@@ -74,7 +75,8 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IProjectUserService, ProjectUserService>();
 			services.AddScoped<IProjectEmployeeService, ProjectEmployeeService>();
 			services.AddScoped<ITimesheetService, TimesheetService>();
-            #endregion
+			services.AddScoped<ITimesheetActivityCategoryService, TimesheetActivityCategoryService>();
+			#endregion
 
             #region Attendance
             services.AddScoped<IShiftTypeService, ShiftTypeService>();
@@ -86,8 +88,9 @@ namespace CloudVOffice.Web.Framework
 			#endregion
 			#region Accounts Services
 			services.AddScoped<IFinancialYearService, FinancialYearService>();
-			#endregion
-			return services;
+            services.AddScoped<ICustomerGroupService, CustomerGroupService>();
+            #endregion
+            return services;
 
         }
     }

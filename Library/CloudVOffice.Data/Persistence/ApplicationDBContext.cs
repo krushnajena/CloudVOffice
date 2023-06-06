@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Core.Domain.Customer;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.EmailTemplates;
 using CloudVOffice.Core.Domain.HR.Attendance;
@@ -114,6 +115,10 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<ChartOfAccounts> ChartOfAccounts{ get; set; }
 
         public virtual DbSet<FinancialYear> FinancialYears { get; set; }
+
+        public virtual DbSet<CustomerGroup> CustomerGroups { get; set; }
+
+        public virtual DbSet<Customer> Customers { get; set; }
 
         #endregion
 

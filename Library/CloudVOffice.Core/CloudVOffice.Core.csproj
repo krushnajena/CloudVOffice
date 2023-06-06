@@ -34,7 +34,6 @@
 	  <Folder Include="Domain\Address\" />
 	  <Folder Include="Domain\Contact\" />
 	  <Folder Include="Domain\CRM\" />
-	  <Folder Include="Domain\Customer\" />
 	</ItemGroup>
 	
 

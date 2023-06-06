@@ -24,6 +24,7 @@
 
 		public const string Employee = "Employee";
 		public const string DesktopMonitoring = "DesktopMonitoring";
+		public const string Attendance = "Attendance";
 
 	}
 }

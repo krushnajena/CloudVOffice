@@ -2,6 +2,7 @@
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Accounts;
 using CloudVOffice.Services.Applications;
+using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
@@ -45,6 +46,7 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 			services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
 			services.AddScoped<IEmailService, EmailService>();
+			
 
 
 
@@ -72,10 +74,14 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IProjectUserService, ProjectUserService>();
 			services.AddScoped<IProjectEmployeeService, ProjectEmployeeService>();
 			services.AddScoped<ITimesheetService, TimesheetService>();
-			#endregion
+            #endregion
 
-			#region DesktopLogin
-			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+            #region Attendance
+            services.AddScoped<IShiftTypeService, ShiftTypeService>();
+            #endregion
+
+            #region DesktopLogin
+            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
 			#endregion
 			#region Accounts Services

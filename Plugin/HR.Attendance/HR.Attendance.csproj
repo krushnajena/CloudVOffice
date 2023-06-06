@@ -16,10 +16,8 @@
 		<None Remove="logo.png" />
 		<None Remove="plugin.json" />
 		<None Remove="roles.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Controllers\" />
+		<None Remove="Views\ShiftTypeCreate.cshtml" />
+		<None Remove="Views\ShiftTypeView.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,6 +44,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web.Framework\CloudVOffice.Web.Framework.csproj" />
 		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">

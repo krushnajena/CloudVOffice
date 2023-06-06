@@ -33,16 +33,13 @@
                     <div class="row">
                            <div class="col-md-8">
                                Timesheet Activity Category
-                           </div>
-                          
+                           </div>                          
                            <div class="col-md-4 text-right float-right">
                                <a href="/Projects/TimesheetActivityCategory/TimesheetActivityCategoryCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Timesheet Activity Category</a>
                            </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    
-
+                <div class="card-body">                    
                     <ejs-grid id="GridOverview" dataSource="ViewBag.TimesheetActivityCategories"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
@@ -52,13 +49,9 @@
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
-
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
-
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-
-
                             <e-grid-column field="TimesheetActivityCategoryName" headerText="Timesheet Activity Category Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>

@@ -98,15 +98,7 @@
                     type: "success"
                 });
             }
-            else if (message == "@((int)MessageEnum.Duplicate)") {
-                sweetAlert({
-                    html: true,
-                    icon: "warning",
-                    title: "Project",
-                    text: "You Have Already Created a Project. You can add only one Project.",
-                    type: "warning"
-                });
-            }
+           
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,

@@ -369,8 +369,8 @@ namespace CloudVOffice.Services.Projects
 
 
 
-				  .Where(x => x.Deleted == false && (
-				  x.Project.ProjectEmployees.Any(d => d.EmployeeId == EmployeeId && d.Deleted == false && x.ExpectedEndDate < x.ComplitedOn))).ToList();
+				  .Where(x => x.Deleted == false && 
+				   x.EmployeeId == EmployeeId  &&   (( x.ExpectedEndDate < x.ComplitedOn) || (x.ComplitedOn == null && x.ExpectedEndDate.Value.Date< DateTime.Today)  )).ToList();
 
 
 			}

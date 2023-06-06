@@ -17,10 +17,8 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="roles.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <None Remove="Views\CustomerGroup\CustomerGroupCreate.cshtml" />
+    <None Remove="Views\CustomerGroup\CustomerGroupView.cshtml" />
   </ItemGroup>
 
 	<ItemGroup>

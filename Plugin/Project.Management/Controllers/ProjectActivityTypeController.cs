@@ -17,17 +17,23 @@ namespace Project.Management.Controllers
 	public class ProjectActivityTypeController : BasePluginController
 	{
 		private readonly IProjectActivityTypeService _projectActivityTypeService;
-		public ProjectActivityTypeController(IProjectActivityTypeService projectActivityTypeService)
+		private readonly ITimesheetActivityCategoryService _timesheetActivityCategoryService;
+		public ProjectActivityTypeController(IProjectActivityTypeService projectActivityTypeService,
+            ITimesheetActivityCategoryService timesheetActivityCategoryService
+            )
 		{
 
 			_projectActivityTypeService = projectActivityTypeService;
-		}
+            _timesheetActivityCategoryService = timesheetActivityCategoryService;
+
+        }
 		[HttpGet]
 		public IActionResult ProjectActivityTypeCreate(int? projectActivityTypeId)
 		{
 			ProjectActivityTypeDTO projectActivityTypeDTO = new ProjectActivityTypeDTO();
+			ViewBag.ActivityCategoryId = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 
-			if (projectActivityTypeId != null)
+            if (projectActivityTypeId != null)
 			{
 
 				ProjectActivityType d = _projectActivityTypeService.GetProjectActivityTypeByProjectActivityTypeId(int.Parse(projectActivityTypeId.ToString()));

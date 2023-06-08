@@ -1,6 +1,9 @@
 ﻿@model CloudVOffice.Data.DTO.Projects.ProjectActivityTypeDTO;
+@using System.Collections;
+@using Newtonsoft.Json;
 @{
 	Layout = "_MainAppLayout";
+
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -47,38 +50,11 @@
 
 							<div class="form-group col-md-3">
 								<label for="ActivityCategory" class="form-label">Activity Category</label>
-								<select asp-for="@Model.ActivityCategory" class="form-control">
-									<option value="">--Select--</option>
-									<option vlaue="Project Work">Project Work</option>
-									<option vlaue="Counselling /Discussion">Counselling /Discussion</option>
-									<option vlaue="Documentation/Report/Policy/SOP/MIS">Documentation/Report/Policy/SOP/MIS</option>
 
-
-									<option value="Event Management & Participation">Event Management & Participation</option>
-									<option value="Imaginar">Imaginar</option>
-									<option value="Interviews">Interviews</option>
-
-									<option value="Project & Process Audit">Project & Process Audit</option>
-									<option value="Review & Monitor/Report Analysis/Meetings">Review & Monitor/Report Analysis/Meetings</option>
-									<option value="RFP Response">RFP Response</option>
-
-
-									<option value="R&D">R&D</option>
-									<option value="Project (CSR)">Project (CSR)</option>
-									<option value="Project (Product)">Project (Product)</option>
-
-									<option value="Townhall">Townhall</option>
-									<option value="Quality Review">Quality Review</option>
-									<option value="Performance Assessment">Performance Assessment</option>
-
-									<option value="Induction/knowledge sharing">Induction/knowledge sharing</option>
-									<option value="Training & Capacity Building">Training & Capacity Building</option>
-									<option value="Annual function">Annual function</option>
-
-
-									<option value="Meetings & Reviews">Meetings & Reviews</option>
-									<option value="Travel for office Tour">Travel for office Tour</option>
-								</select>
+								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.ActivityCategory" filtering="onActivityCategoryfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ActivityCategory, "TimesheetActivityCategoryId", "TimesheetActivityCategoryName").Items)" placeholder="Select a Activity Category" popupHeight="220px">
+									<e-dropdownlist-fields text="TimesheetActivityCategoryName" value="TimesheetActivityCategoryId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+							
 								<span asp-validation-for="ActivityCategory"></span>
 							</div>
 
@@ -102,3 +78,11 @@
 	</div>
 
 </div>
+
+<script>
+	function onActivityCategoryfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('TimesheetActivityCategoryName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ActivityCategory)), query);
+	}
+</script>

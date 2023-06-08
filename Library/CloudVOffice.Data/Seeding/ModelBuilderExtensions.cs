@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.EmailTemplates;
 using CloudVOffice.Core.Domain.Pemission;
+using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -2222,6 +2223,213 @@ namespace CloudVOffice.Data.Seeding
 
 
 
+
+            #endregion
+
+
+            #region Project Timesheet Activity Category
+
+            modelBuilder.Entity<TimesheetActivityCategory>(b =>
+            {
+                b.HasKey(e => e.TimesheetActivityCategoryId);
+
+                b.HasData(
+                    new TimesheetActivityCategory
+                    {
+                        TimesheetActivityCategoryId = 1,
+                        TimesheetActivityCategoryName = "Project Work",
+                        CreatedBy = 1,
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+
+                    },
+
+
+                    new TimesheetActivityCategory
+                    {
+                        TimesheetActivityCategoryId = 2,
+                        TimesheetActivityCategoryName = "Counselling /Discussion",
+                        CreatedBy = 1,
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+
+                    },
+                    new TimesheetActivityCategory
+                    {
+                        TimesheetActivityCategoryId = 3,
+                        TimesheetActivityCategoryName = "Documentation/Report/Policy/SOP/MIS",
+                        CreatedBy = 1,
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+
+                    },
+                    new TimesheetActivityCategory
+                    {
+                        TimesheetActivityCategoryId = 4,
+                        TimesheetActivityCategoryName = "Event Management & Participation",
+                        CreatedBy = 1,
+                        CreatedDate = DateTime.Now,
+                        Deleted = false,
+
+                    },
+                     new TimesheetActivityCategory
+                     {
+                         TimesheetActivityCategoryId = 5,
+                         TimesheetActivityCategoryName = "Imaginar",
+                         CreatedBy = 1,
+                         CreatedDate = DateTime.Now,
+                         Deleted = false,
+
+                     },
+                      new TimesheetActivityCategory
+                      {
+                          TimesheetActivityCategoryId = 6,
+                          TimesheetActivityCategoryName = "Interviews",
+                          CreatedBy = 1,
+                          CreatedDate = DateTime.Now,
+                          Deleted = false,
+
+                      },
+                       new TimesheetActivityCategory
+                       {
+                           TimesheetActivityCategoryId = 7,
+                           TimesheetActivityCategoryName = "Project & Process Audit",
+                           CreatedBy = 1,
+                           CreatedDate = DateTime.Now,
+                           Deleted = false,
+
+                       },
+                        new TimesheetActivityCategory
+                        {
+                            TimesheetActivityCategoryId = 8,
+                            TimesheetActivityCategoryName = "Review & Monitor/Report Analysis/Meetings",
+                            CreatedBy = 1,
+                            CreatedDate = DateTime.Now,
+                            Deleted = false,
+
+                        },
+                         new TimesheetActivityCategory
+                         {
+                             TimesheetActivityCategoryId = 9,
+                             TimesheetActivityCategoryName = "RFP Response",
+                             CreatedBy = 1,
+                             CreatedDate = DateTime.Now,
+                             Deleted = false,
+
+                         },
+                          new TimesheetActivityCategory
+                          {
+                              TimesheetActivityCategoryId = 10,
+                              TimesheetActivityCategoryName = "Project Work",
+                              CreatedBy = 1,
+                              CreatedDate = DateTime.Now,
+                              Deleted = false,
+
+                          },
+                           new TimesheetActivityCategory
+                           {
+                               TimesheetActivityCategoryId = 11,
+                               TimesheetActivityCategoryName = "R&D",
+                               CreatedBy = 1,
+                               CreatedDate = DateTime.Now,
+                               Deleted = false,
+
+                           },
+                            new TimesheetActivityCategory
+                            {
+                                TimesheetActivityCategoryId = 12,
+                                TimesheetActivityCategoryName = "Project (CSR)",
+                                CreatedBy = 1,
+                                CreatedDate = DateTime.Now,
+                                Deleted = false,
+
+                            },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 13,
+                                 TimesheetActivityCategoryName = "Project (Product)",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 14,
+                                 TimesheetActivityCategoryName = "Townhall",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 15,
+                                 TimesheetActivityCategoryName = "Quality Review",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 16,
+                                 TimesheetActivityCategoryName = "Performance Assessment",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 17,
+                                 TimesheetActivityCategoryName = "Induction/knowledge sharing",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 18,
+                                 TimesheetActivityCategoryName = "Training & Capacity Building",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 19,
+                                 TimesheetActivityCategoryName = "Annual function",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             },
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 20,
+                                 TimesheetActivityCategoryName = "Meetings & Reviews",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             }
+                             ,
+                             new TimesheetActivityCategory
+                             {
+                                 TimesheetActivityCategoryId = 21,
+                                 TimesheetActivityCategoryName = "Travel for office Tour",
+                                 CreatedBy = 1,
+                                 CreatedDate = DateTime.Now,
+                                 Deleted = false,
+
+                             }
+
+
+                    );
+            });
 
             #endregion
 

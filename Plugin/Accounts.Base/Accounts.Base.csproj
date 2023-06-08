@@ -19,6 +19,8 @@
     <None Remove="roles.json" />
     <None Remove="Views\CustomerGroup\CustomerGroupCreate.cshtml" />
     <None Remove="Views\CustomerGroup\CustomerGroupView.cshtml" />
+    <None Remove="Views\Customer\CustomerCreate.cshtml" />
+    <None Remove="Views\Customer\CustomerView.cshtml" />
   </ItemGroup>
 
 	<ItemGroup>

@@ -132,7 +132,7 @@ namespace CloudVOffice.Services.Projects
 		{
 			try
 			{
-				var projectTask = _Context.ProjectTasks.Where(x => x.ProjectTaskId == projectTaskDTO.ProjectTaskId && x.TaskName == projectTaskDTO.TaskName && x.Deleted == false).FirstOrDefault();
+				var projectTask = _Context.ProjectTasks.Where(x => x.ProjectTaskId != projectTaskDTO.ProjectTaskId && x.TaskName == projectTaskDTO.TaskName && x.Deleted == false).FirstOrDefault();
 				if (projectTask == null)
 				{
 					var a = _Context.ProjectTasks.Where(x => x.ProjectTaskId == projectTaskDTO.ProjectTaskId).FirstOrDefault();

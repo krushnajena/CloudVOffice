@@ -37,6 +37,7 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
+                              actionComplete="actionComplete"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
@@ -66,6 +67,7 @@
     ${statusDetail(data)}
 </script>
 <script>
+
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {

@@ -1,26 +1,7 @@
 ﻿@model CloudVOffice.Data.DTO.Projects.TimesheetDTO;
 @{
 	Layout = "_MainAppLayout";
-	var activityCategory = new string[] {"Project Work"
-									,"Counselling /Discussion"
-									,"Documentation/Report/Policy/SOP/MIS"
-									,"Event Management & Participation"
-									,"Imaginar"
-									,"Interviews"
-									,"Project & Process Audit"
-									,"Review & Monitor/Report Analysis/Meetings"
-									,"RFP Response"
-									,"R&D"
-									,"Project (CSR)"
-									,"Project (Product)"
-									,"Townhall"
-									,"Quality Review"
-									,"Performance Assessment"
-									,"Induction/knowledge sharing"
-									,"Training & Capacity Building"
-									,"Annual function"
-									,"Meetings & Reviews"
-									,"Travel for office Tour" };
+	
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -70,8 +51,12 @@
 							</div>
 							<div class="form-group col-md-3">
 								<label for="TimesheetActivityType" class="form-label">Activity Category</label>
-								<ejs-dropdownlist id="TimesheetActivityType" allowFiltering="true" ejs-for="@Model.TimesheetActivityType" dataSource="activityCategory" placeholder="Select Activity Category" popupHeight="220px" change="onChangeActivityCategory">
 
+							
+
+
+								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.TimesheetActivityType" filtering="onActivityCategoryfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ActivityCategory, "TimesheetActivityCategoryId", "TimesheetActivityCategoryName").Items)" placeholder="Select a Activity Category" change="onChangeActivityCategory" popupHeight="220px">
+									<e-dropdownlist-fields text="TimesheetActivityCategoryName" value="TimesheetActivityCategoryId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="TimesheetActivityType"></span>
 							</div>
@@ -165,7 +150,11 @@
 </div>
 <script>
 	
-
+	function onActivityCategoryfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('TimesheetActivityCategoryName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ActivityCategory)), query);
+	}
 	//Time Calculation
 	function pad(num) {
 		return ("0" + num).slice(-2);
@@ -199,7 +188,7 @@
 			contentType: "application/json;",
 			dataType: "json",
 			success: function (result) {
-				if (args.value == "Project Work"){
+				if (args.value == "1"){
 					$('#ProjectWork').show();
 					bindProjects();
 				}

@@ -25,4 +25,12 @@ namespace CloudVOffice.Data.DTO.Projects
 	
 		public Int64 CreatedBy { get; set; }
 	}
+	public class ProjectTaskDelayReasonUpdateDTO
+    {
+        public Int64? ProjectTaskId { get; set; }
+
+        public Int64 CreatedBy { get; set; }
+        public string DelayReason { get; set; }
+
+    }
 }

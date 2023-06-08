@@ -88,7 +88,7 @@ namespace Project.Management.Controllers
 				}
 			}
 
-
+			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 			return View("~/Plugins/Project.Management/Views/ProjectActivityType/ProjectActivityTypeCreate.cshtml", projectActivityTypeDTO);
 		}
 		public IActionResult ProjectActivityTypeView()

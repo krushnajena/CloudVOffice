@@ -48,7 +48,7 @@ namespace HR.Base.Controllers
 		{
 			EmployeeCreateDTO employeeCreateDTO = new EmployeeCreateDTO();
 			
-			var department = _departmentService.GetAllDepartmentGroups();
+			var department = _departmentService.GetDepartmentList();
 			var desgination = _designationService.GetDesignationList();
 			var branch = _branchService.GetBranches();
 			var employmentType = _employmentTypeService.GetEmploymentTypes();
@@ -179,7 +179,7 @@ namespace HR.Base.Controllers
 			}
 
 			ViewBag.Employee = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmployees(), "EmployeeId", "EmployeeName");
-			var department = _departmentService.GetAllDepartmentGroups();
+			var department = _departmentService.GetDepartmentList();
 			var desgination = _designationService.GetDesignationList();
 			var branch = _branchService.GetBranches();
 			var employmentType = _employmentTypeService.GetEmploymentTypes();
@@ -209,7 +209,7 @@ namespace HR.Base.Controllers
 
 			var a = _empolyeeService.DeleteEmployee(employeeid, DeletedBy);
             TempData["msg"] = a;
-            return Redirect("/HR/Emplyoee/EmployeeView");
+            return Redirect("/HR/Employee/EmployeeView");
 		}
 	}
 }

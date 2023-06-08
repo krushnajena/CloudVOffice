@@ -13,11 +13,11 @@ namespace Accounts.Base.Controllers
     [Area(AreaNames.Accounts)]
     public class FinancialYearController : BasePluginController
     {
-        private readonly IFinancialYearService _FinancialYearService;
-        public FinancialYearController(IFinancialYearService FinancialYearService)
+        private readonly IFinancialYearService _financialYearService;
+        public FinancialYearController(IFinancialYearService financialYearService)
         {
 
-            _FinancialYearService = FinancialYearService;
+            _financialYearService = financialYearService;
         }
         [HttpGet]
 
@@ -28,7 +28,7 @@ namespace Accounts.Base.Controllers
             if (FinancialYearId != null)
             {
 
-                FinancialYear d = _FinancialYearService.GetFinancialYearByFinancialYearId(int.Parse(FinancialYearId.ToString()));
+                FinancialYear d = _financialYearService.GetFinancialYearByFinancialYearId(int.Parse(FinancialYearId.ToString()));
 
                 FinancialYearDTO.FinancialYearName = d.FinancialYearName;
 
@@ -40,16 +40,16 @@ namespace Accounts.Base.Controllers
 
         [HttpPost]
      
-        public IActionResult FinancialYearCreate(FinancialYearDTO FinancialYearDTO)
+        public IActionResult FinancialYearCreate(FinancialYearDTO financialYearDTO)
         {
-            FinancialYearDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            financialYearDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
 
             if (ModelState.IsValid)
             {
-                if (FinancialYearDTO.FinancialYearName == null)
+                if (financialYearDTO.FinancialYearId == null)
                 {
-                    var a = _FinancialYearService.CreateFinancialYear(FinancialYearDTO);
+                    var a = _financialYearService.CreateFinancialYear(financialYearDTO);
                     if (a == MessageEnum.Success)
                     {
                         TempData["msg"] = MessageEnum.Success;
@@ -68,7 +68,7 @@ namespace Accounts.Base.Controllers
                 }
                 else
                 {
-                    var a = _FinancialYearService.FinancialYearUpdate(FinancialYearDTO);
+                    var a = _financialYearService.FinancialYearUpdate(financialYearDTO);
                     if (a == MessageEnum.Updated)
                     {
                         TempData["msg"] = MessageEnum.Updated;
@@ -86,24 +86,24 @@ namespace Accounts.Base.Controllers
                     }
                 }
             }
-            return View("~/Plugins/Accounts.Base/Views/FinancialYear/FinancialYearCreate.cshtml", FinancialYearDTO);
+            return View("~/Plugins/Accounts.Base/Views/FinancialYear/FinancialYearCreate.cshtml", financialYearDTO);
         }
 
        
         public IActionResult FinancialYearView()
         {
-            ViewBag.FinancialYears = _FinancialYearService.GetFinancialYearList();
+            ViewBag.financialYears = _financialYearService.GetFinancialYearList();
 
             return View("~/Plugins/Accounts.Base/Views/FinancialYear/FinancialYearView.cshtml");
         }
 
         [HttpGet]
      
-        public IActionResult FinancialYearDelete(int FinancialYearId)
+        public IActionResult FinancialYearDelete(int financialYearId)
         {
-            Int64 DeletedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-            var a = _FinancialYearService.FinancialYearDelete(FinancialYearId, DeletedBy);
+            var a = _financialYearService.FinancialYearDelete(financialYearId, DeletedBy);
             TempData["msg"] = a;
             return Redirect("/Accounts/FinancialYear/FinancialYearView");
         }

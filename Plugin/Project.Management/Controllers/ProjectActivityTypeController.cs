@@ -17,23 +17,29 @@ namespace Project.Management.Controllers
 	public class ProjectActivityTypeController : BasePluginController
 	{
 		private readonly IProjectActivityTypeService _projectActivityTypeService;
-		public ProjectActivityTypeController(IProjectActivityTypeService projectActivityTypeService)
+		private readonly ITimesheetActivityCategoryService _timesheetActivityCategoryService;
+		public ProjectActivityTypeController(IProjectActivityTypeService projectActivityTypeService,
+            ITimesheetActivityCategoryService timesheetActivityCategoryService
+            )
 		{
 
 			_projectActivityTypeService = projectActivityTypeService;
-		}
+            _timesheetActivityCategoryService = timesheetActivityCategoryService;
+
+        }
 		[HttpGet]
 		public IActionResult ProjectActivityTypeCreate(int? projectActivityTypeId)
 		{
 			ProjectActivityTypeDTO projectActivityTypeDTO = new ProjectActivityTypeDTO();
+			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 
-			if (projectActivityTypeId != null)
+            if (projectActivityTypeId != null)
 			{
 
 				ProjectActivityType d = _projectActivityTypeService.GetProjectActivityTypeByProjectActivityTypeId(int.Parse(projectActivityTypeId.ToString()));
 
 				projectActivityTypeDTO.ProjectActivityName = d.ProjectActivityName;
-				projectActivityTypeDTO.ActivityCategory = d.ActivityCategory;
+				projectActivityTypeDTO.ActivityCategory = d.ActivityCategoryId;
 
 			}
 
@@ -82,7 +88,7 @@ namespace Project.Management.Controllers
 				}
 			}
 
-
+			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 			return View("~/Plugins/Project.Management/Views/ProjectActivityType/ProjectActivityTypeCreate.cshtml", projectActivityTypeDTO);
 		}
 		public IActionResult ProjectActivityTypeView()
@@ -101,7 +107,7 @@ namespace Project.Management.Controllers
 			return Redirect("/Projects/ProjectActivityType/ProjectActivityTypeView");
 		}
 
-		public JsonResult GetProjectActivityTypesByActivityCategory(string ActivityCategory)
+		public JsonResult GetProjectActivityTypesByActivityCategory(int ActivityCategory)
 		{
 			return Json(_projectActivityTypeService.GetProjectActivityTypesByActivityCategory(ActivityCategory));
 		}

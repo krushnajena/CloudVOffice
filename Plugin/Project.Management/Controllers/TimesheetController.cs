@@ -24,7 +24,9 @@ namespace Project.Management.Controllers
         private readonly IProjectActivityTypeService _projectActivityTypeService;
         private readonly IProjectService _projectService;
         private readonly IProjectTaskService _projectTaskService;
-        public TimesheetController(ITimesheetService timesheetService, IEmployeeService employeeService, IProjectActivityTypeService projectActivityTypeService, IProjectService projectService, IProjectTaskService projectTaskService)
+        private readonly ITimesheetActivityCategoryService _timesheetActivityCategoryService;
+        public TimesheetController(ITimesheetService timesheetService, IEmployeeService employeeService, IProjectActivityTypeService projectActivityTypeService, IProjectService projectService, IProjectTaskService projectTaskService,
+			 ITimesheetActivityCategoryService timesheetActivityCategoryService)
         {
 
             _timesheetService = timesheetService;
@@ -32,13 +34,15 @@ namespace Project.Management.Controllers
             _projectActivityTypeService = projectActivityTypeService;
             _projectService = projectService;
             _projectTaskService = projectTaskService;
-        }
+			_timesheetActivityCategoryService = timesheetActivityCategoryService;
+
+		}
         [HttpGet]
         public IActionResult TimesheetCreate(Int64? timesheetId)
         {
             TimesheetDTO timesheetDTO = new TimesheetDTO();
-
-            if (timesheetId != null)
+			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
+			if (timesheetId != null)
             {
 
                 Timesheet d = _timesheetService.GetTimesheetByTimesheetId(Int64.Parse(timesheetId.ToString()));
@@ -115,9 +119,9 @@ namespace Project.Management.Controllers
                     }
                 }
             }
+			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 
-
-            return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
+			return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
         }
         public IActionResult TimesheetView()
         {
@@ -156,7 +160,7 @@ namespace Project.Management.Controllers
                        {
                            Timesheetdate = u.CreatedDate,
                            EmployeeName = u.Employee.FullName,
-                           ActvityCategory = u.ProjectActivityType.ActivityCategory,
+                           ActvityCategory = u.ProjectActivityType.ActivityCategoryId,
                            ActvityName = u.ProjectActivityType.ProjectActivityName,
                            Project = u.Project,
                            Task = u.ProjectTask,

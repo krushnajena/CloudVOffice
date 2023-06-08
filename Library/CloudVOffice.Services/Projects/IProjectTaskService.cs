@@ -32,6 +32,7 @@ namespace CloudVOffice.Services.Projects
         public List<ProjectTask> GetTasksForDelayValidation(Int64? Userid, Int64? EmployeeId);
 
 		public MessageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO);
+		public MessageEnum TaskDelayReasonUpdate(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO);
 
 	}
 }

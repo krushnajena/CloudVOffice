@@ -181,7 +181,7 @@ namespace CloudVOffice.Services.Users
                     users.MiddleName = userCreateDTO.MiddleName;
                     users.LastName = userCreateDTO.LastName;
                     users.Email = userCreateDTO.Email;
-                    //users.Password = Encrypt.EncryptPassword(userCreateDTO.Password, userCreateDTO.Email) ;
+                    //users.Password = Encrypt.EncryptPassword("Appman@2019", userCreateDTO.Email) ;
                     users.PhoneNo = userCreateDTO.PhoneNo;
                     users.DateOfBirth = userCreateDTO.DateOfBirth;
                     users.UserTypeId = userCreateDTO.UserTypeId;

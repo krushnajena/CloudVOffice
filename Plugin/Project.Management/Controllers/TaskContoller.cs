@@ -56,38 +56,49 @@ namespace Project.Management.Controllers
         {
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
-            var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
-			
-
-
-			if (projectTaskId != null)
+            Int64 EmployeeId = 0;
+            Employee employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
             {
+                EmployeeId = employee.EmployeeId;
 
-                ProjectTask d = _projectTaskService.GetProjectTaskByProjectTaskId(Int64.Parse(projectTaskId.ToString()));
+                var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
 
-                projectTaskDTO.ProjectId = d.ProjectId;
-                projectTaskDTO.TaskName = d.TaskName;
-                projectTaskDTO.Priority = d.Priority;
-                projectTaskDTO.ParentTaskId = d.ParentTaskId;
-                projectTaskDTO.IsGroup = d.IsGroup;
-                projectTaskDTO.ExpectedStartDate = d.ExpectedStartDate;
-                projectTaskDTO.ExpectedEndDate = d.ExpectedEndDate;
-                projectTaskDTO.ExpectedTimeInHours = d.ExpectedTimeInHours;
-                projectTaskDTO.Progress = d.Progress;
-            
 
+
+                if (projectTaskId != null)
+                {
+
+                    ProjectTask d = _projectTaskService.GetProjectTaskByProjectTaskId(Int64.Parse(projectTaskId.ToString()));
+
+                    projectTaskDTO.ProjectId = d.ProjectId;
+                    projectTaskDTO.TaskName = d.TaskName;
+                    projectTaskDTO.Priority = d.Priority;
+                    projectTaskDTO.ParentTaskId = d.ParentTaskId;
+                    projectTaskDTO.IsGroup = d.IsGroup;
+                    projectTaskDTO.ExpectedStartDate = d.ExpectedStartDate;
+                    projectTaskDTO.ExpectedEndDate = d.ExpectedEndDate;
+                    projectTaskDTO.ExpectedTimeInHours = d.ExpectedTimeInHours;
+                    projectTaskDTO.Progress = d.Progress;
+
+
+                }
+
+
+                ViewBag.Projects = from u in projects
+                                   select new
+                                   {
+                                       u.ProjectId,
+                                       u.ProjectName
+                                   };
+
+                return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
             }
-           
-
-            ViewBag.Projects = from u in projects
-                               select new
-                               {
-                                   u.ProjectId,
-                                   u.ProjectName
-                               };
-
-            return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
+            else
+            {
+                return Redirect("/Projects/Task/TaskView");
+            }
+               
 
         }
         [HttpPost]
@@ -316,6 +327,12 @@ namespace Project.Management.Controllers
 
         }
 
+        public JsonResult NotCanceledTasksByProjectId(int ProjectId)
+        {
+            var a = _projectTaskService.NotCanceledTasksByProjectId(ProjectId);
+
+            return Json(a);
+        }
 
     }
 }

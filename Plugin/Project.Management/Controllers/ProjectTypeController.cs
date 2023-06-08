@@ -56,14 +56,17 @@ namespace Project.Management.Controllers
                     var a = _projecttypeService.ProjectTypeCreate(projecttypeDTO);
                     if (a == MessageEnum.Success)
                     {
+                        TempData["msg"] = MessageEnum.Success;
                         return Redirect("/Projects/ProjectType/ProjectTypeView");
                     }   
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "ProjectType Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -72,14 +75,17 @@ namespace Project.Management.Controllers
                     var a = _projecttypeService.ProjectTypeUpdate(projecttypeDTO);
                     if (a == MessageEnum.Updated)
                     {
+                        TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/Projects/ProjectType/ProjectTypeView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
+                        TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "ProjectType Already Exists");
                     }
                     else
                     {
+                        TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
@@ -100,6 +106,7 @@ namespace Project.Management.Controllers
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _projecttypeService.ProjectTypeDelete(projectTypeId, DeletedBy);
+            TempData["msg"] = a;
             return Redirect("/Projects/ProjectType/ProjectTypeView");
         }
     }

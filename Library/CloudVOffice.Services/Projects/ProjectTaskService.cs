@@ -369,8 +369,8 @@ namespace CloudVOffice.Services.Projects
 
 
 
-				  .Where(x => x.Deleted == false && (
-				  x.Project.ProjectEmployees.Any(d => d.EmployeeId == EmployeeId && d.Deleted == false && x.ExpectedEndDate < x.ComplitedOn))).ToList();
+				  .Where(x => x.Deleted == false && 
+				   x.EmployeeId == EmployeeId  &&   (( x.ExpectedEndDate < x.ComplitedOn) || (x.ComplitedOn == null && x.ExpectedEndDate.Value.Date< DateTime.Today)  )).ToList();
 
 
 			}
@@ -380,6 +380,33 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
+        public MessageEnum TaskDelayReasonUpdate(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO)
+        {
+            try
+            {
+              
+                    var a = _Context.ProjectTasks.Where(x => x.ProjectTaskId == projectTaskDelayReasonUpdateDTO.ProjectTaskId).FirstOrDefault();
+                    if (a != null)
+                    {
+                      
+                        a.DelayReason = projectTaskDelayReasonUpdateDTO.DelayReason;
+						a.IsDelayApproved = 0;
+					
+						a.UpdatedBy = projectTaskDelayReasonUpdateDTO.CreatedBy;
+                        a.UpdatedDate = DateTime.Now;
+                        _Context.SaveChanges();
+                        return MessageEnum.Updated;
+                    }
+                    else
+                        return MessageEnum.Invalid;
+                
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }
 	

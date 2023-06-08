@@ -1,0 +1,126 @@
+﻿@{
+	Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CloudVOffice.Data.DTO.Accounts.ChartOfAccountsDTO;
+
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>CRM Dashboard</h5>
+					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">Last Login: 2 hours ago</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Accounts/ChartOfAccounts/ChartOfAccountsCreate" method="post" autocomplete="off">
+					<div asp-
+						 ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>Basic Info</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<input asp-for="@Model.ChartOfAccountsId" type="hidden" />
+
+								<label for="AccountName" class="form-label">Account Name</label>
+								<input asp-for="@Model.AccountName" type="text" class="form-control" autofocus="autofocus" placeholder="Account Name" />
+								<span asp-validation-for="AccountName"></span>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="AccountNumber" class="form-label">Account Number</label>
+								<input asp-for="@Model.AccountNumber" type="text" class="form-control" autofocus="autofocus" placeholder="Account Number" />
+								<span asp-validation-for="AccountNumber"></span>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="IsGroup" class="form-label">IsGroup</label>
+								<select input asp-for="@Model.IsGroup" type="text" class="form-control" autofocus="autofocus" placeholder="IsGroup">
+									<option value="True">True</option>
+									<option value="False">False</option>
+									
+								</select>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="RootType" class="form-label">RootType</label>
+								<input asp-for="@Model.RootType" type="text" class="form-control" autofocus="autofocus" placeholder="RootType" />
+								<span asp-validation-for="RootType"></span>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="ReportType" class="form-label">Report Type</label>
+								<input asp-for="@Model.ReportType" type="text" class="form-control" autofocus="autofocus" placeholder="Report Type" />
+								<span asp-validation-for="ReportType"></span>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="ParentAccountGroupId" class="form-label">ParentAccountGroup Id</label>
+								<input asp-for="@Model.ParentAccountGroupId" type="text" class="form-control" autofocus="autofocus" placeholder="ParentAccountGroup Id" />
+								<span asp-validation-for="ParentAccountGroupId"></span>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="AccountType" class="form-label">Account Type</label>
+								<input asp-for="@Model.AccountType" type="text" class="form-control" autofocus="autofocus" placeholder="Account Type" />
+								<span asp-validation-for="AccountType"></span>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="TaxRate" class="form-label">TaxRate</label>
+								<input asp-for="@Model.TaxRate" type="text" class="form-control" autofocus="autofocus" placeholder="TaxRate" />
+								<span asp-validation-for="TaxRate"></span>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="BalanceMustBe" class="form-label">BalanceMustBe</label>
+								<input asp-for="@Model.BalanceMustBe" type="text" class="form-control" autofocus="autofocus" placeholder="BalanceMustBe" />
+								<span asp-validation-for="BalanceMustBe"></span>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>

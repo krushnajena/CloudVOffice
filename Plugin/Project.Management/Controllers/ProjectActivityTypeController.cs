@@ -31,7 +31,7 @@ namespace Project.Management.Controllers
 		public IActionResult ProjectActivityTypeCreate(int? projectActivityTypeId)
 		{
 			ProjectActivityTypeDTO projectActivityTypeDTO = new ProjectActivityTypeDTO();
-			ViewBag.ActivityCategoryId = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
+			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 
             if (projectActivityTypeId != null)
 			{
@@ -39,7 +39,7 @@ namespace Project.Management.Controllers
 				ProjectActivityType d = _projectActivityTypeService.GetProjectActivityTypeByProjectActivityTypeId(int.Parse(projectActivityTypeId.ToString()));
 
 				projectActivityTypeDTO.ProjectActivityName = d.ProjectActivityName;
-				projectActivityTypeDTO.ActivityCategory = d.ActivityCategory;
+				projectActivityTypeDTO.ActivityCategory = d.ActivityCategoryId;
 
 			}
 
@@ -107,7 +107,7 @@ namespace Project.Management.Controllers
 			return Redirect("/Projects/ProjectActivityType/ProjectActivityTypeView");
 		}
 
-		public JsonResult GetProjectActivityTypesByActivityCategory(string ActivityCategory)
+		public JsonResult GetProjectActivityTypesByActivityCategory(int ActivityCategory)
 		{
 			return Json(_projectActivityTypeService.GetProjectActivityTypesByActivityCategory(ActivityCategory));
 		}

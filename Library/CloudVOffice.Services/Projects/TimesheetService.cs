@@ -60,7 +60,7 @@ namespace CloudVOffice.Services.Projects
                          .Include(x => x.Employee)
                          .Include(x => x.ProjectActivityType)
                          .Include(x => x.Project)
-                         .Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType == "Project Work"
+                         .Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType ==1
                                                             && x.TimeSheetApprovalStatus == 0
                                                             && x.Deleted == false
                                                             && x.Project.ProjectManager == EmployeeId && x.Project.ProjectManager != x.EmployeeId)
@@ -71,17 +71,17 @@ namespace CloudVOffice.Services.Projects
 						.Include(x => x.Employee)
 						.Include(x => x.ProjectActivityType)
 						.Include(x => x.Project)
-						.Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType == "Project Work"
+						.Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType == 1
 														   && x.TimeSheetApprovalStatus == 0
 														   && x.Deleted == false
-														   && x.Project.ProjectManager == EmployeeId && x.Project.ProjectManager == x.EmployeeId &&   x.Employee.ReportingAuthority == EmployeeId)
+                                                           && x.Project.ProjectManager == x.EmployeeId &&   x.Employee.ReportingAuthority == EmployeeId)
 
 				   .ToList();
 
 
 				var otherThenProjectTimesheet = _Context.Timesheets
                                                .Include(x => x.Employee)
-                                               .Include(x => x.ProjectActivityType).Where(x => x.TimesheetActivityType != "Project Work"
+                                               .Include(x => x.ProjectActivityType).Where(x => x.TimesheetActivityType !=1
                                                             && x.TimeSheetApprovalStatus == 0
                                                             && x.Deleted == false
                                                             && x.Employee.ReportingAuthority ==  EmployeeId);

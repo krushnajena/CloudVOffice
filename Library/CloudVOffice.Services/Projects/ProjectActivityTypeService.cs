@@ -60,11 +60,11 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-		public List<ProjectActivityType> GetProjectActivityTypesByActivityCategory(string activityCategory)
+		public List<ProjectActivityType> GetProjectActivityTypesByActivityCategory(int activityCategory)
 		{
 			try
 			{
-				return _Context.ProjectActivityTypes.Where(x => x.Deleted == false && x.ActivityCategory == activityCategory).ToList();
+				return _Context.ProjectActivityTypes.Where(x => x.Deleted == false && x.ActivityCategoryId == activityCategory).ToList();
 			}
 			catch
 			{
@@ -83,7 +83,7 @@ namespace CloudVOffice.Services.Projects
 					_projectActivityTypeRepo.Insert(new ProjectActivityType()
 					{
 						ProjectActivityName = projectActivityTypeDTO.ProjectActivityName,
-						ActivityCategory = projectActivityTypeDTO.ActivityCategory,
+						ActivityCategoryId = projectActivityTypeDTO.ActivityCategory,
 						CreatedBy = projectActivityTypeDTO.CreatedBy,
 						CreatedDate = DateTime.Now,
 						Deleted = false
@@ -134,7 +134,7 @@ namespace CloudVOffice.Services.Projects
 						a.ProjectActivityName = projectActivityTypeDTO.ProjectActivityName;
 						a.UpdatedBy = projectActivityTypeDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;
-						a.ActivityCategory = projectActivityTypeDTO.ActivityCategory;
+						a.ActivityCategoryId = projectActivityTypeDTO.ActivityCategory;
 						_Context.SaveChanges();
 						return MessageEnum.Updated;
 					}

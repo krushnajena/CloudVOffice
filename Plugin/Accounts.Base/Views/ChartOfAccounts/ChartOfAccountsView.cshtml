@@ -1,8 +1,10 @@
-﻿@using CloudVOffice.Core.Domain.Common;
+﻿
 @{
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
+@using CloudVOffice.Core.Domain.Common;
+
 
 <header class="main-heading">
     <div class="container-fluid">
@@ -31,20 +33,22 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-10">
-                            Shift Types
-                        </div>
-                        <div class="col-md-2 text-right float-right">
-                            <a href="/Accounts/FinancialYear/FinancialYearCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add FinancialYear</a>
 
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                ChartOfAccounts
+                            </div>
+                            <div class="col-md-4 text-right float-right">
+                                <a href="/Accounts/ChartOfAccounts/ChartOfAccountsCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add ChartOfAccounts</a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.FinancialYear"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.ChartOfAccounts"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -60,10 +64,16 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="FinancialYearName" headerText="FinancialYear Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="StartDate" headerText="Start Date" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column field="EndDate" headerText="End Date" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
+                            <e-grid-column field="AccountName" headerText="Account Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="AccountNumber" headerText="Account Number" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="IsGroup" headerText="IsGroup" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="RootType" headerText="Root Type" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ReportType" headerText="Report Type" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ParentAccountGroupId" headerText="ParentAccountGroup Id" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="AccountType" headerText="Account Type" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="TaxRate" headerText="TaxRate" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="BalanceMustBe" headerText="BalanceMustBe" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -73,7 +83,6 @@
     </div>
 
 </div>
-
 @{
 
     if (TempData["msg"] != null)
@@ -84,7 +93,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "FinancialYear",
+                    title: "ChartOfAccounts",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -93,7 +102,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "FinancialYear",
+                    title: "ChartOfAccounts",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -102,25 +111,16 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "FinancialYear",
+                    title: "ChartOfAccounts",
                     text: "Successfully Deleted.",
                     type: "success"
-                });
-            }
-            else if (message == "@((int)MessageEnum.AlreadyCreate)") {
-                sweetAlert({
-                    html: true,
-                    icon: "warning",
-                    title: "FinancialYear",
-                    text: "You Have Already Created a Company. You can add only one company.",
-                    type: "warning"
                 });
             }
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "FinancialYear",
+                    title: "ChartOfAccounts",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -129,7 +129,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "FinancialYear",
+                    title: "ChartOfAccounts",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -138,7 +138,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Employee",
+                    title: "ChartOfAccounts",
                     text: message,
                     type: "error"
                 });
@@ -161,22 +161,22 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Accounts/FinancialYear/FinancialYearCreate?FinancialYearId=" + Id;
+                window.location.href = "../../Accounts/ChartOfAccounts/ChartOfAccountsCreate?ChartOfAccountsId=" + Id;
             }
         })
     }
 </script>
 
+
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Accounts/FinancialYear/FinancialYearCreate?FinancialYearId=${FinancialYearId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <a href="../../Accounts/FinancialYear/FinancialYearDelete?FinancialYearId=${FinancialYearId}" onclick="confirm('Do You Really Want to Delete?')"><i class="icon-trash" style="font-size:22px"></i></a>
+        <a href="../../Accounts/ChartOfAccounts/ChartOfAccountsCreate?ChartOfAccountsId=${ChartOfAccountsId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${ChartOfAccountsId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
-
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];

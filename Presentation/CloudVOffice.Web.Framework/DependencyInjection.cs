@@ -86,9 +86,12 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
 			#endregion
+
 			#region Accounts Services
 			services.AddScoped<IFinancialYearService, FinancialYearService>();
             services.AddScoped<ICustomerGroupService, CustomerGroupService>();
+            services.AddScoped<IChartOfAccountsServices, ChartOfAccountsService>();
+
             #endregion
             return services;
 

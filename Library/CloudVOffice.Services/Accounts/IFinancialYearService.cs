@@ -13,12 +13,12 @@ namespace CloudVOffice.Services.Accounts
 {
     public interface IFinancialYearService
     {
-        public MessageEnum CreateFinancialYear(FinancialYearDTO FinancialYearDTO);
+        public MessageEnum CreateFinancialYear(FinancialYearDTO financialYearDTO);
         public List<FinancialYear> GetFinancialYearList();
-		public FinancialYear GetFinancialYearByFinancialYearId(int FinancialYearId);
-		public FinancialYear GetFinancialYearByName( string FinancialYearName);
-        public MessageEnum FinancialYearUpdate(FinancialYearDTO FinancialYearDTO);
-        public MessageEnum FinancialYearDelete(int FinancialYearId, Int64 DeletedBy);
+		public FinancialYear GetFinancialYearByFinancialYearId(Int64 financialYearId);
+		public FinancialYear GetFinancialYearByName( string financialYearName);
+        public MessageEnum FinancialYearUpdate(FinancialYearDTO financialYearDTO);
+        public MessageEnum FinancialYearDelete(Int64 financialYearId, Int64 DeletedBy);
 
     }
 }

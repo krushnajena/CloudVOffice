@@ -17,6 +17,8 @@
     <None Remove="logo.png" />
     <None Remove="plugin.json" />
     <None Remove="roles.json" />
+    <None Remove="Views\ChartOfAccounts\ChartOfAccountsCreate.cshtml" />
+    <None Remove="Views\ChartOfAccounts\ChartOfAccountsView.cshtml" />
     <None Remove="Views\CustomerGroup\CustomerGroupCreate.cshtml" />
     <None Remove="Views\CustomerGroup\CustomerGroupView.cshtml" />
   </ItemGroup>

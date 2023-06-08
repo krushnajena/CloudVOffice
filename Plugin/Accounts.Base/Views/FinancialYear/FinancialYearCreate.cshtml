@@ -1,9 +1,10 @@
-﻿@model CloudVOffice.Data.DTO.Accounts.FinancialYearDTO;
-@{
+﻿@{
 	Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
+@model CloudVOffice.Data.DTO.Accounts.FinancialYearDTO;
 
 <header class="main-heading">
 	<div class="container-fluid">
@@ -41,18 +42,25 @@
 					<div class="card-body">
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<input asp-for="@Model.FinancialYearName" type="hidden" />
+								<input asp-for="@Model.FinancialYearId" type="hidden" />
 
 								<label for="StartDate" class="form-label">Start Date</label>
-								<input asp-for="@Model.StartDate" type="text" class="form-control" autofocus="autofocus" placeholder="FinancialYearName" />
+								<input asp-for="@Model.StartDate" type="date" class="form-control" autofocus="autofocus" placeholder="Start Date" />
 								<span asp-validation-for="StartDate"></span>
 							</div>
 							<div class="form-group col-md-3">
 
 
-								<label for="EndDate" class="form-label">End Date </label>
-								<input asp-for="@Model.EndDate" type="text" class="form-control" autofocus="autofocus" placeholder="FinancialYearName" />
+								<label for="EndDate" class="form-label">End Date</label>
+								<input asp-for="@Model.EndDate" type="date" class="form-control" autofocus="autofocus" placeholder="End Date" />
 								<span asp-validation-for="EndDate"></span>
+							</div>
+							<div class="form-group col-md-3">
+
+
+								<label for="FinancialYearName" class="form-label">FinancialYear Name</label>
+								<input asp-for="@Model.FinancialYearName" type="text" class="form-control" autofocus="autofocus" placeholder="FinancialYear Name" />
+								<span asp-validation-for="FinancialYearName"></span>
 							</div>
 
 						</div>

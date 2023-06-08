@@ -114,7 +114,7 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<AccountType> AccountTypes{ get; set; }
         public virtual DbSet<ChartOfAccounts> ChartOfAccounts{ get; set; }
 
-        public virtual DbSet<FinancialYear> FinancialYears { get; set; }
+        public virtual DbSet<FinancialYear> FinancialYear { get; set; }
 
         public virtual DbSet<CustomerGroup> CustomerGroups { get; set; }
 

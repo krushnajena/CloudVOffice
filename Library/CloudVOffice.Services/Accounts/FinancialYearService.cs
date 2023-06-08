@@ -1,8 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Accounts;
+using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
@@ -19,34 +21,39 @@ namespace CloudVOffice.Services.Accounts
     public class FinancialYearService : IFinancialYearService
     {
         private readonly ApplicationDBContext _Context;
-        private readonly ISqlRepository<FinancialYear> _FinancialYearRepo;
-        public FinancialYearService(ApplicationDBContext Context, ISqlRepository<FinancialYear> FinancialYearRepo)
+        private readonly ISqlRepository<FinancialYear> _financialYearRepo;
+        public FinancialYearService(ApplicationDBContext Context, ISqlRepository<FinancialYear> financialYearRepo)
         {
 
             _Context = Context;
-            _FinancialYearRepo = FinancialYearRepo;
+            _financialYearRepo = financialYearRepo;
         }
-        public MessageEnum CreateFinancialYear(FinancialYearDTO FinancialYearDTO)
+        public MessageEnum CreateFinancialYear(FinancialYearDTO financialYearDTO)
         {
 
+
+            var objCheck = _Context.FinancialYear.SingleOrDefault(opt => opt.FinancialYearId == financialYearDTO.FinancialYearId && opt.Deleted == false);
             try
             {
-                var brach = _Context.FinancialYears.Where(x => x.FinancialYearName == FinancialYearDTO.FinancialYearName && x.Deleted == false).FirstOrDefault();
-                if (brach == null)
+                if (objCheck == null)
                 {
-                    _FinancialYearRepo.Insert(new FinancialYear()
-                    {
-                        FinancialYearName = FinancialYearDTO.FinancialYearName,
-                        StartDate = FinancialYearDTO.StartDate,
-                        EndDate = FinancialYearDTO.EndDate,
-                        CreatedBy = FinancialYearDTO.CreatedBy,
-                        CreatedDate = DateTime.Now,
-                        Deleted = false
-                    });
+
+                    FinancialYear financialYear = new FinancialYear();
+                    financialYear.FinancialYearName = financialYearDTO.FinancialYearName;
+                    financialYear.StartDate = financialYearDTO.StartDate;
+                    financialYear.EndDate = financialYearDTO.EndDate;
+
+                    financialYear.CreatedBy = financialYearDTO.CreatedBy;
+                    var obj = _financialYearRepo.Insert(financialYear);
+
                     return MessageEnum.Success;
                 }
-                else
+                else if (objCheck != null)
+                {
                     return MessageEnum.Duplicate;
+                }
+
+                return MessageEnum.UnExpectedError;
             }
             catch
             {
@@ -54,11 +61,13 @@ namespace CloudVOffice.Services.Accounts
             }
         }
 
-        public MessageEnum FinancialYearDelete(Int64 FinancialYearId, Int64 DeletedBy)
+            
+
+        public MessageEnum FinancialYearDelete(Int64 financialYearId, Int64 DeletedBy)
         {
             try
             {
-                var a = _Context.FinancialYears.Where(x => x.FinancialYearId == FinancialYearId).FirstOrDefault();
+                var a = _Context.FinancialYear.Where(x => x.FinancialYearId == financialYearId  ).FirstOrDefault();
                 if (a != null)
                 {
                     a.Deleted = true;
@@ -74,45 +83,22 @@ namespace CloudVOffice.Services.Accounts
             {
                 throw;
             }
-
         }
 
-		public MessageEnum FinancialYearDelete(int FinancialYearId, Int64 DeletedBy)
+        public MessageEnum FinancialYearUpdate(FinancialYearDTO financialYearDTO)
 		{
 			try
 			{
-				var a = _Context.FinancialYears.Where(x => x.FinancialYearId == FinancialYearId).FirstOrDefault();
-				if (a != null)
+				var financialYears = _Context.FinancialYear.Where(x => x.FinancialYearId != financialYearDTO.FinancialYearId && x.FinancialYearName == financialYearDTO.FinancialYearName && x.Deleted == false).FirstOrDefault();
+				if (financialYears == null)
 				{
-					a.Deleted = true;
-					a.UpdatedBy = DeletedBy;
-					a.UpdatedDate = DateTime.Now;
-					_Context.SaveChanges();
-					return MessageEnum.Deleted;
-				}
-				else
-					return MessageEnum.Invalid;
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		public MessageEnum FinancialYearUpdate(FinancialYearDTO FinancialYearDTO)
-		{
-			try
-			{
-				var FinancialYear = _Context.FinancialYears.Where(x => x.FinancialYearId != FinancialYearDTO.FinancialYearId && x.FinancialYearName == FinancialYearDTO.FinancialYearName && x.Deleted == false).FirstOrDefault();
-				if (FinancialYear == null)
-				{
-					var a = _Context.FinancialYears.Where(x => x.FinancialYearId == FinancialYearDTO.FinancialYearId).FirstOrDefault();
+					var a = _Context.FinancialYear.Where(x => x.FinancialYearId == financialYearDTO.FinancialYearId).FirstOrDefault();
 					if (a != null)
 					{
-						a.FinancialYearName = FinancialYearDTO.FinancialYearName;
-						a.StartDate = FinancialYearDTO.StartDate;
-						a.EndDate = FinancialYearDTO.EndDate;
-						a.UpdatedBy = FinancialYearDTO.CreatedBy;
+						a.FinancialYearName = financialYearDTO.FinancialYearName;
+						a.StartDate = financialYearDTO.StartDate;
+						a.EndDate = financialYearDTO.EndDate;
+						a.UpdatedBy = financialYearDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;
 						
 						_Context.SaveChanges();
@@ -133,11 +119,11 @@ namespace CloudVOffice.Services.Accounts
 			}
 		}
 
-		public FinancialYear GetFinancialYearByFinancialYearId(int FinancialYearId)
+		public FinancialYear GetFinancialYearByFinancialYearId(Int64 financialYearId)
 		{
 			try
 			{
-				return _Context.FinancialYears.Where(x => x.FinancialYearId == FinancialYearId && x.Deleted == false).SingleOrDefault();
+				return _Context.FinancialYear.Where(x => x.FinancialYearId == financialYearId && x.Deleted == false).SingleOrDefault();
 
 			}
 			catch
@@ -146,11 +132,11 @@ namespace CloudVOffice.Services.Accounts
 			}
 		}
 
-		public FinancialYear GetFinancialYearByName(string FinancialYearName)
+		public FinancialYear GetFinancialYearByName(string financialYearName)
         {
             try
             {
-                return _Context.FinancialYears.Where(x => x.FinancialYearName == FinancialYearName && x.Deleted == false).SingleOrDefault();
+                return _Context.FinancialYear.Where(x => x.FinancialYearName == financialYearName && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -163,9 +149,10 @@ namespace CloudVOffice.Services.Accounts
         public List<FinancialYear> GetFinancialYearList()
         {
 
+
             try
             {
-                return _Context.FinancialYears.Where(x => x.Deleted == false).ToList();
+                return _Context.FinancialYear.Where(x => x.Deleted == false).ToList();
 
             }
             catch

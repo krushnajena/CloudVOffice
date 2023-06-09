@@ -6,7 +6,6 @@ using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
-using CloudVOffice.Services.Customer;
 using CloudVOffice.Services.Customert;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Email;
@@ -90,7 +89,7 @@ namespace CloudVOffice.Web.Framework
 
 			#region Accounts Services
 			services.AddScoped<IFinancialYearService, FinancialYearService>();
-            services.AddScoped<ICustomerGroupService, CustomerGroupService>();
+           
             services.AddScoped<IChartOfAccountsServices, ChartOfAccountsService>();
 
             services.AddScoped<ICustomerService, CustomerService>();

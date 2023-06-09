@@ -370,7 +370,7 @@ namespace CloudVOffice.Services.Projects
 
 
 				  .Where(x => x.Deleted == false && 
-				   x.EmployeeId == EmployeeId  &&   (( x.ExpectedEndDate < x.ComplitedOn) || (x.ComplitedOn == null && x.ExpectedEndDate.Value.Date< DateTime.Today)  )).ToList();
+				   x.EmployeeId == EmployeeId ).ToList();
 
 
 			}
@@ -407,6 +407,26 @@ namespace CloudVOffice.Services.Projects
                 throw;
             }
         }
-    }
+
+		public List<ProjectTask> GetTaskList(Int64? EmployeeId)
+		{
+			try
+			{
+				return _Context.ProjectTasks
+					  .Include(a=> a.Project)
+					  .ThenInclude(a=> a.ProjectEmployees)
+					  .Include(a=> a.Employee)
+					   .Where(x => x.Deleted == false &&
+				   x.EmployeeId == EmployeeId ).ToList();
+
+
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+	}
 }
 	

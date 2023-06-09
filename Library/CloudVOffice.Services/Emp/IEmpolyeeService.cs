@@ -23,7 +23,6 @@ namespace CloudVOffice.Services.Emp
 
 		public List<Employee> GetEmployeeSubContinent(Int64 EmployeeId);
 		public Employee GetEmployeeDetailsByUserId(Int64 UserId);
-
-
-    }
+		object GetTaskList(long userId);
+	}
 }

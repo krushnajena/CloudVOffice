@@ -1,7 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
-using CloudVOffice.Core.Domain.Customer;
 using CloudVOffice.Core.Domain.Customert;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.EmailTemplates;

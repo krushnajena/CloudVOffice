@@ -1,0 +1,24 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CloudVOffice.Core.Domain.HR.Attendance
+{
+    public class Holiday : IAuditEntity, ISoftDeletedEntity
+    {
+        public int HolidayId { get; set; }
+        public string HolidayName { get; set;}
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set;}
+        public Int64 CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public Int64? UpdatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public bool Deleted { get; set; }
+
+        public ICollection<HolidayDays> HolidayDays { get; set; }
+    }
+}

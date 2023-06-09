@@ -1,5 +1,7 @@
 ﻿	using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
+using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -325,8 +327,32 @@ namespace CloudVOffice.Services.Projects
 		public List<ProjectTask> GetMYTaskComplitedByOthersReport( Int64? EmployeeId)
 
 		{
-			throw new NotImplementedException();
-		}
+            try
+            {
+
+                return _Context.ProjectTasks
+                        .Include(a => a.Project)
+                        .ThenInclude(a => a.ProjectEmployees)
+                        .Include(a => a.Project)
+                        .ThenInclude(x => x.ProjectUsers)
+                        .Include(a => a.Employee)
+                        .Include(a => a.AssignedTo)
+
+
+
+                    .Where(x => x.Deleted == false 
+				
+                   
+                    && x.EmployeeId != x.ComplitedBy && (x.EmployeeId == EmployeeId || x.ComplitedBy == EmployeeId)
+                    ).ToList();
+
+            }
+            catch
+            {
+                throw;
+            }
+
+        }
 
 
         public List<ProjectTask> GetTasksForDelayValidation(Int64? Userid, Int64? EmployeeId)
@@ -406,6 +432,38 @@ namespace CloudVOffice.Services.Projects
             {
                 throw;
             }
+        }
+
+        public MessageEnum TaskComplitedByOthersReasonUpdate(TaskComplitedByOthersReasonUpdateDTO taskComplitedByOthersReasonUpdateDTO)
+        {
+			try
+			{
+
+                var a = _Context.ProjectTasks.Where(x => x.ProjectTaskId == taskComplitedByOthersReasonUpdateDTO.ProjectTaskId).FirstOrDefault();
+                if (a != null)
+                {
+					if(taskComplitedByOthersReasonUpdateDTO.EmployeeId == a.EmployeeId)
+					{
+                        a.TaskComplitedByOthersReasonByAssign = taskComplitedByOthersReasonUpdateDTO.Reason;
+                    }
+					else
+					{
+                        a.TaskComplitedByOthersReasonByComplitedBy = taskComplitedByOthersReasonUpdateDTO.Reason;
+                    }
+                 
+                    a.UpdatedBy = taskComplitedByOthersReasonUpdateDTO.CreatedBy;
+                    a.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+                    return MessageEnum.Updated;
+                }
+                else
+                    return MessageEnum.Invalid;
+
+            }
+			catch
+			{
+				throw;
+			}
         }
     }
 }

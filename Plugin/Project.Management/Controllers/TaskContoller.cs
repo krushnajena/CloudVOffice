@@ -290,6 +290,7 @@ namespace Project.Management.Controllers
                            ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
                            TaskName = u.TaskName,
                            TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
+                           AssignedTo = u.AssignedTo.FullName,
                            ComplitedBy = u.Employee.FullName,
                            TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
 
@@ -339,6 +340,26 @@ namespace Project.Management.Controllers
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             projectTaskDelayReasonUpdateDTO.CreatedBy = UserId;
             var a = _projectTaskService.TaskDelayReasonUpdate(projectTaskDelayReasonUpdateDTO);
+            return Ok(a);
+        }
+
+        [HttpPost]
+        public IActionResult TaskComplitedByOthersReasonUpdate(TaskComplitedByOthersReasonUpdateDTO taskComplitedByOthersReasonUpdateDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            taskComplitedByOthersReasonUpdateDTO.EmployeeId = EmployeeId;
+            taskComplitedByOthersReasonUpdateDTO.CreatedBy = UserId;
+            var a = _projectTaskService.TaskComplitedByOthersReasonUpdate(taskComplitedByOthersReasonUpdateDTO);
             return Ok(a);
         }
 

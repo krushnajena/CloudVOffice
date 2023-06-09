@@ -10,6 +10,7 @@ using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Logging;
 using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Projects;
+using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.Seeding;
 using Microsoft.EntityFrameworkCore;
@@ -82,6 +83,16 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
 
+        #endregion
+
+        #region Recruitment
+        public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
+        public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
+        public virtual DbSet<JobOpening> JobOpenings { get; set; }
+        public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }
+
+        public virtual DbSet<JobApplication> JobApplications{ get; set; }
+        public virtual DbSet<InterviewType> InterviewTypes { get; set; }
         #endregion
         #endregion
 

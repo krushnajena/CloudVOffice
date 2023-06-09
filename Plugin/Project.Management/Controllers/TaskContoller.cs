@@ -21,17 +21,17 @@ namespace Project.Management.Controllers
     {
 
         private readonly IProjectTaskService _projectTaskService;
-		private readonly IProjectService _projectService;
+        private readonly IProjectService _projectService;
 
-		private readonly IEmployeeService _empolyeeService;
-		
-		public TaskController(IProjectTaskService projectTaskService ,IProjectService projectService, IEmployeeService empolyeeService)
+        private readonly IEmployeeService _empolyeeService;
+
+        public TaskController(IProjectTaskService projectTaskService, IProjectService projectService, IEmployeeService empolyeeService)
         {
 
             _projectTaskService = projectTaskService;
             _projectService = projectService;
-			_empolyeeService = empolyeeService;
-		}
+            _empolyeeService = empolyeeService;
+        }
         public IActionResult Tasks(int ProjectId)
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
@@ -47,15 +47,15 @@ namespace Project.Management.Controllers
         public void UpdateCard([FromBody] object param)
         {
             // this block of code will execute while inserting the new cards
-           
-        
-    }
 
-    [HttpGet]
+
+        }
+
+        [HttpGet]
         public IActionResult TaskCreate(Int64? projectTaskId)
         {
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();
-			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId = 0;
             Employee employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
             if (employee != null)
@@ -98,19 +98,19 @@ namespace Project.Management.Controllers
             {
                 return Redirect("/Projects/Task/TaskView");
             }
-               
+
 
         }
         [HttpPost]
         public IActionResult TaskCreate(ProjectTaskDTO projectTaskDTO)
         {
-			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             projectTaskDTO.CreatedBy = UserId;
-			Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
+            Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
             projectTaskDTO.AssignedBy = EmployeeId;
 
 
-			if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (projectTaskDTO.ProjectTaskId == null)
                 {
@@ -154,12 +154,15 @@ namespace Project.Management.Controllers
             ViewBag.Projects = _projectService.GetProjects();
 
 
-			return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
+            return View("~/Plugins/Project.Management/Views/Task/TaskCreate.cshtml", projectTaskDTO);
         }
 
         [HttpGet]
         public IActionResult TaskList()
         {
+
+            return View();
+        }
 
 			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 			Int64 EmployeeId;
@@ -195,9 +198,9 @@ namespace Project.Management.Controllers
             return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));
         }
 
-		public IActionResult TaskDelayReport()
-		{
-			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+        public IActionResult TaskDelayReport()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
             var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
             if (employee != null)
@@ -206,30 +209,30 @@ namespace Project.Management.Controllers
             }
             else
             {
-                EmployeeId = 0; 
-            }			
+                EmployeeId = 0;
+            }
             var projecTasks = _projectTaskService.GetTaskDelayReport(EmployeeId, UserId);
-			var data = from u in projecTasks
-					   select new
-					   {
-						   ProjectCode = u.Project.ProjectCode,
-						   ProjectName = u.Project.ProjectName,
-						   ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
-						   TaskName = u.TaskName,
-						   AssignedTo = u.AssignedTo.FullName,
+            var data = from u in projecTasks
+                       select new
+                       {
+                           ProjectCode = u.Project.ProjectCode,
+                           ProjectName = u.Project.ProjectName,
+                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+                           TaskName = u.TaskName,
+                           AssignedTo = u.AssignedTo.FullName,
                            EndDateAsPerPlan = u.ExpectedEndDate,
                            ActualEndDate = u.ComplitedOn,
                            DelayOnHour = u.ExpectedEndDate - u.ComplitedOn,
                            DelayReason = u.DelayReason,
-                        //   DelayApprovalRemark = u.DelayApprovedBy.
-					   };
+                           //   DelayApprovalRemark = u.DelayApprovedBy.
+                       };
             ViewBag.DelayReport = data;
-			return View("~/Plugins/Project.Management/Views/Task/TaskDelayReport.cshtml");
-		}
+            return View("~/Plugins/Project.Management/Views/Task/TaskDelayReport.cshtml");
+        }
 
-		public IActionResult TaskComplitedByOthersReport()
-		{
-			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+        public IActionResult TaskComplitedByOthersReport()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
             var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
             if (employee != null)
@@ -238,27 +241,27 @@ namespace Project.Management.Controllers
             }
             else
             {
-                   EmployeeId = 0;
-              
-            }
-               
-            var projecTasks = _projectTaskService.GetTaskComplitedByOthersReport(EmployeeId, UserId);
-			var data = from u in projecTasks
-					   select new
-					   {
-						   ProjectCode = u.Project.ProjectCode,
-						   ProjectName = u.Project.ProjectName,
-						   ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
-						   TaskName = u.TaskName,
-						   AssignedTo = u.AssignedTo.FullName,
-						   TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
-						   ComplitedBy = u.Employee.FullName,
-						   TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
+                EmployeeId = 0;
 
-					   };
+            }
+
+            var projecTasks = _projectTaskService.GetTaskComplitedByOthersReport(EmployeeId, UserId);
+            var data = from u in projecTasks
+                       select new
+                       {
+                           ProjectCode = u.Project.ProjectCode,
+                           ProjectName = u.Project.ProjectName,
+                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+                           TaskName = u.TaskName,
+                           AssignedTo = u.AssignedTo.FullName,
+                           TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
+                           ComplitedBy = u.Employee.FullName,
+                           TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
+
+                       };
             ViewBag.tasks = data;
-			return View("~/Plugins/Project.Management/Views/Task/TaskComplitedByOthersReport.cshtml");
-		}
+            return View("~/Plugins/Project.Management/Views/Task/TaskComplitedByOthersReport.cshtml");
+        }
 
         public IActionResult MyTaskDelayList()
         {
@@ -278,6 +281,7 @@ namespace Project.Management.Controllers
             var data = from u in projectTasks
                        select new
                        {
+                           ProjectTaskId = u.ProjectTaskId,
                            ProjectCode = u.Project.ProjectCode,
                            ProjectName = u.Project.ProjectName,
                            TaskName = u.TaskName,
@@ -294,35 +298,36 @@ namespace Project.Management.Controllers
 
         public IActionResult MYTaskComplitedByOthersReport()
         {
-			Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			Int64 EmployeeId;
-			var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
-			if ((employee != null))
-			{
-				EmployeeId = employee.EmployeeId;
-			}
-			else
-			{
-				EmployeeId = 0;
-			}
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if ((employee != null))
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
 
-			var projectTasks = _projectTaskService.GetMYTaskComplitedByOthersReport(EmployeeId);
-			var data = from u in projectTasks
-					   select new
-					   {
-						   ProjectCode = u.Project.ProjectCode,
-						   ProjectName = u.Project.ProjectName,
+            var projectTasks = _projectTaskService.GetMYTaskComplitedByOthersReport(EmployeeId);
+            var data = from u in projectTasks
+                       select new
+                       {
+                           ProjectCode = u.Project.ProjectCode,
+                           ProjectName = u.Project.ProjectName,
                            ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
-                           TaskName = u.TaskName,						   
-						   TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
-						   ComplitedBy = u.Employee.FullName,
-						   TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
+                           TaskName = u.TaskName,
+                           TaskComplitedByOthersReasonByAssign = u.TaskComplitedByOthersReasonByAssign,
+                           AssignedTo = u.AssignedTo.FullName,
+                           ComplitedBy = u.Employee.FullName,
+                           TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
 
-					   };
+                       };
             ViewBag.tasks = data;
             return View("~/Plugins/Project.Management/Views/Task/MYTaskComplitedByOthersReport.cshtml");
         }
-        public IActionResult TasksForDelayValidation() 
+        public IActionResult TasksForDelayValidation()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -335,7 +340,7 @@ namespace Project.Management.Controllers
             {
                 EmployeeId = 0;
             }
-            var projectTasks = _projectTaskService.GetTasksForDelayValidation( EmployeeId ,UserId);
+            var projectTasks = _projectTaskService.GetTasksForDelayValidation(EmployeeId, UserId);
             var data = from u in projectTasks
                        select new
                        {
@@ -346,7 +351,7 @@ namespace Project.Management.Controllers
                            TaskName = u.TaskName,
                            AssignedTo = u.AssignedTo.FullName,
                            ProjectEmployees = u.Project.ProjectEmployees,
-                    
+
                        };
             ViewBag.tasks = data;
             return View("~/Plugins/Project.Management/Views/Task/TasksForDelayValidation.cshtml");
@@ -358,6 +363,33 @@ namespace Project.Management.Controllers
             var a = _projectTaskService.NotCanceledTasksByProjectId(ProjectId);
 
             return Json(a);
+        }
+        [HttpPost]
+        public IActionResult DelayReasonSubmit(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO) {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            projectTaskDelayReasonUpdateDTO.CreatedBy = UserId;
+            var a = _projectTaskService.TaskDelayReasonUpdate(projectTaskDelayReasonUpdateDTO);
+            return Ok(a);
+        }
+
+        [HttpPost]
+        public IActionResult TaskComplitedByOthersReasonUpdate(TaskComplitedByOthersReasonUpdateDTO taskComplitedByOthersReasonUpdateDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            taskComplitedByOthersReasonUpdateDTO.EmployeeId = EmployeeId;
+            taskComplitedByOthersReasonUpdateDTO.CreatedBy = UserId;
+            var a = _projectTaskService.TaskComplitedByOthersReasonUpdate(taskComplitedByOthersReasonUpdateDTO);
+            return Ok(a);
         }
 
     }

@@ -33,6 +33,7 @@ namespace CloudVOffice.Services.Projects
 
 		public MessageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO);
 		public MessageEnum TaskDelayReasonUpdate(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO);
+		public MessageEnum TaskComplitedByOthersReasonUpdate(TaskComplitedByOthersReasonUpdateDTO taskComplitedByOthersReasonUpdateDTO);
 
 	}
 }

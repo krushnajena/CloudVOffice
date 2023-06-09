@@ -76,6 +76,12 @@ namespace CloudVOffice.Data.Persistence
         #region Attendance
 
         public virtual DbSet<ShiftType> ShiftTypes { get; set; }
+        public virtual DbSet<Holiday> Holidays { get; set; }
+
+        public virtual DbSet<HolidayDays> HolidayDays { get; set; }
+
+        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+
         #endregion
         #endregion
 

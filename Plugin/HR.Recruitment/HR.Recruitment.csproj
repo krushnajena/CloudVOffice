@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <OutputPath>..\..\Presentation\CloudVOffice.Web\Plugins\HR.Recruitment</OutputPath>
+	  <OutDir>$(OutputPath)</OutDir>
+	  <!--Set this parameter to true to get the dlls copied from the NuGet cache to the output of your project.
+    You need to set this parameter to true if your plugin has a nuget package 
+    to ensure that the dlls copied from the NuGet cache to the output of your project-->
+	  <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+	<ItemGroup>
+		<None Remove="Application.json" />
+		<None Remove="plugin.json" />
+		<None Remove="roles.json" />
+		<None Remove="Views\_ViewImports.cshtml" />
+	
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Views\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Application.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="plugin.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="roles.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web.Framework\CloudVOffice.Web.Framework.csproj" />
+		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Views\_ViewImports.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	</ItemGroup>
+	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
+		<!-- Delete unnecessary libraries from plugins path -->
+		<MSBuild Projects="@(ClearPluginAssemblies)" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="CloudVOfficeClear" />
+	</Target>
+
+</Project>

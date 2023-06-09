@@ -37,20 +37,24 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
-                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
-                        <e-grid-editSettings allowAdding="false" allowDeleting="false" allowEditing="true" mode="Dialog" template='#dialogtemplate'></e-grid-editSettings>
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})"
+                              actionComplete="actionComplete">
+                        <e-grid-editSettings allowAdding="false" allowDeleting="false" allowEditing="true" mode="Dialog" template='#dialogtemplate'>
+
+
+                        </e-grid-editSettings>
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="ProjectCode" headerText="ProjectCode" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="ProjectTaskId" visible="false" headerText="ProjectTaskId" isPrimaryKey="true" validationRules="@(new { required=true, number=true})" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="ProjectName" headerText="ProjectName" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="TaskName" headerText="TaskName " textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="TaskName" headerText="TaskName" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="ComplitedHour" headerText="ComplitedHour" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="EndDateAsPerPlan" headerText="EndDateAsPerPlan" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="DelayOnHour" headerText="DelayOnHour" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="ActualEndDate" headerText="ActualEndDate" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="DelayReasion" headerText="DelayReasion" textAlign="Left" width="200"></e-grid-column>
-                           
+
                         </e-grid-columns>
                     </ejs-grid>
                 </div>
@@ -64,13 +68,75 @@
 
 <script id='dialogtemplate' type="text/x-template">
     <div id="dialogTemp">
-        <form method="post" >
 
-            </form>
+                <div class="form-group">
+                    <div class="e-float-input e-control-wrapper">
+                        <textarea id="DelayReasion"  name="DelayReasion"  value="${if(isAdd)} '' ${else} ${DelayReasion} ${/if}" >
+                            </textarea>
+
+                    </div>
+                </div>
+
     </div>
 </script>
 <script>
+    function actionComplete(args) {
+        console.log(args);
+        if (args.requestType === 'beginEdit') {
+            var dialog = args.dialog;
 
+            dialog.header = 'Delay Reason ' + args.rowData['TaskName'];
+
+        }
+        else if (args.requestType === 'save') {
+            var model = { "ProjectTaskId": args.data.ProjectTaskId, "DelayReason": args.data.DelayReasion };
+            console.log(
+                model
+            )
+            $.ajax({
+                type: "POST",
+                url: '/Projects/Task/DelayReasonSubmit',
+                data: model,
+
+                success: function (result) {
+                    console.log(result);
+                    if (result == "7") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Task",
+                            text: "Successfully updated.",
+                            type: "success"
+                        });
+                    }
+                    else if (result == "5") {
+                        sweetAlert({
+                            html: true,
+                            icon: "error",
+                            title: "Task",
+                            text: "There is somthing going wrong.",
+                            type: "error"
+                        });
+                    }
+                    else {
+                        sweetAlert({
+                            html: true,
+                            icon: "error",
+                            title: "Branch",
+                            text: message,
+                            type: "error"
+                        });
+                    }
+
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+
+    }
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {

@@ -51,7 +51,7 @@
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
                             <e-grid-column field="ProjectTaskId" visible="false" headerText="ProjectTaskId" isPrimaryKey="true" validationRules="@(new { required=true, number=true})" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="AssignedToMe" visible="false" headerText="AssignedToMe" isPrimaryKey="true" validationRules="@(new { required=true, number=true})"  
+                           
 
                             <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="ComplitedHour" headerText="Complited Hour" textAlign="Left" width="200"></e-grid-column>
@@ -71,7 +71,7 @@
 
 
 <script id='dialogtemplate' type="text/x-template">
-    if(${AssignedToMe}){
+  
          <div id="dialogTemp">
 
                 <div class="form-group">
@@ -83,10 +83,7 @@
                 </div>
 
     </div>
-    }
-   else{
-
-   }
+   
 </script>
 <script>
 
@@ -117,6 +114,8 @@
                             title: "Task Complited By Others Reason",
                             text: "Successfully updated.",
                             type: "success"
+                        }).then(function () {
+                           window.location.reload();
                         });
                     }
                     else if (result == "5") {

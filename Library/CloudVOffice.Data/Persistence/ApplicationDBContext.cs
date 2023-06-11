@@ -93,6 +93,7 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<JobApplication> JobApplications{ get; set; }
         public virtual DbSet<InterviewType> InterviewTypes { get; set; }
+        public virtual DbSet<InterFeedBackQuestions> InterFeedBackQuestions { get; set; }
         #endregion
         #endregion
 

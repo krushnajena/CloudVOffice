@@ -37,7 +37,8 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
-                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})"
+                              actionComplete="actionComplete">
                         <e-grid-editSettings allowAdding="false"
                                              allowDeleting="false"
                                              allowEditing="true"
@@ -50,6 +51,7 @@
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
                             <e-grid-column field="ProjectTaskId" visible="false" headerText="ProjectTaskId" isPrimaryKey="true" validationRules="@(new { required=true, number=true})" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="AssignedToMe" visible="false" headerText="AssignedToMe" isPrimaryKey="true" validationRules="@(new { required=true, number=true})"  
 
                             <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="ComplitedHour" headerText="Complited Hour" textAlign="Left" width="200"></e-grid-column>
@@ -69,7 +71,8 @@
 
 
 <script id='dialogtemplate' type="text/x-template">
-    <div id="dialogTemp">
+    if(${AssignedToMe}){
+         <div id="dialogTemp">
 
                 <div class="form-group">
                     <div class="e-float-input e-control-wrapper">
@@ -80,6 +83,10 @@
                 </div>
 
     </div>
+    }
+   else{
+
+   }
 </script>
 <script>
 

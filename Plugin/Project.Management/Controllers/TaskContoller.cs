@@ -285,6 +285,7 @@ namespace Project.Management.Controllers
             var data = from u in projectTasks
                        select new
                        {
+                           ProjectTaskId = u.ProjectTaskId,
                            ProjectCode = u.Project.ProjectCode,
                            ProjectName = u.Project.ProjectName,
                            ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
@@ -293,6 +294,7 @@ namespace Project.Management.Controllers
                            AssignedTo = u.AssignedTo.FullName,
                            ComplitedBy = u.Employee.FullName,
                            TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
+                           AssignedToMe = EmployeeId== u.AssignedTo.EmployeeId ? true:false
 
                        };
             ViewBag.tasks = data;

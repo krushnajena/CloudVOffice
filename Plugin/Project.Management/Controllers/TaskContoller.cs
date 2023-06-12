@@ -369,6 +369,19 @@ namespace Project.Management.Controllers
         [HttpPost]
         public IActionResult ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
         {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            projectTaskDTO.EmployeeId = EmployeeId;
+            projectTaskDTO.CreatedBy = UserId;
             var a = _projectTaskService.ProjectTaskStatusUpdate(projectTaskDTO);
             return Ok(a);
         }

@@ -75,26 +75,41 @@
         var taskStatus = args.data[0].TaskStatus
         $.ajax({
             type: "POST",
-            url: '/Projects/Task/UpdateTaskStatus',
-            data: { ActivityCategory: args.value },
-            contentType: "application/json;",
-            dataType: "json",
+            url: '/Projects/Task/ProjectTaskStatusUpdate',
+            data: { ProjectTaskId: taskId, TaskStatus: taskStatus },
+           
             success: function (result) {
-                if (args.value == "1") {
-                    $('#ProjectWork').show();
-                    bindProjects();
+                if (result == "1") {
+                    sweetAlert({
+                        html: true,
+                        icon: "success",
+                        title: "Task Complited By Others Reason",
+                        text: "Successfully updated.",
+                        type: "success"
+                    }).then(function () {
+                        window.location.reload();
+                    });
                 }
+              
                 else {
-                    $('#ProjectWork').hide();
+                  sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Task",
+                        text: "Status Update Failed",
+                    type: "error"
+                });
                 }
-                var projectActivityDropDown = document.getElementById("ActivityId").ej2_instances[0];
-                projectActivityDropDown.dataSource = result;
-                //cityDropDown.refresh();
-                projectActivityDropDown.dataBind();
 
             },
             error: function () {
-
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Task",
+                    text: "Status Update Failed",
+                    type: "error"
+                });
             }
         });
     }

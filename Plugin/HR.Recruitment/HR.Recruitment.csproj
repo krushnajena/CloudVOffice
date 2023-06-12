@@ -15,6 +15,8 @@
 		<None Remove="Application.json" />
 		<None Remove="plugin.json" />
 		<None Remove="roles.json" />
+		<None Remove="Views\JobApplicationSourceCreate.cshtml" />
+		<None Remove="Views\JobApplicationSourceView.cshtml" />
 		<None Remove="Views\_ViewImports.cshtml" />
 	
 	</ItemGroup>

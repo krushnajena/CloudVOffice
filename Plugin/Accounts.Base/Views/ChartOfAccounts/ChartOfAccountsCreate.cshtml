@@ -1,9 +1,13 @@
-﻿@{
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@model CloudVOffice.Data.DTO.Accounts.ChartOfAccountsDTO;
+@{
 	Layout = "_MainAppLayout";
+	ViewData["Title"] = "Chart Of Accounts Create";
+	var chartOfAccountsList = new SelectList((IEnumerable)ViewBag.ParentAccountGroup, "ParentAccountGroupId", "AccountName");
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model CloudVOffice.Data.DTO.Accounts.ChartOfAccountsDTO;
 
 <header class="main-heading">
 	<div class="container-fluid">
@@ -53,13 +57,13 @@
 								<span asp-validation-for="AccountNumber"></span>
 							</div>
 							<div class="form-group col-md-3">
+
+
 								<label for="IsGroup" class="form-label">IsGroup</label>
-								<select input asp-for="@Model.IsGroup" type="text" class="form-control" autofocus="autofocus" placeholder="IsGroup">
-									<option value="True">True</option>
-									<option value="False">False</option>
-									
-								</select>
+								<input asp-for="@Model.IsGroup" type="checkbox" class="form-control" autofocus="autofocus" placeholder="IsGroup" />
+								<span asp-validation-for="IsGroup"></span>
 							</div>
+							
 							<div class="form-group col-md-3">
 
 
@@ -76,13 +80,17 @@
 							</div>
 							<div class="form-group col-md-3">
 
+								<label for="ParentAccountGroupId" class="form-label">ParentAccountGroupId</label>
 
-								<label for="ParentAccountGroupId" class="form-label">ParentAccountGroup Id</label>
-								<input asp-for="@Model.ParentAccountGroupId" type="text" class="form-control" autofocus="autofocus" placeholder="ParentAccountGroup Id" />
+								<ejs-dropdownlist id="ParentAccountGroupId" allowFiltering="true" ejs-for="@Model.ParentAccountGroupId" filtering="onParentChartOfAccountsfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ParentAccountGroup, "ChartOfAccountsId", "AccountName" ).Items)" placeholder="Select a Chart Of Accounts" popupHeight="220px">
+									<e-dropdownlist-fields text="AccountName" value="ChartOfAccountsId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
 								<span asp-validation-for="ParentAccountGroupId"></span>
+								
 							</div>
+							
 							<div class="form-group col-md-3">
-
 
 								<label for="AccountType" class="form-label">Account Type</label>
 								<input asp-for="@Model.AccountType" type="text" class="form-control" autofocus="autofocus" placeholder="Account Type" />
@@ -124,3 +132,11 @@
 	</div>
 
 </div>
+
+<script>
+	function onParentChartOfAccountsfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('AccountName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ParentAccountGroup)), query);
+	}
+</script>

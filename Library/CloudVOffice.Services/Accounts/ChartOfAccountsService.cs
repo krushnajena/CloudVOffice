@@ -130,7 +130,7 @@ namespace CloudVOffice.Services.Accounts
 
             try
             {
-                return _Context.ChartOfAccounts.Where(x => x.Deleted == false).ToList();
+                return _Context.ChartOfAccounts.Where(x => x.Deleted == false  && x.IsGroup == true).ToList();
 
             }
             catch

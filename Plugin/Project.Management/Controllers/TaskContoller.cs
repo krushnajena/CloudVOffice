@@ -366,5 +366,11 @@ namespace Project.Management.Controllers
             return Ok(a);
         }
 
+        [HttpPost]
+        public IActionResult ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
+        {
+            var a = _projectTaskService.ProjectTaskStatusUpdate(projectTaskDTO);
+            return Ok(a);
+        }
     }
 }

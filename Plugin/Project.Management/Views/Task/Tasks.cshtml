@@ -30,7 +30,7 @@
 
 <div class="main-content">
     <div class="row gutters">
-        <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks">
+        <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks" dragStop="onCardRendered">
             <e-kanban-columns>
                 <e-kanban-column headerText="Open" keyField="Open"></e-kanban-column>
                 <e-kanban-column headerText="Working" keyField="Working"></e-kanban-column>
@@ -39,7 +39,7 @@
                 <e-kanban-column headerText="Completed" keyField="Completed"></e-kanban-column>
                 <e-kanban-column headerText="Cancelled" keyField="Cancelled"></e-kanban-column>
             </e-kanban-columns>
-            <e-kanban-cardsettings headerField="Title" template="#cardTemplate"></e-kanban-cardsettings>
+            <e-kanban-cardsettings headerField="ProjectTaskId" template="#cardTemplate"></e-kanban-cardsettings>
 
         </ejs-kanban>
     </div>
@@ -57,29 +57,46 @@
             <div class='e-text'>${TaskDescription}</div>
         </div>
         <div class='e-card-custom-footer'>
-        
+
         </div>
     </div>
 </script>
 
 
 <script>
-    $("#Kanban").ejKanban({
-       
 
-             cardDrop: function (args) {
-             console.log(args);
-             }
-             
-    });
     function getAssignments(data) {
         console.log(data)
         return "   <div class='e-card-avatar'> KJ</div>";
     }
     function onCardRendered(args) {
-        console.log(args);
-        alert('bala');
-        //    appendElement('Kanban - ' + args.data.Id + ' - <b>Card Rendered</b> event called<hr>');
+
+        var taskId = args.data[0].ProjectTaskId
+        var taskStatus = args.data[0].TaskStatus
+        $.ajax({
+            type: "POST",
+            url: '/Projects/Task/UpdateTaskStatus',
+            data: { ActivityCategory: args.value },
+            contentType: "application/json;",
+            dataType: "json",
+            success: function (result) {
+                if (args.value == "1") {
+                    $('#ProjectWork').show();
+                    bindProjects();
+                }
+                else {
+                    $('#ProjectWork').hide();
+                }
+                var projectActivityDropDown = document.getElementById("ActivityId").ej2_instances[0];
+                projectActivityDropDown.dataSource = result;
+                //cityDropDown.refresh();
+                projectActivityDropDown.dataBind();
+
+            },
+            error: function () {
+
+            }
+        });
     }
 
 </script>

@@ -49,6 +49,32 @@ namespace Projects.Management.Controller
 		}
 		public IActionResult Dashboard()
 		{
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+			ViewBag.myProjects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+
+
+
+
+
+
+
+
+
+
+            ViewBag.allProjects = _projectService.GetProjects();
+			
 			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
 		}
         [HttpGet]

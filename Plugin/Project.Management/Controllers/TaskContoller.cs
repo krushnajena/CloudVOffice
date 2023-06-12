@@ -36,6 +36,7 @@ namespace Project.Management.Controllers
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
             ViewBag.ProjectId = ProjectId;
+            ViewBag.Tasks = a.AsEnumerable();
             return View("~/Plugins/Project.Management/Views/Task/Tasks.cshtml");
         }
         public IActionResult GetProjectTasks(int ProjectId)

@@ -30,8 +30,7 @@
 
 <div class="main-content">
     <div class="row gutters">
-        <ejs-kanban id="Kanban" keyField="TaskStatus" >
-            <e-data-manager url="/Projects/Task/GetProjectTasks?ProjectId=@ViewBag.ProjectId" crudUrl="/Projects/Task/UpdateCard" adaptor="UrlAdaptor" crossDomain="true"></e-data-manager>
+        <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks">
             <e-kanban-columns>
                 <e-kanban-column headerText="Open" keyField="Open"></e-kanban-column>
                 <e-kanban-column headerText="Working" keyField="Working"></e-kanban-column>
@@ -65,6 +64,14 @@
 
 
 <script>
+    $("#Kanban").ejKanban({
+       
+
+             cardDrop: function (args) {
+             console.log(args);
+             }
+             
+    });
     function getAssignments(data) {
         console.log(data)
         return "   <div class='e-card-avatar'> KJ</div>";

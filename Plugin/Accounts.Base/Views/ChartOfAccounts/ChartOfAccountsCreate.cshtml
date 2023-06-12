@@ -80,7 +80,7 @@
 							</div>
 							<div class="form-group col-md-3">
 
-								<label for="ParentAccountGroupId" class="form-label">ParentAccountGroupId</label>
+								<label for="ParentAccountGroupId" class="form-label">Parent Account Group Id</label>
 
 								<ejs-dropdownlist id="ParentAccountGroupId" allowFiltering="true" ejs-for="@Model.ParentAccountGroupId" filtering="onParentChartOfAccountsfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ParentAccountGroup, "ChartOfAccountsId", "AccountName" ).Items)" placeholder="Select a Chart Of Accounts" popupHeight="220px">
 									<e-dropdownlist-fields text="AccountName" value="ChartOfAccountsId"></e-dropdownlist-fields>

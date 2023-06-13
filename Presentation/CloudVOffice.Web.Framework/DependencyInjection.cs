@@ -81,7 +81,7 @@ namespace CloudVOffice.Web.Framework
 
             #region Attendance
             services.AddScoped<IShiftTypeService, ShiftTypeService>();
-            #endregion
+			#endregion
 
             #region Recruitment
             services.AddScoped<IInterviewTypeService, InterviewTypeService>();
@@ -89,6 +89,12 @@ namespace CloudVOffice.Web.Framework
 
             #region DesktopLogin
             services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+			#region Recruutment
+			services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
+			#endregion
+
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
 			#endregion
 

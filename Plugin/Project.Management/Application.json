@@ -117,7 +117,7 @@
           },
           {
             "ApplicationName": "Task Complited By Others",
-            "Url": "/Projects/Task/MyTaskComplitedByOthers",
+            "Url": "/Projects/Task/MYTaskComplitedByOthersReport",
             "IsGroup": true,
             "IconImageUrl": "",
             "IconClass": "icon-event_note",

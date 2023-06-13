@@ -5,6 +5,7 @@ using CloudVOffice.Services.Accounts;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace Accounts.Base.Controllers
 		public IActionResult ChartOfAccountsCreate(int? chartOfAccountsId)
 		{
 			ChartOfAccountsDTO chartOfAccountsDTO = new ChartOfAccountsDTO();
-			// ViewBag.GetChartOfAccounts = new SelectList(_chartOfAccountsService.GetBranches(), "BranchId", "BranchName");
+			var chartOfAccounts = _chartOfAccountsService.GetChartOfAccounts();
+			ViewBag.ParentAccountGroup = chartOfAccounts;
 			if (chartOfAccountsId != null)
 			{
 
@@ -97,6 +99,8 @@ namespace Accounts.Base.Controllers
 					}
 				}
 			}
+			var parentAccountGroup = _chartOfAccountsService.GetChartOfAccounts();
+			ViewBag.ParentAccountGroup = parentAccountGroup;
 			return View("~/Plugins/Accounts.Base/Views/ChartOfAccounts/ChartOfAccountsCreate.cshtml", chartOfAccountsDTO);
 		}
 		public IActionResult ChartOfAccountsView()

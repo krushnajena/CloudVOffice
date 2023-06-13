@@ -30,8 +30,7 @@
 
 <div class="main-content">
     <div class="row gutters">
-        <ejs-kanban id="Kanban" keyField="TaskStatus" >
-            <e-data-manager url="/Projects/Task/GetProjectTasks?ProjectId=@ViewBag.ProjectId" crudUrl="/Projects/Task/UpdateCard" adaptor="UrlAdaptor" crossDomain="true"></e-data-manager>
+        <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks" dragStop="ondragStop">
             <e-kanban-columns>
                 <e-kanban-column headerText="Open" keyField="Open"></e-kanban-column>
                 <e-kanban-column headerText="Working" keyField="Working"></e-kanban-column>
@@ -40,7 +39,7 @@
                 <e-kanban-column headerText="Completed" keyField="Completed"></e-kanban-column>
                 <e-kanban-column headerText="Cancelled" keyField="Cancelled"></e-kanban-column>
             </e-kanban-columns>
-            <e-kanban-cardsettings headerField="Title" template="#cardTemplate"></e-kanban-cardsettings>
+            <e-kanban-cardsettings headerField="ProjectTaskId" template="#cardTemplate"></e-kanban-cardsettings>
 
         </ejs-kanban>
     </div>
@@ -58,21 +57,57 @@
             <div class='e-text'>${TaskDescription}</div>
         </div>
         <div class='e-card-custom-footer'>
-         ${getAssignments(AssignedTo.FullName)}
+
         </div>
     </div>
 </script>
 
 
 <script>
+
     function getAssignments(data) {
         console.log(data)
         return "   <div class='e-card-avatar'> KJ</div>";
     }
-    function onCardRendered(args) {
-        console.log(args);
-        alert('bala');
-        //    appendElement('Kanban - ' + args.data.Id + ' - <b>Card Rendered</b> event called<hr>');
+    function ondragStop(args) {
+
+        var taskId = args.data[0].ProjectTaskId
+        var taskStatus = args.data[0].TaskStatus
+        $.ajax({
+            type: "POST",
+            url: '/Projects/Task/ProjectTaskStatusUpdate',
+            data: { ProjectTaskId: taskId, TaskStatus: taskStatus },
+           
+            success: function (result) {
+                if (result == "1") {
+                  
+                }
+              
+                else {
+                  sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Task",
+                        text: "Status Update Failed",
+                    type: "error"
+                    }).then(function () {
+                        window.location.reload();
+                    });
+                }
+
+            },
+            error: function () {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Task",
+                    text: "Status Update Failed",
+                    type: "error"
+                }).then(function () {
+                    window.location.reload();
+                });
+            }
+        });
     }
 
 </script>

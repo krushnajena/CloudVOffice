@@ -12,7 +12,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
     public class StaffingPlanDetails : IAuditEntity, ISoftDeletedEntity
     {
         public int StaffingPlanDetailsId { get; set; } 
-        public int DesgnationId { get; set; }
+        public int DesignationId { get; set; }
         public int NoOfVacancies { get; set; }
         public double? EstimatedCostPerPosition { get; set; }
 
@@ -22,7 +22,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-        [ForeignKey("DesgnationId")]
+        [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
     }
 }

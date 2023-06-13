@@ -1,23 +1,13 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Attendance;
-using CloudVOffice.Core.Domain.HR.Master;
-using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Attendance;
-using CloudVOffice.Data.DTO.HR.Master;
-using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Attendance
 {
 	public class ShiftTypeService : IShiftTypeService
 	{
-
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<ShiftType> _shiftTypeRepo;
 		public ShiftTypeService(ApplicationDBContext Context, ISqlRepository<ShiftType> shiftTypeRepo)
@@ -26,10 +16,8 @@ namespace CloudVOffice.Services.Attendance
 			_Context = Context;
 			_shiftTypeRepo = shiftTypeRepo;
 		}
-
         public MessageEnum CreateShiftType(ShiftTypeDTO shiftTypeDTO)
-        {
-         
+        {         
            var objCheck = _Context.ShiftTypes.SingleOrDefault(opt => opt.ShiftTypeId == shiftTypeDTO.ShiftTypeId && opt.Deleted == false);
            try
            {

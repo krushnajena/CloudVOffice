@@ -285,7 +285,7 @@ namespace CloudVOffice.Services.Projects
         {
 			try
 			{
-				var projectTask = _Context.ProjectTasks.Where(x=>x.ProjectTaskId== projectTaskDTO.ProjectId).FirstOrDefault();
+				var projectTask = _Context.ProjectTasks.Where(x=>x.ProjectTaskId== projectTaskDTO.ProjectTaskId).FirstOrDefault();
 				projectTask.TaskStatus  = projectTaskDTO.TaskStatus;
 				projectTask.UpdatedBy = projectTaskDTO.CreatedBy;
 				projectTask.UpdatedDate = System.DateTime.Now;	

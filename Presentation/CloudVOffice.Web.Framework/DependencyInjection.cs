@@ -81,10 +81,28 @@ namespace CloudVOffice.Web.Framework
 
             #region Attendance
             services.AddScoped<IShiftTypeService, ShiftTypeService>();
+            services.AddScoped<IHolidayService, HolidayService>();
+            services.AddScoped<IHolidayDaysService, HolidayDaysService>();
+            services.AddScoped<ILeaveTypeService, LeaveTypeService>();
+            #endregion
+
+            #region Recruitment
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
+            services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
+            #endregion
+
+            #region Recruitment
+            services.AddScoped<IInterviewTypeService, InterviewTypeService>();
             #endregion
 
             #region DesktopLogin
             services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+			#region Recruutment
+			services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
+			#endregion
+
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
 			#endregion
 

@@ -36,6 +36,7 @@ namespace Project.Management.Controllers
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
             ViewBag.ProjectId = ProjectId;
+            ViewBag.Tasks = a.AsEnumerable();
             return View("~/Plugins/Project.Management/Views/Task/Tasks.cshtml");
         }
         public IActionResult GetProjectTasks(int ProjectId)
@@ -313,6 +314,7 @@ namespace Project.Management.Controllers
             var data = from u in projectTasks
                        select new
                        {
+                           ProjectTaskId = u.ProjectTaskId,
                            ProjectCode = u.Project.ProjectCode,
                            ProjectName = u.Project.ProjectName,
                            ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
@@ -321,6 +323,7 @@ namespace Project.Management.Controllers
                            AssignedTo = u.AssignedTo.FullName,
                            ComplitedBy = u.Employee.FullName,
                            TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
+                           AssignedToMe = EmployeeId== u.AssignedTo.EmployeeId ? true:false
 
                        };
             ViewBag.tasks = data;
@@ -391,5 +394,24 @@ namespace Project.Management.Controllers
             return Ok(a);
         }
 
+        [HttpPost]
+        public IActionResult ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            projectTaskDTO.EmployeeId = EmployeeId;
+            projectTaskDTO.CreatedBy = UserId;
+            var a = _projectTaskService.ProjectTaskStatusUpdate(projectTaskDTO);
+            return Ok(a);
+        }
     }
 }

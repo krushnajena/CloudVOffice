@@ -30,7 +30,7 @@
 
 <div class="main-content">
     <div class="row gutters">
-        <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks" dragStop="onCardRendered">
+        <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks" dragStop="ondragStop">
             <e-kanban-columns>
                 <e-kanban-column headerText="Open" keyField="Open"></e-kanban-column>
                 <e-kanban-column headerText="Working" keyField="Working"></e-kanban-column>
@@ -69,7 +69,7 @@
         console.log(data)
         return "   <div class='e-card-avatar'> KJ</div>";
     }
-    function onCardRendered(args) {
+    function ondragStop(args) {
 
         var taskId = args.data[0].ProjectTaskId
         var taskStatus = args.data[0].TaskStatus
@@ -80,15 +80,7 @@
            
             success: function (result) {
                 if (result == "1") {
-                    sweetAlert({
-                        html: true,
-                        icon: "success",
-                        title: "Task Complited By Others Reason",
-                        text: "Successfully updated.",
-                        type: "success"
-                    }).then(function () {
-                        window.location.reload();
-                    });
+                  
                 }
               
                 else {
@@ -98,7 +90,9 @@
                     title: "Task",
                         text: "Status Update Failed",
                     type: "error"
-                });
+                    }).then(function () {
+                        window.location.reload();
+                    });
                 }
 
             },
@@ -109,6 +103,8 @@
                     title: "Task",
                     text: "Status Update Failed",
                     type: "error"
+                }).then(function () {
+                    window.location.reload();
                 });
             }
         });

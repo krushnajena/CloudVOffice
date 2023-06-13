@@ -14,6 +14,7 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Projects;
+using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 
@@ -80,6 +81,14 @@ namespace CloudVOffice.Web.Framework
 
             #region Attendance
             services.AddScoped<IShiftTypeService, ShiftTypeService>();
+            services.AddScoped<IHolidayService, HolidayService>();
+            services.AddScoped<IHolidayDaysService, HolidayDaysService>();
+            services.AddScoped<ILeaveTypeService, LeaveTypeService>();
+            #endregion
+
+            #region Recruitment
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
+            services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
             #endregion
 
             #region DesktopLogin

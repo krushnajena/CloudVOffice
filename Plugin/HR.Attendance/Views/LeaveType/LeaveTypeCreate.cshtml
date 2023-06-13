@@ -1,0 +1,236 @@
+﻿@model CloudVOffice.Data.DTO.Attendance.LeaveTypeDTO;
+@{
+    Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>CRM Dashboard</h5>
+                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">Last Login: 2 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+            <div class="card">
+                <form asp-route="/Attendance/LeaveType/LeaveTypeCreate" method="post" autocomplete="off">
+                    <div asp-ation-summary="ModelOnly" class="message-error"></div>
+
+
+                    <div class="card-header"><b>Basic Info</b></div>
+                    <div class="card-body form-column col-sm-12">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <input asp-for="@Model.LeaveTypeId" type="hidden" />
+
+                                        <label for="LeaveTypeName" class="form-label">Leave Type Name</label>
+                                        <input asp-for="@Model.LeaveTypeName" type="text" class="form-control" autofocus="autofocus" placeholder="Leave Type Name" />
+                                        <span asp-validation-for="LeaveTypeName"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="MaximumLeaveAllocationAllowed" class="form-label">Maximum Leave Allocation Allowed</label>
+                                        <input asp-for="@Model.MaximumLeaveAllocationAllowed" type="number" class="form-control" autofocus="autofocus" placeholder="Maximum Leave Allocation Allowed" />
+                                        <span asp-validation-for="MaximumLeaveAllocationAllowed"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="ApplicableAfterWorkingDays" class="form-label">Applicable After Working Days</label>
+                                        <input asp-for="@Model.ApplicableAfterWorkingDays" type="number" class="form-control" autofocus="autofocus" placeholder="Applicable After Working Days" />
+                                        <span asp-validation-for="ApplicableAfterWorkingDays"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="MaximumConsecutiveLeavesAllowed" class="form-label">Maximum Consecutive Leaves Allowed</label>
+                                        <input asp-for="@Model.MaximumConsecutiveLeavesAllowed" type="number" class="form-control" autofocus="autofocus" placeholder="Maximum Consecutive Leaves Allowed" />
+                                        <span asp-validation-for="MaximumConsecutiveLeavesAllowed"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="MaximumCarryForwardedLeaves" class="form-label">Maximum Carry Forwarded Leaves</label>
+                                        <input asp-for="@Model.MaximumCarryForwardedLeaves" type="number" class="form-control" autofocus="autofocus" placeholder="Maximum Carry Forwarded Leaves" />
+                                        <span asp-validation-for="MaximumCarryForwardedLeaves"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="ExpireCarryForwardedLeaves" class="form-label">Expire Carry Forwarded Leaves</label>
+                                        <input asp-for="@Model.ExpireCarryForwardedLeaves" type="number" class="form-control" autofocus="autofocus" placeholder="Expire Carry Forwarded Leaves" />
+                                        <span asp-validation-for="ExpireCarryForwardedLeaves"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="EncashmentThresholdDays" class="form-label">Encashment Threshold Days</label>
+                                        <input asp-for="@Model.EncashmentThresholdDays" type="number" class="form-control" autofocus="autofocus" placeholder="Encashment Threshold Days" />
+                                        <span asp-validation-for="EncashmentThresholdDays"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="EarningSalaryComponentId" class="form-label">Earning Salary Component Id</label>
+                                        <input asp-for="@Model.EarningSalaryComponentId" type="number" class="form-control" autofocus="autofocus" placeholder="Earning Salary Component Id" />
+                                        <span asp-validation-for="EarningSalaryComponentId"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="EarnedLeaveFrequency" class="form-label">Earned Leave Frequency</label>
+                                        <input asp-for="@Model.EarnedLeaveFrequency" type="text" class="form-control" autofocus="autofocus" placeholder="Earned Leave Frequency" />
+                                        <span asp-validation-for="EarnedLeaveFrequency"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="Rounding" class="form-label">Rounding</label>
+                                        <input asp-for="@Model.Rounding" type="number" class="form-control" autofocus="autofocus" placeholder="Rounding" />
+                                        <span asp-validation-for="Rounding"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group col-md-6">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="IsCarryForward" class="form-label">Is Carry Forward</label>
+                                        <input asp-for="@Model.IsCarryForward" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Is Carry Forward" />
+                                        <span asp-validation-for="IsCarryForward"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="IsLeaveWithoutPay" class="form-label">Is Leave Without Pay</label>
+                                        <input asp-for="@Model.IsLeaveWithoutPay" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Is Leave Without Pay" />
+                                        <span asp-validation-for="IsLeaveWithoutPay"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="IsPartiallyPaidLeave" class="form-label">Is Partially Paid Leave</label>
+                                        <input asp-for="@Model.IsPartiallyPaidLeave" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Is Partially Paid Leave" />
+                                        <span asp-validation-for="IsPartiallyPaidLeave"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="IsOptionalLeave" class="form-label">Is Optional Leave</label>
+                                        <input asp-for="@Model.IsOptionalLeave" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Is Optional Leave" />
+                                        <span asp-validation-for="IsOptionalLeave"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="AllowNegativeBalance" class="form-label">Allow Negative Balance</label>
+                                        <input asp-for="@Model.AllowNegativeBalance" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Allow Negative Balance" />
+                                        <span asp-validation-for="AllowNegativeBalance"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="AllowOverAllocation" class="form-label">Allow Over Allocation</label>
+                                        <input asp-for="@Model.AllowOverAllocation" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Allow Over Allocation" />
+                                        <span asp-validation-for="AllowOverAllocation"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="IsCompensatory" class="form-label">Is Compensatory</label>
+                                        <input asp-for="@Model.IsCompensatory" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Is Compensatory" />
+                                        <span asp-validation-for="IsCompensatory"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="AllowEncashment" class="form-label">Allow Encashment</label>
+                                        <input asp-for="@Model.AllowEncashment" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Allow Encashment" />
+                                        <span asp-validation-for="AllowEncashment"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="IsEarnedLeave" class="form-label">IsEarnedLeave</label>
+                                        <input asp-for="@Model.IsEarnedLeave" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Based On Date Of Joining" />
+                                        <span asp-validation-for="IsEarnedLeave"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="BasedOnDateOfJoining" class="form-label">Based On Date Of Joining</label>
+                                        <input asp-for="@Model.BasedOnDateOfJoining" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Based On Date Of Joining" />
+                                        <span asp-validation-for="BasedOnDateOfJoining"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+                                .form - section.section - head, .form - dashboard - section.section - head {
+        font - size: var(--text - base);
+        width: 100 %;
+        padding: var(--padding - sm) var(--padding - md);
+        margin: 0;
+        margin - bottom: var(--margin - sm);
+        cursor: pointer;
+    }
+</script>

@@ -91,8 +91,18 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
             #endregion
 
+            #region Recruitment
+            services.AddScoped<IInterviewTypeService, InterviewTypeService>();
+            #endregion
+
             #region DesktopLogin
             services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+			#region Recruutment
+			services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
+			#endregion
+
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
 			#endregion
 

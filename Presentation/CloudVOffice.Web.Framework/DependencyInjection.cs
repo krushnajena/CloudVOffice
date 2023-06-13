@@ -97,8 +97,9 @@ namespace CloudVOffice.Web.Framework
 
             #region DesktopLogin
             services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
-			#region Recruutment
-			services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
+            #endregion
+            #region Recruutment
+            services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
 			#endregion
 
 			#region DesktopLogin

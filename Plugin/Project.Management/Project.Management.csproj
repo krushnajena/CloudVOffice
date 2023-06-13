@@ -46,6 +46,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
+		<ProjectReference Include="..\HR.Recruitment\HR.Recruitment.csproj" />
 	</ItemGroup>
 
 

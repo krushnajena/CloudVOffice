@@ -14,6 +14,7 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Projects;
+using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 
@@ -57,10 +58,10 @@ namespace CloudVOffice.Web.Framework
 			
 			
 			#region HR Services
-			#region Masters
+		    #region Masters
 			services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IDesignationService, DesignationService>();
-            services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
+            	services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
             services.AddScoped<IBranchService, BranchService>();
             #endregion
 
@@ -93,8 +94,11 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IChartOfAccountsServices, ChartOfAccountsService>();
 
             services.AddScoped<ICustomerService, CustomerService>();
-            #endregion
-            return services;
+			#endregion
+			#region Recruitments
+			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
+			#endregion
+			return services;
 
         }
     }

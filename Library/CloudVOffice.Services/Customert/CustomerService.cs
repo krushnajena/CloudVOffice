@@ -33,22 +33,22 @@ namespace CloudVOffice.Services.Customert
                 {
 
                     Customer customer = new Customer();
-                   customer.CustomerName = customerDTO.CustomerName;
-                   customer.CustomerGroupId = customerDTO.CustomerGroupId;
-                   customer.TaxId = customerDTO.TaxId;                 
-                   customer.AccountManagerId = customerDTO.AccountManagerId;
-                   customer.AddressLine1 = customerDTO.AddressLine1;
-                   customer.AddressLine2 = customerDTO.AddressLine2;
-                   customer.City = customerDTO.City;
-                   customer.State = customerDTO.State;
-                   customer.Country = customerDTO.Country;
-                   customer.ZipCode = customerDTO.ZipCode;
-                   customer.PhoneNo = customerDTO.PhoneNo;
+                    customer.CustomerName = customerDTO.CustomerName;
+                    customer.CustomerGroupId = customerDTO.CustomerGroupId;
+                    customer.TaxId = customerDTO.TaxId;
+                    customer.AccountManagerId = customerDTO.AccountManagerId;
+                    customer.AddressLine1 = customerDTO.AddressLine1;
+                    customer.AddressLine2 = customerDTO.AddressLine2;
+                    customer.City = customerDTO.City;
+                    customer.State = customerDTO.State;
+                    customer.Country = customerDTO.Country;
+                    customer.ZipCode = customerDTO.ZipCode;
+                    customer.PhoneNo = customerDTO.PhoneNo;
                     customer.EmailId = customerDTO.EmailId;
                     customer.ContactPersonName = customerDTO.ContactPersonName;
-                   customer.ContactPersonPhone = customerDTO.ContactPersonPhone;
+                    customer.ContactPersonPhone = customerDTO.ContactPersonPhone;
                     customer.ContactPersonEmailId = customerDTO.ContactPersonEmailId;
-                    
+
                     customer.CreatedBy = customerDTO.CreatedBy;
                     var obj = _customerRepo.Insert(customer);
 

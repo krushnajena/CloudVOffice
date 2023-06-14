@@ -107,11 +107,7 @@ namespace Project.Management.Controllers
                         TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/Projects/Timesheet/TimesheetView");
                     }
-                    else if (a == MessageEnum.Duplicate)
-                    {
-                        TempData["msg"] = MessageEnum.Duplicate;
-                        ModelState.AddModelError("", "Timesheet Already Exists");
-                    }
+                   
                     else
                     {
                         TempData["msg"] = MessageEnum.UnExpectedError;
@@ -125,7 +121,11 @@ namespace Project.Management.Controllers
         }
         public IActionResult TimesheetView()
         {
-            ViewBag.Timesheets = _timesheetService.GetTimesheets();
+
+           Int64 createdBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 employeeId = _employeeService.GetEmployeeDetailsByUserId(createdBy).EmployeeId;
+           
+            ViewBag.Timesheets = _timesheetService.GetMyTimeSheets(employeeId);
 
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetView.cshtml");
         }

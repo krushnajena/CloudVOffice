@@ -24,7 +24,37 @@ namespace CloudVOffice.Services.Projects
             _timesheetRepo = timesheetRepo;
         }
 
-       
+        public List<Timesheet> GetMyTimeSheets(long EmployeeId)
+        {
+            try
+            {
+                var projectTimesheets = _Context.Timesheets
+                         .Include(x => x.Employee)
+                         .Include(x => x.ProjectActivityType)
+                         .Include(x => x.Project)
+                         .Include(X => X.ProjectTask).Where(x => x.EmployeeId == EmployeeId
+                                                            && x.Deleted == false && x.ProjectId != null
+                                                           )
+
+                    .ToList();
+
+
+
+
+                var otherThenProjectTimesheet = _Context.Timesheets
+                                               .Include(x => x.Employee)
+                                               .Include(x => x.ProjectActivityType).Where(x => x.EmployeeId == EmployeeId
+                                                            && x.Deleted == false && x.ProjectId == null
+                                                           );
+                projectTimesheets.AddRange(otherThenProjectTimesheet);
+               
+                return projectTimesheets;
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         public Timesheet GetTimesheetByTimesheetId(Int64 timesheetId)
         {
@@ -104,6 +134,7 @@ namespace CloudVOffice.Services.Projects
                 
 
                     Timesheet timesheet = new Timesheet();
+                    timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
                     timesheet.EmployeeId = timesheetDTO.EmployeeId;
                     timesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
                     timesheet.ActivityId = timesheetDTO.ActivityId;
@@ -115,9 +146,8 @@ namespace CloudVOffice.Services.Projects
                     timesheet.Description = timesheetDTO.Description;
                     timesheet.IsBillable = timesheetDTO.IsBillable;
                     timesheet.HourlyRate = timesheetDTO.HourlyRate;
-                    timesheet.TimeSheetApprovalStatus = timesheetDTO.TimeSheetApprovalStatus;
-                    timesheet.TimesheetApprovedBy = timesheetDTO.TimesheetApprovedBy;
-                    timesheet.TimeSheetApprovalRemarks = timesheetDTO.TimeSheetApprovalRemarks;
+                    timesheet.TimeSheetApprovalStatus = 0;
+                  
 
                     timesheet.CreatedBy = timesheetDTO.CreatedBy;
                     var obj = _timesheetRepo.Insert(timesheet);
@@ -126,7 +156,7 @@ namespace CloudVOffice.Services.Projects
                 
                 
 
-                return MessageEnum.UnExpectedError;
+                return MessageEnum.Success;
             }
             catch
             {

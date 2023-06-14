@@ -19,6 +19,8 @@ namespace CloudVOffice.Services.Projects
         public MessageEnum TimesheetDelete(Int64 timesheetId, Int64 DeletedBy);
 
         public List<Timesheet> GetTimeSheetsToValidate(Int64 EmployeeId);
-       
+
+        public List<Timesheet> GetMyTimeSheets(Int64 EmployeeId);
+
     }
 }

@@ -28,12 +28,22 @@ namespace CloudVOffice.Services.Projects
         {
             try
             {
+                var otherThenProjectTimesheet = _Context.Timesheets
+                                             .Include(x => x.Employee)
+                                                .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
+                                             
+                                             .Where(x => x.EmployeeId == EmployeeId
+                                                          && x.Deleted == false && x.TimesheetActivityType!=1
+                                                         ).ToList();
                 var projectTimesheets = _Context.Timesheets
                          .Include(x => x.Employee)
-                         .Include(x => x.ProjectActivityType)
+						   .Include(x => x.TimesheetActivityCategory)
+						 .Include(x => x.ProjectActivityType)
+
                          .Include(x => x.Project)
                          .Include(X => X.ProjectTask).Where(x => x.EmployeeId == EmployeeId
-                                                            && x.Deleted == false && x.ProjectId != null
+                                                            && x.Deleted == false && x.TimesheetActivityType==1
                                                            )
 
                     .ToList();
@@ -41,11 +51,7 @@ namespace CloudVOffice.Services.Projects
 
 
 
-                var otherThenProjectTimesheet = _Context.Timesheets
-                                               .Include(x => x.Employee)
-                                               .Include(x => x.ProjectActivityType).Where(x => x.EmployeeId == EmployeeId
-                                                            && x.Deleted == false && x.ProjectId == null
-                                                           );
+              
                 projectTimesheets.AddRange(otherThenProjectTimesheet);
                
                 return projectTimesheets;
@@ -88,7 +94,8 @@ namespace CloudVOffice.Services.Projects
             {
                 var projectTimesheets = _Context.Timesheets
                          .Include(x => x.Employee)
-                         .Include(x => x.ProjectActivityType)
+                           .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
                          .Include(x => x.Project)
                          .Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType ==1
                                                             && x.TimeSheetApprovalStatus == 0
@@ -99,8 +106,9 @@ namespace CloudVOffice.Services.Projects
 
 				var projectTimesheetsToRa = _Context.Timesheets
 						.Include(x => x.Employee)
-						.Include(x => x.ProjectActivityType)
-						.Include(x => x.Project)
+                      .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
+                        .Include(x => x.Project)
 						.Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType == 1
 														   && x.TimeSheetApprovalStatus == 0
 														   && x.Deleted == false
@@ -111,7 +119,10 @@ namespace CloudVOffice.Services.Projects
 
 				var otherThenProjectTimesheet = _Context.Timesheets
                                                .Include(x => x.Employee)
-                                               .Include(x => x.ProjectActivityType).Where(x => x.TimesheetActivityType !=1
+                                                .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
+
+                                               .Where(x => x.TimesheetActivityType !=1
                                                             && x.TimeSheetApprovalStatus == 0
                                                             && x.Deleted == false
                                                             && x.Employee.ReportingAuthority ==  EmployeeId);

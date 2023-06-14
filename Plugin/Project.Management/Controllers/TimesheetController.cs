@@ -158,9 +158,10 @@ namespace Project.Management.Controllers
             var data = from u in timesheets
                        select new
                        {
+                           TimesheetId = u.TimesheetId,
                            Timesheetdate = u.CreatedDate,
                            EmployeeName = u.Employee.FullName,
-                           ActvityCategory = u.ProjectActivityType.ActivityCategoryId,
+                           ActvityCategory = u.TimesheetActivityCategory.TimesheetActivityCategoryName,
                            ActvityName = u.ProjectActivityType.ProjectActivityName,
                            Project = u.Project,
                            Task = u.ProjectTask,

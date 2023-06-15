@@ -29,4 +29,12 @@ namespace CloudVOffice.Data.DTO.Projects
 
         public Int64 CreatedBy { get; set; }
     }
+    public class TimesheetApprovalDTO
+    {
+        public Int64 TimesheetId { get; set; }
+        public int TimeSheetApprovalStatus { get; set; }
+        public string TimesheetApprovalRemarks { get; set;}
+        public Int64 ApprovedBy { get; set; }
+        public Int64 UpdatedBy { get; set; }
+    }
 }

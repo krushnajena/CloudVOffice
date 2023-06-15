@@ -87,7 +87,7 @@
 
 
                             <div class="form-group col-md-12">
-                                <label for="ParentTaskId" class="form-label">Remark</label>
+                                <label for="TimeSheetApprovalRemarks" class="form-label">Remark</label>
 
                                  <textarea id="TimeSheetApprovalRemarks"  class="form-control"  name = "TimeSheetApprovalRemarks"  >
                                     </textarea>
@@ -145,34 +145,34 @@
             )
             $.ajax({
                 type: "POST",
-                url: '/Projects/Task/DelayReasonSubm52it',
+                url: '/Projects/TimeSheet/TimesheetApproval',
                 data: model,
 
                 success: function (result) {
                     console.log(result);
-                    if (result == "7") {
+                    if (result == "10") {
                         sweetAlert({
                             html: true,
                             icon: "success",
-                            title: "Task Delay Reason",
-                            text: "Successfully updated.",
+                            title: "Timesheet",
+                            text: "Successfully Approved.",
                             type: "success"
                         });
                     }
-                    else if (result == "5") {
+                    else if (result == "11") {
                         sweetAlert({
                             html: true,
-                            icon: "error",
-                            title: "Task Delay Reason",
-                            text: "There is somthing going wrong.",
-                            type: "error"
+                            icon: "success",
+                            title: "Timesheet",
+                            text: "Successfully Rejected.",
+                            type: "success"
                         });
                     }
                     else {
                         sweetAlert({
                             html: true,
                             icon: "error",
-                            title: "Task Delay Reason",
+                            title: "Timesheet",
                             text: message,
                             type: "error"
                         });

@@ -181,7 +181,28 @@ namespace Project.Management.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            timesheetApprovalDTO.ApprovedBy = EmployeeId;
+            timesheetApprovalDTO.UpdatedBy = UserId;
+            var a = _timesheetService.TimesheetApproval(timesheetApprovalDTO);
+            return Ok(a);
+        }
 
 
-	}
+
+    }
 }

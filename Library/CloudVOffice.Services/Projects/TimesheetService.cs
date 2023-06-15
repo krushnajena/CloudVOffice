@@ -243,5 +243,34 @@ namespace CloudVOffice.Services.Projects
                 throw;
             }
         }
+
+        public MessageEnum TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO)
+        {
+            try
+            {
+                var timesheet = _Context.Timesheets.Where(x => x.TimesheetId == timesheetApprovalDTO.TimesheetId && x.Deleted == false).FirstOrDefault();
+                if (timesheet != null)
+                {
+                    timesheet.TimeSheetApprovalStatus = timesheetApprovalDTO.TimeSheetApprovalStatus;
+                    timesheet.TimeSheetApprovalRemarks = timesheetApprovalDTO.TimesheetApprovalRemarks;
+                    timesheet.TimeSheetApprovedOn = DateTime.Now;
+                    timesheet.TimesheetApprovedBy = timesheetApprovalDTO.ApprovedBy;
+                    timesheet.UpdatedBy = timesheetApprovalDTO.UpdatedBy;
+                    timesheet.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+
+                    return timesheetApprovalDTO.TimeSheetApprovalStatus == 1? MessageEnum.Approved: MessageEnum.Rejected;
+                }
+                else
+                {
+                    return MessageEnum.Invalid;
+                }
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

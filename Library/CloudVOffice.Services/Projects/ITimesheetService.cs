@@ -22,5 +22,7 @@ namespace CloudVOffice.Services.Projects
 
         public List<Timesheet> GetMyTimeSheets(Int64 EmployeeId);
 
+        public MessageEnum TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO);
+
     }
 }

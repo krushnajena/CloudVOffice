@@ -27,7 +27,18 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Task</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            Project
+                        </div>
+
+                        <div class="col-md-2 text-right float-right">
+                            <a href="~/Projects/Task/TaskCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Task</a>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="card-body">
 
                     <ejs-grid id="GridOverview" dataSource="ViewBag.ProjectTasks"

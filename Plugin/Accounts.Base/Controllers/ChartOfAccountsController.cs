@@ -1,20 +1,13 @@
-﻿using CloudVOffice.Core.Domain.Accounts;
-using CloudVOffice.Core.Domain.Common;
+﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Accounts;
 using CloudVOffice.Services.Accounts;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Accounts.Base.Controllers
 {
-    [Area(AreaNames.Accounts)]
+	[Area(AreaNames.Accounts)]
     public class ChartOfAccountsController : BasePluginController
 	{
 		private readonly IChartOfAccountsServices _chartOfAccountsService;

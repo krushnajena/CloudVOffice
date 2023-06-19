@@ -1,24 +1,15 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Master;
-using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Recruitment;
-using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Services.HR.Master;
-using CloudVOffice.Services.Projects;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.Recruitment.Controllers
 {
-    [Area(AreaNames.Recruitments)]
+	[Area(AreaNames.Recruitment)]
     public class StaffingPlanController : BasePluginController
     {
         private readonly IStaffingPlanService _staffingPlanService;
@@ -69,7 +60,7 @@ namespace HR.Recruitment.Controllers
                     if (a == MessageEnum.Success)
                     {
                         TempData["msg"] = MessageEnum.Success;
-                        return Redirect("/Recruitments/StaffingPlan/StaffingPlanView");
+                        return Redirect("/Recruitment/StaffingPlan/StaffingPlanView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
@@ -88,7 +79,7 @@ namespace HR.Recruitment.Controllers
                     if (a == MessageEnum.Updated)
                     {
                         TempData["msg"] = MessageEnum.Updated;
-                        return Redirect("/Recruitments/StaffingPlan/StaffingPlanView");
+                        return Redirect("/Recruitment/StaffingPlan/StaffingPlanView");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
@@ -121,7 +112,7 @@ namespace HR.Recruitment.Controllers
 
             var a = _staffingPlanService.StaffingPlanDelete(staffingPlanId, DeletedBy);
             TempData["msg"] = a;
-            return Redirect("/Recruitments/StaffingPlan/StaffingPlanView");
+            return Redirect("/Recruitment/StaffingPlan/StaffingPlanView");
         }
 
     }

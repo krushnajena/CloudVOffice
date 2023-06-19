@@ -11,7 +11,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5> StaffingPlan</h5>
+                    <h5> Staffing Plan</h5>
                     @*<h6 class="sub-heading">Welcome to Unify Admin Template</h6>*@
                 </div>
             </div>
@@ -32,10 +32,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            Customer Group
+                            Staffing Plan
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Recruitments/StaffingPlan/StaffingPlanCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Staffing Plan</a>
+                            <a href="/Recruitment/StaffingPlan/StaffingPlanCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Staffing Plan</a>
                         </div>
                     </div>
                 </div>
@@ -145,14 +145,14 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Recruitments/StaffingPlan/StaffingPlanDelete?StaffingPlanId=" + Id;
+                window.location.href = "../../Recruitment/StaffingPlan/StaffingPlanDelete?StaffingPlanId=" + Id;
             }
         })
     }
 </script>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Recruitments/StaffingPlan/StaffingPlanCreate?StaffingPlanId=${StaffingPlanId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <a href="../../Recruitment/StaffingPlan/StaffingPlanCreate?StaffingPlanId=${StaffingPlanId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
         <button onClick="Delete(${StaffingPlanId})" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button >
 
     </div>

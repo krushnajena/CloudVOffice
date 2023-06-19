@@ -84,22 +84,21 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IHolidayService, HolidayService>();
             services.AddScoped<IHolidayDaysService, HolidayDaysService>();
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
-            #endregion
+			#endregion
 
-            #region Recruitment
-            services.AddScoped<IJobApplicationService, JobApplicationService>();
+			#region Recruitment
+			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
+			services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
-            #endregion
-
-            #region Recruitment
-            services.AddScoped<IInterviewTypeService, InterviewTypeService>();
-            #endregion
-
-            #region DesktopLogin
-            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
-			#region Recruutment
+			services.AddScoped<IInterviewTypeService, InterviewTypeService>();
 			services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
 			#endregion
+
+
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+            #endregion
+           
 
 			#region DesktopLogin
 			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
@@ -113,9 +112,7 @@ namespace CloudVOffice.Web.Framework
 
             services.AddScoped<ICustomerService, CustomerService>();
 			#endregion
-			#region Recruitments
-			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
-			#endregion
+			
 			return services;
 
         }

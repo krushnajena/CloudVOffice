@@ -21,6 +21,7 @@
     <None Remove="Views\ChartOfAccounts\ChartOfAccountsView.cshtml" />
     <None Remove="Views\CustomerGroup\CustomerGroupCreate.cshtml" />
     <None Remove="Views\CustomerGroup\CustomerGroupView.cshtml" />
+    <None Remove="Views\Customer\CustomerCreate.cshtml" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -44,10 +45,6 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Views\Customer\CustomerCreate.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

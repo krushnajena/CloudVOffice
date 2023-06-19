@@ -31,14 +31,14 @@ namespace DesktopMonitoringSystem
         private void btn_Login_Click(object sender, RoutedEventArgs e)
         {
             SystemUrls systemU= new SystemUrls();
-            systemU.ClientUrl = txt_GatewayUrl.Text;
+          
             systemU.GateWayUrl = txt_GatewayUrl.Text;
             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
            var a= connection.Query<SystemUrls>("select * from SystemUrls").FirstOrDefault();
             if (a != null)
             {
                 a.GateWayUrl = txt_GatewayUrl.Text;
-                a.ClientUrl = txt_GatewayUrl.Text;
+           
                 connection.Update(a);
                 MessageBox.Show("Setting Overrided Successfully", "DMS",MessageBoxButton.OK,MessageBoxImage.Information);
                 this.Close();

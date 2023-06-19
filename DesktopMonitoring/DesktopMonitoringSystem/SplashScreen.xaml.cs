@@ -47,7 +47,7 @@ namespace DesktopMonitoringSystem
             var a = connection.Query<User>("select * from User").FirstOrDefault();
             if(a != null)
             {
-                if(a.UserId != null)
+                if(a.RefreshToken != null)
                 {
                     DashBoardWindow mainWindow = new DashBoardWindow();
                     mainWindow.Show();

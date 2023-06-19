@@ -31,13 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop.Monitoring", "Plugi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.API", "Plugin\Web.API\Web.API.csproj", "{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopMonitoring", "DesktopMonitoring", "{6414E5A2-5828-4F12-BF1C-AA285B7999FF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accounts.Base", "Plugin\Accounts.Base\Accounts.Base.csproj", "{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.Attendance", "Plugin\HR.Attendance\HR.Attendance.csproj", "{B2D07C7C-20AC-4A2B-96EF-0D90D0C8D5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.Recruitment", "Plugin\HR.Recruitment\HR.Recruitment.csproj", "{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.Recruitment", "Plugin\HR.Recruitment\HR.Recruitment.csproj", "{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

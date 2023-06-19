@@ -48,13 +48,13 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
 			services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
 			services.AddScoped<IEmailService, EmailService>();
-			
+
+            services.AddScoped<ITokenService, TokenService>();
 
 
 
 
-
-			services.AddScoped<ILetterHeadService, LetterHeadService>();
+            services.AddScoped<ILetterHeadService, LetterHeadService>();
 			
 			
 			#region HR Services

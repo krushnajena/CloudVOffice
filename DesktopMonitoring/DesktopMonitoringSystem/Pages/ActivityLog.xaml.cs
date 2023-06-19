@@ -41,7 +41,7 @@ namespace DesktopMonitoringSystem.Pages
             if (a != null)
             {
                 UserId = a.UserId.ToString();
-                UserName = a.ApplicantName;
+                UserName = a.   ApplicantName;
                 GetActivityLog();
             }
 

@@ -19,7 +19,7 @@ namespace DesktopMonitoringSystem.Utils
             if (a != null)
             {
                 _gateWayBaseUrl = a.GateWayUrl;
-                _clientBaseUrl = a.ClientUrl;
+              
             }
         }
       
@@ -35,17 +35,7 @@ namespace DesktopMonitoringSystem.Utils
             else return "";
         }
 
-        public static string getClientUrl()
-        {
-            SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
-            var a = connection.Query<SystemUrls>("select * from SystemUrls").FirstOrDefault();
-            if (a != null)
-            {
-                return a.ClientUrl;
-
-            }
-            else return "";
-        }
+     
 
         public static string postLogin = getGatewayUrl() + "/api/Login/Auth";
         public static string getSessionLog     = getGatewayUrl()+ "/api/DesktopLogin/GeteLoginSessionsByUserId";
@@ -54,6 +44,6 @@ namespace DesktopMonitoringSystem.Utils
         public static string getPrinting      = getGatewayUrl() + "/api/DMSActivityLog/GetPrintLogsByUserId";
         public static string getKeyStroke = getGatewayUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
 
-        public static string imageUpload = getClientUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
+      //  public static string imageUpload = getClientUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
     }
 }

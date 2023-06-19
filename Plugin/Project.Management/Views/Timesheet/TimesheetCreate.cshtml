@@ -55,7 +55,7 @@
 							
 
 
-								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.TimesheetActivityType" filtering="onActivityCategoryfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ActivityCategory, "TimesheetActivityCategoryId", "TimesheetActivityCategoryName").Items)" placeholder="Select a Activity Category" change="onChangeActivityCategory" popupHeight="220px">
+								<ejs-dropdownlist id="TimesheetActivityType" allowFiltering="true" ejs-for="@Model.TimesheetActivityType" filtering="onActivityCategoryfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ActivityCategory, "TimesheetActivityCategoryId", "TimesheetActivityCategoryName").Items)" placeholder="Select a Activity Category" change="onChangeActivityCategory" popupHeight="220px">
 									<e-dropdownlist-fields text="TimesheetActivityCategoryName" value="TimesheetActivityCategoryId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="TimesheetActivityType"></span>

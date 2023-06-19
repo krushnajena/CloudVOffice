@@ -13,6 +13,6 @@ namespace DesktopMonitoringSystem.Classes
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string GateWayUrl { get; set; }
-        public string ClientUrl { get; set; }
+       
     }
 }

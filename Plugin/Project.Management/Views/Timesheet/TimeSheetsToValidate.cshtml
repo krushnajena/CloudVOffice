@@ -37,19 +37,31 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
-                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})"
+                              actionComplete="actionComplete">
+                        <e-grid-editSettings allowAdding="false"
+                                             allowDeleting="false"
+                                             allowEditing="true"
+                                             mode="Dialog"
+                                             template='#dialogtemplate'>
+
+
+                        </e-grid-editSettings>
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="Timesheetdate" headerText="Timesheetdate" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="EmployeeName" headerText="EmployeeName" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ActvityCategory" headerText="ActvityCategory" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ActvityName" headerText="ActvityName" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Project" headerText="Project" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Task" headerText="Task" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="DurationInHours" headerText="DurationInHours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Description" headerText="Description" textAlign="Left" width="120"></e-grid-column>
-                            @*<e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>*@
+                            <e-grid-column field="TimesheetId" visible="false" headerText="TimesheetId" isPrimaryKey="true" validationRules="@(new { required=true, number=true})" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="EmployeeName" headerText="Employee Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="TimeSheetForDate" headerText="TimeSheet Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ActvityCategory" headerText="Activity Category" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ActvityName" headerText="Activity" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Project.ProjectName" headerText="Project" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Task.TaskName" headerText="Task Name" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="DurationInHours" headerText="Duration In Hours" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Description" headerText="Description" textAlign="Left" width="200"></e-grid-column>
+
+
                         </e-grid-columns>
                     </ejs-grid>
                 </div>
@@ -58,16 +70,39 @@
     </div>
 
 </div>
-<script id="Actions" type="text/x-template">
-    <div class="link">
-        <a href="../../Projects/Timesheet/TimesheetCreate?TimesheetId=${TimesheetId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+<script id='dialogtemplate' type="text/x-template">
+    <div id="dialogTemp" >
+            <div class="form-row">
+                            
 
-    </div>
-</script>
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
+
+                            <div class="form-group col-md-12">
+                                <label for="Priority" class="form-label">Take Action</label>
+                                <select id="TimeSheetApprovalStatus"  class="form-control"  name="TimeSheetApprovalStatus" >
+                                    <option value="1">Approve</option>
+                                    <option value="2">Reject</option>
+
+                                </select>
+                            </div>
+
+
+                            <div class="form-group col-md-12">
+                                <label for="TimeSheetApprovalRemarks" class="form-label">Remark</label>
+
+                                 <textarea id="TimeSheetApprovalRemarks"  class="form-control"  name = "TimeSheetApprovalRemarks"  >
+                                    </textarea>
+
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
 </script>
 <script>
+
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
@@ -95,5 +130,62 @@
             };
         }
     };
+    function actionComplete(args) {
+        console.log(args);
+        if (args.requestType === 'beginEdit') {
+            var dialog = args.dialog;
+
+            dialog.header = 'Timesheet Validation';
+
+        }
+        else if (args.requestType === 'save') {
+            var model = { "TimeSheetApprovalRemarks": args.data.TimeSheetApprovalRemarks, "TimeSheetApprovalStatus": args.data.TimeSheetApprovalStatus, "TimesheetId": args.data.TimesheetId };
+            console.log(
+                model
+            )
+            $.ajax({
+                type: "POST",
+                url: '/Projects/TimeSheet/TimesheetApproval',
+                data: model,
+
+                success: function (result) {
+                    console.log(result);
+                    if (result == "10") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Timesheet",
+                            text: "Successfully Approved.",
+                            type: "success"
+                        });
+                    }
+                    else if (result == "11") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Timesheet",
+                            text: "Successfully Rejected.",
+                            type: "success"
+                        });
+                    }
+                    else {
+                        sweetAlert({
+                            html: true,
+                            icon: "error",
+                            title: "Timesheet",
+                            text: message,
+                            type: "error"
+                        });
+                    }
+
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+
+    }
 
 </script>

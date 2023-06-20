@@ -55,15 +55,31 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult ActivityLogWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
         {
             try
             {
+                Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+                Int64 EmployeeId;
+                var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+
+                if (employee != null)
+                {
+                    EmployeeId = employee.EmployeeId;
+
+                }
+                else
+                {
+                    EmployeeId = 0;
+                }
+                desktopLoginDTO.EmployeeId = EmployeeId;
                 var list = _desktopActivityLogService.GetAcivityLogsWithFilter(desktopLoginDTO);
 
 
 
-                int totalRecords = list.Count();
+         
                 return Ok(list);
             }
             catch (Exception ex)

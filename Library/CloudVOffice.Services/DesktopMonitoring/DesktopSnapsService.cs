@@ -1,7 +1,11 @@
-﻿using CloudVOffice.Core.Domain.Common;
+﻿using Azure.Storage.Blobs.Models;
+using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +24,27 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _Context = Context;
             _desktopSnapShotRepo = desktopSnapRepo;
         }
-        public MessageEnum CreateDesktopSnaps()
+        public MessageEnum CreateDesktopSnaps(DesktopSnapsDTO desktopSnap)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _desktopSnapShotRepo.Insert(new DesktopSnapshot
+                {
+                    DesktopActivityLogId = desktopSnap.DesktopActivityLogId,
+                    DesktopLoginId = desktopSnap.DesktopLoginId,
+                    EmployeeId = desktopSnap.EmployeeId,
+                    LogType=  desktopSnap.LogType,
+                    SnapShot = desktopSnap.LogType,
+                    SnapshotDateTime = desktopSnap.SnapshotDateTime,
+                    FileSize = desktopSnap.FileSize,
+                    CreatedBy = desktopSnap.CreatedBy,
+                });
+                return MessageEnum.Success;
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

@@ -61,22 +61,40 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult LoginSessionsWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
         {
             try
             {
-                var list = _desktopLoginService.GetDesktoplogins(desktopLoginDTO);
+                Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+
+                Int64 EmployeeId;
+                var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+
+                if (employee != null)
+                {
+                    EmployeeId = employee.EmployeeId;
+
+                }
+                else
+                {
+                    EmployeeId = 0;
+                }
+                desktopLoginDTO.EmployeeId = EmployeeId;
+
+                var list = _desktopLoginService.GetDesktoploginsWithDateRange(desktopLoginDTO);
 
 
 
-                int totalRecords = list.Count();
-                return Ok(new { data = list, recordsTotal = totalRecords, recordsFiltered = totalRecords });
+                return Ok(list);
             }
             catch (Exception ex)
             {
                 return Accepted(new { Status = "error", ResponseMsg = ex.Message });
             }
         }
+       
+
 
     }
 }

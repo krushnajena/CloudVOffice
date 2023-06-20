@@ -1,4 +1,5 @@
-﻿using DesktopMonitoringSystem.Classes;
+﻿using CloudVOffice.Data.DTO.DesktopMonitoring;
+using DesktopMonitoringSystem.Classes;
 using DesktopMonitoringSystem.Models;
 using DesktopMonitoringSystem.Utils;
 
@@ -32,11 +33,13 @@ namespace DesktopMonitoringSystem.Pages
 
             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
             var a = connection.Query<User>("select * from User").FirstOrDefault();
+        
             if (a != null)
             {
+                GetActivityLog();
                 UserId = a.UserId.ToString();
                 UserName = a.ApplicantName;
-                GetActivityLog();
+              //  
             }
         }
         private void LoadColumChartData(ActivityLogModel activityLogModel)
@@ -106,8 +109,9 @@ namespace DesktopMonitoringSystem.Pages
 
         private void GetActivityLog()
         {
+          
 
-            var a = HttpClientRq.GetCall(ApiUrls.getActivityLog + "/" + UserId);
+            var a = HttpClientRq.GetCall(ApiUrls.getActivityLog);
             var X = a.Result.Content.ReadAsStringAsync()
                                                        .Result
                                                        //.Replace("\\", "")

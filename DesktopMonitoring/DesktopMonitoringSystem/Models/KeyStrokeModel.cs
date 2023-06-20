@@ -1,5 +1,4 @@
 ﻿
-using CloudVOffice.Core.Domain.DesktopMonitoring;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +10,9 @@ namespace DesktopMonitoringSystem.Models
     internal class KeyStrokeModel
     {
         public List<DesktopKeyStroke> data { get; set; }
+    }
+    public class DesktopKeyStroke
+    {
+
     }
 }

@@ -15,7 +15,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
     public interface IDesktoploginSevice
     {
         public DesktopLogin DesktoploginCreate(DesktopLoginDTO desktoploginDTO);
-        public List<DesktopLoginsViewModel> GetDesktoplogins(DesktopLoginFilterDTO desktopLoginFilterDTO);
+        public List<DesktopLogin> GetDesktoploginsWithDateRange(DesktopLoginFilterDTO desktopLoginFilterDTO);
         public DesktopLogin GetDesktoploginByDesktoploginId(Int64 DesktopLoginId);       
        
         public MessageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy);

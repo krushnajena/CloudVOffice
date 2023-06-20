@@ -10,6 +10,7 @@ using CloudVOffice.Data.ViewModel.DesktopMonitering;
 using CloudVOffice.Services.Emp;
 using Humanizer;
 using Microsoft.CodeAnalysis.Operations;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,52 +103,23 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
         }
 
-        public List<DesktopLoginsViewModel> GetDesktoplogins(DesktopLoginFilterDTO desktopLoginFilterDTO)
+        public List<DesktopLogin> GetDesktoploginsWithDateRange(DesktopLoginFilterDTO desktopLoginFilterDTO)
         {
             try
             {
-                List<DesktopLoginsViewModel> loginsViewModels= new List<DesktopLoginsViewModel>();
-               var a =  _Context.DesktopLogins.Where(x => x.Deleted == false &&
+               
+               var a =  _Context.DesktopLogins
+                      .Include(x=>x.Employee)
+                    .Where(x => x.Deleted == false &&
                                                           x.EmployeeId == desktopLoginFilterDTO.EmployeeId &&
                                                           x.LoginDateTime >= desktopLoginFilterDTO.FromDate &&
                                                           x.LoginDateTime <= desktopLoginFilterDTO.ToDate
 
-                                                          ).ToList();
+                                                          ).OrderByDescending(x=>x.LoginDateTime).ToList();
 
-                    var Employee = _employeeService.GetEmployeeById(desktopLoginFilterDTO.EmployeeId);
+            
 
-                for(int i=0;i< a.Count; i++)
-                {
-
-                    var dateOne = a[i].LogOutDateTime;
-                    var dateTwo = a[i].LoginDateTime;
-                    var res = "";
-                    if (dateOne != null)
-                    {
-                        var diff = DateTime.Parse( dateTwo.ToString()).Subtract( DateTime.Parse( dateOne.ToString()));
-                        res = String.Format("{0}:{1}:{2}", diff.Hours, diff.Minutes, diff.Seconds);
-                    }
-
-
-                    loginsViewModels.Add(new DesktopLoginsViewModel{
-                        EmployeeName = Employee.FullName,
-                        ComputerName = a[i].ComputerName,
-                        IpAddress = a[i].IpAddress,
-                        LogDate = a[i].LoginDateTime.Value.Date,
-                        LoginDateTime = a[i].LoginDateTime,
-                        LogOutDateTime = a[i].LogOutDateTime,
-                        Duration = res,
-                        IdelDuration = a[i].IdelTime.ToString(),
-                        EmployeeId = a[i].EmployeeId,
-                        DesktopLoginId = a[i].DesktopLoginId
-                    }
-                    
-
-                        ) ;
-                }
-
-
-                return loginsViewModels;
+                return a;
 
             }
             catch

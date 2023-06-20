@@ -65,7 +65,7 @@ namespace DesktopMonitoringSystem
                     login.ClientName= (string)Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion").GetValue("ProductName");
                     login.ClientId = System.Environment.GetEnvironmentVariable("COMPUTERNAME");
 
-                    var a = HttpClientRq.PostRequest(ApiUrls.postLogin, JsonConvert.SerializeObject(login)).Result;
+                    var a = HttpClientRq.PostRequest(ApiUrls.postLogin, JsonConvert.SerializeObject(login), true).Result;
                     if (a.StatusCode == HttpStatusCode.OK)
                     {
                         var X = a.Content.ReadAsStringAsync()
@@ -86,9 +86,12 @@ namespace DesktopMonitoringSystem
                             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
                             connection.Insert(user);
 
-                            DashBoardWindow dashBoardWindow = new DashBoardWindow();
-                            dashBoardWindow.Show();
+                            MessageBox.Show("Please Restart The System For Activate Services.", "Restart Required");
                             this.Close();
+
+                            //DashBoardWindow dashBoardWindow = new DashBoardWindow();
+                            //dashBoardWindow.Show();
+
 
                         }
                         else

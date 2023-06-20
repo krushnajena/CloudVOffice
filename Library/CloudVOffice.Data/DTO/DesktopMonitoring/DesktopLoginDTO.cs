@@ -19,7 +19,7 @@ namespace CloudVOffice.Data.DTO.DesktopMonitoring
     }
     public class DesktopLoginFilterDTO
     {
-        public Int64 EmployeeId { get; set; }
+        public Int64? EmployeeId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Data.DTO.DesktopMonitoring;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace CloudVOffice.Services.DesktopMonitoring
 {
     public interface IDesktopSnapsService
     {
-        public MessageEnum CreateDesktopSnaps();
+        public MessageEnum CreateDesktopSnaps(DesktopSnapsDTO desktopSnapsDTO);
     }
 }

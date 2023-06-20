@@ -59,4 +59,37 @@ namespace DesktopMonitoringSystem.Classes
 
 
     }
+
+
+    public class DesktopLoginDTO
+    {
+
+        public Int64? EmployeeId { get; set; }
+        public DateTime? LoginDateTime { get; set; }
+
+        public string ComputerName { get; set; }
+        public string IpAddress { get; set; }
+        public DateTime? SyncedOn { get; set; }
+        public Int64? CreatedBy { get; set; }
+    }
+    public class DesktopLoginViewModel
+    {
+        public Int64 DesktopLoginId { get; set; }
+        public Int64 EmployeeId { get; set; }
+        public DateTime? LoginDateTime { get; set; }
+        public DateTime? LogOutDateTime { get; set; }
+        public bool IsAutoLogedOut { get; set; }
+        public bool IsActiveSession { get; set; }
+
+        public TimeSpan? IdelTime { get; set; }
+        public string ComputerName { get; set; }
+        public string IpAddress { get; set; }
+        public DateTime? SyncedOn { get; set; }
+        public Int64 CreatedBy { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public Int64? UpdatedBy { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public bool Deleted { get; set; }
+    }
 }
+

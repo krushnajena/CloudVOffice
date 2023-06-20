@@ -19,8 +19,6 @@
     <None Remove="roles.json" />
     <None Remove="Views\ChartOfAccounts\ChartOfAccountsCreate.cshtml" />
     <None Remove="Views\ChartOfAccounts\ChartOfAccountsView.cshtml" />
-    <None Remove="Views\CustomerGroup\CustomerGroupCreate.cshtml" />
-    <None Remove="Views\CustomerGroup\CustomerGroupView.cshtml" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -47,11 +45,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
+	  <Compile Remove="Views\Customer\**" />
+	  <Content Remove="Views\Customer\**" />
+	  <EmbeddedResource Remove="Views\Customer\**" />
+	  <None Remove="Views\Customer\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Views\Customer\" />
+	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->

@@ -32,29 +32,33 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _desktopLoginRepo = desktopLoginRepo;
             _employeeService = employeeService;
         }
-        public MessageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO)
+        public DesktopLogin DesktoploginCreate(DesktopLoginDTO desktoploginDTO)
         {
             try
             {
-                var desktoplogincreate = _Context.DesktopLogins.Where(x => x.EmployeeId == desktoploginDTO.EmployeeId && x.Deleted == false).FirstOrDefault();
-                if (desktoplogincreate == null)
+                var desktoplogincreate = _Context.DesktopLogins.Where(x => x.EmployeeId == desktoploginDTO.EmployeeId && x.Deleted == false && x.IsActiveSession == true && x.ComputerName == desktoploginDTO.ComputerName).OrderByDescending(x=>x.DesktopLoginId).FirstOrDefault();
+                if (desktoplogincreate != null)
                 {
-                    _desktopLoginRepo.Insert(new DesktopLogin()
+                    desktoplogincreate.IsActiveSession = false;
+                    _Context.SaveChanges();
+                }
+
+                
+                 var a=   _desktopLoginRepo.Insert(new DesktopLogin()
                     {
                         EmployeeId = desktoploginDTO.EmployeeId,
                         LoginDateTime=desktoploginDTO.LoginDateTime,
-                        LogOutDateTime=desktoploginDTO.LogOutDateTime,
-                        IsAutoLogedOut=desktoploginDTO.IsAutoLogedOut,                       
-                        IsActiveSession=false,
-                        SyncedOn=desktoploginDTO.SyncedOn,
+                        ComputerName = desktoploginDTO.ComputerName,
+                        IpAddress = desktoploginDTO.IpAddress,
+                        LogOutDateTime=DateTime.Now,         
+                        IsActiveSession=true,
+                        SyncedOn=DateTime.Now,
                         CreatedBy = desktoploginDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return MessageEnum.Success;
-                }
-                else
-                    return MessageEnum.Duplicate;
+                    return a;
+               
             }
             catch
             {
@@ -83,42 +87,6 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 throw;
             }
 
-        }
-
-        public MessageEnum DesktopLoginUpdate(DesktopLoginDTO desktoploginDTO)
-        {
-            try
-            {
-                var desktopLogin = _Context.DesktopLogins.Where(x => x.DesktopLoginId != desktoploginDTO.DesktopLoginId && x.EmployeeId == desktoploginDTO.EmployeeId && x.Deleted == false).FirstOrDefault();
-                if (desktopLogin == null)
-                {
-                    var a = _Context.DesktopLogins.Where(x => x.DesktopLoginId == desktoploginDTO.DesktopLoginId).FirstOrDefault();
-                    if (a != null)
-                    {
-                        a.EmployeeId = desktoploginDTO.EmployeeId;
-                        a.LoginDateTime=desktoploginDTO.LoginDateTime;
-                        a.LogOutDateTime=desktoploginDTO.LogOutDateTime;
-                        a.IsActiveSession=desktoploginDTO.IsActiveSession;
-                        a.IsAutoLogedOut=desktoploginDTO.IsAutoLogedOut;
-                        a.SyncedOn=desktoploginDTO.SyncedOn;
-                        a.UpdatedBy = desktoploginDTO.CreatedBy;
-                        a.UpdatedDate = DateTime.Now;
-                        _Context.SaveChanges();
-                        return MessageEnum.Updated;
-                    }
-                    else
-                        return MessageEnum.Invalid;
-                }
-                else
-                {
-                    return MessageEnum.Duplicate;
-                }
-
-            }
-            catch
-            {
-                throw;
-            }
         }
 
         public DesktopLogin GetDesktoploginByDesktoploginId(Int64 DesktopLoginId)

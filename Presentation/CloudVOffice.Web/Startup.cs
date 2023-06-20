@@ -28,6 +28,10 @@ using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Hosting;
 using WebOptimizer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CloudVOffice.Web
 {
@@ -56,17 +60,51 @@ namespace CloudVOffice.Web
                 //The name of the connection string is taken from appsetting.json under ConnectionStrings
                 options.UseSqlServer(configRoot.GetConnectionString("ConnStringMssql"));
             });
-			
 
-           
-			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(x => { x.LoginPath = "/App/Login";
+
+            var audienceConfig = configRoot.GetSection("JWT");
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(audienceConfig["Secret"]));
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+                ValidateIssuer = true,
+                ValidIssuer = audienceConfig["ValidIssuer"],
+                ValidateAudience = true,
+                ValidAudience = audienceConfig["ValidAudience"],
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,
+                RequireExpirationTime = true,
+            };
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Custom";
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddPolicyScheme("Custom", "Custom", options =>
+            {
+                options.ForwardDefaultSelector = context =>
+                {
+                    // since all my api will be starting with /api, modify this condition as per your need.
+                    if (context.Request.Path.StartsWithSegments("/api", StringComparison.InvariantCulture))
+                        return JwtBearerDefaults.AuthenticationScheme;
+                    else
+                        return CookieAuthenticationDefaults.AuthenticationScheme;
+                };
+            }).AddCookie(x => { x.LoginPath = "/App/Login";
 
                 x.ExpireTimeSpan = TimeSpan.FromMinutes(20 );
                 x.SlidingExpiration = true;
                 x.AccessDeniedPath = "/Forbidden/";
                 
-            }) ;
+            }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = tokenValidationParameters;
+
+            });
+            IdentityModelEventSource.ShowPII = true;
             //// Add Hangfire services.
             //services.AddHangfire(configuration => configuration
             //    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)

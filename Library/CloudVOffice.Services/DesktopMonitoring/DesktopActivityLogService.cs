@@ -23,14 +23,12 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _Context = Context;
             _desktopactivitylogRepo = desktopactivitylogRepo;
         }
-        public MessageEnum DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
+        public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
         {
             try
             {
-                var desktopactivitylogcreate = _Context.DesktopActivityLogs.Where(x => x.EmployeeId == desktopactivitylogDTO.EmployeeId && x.Deleted == false).FirstOrDefault();
-                if (desktopactivitylogcreate == null)
-                {
-                    _desktopactivitylogRepo.Insert(new DesktopActivityLog()
+               
+               var a=     _desktopactivitylogRepo.Insert(new DesktopActivityLog()
                     {
                         EmployeeId = desktopactivitylogDTO.EmployeeId,
                         LogType = desktopactivitylogDTO.LogType,
@@ -51,10 +49,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return MessageEnum.Success;
-                }
-                else
-                    return MessageEnum.Duplicate;
+                    return a;
+               
             }
             catch
             {

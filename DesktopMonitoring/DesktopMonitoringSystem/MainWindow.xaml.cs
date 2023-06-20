@@ -85,7 +85,8 @@ namespace DesktopMonitoringSystem
                        
                             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
                             connection.Insert(user);
-
+                            RegistryKey reg = Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\Run", true);
+                            reg.SetValue("ACTMON", @"C:\\Program Files (x86)\CloudSat\DmsSetup\ActMon.exe");
                             MessageBox.Show("Please Restart The System For Activate Services.", "Restart Required");
                             this.Close();
 

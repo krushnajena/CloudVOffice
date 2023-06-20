@@ -46,7 +46,7 @@ namespace Desktop.Monitoring.Controllers
         public IActionResult Track(Int64 EmployeeId)
         {
 
-            ViewBag.LoginSession = _desktopLoginService.GetDesktoplogins(new DesktopLoginFilterDTO
+            ViewBag.LoginSession = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO
             {
                 EmployeeId = EmployeeId
             });

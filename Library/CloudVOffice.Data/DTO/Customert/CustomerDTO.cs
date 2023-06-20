@@ -1,16 +1,14 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Core.Domain.Customer
+namespace CloudVOffice.Data.DTO.Customert
 {
-    public class Customer : IAuditEntity, ISoftDeletedEntity
+    public class CustomerDTO
     {
-        public Int64 CustomerId { get; set; }
+        public Int64? CustomerId { get; set; }
         public string CustomerName { get; set; }
         public int? CustomerGroupId { get; set; }
         public string TaxId { get; set; }
@@ -27,14 +25,5 @@ namespace CloudVOffice.Core.Domain.Customer
         public string ContactPersonPhone { get; set; }
         public string ContactPersonEmailId { get; set; }
         public Int64 CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public Int64? UpdatedBy { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public bool Deleted { get; set; }
-
-
-        [ForeignKey("CustomerGroupId")]
-        public CustomerGroup CustomerGroup { get; set; }
-
     }
 }

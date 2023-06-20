@@ -6,7 +6,7 @@ using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
-using CloudVOffice.Services.Customer;
+using CloudVOffice.Services.Customert;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Email;
 using CloudVOffice.Services.EmailTemplates;
@@ -58,10 +58,10 @@ namespace CloudVOffice.Web.Framework
 			
 			
 			#region HR Services
-			#region Masters
+		    #region Masters
 			services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IDesignationService, DesignationService>();
-            services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
+            	services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
             services.AddScoped<IBranchService, BranchService>();
             #endregion
 
@@ -84,16 +84,21 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IHolidayService, HolidayService>();
             services.AddScoped<IHolidayDaysService, HolidayDaysService>();
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
-            #endregion
+			#endregion
 
-            #region Recruitment
-            services.AddScoped<IJobApplicationService, JobApplicationService>();
+			#region Recruitment
+			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
+			services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
-            #endregion
+			services.AddScoped<IInterviewTypeService, InterviewTypeService>();
+			services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
+			#endregion
 
-            #region Recruitment
-            services.AddScoped<IInterviewTypeService, InterviewTypeService>();
+
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             #endregion
+           
 
             #region DesktopLogin
             services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
@@ -109,11 +114,13 @@ namespace CloudVOffice.Web.Framework
 
 			#region Accounts Services
 			services.AddScoped<IFinancialYearService, FinancialYearService>();
-            services.AddScoped<ICustomerGroupService, CustomerGroupService>();
+           
             services.AddScoped<IChartOfAccountsServices, ChartOfAccountsService>();
 
-            #endregion
-            return services;
+            services.AddScoped<ICustomerService, CustomerService>();
+			#endregion
+			
+			return services;
 
         }
     }

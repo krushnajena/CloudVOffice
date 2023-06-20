@@ -134,7 +134,7 @@ namespace CloudVOffice.Services.Projects
 		{
 			try
 			{
-				var projectTask = _Context.ProjectTasks.Where(x => x.ProjectTaskId == projectTaskDTO.ProjectTaskId && x.TaskName == projectTaskDTO.TaskName && x.Deleted == false).FirstOrDefault();
+				var projectTask = _Context.ProjectTasks.Where(x => x.ProjectTaskId != projectTaskDTO.ProjectTaskId && x.TaskName == projectTaskDTO.TaskName && x.Deleted == false).FirstOrDefault();
 				if (projectTask == null)
 				{
 					var a = _Context.ProjectTasks.Where(x => x.ProjectTaskId == projectTaskDTO.ProjectTaskId).FirstOrDefault();
@@ -396,7 +396,7 @@ namespace CloudVOffice.Services.Projects
 
 
 				  .Where(x => x.Deleted == false && 
-				   x.EmployeeId == EmployeeId  &&   (( x.ExpectedEndDate < x.ComplitedOn) || (x.ComplitedOn == null && x.ExpectedEndDate.Value.Date< DateTime.Today)  )).ToList();
+				   x.EmployeeId == EmployeeId ).ToList();
 
 
 			}
@@ -465,6 +465,26 @@ namespace CloudVOffice.Services.Projects
 				throw;
 			}
         }
-    }
+
+		public List<ProjectTask> GetTaskList(Int64? EmployeeId)
+		{
+			try
+			{
+				return _Context.ProjectTasks
+					  .Include(a=> a.Project)
+					  .ThenInclude(a=> a.ProjectEmployees)
+					  .Include(a=> a.Employee)
+					   .Where(x => x.Deleted == false &&
+				   x.EmployeeId == EmployeeId ).ToList();
+
+
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+	}
 }
 	

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Core.Domain.Customer
+namespace CloudVOffice.Core.Domain.Customert
 {
+  
     public class CustomerGroup : IAuditEntity, ISoftDeletedEntity
     {
         public int CustomerGroupId { get; set; }
@@ -17,3 +18,4 @@ namespace CloudVOffice.Core.Domain.Customer
         public bool Deleted { get; set; }
     }
 }
+

@@ -49,6 +49,10 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Views\Customer\" />
+	</ItemGroup>
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->
 		<MSBuild Projects="@(ClearPluginAssemblies)" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="CloudVOfficeClear" />

@@ -333,5 +333,10 @@ namespace CloudVOffice.Services.Emp
 			}
 
 		}
-	}
+
+        public object GetTaskList(long userId)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

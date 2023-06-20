@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
@@ -11,8 +11,8 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Job Application Source</h5>
-                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                    <h5> Staffing Plan</h5>
+                    @*<h6 class="sub-heading">Welcome to Unify Admin Template</h6>*@
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -32,18 +32,15 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            JobApplicationSource
+                            Staffing Plan
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Recruitment/JobApplicationSource/JobApplicationSourceCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add JobApplicationSource</a>
-
+                            <a href="/Recruitment/StaffingPlan/StaffingPlanCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Staffing Plan</a>
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
-
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.JobApplicationSource"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.staffingPlans"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -52,15 +49,14 @@
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
-
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
-
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-
-
-                            <e-grid-column field="SourceName" headerText="Source Name" textAlign="Left" width="200"></e-grid-column>
                             
+                            <e-grid-column field="PlanName" headerText="Plan Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="FromDate" headerText="From Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ToDate" headerText="To Date" textAlign="Left" width="120"></e-grid-column>
+                           
                             <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -71,7 +67,6 @@
     </div>
 
 </div>
-
 @{
 
     if (TempData["msg"] != null)
@@ -82,7 +77,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobApplicationSource",
+                    title: "StaffingPlan",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -91,7 +86,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobApplicationSource",
+                    title: "StaffingPlan",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -100,16 +95,17 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobApplicationSource",
+                    title: "StaffingPlan",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
             }
+
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "JobApplicationSource",
+                    title: "StaffingPlan",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -118,7 +114,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "JobApplicationSource",
+                    title: "StaffingPlan",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -127,7 +123,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "JobApplicationSource",
+                    title: "StaffingPlan",
                     text: message,
                     type: "error"
                 });
@@ -135,7 +131,6 @@
         </script>
     }
 }
-
 <script type="text/javascript">
     function Delete(Id) {
         swal({
@@ -150,22 +145,22 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Recruitment/JobApplicationSource/JobApplicationSourceDelete?jobApplicationSourceId=" + Id;
+                window.location.href = "../../Recruitment/StaffingPlan/StaffingPlanDelete?StaffingPlanId=" + Id;
             }
         })
     }
 </script>
-
-
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Recruitment/JobApplicationSource/JobApplicationSourceCreate?jobApplicationSourceId=${jobApplicationSourceId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <button onClick="Delete(${JobApplicationSourceId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+        <a href="../../Recruitment/StaffingPlan/StaffingPlanCreate?StaffingPlanId=${StaffingPlanId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${StaffingPlanId})" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button >
+
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];

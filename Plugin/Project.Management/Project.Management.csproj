@@ -32,6 +32,7 @@
     <None Remove="Views\Task\TaskComplitedByOthersReport.cshtml" />
     <None Remove="Views\Task\TaskCreate.cshtml" />
     <None Remove="Views\Task\TaskDelayReport.cshtml" />
+    <None Remove="Views\Task\TaskList.cshtml" />
     <None Remove="Views\Task\Tasks.cshtml" />
     <None Remove="Views\Task\TasksForDelayValidation.cshtml" />
     <None Remove="Views\TimesheetActivityCategory\TimesheetActivityCategoryCreate.cshtml" />
@@ -45,6 +46,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
+		<ProjectReference Include="..\HR.Recruitment\HR.Recruitment.csproj" />
 	</ItemGroup>
 
 

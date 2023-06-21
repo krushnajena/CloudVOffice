@@ -95,13 +95,13 @@
 
 <script type="text/javascript">
     function OpenNewWindow(actid) {
-        window.open("../../../DMS/DesktopLogin/GetSnaps?type=session&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
+        window.open("../../../DesktopMonitoring/DesktopMonitoring/GetSnaps?type=session&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
     }
 </script>
 <script id="template2" type="text/x-template">
     <div class="link">
 
-            <button onClick="OpenNewWindow(${desktopLoginId})" style="background: transparent;border: none;"><i class="fa-solid fa-video"></i></button>
+            <button onClick="OpenNewWindow(${desktopActivityLogId})" style="background: transparent;border: none;"><i class="fa-solid fa-video"></i>as</button>
     </div>
 </script>
 <script>
@@ -224,10 +224,9 @@
         console.log(JSON.stringify(model));
         $.ajax({
             type: "POST",
-            url: "../../api/DesktopActivityLog/ActivityLogWithFilter",
-            data: JSON.stringify(model),
-            contentType: "application/json",
-
+            url: "/DesktopMonitoring/DesktopMonitoring/GetAcivityLogsWithFilter",
+            data: model,
+           
             success: function (data, statusText, xhr) {
                 console.log(data);
                 if (xhr.status === 200) {

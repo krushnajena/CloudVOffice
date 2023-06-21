@@ -34,12 +34,35 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     DesktopLoginId = desktopSnap.DesktopLoginId,
                     EmployeeId = desktopSnap.EmployeeId,
                     LogType=  desktopSnap.LogType,
-                    SnapShot = desktopSnap.LogType,
+                    SnapShot = desktopSnap.SnapShot,
                     SnapshotDateTime = desktopSnap.SnapshotDateTime,
                     FileSize = desktopSnap.FileSize,
                     CreatedBy = desktopSnap.CreatedBy,
                 });
                 return MessageEnum.Success;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<DesktopSnapshot> GetSnapsByActivityId(Int64 ActivityId)
+        {
+            try
+            {
+                return _Context.DesktopSnapshots.Where(x=>x.DesktopActivityLogId== ActivityId && x.Deleted == false).OrderBy(x=>x.SnapshotDateTime).ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public List<DesktopSnapshot> GetSnapsBySessionId(Int64 SessionId)
+        {
+            try
+            {
+                return _Context.DesktopSnapshots.Where(x => x.DesktopLoginId == SessionId && x.Deleted == false).OrderBy(x => x.SnapshotDateTime).ToList();
             }
             catch
             {

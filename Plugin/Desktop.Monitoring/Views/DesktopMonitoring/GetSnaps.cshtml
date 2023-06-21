@@ -1,0 +1,192 @@
+﻿<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <style>
+        #video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        #video {
+            width: 100%;
+            height: 100%;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 0;
+            width: 99%;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        #play-pause {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        #progress-bar {
+            width: 100%;
+            height: 10px;
+            background-color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="video-container">
+        <img id="video" />
+        <div id="controls">
+            <button id="play-pause">►</button>
+            <div id="progress-bar"></div>
+        </div>
+    </div>
+    <script>
+      
+            getImages();
+      
+
+
+        function getSessionImages() {
+            $.ajax({
+                type: "GET",
+                url: "/DesktopMonitoring/DesktopMonitoring/GetDesktopSnaps?Id=" + @ViewBag.ActivityId+"&logType=" + "@ViewBag.type",
+
+
+                success: function (data, statusText, xhr) {
+                    console.log(data);
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        frames.push('../../screenshots/' + data.data[i]['snapShot'])
+                    }
+                    console.log(frames)
+                    if (xhr.status === 200) {
+                        $('#container').html(data);
+                    } else if (data.status === "duplicate") {
+                        sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                    } else if (data.status === "error") {
+                        sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                    } else {
+                        sweetAlert("Validation Alert!", "Something unexpected!", "warning");
+                    }
+                },
+                error: function (data) {
+                    if (data.status == 401) {
+                        window.location.replace('/Message/TokenExpire');
+                    } else if (data.status == 403) {
+                        window.location.replace('/Message/Unauthorize');
+                    } else if (data.status == 400) {
+                        sweetAlert("Validation Alert!", "Please check input data!", "warning");
+                    }
+                }
+            });
+        }
+
+        var frames = []; // list of image files
+
+        let currentFrame = 0;
+        let playing = false;
+        let interval = null;
+
+        let videoContainer = document.getElementById('video-container');
+        let canvas = document.getElementById('video');
+        // let ctx = canvas.getContext('2d');
+        let playPause = document.getElementById('play-pause');
+        let progressBar = document.getElementById('progress-bar');
+
+        playPause.addEventListener('click', togglePlay);
+        videoContainer.addEventListener('mouseover', showControls);
+        videoContainer.addEventListener('mouseout', hideControls);
+
+        function getImages() {
+            $.ajax({
+                type: "GET",
+                url: "/DesktopMonitoring/DesktopMonitoring/GetDesktopSnaps?Id=" + @ViewBag.ActivityId+"&logType=" + "@ViewBag.type",
+
+
+
+                success: function (data, statusText, xhr) {
+                    console.log(data);
+
+                    for (var i = 0; i <data.length; i++) {
+                        frames.push('/uploads/desktopsnaps/' + data[i]['snapShot'])
+                    
+                    console.log(frames)
+                   
+                },
+                error: function (data) {
+                    if (data.status == 401) {
+                        window.location.replace('/Message/TokenExpire');
+                    } else if (data.status == 403) {
+                        window.location.replace('/Message/Unauthorize');
+                    } else if (data.status == 400) {
+                        sweetAlert("Validation Alert!", "Please check input data!", "warning");
+                    }
+                }
+            });
+        }
+
+        function togglePlay() {
+            if (playing) {
+                pause();
+            } else {
+                play();
+            }
+        }
+
+        function play() {
+            playing = true;
+            playPause.innerHTML = '❚❚';
+            interval = setInterval(nextFrame, 1000); // update frame every 100ms
+        }
+
+        function pause() {
+            playing = false;
+            playPause.innerHTML = '►';
+            clearInterval(interval);
+        }
+
+        function stop() {
+            playing = false;
+            playPause.innerHTML = '►';
+            clearInterval(interval);
+            currentFrame = 0;
+        }
+        function nextFrame() {
+
+
+            currentFrame = (currentFrame + 1) % frames.length;
+            let image = new Image();
+            console.log(frames)
+            canvas.src = frames[currentFrame];
+
+            progressBar.style.width = (currentFrame + 1) / frames.length * 100 + '%';
+            var a = (currentFrame - 1);
+            var b = frames.length
+            if (a < 0) {
+                stop();
+            }
+
+
+
+        }
+
+        function showControls() {
+            controls.style.display = 'flex';
+        }
+
+        function hideControls() {
+            controls.style.display = 'none';
+        }
+
+    </script>
+</body>
+
+</html>

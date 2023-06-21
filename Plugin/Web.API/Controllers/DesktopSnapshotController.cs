@@ -58,8 +58,8 @@ namespace Web.API.Controllers
                 string extn = fileInfo.Extension.ToLower();
                 Guid id = Guid.NewGuid();
                 string filename = id.ToString() + extn;
-
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"uploads\desktopsnaps\"+ EmployeeId+@"\"+ DateTime.Today.Date.ToString("dd-MMM-yyyy"));
+                string newpath =  DateTime.Today.Date.ToString("dd-MMM-yyyy");
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"uploads\desktopsnaps\"+ EmployeeId + @"\" + newpath);
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
@@ -67,7 +67,7 @@ namespace Web.API.Controllers
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
                 string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
                 desktopSnapsDTO.imageUpload.CopyTo(new FileStream(imagePath, FileMode.Create));
-                desktopSnapsDTO.SnapShot = uploadsFolder + uniqueFileName;
+                desktopSnapsDTO.SnapShot =EmployeeId+"/" +newpath+"/"+ uniqueFileName;
                 if(fileInfo.Exists)
                 {
                     desktopSnapsDTO.FileSize = fileInfo.Length;

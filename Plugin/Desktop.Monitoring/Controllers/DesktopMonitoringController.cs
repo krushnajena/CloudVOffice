@@ -22,13 +22,19 @@ namespace Desktop.Monitoring.Controllers
         private readonly IEmployeeService _employeeService;
 
         private readonly IDesktoploginSevice _desktopLoginService;
+        private readonly IDesktopActivityLogService _desktopActivityLogSerive;
+        private readonly IDesktopSnapsService _desktopSnapshotSerive;
 
         public DesktopMonitoringController(IEmployeeService employeeService,
-            IDesktoploginSevice desktopLoginService
+            IDesktoploginSevice desktopLoginService,
+            IDesktopActivityLogService desktopActivityLogSerive,
+             IDesktopSnapsService desktopSnapshotSerive
         )
         {
             _employeeService = employeeService;
             _desktopLoginService = desktopLoginService;
+            _desktopActivityLogSerive = desktopActivityLogSerive;
+            _desktopSnapshotSerive = desktopSnapshotSerive;
 
         }
         public IActionResult Dashboard()
@@ -46,12 +52,7 @@ namespace Desktop.Monitoring.Controllers
         public IActionResult Track(Int64 EmployeeId)
         {
 
-            ViewBag.LoginSession = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO
-            {
-                EmployeeId = EmployeeId,
-                FromDate = DateTime.Today.AddDays(-30),
-                ToDate = DateTime.Today.AddDays(1)
-            }); 
+       
             ViewBag.EmployeeeId = EmployeeId;
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Track.cshtml");
         }
@@ -60,6 +61,87 @@ namespace Desktop.Monitoring.Controllers
         {
             ViewBag.EmployeeeId = EmployeeId;
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/ActivityLog.cshtml");
+        }
+
+        public IActionResult GetSnaps(string type, string logid)
+        {
+            ViewBag.ActivityId = logid;
+            ViewBag.type = type;
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/GetSnaps.cshtml");
+        }
+
+        [HttpPost]
+
+        public IActionResult LoginSessionWithDateRange(DesktopLoginFilterDTO desktopLoginDTO)
+        {
+            try
+            {
+               
+
+                var list = _desktopLoginService.GetDesktoploginsWithDateRange(desktopLoginDTO);
+
+
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
+        }
+
+
+
+        [HttpPost]
+
+        public IActionResult GetAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
+        {
+            try
+            {
+
+                var list = _desktopActivityLogSerive.GetAcivityLogsWithFilter(desktopLoginDTO);
+
+
+
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetDesktopSnaps(Int64 Id, string logType)
+        {
+            try
+            {
+                if(logType == "Session")
+                {
+                    var list = _desktopSnapshotSerive.GetSnapsBySessionId(Id);
+
+
+
+
+                    return Ok(list);
+                }
+                else
+                {
+                    var list = _desktopSnapshotSerive.GetSnapsByActivityId(Id);
+
+
+
+
+                    return Ok(list);
+
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
         }
     }
 }

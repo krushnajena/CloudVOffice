@@ -18,6 +18,7 @@ using Microsoft.CodeAnalysis.Operations;
 using Microsoft.AspNetCore.Authorization;
 using CloudVOffice.Services.Users;
 using Microsoft.AspNetCore.Hosting;
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace HR.Base.Controllers
 {
@@ -210,6 +211,13 @@ namespace HR.Base.Controllers
 			var a = _empolyeeService.DeleteEmployee(employeeid, DeletedBy);
             TempData["msg"] = a;
             return Redirect("/HR/Employee/EmployeeView");
+		}
+
+		[HttpGet]
+		public JsonResult GetEmployeeDetailsByEmployeeId(Int64 EmployeeId)
+		{
+			var a  = _empolyeeService.GetEmployeeById(EmployeeId);
+			return Json(a);
 		}
 	}
 }

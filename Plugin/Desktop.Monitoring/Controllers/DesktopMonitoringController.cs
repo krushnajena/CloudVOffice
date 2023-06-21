@@ -48,8 +48,10 @@ namespace Desktop.Monitoring.Controllers
 
             ViewBag.LoginSession = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO
             {
-                EmployeeId = EmployeeId
-            });
+                EmployeeId = EmployeeId,
+                FromDate = DateTime.Today.AddDays(-30),
+                ToDate = DateTime.Today.AddDays(1)
+            }); 
             ViewBag.EmployeeeId = EmployeeId;
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Track.cshtml");
         }

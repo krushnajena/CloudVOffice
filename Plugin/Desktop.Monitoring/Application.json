@@ -1,7 +1,7 @@
 {
 
   "ApplicationName": "Desktop Monitoring",
-  "Url": "/DesktopMonitoring/DesktopMonitoring/Dasboard",
+  "Url": "/DesktopMonitoring/DesktopMonitoring/Dashboard",
   "IconImageUrl": "/Plugin/Desktop.Monitoring/logo.png",
   "IconClass": "",
   "AreaName": "DesktopMonitoring",
@@ -31,7 +31,7 @@
     },
     {
       "ApplicationName": "Moniter User",
-      "Url": "/DesktopMonitoring/Monitering/Users",
+      "Url": "/DesktopMonitoring/DesktopMonitoring/MonitorUsers",
       "IsGroup": false,
       "IconImageUrl": "",
       "IconClass": "icon-event_note",

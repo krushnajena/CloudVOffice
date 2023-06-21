@@ -102,8 +102,12 @@ namespace DesktopMonitoringSystem.Pages
                         {
                             if (DateTime.Parse( loginSessionModel[k].LoginDateTime.ToString()).Date == dt.Date)
                             {
-                                TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].IdelTime.ToString());
-                                t1 = t1.Add(t2);
+                                if (loginSessionModel[k].IdelTime != null)
+                                {
+                                    TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].IdelTime.ToString());
+                                    t1 = t1.Add(t2);
+                                }
+                             
 
                             }
 
@@ -127,7 +131,7 @@ namespace DesktopMonitoringSystem.Pages
 
         private async void GetSessionLog()
         {
-            DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today };
+            DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today.AddDays(1) };
             var a = await HttpClientRq.PostRequest(ApiUrls.getSessionLog, JsonConvert.SerializeObject(desktopLoginFilterDTO));
 
             

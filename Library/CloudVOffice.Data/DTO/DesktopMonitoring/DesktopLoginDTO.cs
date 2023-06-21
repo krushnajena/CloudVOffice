@@ -23,4 +23,9 @@ namespace CloudVOffice.Data.DTO.DesktopMonitoring
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
     }
+    public class DesktopLoginIdelTimeUpdateDTO
+    {
+        public Int64 DesktopLoginId { get; set; }
+        public TimeSpan? IdelTime { get; set; }
+    }
 }

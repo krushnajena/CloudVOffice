@@ -27,8 +27,15 @@ namespace CloudVOffice.Services.DesktopMonitoring
         {
             try
             {
-               
-               var a=     _desktopactivitylogRepo.Insert(new DesktopActivityLog()
+                var b = _Context.DesktopLogins.Where(x => x.DesktopLoginId == desktopactivitylogDTO.DesktopLoginId).FirstOrDefault();
+                if (b != null)
+                {
+                    b.LogOutDateTime = desktopactivitylogDTO.Todatetime;
+                    _Context.SaveChanges();
+                   
+                }
+
+                var a=     _desktopactivitylogRepo.Insert(new DesktopActivityLog()
                     {
                         EmployeeId = desktopactivitylogDTO.EmployeeId,
                         LogType = desktopactivitylogDTO.LogType,

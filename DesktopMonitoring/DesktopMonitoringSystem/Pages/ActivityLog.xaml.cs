@@ -202,7 +202,7 @@ namespace DesktopMonitoringSystem.Pages
               
 
 
-            DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today };
+            DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today.AddDays(1) };
             var a = await HttpClientRq.PostRequest(ApiUrls.getActivityLog, JsonConvert.SerializeObject(desktopLoginFilterDTO));
 
 

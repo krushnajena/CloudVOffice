@@ -90,6 +90,26 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         }
 
+        public MessageEnum DesktopLoginUpdateIdelTime(DesktopLoginIdelTimeUpdateDTO desktopLoginIdelTimeUpdateDTO)
+        {
+            try
+            {
+                var a = _Context.DesktopLogins.Where(x => x.DesktopLoginId == desktopLoginIdelTimeUpdateDTO.DesktopLoginId).FirstOrDefault();
+                if (a != null)
+                {
+                    a.IdelTime = desktopLoginIdelTimeUpdateDTO.IdelTime;
+                    _Context.SaveChanges();
+                    return MessageEnum.Success;
+                }
+                else
+                    return MessageEnum.Invalid;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public DesktopLogin GetDesktoploginByDesktoploginId(Int64 DesktopLoginId)
         {
             try

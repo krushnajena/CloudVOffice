@@ -93,7 +93,24 @@ namespace Web.API.Controllers
                 return Accepted(new { Status = "error", ResponseMsg = ex.Message });
             }
         }
-       
+
+        [HttpPost]
+        [Authorize]
+
+        public IActionResult UpdateIdelTime(DesktopLoginIdelTimeUpdateDTO idelTimeUpdateDTO)
+        {
+            try
+            {
+             var a=   _desktopLoginService.DesktopLoginUpdateIdelTime(idelTimeUpdateDTO);
+                return Ok(a);   
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
+        }
+
+
 
 
     }

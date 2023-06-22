@@ -6,6 +6,7 @@ using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Web.Framework;
+using Desktop.Monitoring.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -142,6 +143,87 @@ namespace Desktop.Monitoring.Controllers
             {
                 return Accepted(new { Status = "error", ResponseMsg = ex.Message });
             }
+        }
+
+
+        [HttpPost]
+        public ActionResult SessionLogLineChart(DesktopLoginFilterDTO desktopLoginDTO)
+        {
+
+            var loginSessionModel = _desktopLoginService.GetDesktoploginsWithDateRange(desktopLoginDTO);
+
+
+
+
+            List<DesktopSessionLineChartData> chartData = new List<DesktopSessionLineChartData>();
+
+            for (int i = 0; i < loginSessionModel.Count; i++)
+            {
+                bool check = false;
+                DateTime dt = loginSessionModel[i].LoginDateTime.Value.Date;
+                for (int j = 0; j < chartData.Count; j++)
+                {
+                    if (chartData[j].Xvalue == dt.Date.ToString("dd-MM-yyyy"))
+                    {
+                        check = true;
+                    }
+                }
+
+
+                if (check == false)
+                {
+                    TimeSpan t1 = TimeSpan.Parse("0:00:00");
+                    if (loginSessionModel[i].Duration != null)
+                    {
+                        t1 = TimeSpan.Parse(loginSessionModel[i].Duration);
+                        for (int k = 1; k < loginSessionModel.Count; k++)
+                        {
+                            if (loginSessionModel[k].LoginDateTime.Value.Date == dt.Date)
+                            {
+                                if (loginSessionModel[k].Duration != null)
+                                {
+                                    TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].Duration);
+                                    t1 = t1.Add(t2);
+                                }
+
+
+                            }
+
+                        }
+
+
+                    }
+
+                    TimeSpan t3 = TimeSpan.Parse("0:00:00");
+                    if (loginSessionModel[i].IdelTime != null )
+                    {
+                        t3 = TimeSpan.Parse(loginSessionModel[i].IdelTime.ToString());
+                        for (int k = 1; k < loginSessionModel.Count; k++)
+                        {
+                            if (loginSessionModel[k].LoginDateTime.Value.Date == dt.Date)
+                            {
+                                if (loginSessionModel[k].IdelTime != null)
+                                {
+                                    TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].IdelTime.ToString());
+                                    t3 = t3.Add(t2);
+                                }
+                               
+
+                            }
+
+                        }
+
+
+                    }
+                    chartData.Add(new DesktopSessionLineChartData(dt.Date.ToString("dd-MM-yyyy"), t1.TotalHours, t3.TotalHours));
+
+                }
+            }
+
+
+
+           // ViewBag.dataSource = chartData;
+            return Json(chartData);
         }
     }
 }

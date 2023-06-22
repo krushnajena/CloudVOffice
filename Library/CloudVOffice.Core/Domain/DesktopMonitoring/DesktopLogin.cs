@@ -48,6 +48,19 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
 
             }
         }
+        [NotMapped]
+        public string ForDate
+        {
+            get
+            {
+
+
+
+                return DateTime.Parse(LoginDateTime.ToString()).ToString("dd-MMM-yyyy");
+
+
+            }
+        }
 
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }

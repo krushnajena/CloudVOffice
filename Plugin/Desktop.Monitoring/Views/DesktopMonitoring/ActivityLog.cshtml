@@ -71,7 +71,10 @@
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
 
+                            <e-grid-column field="forDate" headerText="Log Date" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="logDateTime" headerText="Log Date & Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="todatetime" headerText="To Date & Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="duration" headerText="Duration" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="computerName" headerText="Computer Name" textAlign="Left" width="120"></e-grid-column>
 
                             <e-grid-column field="processOrUrl" headerText="Application Name" textAlign="Left" width="120"></e-grid-column>
@@ -95,13 +98,13 @@
 
 <script type="text/javascript">
     function OpenNewWindow(actid) {
-        window.open("../../../DesktopMonitoring/DesktopMonitoring/GetSnaps?type=session&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
+        window.open("../../../DesktopMonitoring/DesktopMonitoring/GetSnaps?type=act&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
     }
 </script>
 <script id="template2" type="text/x-template">
     <div class="link">
 
-            <button onClick="OpenNewWindow(${desktopActivityLogId})" style="background: transparent;border: none;"><i class="fa-solid fa-video"></i>as</button>
+            <button onClick="OpenNewWindow(${desktopActivityLogId})" style="background: transparent;border: none;"><i class="icon-clock" style="font-size:22px"></i></button>
     </div>
 </script>
 <script>

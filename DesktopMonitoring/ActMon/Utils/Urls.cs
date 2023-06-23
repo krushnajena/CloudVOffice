@@ -49,16 +49,22 @@ namespace ActMon.Utils
         }
 
         public static string postLogin = getGatewayUrl() + "/api/Login/Auth";
+        public static string postRefreshToken = getGatewayUrl() + "/api/Login/RefreshToken";
+
+        public static string postSessionLog = getGatewayUrl() + "/api/DesktopLogin/CreateDesktopLoginLog";
+        public static string postActivityLog = getGatewayUrl() + "/api/DesktopActivityLog/CreateActivityLog";
+        public static string imageUpload = getGatewayUrl() + "/api/DesktopSnapshot/CreateDesktopSnaps";
+
         public static string getSessionLog     = getGatewayUrl()+ "/api/DesktopLogin/GeteLoginSessionsByUserId";
         public static string getActivityLog    = getGatewayUrl() + "/api/DMSActivityLog/GetAcivityLogsByUserId";
         public static string getFileOperation  = getGatewayUrl() + "/api/DMSActivityLog/GetFileLogsByUserId";
         public static string getPrinting      = getGatewayUrl() + "/api/DMSActivityLog/GetPrintLogsByUserId";
         public static string getKeyStroke = getGatewayUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
 
-        public static string imageUpload = getClientUrl() + "/Upload/DMSSnapImgUpload";
+      
 
-        public static string postSessionLog = getGatewayUrl() + "/api/DesktopLogin/CreateDesktopLogin";
-        public static string postActivityLog = getGatewayUrl() + "/api/DMSActivityLog/PostSyncActivityLog";
+    
+   
         
     }
 }

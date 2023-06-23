@@ -1,0 +1,64 @@
+﻿﻿@using Syncfusion.EJ2
+@{
+    var palettes = new String[] { "#E94649", "#F6B53F", "#6FAAB0", "#C4C24A" };
+}
+
+@addTagHelper *, Syncfusion.EJ2
+<div>
+    @if (ViewBag.dataSource == null)
+    {
+        //  @Html.EJS().Chart("container").Load("firstChartLoad").Render();
+    }
+    else
+    {
+
+        @Html.EJS().Chart("container").Series(series =>
+    {
+    series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).
+    XName("Xvalue").
+    YName("YValue1").
+    DataSource(ViewBag.dataSource).
+    Width(2).
+
+    Name("Total Duration")
+    .Add();
+    series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).
+    XName("Xvalue").
+    YName("yValue2").
+    DataSource(ViewBag.dataSource).
+    Name("Idel Duration").
+    Width(2)
+    .Add();
+
+    }
+
+    ).PrimaryXAxis(px => px.ValueType(Syncfusion.EJ2.Charts.ValueType.Category)
+    .LabelPlacement(Syncfusion.EJ2.Charts.LabelPlacement.OnTicks)).Title("Session Log Analysis").Palettes(palettes).Tooltip(tt => tt.Enable(true)).Render()
+        ;
+
+    }
+</div>
+<script>
+    var firstChartLoad = function (args) {
+        args.chart.series[0].dataSource = getData();
+        args.chart.series[0].xName = "x";
+        args.chart.series[0].yName = "y";
+
+    }
+    function getData() {
+        let data = [];
+        let point;
+        let value = 80;
+        for (let i = 1; i < 10; i++) {
+            if (Math.random() > .5) {
+                value += Math.random();
+            } else {
+                value -= Math.random();
+            }
+            point = { x: i, y: value.toFixed(1) };
+            data.push(point);
+        }
+        return data;
+    }
+</script>
+@Html.EJS().ScriptManager()

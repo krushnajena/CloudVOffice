@@ -12,7 +12,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
 {
     public interface IDesktopActivityLogService
     {
-        public MessageEnum DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO);
+        public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO);
         public List<DesktopActivityLog> GetDesktopActivityLogs();
         public DesktopActivityLog GetDesktopActivityLogByDesktopActivityLogId(Int64 DesktopActivityLogId);
         public MessageEnum DesktopActivityLogUpdate(DesktopActivityLogDTO desktopactivitylogDTO);

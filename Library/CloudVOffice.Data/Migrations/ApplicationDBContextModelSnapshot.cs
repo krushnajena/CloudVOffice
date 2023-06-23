@@ -62,7 +62,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 1,
                             AccountTypeName = "Accumulated Depreciation",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3320),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8466),
                             Deleted = false
                         },
                         new
@@ -70,7 +70,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 2,
                             AccountTypeName = "Asset Received But Not Billed",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3323),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8468),
                             Deleted = false
                         },
                         new
@@ -78,7 +78,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 3,
                             AccountTypeName = "Bank",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3324),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8470),
                             Deleted = false
                         },
                         new
@@ -86,7 +86,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 4,
                             AccountTypeName = "Cash",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3326),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8471),
                             Deleted = false
                         },
                         new
@@ -94,7 +94,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 5,
                             AccountTypeName = "Chargeable",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3327),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8472),
                             Deleted = false
                         },
                         new
@@ -102,7 +102,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 6,
                             AccountTypeName = "Capital Work in Progress",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3328),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8473),
                             Deleted = false
                         },
                         new
@@ -110,7 +110,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 7,
                             AccountTypeName = "Cost of Goods Sold",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3329),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8474),
                             Deleted = false
                         },
                         new
@@ -118,7 +118,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 8,
                             AccountTypeName = "Depreciation",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3331),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8476),
                             Deleted = false
                         },
                         new
@@ -126,7 +126,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 9,
                             AccountTypeName = "Equity",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3332),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8477),
                             Deleted = false
                         },
                         new
@@ -134,7 +134,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 10,
                             AccountTypeName = "Expense Account",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3333),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8478),
                             Deleted = false
                         },
                         new
@@ -142,7 +142,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 11,
                             AccountTypeName = "Expenses Included In Asset Valuation",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3334),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8479),
                             Deleted = false
                         },
                         new
@@ -150,7 +150,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 12,
                             AccountTypeName = "Expenses Included In Valuation",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3336),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8480),
                             Deleted = false
                         },
                         new
@@ -158,7 +158,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 13,
                             AccountTypeName = "Fixed Asset",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3337),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8481),
                             Deleted = false
                         },
                         new
@@ -166,7 +166,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 14,
                             AccountTypeName = "Income Account",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3338),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8482),
                             Deleted = false
                         },
                         new
@@ -174,7 +174,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 15,
                             AccountTypeName = "Payable",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3340),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8483),
                             Deleted = false
                         },
                         new
@@ -182,7 +182,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 16,
                             AccountTypeName = "Receivable",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3341),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8484),
                             Deleted = false
                         },
                         new
@@ -190,7 +190,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 17,
                             AccountTypeName = "Round Off",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3342),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8485),
                             Deleted = false
                         },
                         new
@@ -198,7 +198,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 18,
                             AccountTypeName = "Stock",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3344),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8486),
                             Deleted = false
                         },
                         new
@@ -206,7 +206,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 19,
                             AccountTypeName = "Stock Adjustment",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3345),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8487),
                             Deleted = false
                         },
                         new
@@ -214,7 +214,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 20,
                             AccountTypeName = "Stock Received But Not Billed",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3346),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8488),
                             Deleted = false
                         },
                         new
@@ -222,7 +222,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 21,
                             AccountTypeName = "Service Received But Not Billed",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3348),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8489),
                             Deleted = false
                         },
                         new
@@ -230,7 +230,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 22,
                             AccountTypeName = "Tax",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3349),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8490),
                             Deleted = false
                         },
                         new
@@ -238,7 +238,7 @@ namespace CloudVOffice.Data.Migrations
                             AccountTypeId = 23,
                             AccountTypeName = "Temporary",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3350),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8491),
                             Deleted = false
                         });
                 });
@@ -314,7 +314,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 1,
                             AccountName = "Application of Funds (Assets)",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3674),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8637),
                             Deleted = false,
                             IsGroup = true,
                             ReportType = "Balance Sheet",
@@ -325,7 +325,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 2,
                             AccountName = "Current Assets",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3679),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8640),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 1,
@@ -337,7 +337,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 3,
                             AccountName = "Accounts Receivable",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3681),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8642),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 2,
@@ -349,7 +349,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 4,
                             AccountName = "Debtors",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3683),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8644),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 3,
@@ -361,7 +361,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 5,
                             AccountName = "Bank Accounts",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3685),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8646),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 2,
@@ -373,7 +373,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 6,
                             AccountName = "Cash In Hand",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3688),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8648),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 2,
@@ -385,7 +385,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 7,
                             AccountName = "Cash",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3690),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8650),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 6,
@@ -397,7 +397,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 8,
                             AccountName = "Loans and Advances (Assets)",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3691),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8652),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 2,
@@ -409,7 +409,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 9,
                             AccountName = "Securities and Deposits",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3694),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8654),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 2,
@@ -421,7 +421,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 10,
                             AccountName = "Earnest Money",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3696),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8666),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 9,
@@ -433,7 +433,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 11,
                             AccountName = "Stock Assets",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3698),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8668),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 2,
@@ -445,7 +445,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 12,
                             AccountName = "Stock In Hand",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3700),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8670),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 11,
@@ -457,7 +457,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 13,
                             AccountName = "Tax Assets",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3701),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8671),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 2,
@@ -469,7 +469,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 14,
                             AccountName = "Fixed Assets",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3704),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8673),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 1,
@@ -481,7 +481,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 15,
                             AccountName = "Accumulated Depreciations",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3706),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8675),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -493,7 +493,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 16,
                             AccountName = "Accumulated Depreciations",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3708),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8677),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -505,7 +505,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 17,
                             AccountName = "Buildings",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3709),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8679),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -517,7 +517,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 18,
                             AccountName = "Capital Equipments",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3711),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8680),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -529,7 +529,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 19,
                             AccountName = "Electronic Equipments",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3713),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8683),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -541,7 +541,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 20,
                             AccountName = "Furnitures and Fixtures",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3715),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8685),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -553,7 +553,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 21,
                             AccountName = "Office Equipments",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3717),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8687),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -565,7 +565,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 22,
                             AccountName = "Plants and Machineries",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3719),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8689),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 14,
@@ -577,7 +577,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 23,
                             AccountName = "Investments",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3721),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8691),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 1,
@@ -589,7 +589,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 24,
                             AccountName = "Temporary Accounts",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3723),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8692),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 1,
@@ -601,7 +601,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 25,
                             AccountName = "Temporary Opening",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3725),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8695),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 24,
@@ -613,7 +613,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 26,
                             AccountName = "Source of Funds (Liabilities)",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3726),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8697),
                             Deleted = false,
                             IsGroup = true,
                             ReportType = "Balance Sheet",
@@ -624,7 +624,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 27,
                             AccountName = "Capital Account",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3728),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8699),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 26,
@@ -636,7 +636,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 28,
                             AccountName = "Reserves and Surplus",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3730),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8702),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 27,
@@ -648,7 +648,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 29,
                             AccountName = "Shareholders Funds",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3732),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8704),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 27,
@@ -660,7 +660,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 30,
                             AccountName = "Current Liabilities",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3734),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8708),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 26,
@@ -672,7 +672,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 31,
                             AccountName = "Accounts Payable",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3736),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8710),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 30,
@@ -684,7 +684,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 32,
                             AccountName = "Creditors",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3738),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8712),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 31,
@@ -696,7 +696,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 33,
                             AccountName = "Payroll Payable",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3741),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8714),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 31,
@@ -708,7 +708,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 34,
                             AccountName = "Duties and Taxes",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3742),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8716),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 30,
@@ -720,7 +720,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 35,
                             AccountName = "TDS",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3744),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8717),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 34,
@@ -732,7 +732,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 36,
                             AccountName = "Loans (Liabilities)",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3746),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8719),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 30,
@@ -744,7 +744,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 37,
                             AccountName = "Bank Overdraft Account",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3748),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8722),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 36,
@@ -756,7 +756,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 38,
                             AccountName = "Secured Loans",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3752),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8723),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 36,
@@ -768,7 +768,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 39,
                             AccountName = "Unsecured Loans",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3754),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8725),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 36,
@@ -780,7 +780,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 40,
                             AccountName = "Stock Liabilities",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3756),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8727),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 30,
@@ -792,7 +792,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 41,
                             AccountName = "Stock Received But Not Billed",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3757),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8729),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 40,
@@ -804,7 +804,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 42,
                             AccountName = "Income",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3760),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8731),
                             Deleted = false,
                             IsGroup = true,
                             ReportType = "Profit and Loss",
@@ -815,7 +815,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 43,
                             AccountName = "Direct Income",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3762),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8734),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 42,
@@ -827,7 +827,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 44,
                             AccountName = "Sales",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3764),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8737),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 43,
@@ -839,7 +839,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 45,
                             AccountName = "Service",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3765),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8740),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 43,
@@ -851,7 +851,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 46,
                             AccountName = "Indirect Income",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3767),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8743),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 42,
@@ -863,7 +863,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 47,
                             AccountName = "Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3769),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8744),
                             Deleted = false,
                             IsGroup = true,
                             ReportType = "Profit and Loss",
@@ -874,7 +874,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 48,
                             AccountName = "Direct Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3770),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8746),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 47,
@@ -886,7 +886,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 49,
                             AccountName = "Stock Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3821),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8748),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 48,
@@ -898,7 +898,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 50,
                             AccountName = "Cost of Goods Sold",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3826),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8750),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 49,
@@ -910,7 +910,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 51,
                             AccountName = "Expenses Included In Valuation",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3828),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8752),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 49,
@@ -922,7 +922,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 52,
                             AccountName = "Stock Adjustment",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3831),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8754),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 49,
@@ -934,7 +934,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 53,
                             AccountName = "Indirect Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3833),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8755),
                             Deleted = false,
                             IsGroup = true,
                             ParentAccountGroupId = 47,
@@ -946,7 +946,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 54,
                             AccountName = "Administrative Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3835),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8758),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -958,7 +958,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 55,
                             AccountName = "Commission on Sales",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3837),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8761),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -970,7 +970,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 56,
                             AccountName = "Depreciation",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3839),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8762),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -982,7 +982,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 57,
                             AccountName = "Entertainment Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3841),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8765),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -994,7 +994,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 58,
                             AccountName = "Exchange Gain/Loss",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3843),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8768),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1006,7 +1006,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 59,
                             AccountName = "Freight and Forwarding Charges",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3846),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8771),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1018,7 +1018,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 60,
                             AccountName = "Gain/Loss on Asset Disposal",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3848),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8773),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1030,7 +1030,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 61,
                             AccountName = "Legal Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3850),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8775),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1042,7 +1042,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 62,
                             AccountName = "Marketing Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3853),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8777),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1054,7 +1054,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 63,
                             AccountName = "Miscellaneous Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3855),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8788),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1066,7 +1066,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 64,
                             AccountName = "Office Maintenance Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3857),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8792),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1078,7 +1078,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 65,
                             AccountName = "Office Rent",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3859),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8797),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1090,7 +1090,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 66,
                             AccountName = "Postal Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3861),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8799),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1102,7 +1102,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 67,
                             AccountName = "Print and Stationary",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3863),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8801),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1114,7 +1114,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 68,
                             AccountName = "Rounded Off",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3866),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8802),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1126,7 +1126,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 69,
                             AccountName = "Salary",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3868),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8804),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1138,7 +1138,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 70,
                             AccountName = "Sales Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3870),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8806),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1150,7 +1150,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 71,
                             AccountName = "Telephone Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3872),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8808),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1162,7 +1162,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 72,
                             AccountName = "Travel Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3874),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8811),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1174,7 +1174,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 73,
                             AccountName = "Utility Expenses",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3876),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8813),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1186,7 +1186,7 @@ namespace CloudVOffice.Data.Migrations
                             ChartOfAccountsId = 74,
                             AccountName = "Write Off",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3879),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8815),
                             Deleted = false,
                             IsGroup = false,
                             ParentAccountGroupId = 53,
@@ -1515,7 +1515,7 @@ namespace CloudVOffice.Data.Migrations
                     b.ToTable("EmailDomains");
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.Customer.Customer", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Customert.Customer", b =>
                 {
                     b.Property<long>("CustomerId")
                         .ValueGeneratedOnAdd()
@@ -1607,7 +1607,7 @@ namespace CloudVOffice.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.Customer.CustomerGroup", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Customert.CustomerGroup", b =>
                 {
                     b.Property<int>("CustomerGroupId")
                         .ValueGeneratedOnAdd()
@@ -1841,18 +1841,22 @@ namespace CloudVOffice.Data.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("DesktopActivityLogId")
-                        .HasColumnType("int");
-
-                    b.Property<long>("DesktopActivityLogId1")
+                    b.Property<long?>("DesktopActivityLogId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("DesktopLoginId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("EmployeeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<double?>("FileSize")
+                        .HasColumnType("float");
+
                     b.Property<string>("LogType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SnapShot")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("SnapshotDateTime")
@@ -1866,7 +1870,7 @@ namespace CloudVOffice.Data.Migrations
 
                     b.HasKey("DesktopSnapshotId");
 
-                    b.HasIndex("DesktopActivityLogId1");
+                    b.HasIndex("DesktopActivityLogId");
 
                     b.ToTable("DesktopSnapshots");
                 });
@@ -1921,7 +1925,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             EmailTemplateId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(3136),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8331),
                             Deleted = false,
                             EmailTemplateDescription = "<div role=\"document\">\r\n    <div class=\"_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark\" style=\"display: none;\"></div>  <div autoid=\"_rp_w\" class=\"_rp_T4\" style=\"display: none;\"></div>  <div autoid=\"_rp_x\" class=\"_rp_T4\" id=\"Item.MessagePartBody\" style=\"\">\r\n        <div class=\"_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass\" id=\"Item.MessageUniqueBody\" style=\"font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;\">\r\n            <div class=\"rps_ad57\">\r\n                <div>\r\n                    <div>\r\n                        <div style=\"margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);\">\r\n                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate\">\r\n                                <tbody>\r\n                                    <tr>\r\n                                        <td align=\"center\">\r\n                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none\">\r\n                                                <tbody>\r\n                                                    <tr>\r\n                                                        <td></td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td align=\"center\" style=\"min-width:590px\">\r\n                                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"padding:20px 0 0; border-collapse:separate\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td valign=\"middle\">\r\n                                                                            <h1 style=\"color:#676767; font-weight:400; margin:0px\">{%welcometitle%} </h1>\r\n                                                                        </td>\r\n                                                                        <td valign=\"middle\" align=\"right\" width=\"200px\">{%emailogo%}</td>\r\n                                                                    </tr>\r\n                                                                    <tr>\r\n                                                                        <td colspan=\"2\" style=\"text-align:center\">\r\n                                                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px\">\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td style=\"min-width:590px\">\r\n                                                            <table border=\"0\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td>\r\n                                                                            <div style=\"margin-left:1.2rem; margin-bottom:1em\">\r\n                                                                                <h5 style=\"font-weight:400; margin-bottom:0; font-size:16px; color:#676767\"><span style=\"color:rgb(22,123,158); font-size:16px; margin-right:2px; font-weight:600\"></span>{%helloname%}</h5>\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">{%accountcreatetionmessage%}</p>\r\n\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">{%loginidmessage%}</p>\r\n\r\n\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">{%aditionalmessage%}</p>\r\n                                                                                <div style=\"margin:20px 0 0 0; text-align:center\">{%setpasswordlink%}</div>\r\n                                                                                <br />\r\n                                                                                {%copylinkfrommessage%}\r\n                                                                            </div>\r\n                                                                         \r\n                                                                            <div style=\"margin-left:1.2rem; margin-bottom:1em\">\r\n                                                                                <p style=\"color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px\">\r\n                                                                                    {%emailsignature%}\r\n                                                                                </p>\r\n                                                                            </div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td>\r\n                                                            <table border=\"0\" style=\"width:100%\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td>\r\n                                                                            <div style=\"text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px\">\r\n                                                                                <p style=\"color:rgb(115,115,115); font-size:10px\">© Copyright {%companyname%}, {%address%} </p>\r\n                                                                            </div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                    <tr>\r\n                                                                        <td align=\"right\">\r\n                                                                            <div style=\" margin:0 20px\">{%footerletterhera%}</div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                    <tr>\r\n                                                        <td>\r\n                                                            <table border=\"0\" style=\"width:100%\">\r\n                                                                <tbody>\r\n                                                                    <tr>\r\n                                                                        <td>\r\n                                                                            <div style=\"text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px\">\r\n                                                                                <p style=\"color:rgb(115,115,115); margin:0; font-size:10px\">\r\n                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential\r\n                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,\r\n                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.\r\n                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately\r\n                                                                                    and permanently delete the message and any attachments. Thank you.\r\n                                                                                </p>\r\n                                                                            </div>\r\n                                                                        </td>\r\n                                                                    </tr>\r\n                                                                </tbody>\r\n                                                            </table>\r\n                                                        </td>\r\n                                                    </tr>\r\n                                                </tbody>\r\n                                            </table>\r\n                                        </td>\r\n                                    </tr>\r\n                                </tbody>\r\n                            </table>\r\n                        </div>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div> <div class=\"_rp_c5\" style=\"display: none;\"></div>\r\n    </div>  <span class=\"PersonaPaneLauncher\"><div ariatabindex=\"-1\" class=\"_pe_d _pe_62\" aria-expanded=\"false\" tabindex=\"-1\" aria-haspopup=\"false\">  <div style=\"display: none;\"></div> </div></span>\r\n</div>",
                             EmailTemplateName = "WelcomeEmail",
@@ -2701,7 +2705,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Applications",
                             AreaName = "Application",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(605),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7056),
                             Deleted = false,
                             IconImageUrl = "/appstatic/images/applications.png",
                             IsGroup = true,
@@ -2713,7 +2717,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Setup",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(615),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7061),
                             Deleted = false,
                             IconImageUrl = "/appstatic/images/setup.png",
                             IsGroup = true,
@@ -2725,7 +2729,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Company Settings",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(617),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7063),
                             Deleted = false,
                             IsGroup = true,
                             Parent = 2,
@@ -2737,7 +2741,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Company",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(619),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7067),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 3,
@@ -2749,7 +2753,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Letter Head",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(620),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7069),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 3,
@@ -2761,7 +2765,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "User",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(624),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7070),
                             Deleted = false,
                             IsGroup = true,
                             Parent = 2,
@@ -2773,7 +2777,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "User List",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(625),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7072),
                             Deleted = false,
                             IsGroup = false,
                             Parent = 6,
@@ -2785,7 +2789,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Email Setup",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(627),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7073),
                             Deleted = false,
                             IsGroup = true,
                             Parent = 2,
@@ -2797,7 +2801,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Domain",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(629),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7075),
                             Deleted = false,
                             IsGroup = true,
                             Parent = 8,
@@ -2809,7 +2813,7 @@ namespace CloudVOffice.Data.Migrations
                             ApplicationName = "Email Account",
                             AreaName = "Setup",
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(631),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7076),
                             Deleted = false,
                             IsGroup = true,
                             Parent = 8,
@@ -2901,7 +2905,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 1L,
                             ApplicationId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1740),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7583),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2910,7 +2914,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 2L,
                             ApplicationId = 2,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1747),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7586),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2919,7 +2923,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 3L,
                             ApplicationId = 3,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1748),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7588),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2928,7 +2932,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 4L,
                             ApplicationId = 4,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1749),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7589),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2937,7 +2941,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 5L,
                             ApplicationId = 5,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1750),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7590),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2946,7 +2950,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 6L,
                             ApplicationId = 6,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1751),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7591),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2955,7 +2959,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 7L,
                             ApplicationId = 7,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1752),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7605),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2964,7 +2968,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 8L,
                             ApplicationId = 8,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1754),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7606),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2973,7 +2977,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 9L,
                             ApplicationId = 9,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1755),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7607),
                             Deleted = false,
                             RoleId = 1
                         },
@@ -2982,7 +2986,7 @@ namespace CloudVOffice.Data.Migrations
                             RoleAndApplicationWisePermissionId = 10L,
                             ApplicationId = 10,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(1756),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(7608),
                             Deleted = false,
                             RoleId = 1
                         });
@@ -3034,7 +3038,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 1L,
                             ApplicationId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2717),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8081),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3043,7 +3047,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 2L,
                             ApplicationId = 2,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2764),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8084),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3052,7 +3056,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 3L,
                             ApplicationId = 3,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2765),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8085),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3061,7 +3065,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 4L,
                             ApplicationId = 4,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2766),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8087),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3070,7 +3074,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 5L,
                             ApplicationId = 5,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2768),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8088),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3079,7 +3083,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 6L,
                             ApplicationId = 6,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2769),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8090),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3088,7 +3092,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 7L,
                             ApplicationId = 7,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2770),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8091),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3097,7 +3101,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 8L,
                             ApplicationId = 8,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2771),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8098),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3106,7 +3110,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 9L,
                             ApplicationId = 9,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2772),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8116),
                             Deleted = false,
                             UserId = 1L
                         },
@@ -3115,7 +3119,7 @@ namespace CloudVOffice.Data.Migrations
                             UserWiseViewMapperId = 10L,
                             ApplicationId = 10,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(2773),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(8117),
                             Deleted = false,
                             UserId = 1L
                         });
@@ -3673,7 +3677,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4365),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9035),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Project Work"
                         },
@@ -3681,7 +3685,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 2,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4368),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9037),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Counselling /Discussion"
                         },
@@ -3689,7 +3693,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 3,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4369),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9039),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Documentation/Report/Policy/SOP/MIS"
                         },
@@ -3697,7 +3701,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 4,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4371),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9040),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Event Management & Participation"
                         },
@@ -3705,7 +3709,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 5,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4372),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9041),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Imaginar"
                         },
@@ -3713,7 +3717,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 6,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4373),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9042),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Interviews"
                         },
@@ -3721,7 +3725,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 7,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4461),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9043),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Project & Process Audit"
                         },
@@ -3729,7 +3733,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 8,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4462),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9044),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Review & Monitor/Report Analysis/Meetings"
                         },
@@ -3737,7 +3741,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 9,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4463),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9045),
                             Deleted = false,
                             TimesheetActivityCategoryName = "RFP Response"
                         },
@@ -3745,7 +3749,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 10,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4464),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9046),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Project Work"
                         },
@@ -3753,7 +3757,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 11,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4465),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9047),
                             Deleted = false,
                             TimesheetActivityCategoryName = "R&D"
                         },
@@ -3761,7 +3765,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 12,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4466),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9048),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Project (CSR)"
                         },
@@ -3769,7 +3773,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 13,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4468),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9049),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Project (Product)"
                         },
@@ -3777,7 +3781,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 14,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4469),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9050),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Townhall"
                         },
@@ -3785,7 +3789,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 15,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4470),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9051),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Quality Review"
                         },
@@ -3793,7 +3797,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 16,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4471),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9052),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Performance Assessment"
                         },
@@ -3801,7 +3805,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 17,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4472),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9053),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Induction/knowledge sharing"
                         },
@@ -3809,7 +3813,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 18,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4473),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9054),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Training & Capacity Building"
                         },
@@ -3817,7 +3821,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 19,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4474),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9055),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Annual function"
                         },
@@ -3825,7 +3829,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 20,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4475),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9057),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Meetings & Reviews"
                         },
@@ -3833,7 +3837,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             TimesheetActivityCategoryId = 21,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 89, DateTimeKind.Local).AddTicks(4476),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(9058),
                             Deleted = false,
                             TimesheetActivityCategoryName = "Travel for office Tour"
                         });
@@ -4234,7 +4238,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             RoleId = 1,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 77, DateTimeKind.Local).AddTicks(927),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(4946),
                             Deleted = false,
                             RoleName = "Administrator"
                         });
@@ -4325,7 +4329,7 @@ namespace CloudVOffice.Data.Migrations
                         {
                             UserId = 1L,
                             CreatedBy = 1L,
-                            CreatedDate = new DateTime(2023, 6, 17, 16, 32, 45, 88, DateTimeKind.Local).AddTicks(8284),
+                            CreatedDate = new DateTime(2023, 6, 20, 21, 53, 15, 243, DateTimeKind.Local).AddTicks(6312),
                             Deleted = false,
                             Email = "admin@appman.in",
                             FirstName = "Administrator",
@@ -4388,9 +4392,9 @@ namespace CloudVOffice.Data.Migrations
                     b.Navigation("EmailDomain");
                 });
 
-            modelBuilder.Entity("CloudVOffice.Core.Domain.Customer.Customer", b =>
+            modelBuilder.Entity("CloudVOffice.Core.Domain.Customert.Customer", b =>
                 {
-                    b.HasOne("CloudVOffice.Core.Domain.Customer.CustomerGroup", "CustomerGroup")
+                    b.HasOne("CloudVOffice.Core.Domain.Customert.CustomerGroup", "CustomerGroup")
                         .WithMany()
                         .HasForeignKey("CustomerGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -4434,9 +4438,7 @@ namespace CloudVOffice.Data.Migrations
                 {
                     b.HasOne("CloudVOffice.Core.Domain.DesktopMonitoring.DesktopActivityLog", "DesktopActivityLog")
                         .WithMany("DesktopSnapshots")
-                        .HasForeignKey("DesktopActivityLogId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DesktopActivityLogId");
 
                     b.Navigation("DesktopActivityLog");
                 });

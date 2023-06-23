@@ -49,6 +49,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Views\Customer\**" />
+	  <Content Remove="Views\Customer\**" />
+	  <EmbeddedResource Remove="Views\Customer\**" />
+	  <None Remove="Views\Customer\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">

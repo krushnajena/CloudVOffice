@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -30,7 +31,42 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         public string? PrinterName { get; set; }
         public DateTime? Todatetime { get; set; }
 
-      
+
+
+
+        [NotMapped]
+        public string ForDate
+        {
+            get
+            {
+              
+               
+
+                    return DateTime.Parse(LogDateTime.ToString()).ToString("dd-MMM-yyyy");
+               
+
+            }
+        }
+
+        [NotMapped]
+        public string Duration
+        {
+            get
+            {
+                var dateOne = LogDateTime;
+                var dateTwo = Todatetime;
+                if (dateOne != null)
+                {
+                    var diff = DateTime.Parse(dateTwo.ToString()).Subtract(DateTime.Parse(dateOne.ToString()));
+                    return String.Format("{0}:{1}:{2}", diff.Hours, diff.Minutes, diff.Seconds);
+                }
+                else
+                {
+                    return "00:00:00";
+                }
+
+            }
+        }
 
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

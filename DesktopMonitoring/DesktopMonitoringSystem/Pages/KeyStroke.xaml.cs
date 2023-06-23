@@ -27,7 +27,7 @@ namespace DesktopMonitoringSystem.Pages
         public KeyStroke()
         {
             InitializeComponent();
-            GetKeyStroke();
+           // GetKeyStroke();
 
         }
 

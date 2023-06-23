@@ -49,7 +49,7 @@ namespace Project.Management.Controllers
 		[HttpPost]
 		public IActionResult ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO)
 		{
-			projectActivityTypeDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			projectActivityTypeDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
 
 			if (ModelState.IsValid)

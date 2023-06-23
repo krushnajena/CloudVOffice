@@ -11,6 +11,7 @@
     var lastMonthEnd = lastMonthStart.AddMonths(1).AddDays(-1);
     var lastYearStart = new DateTime(DateTime.Now.Year - 1, 1, 1);
     var lastYearEnd = new DateTime(DateTime.Now.Year - 1, 12, 31);
+    var palettes = new String[] { "#E94649", "#F6B53F", "#6FAAB0", "#C4C24A" };
 }
 @addTagHelper *, Syncfusion.EJ2
 
@@ -47,7 +48,8 @@
             <div class="card">
                 
                 <div class="card-body">
-                         <ejs-daterangepicker id="dp_session" placeholder="Choose a Range" startDate="monthStart" endDate="monthEnd" change="search">
+
+                    <ejs-daterangepicker id="dp_session" placeholder="Choose a Range" startDate="monthStart" endDate="monthEnd" change="search">
                         <e-daterangepicker-presets>
                             <e-daterangepicker-preset id="week" label="This Week" start="weekStart" end="weekEnd"></e-daterangepicker-preset>
                             <e-daterangepicker-preset id="month" label="This Month" start="monthStart" end="monthEnd"></e-daterangepicker-preset>
@@ -55,7 +57,6 @@
                             <e-daterangepicker-preset id="year" label="Last Year" start="lastYearStart" end="lastYearEnd"></e-daterangepicker-preset>
                         </e-daterangepicker-presets>
                     </ejs-daterangepicker>
-
                   
                 </div>
 
@@ -64,25 +65,57 @@
             <div class="card">
 
                 <div class="card-body">
-                    <ejs-grid id="GridOverview" allowFiltering="true" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true" created="search"
-                              pdfQueryCellInfo="exportQueryCellInfo" toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport" , "CsvExport" ,"Search"})">
+                    @Html.EJS().Chart("Ncontainer").Series(series =>
+                    {
+                    series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).
+                    XName("Xvalue").
+                    YName("YValue1").
+
+                    Width(2).
+
+                    Name("Total Duration")
+                    .Add();
+                    series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).
+                    XName("Xvalue").
+                    YName("yValue2").
+
+                    Name("Idel Duration").
+                    Width(2)
+                    .Add();
+
+                    }
+
+                    ).PrimaryXAxis(px => px.ValueType(Syncfusion.EJ2.Charts.ValueType.Category)
+                    .LabelPlacement(Syncfusion.EJ2.Charts.LabelPlacement.OnTicks)).Title("Session Log Analysis").Palettes(palettes).Tooltip(tt => tt.Enable(true)).Render()
+
+
+                    <ejs-grid id="GridOverview"
+                              allowFiltering="true" allowSorting="true"
+                              allowExcelExport="true" allowGrouping="true"
+                              allowMultiSorting="true"
+                              allowPdfExport="true"
+                              height="600" rowHeight="38"
+                              enableHover="false" enableHeaderFocus="true"
+                              enableVirtualization="true" allowSelection="true"
+                              created="search"
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-
-
+                            <e-grid-column field="forDate" headerText="Log Date" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="loginDateTime" headerText="Login DateTime" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="logOutDateTime" headerText="LogOut DateTime" textAlign="Left" width="120"></e-grid-column>
 
                             <e-grid-column field="duration" headerText="Duration" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="idelDuration" headerText="Idel Duration" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="idelTime" headerText="Idel Duration" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="computerName" headerText="Computer Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="ipAddress" headerText="IP Address" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Snap" template="#template2" width="120"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
-
+                
 
                 </div>
 
@@ -98,72 +131,18 @@
 
 <script type="text/javascript">
     function OpenNewWindow(actid) {
-        window.open("../../../DMS/DesktopLogin/GetSnaps?type=session&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
+        window.open("../../../DesktopMonitoring/DesktopMonitoring/GetSnaps?type=Session&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
     }
 </script>
 <script id="template2" type="text/x-template">
     <div class="link">
 
-            <button onClick="OpenNewWindow(${desktopLoginId})" style="background: transparent;border: none;"><i class="fa-solid fa-video"></i></button>
+            <button onClick="OpenNewWindow(${desktopLoginId})" style="background: transparent;border: none;"><i class="icon-clock" style="font-size:22px"></i></button>
     </div>
 </script>
+
+
 <script>
-    function refreshChart() {
-        var ajax = new ej.base.Ajax();
-        var a = document.getElementById('dp_session').ej2_instances[0];
-        const d = new Date(a.startValue);
-        const td = new Date(a.endValue);
-        var fromdate = d.getDate()
-        var frommonth = d.getMonth() + 1;
-        if (fromdate < 10) {
-            fromdate = '0' + fromdate;
-        }
-        if (frommonth < 10) {
-            frommonth = '0' + frommonth;
-        }
-        var todate = td.getDate()
-        var tomonth = td.getMonth() + 1;
-        if (todate < 10) {
-            todate = '0' + todate;
-        }
-        if (tomonth < 10) {
-            tomonth = '0' + tomonth;
-        }
-        var model = {
-            userId: @ViewBag.EmployeeeId,
-            fromDate: d.getFullYear() + '-' + frommonth + '-' + fromdate,
-            toDate: td.getFullYear() + '-' + tomonth + '-' + todate,
-        }
-        $.ajax({
-            type: "GET",
-            url: "/DMS/DesktopLogin/SessionLogChart",
-            data: model,
-
-
-            success: function (data, statusText, xhr) {
-                console.log(data);
-                if (xhr.status === 200) {
-                    $('#container').html(data);
-                } else if (data.status === "duplicate") {
-                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
-                } else if (data.status === "error") {
-                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
-                } else {
-                    sweetAlert("Validation Alert!", "Something unexpected!", "warning");
-                }
-            },
-            error: function (data) {
-                if (data.status == 401) {
-                    window.location.replace('/Message/TokenExpire');
-                } else if (data.status == 403) {
-                    window.location.replace('/Message/Unauthorize');
-                } else if (data.status == 400) {
-                    sweetAlert("Validation Alert!", "Please check input data!", "warning");
-                }
-            }
-        });
-
-    }
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
@@ -177,29 +156,14 @@
         }
     }
     function exportQueryCellInfo(args) {
-        if (args.column.headerText === 'Employee Image') {
-            if (args.name === "excelQueryCellInfo") {
-                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
-            } else {
-                args.image = { base64: args.data["EmployeeImage"] };
-            }
-        }
-        if (args.column.headerText === 'Track') {
-            args.hyperLink = {
-                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
-                displayText: "Track"
-            };
-        }
-    };
-    function gridDataBound(args) {
-        if (isInitial) {
-            var grid = document.getElementById("GridOverview").ej2_instances[0];
-            grid.toolbarModule.toolbar.hideItem(2, true);
-            isInitial = false;
-        }
-    }
-    async function search() {
        
+    };
+
+
+    
+
+    async function search() {
+        
         var a = document.getElementById('dp_session').ej2_instances[0];
         const d = new Date(a.startValue);
         const td = new Date(a.endValue);
@@ -221,21 +185,22 @@
         }
         var model = {
             EmployeeId: @ViewBag.EmployeeeId,
-            fromDate: d.getFullYear() + '-' + frommonth + '-' + fromdate,
-            toDate: td.getFullYear() + '-' + tomonth + '-' + todate,
+            FromDate: d.getFullYear() + '-' + frommonth + '-' + fromdate,
+            ToDate: td.getFullYear() + '-' + tomonth + '-' + todate,
         }
         console.log(JSON.stringify(model));
         $.ajax({
             type: "POST",
-            url:  "../../api/DesktopLogin/LoginSessionsWithFilter",
-            data: JSON.stringify(model),
-            contentType: "application/json",
-           
+            url: "/DesktopMonitoring/DesktopMonitoring/SessionLogLineChart",
+            data: model,
+
+
             success: function (data, statusText, xhr) {
                 console.log(data);
                 if (xhr.status === 200) {
-                    var grid = document.getElementById('GridOverview').ej2_instances[0]; // Grid instance
-                    grid.dataSource = ej.data.DataUtil.parse.parseJson(data.data);
+                    var chart = document.getElementById('Ncontainer').ej2_instances[0]; // Grid instance
+                    chart.dataSource = ej.data.DataUtil.parse.parseJson(data);
+                   
                 } else if (data.status === "duplicate") {
                     sweetAlert("Validation Alert!", data.responseMsg, "warning");
                 } else if (data.status === "error") {
@@ -254,5 +219,31 @@
                 }
             }
         });
+
+
+        $.ajax({
+            type: "POST",
+            url: "/DesktopMonitoring/DesktopMonitoring/LoginSessionWithDateRange",
+            data: model,
+           
+
+            success: function (data, statusText, xhr) {
+                console.log(data);
+                if (xhr.status === 200) {
+                    var grid = document.getElementById('GridOverview').ej2_instances[0]; // Grid instance
+                    grid.dataSource = ej.data.DataUtil.parse.parseJson(data);
+                } else if (data.status === "duplicate") {
+                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                } else if (data.status === "error") {
+                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                } else {
+                    sweetAlert("Validation Alert!", "Something unexpected!", "warning");
+                }
+            },
+            error: function (data) {
+               
+            }
+        });
     }
+
 </script>

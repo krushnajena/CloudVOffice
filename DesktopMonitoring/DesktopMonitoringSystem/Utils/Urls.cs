@@ -38,8 +38,11 @@ namespace DesktopMonitoringSystem.Utils
      
 
         public static string postLogin = getGatewayUrl() + "/api/Login/Auth";
-        public static string getSessionLog     = getGatewayUrl()+ "/api/DesktopLogin/GeteLoginSessionsByUserId";
-        public static string getActivityLog    = getGatewayUrl() + "/api/DMSActivityLog/GetAcivityLogsByUserId";
+        public static string postRefreshToken = getGatewayUrl() + "/api/Login/RefreshToken";
+        public static string getSessionLog     = getGatewayUrl()+ "/api/DesktopLogin/LoginSessionsWithFilter";
+        public static string getActivityLog    = getGatewayUrl() + "/api/DesktopActivityLog/ActivityLogWithFilter";
+
+
         public static string getFileOperation  = getGatewayUrl() + "/api/DMSActivityLog/GetFileLogsByUserId";
         public static string getPrinting      = getGatewayUrl() + "/api/DMSActivityLog/GetPrintLogsByUserId";
         public static string getKeyStroke = getGatewayUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";

@@ -26,7 +26,7 @@ namespace DesktopMonitoringSystem.Pages
         public Printing()
         {
             InitializeComponent();
-            GetPrinting();
+           // GetPrinting();
         }
 
         private void GetPrinting()

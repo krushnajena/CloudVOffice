@@ -103,9 +103,9 @@
 
                             <!--Text Info Card-->
 
-                            <uc:TextInfo TextTop="Total Data Transfered" TextMiddle="183 MB" TextBottom="January" IsActive="True"/>
-                            <uc:TextInfo TextTop="Total Login Hours" TextMiddle="58.17 Hr" TextBottom="January" IsActive="False" Grid.Column="1" />
-                            <uc:TextInfo TextTop="Idel Hours " TextMiddle="0.5 Hr" TextBottom="January" IsActive="False" Grid.Column="2"/>
+                            <uc:TextInfo TextTop="Total Data Transfered" TextMiddle="Stoped" TextBottom="January" IsActive="True"/>
+                            <uc:TextInfo TextTop="Total Login Hours" TextMiddle="Stoped" TextBottom="January" IsActive="False" Grid.Column="1" />
+                            <uc:TextInfo TextTop="Idel Hours " TextMiddle="Stoped" TextBottom="January" IsActive="False" Grid.Column="2"/>
 
 
                         </Grid>

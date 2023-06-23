@@ -1,4 +1,7 @@
 ﻿
+using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Data.DTO.DesktopMonitoring;
+using DesktopMonitoringSystem.Classes;
 using DesktopMonitoringSystem.Models;
 using DesktopMonitoringSystem.Utils;
 using Newtonsoft.Json;
@@ -22,14 +25,14 @@ namespace DesktopMonitoringSystem.Pages
             GetSessionLog();
 
         }
-        private void LoadLineChartData(LoginSessionModel loginSessionModel)
+        private void LoadLineChartData(List<DesktopLogin> loginSessionModel)
         {
 
             List<KeyValuePair<string, double>> keys = new List<KeyValuePair<string, double>>();
-            for (int i = 0; i < loginSessionModel.data.Count; i++)
+            for (int i = 0; i < loginSessionModel.Count; i++)
             {
                 bool check = false;
-                DateTime dt = DateTime.Parse( loginSessionModel.data[i].LoginDateTime.ToString()).Date;
+                DateTime dt = DateTime.Parse( loginSessionModel[i].LoginDateTime.ToString()).Date;
                 for (int j = 0; j < keys.Count; j++)
                 {
                     if (keys[j].Key == dt.Date.ToString("dd-MM-yyyy"))
@@ -41,16 +44,16 @@ namespace DesktopMonitoringSystem.Pages
 
                 if (check == false)
                 {
-                    if (loginSessionModel.data[i].Duration != null)
+                    if (loginSessionModel[i].Duration != null)
                     {
-                        TimeSpan t1 = TimeSpan.Parse(loginSessionModel.data[i].Duration);
-                        for (int k = 1; k < loginSessionModel.data.Count; k++)
+                        TimeSpan t1 = TimeSpan.Parse(loginSessionModel[i].Duration);
+                        for (int k = 1; k < loginSessionModel.Count; k++)
                         {
-                            if (DateTime.Parse(loginSessionModel.data[k].LoginDateTime.ToString()).Date == dt.Date)
+                            if (DateTime.Parse(loginSessionModel[k].LoginDateTime.ToString()).Date == dt.Date)
                             {
-                                if (loginSessionModel.data[k].Duration != null)
+                                if (loginSessionModel[k].Duration != null)
                                 {
-                                    TimeSpan t2 = TimeSpan.Parse(loginSessionModel.data[k].Duration);
+                                    TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].Duration);
                                     t1 = t1.Add(t2);
                                 }
                                 
@@ -73,14 +76,14 @@ namespace DesktopMonitoringSystem.Pages
             cb_sessionlog.YBindingPath = "Value";
           
         }
-        private void LoadWordDeurationChartData(LoginSessionModel loginSessionModel)
+        private void LoadWordDeurationChartData(List<DesktopLogin> loginSessionModel)
         {
 
             List<KeyValuePair<string, double>> keys = new List<KeyValuePair<string, double>>();
-            for (int i = 0; i < loginSessionModel.data.Count; i++)
+            for (int i = 0; i < loginSessionModel.Count; i++)
             {
                 bool check = false;
-                DateTime dt =DateTime.Parse( loginSessionModel.data[i].LoginDateTime.ToString()).Date;
+                DateTime dt =DateTime.Parse( loginSessionModel[i].LoginDateTime.ToString()).Date;
                 for (int j = 0; j < keys.Count; j++)
                 {
                     if (keys[j].Key.ToString() == dt.Date.ToString("dd-MM-yyyy"))
@@ -92,15 +95,19 @@ namespace DesktopMonitoringSystem.Pages
 
                 if (check == false)
                 {
-                    if (loginSessionModel.data[i].IdelDuration != null && loginSessionModel.data[i].IdelDuration != "")
+                    if (loginSessionModel[i].IdelTime != null)
                     {
-                        TimeSpan t1 = TimeSpan.Parse(loginSessionModel.data[i].IdelDuration);
-                        for (int k = 1; k < loginSessionModel.data.Count; k++)
+                        TimeSpan t1 = TimeSpan.Parse(loginSessionModel[i].IdelTime.ToString());
+                        for (int k = 1; k < loginSessionModel.Count; k++)
                         {
-                            if (DateTime.Parse( loginSessionModel.data[k].LoginDateTime.ToString()).Date == dt.Date)
+                            if (DateTime.Parse( loginSessionModel[k].LoginDateTime.ToString()).Date == dt.Date)
                             {
-                                TimeSpan t2 = TimeSpan.Parse(loginSessionModel.data[k].IdelDuration);
-                                t1 = t1.Add(t2);
+                                if (loginSessionModel[k].IdelTime != null)
+                                {
+                                    TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].IdelTime.ToString());
+                                    t1 = t1.Add(t2);
+                                }
+                             
 
                             }
 
@@ -122,18 +129,20 @@ namespace DesktopMonitoringSystem.Pages
         }
 
 
-        private void GetSessionLog()
+        private async void GetSessionLog()
         {
+            DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today.AddDays(1) };
+            var a = await HttpClientRq.PostRequest(ApiUrls.getSessionLog, JsonConvert.SerializeObject(desktopLoginFilterDTO));
 
-            var a = HttpClientRq.GetCall(ApiUrls.getSessionLog + "/10803");
-            var X = a.Result.Content.ReadAsStringAsync()
+            
+            var X = a.Content.ReadAsStringAsync()
                                                        .Result
                                                        //.Replace("\\", "")
                                                        //.Replace("\r\n", "'")
                                                        .Trim(new char[1] { '"' });
-            var json = JsonConvert.DeserializeObject<LoginSessionModel>(X);
+            var json = JsonConvert.DeserializeObject<List<DesktopLogin>>(X);
 
-            dg_SessionLog.ItemsSource = json.data;
+            dg_SessionLog.ItemsSource = json;
             LoadLineChartData(json);
             LoadWordDeurationChartData(json);
             // MessageBox.Show(json.data.Count.ToString());

@@ -22,4 +22,6 @@ namespace DesktopMonitoringSystem.Classes
         public int ServerSessionId { get; set; }
         public bool IsAutoLogOut { get; set; }
     }
+
+   
 }

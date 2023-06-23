@@ -10,6 +10,7 @@ using CloudVOffice.Data.ViewModel.DesktopMonitering;
 using CloudVOffice.Services.Emp;
 using Humanizer;
 using Microsoft.CodeAnalysis.Operations;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,29 +33,33 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _desktopLoginRepo = desktopLoginRepo;
             _employeeService = employeeService;
         }
-        public MessageEnum DesktoploginCreate(DesktopLoginDTO desktoploginDTO)
+        public DesktopLogin DesktoploginCreate(DesktopLoginDTO desktoploginDTO)
         {
             try
             {
-                var desktoplogincreate = _Context.DesktopLogins.Where(x => x.EmployeeId == desktoploginDTO.EmployeeId && x.Deleted == false).FirstOrDefault();
-                if (desktoplogincreate == null)
+                var desktoplogincreate = _Context.DesktopLogins.Where(x => x.EmployeeId == desktoploginDTO.EmployeeId && x.Deleted == false && x.IsActiveSession == true && x.ComputerName == desktoploginDTO.ComputerName).OrderByDescending(x=>x.DesktopLoginId).FirstOrDefault();
+                if (desktoplogincreate != null)
                 {
-                    _desktopLoginRepo.Insert(new DesktopLogin()
+                    desktoplogincreate.IsActiveSession = false;
+                    _Context.SaveChanges();
+                }
+
+                
+                 var a=   _desktopLoginRepo.Insert(new DesktopLogin()
                     {
                         EmployeeId = desktoploginDTO.EmployeeId,
                         LoginDateTime=desktoploginDTO.LoginDateTime,
-                        LogOutDateTime=desktoploginDTO.LogOutDateTime,
-                        IsAutoLogedOut=desktoploginDTO.IsAutoLogedOut,                       
-                        IsActiveSession=false,
-                        SyncedOn=desktoploginDTO.SyncedOn,
+                        ComputerName = desktoploginDTO.ComputerName,
+                        IpAddress = desktoploginDTO.IpAddress,
+                        LogOutDateTime=DateTime.Now,         
+                        IsActiveSession=true,
+                        SyncedOn=DateTime.Now,
                         CreatedBy = desktoploginDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
-                    return MessageEnum.Success;
-                }
-                else
-                    return MessageEnum.Duplicate;
+                    return a;
+               
             }
             catch
             {
@@ -85,35 +90,19 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         }
 
-        public MessageEnum DesktopLoginUpdate(DesktopLoginDTO desktoploginDTO)
+        public MessageEnum DesktopLoginUpdateIdelTime(DesktopLoginIdelTimeUpdateDTO desktopLoginIdelTimeUpdateDTO)
         {
             try
             {
-                var desktopLogin = _Context.DesktopLogins.Where(x => x.DesktopLoginId != desktoploginDTO.DesktopLoginId && x.EmployeeId == desktoploginDTO.EmployeeId && x.Deleted == false).FirstOrDefault();
-                if (desktopLogin == null)
+                var a = _Context.DesktopLogins.Where(x => x.DesktopLoginId == desktopLoginIdelTimeUpdateDTO.DesktopLoginId).FirstOrDefault();
+                if (a != null)
                 {
-                    var a = _Context.DesktopLogins.Where(x => x.DesktopLoginId == desktoploginDTO.DesktopLoginId).FirstOrDefault();
-                    if (a != null)
-                    {
-                        a.EmployeeId = desktoploginDTO.EmployeeId;
-                        a.LoginDateTime=desktoploginDTO.LoginDateTime;
-                        a.LogOutDateTime=desktoploginDTO.LogOutDateTime;
-                        a.IsActiveSession=desktoploginDTO.IsActiveSession;
-                        a.IsAutoLogedOut=desktoploginDTO.IsAutoLogedOut;
-                        a.SyncedOn=desktoploginDTO.SyncedOn;
-                        a.UpdatedBy = desktoploginDTO.CreatedBy;
-                        a.UpdatedDate = DateTime.Now;
-                        _Context.SaveChanges();
-                        return MessageEnum.Updated;
-                    }
-                    else
-                        return MessageEnum.Invalid;
+                    a.IdelTime = desktopLoginIdelTimeUpdateDTO.IdelTime;
+                    _Context.SaveChanges();
+                    return MessageEnum.Success;
                 }
                 else
-                {
-                    return MessageEnum.Duplicate;
-                }
-
+                    return MessageEnum.Invalid;
             }
             catch
             {
@@ -134,52 +123,23 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
         }
 
-        public List<DesktopLoginsViewModel> GetDesktoplogins(DesktopLoginFilterDTO desktopLoginFilterDTO)
+        public List<DesktopLogin> GetDesktoploginsWithDateRange(DesktopLoginFilterDTO desktopLoginFilterDTO)
         {
             try
             {
-                List<DesktopLoginsViewModel> loginsViewModels= new List<DesktopLoginsViewModel>();
-               var a =  _Context.DesktopLogins.Where(x => x.Deleted == false &&
+               
+               var a =  _Context.DesktopLogins
+                      .Include(x=>x.Employee)
+                    .Where(x => x.Deleted == false &&
                                                           x.EmployeeId == desktopLoginFilterDTO.EmployeeId &&
                                                           x.LoginDateTime >= desktopLoginFilterDTO.FromDate &&
                                                           x.LoginDateTime <= desktopLoginFilterDTO.ToDate
 
-                                                          ).ToList();
+                                                          ).OrderByDescending(x=>x.LoginDateTime).ToList();
 
-                    var Employee = _employeeService.GetEmployeeById(desktopLoginFilterDTO.EmployeeId);
+            
 
-                for(int i=0;i< a.Count; i++)
-                {
-
-                    var dateOne = a[i].LogOutDateTime;
-                    var dateTwo = a[i].LoginDateTime;
-                    var res = "";
-                    if (dateOne != null)
-                    {
-                        var diff = DateTime.Parse( dateTwo.ToString()).Subtract( DateTime.Parse( dateOne.ToString()));
-                        res = String.Format("{0}:{1}:{2}", diff.Hours, diff.Minutes, diff.Seconds);
-                    }
-
-
-                    loginsViewModels.Add(new DesktopLoginsViewModel{
-                        EmployeeName = Employee.FullName,
-                        ComputerName = a[i].ComputerName,
-                        IpAddress = a[i].IpAddress,
-                        LogDate = a[i].LoginDateTime.Value.Date,
-                        LoginDateTime = a[i].LoginDateTime,
-                        LogOutDateTime = a[i].LogOutDateTime,
-                        Duration = res,
-                        IdelDuration = a[i].IdelTime.ToString(),
-                        EmployeeId = a[i].EmployeeId,
-                        DesktopLoginId = a[i].DesktopLoginId
-                    }
-                    
-
-                        ) ;
-                }
-
-
-                return loginsViewModels;
+                return a;
 
             }
             catch

@@ -1,4 +1,6 @@
-﻿using DesktopMonitoringSystem.Classes;
+﻿using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Data.DTO.DesktopMonitoring;
+using DesktopMonitoringSystem.Classes;
 using DesktopMonitoringSystem.Models;
 using DesktopMonitoringSystem.Utils;
 using Microsoft.Win32;
@@ -55,16 +57,16 @@ namespace DesktopMonitoringSystem.Pages
             GetActivityLog();
 
         }
-        private void LoadColumChartData(ActivityLogModel activityLogModel)
+        private void LoadColumChartData(List<DesktopActivityLog> activityLogModel)
         {
 
             List<KeyValuePair<string, double>> keys = new List<KeyValuePair<string, double>>();
-            for (int i = 0; i < activityLogModel.data.Count; i++)
+            for (int i = 0; i < activityLogModel.Count; i++)
             {
                 bool check = false;
                 string dt = "";
              
-                    dt = activityLogModel.data[i].ProcessOrUrl;
+                    dt = activityLogModel[i].ProcessOrUrl;
 
                 
                 
@@ -79,18 +81,18 @@ namespace DesktopMonitoringSystem.Pages
 
                 if (check == false)
                 {
-                    if (activityLogModel.data[i].Todatetime != null)
+                    if (activityLogModel[i].Todatetime != null)
                     {
-                        DateTime? fromtime = activityLogModel.data[i].LogDateTime;
-                        DateTime? totime = activityLogModel.data[i].Todatetime;
+                        DateTime? fromtime = activityLogModel[i].LogDateTime;
+                        DateTime? totime = activityLogModel[i].Todatetime;
                         var hours = DateTime.Parse(totime.ToString()).Subtract(DateTime.Parse(fromtime.ToString()));
                        
-                        for (int k = 1; k < activityLogModel.data.Count; k++)
+                        for (int k = 1; k < activityLogModel.Count; k++)
                         {
-                            if (activityLogModel.data[k].ProcessOrUrl == dt)
+                            if (activityLogModel[k].ProcessOrUrl == dt)
                             {
-                                DateTime? afromtime = activityLogModel.data[k].LogDateTime;
-                                DateTime? atotime = activityLogModel.data[k].Todatetime;
+                                DateTime? afromtime = activityLogModel[k].LogDateTime;
+                                DateTime? atotime = activityLogModel[k].Todatetime;
                                 var ahours = DateTime.Parse(atotime.ToString()).Subtract(DateTime.Parse(afromtime.ToString()));
 
                                // TimeSpan t2 = TimeSpan.Parse(activityLogModel.data[k].Duration);
@@ -120,23 +122,23 @@ namespace DesktopMonitoringSystem.Pages
             //  ((ColumnSeries)mcChart.Series[0]).ItemsSource = keys;
         }
 
-        private void LoadWebColumChartData(ActivityLogModel activityLogModel)
+        private void LoadWebColumChartData(List<DesktopActivityLog> activityLogModel)
         {
 
             List<KeyValuePair<string, double>> keys = new List<KeyValuePair<string, double>>();
-            for (int i = 0; i < activityLogModel.data.Count; i++)
+            for (int i = 0; i < activityLogModel.Count; i++)
             {
-                if (activityLogModel.data[i].ProcessOrUrl.ToLower().Contains("chrome"))
+                if (activityLogModel[i].ProcessOrUrl.ToLower().Contains("chrome"))
                 {
                     bool check = false;
                     string dt = "";
-                    if (activityLogModel.data[i].ProcessOrUrl.ToLower().Contains("chrome"))
+                    if (activityLogModel[i].ProcessOrUrl.ToLower().Contains("chrome"))
                     {
-                        dt = activityLogModel.data[i].AppOrWebPageName;
+                        dt = activityLogModel[i].AppOrWebPageName;
                     }
                     else
                     {
-                        dt = activityLogModel.data[i].ProcessOrUrl;
+                        dt = activityLogModel[i].ProcessOrUrl;
 
                     }
 
@@ -151,18 +153,18 @@ namespace DesktopMonitoringSystem.Pages
 
                     if (check == false)
                     {
-                        if (activityLogModel.data[i].Todatetime != null)
+                        if (activityLogModel[i].Todatetime != null)
                         {
-                            DateTime? fromtime = activityLogModel.data[i].LogDateTime;
-                            DateTime? totime = activityLogModel.data[i].Todatetime;
+                            DateTime? fromtime = activityLogModel[i].LogDateTime;
+                            DateTime? totime = activityLogModel[i].Todatetime;
                             var hours = DateTime.Parse(totime.ToString()).Subtract(DateTime.Parse(fromtime.ToString()));
 
-                            for (int k = 1; k < activityLogModel.data.Count; k++)
+                            for (int k = 1; k < activityLogModel.Count; k++)
                             {
-                                if (activityLogModel.data[k].ProcessOrUrl == dt)
+                                if (activityLogModel[k].ProcessOrUrl == dt)
                                 {
-                                    DateTime? afromtime = activityLogModel.data[k].LogDateTime;
-                                    DateTime? atotime = activityLogModel.data[k].Todatetime;
+                                    DateTime? afromtime = activityLogModel[k].LogDateTime;
+                                    DateTime? atotime = activityLogModel[k].Todatetime;
                                     var ahours = DateTime.Parse(atotime.ToString()).Subtract(DateTime.Parse(afromtime.ToString()));
 
                                     // TimeSpan t2 = TimeSpan.Parse(activityLogModel.data[k].Duration);
@@ -194,20 +196,29 @@ namespace DesktopMonitoringSystem.Pages
             //  ((ColumnSeries)mcChart.Series[0]).ItemsSource = keys;
         }
 
-        private void GetActivityLog()
+        private async void GetActivityLog()
         {
           
-                var a = HttpClientRq.GetCall(ApiUrls.getActivityLog + "/" + UserId);
-                var X = a.Result.Content.ReadAsStringAsync()
-                                                           .Result
-                                                           //.Replace("\\", "")
-                                                           //.Replace("\r\n", "'")
-                                                           .Trim(new char[1] { '"' });
-                var json = JsonConvert.DeserializeObject<ActivityLogModel>(X);
-                activityLogm = json;
+              
+
+
+            DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today.AddDays(1) };
+            var a = await HttpClientRq.PostRequest(ApiUrls.getActivityLog, JsonConvert.SerializeObject(desktopLoginFilterDTO));
+
+
+            var X = a.Content.ReadAsStringAsync()
+                                                       .Result
+                                                       //.Replace("\\", "")
+                                                       //.Replace("\r\n", "'")
+                                                       .Trim(new char[1] { '"' });
+          
+
+
+                var json = JsonConvert.DeserializeObject<List<DesktopActivityLog>>(X);
+               // activityLogm = json;
                 if (json != null)
                 {
-                    dg_ActivityLog.ItemsSource = json.data;
+                    dg_ActivityLog.ItemsSource = json;
                     LoadColumChartData(json);
                     LoadWebColumChartData(json);
                     this.DataContext = vV;

@@ -1,20 +1,11 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Master;
-using CloudVOffice.Core.Domain.Recruitment;
-using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.DTO.Recruitment;
-using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.Recruitment.Controllers
 {
@@ -22,7 +13,7 @@ namespace HR.Recruitment.Controllers
     public class StaffingPlanDetailsController : BasePluginController
     {
         private readonly IStaffingPlanDetailsService _StaffingPlanDetailsService;
-		private readonly IDesignationService _designationService;
+        private readonly IDesignationService _designationService;
 		public StaffingPlanDetailsController (IStaffingPlanDetailsService StaffingPlanDetailsService, IDesignationService designationService)
         {
 
@@ -100,8 +91,8 @@ namespace HR.Recruitment.Controllers
                 }
             }
 
-			var desgination = _designationService.GetDesignationList();
-			ViewBag.Designation = desgination;
+			
+			ViewBag.Designation = _designationService.GetDesignationList();
 			return View("~/Plugins/HR.Recruitment/Views/StaffingPlanDetails/CreateStaffingPlanDetails.cshtml", staffingPlanDetailsDTO);
         }
 

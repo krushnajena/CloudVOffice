@@ -1,17 +1,9 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.DTO.Recruitment;
-using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.Recruitment.Controllers
 {

@@ -78,11 +78,11 @@ namespace CloudVOffice.Services.Recruitment
 			}
 		}
 
-		public MessageEnum JobApplicationDelete(Int64 JobApplicationId, Int64 DeletedBy)
+		public MessageEnum JobApplicationDelete(Int64 jobApplicationSourceId, Int64 DeletedBy)
 		{
 			try
 			{
-				var a = _Context.JobApplications.Where(x => x.JobApplicationId == JobApplicationId).FirstOrDefault();
+				var a = _Context.JobApplicationSources.Where(x => x.JobApplicationSourceId == jobApplicationSourceId).FirstOrDefault();
 				if (a != null)
 				{
 					a.Deleted = true;

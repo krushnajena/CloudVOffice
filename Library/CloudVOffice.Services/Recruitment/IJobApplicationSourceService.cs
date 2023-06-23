@@ -18,6 +18,6 @@ namespace CloudVOffice.Services.Recruitment
 		public JobApplicationSource GetJobApplicationSourceByJobApplicationSourceId(Int64 jobApplicationSourceId);
 		public JobApplicationSource GetJobApplicationSourceByName(string SourceName);
 		public MessageEnum JobApplicationSourceUpdate(JobApplicationSourceDTO jobApplicationSourceDTO);
-		public MessageEnum JobApplicationSourceDelete(Int64 jobApplicationSourceId, Int64 DeletedBy);
-	}
+        public MessageEnum JobApplicationSourceDelete(Int64 JobApplicationSourceId, Int64 DeletedBy);
+    }
 }

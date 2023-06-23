@@ -1,7 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.Customert;
+using CloudVOffice.Core.Domain.Custom;
 using CloudVOffice.Core.Domain.Recruitment;
-using CloudVOffice.Data.DTO.Customert;
+using CloudVOffice.Data.DTO.Custom;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Services.Customert
+namespace CloudVOffice.Services.Custom
 {
 	public class CustomerService : ICustomerService
 	{

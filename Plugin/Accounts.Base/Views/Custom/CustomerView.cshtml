@@ -1,4 +1,4 @@
-﻿@{
+﻿﻿@{
     Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
@@ -11,7 +11,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5> Customer Group</h5>
+                    <h5> Customer</h5>
                    
                 </div>
             </div>
@@ -32,15 +32,15 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            Customer Group
+                            Customer
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Accounts/CustomerGroup/CustomerGroupCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Customer Group</a>
+                            <a href="/Accounts/Customer/CustomerCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Customer</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.CustomerGroups"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.customer"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -52,7 +52,16 @@
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="CustomerGroupName" headerText="Customer Group Name" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="CustomerName" headerText="Customer Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CustomerGroup" headerText="Customer Group" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="AccountManagerId" headerText="Account Manager Id" textAlign="Left" width="120"></e-grid-column>                          
+                            <e-grid-column field="TaxId" headerText="Tax Id" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Country" headerText="Country" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="State" headerText="State" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="City" headerText="City" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ZipCode" headerText="Zip Code" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ContactPersonName" headerText="Contact Person Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -73,7 +82,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "CustomerGroup",
+                    title: "Customer",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -82,7 +91,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "CustomerGroup",
+                    title: "Customer",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -91,7 +100,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "CustomerGroup",
+                    title: "Customer",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -101,7 +110,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "CustomerGroup",
+                    title: "Customer",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -110,7 +119,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "CustomerGroup",
+                    title: "Customer",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -119,7 +128,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "CustomerGroup",
+                    title: "Customer",
                     text: message,
                     type: "error"
                 });
@@ -141,15 +150,15 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Accounts/CustomerGroup/CustomerGroupDelete?CustomerGroupId=" + Id;
+                window.location.href = "../../Accounts/Customer/CustomerDelete?CustomerId=" + Id;
             }
         })
     }
 </script>
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Accounts/CustomerGroup/CustomerGroupCreate?CustomerGroupId=${CustomerGroupId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <button onClick="Delete(${CustomerGroupId})" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button >
+        <a href="../../Accounts/Customer/CustomerCreate?CustomerId=${CustomerId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${CustomerId})" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button >
 
     </div>
 </script>

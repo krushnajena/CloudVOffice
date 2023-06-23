@@ -1,0 +1,177 @@
+﻿@model CloudVOffice.Data.DTO.Custom.CustomerDTO;
+@{
+	Layout = "_MainAppLayout";
+	
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Customer </h5>
+
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">Last Login: 2 hours ago</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Accounts/Customer/CustomerCreate" method="post" autocomplete="off">
+					<div asp-validation-summary="ModelOnly" class="message-error"></div>
+
+					<div class="card-header"><b> Customer</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.CustomerId" type="hidden" />
+
+								<label for="CustomerName" class="form-label">CustomerName</label>
+								<input asp-for="@Model.CustomerName" type="text" class="form-control" autofocus="autofocus" placeholder="CustomerName" />
+								<span asp-validation-for="CustomerName"></span>
+							</div>
+                            <div class="form-group col-md-4">
+								<label for="CustomerGroupId" class="form-label">Customer Group </label>
+								<ejs-dropdownlist id="CustomerGroupId" allowFiltering="true" ejs-for="@Model.CustomerGroupId" filtering="onCustomerGrouprfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.CustomerGroups, "CustomerGroupId , CustomerGroupName").Items)" placeholder="Select Customer Group " popupHeight="220px">
+									<e-dropdownlist-fields text="CustomerGroupName" value="CustomerGroupId"></e-dropdownlist-fields>
+                                </ejs-dropdownlist>
+								<span asp-validation-for="CustomerGroupId"></span>
+                            </div>
+							<div class="form-group col-md-4">
+								<label for="AccountManagerId" class="form-label"> Account Manager</label>
+								<ejs-dropdownlist id="AccountManagerId" allowFiltering="true" ejs-for="@Model.AccountManagerId" filtering="onAccountManagerrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId , FullName").Items)" placeholder="Select Account Manager " popupHeight="220px">
+									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="AccountManagerId"></span>
+							</div>
+							
+						</div>
+						<div class="form-row">
+							
+							<div class="form-group col-md-4">
+
+								<label for="TaxId" class="form-label">TaxId</label>
+								<input asp-for="@Model.TaxId" type="text" class="form-control" autofocus="autofocus" placeholder="TaxId" />
+								<span asp-validation-for="TaxId"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="AddressLine1" class="form-label">Address Line1</label>
+								<input asp-for="@Model.AddressLine1" type="text" class="form-control" autofocus="autofocus" placeholder="Address Line1" />
+								<span asp-validation-for="AddressLine1"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="AddressLine2" class="form-label">Address Line2</label>
+								<input asp-for="@Model.AddressLine2" type="text" class="form-control" autofocus="autofocus" placeholder="Address Line2" />
+								<span asp-validation-for="AddressLine2"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+
+								<label for="Country" class="form-label">Country</label>
+								<input asp-for="@Model.Country" type="text" class="form-control" autofocus="autofocus" placeholder="Country" />
+								<span asp-validation-for="Country"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="State" class="form-label">State</label>
+								<input asp-for="@Model.State" type="text" class="form-control" autofocus="autofocus" placeholder="State" />
+								<span asp-validation-for="State"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="City" class="form-label">City</label>
+								<input asp-for="@Model.City" type="text" class="form-control" autofocus="autofocus" placeholder="City" />
+								<span asp-validation-for="City"></span>
+							</div>
+							
+						</div>
+						<div class="form-row">
+							
+							<div class="form-group col-md-4">
+
+								<label for="ZipCode" class="form-label">Zip Code</label>
+								<input asp-for="@Model.ZipCode" type="text" class="form-control" autofocus="autofocus" placeholder="Zip Code" />
+								<span asp-validation-for="ZipCode"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="PhoneNo" class="form-label">Phone No</label>
+								<input asp-for="@Model.PhoneNo" type="text" class="form-control" autofocus="autofocus" placeholder="Phone No" />
+								<span asp-validation-for="PhoneNo"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="EmailId" class="form-label">Email Id</label>
+								<input asp-for="@Model.EmailId" type="text" class="form-control" autofocus="autofocus" placeholder="Email Id" />
+								<span asp-validation-for="EmailId"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							
+							<div class="form-group col-md-4">
+
+								<label for="ContactPersonName" class="form-label">Contact Person Name</label>
+								<input asp-for="@Model.ContactPersonName" type="text" class="form-control" autofocus="autofocus" placeholder="Contact Person Name" />
+								<span asp-validation-for="ContactPersonName"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="ContactPersonPhone" class="form-label">Contact Person Phone</label>
+								<input asp-for="@Model.ContactPersonPhone" type="text" class="form-control" autofocus="autofocus" placeholder="Contact Person Phone" />
+								<span asp-validation-for="ContactPersonPhone"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="ContactPersonEmailId" class="form-label">Contact Person Email Id</label>
+								<input asp-for="@Model.ContactPersonEmailId" type="text" class="form-control" autofocus="autofocus" placeholder="Contact PersonEmail Id" />
+								<span asp-validation-for="ContactPersonEmailId"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+<script>
+	function onCustomerGrouprfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('CustomerGroupName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.CustomerGroups)), query);
+	}
+	function onAccountManagerrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('EmployeeName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
+	}
+</script>
+

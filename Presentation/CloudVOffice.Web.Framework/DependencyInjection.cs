@@ -6,7 +6,7 @@ using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
-using CloudVOffice.Services.Customert;
+using CloudVOffice.Services.Custom;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Email;
 using CloudVOffice.Services.EmailTemplates;
@@ -118,8 +118,11 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IChartOfAccountsServices, ChartOfAccountsService>();
 
             services.AddScoped<ICustomerService, CustomerService>();
+
+
+			services.AddScoped<ICustomerGroupService, CustomerGroupService>();
 			#endregion
-			
+
 			return services;
 
         }

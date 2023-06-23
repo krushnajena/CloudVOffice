@@ -21,6 +21,8 @@
     <None Remove="Views\ChartOfAccounts\ChartOfAccountsView.cshtml" />
     <None Remove="Views\CustomerGroup\CustomerGroupCreate.cshtml" />
     <None Remove="Views\CustomerGroup\CustomerGroupView.cshtml" />
+    <None Remove="Views\Custom\CustomerCreate.cshtml" />
+    <None Remove="Views\Custom\CustomerView.cshtml" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -48,10 +50,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\Customer\" />
 	</ItemGroup>
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->

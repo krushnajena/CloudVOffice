@@ -124,7 +124,7 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
 
-
+        public virtual DbSet<RestrictedWebsite> RestrictedWebsites{ get; set; }
         public virtual DbSet<DesktopActivityLog> DesktopActivityLogs { get; set; }
 
 

@@ -23,6 +23,8 @@
     <None Remove="Views\DesktopMonitoring\GetSnaps.cshtml" />
     <None Remove="Views\DesktopMonitoring\MonitorUsers.cshtml" />
     <None Remove="Views\DesktopMonitoring\Track.cshtml" />
+    <None Remove="Views\RestrictedWebsite\RestrictedWebsiteCreate.cshtml" />
+    <None Remove="Views\RestrictedWebsite\RestrictedWebsiteView.cshtml" />
     <None Remove="Views\Shared\_desktopLoginLogsLineChart.cshtml" />
     <None Remove="Views\Shared\_EmployeeProfile.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />

@@ -22,30 +22,30 @@ namespace HR.Recruitment.Controllers
             _departmentService = departmentService;
 
 		}
-        [HttpGet]
-        public IActionResult StaffingPlanCreate(int? staffingPlanId)
-        {
-            StaffingPlanDTO staffingPlanDTO = new StaffingPlanDTO();
-
-			var department = _departmentService.GetDepartmentList();
-			ViewBag.Department = department;
-
-			if (staffingPlanId != null)
+            [HttpGet]
+            public IActionResult StaffingPlanCreate(int? staffingPlanId)
             {
+                StaffingPlanDTO staffingPlanDTO = new StaffingPlanDTO();
 
-                StaffingPlan d = _staffingPlanService.GetStaffingPlanByStaffingPlanId(int.Parse(staffingPlanId.ToString()));
+			    var department = _departmentService.GetDepartmentList();
+			    ViewBag.Department = department;
 
-                staffingPlanDTO.PlanName = d.PlanName;
-                staffingPlanDTO.FromDate = d.FromDate;
-                staffingPlanDTO.ToDate = d.ToDate;
-                staffingPlanDTO.DepartmentId = d.DepartmentId;
+			    if (staffingPlanId != null)
+                {
+
+                    StaffingPlan d = _staffingPlanService.GetStaffingPlanByStaffingPlanId(int.Parse(staffingPlanId.ToString()));
+
+                    staffingPlanDTO.PlanName = d.PlanName;
+                    staffingPlanDTO.FromDate = d.FromDate;
+                    staffingPlanDTO.ToDate = d.ToDate;
+                    staffingPlanDTO.DepartmentId = d.DepartmentId;
                
 
-            }
+                }
 			
-			return View("~/Plugins/HR.Recruitment/Views/StaffingPlan/StaffingPlanCreate.cshtml", staffingPlanDTO);
+			    return View("~/Plugins/HR.Recruitment/Views/StaffingPlan/StaffingPlanCreate.cshtml", staffingPlanDTO);
 
-        }
+            }
         [HttpPost]
         public IActionResult StaffingPlanCreate(StaffingPlanDTO staffingPlanDTO)
         {

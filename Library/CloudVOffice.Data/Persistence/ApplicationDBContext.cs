@@ -128,6 +128,7 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<DesktopKeyStroke> DesktopKeyStrokes { get; set; }
         public virtual DbSet<DesktopSnapshot> DesktopSnapshots { get; set; }
+        
         #endregion
 
         #region Accounts

@@ -98,11 +98,12 @@ namespace CloudVOffice.Web.Framework
 			#region DesktopLogin
 			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
-            #endregion
+			services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
+			#endregion
 
 
-            #region DesktopLogin
-            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             #endregion
             #region Recruutment
             services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();

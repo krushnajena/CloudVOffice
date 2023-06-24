@@ -57,7 +57,8 @@
             <div class='e-text'>${TaskDescription}</div>
         </div>
         <div class='e-card-custom-footer'>
-
+         ${AssignedTo.FullName}    <div class='e-card-avatar'>  <img src='/uploads/employee/${AssignedTo.Photo}' style="height:50px; width:50px; border-radius: 50%;"/></div>
+           
         </div>
     </div>
 </script>
@@ -65,10 +66,6 @@
 
 <script>
 
-    function getAssignments(data) {
-        console.log(data)
-        return "   <div class='e-card-avatar'> KJ</div>";
-    }
     function ondragStop(args) {
 
         var taskId = args.data[0].ProjectTaskId

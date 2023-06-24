@@ -10,5 +10,5 @@
   "Description": "Desktop Monitoring System to track Employees Desktops.",
   "InstallationUrl": "/DesktopMonitoring/DesktopMonitoringInstallation/Install",
   "UnInstallationUrl": "/DesktopMonitoring/DesktopMonitoringInstallation/UnInstall",
-  "Dependency": ["HR.Base"]
+  "Dependency": [ "HR.Base", "HR.Attendance" ]
 }

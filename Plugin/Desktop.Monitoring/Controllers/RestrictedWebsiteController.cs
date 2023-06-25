@@ -22,19 +22,21 @@ namespace Desktop.Monitoring.Controllers
     {
 
         private readonly IRestrictedWebsiteService _restrictedWebsiteService;
-       
+        private readonly IDepartmentService _departmentService;
 
-        public RestrictedWebsiteController(IRestrictedWebsiteService restrictedWebsiteService)
+        public RestrictedWebsiteController(IRestrictedWebsiteService restrictedWebsiteService, IDepartmentService departmentService)
         {
 
             _restrictedWebsiteService = restrictedWebsiteService;
-           
+            _departmentService = departmentService;
         }
         [HttpGet]
         public IActionResult RestrictedWebsiteCreate(Int64? RestrictedWebsiteId)
         {
             RestrictedWebsiteDTO restrictedWebsiteDTO = new RestrictedWebsiteDTO();
 
+            var department = _departmentService.GetDepartmentList();
+            ViewBag.Department = department;
             if (RestrictedWebsiteId != null)
             {
 
@@ -96,14 +98,15 @@ namespace Desktop.Monitoring.Controllers
                 }
             }
 
-            
+            var department = _departmentService.GetDepartmentList();
+            ViewBag.Department = department;
             return View("~/Plugins/Desktop.Monitoring/Views/RestrictedWebsite/RestrictedWebsiteCreate.cshtml", restrictedWebsiteDTO);
         }
         public IActionResult RestrictedWebsiteView()
         {
             ViewBag.restrictedWebsites = _restrictedWebsiteService.GetRestrictedWebsites();
 
-            return View("~/Plugins/Desktop.MonitoringViews/RestrictedWebsite/RestrictedWebsiteView.cshtml");
+            return View("~/Plugins/Desktop.Monitoring/Views/RestrictedWebsite/RestrictedWebsiteView.cshtml");
         }
 
         [HttpGet]
@@ -113,7 +116,7 @@ namespace Desktop.Monitoring.Controllers
 
             var a = _restrictedWebsiteService.RestrictedWebsiteDelete(RestrictedWebsiteId, DeletedBy);
             TempData["msg"] = a;
-            return Redirect("/DesktopMonitoring/StaffingPlan/RestrictedWebsiteView");
+            return Redirect("/DesktopMonitoring/RestrictedWebsite/RestrictedWebsiteView");
         }
     }
 }

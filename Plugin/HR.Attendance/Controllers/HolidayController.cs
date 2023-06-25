@@ -1,10 +1,12 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Attendance;
+using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,12 +48,12 @@ namespace HR.Attendance.Controllers
         public IActionResult CreateHoliday(HolidayDTO holidayDTO)
         {
             holidayDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-
-
+            holidayDTO.holidayDays = JsonConvert.DeserializeObject<List<HolidayDaysDTO>>(holidayDTO.holidayDaysString);
             if (ModelState.IsValid)
             {
                 if (holidayDTO.HolidayId == null)
                 {
+
                     var a = _holidayService.CreateHoliday(holidayDTO);
                     if (a == MessageEnum.Success)
                     {

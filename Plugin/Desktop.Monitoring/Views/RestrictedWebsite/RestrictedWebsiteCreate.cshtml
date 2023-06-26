@@ -78,8 +78,6 @@
 </div>
 <script>
 
-
-
 	function onDepartmentrfiltering(e) {
 		var query = new ej.data.Query();
 		query = (e.text !== '') ? query.where('DepartmentName', 'startswith', e.text, true) : query;

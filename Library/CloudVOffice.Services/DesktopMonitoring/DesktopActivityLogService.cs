@@ -1,8 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Emp;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using System;
@@ -17,11 +19,15 @@ namespace CloudVOffice.Services.DesktopMonitoring
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<DesktopActivityLog> _desktopactivitylogRepo;
-        public DesktopActivityLogService(ApplicationDBContext Context, ISqlRepository<DesktopActivityLog> desktopactivitylogRepo)
+        private readonly IEmployeeService _employeeService;
+        public DesktopActivityLogService(ApplicationDBContext Context,
+            ISqlRepository<DesktopActivityLog> desktopactivitylogRepo,
+            IEmployeeService employeeService)
         {
 
             _Context = Context;
             _desktopactivitylogRepo = desktopactivitylogRepo;
+            _employeeService = employeeService;
         }
         public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
         {
@@ -155,6 +161,21 @@ namespace CloudVOffice.Services.DesktopMonitoring
             try
             {
                 return _Context.DesktopActivityLogs.Where(x => x.Deleted == false).ToList();
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public List<DesktopActivityLog> SuspesiosActivityLog(SuspesiosActivityLogDTO suspesiosActivityLogDTO)
+        {
+            try
+            {
+                var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId);
+                return _Context.DesktopActivityLogs
+                    .Include(x=>x.Employee)
+                    .Where(x => x.Deleted == false && x.LogDateTime >=  suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate &&  TimeSpan.Parse( x.Duration).TotalMinutes >= suspesiosActivityLogDTO.Duration && employees.Any(v=>v.EmployeeId == suspesiosActivityLogDTO.EmployeeId)).ToList();
 
             }
             catch

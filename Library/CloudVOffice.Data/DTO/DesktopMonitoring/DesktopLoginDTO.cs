@@ -28,4 +28,11 @@ namespace CloudVOffice.Data.DTO.DesktopMonitoring
         public Int64 DesktopLoginId { get; set; }
         public TimeSpan? IdelTime { get; set; }
     }
+    public class SuspesiosActivityLogDTO
+    {
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
+        public double? Duration { get; set; }
+        public Int64? EmployeeId { get; set; }
+    }
 }

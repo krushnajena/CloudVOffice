@@ -1,8 +1,8 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Custom;
-using CloudVOffice.Core.Domain.Recruitment;
+
 using CloudVOffice.Data.DTO.Custom;
-using CloudVOffice.Data.DTO.Recruitment;
+
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using System;

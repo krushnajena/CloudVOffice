@@ -20,5 +20,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         public List<DesktopActivityLog> GetAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginFilterDTO);
         public List<DesktopActivityLog> SuspesiosActivityLog(SuspesiosActivityLogDTO suspesiosActivityLogDTO);
+
+        public List<DesktopActivityLog> SuspesiosWebActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO);
     }
 }

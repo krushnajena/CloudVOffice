@@ -24,6 +24,7 @@
     <None Remove="Views\DesktopMonitoring\MonitorUsers.cshtml" />
     <None Remove="Views\DesktopMonitoring\Track.cshtml" />
     <None Remove="Views\DesktopReporting\SuspesiosActivityLog.cshtml" />
+    <None Remove="Views\DesktopReporting\SuspesiosWebActivityLog.cshtml" />
     <None Remove="Views\RestrictedWebsite\fa3evfnj.qta~" />
     <None Remove="Views\RestrictedWebsite\RestrictedWebsiteCreate.cshtml" />
     <None Remove="Views\RestrictedWebsite\RestrictedWebsiteView.cshtml" />

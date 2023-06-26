@@ -19,6 +19,6 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
         [ForeignKey("DepartmentId")]
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
     }
 }

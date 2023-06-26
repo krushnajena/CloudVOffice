@@ -20,14 +20,17 @@ namespace CloudVOffice.Services.DesktopMonitoring
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<DesktopActivityLog> _desktopactivitylogRepo;
         private readonly IEmployeeService _employeeService;
+        private readonly IRestrictedWebsiteService _restrictedWebsiteService;
         public DesktopActivityLogService(ApplicationDBContext Context,
             ISqlRepository<DesktopActivityLog> desktopactivitylogRepo,
-            IEmployeeService employeeService)
+            IEmployeeService employeeService,
+            IRestrictedWebsiteService restrictedWebsiteService)
         {
 
             _Context = Context;
             _desktopactivitylogRepo = desktopactivitylogRepo;
             _employeeService = employeeService;
+            _restrictedWebsiteService = restrictedWebsiteService;
         }
         public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
         {
@@ -140,7 +143,11 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         public List<DesktopActivityLog> GetAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginFilterDTO)
         {
-         return   _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots).Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog" && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate)).OrderByDescending(l => l.LogDateTime).ToList();
+         return   _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots)
+                .Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog" 
+                && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate)
+                
+                ).OrderByDescending(l => l.LogDateTime).ToList();
         }
 
         public DesktopActivityLog GetDesktopActivityLogByDesktopActivityLogId(Int64 DesktopActivityLogId)
@@ -172,10 +179,35 @@ namespace CloudVOffice.Services.DesktopMonitoring
         {
             try
             {
-                var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId);
-                return _Context.DesktopActivityLogs
-                    .Include(x=>x.Employee)
-                    .Where(x => x.Deleted == false && x.LogDateTime >=  suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate &&  TimeSpan.Parse( x.Duration).TotalMinutes >= suspesiosActivityLogDTO.Duration && employees.Any(v=>v.EmployeeId == suspesiosActivityLogDTO.EmployeeId)).ToList();
+                var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId).ToList();
+                var dmsLogs = _Context.DesktopActivityLogs
+                     .Include(r => r.Employee)
+                     .Where(x => x.Deleted == false
+                    &&   (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)
+               
+                     ).ToList();
+                return dmsLogs.Where(x => (TimeSpan.Parse(x.Duration).TotalMinutes >= suspesiosActivityLogDTO.Duration) && employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<DesktopActivityLog> SuspesiosWebActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            try
+            {
+                var restrictedWbsiteList = _restrictedWebsiteService.GetRestrictedWebsites().ToList();
+                var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId).ToList();
+                var dmsLogs = _Context.DesktopActivityLogs
+                     .Include(r => r.Employee)
+                     .Where(x => x.Deleted == false
+                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)
+
+                     ).ToList();
+                return dmsLogs.Where(x => restrictedWbsiteList.Any(v =>( v.RestrictedWebsiteName.StartsWith(x.AppOrWebPageName == null?"": x.AppOrWebPageName)) || v.RestrictedWebsiteName.Contains(x.AppOrWebPageName == null ? "" : x.AppOrWebPageName)) && employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
 
             }
             catch

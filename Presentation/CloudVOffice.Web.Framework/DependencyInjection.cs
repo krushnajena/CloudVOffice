@@ -99,6 +99,7 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
 			services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
+            services.AddScoped<IRestrictedApplicationService, RestrictedApplicationService>();
 			#endregion
 
 

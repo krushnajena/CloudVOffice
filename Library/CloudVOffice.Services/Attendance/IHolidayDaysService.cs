@@ -16,5 +16,6 @@ namespace CloudVOffice.Services.Attendance
         public HolidayDays GetHolidayDaysById(Int64 HolidayDaysId);
         public MessageEnum HolidayDaysUpdate(HolidayDaysDTO holidayDaysDTO);
         public MessageEnum HolidayDaysDelete(Int64 HolidayDaysId, Int64 DeletedBy);
+        MessageEnum CreateHolidayDays(HolidayDaysDTO holidayDaysDTO);
     }
 }

@@ -15,13 +15,15 @@ namespace CloudVOffice.Services.Attendance
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<HolidayDays> _holidayRepo;
-    
-        public HolidayDaysService(ApplicationDBContext Context, ISqlRepository<HolidayDays> holidayRepo)
+        private readonly ISqlRepository<HolidayDays> _holidayDaysRepo;
+
+        public HolidayDaysService(ApplicationDBContext Context, ISqlRepository<HolidayDays> holidayRepo, ISqlRepository<HolidayDays> holidayDaysRepo)
         {
 
             _Context = Context;
             _holidayRepo = holidayRepo;
-            
+            _holidayDaysRepo = holidayDaysRepo;
+
         }
         public MessageEnum CreateHolidayDays(HolidayDaysDTO holidayDaysDTO , Int64 CreatedBy)
         {
@@ -36,16 +38,6 @@ namespace CloudVOffice.Services.Attendance
 
             return MessageEnum.Success;
         }
-	public class HolidayDaysService : IHolidayDaysService
-	{
-		private readonly ApplicationDBContext _Context;
-		private readonly ISqlRepository<HolidayDays> _holidayDaysRepo;
-		public HolidayDaysService(ApplicationDBContext Context, ISqlRepository<HolidayDays> holidayDaysRepo)
-		{
-
-			_Context = Context;
-			_holidayDaysRepo = holidayDaysRepo;
-		}
 		public MessageEnum CreateHolidayDays(HolidayDaysDTO holidayDaysDTO)
 		{
 

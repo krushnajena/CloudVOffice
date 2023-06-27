@@ -41,12 +41,12 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<label for="DomainName" class="form-label">Domain Name</label>
+								<label for="DomainName" class="form-label">Domain Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.DomainName" type="text" class="form-control" autofocus="autofocus" placeholder="Domain Name" />
 								<span asp-validation-for="DomainName"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="IncomingServer" class="form-label">Incoming Server</label>
+								<label for="IncomingServer" class="form-label">Incoming Server&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.IncomingServer" type="text" class="form-control" autofocus="autofocus" placeholder="Incoming Server" />
 								<span asp-validation-for="IncomingServer"></span>
 							</div>
@@ -58,7 +58,7 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<label for="OutingServer" class="form-label">Outing Server</label>
+								<label for="OutingServer" class="form-label">Outing Server&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.OutingServer" type="text" class="form-control" autofocus="autofocus" placeholder="Outing Server" />
 								<span asp-validation-for="OutingServer"></span>
 							</div>

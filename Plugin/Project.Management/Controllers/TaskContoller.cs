@@ -162,9 +162,37 @@ namespace Project.Management.Controllers
         public IActionResult TaskList()
         {
 
-            return View();
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            var projectTasks = _projectTaskService.GetTaskList(EmployeeId);
+            var data = from u in projectTasks
+                       select new
+                       {
+                           ProjectCode = u.Project.ProjectCode,
+                           ProjectName = u.Project.ProjectName,
+                           TaskName = u.TaskName,
+                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+                           EndDateAsPerPlan = u.ExpectedEndDate,
+                           ActualEndDate = u.ComplitedOn,
+
+
+                       };
+            ViewBag.TaskList = data;
+            return View("~/Plugins/Project.Management/Views/Task/TaskList.cshtml");
         }
 
+			
+		       
         public JsonResult GroupProjectTaskByProjectId(int ProjectId)
         {
             return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));

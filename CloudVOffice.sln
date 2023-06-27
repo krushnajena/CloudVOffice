@@ -31,13 +31,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop.Monitoring", "Plugi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.API", "Plugin\Web.API\Web.API.csproj", "{C3D3EF49-2D25-409D-9BE8-3E4B5DF6135E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopMonitoring", "DesktopMonitoring", "{6414E5A2-5828-4F12-BF1C-AA285B7999FF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accounts.Base", "Plugin\Accounts.Base\Accounts.Base.csproj", "{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.Attendance", "Plugin\HR.Attendance\HR.Attendance.csproj", "{B2D07C7C-20AC-4A2B-96EF-0D90D0C8D5E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HR.Recruitment", "Plugin\HR.Recruitment\HR.Recruitment.csproj", "{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR.Recruitment", "Plugin\HR.Recruitment\HR.Recruitment.csproj", "{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesktopMoniteringAgent", "DesktopMoniteringAgent", "{018C5126-E5BB-4BF4-A7F3-472A64276B16}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesktopMonitoringSystem", "DesktopMonitoring\DesktopMonitoringSystem\DesktopMonitoringSystem.csproj", "{9D8B7DED-8A69-4C10-A133-15A10AA44590}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActMon", "..\DesktopMoniteringAgent\DesktopMoniteringAgent\ActMon\ActMon.csproj", "{02A96D46-4003-45E5-9F29-B4EDB9F64621}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityMonitor", "..\DesktopMoniteringAgent\DesktopMoniteringAgent\ActivityMonitor\ActivityMonitor.csproj", "{B1F7C3DB-FA75-43FC-8671-179F251F2FC4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DmsSetup", "DesktopMonitoring\DesktopMonitoringAgentSetup\DmsSetup\DmsSetup.vdproj", "{1B2E0039-3536-4DFB-978D-DCEE0B1B1809}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +105,20 @@ Global
 		{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D8B7DED-8A69-4C10-A133-15A10AA44590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D8B7DED-8A69-4C10-A133-15A10AA44590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D8B7DED-8A69-4C10-A133-15A10AA44590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D8B7DED-8A69-4C10-A133-15A10AA44590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1F7C3DB-FA75-43FC-8671-179F251F2FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1F7C3DB-FA75-43FC-8671-179F251F2FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1F7C3DB-FA75-43FC-8671-179F251F2FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1F7C3DB-FA75-43FC-8671-179F251F2FC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B2E0039-3536-4DFB-978D-DCEE0B1B1809}.Debug|Any CPU.ActiveCfg = Debug
+		{1B2E0039-3536-4DFB-978D-DCEE0B1B1809}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +137,10 @@ Global
 		{C88272DA-50A3-4DAE-8AD9-8C6DC27B781D} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
 		{B2D07C7C-20AC-4A2B-96EF-0D90D0C8D5E5} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
 		{9FAD1F7E-05FA-4BB8-82B4-B6DF06808C63} = {94EFDF8F-BB1B-43E6-BECB-CE10FC2F03B8}
+		{9D8B7DED-8A69-4C10-A133-15A10AA44590} = {018C5126-E5BB-4BF4-A7F3-472A64276B16}
+		{02A96D46-4003-45E5-9F29-B4EDB9F64621} = {018C5126-E5BB-4BF4-A7F3-472A64276B16}
+		{B1F7C3DB-FA75-43FC-8671-179F251F2FC4} = {018C5126-E5BB-4BF4-A7F3-472A64276B16}
+		{1B2E0039-3536-4DFB-978D-DCEE0B1B1809} = {018C5126-E5BB-4BF4-A7F3-472A64276B16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DEF2CA5-EC2C-4C0B-878F-AEA8D00FE3E6}

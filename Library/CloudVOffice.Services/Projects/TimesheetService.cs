@@ -24,7 +24,43 @@ namespace CloudVOffice.Services.Projects
             _timesheetRepo = timesheetRepo;
         }
 
-       
+        public List<Timesheet> GetMyTimeSheets(long EmployeeId)
+        {
+            try
+            {
+                var otherThenProjectTimesheet = _Context.Timesheets
+                                             .Include(x => x.Employee)
+                                                .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
+                                             
+                                             .Where(x => x.EmployeeId == EmployeeId
+                                                          && x.Deleted == false && x.TimesheetActivityType!=1
+                                                         ).ToList();
+                var projectTimesheets = _Context.Timesheets
+                         .Include(x => x.Employee)
+						   .Include(x => x.TimesheetActivityCategory)
+						 .Include(x => x.ProjectActivityType)
+
+                         .Include(x => x.Project)
+                         .Include(X => X.ProjectTask).Where(x => x.EmployeeId == EmployeeId
+                                                            && x.Deleted == false && x.TimesheetActivityType==1
+                                                           )
+
+                    .ToList();
+
+
+
+
+              
+                projectTimesheets.AddRange(otherThenProjectTimesheet);
+               
+                return projectTimesheets;
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         public Timesheet GetTimesheetByTimesheetId(Int64 timesheetId)
         {
@@ -58,7 +94,8 @@ namespace CloudVOffice.Services.Projects
             {
                 var projectTimesheets = _Context.Timesheets
                          .Include(x => x.Employee)
-                         .Include(x => x.ProjectActivityType)
+                           .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
                          .Include(x => x.Project)
                          .Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType ==1
                                                             && x.TimeSheetApprovalStatus == 0
@@ -69,8 +106,9 @@ namespace CloudVOffice.Services.Projects
 
 				var projectTimesheetsToRa = _Context.Timesheets
 						.Include(x => x.Employee)
-						.Include(x => x.ProjectActivityType)
-						.Include(x => x.Project)
+                      .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
+                        .Include(x => x.Project)
 						.Include(X => X.ProjectTask).Where(x => x.TimesheetActivityType == 1
 														   && x.TimeSheetApprovalStatus == 0
 														   && x.Deleted == false
@@ -81,7 +119,10 @@ namespace CloudVOffice.Services.Projects
 
 				var otherThenProjectTimesheet = _Context.Timesheets
                                                .Include(x => x.Employee)
-                                               .Include(x => x.ProjectActivityType).Where(x => x.TimesheetActivityType !=1
+                                                .Include(x => x.TimesheetActivityCategory)
+                                             .Include(x => x.ProjectActivityType)
+
+                                               .Where(x => x.TimesheetActivityType !=1
                                                             && x.TimeSheetApprovalStatus == 0
                                                             && x.Deleted == false
                                                             && x.Employee.ReportingAuthority ==  EmployeeId);
@@ -104,6 +145,7 @@ namespace CloudVOffice.Services.Projects
                 
 
                     Timesheet timesheet = new Timesheet();
+                    timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
                     timesheet.EmployeeId = timesheetDTO.EmployeeId;
                     timesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
                     timesheet.ActivityId = timesheetDTO.ActivityId;
@@ -115,9 +157,8 @@ namespace CloudVOffice.Services.Projects
                     timesheet.Description = timesheetDTO.Description;
                     timesheet.IsBillable = timesheetDTO.IsBillable;
                     timesheet.HourlyRate = timesheetDTO.HourlyRate;
-                    timesheet.TimeSheetApprovalStatus = timesheetDTO.TimeSheetApprovalStatus;
-                    timesheet.TimesheetApprovedBy = timesheetDTO.TimesheetApprovedBy;
-                    timesheet.TimeSheetApprovalRemarks = timesheetDTO.TimeSheetApprovalRemarks;
+                    timesheet.TimeSheetApprovalStatus = 0;
+                  
 
                     timesheet.CreatedBy = timesheetDTO.CreatedBy;
                     var obj = _timesheetRepo.Insert(timesheet);
@@ -126,7 +167,7 @@ namespace CloudVOffice.Services.Projects
                 
                 
 
-                return MessageEnum.UnExpectedError;
+                return MessageEnum.Success;
             }
             catch
             {
@@ -194,6 +235,35 @@ namespace CloudVOffice.Services.Projects
                 else
                 {
                     return MessageEnum.Duplicate;
+                }
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public MessageEnum TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO)
+        {
+            try
+            {
+                var timesheet = _Context.Timesheets.Where(x => x.TimesheetId == timesheetApprovalDTO.TimesheetId && x.Deleted == false).FirstOrDefault();
+                if (timesheet != null)
+                {
+                    timesheet.TimeSheetApprovalStatus = timesheetApprovalDTO.TimeSheetApprovalStatus;
+                    timesheet.TimeSheetApprovalRemarks = timesheetApprovalDTO.TimesheetApprovalRemarks;
+                    timesheet.TimeSheetApprovedOn = DateTime.Now;
+                    timesheet.TimesheetApprovedBy = timesheetApprovalDTO.ApprovedBy;
+                    timesheet.UpdatedBy = timesheetApprovalDTO.UpdatedBy;
+                    timesheet.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+
+                    return timesheetApprovalDTO.TimeSheetApprovalStatus == 1? MessageEnum.Approved: MessageEnum.Rejected;
+                }
+                else
+                {
+                    return MessageEnum.Invalid;
                 }
 
             }

@@ -1,7 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
-using CloudVOffice.Core.Domain.Customer;
+using CloudVOffice.Core.Domain.Customert;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.EmailTemplates;
 using CloudVOffice.Core.Domain.HR.Attendance;
@@ -26,8 +26,10 @@ namespace CloudVOffice.Data.Persistence
         {
 
         }
-		#region
-		public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
+        #region
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
 
@@ -144,6 +146,16 @@ namespace CloudVOffice.Data.Persistence
         {
 
             #region Base
+
+            modelBuilder.Entity<RefreshToken>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<RefreshToken>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
 
             modelBuilder.Entity<Role>()
         .Property(s => s.CreatedDate)

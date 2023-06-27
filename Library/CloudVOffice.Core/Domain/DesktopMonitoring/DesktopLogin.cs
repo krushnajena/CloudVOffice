@@ -29,7 +29,38 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
+        [NotMapped]
+        public string Duration
+        {
+            get
+            {
+                var dateOne = LoginDateTime;
+                var dateTwo = LogOutDateTime;
+                if (dateOne != null)
+                {
+                    var diff = DateTime.Parse(dateTwo.ToString()).Subtract(DateTime.Parse(dateOne.ToString()));
+                    return String.Format("{0}:{1}:{2}", diff.Hours, diff.Minutes, diff.Seconds);
+                }
+                else
+                {
+                    return "00:00:00";
+                }
 
+            }
+        }
+        [NotMapped]
+        public string ForDate
+        {
+            get
+            {
+
+
+
+                return DateTime.Parse(LoginDateTime.ToString()).ToString("dd-MMM-yyyy");
+
+
+            }
+        }
 
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }

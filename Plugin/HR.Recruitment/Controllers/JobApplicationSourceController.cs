@@ -101,7 +101,7 @@ namespace HR.Recruitment.Controllers
         [HttpGet]
         public IActionResult JobApplicationSourceDelete(int jobApplicationSourceId)
         {
-            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+           Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _jobApplicationSourceService.JobApplicationSourceDelete(jobApplicationSourceId, DeletedBy);
             TempData["msg"] = a;

@@ -26,7 +26,7 @@ namespace DesktopMonitoringSystem.Pages
         public FileOperations()
         {
             InitializeComponent();
-            GetFileOperations();
+           // GetFileOperations();
 
         }
         private void GetFileOperations()

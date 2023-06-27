@@ -27,5 +27,5 @@
 		public const string Attendance = "Attendance";
 		public const string Recruitment = "Recruitment";
 
-	}
+    }
 }

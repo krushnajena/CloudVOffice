@@ -38,13 +38,17 @@ namespace CloudVOffice.Core.Domain.Projects
 		public bool Deleted { get; set; }
 
         [ForeignKey("ProjectId")]
-        public Project Project { get; set; }
+        public Project? Project { get; set; }
 
 
         [ForeignKey("TaskId")]
-        public ProjectTask ProjectTask { get; set; }
-        [ForeignKey("ActivityId")]
+        public ProjectTask? ProjectTask { get; set; }
+		[ForeignKey("TimesheetActivityType")]
+		public TimesheetActivityCategory TimesheetActivityCategory { get; set; }
+		[ForeignKey("ActivityId")]
         public ProjectActivityType ProjectActivityType { get; set; }
+
+
 
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }

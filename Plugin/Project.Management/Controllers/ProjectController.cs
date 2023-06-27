@@ -66,13 +66,6 @@ namespace Projects.Management.Controller
 
 
 
-
-
-
-
-
-
-
             ViewBag.allProjects = _projectService.GetProjects();
 			
 			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");

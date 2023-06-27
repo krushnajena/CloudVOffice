@@ -107,11 +107,7 @@ namespace Project.Management.Controllers
                         TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/Projects/Timesheet/TimesheetView");
                     }
-                    else if (a == MessageEnum.Duplicate)
-                    {
-                        TempData["msg"] = MessageEnum.Duplicate;
-                        ModelState.AddModelError("", "Timesheet Already Exists");
-                    }
+                   
                     else
                     {
                         TempData["msg"] = MessageEnum.UnExpectedError;
@@ -125,7 +121,11 @@ namespace Project.Management.Controllers
         }
         public IActionResult TimesheetView()
         {
-            ViewBag.Timesheets = _timesheetService.GetTimesheets();
+
+           Int64 createdBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 employeeId = _employeeService.GetEmployeeDetailsByUserId(createdBy).EmployeeId;
+           
+            ViewBag.Timesheets = _timesheetService.GetMyTimeSheets(employeeId);
 
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetView.cshtml");
         }
@@ -158,9 +158,10 @@ namespace Project.Management.Controllers
             var data = from u in timesheets
                        select new
                        {
+                           TimesheetId = u.TimesheetId,
                            Timesheetdate = u.CreatedDate,
                            EmployeeName = u.Employee.FullName,
-                           ActvityCategory = u.ProjectActivityType.ActivityCategoryId,
+                           ActvityCategory = u.TimesheetActivityCategory.TimesheetActivityCategoryName,
                            ActvityName = u.ProjectActivityType.ProjectActivityName,
                            Project = u.Project,
                            Task = u.ProjectTask,
@@ -180,7 +181,28 @@ namespace Project.Management.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            timesheetApprovalDTO.ApprovedBy = EmployeeId;
+            timesheetApprovalDTO.UpdatedBy = UserId;
+            var a = _timesheetService.TimesheetApproval(timesheetApprovalDTO);
+            return Ok(a);
+        }
 
 
-	}
+
+    }
 }

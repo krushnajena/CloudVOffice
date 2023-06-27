@@ -4,6 +4,8 @@ using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Data.ViewModel.DesktopMonitering;
+using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Emp;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Profiling.Internal;
@@ -22,16 +24,19 @@ namespace CloudVOffice.Services.DesktopMonitoring
         private readonly ISqlRepository<DesktopActivityLog> _desktopactivitylogRepo;
         private readonly IEmployeeService _employeeService;
         private readonly IRestrictedWebsiteService _restrictedWebsiteService;
+        private readonly IHolidayService _holiDayService;
         public DesktopActivityLogService(ApplicationDBContext Context,
             ISqlRepository<DesktopActivityLog> desktopactivitylogRepo,
             IEmployeeService employeeService,
-            IRestrictedWebsiteService restrictedWebsiteService)
+            IRestrictedWebsiteService restrictedWebsiteService,
+            IHolidayService holiDayService)
         {
 
             _Context = Context;
             _desktopactivitylogRepo = desktopactivitylogRepo;
             _employeeService = employeeService;
             _restrictedWebsiteService = restrictedWebsiteService;
+            _holiDayService=holiDayService;
         }
         public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
         {
@@ -231,6 +236,12 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
         }
 
-        
+        public List<EffortAnalysReportViewModel> EffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            List<EffortAnalysReportViewModel> effortAnalysReportViewModels= new List<EffortAnalysReportViewModel>();    
+            var holiday = _holiDayService.GetHolidayByDates( DateTime.Parse( suspesiosActivityLogDTO.FromDate.ToString()) ,DateTime.Parse( suspesiosActivityLogDTO.ToDate.ToString())).HolidayDays.Where(x=> (x.ForDate >= suspesiosActivityLogDTO.FromDate && x.ForDate <= suspesiosActivityLogDTO.ToDate) && x.Deleted == false).ToList();
+
+            return effortAnalysReportViewModels;
+        }
     }
 }

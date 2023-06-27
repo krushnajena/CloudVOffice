@@ -2,37 +2,37 @@
 @using System.Collections;
 @using Newtonsoft.Json;
 @{
-	Layout = "_MainAppLayout";
+    Layout = "_MainAppLayout";
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
 <header class="main-heading">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-				<div class="page-icon">
-					<i class="icon-laptop_windows"></i>
-				</div>
-				<div class="page-title">
-					<h5>CRM Dashboard</h5>
-					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
-				</div>
-			</div>
-			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-				<div class="right-actions">
-					<span class="last-login">Last Login: 2 hours ago</span>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Holiday Dashboard</h5>
+                    <h6 class="sub-heading">Welcome to Holiday</h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">Last Login: 2 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 
 <div class="main-content">
-	<div class="row gutters">
-		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
 				<form asp-route="/Attendance/HolidayDays/CreateHolidayDays" method="post" autocomplete="off">
@@ -51,41 +51,136 @@
 								</div>
 							</div>
 
-						</div>
+                        </div>
 
-						<div class="form-row">
-							<div class="form-group col-md-5">
-								<label for="FromDate" class="form-label">From Date</label>
-								<input asp-for="@Model.FromDate" type="text" class="form-control" autofocus="autofocus" placeholder="From Date" />
-								<span asp-validation-for="FromDate"></span>
-							</div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="FromDate" class="form-label">From Date</label>
+                                <input asp-for="@Model.FromDate" type="date" class="form-control" autofocus="autofocus" placeholder="FromDate" />
+                                <span asp-validation-for="FromDate"></span>
+                            </div>
 
-							<div class="form-group col-md-5">
-								<label for="ToDate" class="form-label">To Date</label>
-								<input asp-for="@Model.ToDate" type="text" class="form-control" autofocus="autofocus" placeholder="To Date" />
-								<span asp-validation-for="ToDate"></span>
-							</div>
+                            <div class="form-group col-md-3">
+                                <label for="ToDate" class="form-label">To Date</label>
+                                <input asp-for="@Model.ToDate" type="date" class="form-control" autofocus="autofocus" placeholder="ToDate" />
+                                <span asp-validation-for="ToDate"></span>
+                            </div>
 
-						</div>
-
-
-					</div>
-
-					<div class="card-body">
-
-						<div class="col-lg-2 col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-primary">Save</button>
-						</div>
-					</div>
-
-				</form>
-
-			</div>
+                        </div>
 
 
 
-		</div>
-	</div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="FromDate" class="form-label">Week Offs</label>
+                                <select id="WeekOffs" class="form-control">
+                                    <option value="Sunday">Sunday</option>
+                                    <option value="Monday">Monday</option>
+                                    <option value="Tuesday">Tuesday</option>
+                                    <option value="Wednesday">Wednesday</option>
+                                    <option value="Thursday">Thursday</option>
+                                    <option value="Friday">Friday</option>
+                                    <option value="Saturday">Saturday</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group col-md-2">
+                                <label for="FromDate" class="form-label"><br /></label>
+                                <button type="button" id="add_weekoffs" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Weekoffs</button>
+                            </div>
+                        </div>
+
+
+
+                        <ejs-grid id="GrdiHoidays" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.holidayDays" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+                            <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
+
+                            <e-grid-columns>
+                                <e-grid-column field="ForDate" headerText="Date" editType="datepickeredit" customFormat="@(new {type = "datetime", format = "dd/MM/yyyy" })" width="160"></e-grid-column>
+                                <e-grid-column field="Description" headerText="Description" width="140"></e-grid-column>
+                            </e-grid-columns>
+                        </ejs-grid>
+
+                        <input type="hidden" asp-for="@Model.holidayDaysString" id="holidayDaysString" />
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
 
 </div>
 
+<script>
+    function getDaysBetweenDates(start, end, dayName) {
+        var result = [];
+        var days = { sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6 };
+        var day = days[dayName.toLowerCase().substr(0, 3)];
+        // Copy start date
+        var current = new Date(start);
+        // Shift to next of required days
+        current.setDate(current.getDate() + (day - current.getDay() + 7) % 7);
+        // While less than end date, add dates to result array
+        while (current < end) {
+            result.push(new Date(+current));
+            current.setDate(current.getDate() + 7);
+        }
+        return result;
+    }
+
+    $('#add_weekoffs').click(function () {
+        var a = getDaysBetweenDates(
+            new Date($('#FromDate').val()),
+            new Date($('#ToDate').val()),
+            $('#WeekOffs').val())
+        let grid = document.getElementById("GrdiHoidays").ej2_instances[0];
+        for (var i = 0; i < a.length; i++) {
+            grid.addRecord({ ForDate: a[i], Description: $('#WeekOffs').val() });
+        }
+        $('#holidayDaysString').val(JSON.stringify(grid.currentViewData));
+    });
+
+
+    function actionBegin(args) {
+        let grid = document.getElementById("GrdiHoidays").ej2_instances[0];
+
+
+        if (args.requestType === 'save') {
+
+            if (grid.pageSettings.currentPage !== 1 && grid.editSettings.newRowPosition === 'Top') {
+                args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - grid.pageSettings.pageSize;
+            } else if (grid.editSettings.newRowPosition === 'Bottom') {
+                args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - 1;
+            }
+        }
+        else if (args.requestType === 'add' || args.requestType === 'beginEdit') {
+
+
+
+        }
+    }
+
+    function actionComplete(args) {
+        if (args.requestType === 'save' || args.requestType === 'delete') {
+            let grid = document.getElementById("GrdiHoidays").ej2_instances[0];
+
+            $('#holidayDaysString').val(JSON.stringify(grid.currentViewData));
+        }
+
+    }
+
+
+
+</script>

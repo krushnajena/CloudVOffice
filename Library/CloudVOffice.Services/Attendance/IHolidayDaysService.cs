@@ -11,7 +11,7 @@ namespace CloudVOffice.Services.Attendance
 {
     public interface IHolidayDaysService
     {
-        public MessageEnum CreateHolidayDays(HolidayDaysDTO holidayDaysDTO);
+        public MessageEnum CreateHolidayDays(HolidayDaysDTO holidayDaysDTO, Int64 CreatedBy);
         public List<HolidayDays> GetHolidayDaysList();
         public HolidayDays GetHolidayDaysById(Int64 HolidayDaysId);
         public MessageEnum HolidayDaysUpdate(HolidayDaysDTO holidayDaysDTO);

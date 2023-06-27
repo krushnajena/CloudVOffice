@@ -19,5 +19,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
         public MessageEnum DesktopActivityLogDelete(Int64 DesktopActivityLogId, Int64 DeletedBy);
 
         public List<DesktopActivityLog> GetAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginFilterDTO);
+        public List<DesktopActivityLog> SuspesiosActivityLog(SuspesiosActivityLogDTO suspesiosActivityLogDTO);
+
+        public List<DesktopActivityLog> SuspesiosWebActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO);
     }
 }

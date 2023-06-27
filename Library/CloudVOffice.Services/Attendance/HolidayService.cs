@@ -15,35 +15,36 @@ namespace CloudVOffice.Services.Attendance
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<Holiday> _holidayRepo;
-        public HolidayService(ApplicationDBContext Context, ISqlRepository<Holiday> holidayRepo)
+        private readonly IHolidayDaysService _holidayDaysService;
+        public HolidayService(ApplicationDBContext Context, ISqlRepository<Holiday> holidayRepo, IHolidayDaysService holidayDaysService)
         {
 
             _Context = Context;
             _holidayRepo = holidayRepo;
+            _holidayDaysService = holidayDaysService;
         }
         public MessageEnum CreateHoliday(HolidayDTO holidayDTO)
         {
-            var objCheck = _Context.Holidays.SingleOrDefault(opt => opt.HolidayId == holidayDTO.HolidayId && opt.Deleted == false);
+        
             try
             {
-                if (objCheck == null)
-                {
-
                     Holiday holiday = new Holiday();
                     holiday.HolidayName = holidayDTO.HolidayName;
                     holiday.FromDate = holidayDTO.FromDate;
                     holiday.ToDate = holidayDTO.ToDate;
                     holiday.CreatedBy = holidayDTO.CreatedBy;
                     var obj = _holidayRepo.Insert(holiday);
+                    for(int i = 0; i < holidayDTO.holidayDays.Count; i++)
+                    {
+                        _holidayDaysService.CreateHolidayDays(new HolidayDaysDTO
+                        {
+                            Description = holidayDTO.holidayDays[i].Description,
+                            ForDate = holidayDTO.holidayDays[i].ForDate,
+                            HolidayId = obj.HolidayId
 
-                    return MessageEnum.Success;
-                }
-                else if (objCheck != null)
-                {
-                    return MessageEnum.Duplicate;
-                }
-
-                return MessageEnum.UnExpectedError;
+                        }, holidayDTO.CreatedBy);
+                    }
+                    return MessageEnum.Success;  
             }
             catch
             {

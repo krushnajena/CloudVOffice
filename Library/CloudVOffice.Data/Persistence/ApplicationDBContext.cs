@@ -1,9 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
-using CloudVOffice.Core.Domain.Customert;
+using CloudVOffice.Core.Domain.Custom;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.EmailTemplates;
+using CloudVOffice.Core.Domain.HR;
 using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.HR.Master;
@@ -57,12 +58,13 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<LetterHead> LetterHeads { get; set; }
 
         public virtual DbSet<CompanyDetails> CompanyDetails { get; set; }   
-        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }    
-		#endregion
+        public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
+        #endregion
 
-		#region HR
-		#region Master
-		public virtual DbSet<Branch> Branches { get; set; }
+        #region HR
+        public virtual DbSet<HRSettings> HRSettings { get; set; }
+        #region Master
+        public virtual DbSet<Branch> Branches { get; set; }
 
 		public virtual DbSet<Department> Departments { get; set; }
 		public virtual DbSet<Designation> Designations { get; set; }
@@ -122,12 +124,13 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
 
-
+        public virtual DbSet<RestrictedWebsite> RestrictedWebsites{ get; set; }
         public virtual DbSet<DesktopActivityLog> DesktopActivityLogs { get; set; }
 
 
         public virtual DbSet<DesktopKeyStroke> DesktopKeyStrokes { get; set; }
         public virtual DbSet<DesktopSnapshot> DesktopSnapshots { get; set; }
+        
         #endregion
 
         #region Accounts

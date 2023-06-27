@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Core.Domain.Customert
+namespace CloudVOffice.Core.Domain.Custom
 {
   
     public class CustomerGroup : IAuditEntity, ISoftDeletedEntity

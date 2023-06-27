@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Data.DTO.Customert
+namespace CloudVOffice.Data.DTO.Custom
 {
     public class CustomerDTO
     {

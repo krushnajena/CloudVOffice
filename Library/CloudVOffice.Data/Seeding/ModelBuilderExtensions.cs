@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.EmailTemplates;
+using CloudVOffice.Core.Domain.HR;
 using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
@@ -2433,6 +2434,31 @@ namespace CloudVOffice.Data.Seeding
 
             #endregion
 
+
+
+            modelBuilder.Entity<HRSettings>(b =>
+            {
+                b.HasKey(e => e.HRSettingsId);
+
+                b.HasData(
+                    new HRSettings
+                    {
+                        HRSettingsId = 1,
+                        StandardWorkingHours = 9,
+                        BreakHours = 60,
+                        RetirementAge = 60,
+
+                        SendBirthdaysReminder = true,
+                        SendWorkAnniversariesReminder = true,
+                        SendInterviewReminder = true,
+                        SendInterviewFeedbackReminder = true,
+                        CreatedBy = 1
+                    }
+
+
+                    );
+
+            });
 
         }
     }

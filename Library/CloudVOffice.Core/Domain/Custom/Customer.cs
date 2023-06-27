@@ -1,15 +1,16 @@
-﻿using System;
+﻿using CloudVOffice.Core.Domain.HR.Emp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Core.Domain.Customert
+namespace CloudVOffice.Core.Domain.Custom
 {
    
     public class Customer : IAuditEntity, ISoftDeletedEntity
-        {
+    {
             public Int64 CustomerId { get; set; }
             public string CustomerName { get; set; }
             public int? CustomerGroupId { get; set; }
@@ -36,7 +37,10 @@ namespace CloudVOffice.Core.Domain.Customert
             [ForeignKey("CustomerGroupId")]
             public CustomerGroup CustomerGroup { get; set; }
 
-        
-    }
+		    [ForeignKey("AccountManagerId")]
+		    public Employee Employee { get; set; }
+
+
+	}
 }
 

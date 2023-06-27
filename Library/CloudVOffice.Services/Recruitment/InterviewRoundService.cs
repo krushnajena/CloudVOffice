@@ -23,19 +23,19 @@ namespace CloudVOffice.Services.Recruitment
 			_Context = Context;
 			_interviewRoundRepo = interviewRoundRepo;
 		}
-		public MessageEnum CreateInterviewRound(InterviewRoundDTO interviewRoundDTO)
+		public MessageEnum CreateInterviewRound(InterFeedBackQuestionsDTO interFeedBackQuestionsDTO)
 		{
-			var objCheck = _Context.InterFeedBackQuestions.SingleOrDefault(opt => opt.InterFeedBackQuestionsId == interviewRoundDTO.InterFeedBackQuestionsId && opt.Deleted == false);
+			var objCheck = _Context.InterFeedBackQuestions.SingleOrDefault(opt => opt.InterFeedBackQuestionsId == interFeedBackQuestionsDTO.InterFeedBackQuestionsId && opt.Deleted == false);
 			try
 			{
 				if (objCheck == null)
 				{
 
 					InterFeedBackQuestions interFeedBackQuestions = new InterFeedBackQuestions();
-					interFeedBackQuestions.DesignationId = interviewRoundDTO.DesignationId;
-					interFeedBackQuestions.Question = interviewRoundDTO.Question;
-					interFeedBackQuestions.Mark = interviewRoundDTO.Mark;
-					interFeedBackQuestions.CreatedBy = interviewRoundDTO.CreatedBy;
+					interFeedBackQuestions.DesignationId = interFeedBackQuestionsDTO.DesignationId;
+					interFeedBackQuestions.Question = interFeedBackQuestionsDTO.Question;
+					interFeedBackQuestions.Mark = interFeedBackQuestionsDTO.Mark;
+					interFeedBackQuestions.CreatedBy = interFeedBackQuestionsDTO.CreatedBy;
 					var obj = _interviewRoundRepo.Insert(interFeedBackQuestions);
 
 					return MessageEnum.Success;
@@ -104,20 +104,20 @@ namespace CloudVOffice.Services.Recruitment
 
 
 
-		public MessageEnum InterviewRoundUpdate(InterviewRoundDTO interviewRoundDTO)
+		public MessageEnum InterviewRoundUpdate(InterFeedBackQuestionsDTO interFeedBackQuestionsDTO)
 		{
 			try
 			{
-				var shiftType = _Context.InterFeedBackQuestions.Where(x => x.InterFeedBackQuestionsId != interviewRoundDTO.InterFeedBackQuestionsId && x.Deleted == false).FirstOrDefault();
+				var shiftType = _Context.InterFeedBackQuestions.Where(x => x.InterFeedBackQuestionsId != interFeedBackQuestionsDTO.InterFeedBackQuestionsId && x.Deleted == false).FirstOrDefault();
 				if (shiftType == null)
 				{
-					var a = _Context.InterFeedBackQuestions.Where(x => x.InterFeedBackQuestionsId == interviewRoundDTO.InterFeedBackQuestionsId).FirstOrDefault();
+					var a = _Context.InterFeedBackQuestions.Where(x => x.InterFeedBackQuestionsId == interFeedBackQuestionsDTO.InterFeedBackQuestionsId).FirstOrDefault();
 					if (a != null)
 					{
-						a.DesignationId = interviewRoundDTO.DesignationId;
-						a.Question = interviewRoundDTO.Question;
-						a.Mark = interviewRoundDTO.Mark;
-						a.UpdatedBy = interviewRoundDTO.CreatedBy;
+						a.DesignationId = interFeedBackQuestionsDTO.DesignationId;
+						a.Question = interFeedBackQuestionsDTO.Question;
+						a.Mark = interFeedBackQuestionsDTO.Mark;
+						a.UpdatedBy = interFeedBackQuestionsDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;
 						_Context.SaveChanges();
 						return MessageEnum.Updated;

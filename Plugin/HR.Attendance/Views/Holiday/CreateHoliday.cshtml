@@ -1,4 +1,6 @@
 ﻿@model CloudVOffice.Data.DTO.Attendance.HolidayDTO;
+@using System.Collections;
+@using Newtonsoft.Json;
 @{
 	Layout = "_MainAppLayout";
 }
@@ -14,8 +16,8 @@
 					<i class="icon-laptop_windows"></i>
 				</div>
 				<div class="page-title">
-					<h5>Holiday Dashboard</h5>
-					<h6 class="sub-heading">Welcome to Holiday</h6>
+					<h5>CRM Dashboard</h5>
+					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
 				</div>
 			</div>
 			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -33,20 +35,20 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="/Attendance/Holiday/CreateHoliday" method="post" autocomplete="off">
+				<form asp-route="/Attendance/HolidayDays/CreateHolidayDays" method="post" autocomplete="off">
 					<div asp-ation-summary="ModelOnly" class="message-error"></div>
-
-
-
 					<div class="card-header"><b>Basic Info</b></div>
 					<div class="card-body">
 						<div class="form-row">
-							<div class="form-group col-md-3">
+
+							<div class="form-group col-md-5">
 								<input asp-for="@Model.HolidayId" type="hidden" />
 
-								<label for="HolidayName" class="form-label">Holiday Name</label>
-								<input asp-for="@Model.HolidayName" type="text" class="form-control" autofocus="autofocus" placeholder="HolidayName" />
-								<span asp-validation-for="HolidayName"></span>
+								<div class="form-group col-md-5">
+									<label for="HolidayName" class="form-label">Holiday Name</label>
+									<input asp-for="@Model.HolidayName" type="text" class="form-control" autofocus="autofocus" placeholder="Holiday Name" />
+									<span asp-validation-for="HolidayName"></span>
+								</div>
 							</div>
 
 						</div>
@@ -54,19 +56,19 @@
 						<div class="form-row">
 							<div class="form-group col-md-5">
 								<label for="FromDate" class="form-label">From Date</label>
-								<input asp-for="@Model.FromDate" type="date" class="form-control" autofocus="autofocus" placeholder="FromDate" />
+								<input asp-for="@Model.FromDate" type="text" class="form-control" autofocus="autofocus" placeholder="From Date" />
 								<span asp-validation-for="FromDate"></span>
 							</div>
 
 							<div class="form-group col-md-5">
 								<label for="ToDate" class="form-label">To Date</label>
-								<input asp-for="@Model.ToDate" type="date" class="form-control" autofocus="autofocus" placeholder="ToDate" />
+								<input asp-for="@Model.ToDate" type="text" class="form-control" autofocus="autofocus" placeholder="To Date" />
 								<span asp-validation-for="ToDate"></span>
 							</div>
 
 						</div>
 
-						
+
 					</div>
 
 					<div class="card-body">
@@ -86,3 +88,4 @@
 	</div>
 
 </div>
+

@@ -30,7 +30,7 @@ namespace HR.Recruitment.Controllers
 		[HttpGet]
 		public IActionResult CreateInterviewRound(int? InterFeedBackQuestionsId)
 		{
-			InterviewRoundDTO interviewRoundDTO = new InterviewRoundDTO();
+			InterFeedBackQuestionsDTO interFeedBackQuestionsDTO = new InterFeedBackQuestionsDTO();
 			var desgination = _designationService.GetDesignationList();
 			ViewBag.Designation = desgination;
 			if (InterFeedBackQuestionsId != null)
@@ -38,27 +38,27 @@ namespace HR.Recruitment.Controllers
 
 				var d = _interviewRoundService.GetInterviewRoundById(int.Parse(InterFeedBackQuestionsId.ToString()));
 
-				interviewRoundDTO.DesignationId = d.DesignationId;
-				interviewRoundDTO.Question = d.Question;
-				interviewRoundDTO.Mark = d.Mark;
+				interFeedBackQuestionsDTO.DesignationId = d.DesignationId;
+				interFeedBackQuestionsDTO.Question = d.Question;
+				interFeedBackQuestionsDTO.Mark = d.Mark;
 
 			}
 
-			return View("~/Plugins/HR.Recruitment/Views/InterviewRound/CreateInterviewRound.cshtml", interviewRoundDTO);
+			return View("~/Plugins/HR.Recruitment/Views/InterviewRound/CreateInterviewRound.cshtml", interFeedBackQuestionsDTO);
 
 		}
 
 		[HttpPost]
-		public IActionResult CreateInterviewRound(InterviewRoundDTO interviewRoundDTO)
+		public IActionResult CreateInterviewRound(InterFeedBackQuestionsDTO interFeedBackQuestionsDTO)
 		{
-			interviewRoundDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			interFeedBackQuestionsDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
 
 			if (ModelState.IsValid)
 			{
-				if (interviewRoundDTO.InterFeedBackQuestionsId == null)
+				if (interFeedBackQuestionsDTO.InterFeedBackQuestionsId == null)
 				{
-					var a = _interviewRoundService.CreateInterviewRound(interviewRoundDTO);
+					var a = _interviewRoundService.CreateInterviewRound(interFeedBackQuestionsDTO);
 					if (a == MessageEnum.Success)
 					{
 						TempData["msg"] = MessageEnum.Success;
@@ -77,7 +77,7 @@ namespace HR.Recruitment.Controllers
 				}
 				else
 				{
-					var a = _interviewRoundService.InterviewRoundUpdate(interviewRoundDTO);
+					var a = _interviewRoundService.InterviewRoundUpdate(interFeedBackQuestionsDTO);
 					if (a == MessageEnum.Updated)
 					{
 						TempData["msg"] = MessageEnum.Updated;
@@ -97,7 +97,7 @@ namespace HR.Recruitment.Controllers
 			}
 
 			ViewBag.Designation = _designationService.GetDesignationList();
-            return View("~/Plugins/HR.Recruitment/Views/InterviewRound/CreateInterviewRound.cshtml", interviewRoundDTO);
+            return View("~/Plugins/HR.Recruitment/Views/InterviewRound/CreateInterviewRound.cshtml", interFeedBackQuestionsDTO);
 		}
 
 		[Authorize(Roles = "HR Manager")]

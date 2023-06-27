@@ -11,10 +11,10 @@ namespace CloudVOffice.Services.Recruitment
 {
 	public interface IInterviewRoundService
 	{
-		public MessageEnum CreateInterviewRound(InterviewRoundDTO interviewRoundDTO);
+		public MessageEnum CreateInterviewRound(InterFeedBackQuestionsDTO interFeedBackQuestionsDTO);
 		public List<InterFeedBackQuestions> GetInterviewRoundList();
 		public InterFeedBackQuestions GetInterviewRoundById(Int64 InterFeedBackQuestionsId);
-		public MessageEnum InterviewRoundUpdate(InterviewRoundDTO interviewRoundDTO);
+		public MessageEnum InterviewRoundUpdate(InterFeedBackQuestionsDTO interFeedBackQuestionsDTO);
 		public MessageEnum InterviewRoundDelete(Int64 InterFeedBackQuestionsId, Int64 DeletedBy);
 	}
 }

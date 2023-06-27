@@ -6,6 +6,7 @@ using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Emp;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Profiling.Internal;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -204,10 +205,24 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 var dmsLogs = _Context.DesktopActivityLogs
                      .Include(r => r.Employee)
                      .Where(x => x.Deleted == false
-                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)
+                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)&& x.AppOrWebPageName!=null && x.AppOrWebPageName!=""
 
                      ).ToList();
-                return dmsLogs.Where(x => restrictedWbsiteList.Any(v =>( v.RestrictedWebsiteName.StartsWith(x.AppOrWebPageName == null?"": x.AppOrWebPageName)) || v.RestrictedWebsiteName.Contains(x.AppOrWebPageName == null ? "" : x.AppOrWebPageName)) && employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
+                var newDmsLogs = dmsLogs.Where(x => employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
+                List <DesktopActivityLog> ret = new List<DesktopActivityLog>();
+                for(int i=0; i< newDmsLogs.GroupBy(x=>x.EmployeeId).ToList().Count; i++)
+                {
+                    var myRestrictedWebsites = restrictedWbsiteList.Where(x=> (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false ).ToList();
+                    for(int j=0;j< myRestrictedWebsites.Count; j++)
+                    {
+                        var check = newDmsLogs.Where(x => x.AppOrWebPageName.Contains(myRestrictedWebsites[j].RestrictedWebsiteName)).ToList();
+                        if (check.Count > 0)
+                        {
+                            ret.AddRange(check);
+                        }
+                    }
+                }
+                return ret;
 
             }
             catch
@@ -215,5 +230,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 throw;
             }
         }
+
+        
     }
 }

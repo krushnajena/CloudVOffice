@@ -44,8 +44,8 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.ShiftTypeId" type="hidden" />
 
-								<label for="ShiftTypeName" class="form-label">ShiftType Name</label>
-								<input asp-for="@Model.ShiftTypeName" type="text" class="form-control" autofocus="autofocus" placeholder="ShiftTypeName" />
+								<label for="ShiftTypeName" class="form-label">ShiftType Name&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.ShiftTypeName" type="text" class="form-control" autofocus="autofocus" placeholder="Shift Type Name" />
 								<span asp-validation-for="ShiftTypeName"></span>
 							</div>
 
@@ -54,13 +54,13 @@
 						<div class="form-row">
 							<div class="form-group col-md-5">
 								<label for="StartTime" class="form-label">Start Time</label>
-								<input asp-for="@Model.StartTime" type="time" class="form-control" autofocus="autofocus" placeholder="StartTime" />
+								<input asp-for="@Model.StartTime" type="time" class="form-control" autofocus="autofocus" placeholder="Start Time" />
 								<span asp-validation-for="StartTime"></span>
 							</div>
 
 							<div class="form-group col-md-5">
 								<label for="EndTime" class="form-label">End Time</label>
-								<input asp-for="@Model.EndTime" type="time" class="form-control" autofocus="autofocus" placeholder="EndTime" />
+								<input asp-for="@Model.EndTime" type="time" class="form-control" autofocus="autofocus" placeholder="End Time" />
 								<span asp-validation-for="EndTime"></span>
 							</div>
 
@@ -69,13 +69,13 @@
 						<div class="form-row">
 							<div class="form-group col-md-5">
 								<label for="LateEntryGracePeriodInMinutes" class="form-label">Late Entry Grace Period In Minutes</label>
-								<input asp-for="@Model.LateEntryGracePeriodInMinutes" type="text" class="form-control" autofocus="autofocus" placeholder="LateEntryGracePeriodInMinutes" />
+								<input asp-for="@Model.LateEntryGracePeriodInMinutes" type="text" class="form-control" autofocus="autofocus" placeholder="Late Entry Grace Period In Minutes" />
 								<span asp-validation-for="LateEntryGracePeriodInMinutes"></span>
 							</div>
 
 							<div class="form-group col-md-5">
 								<label for="EarlyExitGracePeriodInMinutes" class="form-label">Early Exit Grace Period In Minutes</label>
-								<input asp-for="@Model.EarlyExitGracePeriodInMinutes" type="text" class="form-control" autofocus="autofocus" placeholder="EarlyExitGracePeriodInMinutes" />
+								<input asp-for="@Model.EarlyExitGracePeriodInMinutes" type="text" class="form-control" autofocus="autofocus" placeholder="Early Exit Grace Period In Minutes" />
 								<span asp-validation-for="EarlyExitGracePeriodInMinutes"></span>
 							</div>
 
@@ -84,13 +84,13 @@
 						<div class="form-row">
 							<div class="form-group col-md-5">
 								<label for="ThresholdforHalfDayInHours" class="form-label">Threshold for Half Day In Hours</label>
-								<input asp-for="@Model.ThresholdforHalfDayInHours" type="text" class="form-control" autofocus="autofocus" placeholder="ThresholdforHalfDayInHours" />
+								<input asp-for="@Model.ThresholdforHalfDayInHours" type="text" class="form-control" autofocus="autofocus" placeholder="Threshold for Half Day InHours" />
 								<span asp-validation-for="ThresholdforHalfDayInHours"></span>
-							</div>
+							</div
 
 							<div class="form-group col-md-5">
 								<label for="ThresholdforAbsentInHours" class="form-label">Threshold for Absent In Hours</label>
-								<input asp-for="@Model.ThresholdforAbsentInHours" type="text" class="form-control" autofocus="autofocus" placeholder="ThresholdforAbsentInHours" />
+								<input asp-for="@Model.ThresholdforAbsentInHours" type="text" class="form-control" autofocus="autofocus" placeholder="Threshold for Absent In Hours" />
 								<span asp-validation-for="ThresholdforAbsentInHours"></span>
 							</div>
 

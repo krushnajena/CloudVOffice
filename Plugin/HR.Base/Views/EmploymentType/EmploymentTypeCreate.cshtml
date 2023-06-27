@@ -40,7 +40,7 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.EmploymentTypeId" type="hidden" />
 
-								<label for="EmploymentTypeName" class="form-label">EmploymentType Name</label>
+								<label for="EmploymentTypeName" class="form-label">EmploymentType Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.EmploymentTypeName" type="text" class="form-control" autofocus="autofocus" placeholder="EmploymentTypeName" />
 								<span asp-validation-for="EmploymentTypeName"></span>
 							</div>

@@ -44,7 +44,7 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.JobApplicationSourceId" type="hidden" />
 
-								<label for="SourceName" class="form-label">Source Name</label>
+								<label for="SourceName" class="form-label">Source Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.SourceName" type="text" class="form-control" autofocus="autofocus" placeholder="SourceName" />
 								<span asp-validation-for="SourceName"></span>
 							</div>

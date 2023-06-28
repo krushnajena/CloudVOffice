@@ -1,8 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
+using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -130,5 +132,13 @@ namespace CloudVOffice.Services.Attendance
             }
         }
 
+        public Holiday GetHolidayByDates(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                return _Context.Holidays.Include(a => a.HolidayDays).Where(x => x.Deleted == false && (x.FromDate >= startDate && x.ToDate <= endDate)).FirstOrDefault();
+            }
+            catch { throw; }
+        }
     }
 }

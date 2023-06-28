@@ -106,7 +106,6 @@
 							<div class="form-group col-md-3">
 								<label for="ProjectManager" class="form-label">Project Manager&nbsp;<span style="color:red;"><b>*</b></span></label>
 
-
 								<ejs-dropdownlist id="ProjectManager" allowFiltering="true" ejs-for="@Model.ProjectManager" filtering="onProjectManagerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectManager, "EmployeeId", "FullName").Items)" placeholder="Select a ProjectManager" popupHeight="220px">
 									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>

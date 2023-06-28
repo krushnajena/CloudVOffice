@@ -1,22 +1,12 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Company;
-using CloudVOffice.Core.Domain.Comunication;
-using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.Company;
-using CloudVOffice.Data.DTO.Comunication;
-using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using Microsoft.CodeAnalysis.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Company
 {
-	public class CompanyDetailsService : ICompanyDetailsService
+    public class CompanyDetailsService : ICompanyDetailsService
 	{
 		private readonly ApplicationDBContext _dbContext;
 		private readonly ISqlRepository<CompanyDetails> _companyDetailsRepo;

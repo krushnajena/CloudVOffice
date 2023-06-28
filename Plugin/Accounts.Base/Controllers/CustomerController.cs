@@ -118,7 +118,7 @@ namespace Accounts.Base.Controllers
         {
             ViewBag.customer = _CustomerService.GetCustomers();
 
-            return View("~/Plugins/Accounts.Base/Views/Custom/CustomerCreate.cshtml");
+            return View("~/Plugins/Accounts.Base/Views/Custom/CustomerView.cshtml");
         }
 
         [HttpGet]

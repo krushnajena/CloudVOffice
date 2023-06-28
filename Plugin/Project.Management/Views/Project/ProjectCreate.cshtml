@@ -48,17 +48,17 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<label for="ProjectCode" class="form-label">Project Code</label>
+								<label for="ProjectCode" class="form-label">Project Code&nbsp;<span style="color:red;"><b>*</b></span</label>
 								<input asp-for="@Model.ProjectCode" type="text" class="form-control" autofocus="autofocus" placeholder="Project Code" />
 								<span asp-validation-for="ProjectCode"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="ProjectName" class="form-label">Project Name</label>
+								<label for="ProjectName" class="form-label">Project Name&nbsp;<span style="color:red;"><b>*</b></span</label>
 								<input asp-for="@Model.ProjectName" type="text" class="form-control" autofocus="autofocus" placeholder="Project Name" />
 								<span asp-validation-for="ProjectName"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="Status" class="form-label">Status</label>
+								<label for="Status" class="form-label">Status&nbsp;<span style="color:red;"><b>*</b></span</label>
 								<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
 									<option value="Open">Open</option>
 									<option value="Completed">Completed</option>
@@ -68,17 +68,17 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<label for="StartDate" class="form-label">Start Date</label>
+								<label for="StartDate" class="form-label">Start Date&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.StartDate" type="date" class="form-control" autofocus="autofocus" placeholder="Start Date" />
 								<span asp-validation-for="StartDate"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="EndDate" class="form-label">End Date</label>
+								<label for="EndDate" class="form-label">End Date&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.EndDate" type="date" class="form-control" autofocus="autofocus" placeholder="End Date" />
 								<span asp-validation-for="EndDate"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="ProjectTypeId" class="form-label">Project Type </label>
+								<label for="ProjectTypeId" class="form-label">Project Type&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<ejs-dropdownlist id="ProjectTypeId" allowFiltering="true" ejs-for="@Model.ProjectTypeId" filtering="onProjectTypefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectTypes, "ProjectTypeId", "ProjectTypeName").Items)" placeholder="Select a ProjectType" popupHeight="220px">
 									<e-dropdownlist-fields text="ProjectTypeName" value="ProjectTypeId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
@@ -87,7 +87,7 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<label for="Priority" class="form-label">Priority</label>
+								<label for="Priority" class="form-label">Priority&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<select input asp-for="@Model.Priority" type="text" class="form-control" autofocus="autofocus" placeholder="Priority">
 									<option value="Medium">Medium</option>
 									<option value="Low">Low</option>
@@ -95,7 +95,7 @@
 								</select>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="CompleteMethod" class="form-label">Complete Method</label>
+								<label for="CompleteMethod" class="form-label">Complete Method&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<select input asp-for="@Model.CompleteMethod" type="text" class="form-control" autofocus="autofocus" placeholder="Complete Method">
 									<option value="Manual">Manual</option>
 									<option value="Task Completion">Task Completion</option>
@@ -104,7 +104,7 @@
 								</select>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="ProjectManager" class="form-label">Project Manager</label>
+								<label for="ProjectManager" class="form-label">Project Manager&nbsp;<span style="color:red;"><b>*</b></span></label>
 
 
 								<ejs-dropdownlist id="ProjectManager" allowFiltering="true" ejs-for="@Model.ProjectManager" filtering="onProjectManagerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ProjectManager, "EmployeeId", "FullName").Items)" placeholder="Select a ProjectManager" popupHeight="220px">
@@ -116,7 +116,7 @@
 					</div>
 					<div class="card-header"><b>Customer Details </b></div>
 					<div class="form-group col-md-3">
-						<label for="SalesOrderId" class="form-label">Sales Order Id</label>
+						<label for="SalesOrderId" class="form-label">Sales Order Id&nbsp;<span style="color:red;"><b>*</b></span></label>
 						<input asp-for="@Model.SalesOrderId" type="text" class="form-control" autofocus="autofocus" placeholder="Sales Order Id" />
 						<span asp-validation-for="SalesOrderId"></span>
 					</div>

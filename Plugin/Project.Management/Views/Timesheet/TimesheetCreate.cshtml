@@ -45,12 +45,12 @@
 						<div class="form-row">
 
 							<div class="form-group col-md-3">
-								<label for="TimeSheetForDate" class="form-label">TimeSheet For Date</label>
+								<label for="TimeSheetForDate" class="form-label">TimeSheet For Date&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.TimeSheetForDate" type="date" class="form-control" autofocus="autofocus" placeholder="TimeSheet For Date" />
 								<span asp-validation-for="TimeSheetForDate"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="TimesheetActivityType" class="form-label">Activity Category</label>
+								<label for="TimesheetActivityType" class="form-label">Activity Category&nbsp;<span style="color:red;"><b>*</b></span></label>
 
 							
 
@@ -63,7 +63,7 @@
 
 
 							<div class="form-group col-md-3">
-								<label for="ActivityId" class="form-label"> Activity Type</label>
+								<label for="ActivityId" class="form-label"> Activity Type&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<ejs-dropdownlist id="ActivityId" allowFiltering="true" ejs-for="@Model.ActivityId" placeholder="Select Activity" popupHeight="220px">
 									<e-dropdownlist-fields text="projectActivityName" value="projectActivityTypeId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
@@ -73,14 +73,14 @@
 						</div>
 						<div class="form-row" id="ProjectWork" style="display:none">
 							<div class="form-group col-md-3">
-								<label for="ProjectId" class="form-label">Project</label>
+								<label for="ProjectId" class="form-label">Project&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<ejs-dropdownlist id="ProjectId" allowFiltering="true" ejs-for="@Model.ProjectId" placeholder="Select Project" popupHeight="220px" change="onChangeProject">
 									<e-dropdownlist-fields text="projectName" value="projectId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="ProjectId"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="TaskId" class="form-label">Project Task</label>
+								<label for="TaskId" class="form-label">Project Task&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<ejs-dropdownlist id="TaskId" allowFiltering="true" ejs-for="@Model.TaskId" placeholder="Select a Project Task" popupHeight="220px">
 									<e-dropdownlist-fields text="taskName" value="projectTaskId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
@@ -94,12 +94,12 @@
 						<div class="form-row">
 
 							<div class="form-group col-md-3">
-								<label for="FromTime" class="form-label">From Time</label>
+								<label for="FromTime" class="form-label">From Time&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.FromTime" type="time" class="form-control" id="fromtime" autofocus="autofocus" placeholder="From Time" />
 								<span asp-validation-for="FromTime"></span>
 							</div>
 							<div class="form-group col-md-3">
-								<label for="ToTime" class="form-label">To Time</label>
+								<label for="ToTime" class="form-label">To Time&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.ToTime" type="time" class="form-control" id="totime" autofocus="autofocus" placeholder="To Time	" onchange="TestOnTextChange()" />
 								<span asp-validation-for="ToTime"></span>
 							</div>
@@ -130,7 +130,7 @@
 					</div>
 					<div class="card-header"><b>Description </b></div>
 					<div class="form-group col-md-3">
-						<label for="Description" class="form-label">Description</label>
+						<label for="Description" class="form-label">Description&nbsp;<span style="color:red;"><b>*</b></span></label>
 						<textarea asp-for="@Model.Description" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Description" style="height: 150px;"></textarea>
 						<span asp-validation-for="Description"></span>
 					</div>

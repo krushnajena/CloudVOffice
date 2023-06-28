@@ -1,4 +1,6 @@
 ﻿@model CloudVOffice.Data.DTO.Attendance.HolidayDTO;
+@using System.Collections;
+@using Newtonsoft.Json;
 @{
     Layout = "_MainAppLayout";
 }
@@ -32,22 +34,22 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
-            <div class="card">
-                <form asp-route="/Attendance/Holiday/CreateHoliday" method="post" autocomplete="off">
-                    <div asp-ation-summary="ModelOnly" class="message-error"></div>
+			<div class="card">
+				<form asp-route="/Attendance/HolidayDays/CreateHolidayDays" method="post" autocomplete="off">
+					<div asp-ation-summary="ModelOnly" class="message-error"></div>
+					<div class="card-header"><b>Basic Info</b></div>
+					<div class="card-body">
+						<div class="form-row">
 
+							<div class="form-group col-md-5">
+								<input asp-for="@Model.HolidayId" type="hidden" />
 
-
-                    <div class="card-header"><b>Basic Info</b></div>
-                    <div class="card-body">
-                        <div class="form-row">
-                            <div class="form-group col-md-3">
-                                <input asp-for="@Model.HolidayId" type="hidden" />
-
-                                <label for="HolidayName" class="form-label">Holiday Name</label>
-                                <input asp-for="@Model.HolidayName" type="text" class="form-control" autofocus="autofocus" placeholder="HolidayName" />
-                                <span asp-validation-for="HolidayName"></span>
-                            </div>
+								<div class="form-group col-md-5">
+									<label for="HolidayName" class="form-label">Holiday Name</label>
+									<input asp-for="@Model.HolidayName" type="text" class="form-control" autofocus="autofocus" placeholder="Holiday Name" />
+									<span asp-validation-for="HolidayName"></span>
+								</div>
+							</div>
 
                         </div>
 

@@ -45,7 +45,7 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.ChartOfAccountsId" type="hidden" />
 
-								<label for="AccountName" class="form-label">Account Name</label>
+								<label for="AccountName" class="form-label">Account Name&nbsp;<span style="color:red"><b>*</b></span></label>
 								<input asp-for="@Model.AccountName" type="text" class="form-control" autofocus="autofocus" placeholder="Account Name" />
 								<span asp-validation-for="AccountName"></span>
 							</div>
@@ -60,21 +60,21 @@
 
 
 								<label for="IsGroup" class="form-label">IsGroup</label>
-								<input asp-for="@Model.IsGroup" type="checkbox" class="form-control" autofocus="autofocus" placeholder="IsGroup" />
+								<input asp-for="@Model.IsGroup" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Is Group" />
 								<span asp-validation-for="IsGroup"></span>
 							</div>
 							
 							<div class="form-group col-md-3">
 
 
-								<label for="RootType" class="form-label">RootType</label>
-								<input asp-for="@Model.RootType" type="text" class="form-control" autofocus="autofocus" placeholder="RootType" />
+								<label for="RootType" class="form-label">RootType&nbsp;<span style="color:red"><b>*</b></span></label>
+								<input asp-for="@Model.RootType" type="text" class="form-control" autofocus="autofocus" placeholder="Root Type" />
 								<span asp-validation-for="RootType"></span>
 							</div>
 							<div class="form-group col-md-3">
 
 
-								<label for="ReportType" class="form-label">Report Type</label>
+								<label for="ReportType" class="form-label">Report Type&nbsp;<span style="color:red"><b>*</b></span></label>
 								<input asp-for="@Model.ReportType" type="text" class="form-control" autofocus="autofocus" placeholder="Report Type" />
 								<span asp-validation-for="ReportType"></span>
 							</div>
@@ -100,14 +100,14 @@
 
 
 								<label for="TaxRate" class="form-label">TaxRate</label>
-								<input asp-for="@Model.TaxRate" type="text" class="form-control" autofocus="autofocus" placeholder="TaxRate" />
+								<input asp-for="@Model.TaxRate" type="text" class="form-control" autofocus="autofocus" placeholder="Tax Rate" />
 								<span asp-validation-for="TaxRate"></span>
 							</div>
 							<div class="form-group col-md-3">
 
 
-								<label for="BalanceMustBe" class="form-label">BalanceMustBe</label>
-								<input asp-for="@Model.BalanceMustBe" type="text" class="form-control" autofocus="autofocus" placeholder="BalanceMustBe" />
+								<label for="BalanceMustBe" class="form-label">Balance Must Be</label>
+								<input asp-for="@Model.BalanceMustBe" type="text" class="form-control" autofocus="autofocus" placeholder="Balance Must Be" />
 								<span asp-validation-for="BalanceMustBe"></span>
 							</div>
 

@@ -41,11 +41,11 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.DesignationId" type="hidden" />
 
-								<label for="DesignationName" class="form-label">Designation Name</label>
+								<label for="DesignationName" class="form-label">Designation Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.DesignationName" type="text" class="form-control" autofocus="autofocus" placeholder="DesignationName" />
 								<span asp-validation-for="DesignationName"></span>
 
-								<label for="Description" class="form-label">Description</label>
+								<label for="Description" class="form-label">Description&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.Description" type="text" class="form-control" autofocus="autofocus" placeholder="Description" />
 								<span asp-validation-for="Description"></span>
 

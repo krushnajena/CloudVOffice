@@ -11,7 +11,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Job Application Source</h5>
+                    <h5>HR</h5>
                     <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
                 </div>
             </div>
@@ -31,11 +31,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8">
-                            JobApplicationSource
+                        <div class="col-md-10">
+                            Shift Types
                         </div>
-                        <div class="col-md-4 text-right float-right">
-                            <a href="/Recruitment/JobApplicationSource/JobApplicationSourceCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add JobApplicationSource</a>
+                        <div class="col-md-2 text-right float-right">
+                            <a href="/Recruitment/InterviewRound/CreateInterviewRound" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Shift Type</a>
 
                         </div>
                     </div>
@@ -43,7 +43,7 @@
 
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.JobApplicationSource"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.InterviewRound"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -59,8 +59,9 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="SourceName" headerText="Source Name" textAlign="Left" width="200"></e-grid-column>
-                            
+                            <e-grid-column field="DesignationId" headerText="Designation Id" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Question" headerText="Question" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="Mark" headerText="Mark" textAlign="Left" width="150"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -82,7 +83,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Job Application Source",
+                    title: "ShiftType",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -91,7 +92,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Job Application Source",
+                    title: "InterviewRound",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -100,7 +101,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Job Application Source",
+                    title: "InterviewRound",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -109,7 +110,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "Job Application Source",
+                    title: "InterviewRound",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -118,7 +119,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Job Application Source",
+                    title: "InterviewRound",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -127,7 +128,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Job Application Source",
+                    title: "InterviewRound",
                     text: message,
                     type: "error"
                 });
@@ -150,7 +151,7 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Recruitment/JobApplicationSource/JobApplicationSourceDelete?JobApplicationSourceId=" + Id;
+                window.location.href = "../../Recruitment/InterviewRound/DeleteInterviewRound?InterFeedBackQuestionsId=" + Id;
             }
         })
     }
@@ -159,8 +160,8 @@
 
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Recruitment/JobApplicationSource/JobApplicationSourceCreate?JobApplicationSourceId=${JobApplicationSourceId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <button onClick="Delete(${JobApplicationSourceId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+        <a href="../../Attendance/InterviewRound/CreateInterviewRound?InterFeedBackQuestionsId=${InterFeedBackQuestionsId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${InterFeedBackQuestionsId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">

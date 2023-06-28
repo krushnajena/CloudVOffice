@@ -4,8 +4,11 @@ using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Data.ViewModel.DesktopMonitering;
+using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Emp;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Profiling.Internal;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -21,16 +24,19 @@ namespace CloudVOffice.Services.DesktopMonitoring
         private readonly ISqlRepository<DesktopActivityLog> _desktopactivitylogRepo;
         private readonly IEmployeeService _employeeService;
         private readonly IRestrictedWebsiteService _restrictedWebsiteService;
+        private readonly IHolidayService _holiDayService;
         public DesktopActivityLogService(ApplicationDBContext Context,
             ISqlRepository<DesktopActivityLog> desktopactivitylogRepo,
             IEmployeeService employeeService,
-            IRestrictedWebsiteService restrictedWebsiteService)
+            IRestrictedWebsiteService restrictedWebsiteService,
+            IHolidayService holiDayService)
         {
 
             _Context = Context;
             _desktopactivitylogRepo = desktopactivitylogRepo;
             _employeeService = employeeService;
             _restrictedWebsiteService = restrictedWebsiteService;
+            _holiDayService=holiDayService;
         }
         public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
         {
@@ -204,16 +210,38 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 var dmsLogs = _Context.DesktopActivityLogs
                      .Include(r => r.Employee)
                      .Where(x => x.Deleted == false
-                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)
+                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)&& x.AppOrWebPageName!=null && x.AppOrWebPageName!=""
 
                      ).ToList();
-                return dmsLogs.Where(x => restrictedWbsiteList.Any(v =>( v.RestrictedWebsiteName.StartsWith(x.AppOrWebPageName == null?"": x.AppOrWebPageName)) || v.RestrictedWebsiteName.Contains(x.AppOrWebPageName == null ? "" : x.AppOrWebPageName)) && employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
+                var newDmsLogs = dmsLogs.Where(x => employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
+                List <DesktopActivityLog> ret = new List<DesktopActivityLog>();
+                for(int i=0; i< newDmsLogs.GroupBy(x=>x.EmployeeId).ToList().Count; i++)
+                {
+                    var myRestrictedWebsites = restrictedWbsiteList.Where(x=> (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false ).ToList();
+                    for(int j=0;j< myRestrictedWebsites.Count; j++)
+                    {
+                        var check = newDmsLogs.Where(x => x.AppOrWebPageName.Contains(myRestrictedWebsites[j].RestrictedWebsiteName)).ToList();
+                        if (check.Count > 0)
+                        {
+                            ret.AddRange(check);
+                        }
+                    }
+                }
+                return ret;
 
             }
             catch
             {
                 throw;
             }
+        }
+
+        public List<EffortAnalysReportViewModel> EffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            List<EffortAnalysReportViewModel> effortAnalysReportViewModels= new List<EffortAnalysReportViewModel>();    
+            var holiday = _holiDayService.GetHolidayByDates( DateTime.Parse( suspesiosActivityLogDTO.FromDate.ToString()) ,DateTime.Parse( suspesiosActivityLogDTO.ToDate.ToString())).HolidayDays.Where(x=> (x.ForDate >= suspesiosActivityLogDTO.FromDate && x.ForDate <= suspesiosActivityLogDTO.ToDate) && x.Deleted == false).ToList();
+
+            return effortAnalysReportViewModels;
         }
     }
 }

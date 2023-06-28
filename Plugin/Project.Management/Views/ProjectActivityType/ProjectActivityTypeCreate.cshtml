@@ -42,8 +42,8 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.ProjectActivityTypeId" type="hidden" />
 
-								<label for="ProjectName" class="form-label">Project Activity Name</label>
-								<input asp-for="@Model.ProjectActivityName" type="text" class="form-control" autofocus="autofocus" placeholder="ProjectActivityName" />
+								<label for="ProjectName" class="form-label">Project Activity Name&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.ProjectActivityName" type="text" class="form-control" autofocus="autofocus" placeholder="Project Activity Name" />
 								<span asp-validation-for="ProjectActivityName"></span>
 							</div>
 

@@ -66,7 +66,7 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
 
-        public StaffingPlanDetails GetStaffingPlanDetailsById(long staffingPlanDetailsId)
+        public StaffingPlanDetails GetStaffingPlanDetailsById(Int64 staffingPlanDetailsId)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
 
-        public MessageEnum StaffingPlanDetailsDelete(long staffingPlanDetailsId, long DeletedBy)
+        public MessageEnum StaffingPlanDetailsDelete(Int64 staffingPlanDetailsId, Int64 DeletedBy)
         {
             try
             {

@@ -42,7 +42,7 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.DepartmentId" type="hidden"  />
 
-								<label for="DepartmentName" class="form-label">Department Name</label>
+								<label for="DepartmentName" class="form-label">Department Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.DepartmentName" type="text" class="form-control" autofocus="autofocus" placeholder="DepartmentName" />
 								<span asp-validation-for="DepartmentName"></span>
 							</div>

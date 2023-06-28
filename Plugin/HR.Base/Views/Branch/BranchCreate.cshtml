@@ -46,7 +46,7 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.BranchId" type="hidden" />
 
-								<label for="BranchName" class="form-label">Branch Name</label>
+								<label for="BranchName" class="form-label">Branch Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.BranchName" type="text" class="form-control" autofocus="autofocus" placeholder="BranchName" />
 								<span asp-validation-for="BranchName"></span>
 							</div>

@@ -39,7 +39,7 @@
 							<div class="form-group col-md-5">
 								<input asp-for="@Model.TimesheetActivityCategoryId" type="hidden" />
 
-								<label for="TimesheetActivityCategoryName" class="form-label">Timesheet Activity Category Name</label>
+								<label for="TimesheetActivityCategoryName" class="form-label">Timesheet Activity Category Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.TimesheetActivityCategoryName" type="text" class="form-control" autofocus="autofocus" placeholder="Timesheet Activity Category Name" />
 								<span asp-validation-for="TimesheetActivityCategoryName"></span>
 							</div>

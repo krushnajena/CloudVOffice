@@ -49,8 +49,8 @@
 						<div class="form-row">
 							<div class="form-group col-md-3">
 
-								<label for="EmailAddress" class="form-label">Email Address</label>
-								<input asp-for="@Model.EmailAddress" type="text" class="form-control" autofocus="autofocus" placeholder="EmailAddress" />
+								<label for="EmailAddress" class="form-label">Email Address&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.EmailAddress" type="text" class="form-control" autofocus="autofocus" placeholder="Email Address" />
 								<span asp-validation-for="EmailAddress"></span>
 							</div>
 						
@@ -70,20 +70,20 @@
 							
 
 								<div class="form-group col-md-3">
-									<label for="EmailAccountName" class="form-label">Email Account Name</label>
-									<input asp-for="@Model.EmailAccountName" type="text" class="form-control" autofocus="autofocus" placeholder="EmailAccountName" />
+								<label for="EmailAccountName" class="form-label">Email Account Name&nbsp;<span style="color:red;"><b>*</b></span></label>
+									<input asp-for="@Model.EmailAccountName" type="text" class="form-control" autofocus="autofocus" placeholder="Email Account Name" />
 									<span asp-validation-for="EmailAccountName"></span>
 								</div>
 
 								<div class="form-group col-md-3">
-									<label for="EmailPassword" class="form-label">Email Password</label>
-									<input asp-for="@Model.EmailPassword" type="text" class="form-control" autofocus="autofocus" placeholder="EmailPassword" />
+								<label for="EmailPassword" class="form-label">Email Password&nbsp;<span style="color:red;"><b>*</b></span></label>
+									<input asp-for="@Model.EmailPassword" type="text" class="form-control" autofocus="autofocus" placeholder="Email Password" />
 									<span asp-validation-for="EmailPassword"></span>
 								</div>
 
 								<div class="form-group col-md-3">
-									<label for="AlternativeEmailAddress" class="form-label">Alternative Email Address</label>
-									<input asp-for="@Model.AlternativeEmailAddress" type="text" class="form-control" autofocus="autofocus" placeholder="AlternativeEmailAddress" />
+								<label for="AlternativeEmailAddress" class="form-label">Alternative Email Address&nbsp;<span style="color:red;"><b>*</b></span></label>
+									<input asp-for="@Model.AlternativeEmailAddress" type="text" class="form-control" autofocus="autofocus" placeholder="Alternative Email Address" />
 									<span asp-validation-for="AlternativeEmailAddress"></span>
 								</div>
 
@@ -93,13 +93,13 @@
 
 							<div class="form-group col-md-3">
 								<label for="EmailSignature" class="form-label">Email Signature</label>
-								<input asp-for="@Model.EmailSignature" type="text" class="form-control" autofocus="autofocus" placeholder="EmailSignature" />
+								<input asp-for="@Model.EmailSignature" type="text" class="form-control" autofocus="autofocus" placeholder="Email Signature" />
 								<span asp-validation-for="EmailSignature"></span>
 							</div>
 
 							<div class="form-group col-md-3">
 								<label for="EmailLogo" class="form-label">Email Logo</label>
-								<input asp-for="@Model.EmailLogoUp" type="file" class="form-control" autofocus="autofocus" placeholder="EmailLogo" />
+								<input asp-for="@Model.EmailLogoUp" type="file" class="form-control" autofocus="autofocus" placeholder="Email Logo" />
 								<span asp-validation-for="EmailLogo"></span>
 								@{
 									if (Model.EmailLogo != null)
@@ -113,7 +113,7 @@
 
 							<div class="form-group col-md-3">
 								<label for="IsDefaultSending" class="form-label">Is Default Sending</label>
-								<input asp-for="@Model.IsDefaultSending" type="checkbox" class="form-control" autofocus="autofocus" placeholder="IsDefaultSending" />
+								<input asp-for="@Model.IsDefaultSending" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Is Default Sending" />
 								<span asp-validation-for="IsDefaultSending"></span>
 							</div>
 

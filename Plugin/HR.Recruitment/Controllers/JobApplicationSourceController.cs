@@ -99,7 +99,7 @@ namespace HR.Recruitment.Controllers
             return View("~/Plugins/HR.Recruitment/Views/JobApplicationSource/JobApplicationSourceView.cshtml");
         }
         [HttpGet]
-        public IActionResult JobApplicationSourceDelete(Int64 jobApplicationSourceId)
+        public IActionResult JobApplicationSourceDelete(int jobApplicationSourceId)
         {
            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 

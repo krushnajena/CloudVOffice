@@ -15,13 +15,15 @@ namespace CloudVOffice.Services.Attendance
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<HolidayDays> _holidayRepo;
-    
-        public HolidayDaysService(ApplicationDBContext Context, ISqlRepository<HolidayDays> holidayRepo)
+        private readonly ISqlRepository<HolidayDays> _holidayDaysRepo;
+
+        public HolidayDaysService(ApplicationDBContext Context, ISqlRepository<HolidayDays> holidayRepo, ISqlRepository<HolidayDays> holidayDaysRepo)
         {
 
             _Context = Context;
             _holidayRepo = holidayRepo;
-            
+            _holidayDaysRepo = holidayDaysRepo;
+
         }
         public MessageEnum CreateHolidayDays(HolidayDaysDTO holidayDaysDTO , Int64 CreatedBy)
         {
@@ -36,25 +38,116 @@ namespace CloudVOffice.Services.Attendance
 
             return MessageEnum.Success;
         }
+		public MessageEnum CreateHolidayDays(HolidayDaysDTO holidayDaysDTO)
+		{
 
-        public HolidayDays GetHolidayDaysById(long HolidayDaysId)
-        {
-            throw new NotImplementedException();
-        }
+			var objCheck = _Context.HolidayDays.SingleOrDefault(opt => opt.HolidayDaysId == holidayDaysDTO.HolidayDaysId && opt.Deleted == false);
+			try
+			{
+				if (objCheck == null)
+				{
 
-        public List<HolidayDays> GetHolidayDaysList()
-        {
-            throw new NotImplementedException();
-        }
+					HolidayDays holidayDays = new HolidayDays();
+					holidayDays.HolidayId = holidayDaysDTO.HolidayId;
+					holidayDays.ForDate = holidayDaysDTO.ForDate;
+					holidayDays.Description = holidayDaysDTO.Description;
+					holidayDays.CreatedBy = holidayDaysDTO.CreatedBy;
+					var obj = _holidayDaysRepo.Insert(holidayDays);
 
-        public MessageEnum HolidayDaysDelete(long holidayId, long DeletedBy)
-        {
-            throw new NotImplementedException();
-        }
+					return MessageEnum.Success;
+				}
+				else if (objCheck != null)
+				{
+					return MessageEnum.Duplicate;
+				}
 
-        public MessageEnum HolidayDaysUpdate(HolidayDTO holidayDTO)
-        {
-            throw new NotImplementedException();
-        }
-    }
+				return MessageEnum.UnExpectedError;
+			}
+			catch
+			{
+				throw;
+			}
+
+		}
+
+		public HolidayDays GetHolidayDaysById(Int64 HolidayDaysId)
+		{
+			try
+			{
+				return _Context.HolidayDays.Where(x => x.HolidayDaysId == HolidayDaysId && x.Deleted == false).SingleOrDefault();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public List<HolidayDays> GetHolidayDaysList()
+		{
+			try
+			{
+				return _Context.HolidayDays.Where(x => x.Deleted == false).ToList();
+
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public MessageEnum HolidayDaysDelete(Int64 HolidayDaysId, Int64 DeletedBy)
+		{
+			try
+			{
+				var a = _Context.HolidayDays.Where(x => x.HolidayDaysId == HolidayDaysId).FirstOrDefault();
+				if (a != null)
+				{
+					a.Deleted = true;
+					a.UpdatedBy = DeletedBy;
+					a.UpdatedDate = DateTime.Now;
+					_Context.SaveChanges();
+					return MessageEnum.Deleted;
+				}
+				else
+					return MessageEnum.Invalid;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public MessageEnum HolidayDaysUpdate(HolidayDaysDTO holidayDaysDTO)
+		{
+			try
+			{
+                var holidayDays = _Context.HolidayDays.Where(x => x.HolidayDaysId != holidayDaysDTO.HolidayDaysId && x.Deleted == false).FirstOrDefault();
+				if (holidayDays == null)
+				{
+					var a = _Context.HolidayDays.Where(x => x.HolidayDaysId == holidayDaysDTO.HolidayDaysId).FirstOrDefault();
+					if (a != null)
+					{
+						a.HolidayId = holidayDaysDTO.HolidayId;
+						a.ForDate = holidayDaysDTO.ForDate;
+						a.Description = holidayDaysDTO.Description;
+					
+						a.UpdatedDate = DateTime.Now;
+						_Context.SaveChanges();
+						return MessageEnum.Updated;
+					}
+					else
+						return MessageEnum.Invalid;
+				}
+                else
+                {
+                    return MessageEnum.Duplicate;
+                }
+            }
+			catch
+			{
+				throw;
+			}
+		}
+	}
 }

@@ -15,8 +15,8 @@
 		<None Remove="Application.json" />
 		<None Remove="plugin.json" />
 		<None Remove="roles.json" />
-		<None Remove="Views\StaffingPlan\StaffingPlanCreate.cshtml" />
-		<None Remove="Views\StaffingPlan\StaffingPlanView.cshtml" />
+		<None Remove="Views\InterviewRound\CreateInterviewRound.cshtml" />
+		<None Remove="Views\InterviewRound\InterviewRoundView.cshtml" />
 		<None Remove="Views\JobApplication\CreateJobApplication.cshtml" />
 		<None Remove="Views\JobApplication\JobApplicationView.cshtml" />
 		<None Remove="Views\StaffingPlanDetails\CreateStaffingPlanDetails.cshtml" />

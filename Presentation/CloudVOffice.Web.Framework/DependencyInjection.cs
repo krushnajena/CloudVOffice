@@ -11,6 +11,7 @@ using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Email;
 using CloudVOffice.Services.EmailTemplates;
 using CloudVOffice.Services.Emp;
+using CloudVOffice.Services.HR;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Projects;
@@ -66,6 +67,7 @@ namespace CloudVOffice.Web.Framework
             #endregion
 
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IHRSettingsService, HRSettingsService>();
             #endregion
 
             #region Project Services

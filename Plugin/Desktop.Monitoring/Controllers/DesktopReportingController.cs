@@ -17,14 +17,17 @@ namespace Desktop.Monitoring.Controllers
     {
         private readonly IDesktopActivityLogService _desktopActivityLogSerive;
         private readonly IEmployeeService _employeeService;
+        private readonly IDesktoploginSevice _desktoplogin;
 
         public DesktopReportingController(
             IDesktopActivityLogService desktopActivityLogSerive,
-            IEmployeeService employeeService
+            IEmployeeService employeeService,
+            IDesktoploginSevice desktoplogin
         )
         {
             _desktopActivityLogSerive = desktopActivityLogSerive;
             _employeeService = employeeService;
+            _desktoplogin= desktoplogin;
         }
         
         public IActionResult SuspesiosActivityLog()
@@ -35,6 +38,11 @@ namespace Desktop.Monitoring.Controllers
         public IActionResult SuspesiosWebActivityLog()
         {
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopReporting/SuspesiosWebActivityLog.cshtml");
+        }
+
+        public IActionResult EffortAnalysReport()
+        {
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopReporting/EffortAnalysReport.cshtml");
         }
         [HttpPost]
         public IActionResult GetSuspesiosActivityLog(SuspesiosActivityLogDTO suspesiosActivityLogDTO)
@@ -55,5 +63,18 @@ namespace Desktop.Monitoring.Controllers
             return Json(_desktopActivityLogSerive.SuspesiosWebActivityLog(suspesiosActivityLogDTO));
 
         }
+
+
+        [HttpPost]
+        public IActionResult GetEffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            Int64 userId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Employee employee = _employeeService.GetEmployeeDetailsByUserId(userId);
+            suspesiosActivityLogDTO.EmployeeId = employee.EmployeeId;
+            return Json(_desktopActivityLogSerive.EffortAnalysReport(suspesiosActivityLogDTO));
+
+        }
+
+
     }
 }

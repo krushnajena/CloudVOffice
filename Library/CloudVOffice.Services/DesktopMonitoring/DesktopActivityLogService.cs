@@ -7,6 +7,7 @@ using CloudVOffice.Data.Repository;
 using CloudVOffice.Data.ViewModel.DesktopMonitering;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Emp;
+using CloudVOffice.Services.HR;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Profiling.Internal;
 using StackExchange.Redis;
@@ -25,11 +26,16 @@ namespace CloudVOffice.Services.DesktopMonitoring
         private readonly IEmployeeService _employeeService;
         private readonly IRestrictedWebsiteService _restrictedWebsiteService;
         private readonly IHolidayService _holiDayService;
+        private readonly IHRSettingsService _hrSettingsService;
+        private readonly IDesktoploginSevice _desktopLoginService;
         public DesktopActivityLogService(ApplicationDBContext Context,
             ISqlRepository<DesktopActivityLog> desktopactivitylogRepo,
             IEmployeeService employeeService,
             IRestrictedWebsiteService restrictedWebsiteService,
-            IHolidayService holiDayService)
+            IHolidayService holiDayService,
+            IHRSettingsService hrSettingsService,
+            IDesktoploginSevice desktoploginSevice
+            )
         {
 
             _Context = Context;
@@ -37,6 +43,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _employeeService = employeeService;
             _restrictedWebsiteService = restrictedWebsiteService;
             _holiDayService=holiDayService;
+            _hrSettingsService= hrSettingsService;
+            _desktopLoginService = desktoploginSevice;
         }
         public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
         {
@@ -240,7 +248,32 @@ namespace CloudVOffice.Services.DesktopMonitoring
         {
             List<EffortAnalysReportViewModel> effortAnalysReportViewModels= new List<EffortAnalysReportViewModel>();    
             var holiday = _holiDayService.GetHolidayByDates( DateTime.Parse( suspesiosActivityLogDTO.FromDate.ToString()) ,DateTime.Parse( suspesiosActivityLogDTO.ToDate.ToString())).HolidayDays.Where(x=> (x.ForDate >= suspesiosActivityLogDTO.FromDate && x.ForDate <= suspesiosActivityLogDTO.ToDate) && x.Deleted == false).ToList();
-
+            int NoOfDays = (DateTime.Parse(suspesiosActivityLogDTO.ToDate.ToString()) - DateTime.Parse(suspesiosActivityLogDTO.FromDate.ToString())).Days;
+            int NoOfWorkingDays = NoOfDays - holiday.Count;
+            var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId).ToList();
+            var hrsettings = _hrSettingsService.GetHrSettings();
+            double workingHours = (double) hrsettings.StandardWorkingHours * 60;
+            double breakeHour = (double)hrsettings.BreakHours ;
+            double systemHour = (workingHours - breakeHour)/60;
+            double totalEffortHourRequired = NoOfWorkingDays * systemHour;
+            for(int i=0; i < employees.Count; i++)
+            {
+                var desktopSessions = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO { EmployeeId = employees[i].EmployeeId, FromDate = suspesiosActivityLogDTO.FromDate, ToDate = suspesiosActivityLogDTO.ToDate });
+                double sumOfEffortHour = desktopSessions.Sum(x => TimeSpan.Parse(x.Duration).Hours);
+                double sumOfIdelHours = desktopSessions.Sum(x => (x.IdelTime == null ? TimeSpan.Parse("00:00:00") : TimeSpan.Parse(x.IdelTime.ToString())).Hours);
+                double actualEffort = sumOfEffortHour - sumOfIdelHours;
+                effortAnalysReportViewModels.Add(new EffortAnalysReportViewModel
+                {
+                    EmployeeName = employees[i].FullName,
+                    TotalNoOfDaysInMonth = NoOfDays,
+                    TotalNoOfWorkingDays = NoOfWorkingDays,
+                    EffortHourRequired = totalEffortHourRequired,
+                    EffortHours = sumOfEffortHour,
+                    IdelHours = sumOfIdelHours,
+                    ActualEffortHours = actualEffort,
+                    EffortPercentage = (actualEffort / totalEffortHourRequired) * 100
+                }) ;
+            }
             return effortAnalysReportViewModels;
         }
     }

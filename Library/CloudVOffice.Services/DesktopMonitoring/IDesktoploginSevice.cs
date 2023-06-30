@@ -20,6 +20,6 @@ namespace CloudVOffice.Services.DesktopMonitoring
        
         public MessageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy);
         public MessageEnum DesktopLoginUpdateIdelTime(DesktopLoginIdelTimeUpdateDTO desktopLoginIdelTimeUpdateDTO);
-
+    
     }
 }

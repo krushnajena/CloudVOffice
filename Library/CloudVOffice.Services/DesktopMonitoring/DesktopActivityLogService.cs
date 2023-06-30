@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
+using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
@@ -246,8 +247,11 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         public List<EffortAnalysReportViewModel> EffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
         {
-            List<EffortAnalysReportViewModel> effortAnalysReportViewModels= new List<EffortAnalysReportViewModel>();    
-            var holiday = _holiDayService.GetHolidayByDates( DateTime.Parse( suspesiosActivityLogDTO.FromDate.ToString()) ,DateTime.Parse( suspesiosActivityLogDTO.ToDate.ToString())).HolidayDays.Where(x=> (x.ForDate >= suspesiosActivityLogDTO.FromDate && x.ForDate <= suspesiosActivityLogDTO.ToDate) && x.Deleted == false).ToList();
+            List<EffortAnalysReportViewModel> effortAnalysReportViewModels= new List<EffortAnalysReportViewModel>();
+            var holidays = _holiDayService.GetHolidayByDates(DateTime.Parse(suspesiosActivityLogDTO.FromDate.ToString()), DateTime.Parse(suspesiosActivityLogDTO.ToDate.ToString()));
+            var holiday = new List<HolidayDays>();
+            if(holidays!=null)
+                holidays.HolidayDays.Where(x=> (x.ForDate >= suspesiosActivityLogDTO.FromDate && x.ForDate <= suspesiosActivityLogDTO.ToDate) && x.Deleted == false).ToList();
             int NoOfDays = (DateTime.Parse(suspesiosActivityLogDTO.ToDate.ToString()) - DateTime.Parse(suspesiosActivityLogDTO.FromDate.ToString())).Days;
             int NoOfWorkingDays = NoOfDays - holiday.Count;
             var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId).ToList();
@@ -274,6 +278,45 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     EffortPercentage = (actualEffort / totalEffortHourRequired) * 100
                 }) ;
             }
+            return effortAnalysReportViewModels;
+        }
+
+
+        public List<EmployeeDayWiseEffortAnalysViewModel> EmployeeDayWiseEffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            List<EmployeeDayWiseEffortAnalysViewModel> effortAnalysReportViewModels = new List<EmployeeDayWiseEffortAnalysViewModel>();
+           
+            var hrsettings = _hrSettingsService.GetHrSettings();
+            double workingHours = (double)hrsettings.StandardWorkingHours * 60;
+            double breakeHour = (double)hrsettings.BreakHours;
+            double systemHour = (workingHours - breakeHour) / 60;
+            var alldesktopSessions = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO { EmployeeId = suspesiosActivityLogDTO.EmployeeId, FromDate = suspesiosActivityLogDTO.FromDate, ToDate = suspesiosActivityLogDTO.ToDate });
+
+            for (DateTime date = (DateTime)suspesiosActivityLogDTO.FromDate; date<= suspesiosActivityLogDTO.ToDate; date.AddDays(1))
+            {
+                var desktopSessions = alldesktopSessions.Where(x => x.LoginDateTime.Value.ToString("dd-MM-yyyy") == date.ToString("dd-MM-yyyy")).ToList();
+                if (desktopSessions.Count > 0)
+                {
+                    double sumOfEffortHour = desktopSessions.Sum(x => TimeSpan.Parse(x.Duration).Hours);
+                    double sumOfIdelHours = desktopSessions.Sum(x => (x.IdelTime == null ? TimeSpan.Parse("00:00:00") : TimeSpan.Parse(x.IdelTime.ToString())).Hours);
+                    double actualEffort = sumOfEffortHour - sumOfIdelHours;
+
+
+                    effortAnalysReportViewModels.Add(new EmployeeDayWiseEffortAnalysViewModel
+                    {
+                        EmployeeName = desktopSessions[0].Employee.FullName,
+                        Date = date,
+
+                        EffortHours = sumOfEffortHour,
+                        IdelHours = sumOfIdelHours,
+                        ActualEffortHours = actualEffort,
+                        EffortPercentage = (actualEffort / systemHour) * 100
+                    });
+                }
+               
+
+            }
+
             return effortAnalysReportViewModels;
         }
     }

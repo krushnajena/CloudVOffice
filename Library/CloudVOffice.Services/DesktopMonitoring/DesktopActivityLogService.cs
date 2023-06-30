@@ -29,13 +29,15 @@ namespace CloudVOffice.Services.DesktopMonitoring
         private readonly IHolidayService _holiDayService;
         private readonly IHRSettingsService _hrSettingsService;
         private readonly IDesktoploginSevice _desktopLoginService;
+        private readonly IRestrictedApplicationService _restrictedApplicationService;
         public DesktopActivityLogService(ApplicationDBContext Context,
             ISqlRepository<DesktopActivityLog> desktopactivitylogRepo,
             IEmployeeService employeeService,
             IRestrictedWebsiteService restrictedWebsiteService,
             IHolidayService holiDayService,
             IHRSettingsService hrSettingsService,
-            IDesktoploginSevice desktoploginSevice
+            IDesktoploginSevice desktoploginSevice,
+            IRestrictedApplicationService restrictedApplicationService
             )
         {
 
@@ -46,6 +48,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _holiDayService=holiDayService;
             _hrSettingsService= hrSettingsService;
             _desktopLoginService = desktoploginSevice;
+            _restrictedApplicationService = restrictedApplicationService;
         }
         public DesktopActivityLog DesktopActivityLogCreate(DesktopActivityLogDTO desktopactivitylogDTO)
         {
@@ -318,6 +321,41 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
 
             return effortAnalysReportViewModels;
+        }
+
+        public List<DesktopActivityLog> SuspesiosApplicationActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            try
+            {
+                var restrictedApplicationList = _restrictedApplicationService.GetRestrictedApplication().ToList();
+                var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId).ToList();
+                var dmsLogs = _Context.DesktopActivityLogs
+                     .Include(r => r.Employee)
+                     .Where(x => x.Deleted == false
+                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate) && x.AppOrWebPageName != null && x.AppOrWebPageName != ""
+
+                     ).ToList();
+                var newDmsLogs = dmsLogs.Where(x => employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
+                List<DesktopActivityLog> ret = new List<DesktopActivityLog>();
+                for (int i = 0; i < newDmsLogs.GroupBy(x => x.EmployeeId).ToList().Count; i++)
+                {
+                    var myRestrictedApplication = restrictedApplicationList.Where(x => (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false).ToList();
+                    for (int j = 0; j < myRestrictedApplication.Count; j++)
+                    {
+                        var check = newDmsLogs.Where(x => x.AppOrWebPageName.Contains(myRestrictedApplication[j].RestrictedApplicationName)).ToList();
+                        if (check.Count > 0)
+                        {
+                            ret.AddRange(check);
+                        }
+                    }
+                }
+                return ret;
+
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

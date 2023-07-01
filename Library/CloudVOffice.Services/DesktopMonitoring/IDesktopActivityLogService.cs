@@ -22,6 +22,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
         public List<DesktopActivityLog> SuspesiosActivityLog(SuspesiosActivityLogDTO suspesiosActivityLogDTO);
 
         public List<DesktopActivityLog> SuspesiosWebActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO);
+        public List<DesktopActivityLog> SuspesiosApplicationActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO);
         public List<EffortAnalysReportViewModel> EffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO);
         public List<EmployeeDayWiseEffortAnalysViewModel> EmployeeDayWiseEffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO);
 

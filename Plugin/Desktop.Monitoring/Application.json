@@ -17,9 +17,19 @@
       "Roles": [ "Desktop Monitoring Manager" ],
       "Children": [
         {
-          "ApplicationName": "Block Website",
+          "ApplicationName": "Restricted Website",
           "IsGroup": false,
-          "Url": "/DesktopMonitoring/DesktopMonitoring/BlockWebsiteView",
+          "Url": "/DesktopMonitoring/RestrictedWebsite/RestrictedWebsiteView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "DesktopMonitoring",
+          "Roles": [ "Desktop Monitoring Manager" ]
+        },
+
+        {
+          "ApplicationName": "Restricted Application",
+          "IsGroup": false,
+          "Url": "/DesktopMonitoring/RestrictedApplication/RestrictedApplicationView",
           "IconImageUrl": "",
           "IconClass": "icon-event_note",
           "AreaName": "DesktopMonitoring",
@@ -38,8 +48,70 @@
       "AreaName": "DesktopMonitoring",
       "Roles": [ "Desktop Monitoring Manager", "Desktop Monitoring User" ],
       "Children": []
-    }
+    },
+    {
+      "ApplicationName": "Reports",
+      "Url": "",
+      "IsGroup": true,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "DesktopMonitoring",
+      "Roles": [ "Desktop Monitoring Manager" ],
+      "Children": [
+        {
+          "ApplicationName": "Suspesios Activity",
+          "IsGroup": false,
+          "Url": "/DesktopMonitoring/DesktopReporting/SuspesiosActivityLog",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "DesktopMonitoring",
+          "Roles": [ "Desktop Monitoring Manager" ]
+        },
 
+        {
+          "ApplicationName": "Suspesios Web Activity",
+          "IsGroup": false,
+          "Url": "/DesktopMonitoring/DesktopReporting/SuspesiosWebActivityLog",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "DesktopMonitoring",
+          "Roles": [ "Desktop Monitoring Manager" ]
+        },
+
+        {
+          "ApplicationName": "Suspesios Application Activity",
+          "IsGroup": false,
+          "Url": "/DesktopMonitoring/DesktopReporting/SuspesiosApplicationActivityLog",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "DesktopMonitoring",
+          "Roles": [ "Desktop Monitoring Manager" ]
+        },
+
+
+        {
+          "ApplicationName": "Effort Analys Report",
+          "IsGroup": false,
+          "Url": "/DesktopMonitoring/DesktopReporting/EffortAnalysReport",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "DesktopMonitoring",
+          "Roles": [ "Desktop Monitoring Manager" ]
+        },
+
+        {
+          "ApplicationName": "Effort Analys Report Day Wise",
+          "IsGroup": false,
+          "Url": "/DesktopMonitoring/DesktopReporting/EmployeeDayWiseEffortAnalysReport",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "DesktopMonitoring",
+          "Roles": [ "Desktop Monitoring Manager" ]
+        }
+
+
+      ]
+    }
   ]
 
 }

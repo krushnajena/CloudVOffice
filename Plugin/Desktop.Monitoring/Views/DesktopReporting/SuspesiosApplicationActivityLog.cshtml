@@ -12,8 +12,6 @@
     var lastYearStart = new DateTime(DateTime.Now.Year - 1, 1, 1);
     var lastYearEnd = new DateTime(DateTime.Now.Year - 1, 12, 31);
 }
-@using System.Collections;
-@using Newtonsoft.Json;
 @addTagHelper *, Syncfusion.EJ2
 <header class="main-heading">
     <div class="container-fluid">
@@ -46,7 +44,7 @@
 
                 <div class="card-body">
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="DepartmentName" class="form-label">Date Range</label>
                             <ejs-daterangepicker id="dp_session" placeholder="Choose a Range" startDate="monthStart" endDate="monthEnd">
                                 <e-daterangepicker-presets>
@@ -56,12 +54,6 @@
                                     <e-daterangepicker-preset id="year" label="Last Year" start="lastYearStart" end="lastYearEnd"></e-daterangepicker-preset>
                                 </e-daterangepicker-presets>
                             </ejs-daterangepicker>
-                        </div>
-                         <div class="form-group col-md-4">
-                            <label for="DepartmentName" class="form-label">Employee</label>
-                            <ejs-dropdownlist id="EmployeeId" allowFiltering="true" filtering="onEmployeefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName").Items)" placeholder="Select a Employee" popupHeight="220px">
-                                <e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
-                            </ejs-dropdownlist>
                         </div>
 
                         <div class="col-lg-2 col-md-2 col-sm-12">
@@ -74,7 +66,6 @@
             </div>
 
             <div class="card">
-              
 
                 <div class="card-body">
 
@@ -84,16 +75,16 @@
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="employeeName" headerText="Employee Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="date" headerText="Date" textAlign="Left" width="120"></e-grid-column>
-                          
-                            <e-grid-column field="effortHourRequired" headerText="Required Effort Hours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="effortHours" headerText="Effort Hours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="idelHours" headerText="Idel Hours" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="employee.fullName" headerText="Employee Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="forDate" headerText="Log Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="logDateTime" headerText="Log Date & Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="todatetime" headerText="To Date & Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="duration" headerText="Duration" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="computerName" headerText="Computer Name" textAlign="Left" width="120"></e-grid-column>
 
-                            <e-grid-column field="actualEffortHours" headerText="Actual Effort Hours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="effortPercentage" headerText="Effort Percentage" textAlign="Left" width="120"></e-grid-column>
-
+                            <e-grid-column field="processOrUrl" headerText="Application Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="appOrWebPageName" headerText="Description" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column headerText="Snap" template="#template2" width="120"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -108,13 +99,18 @@
 </div>
 
 
-
-<script>
-    function onEmployeefiltering(e) {
-        var query = new ej.data.Query();
-        query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
-        e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
+<script type="text/javascript">
+    function OpenNewWindow(actid) {
+        window.open("../../../DesktopMonitoring/DesktopMonitoring/GetSnaps?type=act&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
     }
+</script>
+<script id="template2" type="text/x-template">
+    <div class="link">
+
+            <button onClick="OpenNewWindow(${desktopActivityLogId})" style="background: transparent;border: none;"><i class="icon-play" style="font-size:22px"></i></button>
+    </div>
+</script>
+<script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
@@ -174,18 +170,16 @@
         if (tomonth < 10) {
             tomonth = '0' + tomonth;
         }
-        var EmployeeId=   document.getElementById("EmployeeId").ej2_instances[0];
         var model = {
 
             fromDate: d.getFullYear() + '-' + frommonth + '-' + fromdate,
-            toDate: td.getFullYear() + '-' + tomonth + '-' + todate,
-            employeeId: EmployeeId.value
+            toDate: td.getFullYear() + '-' + tomonth + '-' + todate
 
         }
         console.log(JSON.stringify(model));
         $.ajax({
             type: "POST",
-            url: "/DesktopMonitoring/DesktopReporting/GetEmployeeDayWiseEffortAnalysReport",
+            url: "/DesktopMonitoring/DesktopReporting/GetSuspesiosApplicationActivityLog",
             data: model,
 
             success: function (data, statusText, xhr) {
@@ -193,41 +187,6 @@
                 if (xhr.status === 200) {
                     var grid = document.getElementById('GridOverview').ej2_instances[0]; // Grid instance
                     grid.dataSource = ej.data.DataUtil.parse.parseJson(data);
-                    //var chartDatas = [];
-                    //for (var i = 0; i < data.length;i++){
-
-                    //    const cd = new Date(data[i]['date']);
-                       
-                    //    var cfromdate = cd.getDate()
-                    //    var cfrommonth = cd.getMonth() + 1;
-                    //    if (cfromdate < 10) {
-                    //        cfromdate = '0' + cfromdate;
-                    //    }
-                    //    if (cfrommonth < 10) {
-                    //        cfrommonth = '0' + cfrommonth;
-                    //    }
-                    //    chartDatas.push({
-                    //        x: new Date( cfromdate+'-'+ cfrommonth + '-' + cd.getFullYear() ),
-                    //        y: data[i]['effortPercentage']
-                    //    })
-                    //}
-
-                    //var chartEle = document.createElement('div');
-                    //chartEle.id = 'chartContainer' + window.count;
-                    //document.getElementsByTagName('body')[0].appendChild(chartEle);
-
-                    ////Created chart here
-                    //var chart = new ej.charts.Chart({
-                    //    series: [{
-                    //        type: 'Line', xName: 'x', width: 2, marker: { visible: true },
-                    //        yName: 'y', name: 'Germany',
-                    //        dataSource: chartDatas,
-                    //    }],
-                    //    title: 'Inflation - Consumer Price', tooltip: { enable: true }, height: '400', width: '100%'
-                    //});
-                    //chart.appendTo('#newChart');
-                    //window.count++;
-
                 } else if (data.status === "duplicate") {
                     sweetAlert("Validation Alert!", data.responseMsg, "warning");
                 } else if (data.status === "error") {

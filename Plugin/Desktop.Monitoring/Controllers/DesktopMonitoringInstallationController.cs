@@ -45,13 +45,13 @@ namespace Desktop.Monitoring.Controllers
 
 			_applicationInstallationService.InstallApplication(item.SystemName, CreatedBy, item.Version);
 
-			for (int i = 0; i < item.Dependency.Count; i++)
-			{
-				string djsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\" + item.Dependency[i] + @"\";
-				string dpluginDetails = djsonPath + "plugin.json";
-				PluginConfig ditem = await JsonFileReader.ReadAsync<PluginConfig>(dpluginDetails);
-				_httpClient.GetRequest(ditem.InstallationUrl + "?CreatedBy=" + CreatedBy, true);
-			}
+			//for (int i = 0; i < item.Dependency.Count; i++)
+			//{
+			//	string djsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\" + item.Dependency[i] + @"\";
+			//	string dpluginDetails = djsonPath + "plugin.json";
+			//	PluginConfig ditem = await JsonFileReader.ReadAsync<PluginConfig>(dpluginDetails);
+			//	_httpClient.GetRequest(ditem.InstallationUrl + "?CreatedBy=" + CreatedBy, true);
+			//}
 
 			string rolesJsonpath = jsonPath + "roles.json";
 			RoleConfig roleJson = await JsonFileReader.ReadAsync<RoleConfig>(rolesJsonpath);

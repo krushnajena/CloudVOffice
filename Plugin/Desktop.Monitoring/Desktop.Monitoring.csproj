@@ -27,6 +27,7 @@
     <None Remove="Views\DesktopReporting\EffortAnalysReport.cshtml" />
     <None Remove="Views\DesktopReporting\EmployeeDayWiseEffortAnalysReport.cshtml" />
     <None Remove="Views\DesktopReporting\SuspesiosActivityLog.cshtml" />
+    <None Remove="Views\DesktopReporting\SuspesiosApplicationActivityLog.cshtml" />
     <None Remove="Views\DesktopReporting\SuspesiosWebActivityLog.cshtml" />
     <None Remove="Views\RestrictedApplication\RestrictedApplicationCreate.cshtml" />
     <None Remove="Views\RestrictedApplication\RestrictedApplicationView.cshtml" />

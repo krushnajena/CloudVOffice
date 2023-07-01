@@ -38,7 +38,7 @@ namespace CloudVOffice.Web.Areas.Application.Controllers
                 if(applications.Where(x=>x.PackageName == item.SystemName).Count() > 0)
                 {
                     item.IsInstalled = true;
-					if (applications.Where(x => x.Version < item.Version).Count() > 0)
+					if (applications.Where(x => x.Version < item.Version).Count() == 0)
 					{
 						item.IsNewVersion = true;
 					}

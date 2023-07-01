@@ -3,7 +3,7 @@
   "FriendlyName": "Desktop Monitoring",
   "SystemName": "Desktop.Monitoring",
   "Version": 0.2,
-  "SupportedVersions": [ "0.1" ],
+  "SupportedVersions": [ "0.2" ],
   "Author": "Appman team",
   "DisplayOrder": 1,
   "FileName": "Desktop.Monitoring.dll",

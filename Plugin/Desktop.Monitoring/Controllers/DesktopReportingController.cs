@@ -40,6 +40,10 @@ namespace Desktop.Monitoring.Controllers
         {
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopReporting/SuspesiosWebActivityLog.cshtml");
         }
+        public IActionResult SuspesiosApplicationActivityLog()
+        {
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopReporting/SuspesiosApplicationActivityLog.cshtml");
+        }
 
         public IActionResult EffortAnalysReport()
         {
@@ -73,7 +77,18 @@ namespace Desktop.Monitoring.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult GetSuspesiosApplicationActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            Int64 userId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Employee employee = _employeeService.GetEmployeeDetailsByUserId(userId);
+            suspesiosActivityLogDTO.EmployeeId = employee.EmployeeId;
+            return Json(_desktopActivityLogSerive.SuspesiosApplicationActivityLog(suspesiosActivityLogDTO));
 
+        }
+
+
+        
         [HttpPost]
         public IActionResult GetEffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
         {

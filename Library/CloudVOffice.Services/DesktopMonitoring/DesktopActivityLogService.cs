@@ -342,7 +342,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     var myRestrictedApplication = restrictedApplicationList.Where(x => (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false).ToList();
                     for (int j = 0; j < myRestrictedApplication.Count; j++)
                     {
-                        var check = newDmsLogs.Where(x => x.AppOrWebPageName.Contains(myRestrictedApplication[j].RestrictedApplicationName)).ToList();
+                        var check = newDmsLogs.Where(x => x.ProcessOrUrl.Contains(myRestrictedApplication[j].RestrictedApplicationName)).ToList();
                         if (check.Count > 0)
                         {
                             ret.AddRange(check);

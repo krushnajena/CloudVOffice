@@ -12,9 +12,8 @@
     var lastYearStart = new DateTime(DateTime.Now.Year - 1, 1, 1);
     var lastYearEnd = new DateTime(DateTime.Now.Year - 1, 12, 31);
 }
-@using System.Collections;
-@using Newtonsoft.Json;
 @addTagHelper *, Syncfusion.EJ2
+
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -37,65 +36,53 @@
 </header>
 
 
+
 <div class="main-content">
     <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+            @Html.Partial("../Shared/_EmployeeProfile.cshtml", (string)@ViewBag.EmployeeeId.ToString())
+        </div>
 
-
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
             <div class="card">
 
                 <div class="card-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="DepartmentName" class="form-label">Date Range</label>
-                            <ejs-daterangepicker id="dp_session" placeholder="Choose a Range" startDate="monthStart" endDate="monthEnd">
-                                <e-daterangepicker-presets>
-                                    <e-daterangepicker-preset id="week" label="This Week" start="weekStart" end="weekEnd"></e-daterangepicker-preset>
-                                    <e-daterangepicker-preset id="month" label="This Month" start="monthStart" end="monthEnd"></e-daterangepicker-preset>
-                                    <e-daterangepicker-preset id="lastmonth" label="Last Month" start="lastMonthStart" end="lastMonthEnd"></e-daterangepicker-preset>
-                                    <e-daterangepicker-preset id="year" label="Last Year" start="lastYearStart" end="lastYearEnd"></e-daterangepicker-preset>
-                                </e-daterangepicker-presets>
-                            </ejs-daterangepicker>
-                        </div>
-                         <div class="form-group col-md-4">
-                            <label for="DepartmentName" class="form-label">Employee</label>
-                            <ejs-dropdownlist id="EmployeeId" allowFiltering="true" filtering="onEmployeefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName").Items)" placeholder="Select a Project" popupHeight="220px">
-                                <e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
-                            </ejs-dropdownlist>
-                        </div>
+                    <ejs-daterangepicker id="dp_session" placeholder="Choose a Range" startDate="monthStart" endDate="monthEnd" change="search">
+                        <e-daterangepicker-presets>
+                            <e-daterangepicker-preset id="week" label="This Week" start="weekStart" end="weekEnd"></e-daterangepicker-preset>
+                            <e-daterangepicker-preset id="month" label="This Month" start="monthStart" end="monthEnd"></e-daterangepicker-preset>
+                            <e-daterangepicker-preset id="lastmonth" label="Last Month" start="lastMonthStart" end="lastMonthEnd"></e-daterangepicker-preset>
+                            <e-daterangepicker-preset id="year" label="Last Year" start="lastYearStart" end="lastYearEnd"></e-daterangepicker-preset>
+                        </e-daterangepicker-presets>
+                    </ejs-daterangepicker>
 
-                        <div class="col-lg-2 col-md-2 col-sm-12">
-                            <button type="button" class="btn btn-primary" id="btn_search">Search</button>
-                        </div>
-                    </div>
 
                 </div>
 
             </div>
 
             <div class="card">
-                <div id="newChart"></div>
 
                 <div class="card-body">
-
-                    <ejs-grid id="GridOverview" allowFiltering="true" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true"
+                    <ejs-grid id="GridOverview" allowFiltering="true" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true" created="search"
                               pdfQueryCellInfo="exportQueryCellInfo" toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport" , "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="employeeName" headerText="Employee Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="date" headerText="Date" textAlign="Left" width="120"></e-grid-column>
-                          
-                            <e-grid-column field="effortHourRequired" headerText="Required Effort Hours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="effortHours" headerText="Effort Hours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="idelHours" headerText="Idel Hours" textAlign="Left" width="120"></e-grid-column>
 
-                            <e-grid-column field="actualEffortHours" headerText="Actual Effort Hours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="effortPercentage" headerText="Effort Percentage" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="forDate" headerText="Log Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="logDateTime" headerText="Log Date & Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="todatetime" headerText="To Date & Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="duration" headerText="Duration" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="computerName" headerText="Computer Name" textAlign="Left" width="120"></e-grid-column>
 
+                            <e-grid-column field="processOrUrl" headerText="Application Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="appOrWebPageName" headerText="Description" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column headerText="Snap" template="#template2" width="120"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
+
 
                 </div>
 
@@ -109,11 +96,73 @@
 
 
 
+<script type="text/javascript">
+    function OpenNewWindow(actid) {
+        window.open("../../../DesktopMonitoring/DesktopMonitoring/GetSnaps?type=act&logid=" + actid, "", "toolbar=no,status=no,menubar=no,location=center,scrollbars=no,resizable=no,height=500,width=657");
+    }
+</script>
+<script id="template2" type="text/x-template">
+    <div class="link">
+
+            <button onClick="OpenNewWindow(${desktopActivityLogId})" style="background: transparent;border: none;"><i class="icon-play" style="font-size:22px"></i></button>
+    </div>
+</script>
 <script>
-    function onEmployeefiltering(e) {
-        var query = new ej.data.Query();
-        query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
-        e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
+    function refreshChart() {
+        var ajax = new ej.base.Ajax();
+        var a = document.getElementById('dp_session').ej2_instances[0];
+        const d = new Date(a.startValue);
+        const td = new Date(a.endValue);
+        var fromdate = d.getDate()
+        var frommonth = d.getMonth() + 1;
+        if (fromdate < 10) {
+            fromdate = '0' + fromdate;
+        }
+        if (frommonth < 10) {
+            frommonth = '0' + frommonth;
+        }
+        var todate = td.getDate()
+        var tomonth = td.getMonth() + 1;
+        if (todate < 10) {
+            todate = '0' + todate;
+        }
+        if (tomonth < 10) {
+            tomonth = '0' + tomonth;
+        }
+        var model = {
+
+            fromDate: d.getFullYear() + '-' + frommonth + '-' + fromdate,
+            toDate: td.getFullYear() + '-' + tomonth + '-' + todate,
+        }
+        $.ajax({
+            type: "GET",
+            url: "/DMS/DesktopLogin/SessionLogChart",
+            data: model,
+
+
+            success: function (data, statusText, xhr) {
+                console.log(data);
+                if (xhr.status === 200) {
+                    $('#container').html(data);
+                } else if (data.status === "duplicate") {
+                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                } else if (data.status === "error") {
+                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                } else {
+                    sweetAlert("Validation Alert!", "Something unexpected!", "warning");
+                }
+            },
+            error: function (data) {
+                if (data.status == 401) {
+                    window.location.replace('/Message/TokenExpire');
+                } else if (data.status == 403) {
+                    window.location.replace('/Message/Unauthorize');
+                } else if (data.status == 400) {
+                    sweetAlert("Validation Alert!", "Please check input data!", "warning");
+                }
+            }
+        });
+
     }
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
@@ -149,10 +198,6 @@
             isInitial = false;
         }
     }
-
-    $('#btn_search').click(function () {
-        search();
-    });
     async function search() {
 
         var a = document.getElementById('dp_session').ej2_instances[0];
@@ -174,18 +219,15 @@
         if (tomonth < 10) {
             tomonth = '0' + tomonth;
         }
-        var EmployeeId=   document.getElementById("EmployeeId").ej2_instances[0];
         var model = {
-
+            EmployeeId: @ViewBag.EmployeeeId,
             fromDate: d.getFullYear() + '-' + frommonth + '-' + fromdate,
             toDate: td.getFullYear() + '-' + tomonth + '-' + todate,
-            employeeId: EmployeeId.value
-
         }
         console.log(JSON.stringify(model));
         $.ajax({
             type: "POST",
-            url: "/DesktopMonitoring/DesktopReporting/GetEmployeeDayWiseEffortAnalysReport",
+            url: "/DesktopMonitoring/DesktopMonitoring/GetWebAcivityLogsWithFilter",
             data: model,
 
             success: function (data, statusText, xhr) {
@@ -193,41 +235,6 @@
                 if (xhr.status === 200) {
                     var grid = document.getElementById('GridOverview').ej2_instances[0]; // Grid instance
                     grid.dataSource = ej.data.DataUtil.parse.parseJson(data);
-                    var chartDatas = [];
-                    for (var i = 0; i < data.length;i++){
-
-                        const cd = new Date(data[i]['date']);
-                       
-                        var cfromdate = cd.getDate()
-                        var cfrommonth = cd.getMonth() + 1;
-                        if (cfromdate < 10) {
-                            cfromdate = '0' + cfromdate;
-                        }
-                        if (cfrommonth < 10) {
-                            cfrommonth = '0' + cfrommonth;
-                        }
-                        chartDatas.push({
-                            x: new Date( cfromdate+'-'+ cfrommonth + '-' + cd.getFullYear() ),
-                            y: data[i]['effortPercentage']
-                        })
-                    }
-
-                    var chartEle = document.createElement('div');
-                    chartEle.id = 'chartContainer' + window.count;
-                    document.getElementsByTagName('body')[0].appendChild(chartEle);
-
-                    //Created chart here
-                    var chart = new ej.charts.Chart({
-                        series: [{
-                            type: 'Line', xName: 'x', width: 2, marker: { visible: true },
-                            yName: 'y', name: 'Germany',
-                            dataSource: chartDatas,
-                        }],
-                        title: 'Inflation - Consumer Price', tooltip: { enable: true }, height: '400', width: '100%'
-                    });
-                    chart.appendTo('#newChart');
-                    window.count++;
-
                 } else if (data.status === "duplicate") {
                     sweetAlert("Validation Alert!", data.responseMsg, "warning");
                 } else if (data.status === "error") {

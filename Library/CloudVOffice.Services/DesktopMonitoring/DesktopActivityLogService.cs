@@ -295,7 +295,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
             double systemHour = (workingHours - breakeHour) / 60;
             var alldesktopSessions = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO { EmployeeId = suspesiosActivityLogDTO.EmployeeId, FromDate = suspesiosActivityLogDTO.FromDate, ToDate = suspesiosActivityLogDTO.ToDate });
 
-            for (DateTime date = (DateTime)suspesiosActivityLogDTO.FromDate; date<= suspesiosActivityLogDTO.ToDate; date.AddDays(1))
+            for (DateTime date = (DateTime)suspesiosActivityLogDTO.FromDate; date<= suspesiosActivityLogDTO.ToDate; date = date.AddDays(1))
             {
                 var desktopSessions = alldesktopSessions.Where(x => x.LoginDateTime.Value.ToString("dd-MM-yyyy") == date.ToString("dd-MM-yyyy")).ToList();
                 if (desktopSessions.Count > 0)
@@ -309,7 +309,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     {
                         EmployeeName = desktopSessions[0].Employee.FullName,
                         Date = date,
-
+                        EffortHourRequired = systemHour,
                         EffortHours = sumOfEffortHour,
                         IdelHours = sumOfIdelHours,
                         ActualEffortHours = actualEffort,
@@ -356,6 +356,16 @@ namespace CloudVOffice.Services.DesktopMonitoring
             {
                 throw;
             }
+        }
+
+
+        public List<DesktopActivityLog> WebActivityLog(DesktopLoginFilterDTO desktopLoginFilterDTO)
+        {
+            return _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots)
+            .Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog"
+            && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate && x.ProcessOrUrl.Contains("chrome"))
+
+            ).OrderByDescending(l => l.LogDateTime).ToList();
         }
     }
 }

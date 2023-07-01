@@ -23,6 +23,7 @@
     <None Remove="Views\DesktopMonitoring\GetSnaps.cshtml" />
     <None Remove="Views\DesktopMonitoring\MonitorUsers.cshtml" />
     <None Remove="Views\DesktopMonitoring\Track.cshtml" />
+    <None Remove="Views\DesktopMonitoring\WebActivityLog.cshtml" />
     <None Remove="Views\DesktopReporting\EffortAnalysReport.cshtml" />
     <None Remove="Views\DesktopReporting\EmployeeDayWiseEffortAnalysReport.cshtml" />
     <None Remove="Views\DesktopReporting\SuspesiosActivityLog.cshtml" />

@@ -90,6 +90,17 @@ namespace Desktop.Monitoring.Controllers
 
         
         [HttpPost]
+        public IActionResult GetSuspesiosApplicationActivityLog(DesktopLoginFilterDTO suspesiosActivityLogDTO)
+        {
+            Int64 userId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Employee employee = _employeeService.GetEmployeeDetailsByUserId(userId);
+            suspesiosActivityLogDTO.EmployeeId = employee.EmployeeId;
+            return Json(_desktopActivityLogSerive.SuspesiosApplicationActivityLog(suspesiosActivityLogDTO));
+
+        }
+
+
+        [HttpPost]
         public IActionResult GetEffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
         {
             Int64 userId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

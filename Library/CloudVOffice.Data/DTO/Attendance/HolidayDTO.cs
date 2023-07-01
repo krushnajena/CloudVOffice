@@ -15,7 +15,7 @@ namespace CloudVOffice.Data.DTO.Attendance
         public DateTime? ToDate { get; set; }
         public Int64 CreatedBy { get; set; }
 
-        public List<HolidayDaysDTO>? holidayDays { get; set; }
+        public List<HolidayDaysDTO>? HolidayDays { get; set; }
         public string holidayDaysString { get; set; }
     }
 

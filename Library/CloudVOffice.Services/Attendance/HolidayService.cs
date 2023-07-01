@@ -36,12 +36,12 @@ namespace CloudVOffice.Services.Attendance
                     holiday.ToDate = holidayDTO.ToDate;
                     holiday.CreatedBy = holidayDTO.CreatedBy;
                     var obj = _holidayRepo.Insert(holiday);
-                    for(int i = 0; i < holidayDTO.holidayDays.Count; i++)
+                    for(int i = 0; i < holidayDTO.HolidayDays.Count; i++)
                     {
                         _holidayDaysService.CreateHolidayDays(new HolidayDaysDTO
                         {
-                            Description = holidayDTO.holidayDays[i].Description,
-                            ForDate = holidayDTO.holidayDays[i].ForDate,
+                            Description = holidayDTO.HolidayDays[i].Description,
+                            ForDate = holidayDTO.HolidayDays[i].ForDate,
                             HolidayId = obj.HolidayId
 
                         }, holidayDTO.CreatedBy);
@@ -94,6 +94,18 @@ namespace CloudVOffice.Services.Attendance
                         a.UpdatedBy = holidayDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
+                        List<HolidayDays> holidayDaysDTO = new List<HolidayDays>();
+                        for (var i = 0; i < holidayDTO.HolidayDays.Count; i++)
+                        {
+                            HolidayDays holidayDays = new HolidayDays();
+                            holidayDays.HolidayId = holidayDaysDTO[i].HolidayId;
+                            holidayDays.ForDate = holidayDaysDTO[i].ForDate;
+                            holidayDays.Description = holidayDaysDTO[i].Description;
+                            holidayDays.Deleted = true;
+                            holidayDays.UpdatedBy = holidayDTO.CreatedBy;
+                            holidayDaysDTO.Add(holidayDays);
+                        }
+
                         return MessageEnum.Updated;
                     }
                     else

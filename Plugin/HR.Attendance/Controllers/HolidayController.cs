@@ -6,6 +6,7 @@ using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,12 @@ namespace HR.Attendance.Controllers
     public class HolidayController : BasePluginController
     {
         private readonly IHolidayService _holidayService;
-        public HolidayController(IHolidayService holidayService)
+        private readonly IHolidayDaysService _holidayDaysService;
+        public HolidayController(IHolidayService holidayService, IHolidayDaysService holidayDaysService)
         {
 
             _holidayService = holidayService;
+            _holidayDaysService = holidayDaysService;
         }
 
         [HttpGet]
@@ -37,7 +40,27 @@ namespace HR.Attendance.Controllers
                 holidayDTO.HolidayName = d.HolidayName;
                 holidayDTO.FromDate = d.FromDate;
                 holidayDTO.ToDate = d.ToDate;
+
+                var holidaydays = _holidayDaysService.GetHolidayDaysById(int.Parse(HolidayId.ToString()));
+                holidayDTO.HolidayDays = new List<HolidayDaysDTO>();
+                for (int i = 0; i < holidaydays.Count; i++)
+                {
+                    holidayDTO.HolidayDays.Add(new HolidayDaysDTO
+                    {
+                        HolidayId = holidaydays[i].HolidayId,
+                        ForDate = holidaydays[i].ForDate,
+                        Description = holidaydays[i].Description,
+                    });
+                }
+                holidayDTO.holidayDaysString = JsonConvert.SerializeObject(holidayDTO.HolidayDays);
             }
+            else
+            {
+                holidayDTO.HolidayDays = new List<HolidayDaysDTO>();
+            }
+            var holidayDays = _holidayDaysService.GetHolidayDaysList();
+            ViewBag.HolidayDays = holidayDays;
+
 
             return View("~/Plugins/HR.Attendance/Views/Holiday/CreateHoliday.cshtml", holidayDTO);
 
@@ -48,7 +71,7 @@ namespace HR.Attendance.Controllers
         public IActionResult CreateHoliday(HolidayDTO holidayDTO)
         {
             holidayDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-            holidayDTO.holidayDays = JsonConvert.DeserializeObject<List<HolidayDaysDTO>>(holidayDTO.holidayDaysString);
+            holidayDTO.HolidayDays = JsonConvert.DeserializeObject<List<HolidayDaysDTO>>(holidayDTO.holidayDaysString);
             if (ModelState.IsValid)
             {
                 if (holidayDTO.HolidayId == null)

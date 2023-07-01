@@ -64,6 +64,12 @@ namespace Desktop.Monitoring.Controllers
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/ActivityLog.cshtml");
         }
 
+
+        public IActionResult WebActivityLog(Int64 EmployeeId)
+        {
+            ViewBag.EmployeeeId = EmployeeId;
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/ActivityLog.cshtml");
+        }
         public IActionResult GetSnaps(string type, string logid)
         {
             ViewBag.ActivityId = logid;
@@ -112,6 +118,30 @@ namespace Desktop.Monitoring.Controllers
                 return Accepted(new { Status = "error", ResponseMsg = ex.Message });
             }
         }
+
+
+        [HttpPost]
+
+        public IActionResult GetWebAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
+        {
+            try
+            {
+
+                var list = _desktopActivityLogSerive.WebActivityLog(desktopLoginDTO);
+
+
+
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
+        }
+
+
+        
 
         [HttpGet]
         public IActionResult GetDesktopSnaps(Int64 Id, string logType)

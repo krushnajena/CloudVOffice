@@ -1,15 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Custom
 {
-   
-    public class Customer : IAuditEntity, ISoftDeletedEntity
+
+	public class Customer : IAuditEntity, ISoftDeletedEntity
     {
             public Int64 CustomerId { get; set; }
             public string CustomerName { get; set; }

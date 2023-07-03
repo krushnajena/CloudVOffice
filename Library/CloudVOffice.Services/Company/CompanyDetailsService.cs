@@ -25,7 +25,6 @@ namespace CloudVOffice.Services.Company
 				if (ObjCheck == null)
 				{
 					
-					
 						CompanyDetails companyDetails = new CompanyDetails();
 						companyDetails.CompanyName = companyDetailsDTO.CompanyName;
 						companyDetails.ABBR = companyDetailsDTO.ABBR;

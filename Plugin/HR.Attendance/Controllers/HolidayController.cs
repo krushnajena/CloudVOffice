@@ -34,14 +34,13 @@ namespace HR.Attendance.Controllers
             HolidayDTO holidayDTO = new HolidayDTO();
             if (HolidayId != null)
             {
-
                 var d = _holidayService.GetHolidayById(int.Parse(HolidayId.ToString()));
 
                 holidayDTO.HolidayName = d.HolidayName;
                 holidayDTO.FromDate = d.FromDate;
                 holidayDTO.ToDate = d.ToDate;
 
-                var holidaydays = _holidayDaysService.GetHolidayDaysById(int.Parse(HolidayId.ToString()));
+                var holidaydays = _holidayDaysService.GetHolidaysByHolidayId(int.Parse(HolidayId.ToString()));
                 holidayDTO.HolidayDays = new List<HolidayDaysDTO>();
                 for (int i = 0; i < holidaydays.Count; i++)
                 {
@@ -53,6 +52,7 @@ namespace HR.Attendance.Controllers
                     });
                 }
                 holidayDTO.holidayDaysString = JsonConvert.SerializeObject(holidayDTO.HolidayDays);
+
             }
             else
             {

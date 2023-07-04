@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -144,6 +145,18 @@ namespace CloudVOffice.Services.Attendance
                     return MessageEnum.Duplicate;
                 }
             }
+			catch
+			{
+				throw;
+			}
+		}
+
+		public List<HolidayDays> GetHolidaysByHolidayId(int HolidayId)
+		{
+			try
+			{
+				return _Context.HolidayDays.Where(X=>X.HolidayId == HolidayId && X.Deleted == false).ToList();
+			}
 			catch
 			{
 				throw;

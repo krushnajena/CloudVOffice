@@ -94,7 +94,15 @@ namespace CloudVOffice.Services.Attendance
                         a.UpdatedBy = holidayDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
+                        var holidayDyas = _holidayDaysService.GetHolidaysByHolidayId(a.HolidayId);
+
+                        var deletedHolidayList = holidayDyas.Where(x => !holidayDTO.HolidayDays.Any(a => a.ForDate == x.ForDate && a.Description == x.Description)).ToList();
+                        for(int i = 0; i < deletedHolidayList.Count; i++)
+                        {
+                            _holidayDaysService.HolidayDaysDelete(deletedHolidayList[i].HolidayDaysId, holidayDTO.CreatedBy);
+                        }
                         List<HolidayDays> holidayDaysDTO = new List<HolidayDays>();
+
                         for (var i = 0; i < holidayDTO.HolidayDays.Count; i++)
                         {
                             HolidayDays holidayDays = new HolidayDays();

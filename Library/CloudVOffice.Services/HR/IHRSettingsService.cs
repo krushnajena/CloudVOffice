@@ -1,4 +1,8 @@
-﻿using CloudVOffice.Core.Domain.HR;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Company;
+using CloudVOffice.Core.Domain.HR;
+using CloudVOffice.Core.Domain.HR.Master;
+using CloudVOffice.Data.DTO.HR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +13,10 @@ namespace CloudVOffice.Services.HR
 {
     public interface IHRSettingsService
     {
-        public HRSettings GetHrSettings();
+        
+        public HRSettingsDTO GetHrSettings();
+		
+		public MessageEnum HRSettingsUpdate(HRSettingsDTO hrSettingsDTO);
+        
     }
 }

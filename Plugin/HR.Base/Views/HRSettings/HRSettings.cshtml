@@ -1,0 +1,121 @@
+﻿
+
+
+@model CloudVOffice.Data.DTO.HR.HRSettingsDTO;
+@{
+    Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>HR Settings</h5>
+                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">Last Login: 2 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="HR/HRSettings/HRSettings" method="post" autocomplete="off">
+					<div asp-
+					
+					
+					
+					ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>HR Settings</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.HRSettingsId" type="hidden" />
+
+								<label for="StandardWorkingHours" class="form-label">StandardWorkingHours </label>
+								<input asp-for="@Model.StandardWorkingHours" type="text" class="form-control" autofocus="autofocus" placeholder="StandardWorkingHours" />
+								<span asp-validation-for="StandardWorkingHours"></span>
+							</div>
+							<div class="form-group col-md-4">
+								
+								<label for="BreakHours" class="form-label">BreakHours </label>
+								<input asp-for="@Model.BreakHours" type="text" class="form-control" autofocus="autofocus" placeholder="BreakHours" />
+								<span asp-validation-for="BreakHours"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+							
+								<label for="RetirementAge" class="form-label">RetirementAge </label>
+								<input asp-for="@Model.RetirementAge" type="text" class="form-control" autofocus="autofocus" placeholder="RetirementAge" />
+								<span asp-validation-for="RetirementAge"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="SendBirthdaysReminder" class="form-label">Send Birthdays Reminder</label>
+								<input asp-for="@Model.SendBirthdaysReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Birthdays Reminder" />
+								<span asp-validation-for="SendBirthdaysReminder"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+
+								<label for="SendWorkAnniversariesReminder" class="form-label">Send Work Anniversaries Reminder</label>
+								<input asp-for="@Model.SendWorkAnniversariesReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Work Anniversaries Reminder" />
+								<span asp-validation-for="SendWorkAnniversariesReminder"></span>
+							</div>
+							<div class="form-group col-md-4">
+
+								<label for="SendInterviewReminder" class="form-label">Send Interview Reminder</label>
+								<input asp-for="@Model.SendInterviewReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Interview Reminder" />
+								<span asp-validation-for="SendInterviewReminder"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+
+								<label for="SendInterviewFeedbackReminder" class="form-label">Send Interview Feedback Reminder</label>
+								<input asp-for="@Model.SendInterviewFeedbackReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Interview Feedback Reminder" />
+								<span asp-validation-for="SendInterviewFeedbackReminder"></span>
+							</div>
+							
+						</div>
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>

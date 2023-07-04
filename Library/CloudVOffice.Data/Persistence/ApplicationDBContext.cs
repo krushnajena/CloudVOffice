@@ -13,6 +13,7 @@ using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Core.Domain.Users;
+using CloudVOffice.Data.DTO.HR;
 using CloudVOffice.Data.Seeding;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;

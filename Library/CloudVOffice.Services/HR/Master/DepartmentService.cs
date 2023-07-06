@@ -51,7 +51,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public MessageEnum DepartmentDelete(Int64 deprtmentid, Int64 DeletedBy)
+        public MessageEnum DepartmentDelete(int deprtmentid, Int64 DeletedBy)
         {
             try
             {
@@ -72,6 +72,8 @@ namespace CloudVOffice.Services.HR.Master
                 throw;
             }
         }
+
+       
 
         public MessageEnum DepartmentUpdate(DepartmentDTO departmentDTO)
         {
@@ -129,7 +131,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-        public Department GetDepartmentById(Int64 departmentId)
+        public Department GetDepartmentById(int departmentId)
         {
             try
             {
@@ -141,6 +143,8 @@ namespace CloudVOffice.Services.HR.Master
                 throw;
             }
         }
+
+       
 
         public List<Department> GetDepartmentList()
         {
@@ -160,3 +164,4 @@ namespace CloudVOffice.Services.HR.Master
         }
     }
 }
+

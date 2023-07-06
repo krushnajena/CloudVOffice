@@ -38,7 +38,6 @@ namespace CloudVOffice.Services.HR
             }
         }
 
-		
 		public MessageEnum HRSettingsUpdate(HRSettingsDTO hrSettingsDTO)
         {
             try

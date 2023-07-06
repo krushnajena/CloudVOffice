@@ -19,7 +19,7 @@ namespace HR.Base.Controllers
 
     public class DepartmentController : BasePluginController
     {
-        private readonly IDepartmentService _departmentService;
+        private readonly IDepartmentService _departmentService; 
         public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
@@ -27,16 +27,16 @@ namespace HR.Base.Controllers
 
         [HttpGet]
         [Authorize(Roles = "HR Manager")]
-        public IActionResult DepartmentCreate(int? DepartmentId)
+        public IActionResult DepartmentCreate(int? departmentId)
         {
             DepartmentDTO departmentDTO = new DepartmentDTO();
             var department = _departmentService.GetAllDepartmentGroups();
             ViewBag.ParentDepartmentList = department ;
 
-			if (DepartmentId != null)
+			if (departmentId != null)
             {
 
-                Department d = _departmentService.GetDepartmentById(int.Parse(DepartmentId.ToString()));
+                Department d = _departmentService.GetDepartmentById(int.Parse(departmentId.ToString()));
               
                 departmentDTO.DepartmentName = d.DepartmentName;
                 departmentDTO.IsGroup = d.IsGroup;
@@ -106,11 +106,12 @@ namespace HR.Base.Controllers
 		}
         [HttpGet]
         [Authorize(Roles = "HR Manager")]
-        public IActionResult DeleteDepartment(Int64 deprtmentid)
+        public IActionResult DeleteDepartment(int deprtmentid)
         {
             Int64 DeletedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _departmentService.DepartmentDelete(deprtmentid, DeletedBy);
+            TempData["msg"] = a;
             return Redirect("/HR/Department/DepartmentView");
         }
 

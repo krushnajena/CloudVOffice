@@ -1,6 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Attendance;
-using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
@@ -8,15 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.Attendance.Controllers
 {
-    [Area(AreaNames.Attendance)]
+	[Area(AreaNames.Attendance)]
     public class HolidayController : BasePluginController
     {
         private readonly IHolidayService _holidayService;
@@ -40,7 +34,6 @@ namespace HR.Attendance.Controllers
                 holidayDTO.HolidayName = d.HolidayName;
                 holidayDTO.FromDate = d.FromDate;
                 holidayDTO.ToDate = d.ToDate;
-
                 var holidaydays = _holidayDaysService.GetHolidayDaysById(int.Parse(HolidayId.ToString()));
                 holidayDTO.HolidayDays = new List<HolidayDaysDTO>();
                 for (int i = 0; i < holidaydays.Count; i++)
@@ -63,7 +56,6 @@ namespace HR.Attendance.Controllers
 
 
             return View("~/Plugins/HR.Attendance/Views/Holiday/CreateHoliday.cshtml", holidayDTO);
-
 
         }
 

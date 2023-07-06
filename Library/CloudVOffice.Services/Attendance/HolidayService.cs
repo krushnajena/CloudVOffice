@@ -1,19 +1,13 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
-using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Attendance
 {
-    public class HolidayService : IHolidayService
+	public class HolidayService : IHolidayService
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<Holiday> _holidayRepo;

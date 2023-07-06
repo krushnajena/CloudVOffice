@@ -13,12 +13,12 @@ namespace HR.Attendance.Controllers
 	{
 		private readonly IHolidayDaysService _holidayDaysService;
 		private readonly IHolidayService _holidayService;
-		
+
 		public HolidayDaysController(IHolidayDaysService holidayDaysService, IHolidayService holidayService)
 		{
-            _holidayDaysService = holidayDaysService;
-            _holidayService = holidayService;
-			
+			_holidayDaysService = holidayDaysService;
+			_holidayService = holidayService;
+
 
 		}
 
@@ -31,7 +31,7 @@ namespace HR.Attendance.Controllers
 			ViewBag.Holiday = holiday;
 
 
-            if (HolidayDaysId != null)
+			if (HolidayDaysId != null)
 			{
 
 				var d = _holidayDaysService.GetHolidayDaysById(int.Parse(HolidayDaysId.ToString()));
@@ -91,10 +91,10 @@ namespace HR.Attendance.Controllers
 					}
 				}
 			}
-            var holiday = _holidayService.GetHolidayList();
-            ViewBag.Holiday = holiday;
+			var holiday = _holidayService.GetHolidayList();
+			ViewBag.Holiday = holiday;
 
-            return View("~/Plugins/HR.Attendance/Views/HolidayDay/CreateHolidayDays.cshtml", holidayDaysDTO);
+			return View("~/Plugins/HR.Attendance/Views/HolidayDay/CreateHolidayDays.cshtml", holidayDaysDTO);
 		}
 
 		[Authorize(Roles = "HR Manager")]

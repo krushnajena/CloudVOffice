@@ -28,7 +28,6 @@ namespace HR.Attendance.Controllers
             HolidayDTO holidayDTO = new HolidayDTO();
             if (HolidayId != null)
             {
-
                 var d = _holidayService.GetHolidayById(int.Parse(HolidayId.ToString()));
 
                 holidayDTO.HolidayName = d.HolidayName;
@@ -46,6 +45,7 @@ namespace HR.Attendance.Controllers
                     });
                 }
                 holidayDTO.holidayDaysString = JsonConvert.SerializeObject(holidayDTO.HolidayDays);
+
             }
             else
             {

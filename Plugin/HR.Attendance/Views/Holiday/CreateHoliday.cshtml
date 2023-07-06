@@ -41,15 +41,15 @@
 					<div class="card-body">
 						<div class="form-row">
 
-							<div class="form-group col-md-5">
+							<6div class="form-group col-md-5">
 								<input asp-for="@Model.HolidayId" type="hidden" />
 
-								<div class="form-group col-md-5">
+							
 									<label for="HolidayName" class="form-label">Holiday Name</label>
 									<input asp-for="@Model.HolidayName" type="text" class="form-control" autofocus="autofocus" placeholder="Holiday Name" />
 									<span asp-validation-for="HolidayName"></span>
-								</div>
-							</div>
+								
+							</6div>
 
                         </div>
 
@@ -93,7 +93,7 @@
 
 
 
-                        <ejs-grid id="GrdiHoidays" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.holidayDays" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+                        <ejs-grid id="GrdiHoidays" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.HolidayDays" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
                             <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
 
                             <e-grid-columns>

@@ -163,6 +163,7 @@ namespace CloudVOffice.Data.Persistence
              .ValueGeneratedNever();
 
 
+
             modelBuilder.Entity<Role>()
         .Property(s => s.CreatedDate)
         .HasDefaultValueSql("getdate()");
@@ -279,6 +280,16 @@ namespace CloudVOffice.Data.Persistence
 .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<EmailTemplate>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<UserWiseViewMapper>()
+.Property(s => s.CreatedDate)
+.HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<UserWiseViewMapper>()
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
@@ -356,6 +367,16 @@ namespace CloudVOffice.Data.Persistence
        .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<EmployeeEducationalQualification>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<HRSettings>()
+       .Property(s => s.CreatedDate)
+       .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<HRSettings>()
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
@@ -538,9 +559,173 @@ namespace CloudVOffice.Data.Persistence
 
 
 
+            #region Attendance
+
+            modelBuilder.Entity<Holiday>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");           
+
+            modelBuilder.Entity<Holiday>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever(); 
 
 
+            
+            modelBuilder.Entity<HolidayDays>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
 
+            modelBuilder.Entity<HolidayDays>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever(); 
+
+            
+            modelBuilder.Entity<LeaveType>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<LeaveType>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            #endregion
+
+
+            #region Recruitment
+
+
+            modelBuilder.Entity<StaffingPlan>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<StaffingPlan>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<StaffingPlanDetails>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<StaffingPlanDetails>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<JobOpening>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<JobOpening>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<JobApplicationSource>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<JobApplicationSource>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<JobApplication>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<JobApplication>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<InterviewType>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<InterviewType>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+            
+            
+            modelBuilder.Entity<InterFeedBackQuestions>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<InterFeedBackQuestions>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            #endregion
+
+            #region  Desktop Monitering
+
+            modelBuilder.Entity<DesktopLogin>()
+      .Property(s => s.CreatedDate)
+      .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<DesktopLogin>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            modelBuilder.Entity<RestrictedWebsite>()
+     .Property(s => s.CreatedDate)
+     .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<RestrictedWebsite>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            modelBuilder.Entity<DesktopActivityLog>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<DesktopActivityLog>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            modelBuilder.Entity<DesktopKeyStroke>()
+    .Property(s => s.CreatedDate)
+    .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<DesktopKeyStroke>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            modelBuilder.Entity<DesktopSnapshot>()
+   .Property(s => s.CreatedDate)
+   .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<DesktopSnapshot>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+            modelBuilder.Entity<RestrictedApplication>()
+   .Property(s => s.CreatedDate)
+   .HasDefaultValueSql("getdate()");
+
+            modelBuilder.Entity<RestrictedApplication>()
+             .Property(s => s.Deleted)
+             .HasDefaultValue(false)
+             .ValueGeneratedNever();
+
+
+            #endregion
         }
 
 

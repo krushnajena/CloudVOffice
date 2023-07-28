@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
+using CloudVOffice.Core.Domain.Attendance;
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.Custom;
@@ -82,6 +83,9 @@ namespace CloudVOffice.Data.Persistence
         #region Attendance
 
         public virtual DbSet<ShiftType> ShiftTypes { get; set; }
+        public virtual DbSet<ShiftEmployee> ShiftEmployees{ get; set; }
+        public virtual DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
+        public virtual DbSet<EmployeeCheckIn> EmployeeCheckIns { get; set; }
         public virtual DbSet<Holiday> Holidays { get; set; }
 
         public virtual DbSet<HolidayDays> HolidayDays { get; set; }

@@ -10,6 +10,7 @@ namespace CloudVOffice.Core.Domain.HR.Attendance
     public class ShiftType : IAuditEntity, ISoftDeletedEntity
     {
         public int ShiftTypeId { get; set; }
+        
         public string ShiftTypeName { get; set; }
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }
@@ -17,6 +18,7 @@ namespace CloudVOffice.Core.Domain.HR.Attendance
         public int? EarlyExitGracePeriodInMinutes { get; set; }
         public double? ThresholdforHalfDayInHours { get; set; }
         public double? ThresholdforAbsentInHours { get; set; }
+        public bool IsDefaultShift { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public Int64? UpdatedBy { get; set; }

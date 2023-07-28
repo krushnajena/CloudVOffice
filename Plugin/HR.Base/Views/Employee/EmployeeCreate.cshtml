@@ -3,6 +3,7 @@
 @using Newtonsoft.Json;
 @{
 	Layout = "_MainAppLayout";
+	ViewData["Title"] = "Employee";
 	var DepartmentList = new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName");
 	var DesignationList = new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName");
 	var BranchList = new SelectList((IEnumerable)ViewBag.Branch, "BranchId", "BranchName");
@@ -85,13 +86,13 @@
 					<i class="icon-laptop_windows"></i>
 				</div>
 				<div class="page-title">
-					<h5>EMP</h5>
-					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+					<h5>EMPLOYEE</h5>
+					<h6 class="sub-heading">  </h6>
 				</div>
 			</div>
 			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 				<div class="right-actions">
-					<span class="last-login">Last Login: 2 hours ago</span>
+					<span class="last-login">  </span>
 				</div>
 			</div>
 		</div>
@@ -177,7 +178,7 @@
 																	<label for="imageUpload"></label>
 																</div>
 																<div class="avatar-preview">
-																	<div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+																	<div id="imagePreview" style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAB5CAMAAAAqJH57AAAAMFBMVEXk5ueutLfo6uu8wcOrsbSorrLN0NLh4+TGyszT1tjc3+C2u77W2dvZ3N65vsGxt7rWad81AAACiklEQVRoge2a25KDIAxAISByUfn/v111213rVkhsorMznMe+nEmIQEKVajQajUaj0Wg0GsfAzPVS1Y/BzYTYX6gHNfqk7YM8uf4aN4BL1uoN1prxAjcE/aL9ppuk4waVur/e1e1E1RDexPvM+SQpdsfiWZ2jVNhl8UIvJC6k+omMOR7U1pYkkW+oe+e19vxqMPVcz3T8VTYicr3mm1usJpxYW+4dZUDlWiBowIY8Bx1Yg45osdYTp7m+e22JnOZEEFvHaO4zwawNY7rxlb3CaCYtM+eRBZ5mHvnMhiS2gc9MKjDO4iab2UrsH5m5xJTzYjUzVth9X9VtO8mNu2dPEnOeGPedkvfdDEi3Id4+474bIOCrO3N6F7A1xn7TB2x3wx4yuqOTmBJhzBJdLC7fIp07ajuRGpRUD0vW3YuiFptKVSZxWSjVD3WfDtydRFW/up19O3EVzPSPWvnc7abM03DRhFsNPunuOVlPPl461o+D8967MF76mjC74Jflh0ukMM7BmpSX9Z2XO6fJeDco0Xec5eXErOu7/5St7brJDyLBA0Q3/XXu/MmPzHLoXXr3cPLGnhnlAINBaR9ynYLicIMKRxvmsTwzPJ5BOHomqrj9Z3HDeMr77f7k3g3mrHd1p7Mpn2/31AXecfLkpA4K3oZ94rkS+ulz8bLa1Ps3xMwh1uQGDyhda01NarQiU8ArHSHqnlNMUrN6NaHNY6nqV1DNB8d3vAf3Hj/yi5EFThl9EajmmzrixGLrL3ci3kVdGQBLhayr4wTUk/45bHmlieNkkrl4WCNHTycpmiXFXSndmL+MnKa0mwhW9oIpJFtgy95Q+u+DwCm1wRbM3khSOrBAloK50Wg0/hdf+6QdsT7J6MsAAAAASUVORK5CYII=);">
 																	</div>
 																</div>
 															</div>
@@ -391,13 +392,13 @@
 															<span asp-validation-for="CompanyEmail"></span>
 														</div>
 														<div class="form-group col-md-4">
-															<label for="CurrentAddress" class="form-label">Current Address&nbsp;<span style="color:red;"><b>*</b></span></label>
-															<input asp-for="@Model.CurrentAddress" type="text" class="form-control" autofocus="autofocus" placeholder="Current Address" />
+															<label for="CurrentAddress" class="form-label">Current Address</label>
+															<textarea asp-for="@Model.CurrentAddress" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Current Address" style="height: 150px;"></textarea>
 															<span asp-validation-for="CurrentAddress"></span>
 														</div>
 														<div class="form-group col-md-4">
-															<label for="PermanentAddress" class="form-label">Permanent Address&nbsp;<span style="color:red;"><b>*</b></span></label>
-															<input asp-for="@Model.PermanentAddress" type="text" class="form-control" autofocus="autofocus" placeholder="Permanent Address" />
+															<label for="PermanentAddress" class="form-label">Permanent Address</label>
+															<textarea asp-for="@Model.PermanentAddress" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Permanent Address" style="height: 150px;"></textarea>
 															<span asp-validation-for="PermanentAddress"></span>
 														</div>
 														<div class="form-group col-md-4">

@@ -3,6 +3,7 @@
 
 @{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "Task";
 
 }
 @addTagHelper *, Syncfusion.EJ2
@@ -20,7 +21,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">Last Login: 2 hours ago</span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
@@ -58,8 +59,10 @@
         </div>
         <div class='e-card-custom-footer'>
          ${AssignedTo.FullName}    <div class='e-card-avatar'>  <img src='/uploads/employee/${AssignedTo.Photo}' style="height:50px; width:50px; border-radius: 50%;"/></div>
+
            
         </div>
+          ${ExpectedEndDate}
     </div>
 </script>
 

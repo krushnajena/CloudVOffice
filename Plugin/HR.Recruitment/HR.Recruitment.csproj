@@ -15,26 +15,12 @@
 		<None Remove="Application.json" />
 		<None Remove="plugin.json" />
 		<None Remove="roles.json" />
-		<None Remove="Views\InterviewRound\CreateInterviewRound.cshtml" />
-		<None Remove="Views\InterviewRound\InterviewRoundView.cshtml" />
-		<None Remove="Views\JobApplication\CreateJobApplication.cshtml" />
-		<None Remove="Views\JobApplication\JobApplicationView.cshtml" />
-		<None Remove="Views\StaffingPlanDetails\CreateStaffingPlanDetails.cshtml" />
-		<None Remove="Views\StaffingPlanDetails\StaffingPlanDetailsView.cshtml" />
-		<None Remove="Views\_ViewImports.cshtml" />
 	
 	</ItemGroup>
 
 
 	<ItemGroup>
 		<ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="Views\**">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
-
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,13 +41,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web.Framework\CloudVOffice.Web.Framework.csproj" />
 		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="Views\_ViewImports.cshtml">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
 	</ItemGroup>
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->

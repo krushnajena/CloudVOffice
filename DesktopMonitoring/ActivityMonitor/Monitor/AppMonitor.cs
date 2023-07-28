@@ -15,10 +15,24 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.IO;
 using ActivityMonitor.ApplicationImp;
+using static ActivityMonitor.ApplicationMonitor.WinApi;
+using System.Text;
+using DeskTime;
+using ActivityMonitor.Collections;
+using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 //using AppMonitor.SettingsManager;
 
 namespace ActivityMonitor.ApplicationMonitor
 {
+    public enum Browser
+    {
+        IExplore,
+        MicrosoftEdge,
+        Firefox,
+        Opera,
+        Chrome
+    }
     public class AppMonitor : INotifyPropertyChanged
     {
         private readonly AppUpdater _appUpdater;
@@ -43,6 +57,16 @@ namespace ActivityMonitor.ApplicationMonitor
             }
         }
 
+
+        public FileLog FileLogs
+        {
+            get { return f; }
+            set
+            {
+                f = value;
+                AppUpdater.fileLog = value;
+            }
+        }
         public int IdleTime => _idleTime;
 
         private readonly DateTime _startTime = DateTime.Now;
@@ -50,7 +74,8 @@ namespace ActivityMonitor.ApplicationMonitor
         public AppMonitor()//Dispatcher dispatcher)
         {
             Data = new Applications();
-            _appUpdater = new AppUpdater(Data);
+            f= new FileLog();
+            _appUpdater = new AppUpdater(Data, f);
             _idleInterval = 30;
 
             Session = new UserSession();
@@ -105,7 +130,7 @@ namespace ActivityMonitor.ApplicationMonitor
             //Trigger Thread Stop
             _requestStop = true;
         }
-        public static string GetActiveTabUrl()
+        public static string GetChromeActiveTabUrl()
         {
             Process[] procsChrome = Process.GetProcessesByName("chrome");
 
@@ -127,8 +152,194 @@ namespace ActivityMonitor.ApplicationMonitor
 
             return null;
         }
+        public static string GetEdgeActiveTabUrl()
+        {
+            Process[] procsChrome = Process.GetProcessesByName("msedge");
+
+            if (procsChrome.Length <= 0)
+                return null;
+
+            foreach (Process proc in procsChrome)
+            {
+                // the chrome process must have a window
+                if (proc.MainWindowHandle == IntPtr.Zero)
+                    continue;
+
+                AutomationElement automationElement = AutomationElement.FromHandle(proc.MainWindowHandle);
+                var SearchBar = automationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Address and search bar"));
+                // to find the tabs we first need to locate something reliable - the 'New Tab' button
+                AutomationElement automationElement2 = automationElement.FindFirst(TreeScope.Subtree, new PropertyCondition(AutomationElement.AutomationIdProperty, "addressEditBox"));
+                if (SearchBar != null)
+                    return (string)SearchBar.GetCurrentPropertyValue(ValuePatternIdentifiers.ValueProperty);
+            }
+
+            return null;
+        }
+        internal static float getScalingFactor()
+        {
+            IntPtr hdc = Graphics.FromHwnd(IntPtr.Zero).GetHdc();
+            int deviceCaps = Win32.GetDeviceCaps(hdc, 10);
+            return (float)Win32.GetDeviceCaps(hdc, 117) / (float)deviceCaps;
+        }
+        public static Image CaptureScreen(int monitorIndex = 0)
+        {
+            Screen screen = Screen.AllScreens[monitorIndex];
+            Size size = screen.Bounds.Size;
+            float num = ((monitorIndex == 0) ? getScalingFactor() : 1f);
+            int width = (int)((float)size.Width * num);
+            int height = (int)((float)size.Height * num);
+            Bitmap bitmap = new Bitmap(width, height);
+            Graphics graphics = Graphics.FromImage(bitmap);
+            graphics.CopyFromScreen(screen.Bounds.X, screen.Bounds.Y, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+            graphics.Dispose();
+            return bitmap;
+        }
+
+        private void CaptureScreenshot(IApplication currentApplication)
+        {
+            string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            // Combine the base folder with your specific folder....
+            string specificFolder = Path.Combine(folder, "DMSSnaps");
+            if (!Directory.Exists(specificFolder))
+            {
+                Directory.CreateDirectory(specificFolder);
+            }
+            try
+            {
+                Image image;
+                double num;
+                int monitorCount = Win32.GetMonitorCount();
+                IList<byte[]> list = new List<byte[]>();
+                for (int i = 0; i < monitorCount; i++)
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    try
+                    {
+                        image = CaptureScreen(i);
+                        num = 1024.0 / (double)image.Width;
+                    }
+                    catch (Exception)
+                    {
+                        image = new Bitmap(1, 1);
+                        num = 1.0;
+                    }
+                    int num2 = (int)((double)image.Width * num);
+                    int num3 = (int)((double)image.Height * num);
+                    using (Bitmap bitmap = new Bitmap(num2, num3))
+                    {
+                        Graphics graphics = Graphics.FromImage(bitmap);
+                        graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        graphics.CompositingQuality = CompositingQuality.HighQuality;
+                        graphics.DrawImage(image, new Rectangle(0, 0, num2, num3));
+                        string fileName = System.DateTime.Now.ToString().Replace(@"/", "-").Replace(":", "-") + ".jpg";
+
+                        bitmap.Save(specificFolder + @"\" + fileName, ImageFormat.Jpeg);
+                        ApplicationScreenshots applicationScreenshots = new ApplicationScreenshots();
+                        applicationScreenshots.ScreenshotName = fileName;
+                        applicationScreenshots.SnapDatetime = System.DateTime.Now;
+                        currentApplication.Usage.FindLast(u => !u.IsClosed).AddScreenShot(applicationScreenshots);
+
+                        bitmap.Dispose();
+                        graphics.Dispose();
+                    }
+                    memoryStream.Dispose();
+                    image.Dispose();
+
+                }
+                
+            
+            
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+        }
 
 
+
+        public void RunFileWatcher()
+        {
+            //while (true)
+            //{
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            foreach (DriveInfo drive in drives)
+            {
+                if (drive.IsReady)
+                {
+                    string drivePath = drive.RootDirectory.FullName;
+
+                    FileSystemWatcher watcher = new FileSystemWatcher();
+                    watcher.Path = drivePath;
+
+                    watcher.NotifyFilter = NotifyFilters.Attributes
+                                         | NotifyFilters.CreationTime
+                                         | NotifyFilters.DirectoryName
+                                         | NotifyFilters.FileName
+                                         | NotifyFilters.LastAccess
+                                         | NotifyFilters.LastWrite
+                                         | NotifyFilters.Security
+                                         | NotifyFilters.Size;
+
+                    watcher.IncludeSubdirectories = true;
+
+                    watcher.Created += OnFileActivity;
+                    //  watcher.Changed += OnFileActivity;
+                    watcher.Deleted += OnFileActivity;
+                    watcher.Renamed += OnFileRenamed;
+
+                    watcher.EnableRaisingEvents = true;
+                }
+            }
+            //}
+
+        }
+
+        private  void OnFileActivity(object sender, FileSystemEventArgs e)
+        {
+            if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data") && !e.FullPath.StartsWith("."))
+            {
+                string logMessage = $"{DateTime.Now} - {e.ChangeType}: {e.FullPath}";
+                LogToFile(new FileLog
+                {
+                   LogDateTime = DateTime.Now,
+                   Action =e.ChangeType.ToString(),
+                   Source= e.FullPath,
+                   Destination = e.Name
+
+                });
+            }
+
+        }
+
+        private  void OnFileRenamed(object sender, RenamedEventArgs e)
+        {
+            if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data") && !e.FullPath.StartsWith("."))
+            {
+                string logMessage = $"{DateTime.Now} - {e.ChangeType}: {e.OldFullPath} renamed to {e.FullPath}";
+                LogToFile(new FileLog
+                {
+                    LogDateTime = DateTime.Now,
+                    Action = e.ChangeType.ToString(),
+                    Source = e.OldFullPath,
+                    Destination = e.FullPath
+
+                });
+             
+            }
+        }
+
+        public void LogToFile(FileLog message)
+        {
+            _appUpdater.FileLogCreate(message);
+
+
+        }
         private void ApplicationsUpdater()
         {
             var startTimeSpan = TimeSpan.Zero;
@@ -137,14 +348,7 @@ namespace ActivityMonitor.ApplicationMonitor
             while (!_requestStop) { 
             try
             {
-                string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-                // Combine the base folder with your specific folder....
-                string specificFolder = Path.Combine(folder, "DMSSnaps");
-                 if (!Directory.Exists(specificFolder))
-                 {
-                        Directory.CreateDirectory(specificFolder);
-                 }
+              
                  var handle = WinApi.GetForegroundWindow();
                 //var handle = WinApi.GetActiveWindow();
                 int processId;
@@ -162,81 +366,55 @@ namespace ActivityMonitor.ApplicationMonitor
                 var idleTime = (Environment.TickCount - inputInfo.dwTime) / 1000;
                 if (idleTime < _idleInterval && _sessionStopped == false)
                 { // If idle time is less than _idleInterval then update process
-                        if (process.ProcessName.ToLower().Contains("chrome"))
+                         if (process.ProcessName.ToLower().Contains("chrome"))
                         {
-                            var currentApplication = _appUpdater.Update(process, GetActiveTabUrl());
+                            var currentApplication = _appUpdater.Update(process, GetChromeActiveTabUrl());
                             if (currentApplication != null)
                             {
 
-            
-    
-    try
-    {
-        Bitmap captureBitmap = new Bitmap(1024, 768, PixelFormat.Format32bppArgb);
-        //Bitmap captureBitmap = new Bitmap(int width, int height, PixelFormat);
-        //Creating a Rectangle object which will
-        //capture our Current Screen
-        Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
-        //Creating a New Graphics Object
-        Graphics captureGraphics = Graphics.FromImage(captureBitmap);
-        //Copying Image from The Screen
-        captureGraphics.CopyFromScreen(captureRectangle.Left, captureRectangle.Top, 0, 0, captureRectangle.Size);
-        //Saving the Image File (I am here Saving it in My E drive).
-        string fileName = System.DateTime.Now.ToString().Replace(@"/", "-").Replace(":", "-") + ".jpg";
-        captureBitmap.Save(specificFolder + @"\" + fileName, ImageFormat.Jpeg);
-        ApplicationScreenshots applicationScreenshots = new ApplicationScreenshots();
-        applicationScreenshots.ScreenshotName = fileName;
-        applicationScreenshots.SnapDatetime = System.DateTime.Now;
-                                    currentApplication.Usage.FindLast(u => !u.IsClosed).AddScreenShot(applicationScreenshots);
 
-    }catch(Exception ex)
-    {
 
-    }
 
+                                CaptureScreenshot(currentApplication);
 
 
                                 CurrentApplicationName = currentApplication.Name;
                                 CurrentApplicationTotalUsageTime = currentApplication.TotalUsageTime;
                                 CurrentApplicationPath = currentApplication.Path;
                                 CurrentApplicationIcon = currentApplication.Icon;
-                                if (currentApplication.Name.Contains("chrome"))
-                                {
-
-                                }
+                                
                             }
                         }
+                        else if (process.ProcessName.ToLower().Contains("edge"))
+                        {
+
+                            var currentApplication = _appUpdater.Update(process, GetEdgeActiveTabUrl());
+                            if (currentApplication != null)
+                            {
+
+
+
+
+                                CaptureScreenshot(currentApplication);
+
+
+                                CurrentApplicationName = currentApplication.Name;
+                                CurrentApplicationTotalUsageTime = currentApplication.TotalUsageTime;
+                                CurrentApplicationPath = currentApplication.Path;
+                                CurrentApplicationIcon = currentApplication.Icon;
+                                
+                            }
+                        }
+
+
                         else
                         {
-                            var currentApplication = _appUpdater.Update(process,"");
+                            var currentApplication = _appUpdater.Update(process, "");
                             if (currentApplication != null)
                             {
 
+                                CaptureScreenshot(currentApplication);
 
-   
-    try
-    {
-        Bitmap captureBitmap = new Bitmap(1024, 768, PixelFormat.Format32bppArgb);
-        //Bitmap captureBitmap = new Bitmap(int width, int height, PixelFormat);
-        //Creating a Rectangle object which will
-        //capture our Current Screen
-        Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
-        //Creating a New Graphics Object
-        Graphics captureGraphics = Graphics.FromImage(captureBitmap);
-        //Copying Image from The Screen
-        captureGraphics.CopyFromScreen(captureRectangle.Left, captureRectangle.Top, 0, 0, captureRectangle.Size);
-        //Saving the Image File (I am here Saving it in My E drive).
-        string fileName = System.DateTime.Now.ToString().Replace(@"/", "-").Replace(":", "-") + ".jpg";
-        captureBitmap.Save(specificFolder + @"\" + fileName, ImageFormat.Jpeg);
-                                    ApplicationScreenshots applicationScreenshots = new ApplicationScreenshots();
-                                    applicationScreenshots.ScreenshotName = fileName;
-                                    applicationScreenshots.SnapDatetime = System.DateTime.Now;
-                                    currentApplication.Usage.FindLast(u => !u.IsClosed).AddScreenShot(applicationScreenshots);
-
-    }catch(Exception ex)
-    {
-      
-    }
 
 
                                 CurrentApplicationName = currentApplication.Name;
@@ -249,8 +427,10 @@ namespace ActivityMonitor.ApplicationMonitor
                                 }
                             }
                         }
-                  
-                }
+
+                      
+
+                    }
                 else
                 {
                      //Update User Idle Time
@@ -286,7 +466,15 @@ namespace ActivityMonitor.ApplicationMonitor
                 _data = value;                
             }
         }
-
+        private FileLog _F;
+        public FileLog f
+        {
+            get { return _F; }
+            private set
+            {
+                _F = value;
+            }
+        }
 
         
         public string CurrentApplicationName

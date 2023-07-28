@@ -1,5 +1,8 @@
 ﻿@{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Project Management DashBoard";
+
 }
 @addTagHelper *, Syncfusion.EJ2
 <header class="main-heading">
@@ -11,14 +14,237 @@
                 </div>
                 <div class="page-title">
                     <h5>Project</h5>
-                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                    <h6 class="sub-heading">  </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">Last Login: 2 hours ago</span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
+<div class="main-content">
+
+    <div class="row gutters">
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col">
+            <a href="#" class="block-140">
+                <div class="icon primary">
+                    <i class="icon-users"></i>
+                </div>
+                <h5>@ViewBag.myProjects.Count</h5>
+                <p>No Of My Projects</p>
+            </a>
+
+        </div>
+
+
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col">
+            <a href="#" class="block-140">
+                <div class="icon primary">
+                    <i class="icon-users"></i>
+                </div>
+                <h5>@ViewBag.myOpenTasks.Count</h5>
+                <p>My Open Task</p>
+            </a>
+
+        </div>
+
+
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col">
+            <a href="#" class="block-140">
+                <div class="icon primary">
+                    <i class="icon-users"></i>
+                </div>
+                <h5>@ViewBag.overDueTasks.Count</h5>
+                <p>OverDue Task</p>
+            </a>
+
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col">
+            <a href="#" class="block-140">
+                <div class="icon primary">
+                    <i class="icon-users"></i>
+                </div>
+                <h5>@ViewBag.myTotalDelayReasonSubmitPending.Count</h5>
+                <p>Delay Reason Submit Pending</p>
+            </a>
+
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col">
+            <a href="#" class="block-140">
+                <div class="icon primary">
+                    <i class="icon-users"></i>
+                </div>
+                <h5>@ViewBag.myTotalDelayTaskForValidation.Count</h5>
+                <p>Delay Validation Pending</p>
+            </a>
+
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col">
+            <a href="#" class="block-140">
+                <div class="icon primary">
+                    <i class="icon-users"></i>
+                </div>
+                <h5>@ViewBag.myTotalDelayTaskRejected.Count</h5>
+                <p>Delay Reason Rejected</p>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="row gutters">
+
+
+
+
+        <div class="col-xl-8 col-lg-8 col-md-5 col-sm-12">
+            <div class="card">
+                <div class="card-header">Effort Analysys</div>
+                <div class="card-body">
+
+                    <ejs-chart id="monthcontainer" title="Effort Analysys">
+                        <e-chart-tooltipsettings enable="true">
+                        </e-chart-tooltipsettings>
+                        <e-chart-primaryxaxis valueType="@Syncfusion.EJ2.Charts.ValueType.DateTime"
+                                              edgeLabelPlacement="@Syncfusion.EJ2.Charts.EdgeLabelPlacement.Shift">
+                            <e-majorgridlines width="0"></e-majorgridlines>
+                        </e-chart-primaryxaxis>
+                        <e-chart-primaryyaxis title="Effort in %"
+                                              minimum="0"
+                                              maximum="200"
+                                              interval="20">
+                            <e-linestyle width="0"></e-linestyle>
+                            <e-majorticklines width="0"></e-majorticklines>
+                        </e-chart-primaryyaxis>
+                        <e-chart-chartarea>
+                            <e-chartarea-border width="0"></e-chartarea-border>
+                        </e-chart-chartarea>
+                        <e-chart-legendsettings enableHighlight="true">
+                        </e-chart-legendsettings>
+                        <e-series-collection>
+                            <e-series dataSource="ViewBag.effortAnalysys" name="Dates" xName="ForDate" width="2" opacity="1" yName="EffortPercentage" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line">
+                                <e-series-marker visible="true" height="7" width="7" shape="@Syncfusion.EJ2.Charts.ChartShape.Circle" isFilled="true"></e-series-marker>
+                            </e-series>
+                         
+
+                        </e-series-collection>
+                    </ejs-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row gutters">
+
+
+
+
+        <div class="col-xl-12 col-lg-12 col-md-5 col-sm-12">
+            <div class="card">
+                <div class="card-header">Project Analysys</div>
+                <div class="card-body">
+                    <ejs-chart id="lineContainer"  title="Projects" enableSideBySidePlacement="false">
+                        <e-chart-tooltipsettings enable="true" shared="true">
+                        </e-chart-tooltipsettings>
+                        <e-chart-legendsettings visible="true">
+                        </e-chart-legendsettings>
+                        <e-chart-primaryxaxis valueType="@Syncfusion.EJ2.Charts.ValueType.Category" interval=1>
+                            <e-majorgridlines width="0"></e-majorgridlines>
+                            <e-majorticklines width="0"></e-majorticklines>
+                        </e-chart-primaryxaxis>
+                        <e-chart-primaryyaxis title="Task Completion">
+                            <e-majorticklines width="0"></e-majorticklines>
+                            <e-linestyle width="0"></e-linestyle>
+                        </e-chart-primaryyaxis>
+
+                        <e-chart-chartarea>
+                            <e-chartarea-border width="0"></e-chartarea-border>
+                        </e-chart-chartarea>
+                        <e-series-collection>
+                          
+                            <e-series dataSource="ViewBag.projectSummery" xName="ProjectCode" yName="OpenTaskCount" name="Total Open Task" width=2 columnWidth=0.3 type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
+                               
+                            </e-series>
+                            <e-series dataSource="ViewBag.projectSummery" xName="ProjectCode" yName="WorkingTaskCount" name="Pending Working Progress" width=2 columnWidth=0.3 type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
+                               
+                            </e-series>
+                            <e-series dataSource="ViewBag.projectSummery" xName="ProjectCode" yName="ReviewTaskCount" name="Review Task" width=2 columnWidth=0.3 type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
+                              
+                            </e-series>
+
+
+                            <e-series dataSource="ViewBag.projectSummery" xName="ProjectCode" yName="OverdueTaskCount" name="Overdue Task" width=2 columnWidth=0.3 type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
+                                
+                            </e-series>
+                            <e-series dataSource="ViewBag.projectSummery" xName="ProjectCode" yName="CompletedTaskCount" name="Completed" width=2 columnWidth=0.3 type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
+                               
+                            </e-series>
+                            <e-series dataSource="ViewBag.projectSummery" xName="ProjectCode" yName="CancelledTaskCount" name="Cancelled" width=2 columnWidth=0.3 type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
+                              
+                            </e-series>
+                        </e-series-collection>
+                    </ejs-chart>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="row gutters">
+
+
+
+
+        <div class="col-xl-12 col-lg-12 col-md-5 col-sm-12">
+            <div class="card">
+                <div class="card-header">Project Time Uses Analysys</div>
+                <div class="card-body">
+                    <ejs-chart id="projectTimeSheetlineContainer"  title="Effort Hours" enableSideBySidePlacement="false">
+                        <e-chart-tooltipsettings enable="true" shared="true">
+                        </e-chart-tooltipsettings>
+                        <e-chart-legendsettings visible="true">
+                        </e-chart-legendsettings>
+                        <e-chart-primaryxaxis valueType="@Syncfusion.EJ2.Charts.ValueType.Category" interval=1>
+                            <e-majorgridlines width="0"></e-majorgridlines>
+                            <e-majorticklines width="0"></e-majorticklines>
+                        </e-chart-primaryxaxis>
+                        <e-chart-primaryyaxis title="Effort Hours">
+                            <e-majorticklines width="0"></e-majorticklines>
+                            <e-linestyle width="0"></e-linestyle>
+                        </e-chart-primaryyaxis>
+                        <e-chart-chartarea>
+                            <e-chartarea-border width="0"></e-chartarea-border>
+                        </e-chart-chartarea>
+                        <e-series-collection>
+                            <e-series dataSource="ViewBag.projectEffortUsesAnalysys" xName="ProjectCode" yName="PlannedEffortHours" name="Planned Effort Hours" width=2 columnWidth=0.5 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                                <e-series-marker>
+                                    <e-series-datalabel visible="true" name="DataLabelMappingName" position="@Syncfusion.EJ2.Charts.LabelPosition.Top">
+                                        <e-font fontWeight="600" color="#ffffff"></e-font>
+                                    </e-series-datalabel>
+                                </e-series-marker>
+                            </e-series>
+                            <e-series dataSource="ViewBag.projectEffortUsesAnalysys" xName="ProjectCode" yName="EffotHourUsed" name="Effort Hour Consumed" width=2 columnWidth=0.4 type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column">
+                                <e-series-marker>
+                                    <e-series-datalabel visible="true" position="@Syncfusion.EJ2.Charts.LabelPosition.Top">
+                                        <e-font fontWeight="600" color="#ffffff"></e-font>
+                                    </e-series-datalabel>
+                                </e-series-marker>
+                            </e-series>
+                          
+                        </e-series-collection>
+                    </ejs-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

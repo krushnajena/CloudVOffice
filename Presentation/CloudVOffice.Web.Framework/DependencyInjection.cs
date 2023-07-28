@@ -15,7 +15,7 @@ using CloudVOffice.Services.HR;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Projects;
-using CloudVOffice.Services.Recruitment;
+
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 
@@ -88,32 +88,15 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
 			#endregion
 
-			#region Recruitment
-			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
-			services.AddScoped<IJobApplicationService, JobApplicationService>();
-            services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
-            services.AddScoped<IInterviewTypeService, InterviewTypeService>();
-            services.AddScoped<IInterviewRoundService, InterviewRoundService>();
-			services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
-			#endregion
+
 
 			#region DesktopLogin
 			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
 			services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
             services.AddScoped<IRestrictedApplicationService, RestrictedApplicationService>();
-			#endregion
-
-
-			#region DesktopLogin
-			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
-            #endregion
-            #region Recruutment
-            services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
-			#endregion
-
-			#region DesktopLogin
-			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+		
+			
             services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
 			#endregion
 

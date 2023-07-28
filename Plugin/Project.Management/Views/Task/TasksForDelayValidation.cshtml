@@ -1,5 +1,6 @@
-﻿@{
+﻿    @{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "Tasks For Delay Validation";
 }
 @addTagHelper *, Syncfusion.EJ2
 <header class="main-heading">
@@ -11,12 +12,12 @@
                 </div>
                 <div class="page-title">
                     <h5>Project</h5>
-                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                    <h6 class="sub-heading">  </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">Last Login: 2 hours ago</span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
@@ -29,7 +30,7 @@
                 <div class="card-header">Task</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.tasks"
+                    <ejs-grid id="GridOverview" dataSource=" ViewBag.tasks"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -39,40 +40,136 @@
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})"
                               actionComplete="actionComplete">
-                        <e-grid-editSettings 
-                        allowAdding="false" 
-                        allowDeleting="false"
-                        allowEditing="true"
-                        mode="Dialog"
-                        template='#dialogtemplate'>
+                        <e-grid-editSettings allowAdding="false"
+                                             allowDeleting="false"
+                                             allowEditing="true"
+                                             mode="Dialog"
+                                             template='#dialogtemplate'>
 
 
                         </e-grid-editSettings>
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="ProjectCode" headerText="Project Code" textAlign="Left" width="2s00"></e-grid-column>
+                            <e-grid-column field="ProjectTaskId" visible="false" headerText="ProjectTaskId" isPrimaryKey="true" validationRules="@(new { required=true, number=true})" textAlign="Left" width="200"></e-grid-column>
+
+
                             <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ComplitedHour" headerText="Complited Hour " textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="TaskName" headerText="Task Name" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="PlannedHour" headerText="Planned Hour" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="TotalHoursByTimeSheet" headerText="Hours Sped By Timesheet" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="PlannedEndDate" headerText="Hours Sped By Timesheet" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="ActualEndDate" headerText="Hours Sped By Timesheet" textAlign="Left" width="200"></e-grid-column>
+
+
+                            
                             <e-grid-column field="AssignedTo" headerText="Assigned To" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="TasksForDelayValidation" headerText="TasksForDelayValidation" textAlign="Left" width="240"></e-grid-column>
+                            <e-grid-column field="DelayReason" headerText="Delay Reason" textAlign="Left" width="200"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
-<script id="Actions" type="text/x-template">
-    <div class="link">
-        <a href="../../Projects/ProjectTask/ProjectTaskCreate?ProjectTaskId=${ProjectTaskId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+
+
+<script id='dialogtemplate' type="text/x-template">
+
+         <div id="dialogTemp">
+
+                <div class="form-group">
+                     <div class="form-row">
+
+
+
+                            <div class="form-group col-md-12">
+                                <label for="IsDelayApproved" class="form-label">Take Action</label>
+                                <select id="IsDelayApproved"  class="form-control"  name="IsDelayApproved" >
+                                    <option value="1">Approve</option>
+                                    <option value="2">Reject</option>
+
+                                </select>
+                            </div>
+
+
+                            <div class="form-group col-md-12">
+                                <label for="DelayApprovalReason" class="form-label">Remark</label>
+
+                                 <textarea id="DelayApprovalReason"  class="form-control"  name = "DelayApprovalReason"  >
+                                    </textarea>
+
+
+                            </div>
+
+                        </div>
+
+
+                </div>
+
     </div>
-</script>
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
+
 </script>
 <script>
+    function actionComplete(args) {
+        console.log(args);
+        if (args.requestType === 'beginEdit') {
+            var dialog = args.dialog;
+
+            dialog.header = 'Timesheet Validation';
+
+        }
+        else if (args.requestType === 'save') {
+            var model = { "DelayApprovalReason": args.data.DelayApprovalReason, "IsDelayApproved": args.data.IsDelayApproved, "TaskId": args.data.ProjectTaskId };
+            console.log(
+                model
+            )
+            $.ajax({
+                type: "POST",
+                url: '/Projects/Task/TaskDelayApproval',
+                data: model,
+
+                success: function (result) {
+                    console.log(result);
+                    if (result == "10") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Task",
+                            text: "Successfully Approved.",
+                            type: "success"
+                        });
+                    }
+                    else if (result == "11") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Task",
+                            text: "Successfully Rejected.",
+                            type: "success"
+                        });
+                    }
+                    else {
+                        sweetAlert({
+                            html: true,
+                            icon: "error",
+                            title: "Task",
+                            text: message,
+                            type: "error"
+                        });
+                    }
+
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+
+    }
+
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
@@ -93,12 +190,7 @@
                 args.image = { base64: args.data["EmployeeImage"] };
             }
         }
-        if (args.column.headerText === 'Track') {
-            args.hyperLink = {
-                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
-                displayText: "Track"
-            };
-        }
+        
     };
 
 </script>

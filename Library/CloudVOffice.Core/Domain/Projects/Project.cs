@@ -16,6 +16,7 @@ namespace CloudVOffice.Core.Domain.Projects
         public string ProjectName { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set;}
+        public int? EffortHourRequired { get; set; }
         public string Status { get;set; }
         public int ProjectTypeId { get; set; }
         public string Priority { get; set; }

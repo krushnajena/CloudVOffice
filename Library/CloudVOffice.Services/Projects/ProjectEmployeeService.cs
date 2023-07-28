@@ -87,7 +87,7 @@ namespace CloudVOffice.Services.Projects
 		public MessageEnum ProjectEmployeeCreate(ProjectEmployeeDTO projectEmployeeDTO)
 		{
 
-			var objCheck = _Context.ProjectEmployees.SingleOrDefault(opt => opt.EmployeeId == projectEmployeeDTO.EmployeeId && opt.Deleted == false);
+			var objCheck = _Context.ProjectEmployees.SingleOrDefault(opt => opt.EmployeeId == projectEmployeeDTO.EmployeeId && opt.Deleted == false &&  opt.ProjectId ==  projectEmployeeDTO.ProjectId);
 			try
 			{
 				if (objCheck == null)

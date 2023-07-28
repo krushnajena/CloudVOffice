@@ -33,15 +33,15 @@ namespace CloudVOffice.Core.Domain.Projects
 
 		public string? TaskComplitedByOthersReasonByAssign { get; set; }
 		public string? TaskComplitedByOthersReasonByComplitedBy { get; set; }
-		
-		public int? IsDelayApproved { get; set; }//0=Submitted,1 = Approved, 2 = Rejected,
+
+		public int? IsDelayApproved { get; set; } = null;//0=Submitted,1 = Approved, 2 = Rejected,
 		public string? DelayReason { get; set; }
 		public Int64? DelayApprovedBy { get; set; }
 		public DateTime? DelayApprovedOn { get; set; }
 		public string? DelayApprovalReason { get; set; }
 		public double? TotalHoursByTimeSheet { get; set; }
 		public double? TotalBillableHourByTimeSheet { get; set; }
-
+		
 		public Int64 CreatedBy { get; set; }
 		public DateTime CreatedDate { get; set; }
 		public Int64? UpdatedBy { get; set; }

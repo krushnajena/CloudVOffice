@@ -31,9 +31,16 @@ namespace CloudVOffice.Services.Projects
 		public List<ProjectTask> GetMYTaskComplitedByOthersReport( Int64? EmployeeId);
         public List<ProjectTask> GetTasksForDelayValidation(Int64? Userid, Int64? EmployeeId);
 
+		public ProjectTask UpdateTimeSheetHour(Int64 TaskId, Double? Hour);
+
 		public MessageEnum ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO);
 		public MessageEnum TaskDelayReasonUpdate(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO);
 		public MessageEnum TaskComplitedByOthersReasonUpdate(TaskComplitedByOthersReasonUpdateDTO taskComplitedByOthersReasonUpdateDTO);
 
-	}
+        public MessageEnum TaskApproval(TaskApprovalDTO timesheetApprovalDTO);
+		
+		public void TodayDueProjectTasksSendNotification();
+
+		public void MarkTaskOverDueAndSendNotification();
+    }
 }

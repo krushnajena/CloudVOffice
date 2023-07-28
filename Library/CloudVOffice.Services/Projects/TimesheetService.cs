@@ -1,9 +1,21 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Company;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Core.Domain.EmailTemplates;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Data.ViewModel.Projects;
+using CloudVOffice.Services.Company;
+using CloudVOffice.Services.Comunication;
+using CloudVOffice.Services.Email;
+using CloudVOffice.Services.EmailTemplates;
+using CloudVOffice.Services.Emp;
+using CloudVOffice.Services.HR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,11 +29,45 @@ namespace CloudVOffice.Services.Projects
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<Timesheet> _timesheetRepo;
-        public TimesheetService(ApplicationDBContext Context, ISqlRepository<Timesheet> timesheetRepo)
+        private readonly IProjectTaskService _projectTaskService;
+        private readonly IHRSettingsService _hrSettingsService;
+
+
+        private readonly IEmailTemplateService _emailTemplateService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICompanyDetailsService _companyDetailsService;
+        private readonly ILetterHeadService _letterHeadService;
+        private readonly IEmailAccountService _emailAccountService;
+        private readonly IEmailService _emailService;
+        public TimesheetService(ApplicationDBContext Context, ISqlRepository<Timesheet> timesheetRepo,
+            IProjectTaskService projectTaskService,
+            IHRSettingsService hrSettingsService,
+
+
+
+
+              IEmailTemplateService emailTemplateService,
+             IHttpContextAccessor httpContextAccessor,
+             ICompanyDetailsService companyDetailsService,
+             ILetterHeadService letterHeadService,
+             IEmailAccountService emailAccountService,
+        IEmailService emailService,
+        IEmployeeService employeeService
+            )
         {
 
             _Context = Context;
             _timesheetRepo = timesheetRepo;
+            _projectTaskService = projectTaskService;
+            _hrSettingsService= hrSettingsService;
+
+            _emailTemplateService = emailTemplateService;
+            _httpContextAccessor = httpContextAccessor;
+            _letterHeadService = letterHeadService;
+            _companyDetailsService = companyDetailsService;
+            _emailAccountService = emailAccountService;
+            _emailService = emailService;
+         
         }
 
         public List<Timesheet> GetMyTimeSheets(long EmployeeId)
@@ -249,8 +295,12 @@ namespace CloudVOffice.Services.Projects
             try
             {
                 var timesheet = _Context.Timesheets.Where(x => x.TimesheetId == timesheetApprovalDTO.TimesheetId && x.Deleted == false).FirstOrDefault();
+                
                 if (timesheet != null)
                 {
+
+                    if(timesheet.TaskId !=null) 
+                        _projectTaskService.UpdateTimeSheetHour(Int64.Parse(timesheet.TaskId.ToString()), timesheet.DurationInHours);
                     timesheet.TimeSheetApprovalStatus = timesheetApprovalDTO.TimeSheetApprovalStatus;
                     timesheet.TimeSheetApprovalRemarks = timesheetApprovalDTO.TimesheetApprovalRemarks;
                     timesheet.TimeSheetApprovedOn = DateTime.Now;
@@ -271,6 +321,151 @@ namespace CloudVOffice.Services.Projects
             {
                 throw;
             }
+        }
+        public List<Timesheet> GetTimeSheetWitDateRange(DateTime FromDate, DateTime ToDate, Int64 EmployeeId) { 
+            return _Context.Timesheets.Where(x=>x.EmployeeId == EmployeeId && x.TimeSheetForDate>=FromDate && x.TimeSheetForDate<=ToDate && x.TimeSheetApprovalStatus!=2 && x.Deleted == false).ToList();
+        }
+
+        public List<TimeSheetLineChartModel> TimeSheetEffortAnalysis(DateTime FromDate, DateTime ToDate, Int64 EmployeeId)
+        {
+            List<TimeSheetLineChartModel> timeSheetLineChartModels = new List<TimeSheetLineChartModel>();
+            var hrsettings = _hrSettingsService.GetHrSettings();
+            double workingHours = (double)hrsettings.StandardWorkingHours * 60;
+            double breakeHour = (double)hrsettings.BreakHours;
+            double systemHour = (workingHours - breakeHour) / 60;
+         var timeSheets =    GetTimeSheetWitDateRange(
+            FromDate,
+          ToDate,
+            EmployeeId
+            ).ToList();
+            for (DateTime dt = FromDate; dt <= ToDate; dt = dt.AddDays(1))
+            {
+                var todayTimeSheet = timeSheets.Where(x => x.TimeSheetForDate == dt).ToList();
+                double totatlTimeSpent = 0.0;
+                for (int j = 0; j < todayTimeSheet.Count; j++)
+                {
+                    int hour = 0;
+                    int min = 0;
+
+                    if (totatlTimeSpent.ToString().Split(".").Count() == 2)
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
+                        min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString());
+
+                    }
+                    int hour1 = 0;
+                    int min1 = 0;
+
+                    if (todayTimeSheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                    {
+                        hour1 = int.Parse(todayTimeSheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                        min1 = int.Parse(todayTimeSheet[j].DurationInHours.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour1 = int.Parse(todayTimeSheet[j].DurationInHours.ToString());
+
+                    }
+
+
+
+
+
+                    hour1 = hour1 + hour;
+                    min1 = min1 + min;
+                    TimeSpan hours = TimeSpan.FromMinutes(min1);
+                    hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                    int min2 = int.Parse(hours.ToString("mm"));
+                    string finalno = hour1.ToString() + "." + min2.ToString();
+                    totatlTimeSpent = double.Parse(finalno);
+                }
+                timeSheetLineChartModels.Add(new TimeSheetLineChartModel
+                {
+                    ForDate = dt,
+                    EffortPercentage = double.Parse(((totatlTimeSpent / systemHour) * 100).ToString("0.00"))
+                });
+
+
+            }
+            return timeSheetLineChartModels; 
+        }
+
+        public List<Timesheet> GetNotRejectedTimesheetByProjectId(int ProjectId)
+        {
+            return _Context.Timesheets.Where(x=>x.ProjectId == ProjectId && x.TimeSheetApprovalStatus != 2 && x.Deleted == false ).ToList();
+        }
+        public void TimesheetUpdateRemiderSendNotification()
+        {
+            try
+            {
+                var list = _Context.Timesheets.Where(x=>x.TimeSheetForDate == DateTime.Today.AddDays(-1) && x.Deleted == false).ToList();
+                var employees = _Context.Employees.Where(x=>list.All(a=>a.EmployeeId!=x.EmployeeId) && x.Deleted == false && x.Status == "Active").ToList();
+                for(int i=0;i<employees.Count;i++)
+                {
+                    SendTimeSheetNotification(employees[i]);
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        private async void SendTimeSheetNotification(Employee employee)
+        {
+            string baseUrl = "https://insider.appman.tech";
+
+            EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName("ProjectAssignment");
+            string emailTemp = emailTemplate.EmailTemplateDescription.Trim();
+            CompanyDetails company = _companyDetailsService.GetCompanyDetails();
+            LetterHead letter = _letterHeadService.GetLetter();
+            EmailAccount emailA = _emailAccountService.GetDefaultEmail(emailTemplate.DefaultSendingAccount);
+            StringBuilder stringBuilder = new StringBuilder(emailTemp);
+           
+            if (company != null)
+            {
+                stringBuilder = stringBuilder.Replace("{%emailogo%}", "<img src='" + baseUrl + "/uploads/setup/" + company.CompanyLogo + "' height=\"40\" style=\"border:0;margin:auto auto 10px;max-height:40px;outline:none;text-align:center;text-decoration:none;width:auto\" align=\"center\" width=\"auto\" class=\"CToWUd\" data-bit=\"iit\" jslog=\"138226; u014N:xr6bB; 53:WzAsMl0.\">");
+
+                stringBuilder = stringBuilder.Replace("{%companyname%}", company.CompanyName);
+                stringBuilder = stringBuilder.Replace("{%address%}", company.AddressLine1 + ", " + company.AddressLine2 + ", " + company.City + ", " + company.State + ", " + company.Country + " - " + company.PostalCode);
+
+            }
+            if (emailA != null)
+            {
+                stringBuilder = stringBuilder.Replace("{%emailsignature%}", emailA.EmailSignature);
+            }
+            if (letter != null)
+            {
+                stringBuilder = stringBuilder.Replace("{%footerletterhera%}", "<img src='" + baseUrl + "/uploads/setup/" + letter.LetterHeadFooterImage + "' style='hight:" + letter.LetterHeadImageFooterHeight + "; width:" + letter.LetterHeadImageFooterWidth + "'>");
+            }
+
+            stringBuilder = stringBuilder.Replace("{%Name%}", employee.FirstName);
+
+            stringBuilder = stringBuilder.Replace("{%Date%}", DateTime.Today.AddDays(-1).ToString("dd-MMM-yyyy"));
+
+            stringBuilder = stringBuilder.Replace("{%appname%}", baseUrl);
+
+
+            await _emailService.SendEmailAsync(new MailRequest
+            {
+                SenderEmail = emailA.EmailAddress,
+                MailBoxName = emailA.EmailAccountName,
+                MailBoxEmail = emailA.AlternativeEmailAddress,
+                Host = emailA.EmailDomain.OutingServer,
+                Port = emailA.EmailDomain.OutgoingPort,
+                AuthEmail = emailA.EmailAddress,
+                AuthPassword = emailA.EmailPassword,
+                ToEmail = employee.CompanyEmail,
+                Subject = emailTemplate.Subject,
+                Body = stringBuilder.ToString()
+
+            });
+
         }
     }
 }

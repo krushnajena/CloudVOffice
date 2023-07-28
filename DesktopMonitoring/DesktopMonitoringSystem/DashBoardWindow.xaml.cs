@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace DesktopMonitoringSystem
 {
@@ -19,11 +20,19 @@ namespace DesktopMonitoringSystem
     /// </summary>
     public partial class DashBoardWindow : Window
     {
+        DateTime dt;
+       
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if(dt!=null)
+                lbl_Timer.Content = "Total Duration :- "+ ( DateTime.Now - dt).Hours.ToString() + ":" +  (DateTime.Now - dt).Minutes.ToString()+":" +  (DateTime.Now - dt).Seconds;
+        }
         public DashBoardWindow()
         {
             InitializeComponent();
           
             lbl_tittle.Text = "Dashboard";
+
             PagesNavigation.Navigate(new System.Uri("Pages/Home.xaml", UriKind.RelativeOrAbsolute));
         }
 
@@ -120,6 +129,20 @@ namespace DesktopMonitoringSystem
         private void btn_Exit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Window_Loaded_1(object sender, RoutedEventArgs e)
+        {
+            if (dt != null)
+            {
+                dt = DateTime.Now;
+                DispatcherTimer dispatcherTimer = new DispatcherTimer();
+                dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+                dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+                dispatcherTimer.Start();
+            }
+
+      
         }
     }
 }

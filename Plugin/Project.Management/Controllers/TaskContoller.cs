@@ -24,6 +24,7 @@ namespace Project.Management.Controllers
         private readonly IProjectService _projectService;
 
         private readonly IEmployeeService _empolyeeService;
+        
 
         public TaskController(IProjectTaskService projectTaskService, IProjectService projectService, IEmployeeService empolyeeService)
         {
@@ -35,8 +36,33 @@ namespace Project.Management.Controllers
         public IActionResult Tasks(int ProjectId)
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
+            var b = a.Select(
+                x => new
+                {
+                    x.Project,
+                    x.ProjectId,
+                    x.IsGroup,
+                    x.EmployeeId,
+                    x.Deleted,
+                    x.CreatedDate,
+                    x.DelayApprovalReason,
+                    x.DelayApprovedBy,
+                    x.DelayApprovedOn,
+                    x.DelayReason,
+                    x.Employee,
+                    ExpectedEndDate = x.ExpectedEndDate !=null?DateTime.Parse(  x.ExpectedEndDate.ToString()).ToString("dd-MMM-yyyy"):"",
+                    x.ExpectedStartDate,
+                    x.ExpectedTimeInHours,
+                    x.TaskAssignments,
+                    x.TaskName,
+                    x.TaskStatus,
+                    x.AssignedTo,
+                    x.TaskDescription
+                }
+                ).ToList();
             ViewBag.ProjectId = ProjectId;
-            ViewBag.Tasks = a.AsEnumerable();
+
+            ViewBag.Tasks = b.AsEnumerable();
             return View("~/Plugins/Project.Management/Views/Task/Tasks.cshtml");
         }
         public IActionResult GetProjectTasks(int ProjectId)
@@ -97,7 +123,7 @@ namespace Project.Management.Controllers
             }
             else
             {
-                return Redirect("/Projects/Task/TaskView");
+                return Redirect("/Projects/Task/TaskList");
             }
 
 
@@ -105,6 +131,8 @@ namespace Project.Management.Controllers
         [HttpPost]
         public IActionResult TaskCreate(ProjectTaskDTO projectTaskDTO)
         {
+
+
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             projectTaskDTO.CreatedBy = UserId;
             Int64 EmployeeId = _empolyeeService.GetEmployeeDetailsByUserId(UserId).EmployeeId;
@@ -119,7 +147,7 @@ namespace Project.Management.Controllers
                     if (a == MessageEnum.Success)
                     {
                         TempData["msg"] = MessageEnum.Success;
-                        return Redirect("/Projects/Task/TaskView");
+                        return Redirect("/Projects/Task/TaskList");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
@@ -138,7 +166,7 @@ namespace Project.Management.Controllers
                     if (a == MessageEnum.Updated)
                     {
                         TempData["msg"] = MessageEnum.Updated;
-                        return Redirect("/Projects/Task/TaskView");
+                        return Redirect("/Projects/Task/TaskList");
                     }
                     else if (a == MessageEnum.Duplicate)
                     {
@@ -342,17 +370,21 @@ namespace Project.Management.Controllers
             {
                 EmployeeId = 0;
             }
-            var projectTasks = _projectTaskService.GetTasksForDelayValidation(EmployeeId, UserId);
+            var projectTasks = _projectTaskService.GetTasksForDelayValidation(UserId, EmployeeId);
             var data = from u in projectTasks
                        select new
                        {
-
+                           ProjectTaskId = u.ProjectTaskId,
                            ProjectCode = u.Project.ProjectCode,
                            ProjectName = u.Project.ProjectName,
-                           ComplitedHour = u.ComplitedOn - u.ExpectedStartDate,
+                           PlannedHour = u.ExpectedTimeInHours,
+                           TotalHoursByTimeSheet= u.TotalHoursByTimeSheet,
+                           PlannedEndDate = u.ExpectedEndDate,
+                           ActualEndDate = u.ExpectedEndDate,
+
                            TaskName = u.TaskName,
                            AssignedTo = u.AssignedTo.FullName,
-                           ProjectEmployees = u.Project.ProjectEmployees,
+                           DelayReason  = u.DelayReason
 
                        };
             ViewBag.tasks = data;
@@ -411,6 +443,27 @@ namespace Project.Management.Controllers
             projectTaskDTO.EmployeeId = EmployeeId;
             projectTaskDTO.CreatedBy = UserId;
             var a = _projectTaskService.ProjectTaskStatusUpdate(projectTaskDTO);
+            return Ok(a);
+        }
+
+        [HttpPost]
+        public IActionResult TaskDelayApproval(TaskApprovalDTO timesheetApprovalDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            timesheetApprovalDTO.ApprovedBy = EmployeeId;
+            timesheetApprovalDTO.UpdatedBy = UserId;
+            var a = _projectTaskService.TaskApproval(timesheetApprovalDTO);
             return Ok(a);
         }
     }

@@ -91,5 +91,11 @@ namespace DesktopMonitoringSystem.Classes
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
     }
+    public class DesktopLoginIdelTimeUpdateDTO
+    {
+        public Int64 DesktopLoginId { get; set; }
+        public TimeSpan? IdelTime { get; set; }
+    }
+
 }
 

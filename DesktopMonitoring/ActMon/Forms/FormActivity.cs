@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ActivityMonitor.ApplicationMonitor;
 using ActMon.Properties;
@@ -8,6 +10,8 @@ namespace ActMon.Forms
 
     public partial class FormActivity : Form
     {
+        [DllImport("user32.dll")]
+        public static extern bool LockWorkStation();
         private AppMonitor _appMon;
         private ApplicationView _idleCtl;        
         public FormActivity(AppMonitor AppMonitor)
@@ -108,6 +112,12 @@ namespace ActMon.Forms
             {
                 c.TriggerResize();
             }
+        }
+
+        private void btn_stopMonitering_Click(object sender, EventArgs e)
+        {
+            _appMon.Session.EndSession();
+            Process.Start(@"C:\WINDOWS\system32\rundll32.exe", "user32.dll,LockWorkStation");
         }
     }
 }

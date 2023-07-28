@@ -87,10 +87,10 @@ namespace DesktopMonitoringSystem
                             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
                             connection.Insert(user);
                             RegistryKey reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                            reg.SetValue("ACTMON", @"C:\\Program Files (x86)\CloudSat\DmsSetup\ActMon.exe");
+                      
+                            reg.SetValue("ACTMONA", @"C:\Program Files (x86)\CloudSat Pvt Ltd\Csat Desk Monitering\ActMon\ActMon.exe");
                             MessageBox.Show("Please Restart The System For Activate Services.", "Restart Required");
                             this.Close();
-
                             //DashBoardWindow dashBoardWindow = new DashBoardWindow();
                             //dashBoardWindow.Show();
 

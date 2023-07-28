@@ -5,6 +5,7 @@ using CloudVOffice.Data.DTO.HR;
 using CloudVOffice.Services.HR;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Base.Controllers
@@ -20,7 +21,7 @@ namespace HR.Base.Controllers
             _hrSettingsService = hrSettingsService;
            
         }
-        
+        [Authorize(Roles = "HR Manager")]
         public IActionResult HRSettings(HRSettingsDTO hrSettingsDTO)
 		{
             if (hrSettingsDTO.HRSettingsId != null)

@@ -1,7 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
-using CloudVOffice.Data.Migrations;
+
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using System;

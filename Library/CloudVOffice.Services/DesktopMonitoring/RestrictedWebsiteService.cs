@@ -1,6 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
-using CloudVOffice.Core.Domain.Recruitment;
+
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;

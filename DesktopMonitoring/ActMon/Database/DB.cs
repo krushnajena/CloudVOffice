@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 using ActivityMonitor.Application;
+using ActivityMonitor.ApplicationImp;
 using ActivityMonitor.ApplicationMonitor;
 using ActMon.Classes;
 using ActMon.Utils;
@@ -50,6 +51,17 @@ namespace ActMon.Database
 
             try
             {
+                foreach(FileLog f in appMon.FileLogs)
+                {
+                    RecordFileLog(appMon.Session.SessionID, f,  appMon.Session.ComputerName);
+                }
+            }
+            catch
+            {
+
+            }
+            try
+            {
                 foreach (Application lApp in appMon.Applications)
                 {
                    // RecordApplication(lApp);
@@ -65,6 +77,33 @@ namespace ActMon.Database
             _leaveConnectionOpen = false;
            
             return true;
+        }
+
+        public async Task<bool> RecordFileLog(long SessionId, FileLog fileLog, string ComputerName)
+        {
+            if (fileLog.IsSynced == false)
+            {
+                DesktopActivityLogDTO dMSActivityLog = new DesktopActivityLogDTO();
+                dMSActivityLog.DesktopLoginId = (Int64)SessionId;
+                dMSActivityLog.EmployeeId = 0;
+                dMSActivityLog.LogDateTime = fileLog.LogDateTime;
+                dMSActivityLog.ComputerName = ComputerName;
+                dMSActivityLog.ProcessOrUrl = "";
+                dMSActivityLog.AppOrWebPageName = "";
+                dMSActivityLog.TypeOfApp = "File";
+                dMSActivityLog.CreatedBy = 0;
+                dMSActivityLog.LogType = "FileLog";
+                dMSActivityLog.Todatetime = fileLog.LogDateTime;
+                dMSActivityLog.Action = fileLog.Action;
+                dMSActivityLog.Source = fileLog.Source;
+                dMSActivityLog.Folder = fileLog.Destination;
+
+                var a = await HttpClientRq.PostRequest(ApiUrls.postActivityLog, JsonConvert.SerializeObject(dMSActivityLog));
+                fileLog.UpdateSyncTime();
+                return true;
+            }
+            else { return false; }
+           
         }
 
         public async Task<bool> RecordApplicationSession(long SessionID, Application sApp,int UserId,string ComputerName)
@@ -107,6 +146,7 @@ namespace ActMon.Database
 
                             for (int j = 0; j < sApp.Usage[i].ScreenShots.Count; j++)
                             {
+
                                 var b = await HttpClientRq.UploadFilesAsync(ApiUrls.imageUpload, specificFolder + @"\" + sApp.Usage[i].ScreenShots[j].ScreenshotName, SessionID.ToString(), json.DesktopActivityLogId.ToString(), (DateTime)sApp.Usage[i].ScreenShots[j].SnapDatetime, "App");
 
                            
@@ -219,18 +259,24 @@ namespace ActMon.Database
             }
             else
             {
+                DesktopLoginIdelTimeUpdateDTO desktopLoginIdelTimeUpdateDTO = new DesktopLoginIdelTimeUpdateDTO
+                {
+                    DesktopLoginId = uSession.SessionID,
+                    IdelTime = uSession.IdleTime
+                };
+                var a = await HttpClientRq.PostRequest(ApiUrls.updateIdelTime, JsonConvert.SerializeObject(desktopLoginIdelTimeUpdateDTO));
                 //SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
                 //var dmsSessionLog = connection.Query<DmsSessionLog>("select * from DmsSessionLog where Id="+ uSession.SessionID).FirstOrDefault();
-               
+
                 //dmsSessionLog.Id = (int)uSession.SessionID;
-              
+
                 //dmsSessionLog.EndDateTime = uSession.SessionEnded;
-                
+
                 //    dmsSessionLog.IsAutoLogOut = false
                 //        ;
-                
+
                 //dmsSessionLog.IdelTime = (int)uSession.IdleTime.TotalSeconds;
-               
+
                 //connection.Update(dmsSessionLog);
                 return true;
             }

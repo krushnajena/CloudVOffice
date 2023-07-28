@@ -147,5 +147,14 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 throw;
             }
         }
+
+        public List<DesktopLogin> GetTodayLoginData(Int64 EmployeeId)
+        {
+            try
+            {
+                return _Context.DesktopLogins.Where(x => x.EmployeeId == EmployeeId && x.Deleted == false && (x.LoginDateTime  >= System.DateTime.Today && x.LoginDateTime < System.DateTime.Today.AddDays(1))).OrderBy(x => x.LoginDateTime).ToList();
+            }
+            catch { throw; }
+        }
     }
 }

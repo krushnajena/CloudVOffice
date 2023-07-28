@@ -21,7 +21,7 @@ namespace HR.Attendance.Controllers
             _holidayService = holidayService;
             _holidayDaysService = holidayDaysService;
         }
-
+        [Authorize(Roles = "HR Manager")]
         [HttpGet]
         public IActionResult CreateHoliday(int? HolidayId)
         {
@@ -35,15 +35,15 @@ namespace HR.Attendance.Controllers
                 holidayDTO.ToDate = d.ToDate;
                 var holidaydays = _holidayDaysService.GetHolidayDaysById(int.Parse(HolidayId.ToString()));
                 holidayDTO.HolidayDays = new List<HolidayDaysDTO>();
-                for (int i = 0; i < holidaydays.Count; i++)
-                {
-                    holidayDTO.HolidayDays.Add(new HolidayDaysDTO
-                    {
-                        HolidayId = holidaydays[i].HolidayId,
-                        ForDate = holidaydays[i].ForDate,
-                        Description = holidaydays[i].Description,
-                    });
-                }
+                //for (int i = 0; i < holidaydays.Count; i++)
+                //{
+                //    holidayDTO.HolidayDays.Add(new HolidayDaysDTO
+                //    {
+                //        HolidayId = holidaydays[i].HolidayId,
+                //        ForDate = holidaydays[i].ForDate,
+                //        Description = holidaydays[i].Description,
+                //    });
+                //}
                 holidayDTO.holidayDaysString = JsonConvert.SerializeObject(holidayDTO.HolidayDays);
 
             }
@@ -60,6 +60,7 @@ namespace HR.Attendance.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult CreateHoliday(HolidayDTO holidayDTO)
         {
             holidayDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -118,6 +119,7 @@ namespace HR.Attendance.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "HR Manager")]
         public IActionResult DeleteHoliday(int HolidayId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

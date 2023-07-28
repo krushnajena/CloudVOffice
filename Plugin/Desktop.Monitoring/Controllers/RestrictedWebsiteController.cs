@@ -5,9 +5,10 @@ using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.HR.Master;
-using CloudVOffice.Services.Recruitment;
+
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace Desktop.Monitoring.Controllers
             _departmentService = departmentService;
         }
         [HttpGet]
+        [Authorize(Roles = "Desktop Monitoring Manager")]
         public IActionResult RestrictedWebsiteCreate(Int64? RestrictedWebsiteId)
         {
             RestrictedWebsiteDTO restrictedWebsiteDTO = new RestrictedWebsiteDTO();
@@ -51,6 +53,7 @@ namespace Desktop.Monitoring.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles = "Desktop Monitoring Manager")]
         public IActionResult RestrictedWebsiteCreate(RestrictedWebsiteDTO restrictedWebsiteDTO)
         {
             restrictedWebsiteDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -110,6 +113,7 @@ namespace Desktop.Monitoring.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Desktop Monitoring Manager")]
         public IActionResult RestrictedWebsiteDelete(Int64 RestrictedWebsiteId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

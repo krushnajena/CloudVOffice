@@ -69,6 +69,20 @@
 
       ]
 
+    },
+
+    {
+      "ApplicationName": "HR Settings",
+      "Url": "/Hr/HRSettings/HRSettings",
+      "IsGroup": false,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "HR",
+      "Roles": [ "HR Manager" ],
+      "Children": [
+
+      ]
+
     }
 
   ]

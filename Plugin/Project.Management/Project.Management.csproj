@@ -86,6 +86,11 @@
 	  </Content>
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <Folder Include="Models\" />
+	</ItemGroup>
+
 	<!-- This target execute after "Build" target -->
 	<Target Name="CloudVOfficeTarget" AfterTargets="Build">
 		<!-- Delete unnecessary libraries from plugins path -->

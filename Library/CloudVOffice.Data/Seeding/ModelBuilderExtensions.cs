@@ -484,7 +484,7 @@ namespace CloudVOffice.Data.Seeding
             {
                 x.HasKey(e => e.EmailTemplateId);
                 x.HasData(
-                    new EmailTemplate
+                      new EmailTemplate
                     {
                         EmailTemplateId = 1,
                         EmailTemplateName = "WelcomeEmail",
@@ -614,8 +614,593 @@ namespace CloudVOffice.Data.Seeding
                         Subject = ""
 
 
-                    }
-                    );
+                    },
+
+                      new EmailTemplate
+                    {
+                        EmailTemplateId = 2,
+                        EmailTemplateName = "ProjectAssignment",
+                        EmailTemplateDescription = @"<div role=""document"">
+    <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
+        <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
+            <div class=""rps_ad57"">
+                <div>
+                    <div>
+                        <div style=""margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);"">
+                            <table cellpadding=""0"" cellspacing=""0"" style=""padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate"" class=""e-rte-table"">
+                                <tbody>
+                                    <tr>
+                                        <td align=""center"" class="""">
+                                            <table cellpadding=""0"" cellspacing=""0"" width=""600"" style=""padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none"" class=""e-rte-table"">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align=""center"" style=""min-width:590px"">
+                                                            <table cellpadding=""0"" cellspacing=""0"" width=""100%"" style=""padding:20px 0 0; border-collapse:separate"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td valign=""middle"" class="""">
+                                                                            <h1 style=""color:#676767; font-weight:400; margin:0px"">Project Assignment Notification</h1>
+                                                                        </td>
+                                                                        <td valign=""middle"" align=""right"" width=""200px"">{%emailogo%}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan=""2"" style=""text-align:center"">
+                                                                            <hr width=""100%"" style=""background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px"">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style=""min-width:590px"">
+                                                            <table class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="""" style=""vertical-align: top;"">
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <h5 style=""font-weight:400; margin-bottom:0; font-size:16px; color:#676767"">Hello {%helloname%},</h5>
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">we hope this message finds you well.we are delighted to inform you</p><p><span style=""background-color: transparent; text-align: inherit;"">that you have been assigned to a new project in our organization. This project is an essential inititative for our company's growth, and we are confident that your skills and expertise will play crucial role in its success.</span><br></p><p><span style=""background-color: transparent; text-align: inherit;""><br></span></p><p><span style=""background-color: transparent; text-align: inherit;"">Project Details:</span></p>
+
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">Project Name: {%ProjectName%}</p><p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">Project Id:&nbsp;<span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">{%projectid%}</span></p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">Project Duration:<span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">{%startdate%} to&nbsp;<span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">{%enddate%}</span></span></span></p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">Project Manager:<span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">{%projectmanagername%}</span></span></span></span></p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">Project Description:<span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">{%projectdescription%}</span></span></span></span></span></p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 16px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;""><br></span></span></span></span></span></p></div>
+                                                                         
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">
+                                                                                    {%emailsignature%}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); font-size:10px"">© Copyright {%companyname%}, {%address%} </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align=""right"">
+                                                                            <div style="" margin:0 20px"">{%footerletterhera%}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); margin:0; font-size:10px"">
+                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential
+                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,
+                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.
+                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately
+                                                                                    and permanently delete the message and any attachments. Thank you.
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
+    </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
+</div>",
+                        CreatedBy = 1,
+                        CreatedDate = System.DateTime.Now,
+                        Deleted = false,
+                        Subject = "Project Assignment - {%ProjectName%}"
+                    },
+                      new EmailTemplate
+                       {
+                           EmailTemplateId = 3,
+                           EmailTemplateName = "ProjectUn-Assignment",
+                           EmailTemplateDescription = @"<div role=""document"">
+    <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
+        <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
+            <div class=""rps_ad57"">
+                <div>
+                    <div>
+                        <div style=""margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);"">
+                            <table cellpadding=""0"" cellspacing=""0"" style=""padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate"" class=""e-rte-table"">
+                                <tbody>
+                                    <tr>
+                                        <td align=""center"">
+                                            <table cellpadding=""0"" cellspacing=""0"" width=""600"" style=""padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none"" class=""e-rte-table"">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align=""center"" style=""min-width:590px"">
+                                                            <table cellpadding=""0"" cellspacing=""0"" width=""100%"" style=""padding:20px 0 0; border-collapse:separate"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td valign=""middle"" class="""">
+                                                                            <h1 style=""color:#676767; font-weight:400; margin:0px"">Project Un-Assignment</h1>
+                                                                        </td>
+                                                                        <td valign=""middle"" align=""right"" width=""200px"" class="""">{%emailogo%}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan=""2"" style=""text-align:center"" class="""">
+                                                                            <hr width=""100%"" style=""background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px"">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style=""min-width:590px"" class=""""><br><table class=""e-rte-table"" style=""max-width: 1356.5px;""><tbody><tr><td class=""""><div style=""margin-left:1.2rem; margin-bottom:1em""><p>Hello {%Name%}</p><p>I hope this email finds you well. We are writing to inform you about a recent change in project assignments within our organization. Regrettably, you have been un-assigned from the following project:</p>
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">Project Name: {%ProjectName%}</p>
+
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">Project Id: {%ProjectId%}</p><p><br></p>
+
+
+                                                                                <p>The decision to un-assign you from this project was made based on [reason for un-assignment, e.g., changes in project requirements, resource reallocation, etc.]. We understand that you may have invested time and effort into this project, and we appreciate your dedication.</p><p>Your un-assignment from this project does not reflect on your capabilities or commitment to our organization. We value your skills and contributions and look forward to involving you in future projects that align with your expertise.</p></div>
+                                                                         
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">
+                                                                                    {%emailsignature%}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); font-size:10px"">© Copyright {%companyname%}, {%address%} </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align=""right"">
+                                                                            <div style="" margin:0 20px"">{%footerletterhera%}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); margin:0; font-size:10px"">
+                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential
+                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,
+                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.
+                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately
+                                                                                    and permanently delete the message and any attachments. Thank you.
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
+    </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
+</div>",
+                           CreatedBy = 1,
+                           CreatedDate = System.DateTime.Now,
+                           Deleted = false,
+                           Subject = "Project Un-Assignment - {%ProjectName%}"
+                       },
+                      new EmailTemplate
+                       {
+                           EmailTemplateId = 4,
+                           EmailTemplateName = "TimesheetReminder",
+                           EmailTemplateDescription = @"<div role=""document"">
+    <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
+        <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
+            <div class=""rps_ad57"">
+                <div>
+                    <div>
+                        <div style=""margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);"">
+                            <table cellpadding=""0"" cellspacing=""0"" style=""padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate"" class=""e-rte-table"">
+                                <tbody>
+                                    <tr>
+                                        <td align=""center"" class="""">
+                                            <table cellpadding=""0"" cellspacing=""0"" width=""600"" style=""padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none"" class=""e-rte-table"">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align=""center"" style=""min-width:590px"">
+                                                            <table cellpadding=""0"" cellspacing=""0"" width=""100%"" style=""padding:20px 0 0; border-collapse:separate"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td valign=""middle"" class="""">
+                                                                            <h1 style=""color:#676767; font-weight:400; margin:0px"">Timesheet Updation | Reminder!</h1>
+                                                                        </td>
+                                                                        <td valign=""middle"" align=""right"" width=""200px"" class="""">{%emailogo%}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan=""2"" style=""text-align:center"" class="""">
+                                                                            <hr width=""100%"" style=""background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px"">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style=""min-width:590px"" class=""""><br><table class=""e-rte-table"" style=""max-width: 1356.5px;""><tbody><tr><td class=""""><div style=""margin-left:1.2rem; margin-bottom:1em""><p>Hello {%Name%}</p><p style=""font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); color: rgb(103, 103, 103); line-height: 23.2px; font-size: 16px; margin: 5px 0px !important;"">This is a reminder that your timesheet updation is pending for:<span style=""background-color: transparent; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 14px; text-align: inherit;"">&nbsp;<strong>{%Date%}</strong></span></p><p style=""font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); color: rgb(103, 103, 103); line-height: 23.2px; font-size: 16px; margin: 5px 0px !important;"">Please log into {%appname%} to update your timesheet.</p><p style=""font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); color: rgb(103, 103, 103); line-height: 23.2px; font-size: 16px; margin: 5px 0px !important;""><br></p><p style=""font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); color: rgb(103, 103, 103); line-height: 23.2px; font-size: 16px; margin: 5px 0px !important;"">Failure to submit your timesheets may result in loss of Earned Leave (EL) or loss of pay.</p><p style=""font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell, &quot;Fira Sans&quot;, &quot;Droid Sans&quot;, &quot;Helvetica Neue&quot;, sans-serif; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); color: rgb(103, 103, 103); line-height: 23.2px; font-size: 16px; margin: 5px 0px !important;"">If you have any questions regarding your Timesheet then please contact your Reporting Authority/Project Manager.</p></div>
+                                                                         
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">
+                                                                                    {%emailsignature%}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); font-size:10px"">© Copyright {%companyname%}, {%address%} </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align=""right"">
+                                                                            <div style="" margin:0 20px"">{%footerletterhera%}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); margin:0; font-size:10px"">
+                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential
+                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,
+                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.
+                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately
+                                                                                    and permanently delete the message and any attachments. Thank you.
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
+    </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
+</div>",
+                           CreatedBy = 1,
+                           CreatedDate = System.DateTime.Now,
+                           Deleted = false,
+                           Subject = "Timesheet Updation | Reminder!"
+                       },
+                      new EmailTemplate
+                       {
+                           EmailTemplateId = 5,
+                           EmailTemplateName = "TaskOverdue",
+                           EmailTemplateDescription = @"<div role=""document"">
+    <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
+        <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
+            <div class=""rps_ad57"">
+                <div>
+                    <div>
+                        <div style=""margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);"">
+                            <table cellpadding=""0"" cellspacing=""0"" style=""padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate"" class=""e-rte-table"">
+                                <tbody>
+                                    <tr>
+                                        <td align=""center"" class="""">
+                                            <table cellpadding=""0"" cellspacing=""0"" width=""600"" style=""padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none"" class=""e-rte-table"">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align=""center"" style=""min-width:590px"">
+                                                            <table cellpadding=""0"" cellspacing=""0"" width=""100%"" style=""padding:20px 0 0; border-collapse:separate"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td valign=""middle"" class="""">
+                                                                            <h1 style=""color:#676767; font-weight:400; margin:0px"">Task Overdue</h1>
+                                                                        </td>
+                                                                        <td valign=""middle"" align=""right"" width=""200px"" class="""">{%emailogo%}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan=""2"" style=""text-align:center"" class="""">
+                                                                            <hr width=""100%"" style=""background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px"">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style=""min-width:590px"" class=""""><br><table class=""e-rte-table"" style=""max-width: 1356.5px;""><tbody><tr><td class=""""><div style=""margin-left:1.2rem; margin-bottom:1em""><p>Hello {%Name%}</p><p>I hope this email finds you well. We would like to bring to your attention that there is an overdue task assigned to you with the following details:</p><p>Task Name : {%TaskName%}</p><p>Task Id : {%TaskId%}</p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 14px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">Due Date : {%DueDate%}</span><br></p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 14px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">Project Name : {%ProjectName%}</span><br></p><p>Project Id : {%ProjectId%}</p><p>As of today, {%CurrentDate%}, the task remains incomplete and is past its due date. We understand that unforeseen circumstances may arise, leading to delays. However, it is crucial to address overdue tasks promptly to maintain project timelines and overall efficiency.</p><p><span style=""background-color: transparent; text-align: inherit;"">We kindly request you to prioritize this task and take immediate action to complete it as soon as possible. If you have encountered any obstacles or require additional resources to complete the task, please discuss with your Project Manager.</span><br></p></div>
+                                                                         
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">
+                                                                                    {%emailsignature%}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); font-size:10px"">© Copyright {%companyname%}, {%address%} </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align=""right"">
+                                                                            <div style="" margin:0 20px"">{%footerletterhera%}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); margin:0; font-size:10px"">
+                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential
+                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,
+                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.
+                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately
+                                                                                    and permanently delete the message and any attachments. Thank you.
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
+    </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
+</div>",
+                           CreatedBy = 1,
+                           CreatedDate = System.DateTime.Now,
+                           Deleted = false,
+                           Subject = "Task Overdue"
+
+                       },
+                      new EmailTemplate
+                       {
+                           EmailTemplateId= 6,
+                           EmailTemplateName = "TaskDueTodayReminder",
+                           EmailTemplateDescription = @"<div role=""document"">
+    <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
+        <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
+            <div class=""rps_ad57"">
+                <div>
+                    <div>
+                        <div style=""margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);"">
+                            <table cellpadding=""0"" cellspacing=""0"" style=""padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate"" class=""e-rte-table"">
+                                <tbody>
+                                    <tr>
+                                        <td align=""center"" class="""">
+                                            <table cellpadding=""0"" cellspacing=""0"" width=""600"" style=""padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none"" class=""e-rte-table"">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align=""center"" style=""min-width:590px"">
+                                                            <table cellpadding=""0"" cellspacing=""0"" width=""100%"" style=""padding:20px 0 0; border-collapse:separate"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td valign=""middle"" class="""">
+                                                                            <h1 style=""color:#676767; font-weight:400; margin:0px"">Today Task Due {%TaskName%}</h1>
+                                                                        </td>
+                                                                        <td valign=""middle"" align=""right"" width=""200px"" class="""">{%emailogo%}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan=""2"" style=""text-align:center"" class="""">
+                                                                            <hr width=""100%"" style=""background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px"">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style=""min-width:590px"" class=""""><br><table class=""e-rte-table"" style=""max-width: 1356.5px;""><tbody><tr><td class=""""><div style=""margin-left:1.2rem; margin-bottom:1em""><p>Hello {%Name%}</p><p>This is a friendly reminder that the following task is due for completion today:</p><p>Task Name : {%TaskName%}</p><p>Task Id : {%TaskId%}</p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 14px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">Due Date : {%DueDate%}</span><br></p><p><span style=""color: rgb(103, 103, 103); font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; font-size: 14px; font-style: normal; font-weight: 400; text-align: start; text-indent: 0px; white-space: normal; background-color: rgb(255, 255, 255); display: inline !important; float: none;"">Project Name : {%ProjectName%}</span><br></p><p>Project Id : {%ProjectId%}</p><p>Please ensure that you allocate sufficient time and effort to complete the task within the given deadline. Your prompt attention to this matter will help us maintain project timelines and achieve our goals efficiently.</p></div>
+                                                                         
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">
+                                                                                    {%emailsignature%}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); font-size:10px"">© Copyright {%companyname%}, {%address%} </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align=""right"">
+                                                                            <div style="" margin:0 20px"">{%footerletterhera%}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); margin:0; font-size:10px"">
+                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential
+                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,
+                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.
+                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately
+                                                                                    and permanently delete the message and any attachments. Thank you.
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
+    </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
+</div>",
+                           CreatedBy = 1,
+                           CreatedDate = System.DateTime.Now,
+                           Deleted = false,
+                           Subject = "Reminder: Today's Task Due - {%Taskname%}"
+                       }
+
+
+
+                    ) ;
             });
 
 

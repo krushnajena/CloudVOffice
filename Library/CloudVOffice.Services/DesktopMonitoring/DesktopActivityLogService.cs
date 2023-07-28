@@ -278,7 +278,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     EffortHours = sumOfEffortHour,
                     IdelHours = sumOfIdelHours,
                     ActualEffortHours = actualEffort,
-                    EffortPercentage = (actualEffort / totalEffortHourRequired) * 100
+                    EffortPercentage =double.Parse(( (actualEffort / totalEffortHourRequired) * 100).ToString("0.00"))
                 }) ;
             }
             return effortAnalysReportViewModels;
@@ -313,7 +313,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                         EffortHours = sumOfEffortHour,
                         IdelHours = sumOfIdelHours,
                         ActualEffortHours = actualEffort,
-                        EffortPercentage = (actualEffort / systemHour) * 100
+                        EffortPercentage = double.Parse(((actualEffort / systemHour) * 100).ToString("0.00"))
                     });
                 }
                
@@ -362,10 +362,80 @@ namespace CloudVOffice.Services.DesktopMonitoring
         public List<DesktopActivityLog> WebActivityLog(DesktopLoginFilterDTO desktopLoginFilterDTO)
         {
             return _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots)
-            .Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog"
-            && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate && x.ProcessOrUrl.Contains("chrome"))
+            .Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog" && x.ProcessOrUrl.StartsWith("chrome")
+            && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate)
 
             ).OrderByDescending(l => l.LogDateTime).ToList();
+        }
+
+        public List<DesktopActivityLog> FileActivityLog(DesktopLoginFilterDTO fileActivityLogDTO)
+        {
+            return _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots)
+               .Where(x => x.Deleted == false && x.EmployeeId == fileActivityLogDTO.EmployeeId && x.LogType == "FileLog"
+               && (x.LogDateTime >= fileActivityLogDTO.FromDate && x.LogDateTime <= fileActivityLogDTO.ToDate)
+
+               ).OrderByDescending(l => l.LogDateTime).ToList();
+        }
+
+        public List<DesktopActivityLog> UnProductiveActivityLog(DesktopLoginFilterDTO desktopLoginFilter)
+        {
+
+            try
+            {
+                var restrictedApplicationList = _restrictedApplicationService.GetRestrictedApplication().ToList();
+              
+                var dmsLogs = _Context.DesktopActivityLogs
+                     .Include(r => r.Employee)
+                     .Where(x => x.Deleted == false
+                    && (x.LogDateTime >= desktopLoginFilter.FromDate && x.LogDateTime <= desktopLoginFilter.ToDate) && x.AppOrWebPageName != null && x.AppOrWebPageName != ""
+
+                     ).ToList();
+                var newDmsLogs = dmsLogs.Where(x => desktopLoginFilter.EmployeeId == x.EmployeeId).ToList();
+                List<DesktopActivityLog> ret = new List<DesktopActivityLog>();
+                for (int i = 0; i < newDmsLogs.GroupBy(x => x.EmployeeId).ToList().Count; i++)
+                {
+                    var myRestrictedApplication = restrictedApplicationList.Where(x => (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false).ToList();
+                    for (int j = 0; j < myRestrictedApplication.Count; j++)
+                    {
+                        var check = newDmsLogs.Where(x => x.ProcessOrUrl.Contains(myRestrictedApplication[j].RestrictedApplicationName)).ToList();
+                        if (check.Count > 0)
+                        {
+                            ret.AddRange(check);
+                        }
+                    }
+                }
+
+
+                var restrictedWbsiteList = _restrictedWebsiteService.GetRestrictedWebsites().ToList();
+             
+                 dmsLogs = _Context.DesktopActivityLogs
+                     .Include(r => r.Employee)
+                     .Where(x => x.Deleted == false
+                    && (x.LogDateTime >= desktopLoginFilter.FromDate && x.LogDateTime <= desktopLoginFilter.ToDate) && x.AppOrWebPageName != null && x.AppOrWebPageName != ""
+
+                     ).ToList();
+                 newDmsLogs = dmsLogs.Where(x => desktopLoginFilter.EmployeeId == x.EmployeeId).ToList();
+               
+                for (int i = 0; i < newDmsLogs.GroupBy(x => x.EmployeeId).ToList().Count; i++)
+                {
+                    var myRestrictedWebsites = restrictedWbsiteList.Where(x => (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false).ToList();
+                    for (int j = 0; j < myRestrictedWebsites.Count; j++)
+                    {
+                        var check = newDmsLogs.Where(x => x.AppOrWebPageName.Contains(myRestrictedWebsites[j].RestrictedWebsiteName)).ToList();
+                        if (check.Count > 0)
+                        {
+                            ret.AddRange(check);
+                        }
+                    }
+                }
+
+                return ret.OrderByDescending(x=>x.LogDateTime).ToList();
+
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

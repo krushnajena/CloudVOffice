@@ -22,7 +22,7 @@ namespace ActMon
         static void Main()
         {
             //Check if running other instances of application for the same user
-            String mutexName = "DMS" + System.Security.Principal.WindowsIdentity.GetCurrent().User.AccountDomainSid;
+            String mutexName = "ActMon" + System.Security.Principal.WindowsIdentity.GetCurrent().User.AccountDomainSid;
             Boolean createdNew;            
 
             Mutex mutex = new Mutex(true, mutexName, out createdNew);
@@ -78,8 +78,8 @@ namespace ActMon
 
                
 
-                if (!AppSettings.HideMenuExit)
-                    mnu.MenuItems.Add(new MenuItem(ResFiles.GlobalRes.traymenu_Exit, Exit));
+                //if (!AppSettings.HideMenuExit)
+                //    mnu.MenuItems.Add(new MenuItem(ResFiles.GlobalRes.traymenu_Exit, Exit));
                 
                     mnu.MenuItems.Add(new MenuItem(ResFiles.GlobalRes.traymenu_About, About));
 
@@ -103,10 +103,11 @@ namespace ActMon
             DBDumper = new DataDumper(appMon, Database, AppSettings.DBDumprate);
 
             appMon.Start();
+            appMon.RunFileWatcher();
 
             //TODO: Start DB dumper anyway
-          //  if (setDBConfig())
-                DBDumper.Start();
+            //  if (setDBConfig())
+            DBDumper.Start();
         }
 
         private bool setDBConfig()

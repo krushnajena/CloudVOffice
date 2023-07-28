@@ -1,11 +1,21 @@
 ﻿	using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Company;
+using CloudVOffice.Core.Domain.Comunication;
+using CloudVOffice.Core.Domain.EmailTemplates;
 using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Company;
+using CloudVOffice.Services.Comunication;
+using CloudVOffice.Services.Email;
+using CloudVOffice.Services.EmailTemplates;
+using CloudVOffice.Services.Emp;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Pipelines.Sockets.Unofficial.Arenas;
 using System;
 using System.Collections.Generic;
@@ -20,12 +30,40 @@ namespace CloudVOffice.Services.Projects
 	{
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<ProjectTask> _projectTaskRepo;
-		public ProjectTaskService(ApplicationDBContext Context, ISqlRepository<ProjectTask> projectTaskRepo)
+
+
+        private readonly IEmployeeService _employeeService;
+        private readonly IEmailTemplateService _emailTemplateService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICompanyDetailsService _companyDetailsService;
+        private readonly ILetterHeadService _letterHeadService;
+        private readonly IEmailAccountService _emailAccountService;
+        private readonly IEmailService _emailService;
+		
+        public ProjectTaskService(ApplicationDBContext Context, ISqlRepository<ProjectTask> projectTaskRepo,
+
+
+              IEmailTemplateService emailTemplateService,
+             IHttpContextAccessor httpContextAccessor,
+             ICompanyDetailsService companyDetailsService,
+             ILetterHeadService letterHeadService,
+             IEmailAccountService emailAccountService,
+        IEmailService emailService,
+        IEmployeeService employeeService
+            )
 		{
 
 			_Context = Context;
 			_projectTaskRepo = projectTaskRepo;
-		}
+
+            _emailTemplateService = emailTemplateService;
+            _httpContextAccessor = httpContextAccessor;
+            _letterHeadService = letterHeadService;
+            _companyDetailsService = companyDetailsService;
+            _emailAccountService = emailAccountService;
+            _emailService = emailService;
+            _employeeService = employeeService;
+        }
 		public MessageEnum ProjectTaskCreate(ProjectTaskDTO projectTaskDTO)
 		{
 			var objCheck = _Context.ProjectTasks.SingleOrDefault(opt => opt.ProjectTaskId == projectTaskDTO.ProjectTaskId && opt.Deleted == false);
@@ -360,6 +398,7 @@ namespace CloudVOffice.Services.Projects
             try
             {
                 return _Context.ProjectTasks
+						.Include(e=>e.AssignedTo)
                       .Include(a => a.Project)
                       .ThenInclude(b => b.ProjectEmployees)
                       .Include(c => c.Project)
@@ -369,8 +408,11 @@ namespace CloudVOffice.Services.Projects
 
 
 
-                  .Where(x => x.Deleted == false && 
-                  x.Project.ProjectManager == EmployeeId && x.ComplitedOn> x.ExpectedEndDate).ToList();
+                  .Where(x => x.Deleted == false 
+				  && 
+                  x.Project.ProjectManager == EmployeeId 
+					 && x.ComplitedOn> x.ExpectedEndDate && x.IsDelayApproved == 0   
+				  ).ToList();
 
 
             }
@@ -470,6 +512,7 @@ namespace CloudVOffice.Services.Projects
 		{
 			try
 			{
+
 				return _Context.ProjectTasks
 					  .Include(a=> a.Project)
 					  .ThenInclude(a=> a.ProjectEmployees)
@@ -485,6 +528,213 @@ namespace CloudVOffice.Services.Projects
 				throw;
 			}
 		}
-	}
+        public MessageEnum TaskApproval(TaskApprovalDTO taskApprovalDTO)
+		{
+            try
+            {
+                var task = _Context.ProjectTasks.Where(x => x.ProjectTaskId == taskApprovalDTO.TaskId && x.Deleted == false).FirstOrDefault();
+                if (task != null)
+                {
+                    task.IsDelayApproved = taskApprovalDTO.IsDelayApproved;
+                    task.DelayApprovalReason = taskApprovalDTO.DelayApprovalReason;
+                    task.DelayApprovedOn = DateTime.Now;
+                    task.DelayApprovedBy= taskApprovalDTO.ApprovedBy;
+                    task.UpdatedBy = taskApprovalDTO.UpdatedBy;
+                    task.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+
+                    return taskApprovalDTO.IsDelayApproved == 1 ? MessageEnum.Approved : MessageEnum.Rejected;
+                }
+                else
+                {
+                    return MessageEnum.Invalid;
+                }
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public ProjectTask UpdateTimeSheetHour(Int64 TaskId, Double? Hour)
+		{
+			try
+			{
+				var a = _Context.ProjectTasks.Where(x => x.ProjectTaskId == TaskId).FirstOrDefault();
+				if(a != null)
+				{
+					if (a.TotalHoursByTimeSheet != null)
+					{
+						int hour = int.Parse(a.TotalHoursByTimeSheet.ToString().Split(".")[0]);
+
+
+						int min = int.Parse(a.TotalHoursByTimeSheet.ToString().Split(".")[1]);
+
+
+                        int hour1 = int.Parse(Hour.ToString().Split(".")[0]);
+
+
+                        int min1 = int.Parse(Hour.ToString().Split(".")[1]);
+
+						hour1 = hour1+hour;
+						min1 = min1+min;
+                        TimeSpan hours = TimeSpan.FromMinutes(min1);
+						hour1 = hour1+ int.Parse(hours.ToString("hh"));
+						int min2 = int.Parse(hours.ToString("mm"));
+						string finalno = hour1.ToString() + "." + min2.ToString();
+						a.TotalHoursByTimeSheet = double.Parse(finalno); 
+
+                    }
+					else
+					{
+                        a.TotalHoursByTimeSheet = Hour;
+                    }
+					_Context.SaveChanges();
+				}
+				return a;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+
+
+        public void TodayDueProjectTasksSendNotification()
+		{
+			try
+			{
+				var list =  _Context.ProjectTasks
+                        .Include(a => a.AssignedTo)
+                    .Include(a => a.Project)
+                      .ThenInclude(a => a.ProjectEmployees)
+                      .Include(a => a.Employee)
+                       .Where(x => x.Deleted == false &&
+                   x.ExpectedEndDate == DateTime.Today &&  x.TaskStatus != "Completed "  && x.TaskStatus != "Cancelled").ToList();
+
+				for(int i=0;i<list.Count;i++)
+				{
+					SendTaskNotification("TaskDueTodayReminder", list[i]);
+
+                }
+				
+
+            }
+			catch
+			{
+				throw;
+			}
+		}
+
+        public void MarkTaskOverDueAndSendNotification()
+		{
+            try
+            {
+                var list = _Context.ProjectTasks
+                     .Include(a => a.AssignedTo)
+					 .Include(a => a.Project)
+                      .ThenInclude(a => a.ProjectEmployees)
+                      .Include(a => a.Employee)
+                       .Where(x => x.Deleted == false &&
+                   x.ExpectedEndDate == DateTime.Today.AddDays(-1) && x.TaskStatus != "Completed " && x.TaskStatus != "Cancelled" && x.TaskStatus!= "Overdue").ToList();
+
+                for (int i = 0; i < list.Count; i++)
+                {
+					
+                    var task = _Context.ProjectTasks.Where(x => x.ProjectTaskId == list[i].ProjectTaskId).FirstOrDefault();
+                    task.TaskStatus = "Overdue";
+					task.UpdatedBy = 1;
+					task.UpdatedDate = DateTime.Now;
+					_Context.SaveChanges();
+                    SendTaskNotification("TaskOverdue", list[i]);
+
+                }
+
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+
+        private async void SendTaskNotification(string templateName,ProjectTask projectTask)
+		{
+            string baseUrl = "https://insider.appman.tech";
+
+            EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName(templateName);
+            string emailTemp = emailTemplate.EmailTemplateDescription.Trim();
+            CompanyDetails company = _companyDetailsService.GetCompanyDetails();
+            LetterHead letter = _letterHeadService.GetLetter();
+            EmailAccount emailA = _emailAccountService.GetDefaultEmail(emailTemplate.DefaultSendingAccount);
+            StringBuilder stringBuilder = new StringBuilder(emailTemp);
+
+            if (company != null)
+            {
+                stringBuilder = stringBuilder.Replace("{%emailogo%}", "<img src='" + baseUrl + "/uploads/setup/" + company.CompanyLogo + "' height=\"40\" style=\"border:0;margin:auto auto 10px;max-height:40px;outline:none;text-align:center;text-decoration:none;width:auto\" align=\"center\" width=\"auto\" class=\"CToWUd\" data-bit=\"iit\" jslog=\"138226; u014N:xr6bB; 53:WzAsMl0.\">");
+
+                stringBuilder = stringBuilder.Replace("{%companyname%}", company.CompanyName);
+                stringBuilder = stringBuilder.Replace("{%address%}", company.AddressLine1 + ", " + company.AddressLine2 + ", " + company.City + ", " + company.State + ", " + company.Country + " - " + company.PostalCode);
+
+            }
+            if (emailA != null)
+            {
+                stringBuilder = stringBuilder.Replace("{%emailsignature%}", emailA.EmailSignature);
+            }
+            if (letter != null)
+            {
+                stringBuilder = stringBuilder.Replace("{%footerletterhera%}", "<img src='" + baseUrl + "/uploads/setup/" + letter.LetterHeadFooterImage + "' style='hight:" + letter.LetterHeadImageFooterHeight + "; width:" + letter.LetterHeadImageFooterWidth + "'>");
+            }
+            stringBuilder = stringBuilder.Replace("{%Name%}", projectTask.AssignedTo.FirstName);
+            stringBuilder = stringBuilder.Replace("{%TaskName%}", projectTask.TaskName);
+
+            stringBuilder = stringBuilder.Replace("{%TaskId%}", projectTask.ProjectTaskId.ToString());
+
+            stringBuilder = stringBuilder.Replace("{%DueDate%}", DateTime.Parse(projectTask.ExpectedEndDate.ToString()).ToString("dd-MMM-yyyy"));
+            stringBuilder = stringBuilder.Replace("{%ProjectName%}", projectTask.Project.ProjectName);
+            stringBuilder = stringBuilder.Replace("{%ProjectId%}", projectTask.Project.ProjectCode);
+
+            stringBuilder = stringBuilder.Replace("{%CurrentDate%}",DateTime.Today.ToString("dd-MMM-yyyy"));
+
+            if (emailA != null)
+            {
+
+                string subject = emailTemplate.Subject;
+                subject = subject.Replace("{%Taskname%}", projectTask.TaskName);
+
+
+                await _emailService.SendEmailAsync(new MailRequest
+                {
+                    SenderEmail = emailA.EmailAddress,
+                    MailBoxName = emailA.EmailAccountName,
+                    MailBoxEmail = emailA.AlternativeEmailAddress,
+                    Host = emailA.EmailDomain.OutingServer,
+                    Port = emailA.EmailDomain.OutgoingPort,
+                    AuthEmail = emailA.EmailAddress,
+                    AuthPassword = emailA.EmailPassword,
+                    ToEmail = projectTask.AssignedTo.CompanyEmail,
+                    Subject = subject,
+                    Body = stringBuilder.ToString()
+
+                });
+              
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+    }
+    
 }
 	

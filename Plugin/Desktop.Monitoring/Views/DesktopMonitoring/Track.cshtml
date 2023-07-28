@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "Track";
 
     int days = (int)DateTime.Now.DayOfWeek;
     DateTime lastMonth = DateTime.Now.AddMonths(-1);
@@ -24,12 +25,14 @@
                 </div>
                 <div class="page-title">
                     <h5>EMPLOYEE</h5>
-                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                    <h6 class="sub-heading">
+
+                    </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">Last Login: 2 hours ago</span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
@@ -68,17 +71,17 @@
                     @Html.EJS().Chart("Ncontainer").Series(series =>
                     {
                     series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).
-                    XName("Xvalue").
-                    YName("YValue1").
-
-                    Width(2).
+                    XName("xvalue").
+                    YName("yValue1").
+                    Marker(mr=>mr.Visible(true).Width(7).Height(7).Shape(Syncfusion.EJ2.Charts.ChartShape.Circle).IsFilled(true)).
+                   
 
                     Name("Total Duration")
                     .Add();
                     series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Line).
-                    XName("Xvalue").
+                    XName("xvalue").
                     YName("yValue2").
-
+                    Marker(mr=>mr.Visible(true).Width(7).Height(7).Shape(Syncfusion.EJ2.Charts.ChartShape.Triangle).IsFilled(true)).
                     Name("Idel Duration").
                     Width(2)
                     .Add();
@@ -86,7 +89,8 @@
                     }
 
                     ).PrimaryXAxis(px => px.ValueType(Syncfusion.EJ2.Charts.ValueType.Category)
-                    .LabelPlacement(Syncfusion.EJ2.Charts.LabelPlacement.OnTicks)).Title("Session Log Analysis").Palettes(palettes).Tooltip(tt => tt.Enable(true)).Render()
+
+                    .LabelPlacement(Syncfusion.EJ2.Charts.LabelPlacement.BetweenTicks)).Title("Session Log Analysis").Palettes(palettes).Tooltip(tt => tt.Enable(true)).Render()
 
 
                     <ejs-grid id="GridOverview"

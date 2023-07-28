@@ -60,7 +60,7 @@
         "Url": "/Projects/Project/MyProjects",
         "IsGroup": false,
         "IconImageUrl": "",
-        "IconClass": "icon-event_note",
+        "IconClass": "icon-news2",
         "AreaName": "Projects",
         "Roles": [
           "Employee",
@@ -75,7 +75,7 @@
         "Url": "",
         "IsGroup": true,
         "IconImageUrl": "",
-        "IconClass": "icon-event_note",
+        "IconClass": "icon-assignment_turned_in",
         "AreaName": "Projects",
         "Roles": [
           "Project Manager",
@@ -138,7 +138,7 @@
         "Url": "/Projects/Timesheet/TimesheetView",
         "IsGroup": false,
         "IconImageUrl": "",
-        "IconClass": "icon-event_note",
+        "IconClass": "icon-clock",
         "AreaName": "Projects",
         "Roles": [
           "Project Manager",
@@ -155,7 +155,7 @@
         "Url": "",
         "IsGroup": true,
         "IconImageUrl": "",
-        "IconClass": "icon-event_note",
+        "IconClass": "icon-done_all",
         "AreaName": "Projects",
         "Roles": [
           "Project Manager"
@@ -201,7 +201,7 @@
         "Url": "",
         "IsGroup": true,
         "IconImageUrl": "",
-        "IconClass": "icon-event_note",
+        "IconClass": "icon-profile",
         "AreaName": "Projects",
         "Roles": [
           "Project Manager",

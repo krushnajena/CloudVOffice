@@ -55,12 +55,15 @@
     <Compile Include="ApplicationImp\ApplicationUsages.cs" />
     <Compile Include="Abstract\IApplication.cs" />
     <Compile Include="Abstract\IApplicationUsage.cs" />
+    <Compile Include="ApplicationImp\FileLog.cs" />
+    <Compile Include="ApplicationImp\Win32.cs" />
     <Compile Include="Monitor\AppMonitor.cs" />
     <Compile Include="Monitor\AppUpdater.cs" />
     <Compile Include="Monitor\ShellIcon.cs" />
     <Compile Include="Monitor\UserSession.cs" />
     <Compile Include="Monitor\WinApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WINDOWINFO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

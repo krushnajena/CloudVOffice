@@ -151,7 +151,7 @@ namespace CloudVOffice.Services.Emp
 				return _Dbcontext.Employees
                     .Include(x => x.Department)
                     .Include(x => x.Designation)
-                    .Where(x => x.EmployeeId == employeeid && x.Deleted == false).SingleOrDefault();
+                    .Where(x => x.EmployeeId == employeeid && x.Deleted == false).FirstOrDefault();
 			}
 			catch
 			{

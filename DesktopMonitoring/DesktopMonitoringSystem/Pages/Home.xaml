@@ -35,13 +35,13 @@
             <Border CornerRadius="20" Background="#ebecf0" Padding="0"  Margin="10" >
 
 
-                <ScrollViewer HorizontalScrollBarVisibility="Hidden">
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden" Background="White">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition  Height="*"/>
                             <RowDefinition  Height="150"/>
                         </Grid.RowDefinitions>
-                        <Border  BorderThickness="2" BorderBrush="#8276c0" CornerRadius="30" Margin="0 0 0 -10">
+                        <Border Grid.Row="0" Background="LightGray" BorderThickness="2" BorderBrush="#8276c0" CornerRadius="30" Margin="0 0 0 -10">
                             <chart:SfChart
             x:Name="columnChart"
             Margin="10"
@@ -86,15 +86,15 @@
 
                         <!--Title-->
 
-                        <TextBlock Text="Overview" Foreground="#f0eff6" FontSize="18" FontWeight="SemiBold" Margin="35 25 0 0"/>
-                        <TextBlock Text="Monthly" Foreground="#f0eff6" FontSize="16" FontWeight="SemiBold" Margin="0 27 35 0" HorizontalAlignment="Right"/>
+                        <!--<TextBlock Text="Overview" Foreground="#f0eff6" FontSize="18" FontWeight="SemiBold" Margin="35 25 0 0"/>
+                        <TextBlock Text="Monthly" Foreground="#f0eff6" FontSize="16" FontWeight="SemiBold" Margin="0 27 35 0" HorizontalAlignment="Right"/>-->
 
                         <!--Main Chart-->
 
 
 
 
-                        <Grid Grid.Row="1" Margin="10 20 10 15">
+                        <Grid Grid.Row="1" Margin="10 20 10 15" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>

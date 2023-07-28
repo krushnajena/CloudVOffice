@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
+using CloudVOffice.Data.ViewModel.Projects;
 using StackExchange.Profiling.Storage;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,12 @@ namespace CloudVOffice.Services.Projects
         public List<Timesheet> GetMyTimeSheets(Int64 EmployeeId);
 
         public MessageEnum TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO);
+        public List<Timesheet> GetTimeSheetWitDateRange(DateTime FromDate, DateTime ToDate, Int64 EmployeeId);
+
+        public List<TimeSheetLineChartModel> TimeSheetEffortAnalysis(DateTime FromDate, DateTime ToDate, Int64 EmployeeId);
+
+        public List<Timesheet> GetNotRejectedTimesheetByProjectId(int ProjectId);
+        public void TimesheetUpdateRemiderSendNotification();
 
     }
 }

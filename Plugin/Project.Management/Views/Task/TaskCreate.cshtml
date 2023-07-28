@@ -1,6 +1,7 @@
 ﻿@model CloudVOffice.Data.DTO.Projects.ProjectTaskDTO;
 @{
 	Layout = "_MainAppLayout";
+	ViewData["Title"] = " Task Create";
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -14,13 +15,13 @@
 					<i class="icon-laptop_windows"></i>
 				</div>
 				<div class="page-title">
-					<h5>CRM Dashboard</h5>
-					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+					<h5>Project</h5>
+					<h6 class="sub-heading">  </h6>
 				</div>
 			</div>
 			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
 				<div class="right-actions">
-					<span class="last-login">Last Login: 2 hours ago</span>
+					<span class="last-login">  </span>
 				</div>
 			</div>
 		</div>
@@ -68,7 +69,7 @@
 						<div class="form-row">
 							<div class="form-group col-md-3">
 
-								<label for="TaskName" class="form-label">Task Name</label>
+								<label for="TaskName" class="form-label">Task Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.TaskName" type="text" class="form-control" autofocus="autofocus" placeholder="Task Name" />
 								<span asp-validation-for="TaskName"></span>
 							</div>
@@ -122,11 +123,13 @@
 
 							<div class="form-group col-md-3">
 								<label for="TaskStatus" class="form-label">Task Status</label>
-								<select  asp-for="@Model.TaskStatus"  autofocus="autofocus" placeholder="Task Status">
+								<select asp-for="@Model.TaskStatus" class="form-control" autofocus="autofocus" placeholder="Task Status">
 									<option value="Open">Open</option>
 									<option value="Completed">Completed</option>
 									<option value="Cancelled">Cancelled</option>
+
 								</select>
+								<span asp-validation-for="TaskStatus"></span>
 
 							</div>
 

@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "Web Activity Log";
 
     int days = (int)DateTime.Now.DayOfWeek;
     DateTime lastMonth = DateTime.Now.AddMonths(-1);
@@ -11,6 +12,7 @@
     var lastMonthEnd = lastMonthStart.AddMonths(1).AddDays(-1);
     var lastYearStart = new DateTime(DateTime.Now.Year - 1, 1, 1);
     var lastYearEnd = new DateTime(DateTime.Now.Year - 1, 12, 31);
+    var palettes = new String[] { "#E94649", "#F6B53F", "#6FAAB0", "#C4C24A" };
 }
 @addTagHelper *, Syncfusion.EJ2
 
@@ -23,12 +25,12 @@
                 </div>
                 <div class="page-title">
                     <h5>EMPLOYEE</h5>
-                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                    <h6 class="sub-heading">  </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">Last Login: 2 hours ago</span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
@@ -64,6 +66,24 @@
             <div class="card">
 
                 <div class="card-body">
+
+                    @Html.EJS().Chart("Ncontainer").Series(series =>
+                    {
+                    series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Column).
+                    XName("processOrUrl").
+                    YName("duration").
+
+                    Width(1).
+
+                    Name("Total Duration")
+                    .Add();
+
+
+                    }
+
+                    ).PrimaryXAxis(px => px.ValueType(Syncfusion.EJ2.Charts.ValueType.Category)
+                    .LabelPlacement(Syncfusion.EJ2.Charts.LabelPlacement.BetweenTicks)).Title("Activity Log Analysis").Palettes(palettes).Tooltip(tt => tt.Enable(true)).Render();
+
                     <ejs-grid id="GridOverview" allowFiltering="true" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true" created="search"
                               pdfQueryCellInfo="exportQueryCellInfo" toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport" , "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
@@ -108,62 +128,7 @@
     </div>
 </script>
 <script>
-    function refreshChart() {
-        var ajax = new ej.base.Ajax();
-        var a = document.getElementById('dp_session').ej2_instances[0];
-        const d = new Date(a.startValue);
-        const td = new Date(a.endValue);
-        var fromdate = d.getDate()
-        var frommonth = d.getMonth() + 1;
-        if (fromdate < 10) {
-            fromdate = '0' + fromdate;
-        }
-        if (frommonth < 10) {
-            frommonth = '0' + frommonth;
-        }
-        var todate = td.getDate()
-        var tomonth = td.getMonth() + 1;
-        if (todate < 10) {
-            todate = '0' + todate;
-        }
-        if (tomonth < 10) {
-            tomonth = '0' + tomonth;
-        }
-        var model = {
-
-            fromDate: d.getFullYear() + '-' + frommonth + '-' + fromdate,
-            toDate: td.getFullYear() + '-' + tomonth + '-' + todate,
-        }
-        $.ajax({
-            type: "GET",
-            url: "/DMS/DesktopLogin/SessionLogChart",
-            data: model,
-
-
-            success: function (data, statusText, xhr) {
-                console.log(data);
-                if (xhr.status === 200) {
-                    $('#container').html(data);
-                } else if (data.status === "duplicate") {
-                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
-                } else if (data.status === "error") {
-                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
-                } else {
-                    sweetAlert("Validation Alert!", "Something unexpected!", "warning");
-                }
-            },
-            error: function (data) {
-                if (data.status == 401) {
-                    window.location.replace('/Message/TokenExpire');
-                } else if (data.status == 403) {
-                    window.location.replace('/Message/Unauthorize');
-                } else if (data.status == 400) {
-                    sweetAlert("Validation Alert!", "Please check input data!", "warning");
-                }
-            }
-        });
-
-    }
+  
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
@@ -225,6 +190,36 @@
             toDate: td.getFullYear() + '-' + tomonth + '-' + todate,
         }
         console.log(JSON.stringify(model));
+        $.ajax({
+            type: "POST",
+            url: "/DesktopMonitoring/DesktopMonitoring/WebActivityLogChart",
+            data: model,
+
+            success: function (data, statusText, xhr) {
+                console.log(data);
+                if (xhr.status === 200) {
+
+                    var chart = document.getElementById('Ncontainer').ej2_instances[0]; // Grid instance
+                    chart.dataSource = ej.data.DataUtil.parse.parseJson(data);
+                } else if (data.status === "duplicate") {
+                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                } else if (data.status === "error") {
+                    sweetAlert("Validation Alert!", data.responseMsg, "warning");
+                } else {
+                    sweetAlert("Validation Alert!", "Something unexpected!", "warning");
+                }
+            },
+            error: function (data) {
+                if (data.status == 401) {
+                    window.location.replace('/Message/TokenExpire');
+                } else if (data.status == 403) {
+                    window.location.replace('/Message/Unauthorize');
+                } else if (data.status == 400) {
+                    sweetAlert("Validation Alert!", "Please check input data!", "warning");
+                }
+            }
+        });
+
         $.ajax({
             type: "POST",
             url: "/DesktopMonitoring/DesktopMonitoring/GetWebAcivityLogsWithFilter",

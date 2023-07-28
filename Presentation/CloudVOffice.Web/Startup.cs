@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using CloudVOffice.BackgroundJobs;
 
 namespace CloudVOffice.Web
 {
@@ -105,16 +106,16 @@ namespace CloudVOffice.Web
 
             });
             IdentityModelEventSource.ShowPII = true;
-            //// Add Hangfire services.
-            //services.AddHangfire(configuration => configuration
-            //    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
-            //    .UseSimpleAssemblyNameTypeSerializer()
-            //    .UseRecommendedSerializerSettings()
-            //    .UseSqlServerStorage(configRoot.GetConnectionString("ConnStringMssql")));
-            //// Add the processing server as IHostedService
-            //services.AddHangfireServer();
-            //// Add the processing server as IHostedService
-            //services.AddHangfireServer();
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(configRoot.GetConnectionString("ConnStringMssql")));
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
             services.AddHttpContextAccessor();
             services.AddMvcCore();
             services.AddControllersWithViews().AddNewtonsoftJson(delegate (MvcNewtonsoftJsonOptions options)
@@ -215,7 +216,7 @@ namespace CloudVOffice.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-           // app.UseHangfireDashboard();
+            app.UseHangfireDashboard();
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "CloudVOffice Open Api v1"));
             app.UseHttpsRedirection();
@@ -229,8 +230,9 @@ namespace CloudVOffice.Web
 
             app.UseRouting();
             app.UseAuthorization();
-           
+            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily10AmISTJob(), Cron.Daily(13, 40), TimeZoneInfo.Local);
 
+            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily8AmISTJob(), Cron.Daily(13, 38), TimeZoneInfo.Local);
             app.MapControllerRoute(
             name: "default",
             pattern: "{controller=App}/{action=Login}/{id?}");

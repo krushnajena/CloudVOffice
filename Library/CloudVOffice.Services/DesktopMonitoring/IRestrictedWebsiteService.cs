@@ -1,6 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
-using CloudVOffice.Core.Domain.Projects;
+
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using System;
 using System.Collections.Generic;

@@ -86,7 +86,15 @@
 							{
 								@if (@User.Claims.Any(x => x.Type == "FirstName"))
 								{
-									<img class="avatar" src="~/app/img/user.png" alt="@User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value">
+									@if (@User.Claims.Any(x => x.Type == "EmployeeImage"))
+									{
+										<img class="avatar" src="~/uploads/employee/@User.Claims.Any(x => x.Type == "EmployeeImage")" alt="@User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value">
+									}
+									else
+									{
+										<img class="avatar" src="~/app/img/user.png" alt="@User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value">
+
+									}
 									<span class="user-name">  @User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value</span>
 								}
 

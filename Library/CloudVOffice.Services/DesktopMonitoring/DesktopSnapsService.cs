@@ -38,6 +38,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     SnapshotDateTime = desktopSnap.SnapshotDateTime,
                     FileSize = desktopSnap.FileSize,
                     CreatedBy = desktopSnap.CreatedBy,
+                    Deleted = false,
+                    CreatedDate = DateTime.Now
                 });
                 return MessageEnum.Success;
             }

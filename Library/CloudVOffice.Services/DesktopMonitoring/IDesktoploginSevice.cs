@@ -21,6 +21,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
         public MessageEnum DesktopLoginDelete(Int64 DesktopLoginId, Int64 DeletedBy);
         public MessageEnum DesktopLoginUpdateIdelTime(DesktopLoginIdelTimeUpdateDTO desktopLoginIdelTimeUpdateDTO);
 
+        public List<DesktopLogin> GetTodayLoginData(Int64 EmployeeId);
+
     
     }
 }

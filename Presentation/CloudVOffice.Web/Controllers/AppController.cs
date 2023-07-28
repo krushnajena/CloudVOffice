@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using CloudVOffice.Core.Domain.Pemission;
 using Microsoft.AspNetCore.Identity;
 using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Services.Emp;
 
 namespace CloudVOffice.Web.Controllers
 {
@@ -18,10 +19,12 @@ namespace CloudVOffice.Web.Controllers
     {
         private readonly IUserAuthenticationService _userauthenticationService;
         private readonly IUserService _userService;
-        public AppController(IUserAuthenticationService userauthenticationService, IUserService userService)
+        private readonly IEmployeeService _employeeService;
+        public AppController(IUserAuthenticationService userauthenticationService, IUserService userService, IEmployeeService employeeService)
         {
             _userauthenticationService = userauthenticationService;
             _userService = userService;
+            _employeeService = employeeService;
         }
         public IActionResult Login()
         {
@@ -54,7 +57,13 @@ namespace CloudVOffice.Web.Controllers
 								//  new Claim("Menu",menujson),
 							};
                             var a = userDetails.UserRoleMappings;
+                            var employee = _employeeService.GetEmployeeDetailsByUserId(userDetails.UserId);
+                            if(employee!= null)
+                            {
+                             claims.Add(new Claim("EmployeeImage", employee.Photo));
+                            }
                             claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));
+
                             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                             var authProperties = new AuthenticationProperties() { IsPersistent = true };
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);

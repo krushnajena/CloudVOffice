@@ -34,6 +34,7 @@
             this.tmrRefresh = new System.Windows.Forms.Timer(this.components);
             this.flApplicationsUsage = new System.Windows.Forms.FlowLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.btn_stopMonitering = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tmrRefresh
@@ -53,10 +54,20 @@
             resources.ApplyResources(this.statusStrip1, "statusStrip1");
             this.statusStrip1.Name = "statusStrip1";
             // 
+            // btn_stopMonitering
+            // 
+            this.btn_stopMonitering.BackColor = System.Drawing.Color.OrangeRed;
+            resources.ApplyResources(this.btn_stopMonitering, "btn_stopMonitering");
+            this.btn_stopMonitering.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_stopMonitering.Name = "btn_stopMonitering";
+            this.btn_stopMonitering.UseVisualStyleBackColor = false;
+            this.btn_stopMonitering.Click += new System.EventHandler(this.btn_stopMonitering_Click);
+            // 
             // FormActivity
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_stopMonitering);
             this.Controls.Add(this.flApplicationsUsage);
             this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -74,6 +85,7 @@
         private System.Windows.Forms.Timer tmrRefresh;
         private System.Windows.Forms.FlowLayoutPanel flApplicationsUsage;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Button btn_stopMonitering;
     }
 }
 

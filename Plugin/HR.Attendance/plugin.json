@@ -1,14 +1,14 @@
 ﻿{
   "Group": "HR",
-  "FriendlyName": "HR Base",
-  "SystemName": "HR.Base",
+  "FriendlyName": "HR Attendance",
+  "SystemName": "HR.Attendance",
   "Version": 0.3,
   "SupportedVersions": [ "0.1" ],
   "Author": "Appman team",
   "DisplayOrder": 1,
-  "FileName": "HR.Base.dll",
+  "FileName": "HR.Attendance.dll",
   "Description": "Basic Employee Record Management System.",
-  "InstallationUrl": "/HR/HRBASE/Install",
-  "UnInstallationUrl": "/HR/HRBASE/Installation/UnInstall",
+  "InstallationUrl": "/HR/HRAttendance/Install",
+  "UnInstallationUrl": "/HR/HRAttendance/Installation/UnInstall",
   "Dependency": []
 }

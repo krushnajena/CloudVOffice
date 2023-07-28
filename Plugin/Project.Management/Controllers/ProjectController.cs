@@ -19,6 +19,9 @@ using static System.Net.Mime.MediaTypeNames;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Core.Domain.Projects;
 using Microsoft.AspNetCore.Authorization;
+using CloudVOffice.Services.HR;
+using CloudVOffice.Data.DTO.DesktopMonitoring;
+
 
 namespace Projects.Management.Controller
 {
@@ -32,11 +35,17 @@ namespace Projects.Management.Controller
 
 		private readonly IProjectEmployeeService _projectempolyeeService;
 		private readonly IProjectUserService _projectuserService;
+		private readonly IProjectTaskService _projectTaskService;
+		private readonly IHRSettingsService _hrSettingsService;
+		private readonly ITimesheetService _timesheetService;
 		public ProjectController(IProjectService projectService, IProjectTypeService projectTypeService, IEmployeeService empolyeeService,
 			IUserService userService,
 			IProjectEmployeeService projectempolyeeService,
-			IProjectUserService projectuserService
-			)
+			IProjectUserService projectuserService,
+            IProjectTaskService projectTaskService,
+            IHRSettingsService hrSettingsService,
+            ITimesheetService timesheetService
+            )
 		{
 
 			_projectService = projectService;
@@ -45,8 +54,12 @@ namespace Projects.Management.Controller
 			_userService = userService;
 			_projectempolyeeService = projectempolyeeService;
 			_projectuserService = projectuserService;
+			_projectTaskService = projectTaskService;
+            _hrSettingsService = hrSettingsService;
+			_timesheetService = timesheetService;
 
-		}
+
+        }
 		public IActionResult Dashboard()
 		{
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -62,13 +75,34 @@ namespace Projects.Management.Controller
             {
                 EmployeeId = 0;
             }
-			ViewBag.myProjects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+			ViewBag.myProjects = _projectService.GetMyAssignedProject(EmployeeId, UserId).ToList();
+
+			var myTasks = _projectTaskService.GetTaskList(EmployeeId);
+			ViewBag.myTasks = myTasks.ToList();
+			ViewBag.myOpenTasks = myTasks.Where(x => x.TaskStatus != "Completed" || x.TaskStatus != "Cancelled").ToList();
+			ViewBag.overDueTasks = myTasks.Where(x => x.TaskStatus == "Overdue" || x.ExpectedEndDate < DateTime.Today).ToList();
+			var mydelayList = _projectTaskService.GetMyTaskDelayList(EmployeeId);
+            ViewBag.myTotalDelayReasonSubmitPending = mydelayList.Where(x => x.IsDelayApproved == null).ToList();
+            ViewBag.myTotalDelayTaskForValidation = mydelayList.Where(x=>x.IsDelayApproved == 0).ToList();
+            ViewBag.myTotalDelayTaskRejected= mydelayList.Where(x => x.IsDelayApproved == 2).ToList();
+
+			DateTime fromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            DateTime toDate = fromDate.AddMonths(1).AddDays(-1);
+           
+			ViewBag.effortAnalysys = _timesheetService.TimeSheetEffortAnalysis(
+            fromDate,
+          toDate,
+              employee.EmployeeId
+            ).ToList();
+			ViewBag.projectSummery = _projectService.GetProjectTaskColumnChart(EmployeeId, UserId);
 
 
+            ViewBag.projectEffortUsesAnalysys = _projectService.GetProjectWiseTimesheetEffortAnalysys(
+      
+          employee.EmployeeId,UserId
+        ).ToList();
 
-            ViewBag.allProjects = _projectService.GetProjects();
-			
-			return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
+            return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
 		}
         [HttpGet]
 		[Authorize(Roles ="Project Manager")]
@@ -88,7 +122,8 @@ namespace Projects.Management.Controller
 				projectDTO.StartDate = d.StartDate;
 				projectDTO.EndDate = d.EndDate;
 				projectDTO.Status = d.Status;
-				projectDTO.ProjectTypeId = d.ProjectTypeId;
+                projectDTO.EffortHourRequired = d.EffortHourRequired;
+                projectDTO.ProjectTypeId = d.ProjectTypeId;
 				projectDTO.Priority = d.Priority;
 				projectDTO.CompleteMethod = d.CompleteMethod;
 				projectDTO.CustomerId = d.CustomerId;
@@ -153,9 +188,17 @@ namespace Projects.Management.Controller
 		public IActionResult ProjectCreate(ProjectDTO projectDTO)
 		{
 			projectDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-			projectDTO.ProjectEmployees = JsonConvert.DeserializeObject<List<ProjectEmployeeDTO>>(projectDTO.ProjectEmployeeString);
-			projectDTO.ProjectUsers = JsonConvert.DeserializeObject<List<ProjectUserDTO>>(projectDTO.ProjectUsersString);
-			if (ModelState.IsValid)
+			if(projectDTO.ProjectEmployeeString!=null && projectDTO.ProjectEmployeeString != "")
+			{
+                projectDTO.ProjectEmployees = JsonConvert.DeserializeObject<List<ProjectEmployeeDTO>>(projectDTO.ProjectEmployeeString);
+
+            }
+			if(projectDTO.ProjectUsersString != null && projectDTO.ProjectUsersString != "")
+			{
+                projectDTO.ProjectUsers = JsonConvert.DeserializeObject<List<ProjectUserDTO>>(projectDTO.ProjectUsersString);
+
+            }
+            if (ModelState.IsValid)
 			{
 				if (projectDTO.ProjectId == null)
 				{

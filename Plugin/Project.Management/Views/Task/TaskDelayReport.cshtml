@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "Task Delay";
 }
 @addTagHelper *, Syncfusion.EJ2
 <header class="main-heading">
@@ -11,12 +12,12 @@
                 </div>
                 <div class="page-title">
                     <h5>Project</h5>
-                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+                    <h6 class="sub-heading">  </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">Last Login: 2 hours ago</span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
@@ -26,7 +27,10 @@
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-header">Task</div>
+                <div class="card-header">
+                  
+                </div>
+
                 <div class="card-body">
 
                     <ejs-grid id="GridOverview" dataSource="ViewBag.DelayReport"
@@ -37,12 +41,12 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
-                              actionComplete="actionComplete"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+                        <e-grid-editSettings allowAdding="false" allowDeleting="false" allowEditing="true" mode="Dialog" template='#dialogtemplate'></e-grid-editSettings>
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="ProjectCode" headerText="Project Code" textAlign="Left" width="2s00"></e-grid-column>
+                            <e-grid-column field="ProjectCode" headerText="Project Code" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="ComplitedHour" headerText="Complited Hour " textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="TaskName" headerText="Task Name" textAlign="Left" width="200"></e-grid-column>
@@ -51,20 +55,25 @@
                             <e-grid-column field="ActualEndDate" headerText="Actual End Date" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="DelayOnHour" headerText="Delay On Hour" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="DelayReason" headerText="Delay Reason" textAlign="Left" width="200"></e-grid-column>
+
+
                         </e-grid-columns>
                     </ejs-grid>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
-<script id="Actions" type="text/x-template">
-    <div class="link">
-        <a href="../../Projects/ProjectTask/ProjectTaskCreate?ProjectTaskId=${ProjectTaskId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+
+
+
+<script id='dialogtemplate' type="text/x-template">
+    <div id="dialogTemp">
+        <form method="post" >
+
+            </form>
     </div>
-</script>
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
 </script>
 <script>
 

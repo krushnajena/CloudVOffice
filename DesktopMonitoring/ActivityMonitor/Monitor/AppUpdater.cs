@@ -7,12 +7,14 @@ using ActivityMonitor.Collections;
 using ActivityMonitor.Application;
 using System.Windows.Automation;
 using System.Collections.Generic;
+using ActivityMonitor.ApplicationImp;
 
 namespace ActivityMonitor.ApplicationMonitor
 {
     public class AppUpdater
     {
         private static Applications _applications;
+        private static FileLog _fileLog;
 
         private string _previousApplicationName = string.Empty;
         List<string> list = new List<string>();
@@ -21,6 +23,10 @@ namespace ActivityMonitor.ApplicationMonitor
             set { _applications = value; }
         }
 
+        public static FileLog fileLog
+        {
+            set { _fileLog = value; }
+        }
         public static double GetMaxValue
         {
             get
@@ -30,9 +36,10 @@ namespace ActivityMonitor.ApplicationMonitor
             }
         }
 
-        public AppUpdater(Applications applications)
+        public AppUpdater(Applications applications, FileLog fileLog)
         {
             _applications = applications;
+            _fileLog = fileLog;
         }
 
        
@@ -101,10 +108,38 @@ namespace ActivityMonitor.ApplicationMonitor
             }
             return strFileDescription;
         }
+        public static string GetEdgeActiveTabUrl()
+        {
+            Process[] procsChrome = Process.GetProcessesByName("msedge");
+
+            if (procsChrome.Length <= 0)
+                return null;
+
+            foreach (Process proc in procsChrome)
+            {
+                // the chrome process must have a window
+                if (proc.MainWindowHandle == IntPtr.Zero)
+                    continue;
+
+                AutomationElement automationElement = AutomationElement.FromHandle(proc.MainWindowHandle);
+                var SearchBar = automationElement.FindFirst(TreeScope.Descendants, new PropertyCondition(AutomationElement.NameProperty, "Address and search bar"));
+                // to find the tabs we first need to locate something reliable - the 'New Tab' button
+                AutomationElement automationElement2 = automationElement.FindFirst(TreeScope.Subtree, new PropertyCondition(AutomationElement.AutomationIdProperty, "addressEditBox"));
+                if (SearchBar != null)
+                    return (string)SearchBar.GetCurrentPropertyValue(ValuePatternIdentifiers.ValueProperty);
+            }
+
+            return null;
+        }
+        public FileLog FileLogCreate(FileLog message)
+        {
+            _fileLog.Add(message);
+            return message;
+        }
         public IApplication Update(Process process,string appurl)
         {
             //Reliably detect the process file name:
-            string strFileName = DetectFilePath(process);
+            string strFileName = DetectFilePath(process);   
             string strFileDescription = DetectFileDescription(process);
 
             try
@@ -129,6 +164,11 @@ namespace ActivityMonitor.ApplicationMonitor
                         appname=GetActiveTabUrl();  
 
                     }
+                    else if    (strFileDescription.ToLower().Contains("edge"))
+                        {
+                            appname = GetEdgeActiveTabUrl();
+
+                        }
 
                     if (
                         !_applications.Contains(strFileDescription,

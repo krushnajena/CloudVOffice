@@ -43,4 +43,12 @@ namespace CloudVOffice.Data.DTO.Projects
         public string Reason { get; set; }
 
     }
+    public class TaskApprovalDTO
+    {
+        public Int64 TaskId { get; set; }
+        public int IsDelayApproved { get; set; }
+        public string DelayApprovalReason { get; set; }
+        public Int64 ApprovedBy { get; set; }
+        public Int64 UpdatedBy { get; set; }
+    }
 }

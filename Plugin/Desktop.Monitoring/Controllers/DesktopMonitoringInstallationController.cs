@@ -126,7 +126,7 @@ namespace Desktop.Monitoring.Controllers
 					for (int k = 0; k < applicationJson.Children[i].Children[j].Roles.Count; k++)
 					{
 						int roleId = roles.Where(x => x.RoleName == applicationJson.Children[i].Children[j].Roles[k]).FirstOrDefault().RoleId;
-						_applicationInstallationService.CreateRoleAndApplicationWisePermission(roleId, int.Parse(applicationJson.Children[i].ServerApplicationId.ToString()), CreatedBy);
+						_applicationInstallationService.CreateRoleAndApplicationWisePermission(roleId, int.Parse(applicationJson.Children[i].Children[j].ServerApplicationId.ToString()), CreatedBy);
 					}
 
 				}

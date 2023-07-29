@@ -26,7 +26,7 @@ namespace HR.Base.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "HR Manager")]
+        
         public IActionResult DepartmentCreate(int? departmentId)
         {
             DepartmentDTO departmentDTO = new DepartmentDTO();
@@ -51,7 +51,7 @@ namespace HR.Base.Controllers
         [Authorize(Roles = "HR Manager")]
         public IActionResult DepartmentCreate(DepartmentDTO departmentDTO)
         {
-            departmentDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            departmentDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());//
             if (ModelState.IsValid)
             {
 				if (departmentDTO.DepartmentId == null)

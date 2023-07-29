@@ -86,6 +86,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IHolidayService, HolidayService>();
             services.AddScoped<IHolidayDaysService, HolidayDaysService>();
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
+			services.AddScoped<IEmployeeAttendanceService, EmployeeAttendanceService>();
 			#endregion
 
 

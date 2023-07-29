@@ -1,9 +1,6 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "User List";
+    ViewData["Title"] = "EmployeeAttendance";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -15,52 +12,60 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>CRM Dashboard</h5>
-                    <h6 class="sub-heading"> </h6>
+                    <h5>Attendance</h5>
+                    <h6 class="sub-heading">Welcome to Unify Admin Template</h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login"> </span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
- 
+
 <div class="main-content">
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-
                     <div class="row">
-                        <div class="col-md-10">
-                           Users
+                        <div class="col-md-8">
+                            EmployeeAttendance
                         </div>
-                        <div class="col-md-2 text-right float-right">
-                            <a href="/Setup/User/CreateUser" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add User</a>
+                        <div class="col-md-4 text-right float-right">
+                            <a href="/Attendance/EmployeeAttendance/CreateEmployeeAttendance" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Employee Attendance</a>
+
                         </div>
-                       
                     </div>
                 </div>
+
                 <div class="card-body">
-                   
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.UserList"  allowFiltering="true" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true" 
-                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
-                      
+
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.EmployeeAttendance"
+                              allowFiltering="true" allowSorting="true"
+                              allowExcelExport="true" allowGrouping="true"
+                              allowMultiSorting="true"
+                              allowPdfExport="true"
+                              height="600" rowHeight="38"
+                              enableHover="false" enableHeaderFocus="true"
+                              enableVirtualization="true" allowSelection="true"
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="" type="checkbox" width="20" allowFiltering="false" allowSorting="false"></e-grid-column>
-                            <e-grid-column field="Email" headerText="Email" textAlign="Left" width="60"></e-grid-column>
-                            <e-grid-column field="FullName" headerText="Full Name" textAlign="Left" width="60"></e-grid-column>
-                           
-                            <e-grid-column field="IsActive" headerText="Status" template="#statusTemplate" width="50"></e-grid-column>
-                            <e-grid-column field="UserType" headerText="User Type" textAlign="Left" width="80"></e-grid-column>
-                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
+
+
+                            <e-grid-column field="EmployeeId" headerText="Employee Id" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="AttendanceDate" headerText="Attendance Date" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="100"></e-grid-column>
+                            <e-grid-column field="IsLateEntry" headerText="IsLateEntry" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="IsEarlyExit" headerText="IsEarlyExit" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -81,7 +86,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "User",
+                    title: "EmployeeAttendance",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -90,7 +95,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "User",
+                    title: "EmployeeAttendance",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -99,25 +104,16 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "User",
+                    title: "EmployeeAttendance",
                     text: "Successfully Deleted.",
                     type: "success"
-                });
-            }
-            else if (message == "@((int)MessageEnum.Duplicate)") {
-                sweetAlert({
-                    html: true,
-                    icon: "warning",
-                    title: "User",
-                    text: "Already Exists.",
-                    type: "warning"
                 });
             }
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "User",
+                    title: "EmployeeAttendance",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -126,7 +122,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "User",
+                    title: "EmployeeAttendance",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -135,7 +131,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "User",
+                    title: "EmployeeAttendance",
                     text: message,
                     type: "error"
                 });
@@ -145,7 +141,7 @@
 }
 
 <script type="text/javascript">
-    function Delete(ID) {
+    function Delete(Id) {
         swal({
             title: "Are you sure?",
             text: "You will not be able to recover this data!",
@@ -158,25 +154,24 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../SetUp/User/DeleteUser?UserId=" + ID;
+                window.location.href = "../../Attendance/EmployeeAttendance/EmployeeAttendanceDelete?EmployeeAttendanceId=" + Id;
             }
         })
     }
 </script>
 
+
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../SetUp/User/CreateUser?UserId=${UserId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-          <button onClick="Delete(${UserId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
-       
+        <a href="../../Attendance/EmployeeAttendance/CreateEmployeeAttendance?EmployeeAttendanceId=${EmployeeAttendanceId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${EmployeeAttendanceId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
 <script>
-
-       function toolbarClick(args) {
+    function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
             gridObj.pdfExport();
@@ -203,16 +198,18 @@
             };
         }
     };
-   
-    
+
+
     function statusDetail(e) {
-       
-        if (e.IsActive == true) {
-            return '<span class="badge badge-pill badge-success" > Active </span>';
+
+        if (e.Status == 1) {
+            return '<span class="badge badge-pill badge-success">Present</span>';
         } else {
-           return '<span class="badge badge-pill badge-dark">In-Active</span>';
+            return '<span class="badge badge-pill badge-danger">Absent</span>';
         }
-        
-      
+
+
+
     }
+   
 </script>

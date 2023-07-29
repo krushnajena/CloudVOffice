@@ -405,7 +405,8 @@ namespace CloudVOffice.Services.Projects
             try
             {
                 var list = _Context.Timesheets.Where(x=>x.TimeSheetForDate == DateTime.Today.AddDays(-1) && x.Deleted == false).ToList();
-                var employees = _Context.Employees.Where(x=>list.All(a=>a.EmployeeId!=x.EmployeeId) && x.Deleted == false && x.Status == "Active").ToList();
+                var employees = _Context.Employees.Where(x=>
+                !list.Any(a => a.EmployeeId == x.EmployeeId) && x.Deleted == false && x.Status == "Active").ToList();
                 for(int i=0;i<employees.Count;i++)
                 {
                     SendTimeSheetNotification(employees[i]);

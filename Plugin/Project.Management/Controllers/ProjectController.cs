@@ -62,6 +62,7 @@ namespace Projects.Management.Controller
         }
 		public IActionResult Dashboard()
 		{
+			_timesheetService.TimesheetUpdateRemiderSendNotification();
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
             var employee = _empolyeeService.GetEmployeeDetailsByUserId(UserId);

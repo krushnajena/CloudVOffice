@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "EmployeeAttendance";
+    ViewData["Title"] = "EmployeeGrade";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -12,8 +12,8 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Attendance</h5>
-                   
+                    <h5>HR</h5>
+                    <h6 class="sub-heading">  </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -31,20 +31,20 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
+
                     <div class="row">
                         <div class="col-md-8">
-                            EmployeeAttendance
+                            EmployeeGrade
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Attendance/EmployeeAttendance/CreateEmployeeAttendance" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Employee Attendance</a>
+                            <a href="/HR/EmployeeGrade/CreateEmployeeGrade" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Employee Grade</a>
 
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.EmployeeAttendance"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.employeeGrades"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -60,12 +60,11 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="EmployeeId" headerText="Employee Id" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="AttendanceDate" headerText="Attendance Date" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="100"></e-grid-column>
-                            <e-grid-column field="IsLateEntry" headerText="IsLateEntry" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column field="IsEarlyExit" headerText="IsEarlyExit" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
+                            <e-grid-column field="EmployeeGradeName" headerText="EmployeeGrade Name" textAlign="Left" width="120"></e-grid-column>
+
+                           
+
+                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -75,6 +74,7 @@
     </div>
 
 </div>
+
 
 @{
 
@@ -86,7 +86,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "EmployeeAttendance",
+                    title: "EmployeeGrade",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -95,7 +95,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "EmployeeAttendance",
+                    title: "EmployeeGrade",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -104,7 +104,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "EmployeeAttendance",
+                    title: "EmployeeGrade",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -113,7 +113,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "EmployeeAttendance",
+                    title: "EmployeeGrade",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -122,7 +122,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "EmployeeAttendance",
+                    title: "EmployeeGrade",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -131,7 +131,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "EmployeeAttendance",
+                    title: "EmployeeGrade",
                     text: message,
                     type: "error"
                 });
@@ -154,7 +154,7 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Attendance/EmployeeAttendance/EmployeeAttendanceDelete?EmployeeAttendanceId=" + Id;
+                window.location.href = "../../HR/EmployeeGrade/EmployeeGradeDelete?EmployeeGradeId=" + Id;
             }
         })
     }
@@ -163,13 +163,15 @@
 
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Attendance/EmployeeAttendance/CreateEmployeeAttendance?EmployeeAttendanceId=${EmployeeAttendanceId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <button onClick="Delete(${EmployeeAttendanceId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
-    </div>
+        <a href="../../HR/EmployeeGrade/CreateEmployeeGrade?EmployeeGradeId=${EmployeeGradeId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+
+        <button onClick="Delete(${EmployeeGradeId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>    </div>
 </script>
+
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
@@ -199,17 +201,4 @@
         }
     };
 
-
-    
-
-    function statusDetail(e) {
-        if (e.Status == 1) {
-            return '<span class="badge badge-pill badge-success">Present</span>';
-        } else {
-            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;">Absent</span>';
-        }
-    }
-
-
-   
 </script>

@@ -16,6 +16,10 @@
 		<None Remove="logo.png" />
 		<None Remove="plugin.json" />
 		<None Remove="roles.json" />
+		<None Remove="Views\AttendanceRequest\AttendanceRequestCreate.cshtml" />
+		<None Remove="Views\AttendanceRequest\AttendanceRequestView.cshtml" />
+		<None Remove="Views\EmployeeAttendance\CreateEmployeeAttendance.cshtml" />
+		<None Remove="Views\EmployeeAttendance\EmployeeAttendanceView.cshtml" />
 		<None Remove="Views\Holiday\CreateHoliday.cshtml" />
 		<None Remove="Views\Holiday\HolidayView.cshtml" />
 		<None Remove="Views\LeavePeriod\CreateLeavePeriod.cshtml" />

@@ -97,11 +97,17 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<HolidayDays> HolidayDays { get; set; }
 
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+        public virtual DbSet<LeavePeriod> LeavePeriods { get; set; }
 
-        #endregion
 
-        #region Recruitment
-        public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
+		public virtual DbSet<AttendanceDevice> AttendanceDevices { get; set; }
+
+		
+
+		#endregion
+
+		#region Recruitment
+		public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }

@@ -45,6 +45,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityMonitor", "DesktopM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActMon", "DesktopMonitoring\ActMon\ActMon.csproj", "{02A96D46-4003-45E5-9F29-B4EDB9F64621}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AttendanceAgent", "AttendanceAgent", "{99A45565-F597-4A1F-A0BF-497BCF66AA7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudVOffice.Attendance.Mantra.MFS100.Agent", "AttendanceAgents\CloudVOffice.Attendance.Mantra.MFS100.Agent\CloudVOffice.Attendance.Mantra.MFS100.Agent.csproj", "{B5E82A25-1F04-425E-83F3-241F7304A24E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +119,10 @@ Global
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5E82A25-1F04-425E-83F3-241F7304A24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5E82A25-1F04-425E-83F3-241F7304A24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5E82A25-1F04-425E-83F3-241F7304A24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5E82A25-1F04-425E-83F3-241F7304A24E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,6 +144,7 @@ Global
 		{9D8B7DED-8A69-4C10-A133-15A10AA44590} = {018C5126-E5BB-4BF4-A7F3-472A64276B16}
 		{B1F7C3DB-FA75-43FC-8671-179F251F2FC4} = {018C5126-E5BB-4BF4-A7F3-472A64276B16}
 		{02A96D46-4003-45E5-9F29-B4EDB9F64621} = {018C5126-E5BB-4BF4-A7F3-472A64276B16}
+		{B5E82A25-1F04-425E-83F3-241F7304A24E} = {99A45565-F597-4A1F-A0BF-497BCF66AA7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4DEF2CA5-EC2C-4C0B-878F-AEA8D00FE3E6}

@@ -162,17 +162,20 @@
 </script>
 
 
+@*
 <script id="Actions" type="text/x-template">
     <div class="link">
         <a href="../../Attendance/AttendanceRequest/AttendanceRequestCreate?AttendanceRequestId=${AttendanceRequestId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
         <button onClick="Delete(${AttendanceRequestId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
     </div>
-</script>
+</script>*@
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
 
-
+<script id="Actions" type="text/x-template">
+    ${ActionsDetail(data)}
+</script>
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
@@ -210,7 +213,7 @@
             return '<span class="badge badge-pill badge-dark">Submitted</span>';
         } else if (e.ApprovalStatus == 1) {
            
-            return '<span class="badge badge-pill badge-success">Approved</span>';
+            return '<span class="badge badge-pill badge-success ">Approved</span>';
 
         } else if (e.ApprovalStatus == 2) {
            
@@ -221,6 +224,20 @@
         }
        
     }
+       function ActionsDetail(e) {
 
+        if (e.ApprovalStatus == 0) {
+            return ' <div class="link" ><a href = "../../Attendance/AttendanceRequest/AttendanceRequestCreate?AttendanceRequestId=' + e.AttendanceRequestId + '" > <i class="icon-pencil3" style = "font-size:22px" > </i></a >  <button onClick="Delete(' + e.AttendanceRequestId + ')" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button ></div>'
+           
+        } else   {
 
+           return '';
+
+        } 
+
+    }
+    
 </script>
+
+
+                

@@ -14,7 +14,7 @@ namespace CloudVOffice.Core.Domain.HR.Attendance
         public Int64 ShiftEmployeeId { get; set; }
         public Int64 EmployeeId { get; set;}
         public int ShiftId { get; set; }
-        public DateTime FromDate { get; set; }  
+        public DateTime? FromDate { get; set; }  
         public DateTime? ToDate { get; set; }
 
         public Int64 CreatedBy { get; set; }

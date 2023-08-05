@@ -20,6 +20,8 @@
 		<None Remove="Views\Holiday\HolidayView.cshtml" />
 		<None Remove="Views\LeaveType\LeaveTypeCreate.cshtml" />
 		<None Remove="Views\LeaveType\LeaveTypeView.cshtml" />
+		<None Remove="Views\ShiftEmployee\ShiftEmployeeCreate.cshtml" />
+		<None Remove="Views\ShiftEmployee\ShiftEmployeeView.cshtml" />
 		<None Remove="Views\ShiftTypeCreate.cshtml" />
 		<None Remove="Views\ShiftTypeView.cshtml" />
 	</ItemGroup>

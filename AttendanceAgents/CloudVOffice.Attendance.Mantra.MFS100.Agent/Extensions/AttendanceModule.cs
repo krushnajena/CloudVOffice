@@ -7,30 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 {
-	public class AttendanceModule
+	public sealed class AttendanceModule
 	{
-		private delegate void SetTextCallback(int value);
-		private delegate void DisplayStatusCallback(string msg, bool isError);
-		private const string _ScanLock = "ScanLock";
-		private MANTRA.MFS100 mfs100;
-		private int quality = 60;
 
-		private int timeout = 2000000000;
-		private DeviceInfo deviceInfo;
-
-		private string msgTitle = "Mantra.MFS100.Attendance";
-
-		private string key = "";
-
-		private IContainer ncomponents;
-
-		public AttendanceModule()
-		{
+		private AttendanceModule() {
 			Control.CheckForIllegalCrossThreadCalls = false;
-			
+
 			mfs100 = new MANTRA.MFS100(key);
 			mfs100.OnMFS100Attached += OnMFS100Attached;
 			mfs100.OnMFS100Detached += OnMFS100Detached;
@@ -38,8 +24,11 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 			mfs100.OnCaptureCompleted += OnCaptureCompleted;
 			try
 			{
-				
 
+				if (!Directory.Exists(datapath))
+				{
+					Directory.CreateDirectory(datapath);
+				}
 				//if (!Directory.Exists(datapath))
 				//{
 				//	Directory.CreateDirectory(datapath);
@@ -47,9 +36,41 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 			}
 			catch (Exception ex)
 			{
-				
+
 			}
 		}
+		private static AttendanceModule instance = null;
+		public static AttendanceModule GetInstance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = new AttendanceModule();
+				}
+				return instance;
+			}
+		}
+		private delegate void SetTextCallback(int value);
+		private delegate void DisplayStatusCallback(string msg, bool isError);
+		private const string _ScanLock = "ScanLock";
+		public string TransType = "Validate";
+		private MANTRA.MFS100 mfs100;
+		private int quality = 60;
+
+		private int timeout = 2000000000;
+		private DeviceInfo deviceInfo;
+
+		private string datapath = Application.StartupPath + "\\FingerData";
+		private string msgTitle = "Mantra.MFS100.Attendance";
+
+		private string key = "";
+
+		private IContainer ncomponents;
+		public string EmployeeCode;
+		public int CapCode; 
+
+
 		private void OnPreview(FingerData fingerprintData)
 		{
 			try
@@ -61,6 +82,7 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 					//lblStatus.Text = "Quality: " + fingerprintData.Quality;
 					//lblStatus.Refresh();
 				}
+
 			}
 			catch (Exception)
 			{
@@ -78,15 +100,15 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 					//DisplayStatus(mfs100.GetErrorMsg(num), isError: true);
 					return;
 				}
+
+				deviceInfo = mfs100.GetDeviceInfo();
+
 				
-					deviceInfo = mfs100.GetDeviceInfo();
-					StartCapturing();
-				
-			
+
 			}
 			catch (Exception ex)
 			{
-			
+				
 			}
 			finally
 			{
@@ -94,14 +116,14 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 			}
 		}
 
-		private void OnMFS100Detached()
+		public void OnMFS100Detached()
 		{
 			try
 			{
-			
+
 
 				int num = mfs100.Uninit();
-				
+
 			}
 			catch (Exception ex)
 			{
@@ -112,34 +134,41 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 			}
 		}
 
-		private void StartCapturing()
+		public void StartCapturing()
 		{
 			try
 			{
 				//SetQuality(0);
-				int num = mfs100.StartCapture(quality, timeout, ShowPreview: true);
-				
+				int num = mfs100.StartCapture(quality, -5000000, ShowPreview: true);
+
 			}
 			catch (Exception ex)
 			{
-				
+
 			}
 		}
-		FingerData nfingerprintData;
+		List<FingerData> registerd =  new List<FingerData>();
+		
 		private void OnCaptureCompleted(bool status, int errorCode, string errorMsg, FingerData fingerprintData)
 		{
 			try
 			{
+				if (TransType == "Register") {
+				
+						File.WriteAllBytes(datapath + "//"+EmployeeCode+"ISOTemplate"+CapCode+".iso", fingerprintData.ISOTemplate);
+						File.WriteAllBytes(datapath + "//" + EmployeeCode + "ISOImage"+CapCode+".iso", fingerprintData.ISOImage);
+						File.WriteAllBytes(datapath + "//"+ EmployeeCode + "AnsiTemplate"+CapCode+".ansi", fingerprintData.ANSITemplate);
+						File.WriteAllBytes(datapath + "//" + EmployeeCode + "RawData"+CapCode+".raw", fingerprintData.RawData);
+					
+						File.WriteAllBytes(datapath + "//" + EmployeeCode + "WSQImage"+CapCode+".wsq", fingerprintData.WSQImage);
 
-				if (nfingerprintData == null)
-				{
-					nfingerprintData = fingerprintData;
+					registerd.Add(fingerprintData);
+
+
 				}
-				else
-				{
-					int score = 0
-						;
-					int ret = mfs100.MatchISO(nfingerprintData.ISOTemplate.ToArray(), fingerprintData.ISOTemplate.ToArray(), ref score);
+
+					int score = 0;
+					//int ret = mfs100.MatchISO(nfingerprintData.ISOTemplate.ToArray(), fingerprintData.ISOTemplate.ToArray(), ref score);
 
 					//if (nfingerprintData.ISOImage == fingerprintData.ISOImage)
 					//{
@@ -163,7 +192,7 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 					//{
 
 					//}
-				}
+				
 				//if (status)
 				//{
 				//	picFinger.Image = fingerprintData.FingerImage;
@@ -181,7 +210,8 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 				//{
 				//	lblStatus.Text = "Failed: error: " + errorCode + " (" + errorMsg + ")";
 				//}
-				
+
+			
 			}
 			catch (Exception ex)
 			{
@@ -192,9 +222,6 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent.Extensions
 				GC.Collect();
 			}
 		}
-
-
-
 
 	}
 }

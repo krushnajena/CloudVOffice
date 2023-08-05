@@ -16,5 +16,16 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent
 		{
 			InitializeComponent();
 		}
+
+		private void ManagerLogin_Load(object sender, EventArgs e)
+		{
+
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			RegisterFingerPrint registerFingerPrint = new RegisterFingerPrint();	
+			registerFingerPrint.ShowDialog();
+		}
 	}
 }

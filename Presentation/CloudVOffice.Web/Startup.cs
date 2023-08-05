@@ -230,9 +230,9 @@ namespace CloudVOffice.Web
 
             app.UseRouting();
             app.UseAuthorization();
-            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily10AmISTJob(), Cron.Daily(13, 40), TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily1015AmISTJob(), Cron.Daily(12, 20), TimeZoneInfo.Local);
 
-            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily8AmISTJob(), Cron.Daily(13, 38), TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily8AmISTJob(), Cron.Daily(08, 30), TimeZoneInfo.Local);
             app.MapControllerRoute(
             name: "default",
             pattern: "{controller=App}/{action=Login}/{id?}");

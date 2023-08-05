@@ -93,8 +93,13 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent
 			trayIcon.DoubleClick += new System.EventHandler(OpenStats);
 			AppDomain.CurrentDomain.ProcessExit += new System.EventHandler(Exit);
 
-			attendanceModule = new AttendanceModule();
-			attendanceModule.OnMFS100Attached();
+			attendanceModule =  AttendanceModule.GetInstance;
+			attendanceModule.TransType = "Validate";
+			 attendanceModule.OnMFS100Attached();
+			
+				attendanceModule.StartCapturing();
+			
+		
 
 		}
 

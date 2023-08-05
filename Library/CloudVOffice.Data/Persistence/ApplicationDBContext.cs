@@ -102,7 +102,9 @@ namespace CloudVOffice.Data.Persistence
 
 		public virtual DbSet<AttendanceDevice> AttendanceDevices { get; set; }
 
-		
+		public virtual DbSet<EmployeeBiometricData> EmployeeBiometricDatas{ get; set; }
+
+
 
 		#endregion
 

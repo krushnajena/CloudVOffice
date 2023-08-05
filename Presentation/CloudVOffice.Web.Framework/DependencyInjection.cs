@@ -91,7 +91,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IAttendanceRequestService, AttendanceRequestService>();
             #endregion
 			services.AddScoped<ILeavePeriodService, LeavePeriodService>();
-			#endregion
+			
 
 
 

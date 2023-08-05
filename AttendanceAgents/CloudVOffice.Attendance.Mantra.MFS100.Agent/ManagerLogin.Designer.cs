@@ -97,6 +97,7 @@
 			this.button2.TabIndex = 5;
 			this.button2.Text = "button2";
 			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// ManagerLogin
 			// 
@@ -113,6 +114,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ManagerLogin";
 			this.Text = "ManagerLogin";
+			this.Load += new System.EventHandler(this.ManagerLogin_Load);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();

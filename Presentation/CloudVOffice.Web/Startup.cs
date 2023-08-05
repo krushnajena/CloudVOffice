@@ -33,6 +33,7 @@ using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CloudVOffice.BackgroundJobs;
+using CloudVOffice.Web.Filters;
 
 namespace CloudVOffice.Web
 {
@@ -94,7 +95,7 @@ namespace CloudVOffice.Web
                 };
             }).AddCookie(x => { x.LoginPath = "/App/Login";
 
-                x.ExpireTimeSpan = TimeSpan.FromMinutes(20 );
+                x.ExpireTimeSpan = TimeSpan.FromMinutes(20);
                 x.SlidingExpiration = true;
                 x.AccessDeniedPath = "/Forbidden/";
                 
@@ -114,8 +115,8 @@ namespace CloudVOffice.Web
                 .UseSqlServerStorage(configRoot.GetConnectionString("ConnStringMssql")));
             // Add the processing server as IHostedService
             services.AddHangfireServer();
-            // Add the processing server as IHostedService
-            services.AddHangfireServer();
+            
+
             services.AddHttpContextAccessor();
             services.AddMvcCore();
             services.AddControllersWithViews().AddNewtonsoftJson(delegate (MvcNewtonsoftJsonOptions options)
@@ -129,23 +130,7 @@ namespace CloudVOffice.Web
 
             foreach (string folder in Directory.GetDirectories(CloudVOfficePluginDefaults.PathName))
             {
-                //string dllPath = @".\"+ CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
-                //if (File.Exists(dllPath))
-                //{
-                //    Assembly assembly2 = Assembly.UnsafeLoadFrom
-                //    (dllPath);
-                //    var part2 = new AssemblyPart(assembly2);
-                //    services.AddControllersWithViews()
-                //         .AddNewtonsoftJson(options =>
-                //         {
-
-
-                //             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-
-
-                //         })
-                //        .PartManager.ApplicationParts.Add(part2);
-                //}
+                
                 string dllPath = CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".dll";
                 if (File.Exists(dllPath))
                 {
@@ -216,8 +201,15 @@ namespace CloudVOffice.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHangfireDashboard();
-            app.UseSwagger();
+			app.UseHangfireDashboard("/hangfire", new DashboardOptions
+			{
+				DashboardTitle = "Scheduled Jobs",
+				Authorization = new[]
+			    {
+				    new  HangfireAuthorizationFilter("Administrator")
+			    }
+			});
+			app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "CloudVOffice Open Api v1"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -230,7 +222,7 @@ namespace CloudVOffice.Web
 
             app.UseRouting();
             app.UseAuthorization();
-            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily1015AmISTJob(), Cron.Daily(12, 20), TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily1015AmISTJob(), Cron.Daily(10, 15), TimeZoneInfo.Local);
 
             RecurringJob.AddOrUpdate<ScheduledService>(x => x.RunDaily8AmISTJob(), Cron.Daily(08, 30), TimeZoneInfo.Local);
             app.MapControllerRoute(

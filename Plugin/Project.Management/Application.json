@@ -26,16 +26,16 @@
             "Roles": [ "Project Manager" ]
           },
           {
-            "ApplicationName": "Project Activity Category",
+            "ApplicationName": "Timesheet Activity Category",
             "IsGroup": false,
-            "Url": "/Projects/ProjectActivityType/ProjectActivityTypeView",
+            "Url": "/Projects/TimesheetActivityCategory/TimesheetActivityCategoryView",
             "IconImageUrl": "",
             "IconClass": "icon-event_note",
             "AreaName": "Projects",
             "Roles": [ "Project Manager" ]
           },
           {
-            "ApplicationName": "Project Activity Type",
+            "ApplicationName": "Timesheet Activity",
             "IsGroup": false,
             "Url": "/Projects/ProjectActivityType/ProjectActivityTypeView",
             "IconImageUrl": "",

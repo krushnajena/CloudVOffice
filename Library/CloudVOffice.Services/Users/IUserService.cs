@@ -39,6 +39,7 @@ namespace CloudVOffice.Services.Users
         public void SendWelcomeMessage(User user);
 
         public MessageEnum SetPassword(string password, string email, string token);
+        public MessageEnum SendResetPasswordEmail(string EmailId);
 
 
 

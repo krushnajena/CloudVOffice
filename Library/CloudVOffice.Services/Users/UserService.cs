@@ -470,5 +470,97 @@ namespace CloudVOffice.Services.Users
                 throw;
             }
         }
+        public MessageEnum SendResetPasswordEmail(string EmailId)
+        {
+            var objCheck = _context.Users
+
+             .SingleOrDefault(opt => opt.Email == EmailId && opt.Deleted == false );
+            if(objCheck != null)
+            {
+                if (objCheck.IsActive == false)
+                {
+                    return MessageEnum.InActive;
+                }
+                else
+                {
+                    SendPasswordResetEmail(objCheck);
+                    return MessageEnum.Success;
+                }
+            }
+            else
+            {
+                return MessageEnum.Invalid;
+            }
+        }
+        private async Task SendPasswordResetEmail(User user)
+        {
+            try
+            {
+                string token = GenerateResetToken(user);
+                string baseUrl = _httpContextAccessor.HttpContext.Request.Scheme + "://" + _httpContextAccessor.HttpContext.Request.Host;
+                string url = baseUrl + "/App/SetPassword?token=" + token + "&email=" + user.Email;
+                EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName("PasswordReset");
+
+                string emailTemp = emailTemplate.EmailTemplateDescription.Trim();
+                CompanyDetails company = _companyDetailsService.GetCompanyDetails();
+                LetterHead letter = _letterHeadService.GetLetter();
+                EmailAccount emailA = _emailAccountService.GetDefaultEmail(emailTemplate.DefaultSendingAccount);
+                StringBuilder stringBuilder = new StringBuilder(emailTemp);
+                if (company != null)
+                {
+                    stringBuilder = stringBuilder.Replace("{%emailogo%}", "<img src='" + baseUrl + "/uploads/setup/" + company.CompanyLogo + "' height=\"40\" style=\"border:0;margin:auto auto 10px;max-height:40px;outline:none;text-align:center;text-decoration:none;width:auto\" align=\"center\" width=\"auto\" class=\"CToWUd\" data-bit=\"iit\" jslog=\"138226; u014N:xr6bB; 53:WzAsMl0.\">");
+
+                  
+                }
+
+
+
+
+                stringBuilder = stringBuilder.Replace("{%helloname%}",   user.FullName + ",");
+                stringBuilder = stringBuilder.Replace("{%setpasswordlink%}", "<a href='" + url + "'  target=\"_blank\" rel=\"noopener noreferrer\" style=\"background-color:#e54d42; padding:10px 8px 10px 8px; text-decoration:none; color:#fff; border-radius:5px; font-size:10px\">Reset Password</a>");
+                if (emailA != null)
+                {
+                    stringBuilder = stringBuilder.Replace("{%emailsignature%}", emailA.EmailSignature);
+                }
+                stringBuilder = stringBuilder.Replace("{%copylinkfrommessage%}", "You can also copy-paste following link in your browser<br/> <a href='" + url + "'  style=\"color:#2d95f0\" target=\"_blank\" >" + url + "</a>");
+                if (company != null)
+                {
+                    stringBuilder = stringBuilder.Replace("{%companyname%}", company.CompanyName);
+                    stringBuilder = stringBuilder.Replace("{%address%}", company.AddressLine1 + ", " + company.AddressLine2 + ", " + company.City + ", " + company.State + ", " + company.Country + " - " + company.PostalCode);
+
+                }
+                if (letter != null)
+                {
+                    stringBuilder = stringBuilder.Replace("{%footerletterhera%}", "<img src='" + baseUrl + "/uploads/setup/" + letter.LetterHeadFooterImage + "' style='hight:" + letter.LetterHeadImageFooterHeight + "; width:" + letter.LetterHeadImageFooterWidth + "'>");
+                }
+                if (emailA != null)
+                {
+                    await _emailService.SendEmailAsync(new MailRequest
+                    {
+                        SenderEmail = emailA.EmailAddress,
+                        MailBoxName = emailA.EmailAccountName,
+                        MailBoxEmail = emailA.AlternativeEmailAddress,
+                        Host = emailA.EmailDomain.OutingServer,
+                        Port = emailA.EmailDomain.OutgoingPort,
+                        AuthEmail = emailA.EmailAddress,
+                        AuthPassword = emailA.EmailPassword,
+                        ToEmail = user.Email,
+                        Subject = emailTemplate.Subject,
+
+                        Body = stringBuilder.ToString()
+
+                    });
+
+                }
+
+
+
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

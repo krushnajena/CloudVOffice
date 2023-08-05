@@ -14,6 +14,14 @@ namespace CloudVOffice.Web.Model.User
         public string Password { get; set; }
     }
 
+    public partial record ForgotPasswordModel
+    {
+        [DataType(DataType.EmailAddress)]
+        [DisplayName("Email Id")]
+        public string Email { get; set; }
+
+    }
+
     public partial record LoginModelForApi
     {
         [DataType(DataType.EmailAddress)]

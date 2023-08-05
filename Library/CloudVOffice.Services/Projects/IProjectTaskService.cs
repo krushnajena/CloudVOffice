@@ -39,8 +39,8 @@ namespace CloudVOffice.Services.Projects
 
         public MessageEnum TaskApproval(TaskApprovalDTO timesheetApprovalDTO);
 		
-		public void TodayDueProjectTasksSendNotification();
+		public Task TodayDueProjectTasksSendNotification();
 
-		public void MarkTaskOverDueAndSendNotification();
+		public Task MarkTaskOverDueAndSendNotification();
     }
 }

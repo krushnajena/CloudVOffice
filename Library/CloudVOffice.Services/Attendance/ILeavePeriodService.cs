@@ -11,5 +11,6 @@ namespace CloudVOffice.Services.Attendance
         public LeavePeriod GetLeavePeriodById(int leavePeriodId);
         public MessageEnum LeavePeriodUpdate(LeavePeriodDTO leavePeriodDTO);
         public MessageEnum LeavePeriodDelete(int leavePeriodId, int DeletedBy);
+      
     }
 }

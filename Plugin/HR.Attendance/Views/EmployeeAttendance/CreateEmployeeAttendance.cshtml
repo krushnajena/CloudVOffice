@@ -36,17 +36,17 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="/Attendance/EmployeeAttendance/CreateEmployeeAttendance" method="post" autocomplete="off">
+				<form asp-route="/n" method="post" autocomplete="off">
 					<div asp-ation-summary="ModelOnly" class="message-error"></div>
 
 
-					<div class="card-header"><b>Employee Attendanc</b></div>
+					<div class="card-header"><b>Employee Attendanc&nbsp;<span style="color:red;"><b>*</b></span></b></div>
 					<div class="card-body">
 						<div class="form-row">
 							<div class="form-group col-md-4">
 								<input asp-for="@Model.EmployeeAttendanceId" type="hidden" />
 
-								<label for="EmployeeId" class="form-label">Employee</label>
+								<label for="EmployeeId" class="form-label">Employee&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName" ).Items)" placeholder="Select Employee  " popupHeight="220px">
 									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
                                     </ejs-dropdownlist>
@@ -58,7 +58,7 @@
 
 						<div class="form-row">
 							<div class="form-group col-md-4">
-								<label for="AttendanceDate" class="form-label">Attendance Date</label>
+								<label for="AttendanceDate" class="form-label">Attendance Date&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.AttendanceDate" type="date" class="form-control" autofocus="autofocus" placeholder="Attendance Date" />
 								<span asp-validation-for="AttendanceDate"></span>
 							</div>

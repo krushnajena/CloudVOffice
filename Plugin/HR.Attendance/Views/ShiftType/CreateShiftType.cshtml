@@ -53,7 +53,7 @@
 
 						<div class="form-row">
 							<div class="form-group col-md-5">
-								<label for="StartTime" class="form-label">Start Time</label>
+								<label for="StartTime" class="form-label">Start Time&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.StartTime" type="time" class="form-control" autofocus="autofocus" placeholder="Start Time" />
 								<span asp-validation-for="StartTime"></span>
 							</div>
@@ -86,7 +86,7 @@
 								<label for="ThresholdforHalfDayInHours" class="form-label">Threshold for Half Day In Hours</label>
 								<input asp-for="@Model.ThresholdforHalfDayInHours" type="text" class="form-control" autofocus="autofocus" placeholder="Threshold for Half Day InHours" />
 								<span asp-validation-for="ThresholdforHalfDayInHours"></span>
-							</div
+							</div>
 
 							<div class="form-group col-md-5">
 								<label for="ThresholdforAbsentInHours" class="form-label">Threshold for Absent In Hours</label>

@@ -68,6 +68,7 @@ namespace Web.API.Controllers
                 string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
                 desktopSnapsDTO.imageUpload.CopyTo(new FileStream(imagePath, FileMode.Create));
                 desktopSnapsDTO.SnapShot =EmployeeId+"/" +newpath+"/"+ uniqueFileName;
+
                 if(fileInfo.Exists)
                 {
                     desktopSnapsDTO.FileSize = fileInfo.Length;

@@ -341,5 +341,39 @@ namespace CloudVOffice.Services.Emp
         {
             throw new NotImplementedException();
         }
+
+        public List<Employee> GetShiftTypeByEmployeeId()
+        {
+            try
+            {
+
+
+
+                return _Dbcontext.Employees
+                    .Include(s => s.Department)
+                    .Where(x => x.Deleted == false).ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<Employee> GetShiftEmployees()
+        {
+            try
+            {
+
+
+
+                return _Dbcontext.Employees
+                    .Include(s => s.Department)
+                    .Where(x => x.Deleted == false).ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

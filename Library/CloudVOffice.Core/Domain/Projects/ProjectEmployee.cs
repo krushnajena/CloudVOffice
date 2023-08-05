@@ -27,7 +27,7 @@ namespace CloudVOffice.Core.Domain.Projects
         public Project Project { get; set; }
 
         [ForeignKey("EmployeeId")]
-        public Employee Employee{ get; set; }
+        public Employee? Employee{ get; set; }
 
     }
 }

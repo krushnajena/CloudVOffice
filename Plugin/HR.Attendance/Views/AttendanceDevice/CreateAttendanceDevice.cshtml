@@ -1,7 +1,7 @@
-﻿@model CloudVOffice.Data.DTO.HR.Master.EmployeeGradeDTO;
+﻿@model CloudVOffice.Data.DTO.Attendance.AttendanceDeviceDTO;
 @{
 	Layout = "_MainAppLayout";
-	ViewData["Title"] = "EmployeeGrade";
+	ViewData["Title"] = "AttendanceDevice";
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -13,7 +13,7 @@
 					<i class="icon-laptop_windows"></i>
 				</div>
 				<div class="page-title">
-					<h5>HR</h5>
+					<h5>Attendance</h5>
 					<h6 class="sub-heading">  </h6>
 				</div>
 			</div>
@@ -32,20 +32,23 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="HR/EmployeeGrade/CreateEmployeeGrade" method="post" autocomplete="off">
+				<form asp-route="/Attendance/AttendanceDevice/CreateAttendanceDevice" method="post" autocomplete="off">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
 
 
-					<div class="card-header"><b>Basic Info</b></div>
+					<div class="card-header"><b>Attendance Device</b></div>
 					<div class="card-body">
 						<div class="form-row">
 							<div class="form-group col-md-3">
-								<input asp-for="@Model.EmployeeGradeId" type="hidden" />
+								<input asp-for="@Model.AttendanceDeviceId" type="hidden" />
 
-								<label for="DesignationName" class="form-label">Employee GradeName&nbsp;<span style="color:red;"><b>*</b></span></label>
-								<input asp-for="@Model.EmployeeGradeName" type="text" class="form-control" autofocus="autofocus" placeholder="Employee Grade Name" />
-								<span asp-validation-for="EmployeeGradeName"></span>
+								<label for="DeviceName" class="form-label">Device Name&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.DeviceName" type="text" class="form-control" autofocus="autofocus" placeholder="Device Name" />
+								<span asp-validation-for="DeviceName"></span>
 
+								<label for="DeviceSlNo" class="form-label">Device SlNon&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.DeviceSlNo" type="text" class="form-control" autofocus="autofocus" placeholder="Device SlNo" />
+								<span asp-validation-for="DeviceSlNo"></span>
 
 							</div>
 

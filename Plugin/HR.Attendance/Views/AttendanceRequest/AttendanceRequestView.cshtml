@@ -1,0 +1,243 @@
+﻿@{
+    Layout = "_MainAppLayout";
+    ViewData["Title"] = "AttendanceRequest";
+}
+@addTagHelper *, Syncfusion.EJ2
+@using CloudVOffice.Core.Domain.Common;
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Attendance</h5>
+                    
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            Attendance Request
+                        </div>
+                        <div class="col-md-4 text-right float-right">
+                            <a href="/Attendance/AttendanceRequest/AttendanceRequestCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Attendance Request</a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.AttendanceRequest"
+                              allowFiltering="true" allowSorting="true"
+                              allowExcelExport="true" allowGrouping="true"
+                              allowMultiSorting="true"
+                              allowPdfExport="true"
+                              height="600" rowHeight="38"
+                              enableHover="false" enableHeaderFocus="true"
+                              enableVirtualization="true" allowSelection="true"
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+
+                        <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
+
+                        <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
+                        <e-grid-columns>
+
+
+                            <e-grid-column field="ForDate" headerText="For Date" textAlign="Left" width="150"></e-grid-column>
+
+                            <e-grid-column field="CheckInTime" headerText="Check In Time" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="CheckOutTime" headerText="Check Out Time" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="ApprovalStatus" headerText="ApprovalStatus" template="#statusTemplate" width="100"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
+                        </e-grid-columns>
+                    </ejs-grid>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@{
+
+    if (TempData["msg"] != null)
+    {
+        <script type="text/javascript">
+            const message = "@TempData["msg"]";
+            if (message == "@((int)MessageEnum.Success)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "AttendanceRequest",
+                    text: "Successfully created.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Updated)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "AttendanceRequest",
+                    text: "Successfully updated.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Deleted)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "AttendanceRequest",
+                    text: "Successfully Deleted.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.UnExpectedError)") {
+                sweetAlert({
+                    html: true,
+                    icon: "danger",
+                    title: "AttendanceRequest",
+                    text: "There is somthing going wrong.",
+                    type: "danger"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Error)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "AttendanceRequest",
+                    text: "There is somthing going wrong.",
+                    type: "error"
+                });
+            }
+            else {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "EmployeeAttendance",
+                    text: message,
+                    type: "error"
+                });
+            }
+        </script>
+    }
+}
+
+<script type="text/javascript">
+    function Delete(Id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            confirmButtonColor: "#DD6B55",
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location.href = "../../Attendance/AttendanceRequest/AttendanceRequestDelete?AttendanceRequestId=" + Id;
+            }
+        })
+    }
+</script>
+
+
+@*
+<script id="Actions" type="text/x-template">
+    <div class="link">
+        <a href="../../Attendance/AttendanceRequest/AttendanceRequestCreate?AttendanceRequestId=${AttendanceRequestId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${AttendanceRequestId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+    </div>
+</script>*@
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+</script>
+
+<script id="Actions" type="text/x-template">
+    ${ActionsDetail(data)}
+</script>
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
+        if (args.item.id === 'GridOverview_pdfexport') {
+            gridObj.pdfExport();
+        }
+        if (args.item.id === 'GridOverview_excelexport') {
+            gridObj.excelExport();
+        }
+        if (args.item.id === 'GridOverview_csvexport') {
+            gridObj.csvExport();
+        }
+    }
+    function exportQueryCellInfo(args) {
+        if (args.column.headerText === 'Employee Image') {
+            if (args.name === "excelQueryCellInfo") {
+                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
+            } else {
+                args.image = { base64: args.data["EmployeeImage"] };
+            }
+        }
+        if (args.column.headerText === 'Track') {
+            args.hyperLink = {
+                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
+                displayText: "Track"
+            };
+        }
+    };
+
+
+   
+    function statusDetail(e) {
+
+        if (e.ApprovalStatus == 0) {
+            return '<span class="badge badge-pill badge-dark">Submitted</span>';
+        } else if (e.ApprovalStatus == 1) {
+           
+            return '<span class="badge badge-pill badge-success ">Approved</span>';
+
+        } else if (e.ApprovalStatus == 2) {
+           
+            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;">Rejected</span>';
+            
+        } else {
+            return '<span class="badge badge-pill badge-warning">Unknown</span>';
+        }
+       
+    }
+       function ActionsDetail(e) {
+
+        if (e.ApprovalStatus == 0) {
+            return ' <div class="link" ><a href = "../../Attendance/AttendanceRequest/AttendanceRequestCreate?AttendanceRequestId=' + e.AttendanceRequestId + '" > <i class="icon-pencil3" style = "font-size:22px" > </i></a >  <button onClick="Delete(' + e.AttendanceRequestId + ')" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button ></div>'
+           
+        } else   {
+
+           return '';
+
+        } 
+
+    }
+    
+</script>
+
+
+                

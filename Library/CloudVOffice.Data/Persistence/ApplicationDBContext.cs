@@ -71,11 +71,14 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<Department> Departments { get; set; }
 		public virtual DbSet<Designation> Designations { get; set; }
 		public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
-		#endregion
-		
 
-		#region Employee
-		public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeeGrade>  EmployeeGrades { get; set; }
+
+        #endregion
+
+
+        #region Employee
+        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeEducationalQualification> EmployeeEducationalQualifications { get; set; }
         #endregion
 
@@ -86,16 +89,27 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<ShiftEmployee> ShiftEmployees{ get; set; }
         public virtual DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
         public virtual DbSet<EmployeeCheckIn> EmployeeCheckIns { get; set; }
+
+        public virtual DbSet<AttendanceRequest> AttendanceRequests { get; set; }
+
         public virtual DbSet<Holiday> Holidays { get; set; }
 
         public virtual DbSet<HolidayDays> HolidayDays { get; set; }
 
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+        public virtual DbSet<LeavePeriod> LeavePeriods { get; set; }
 
-        #endregion
 
-        #region Recruitment
-        public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
+		public virtual DbSet<AttendanceDevice> AttendanceDevices { get; set; }
+
+		public virtual DbSet<EmployeeBiometricData> EmployeeBiometricDatas{ get; set; }
+
+
+
+		#endregion
+
+		#region Recruitment
+		public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }

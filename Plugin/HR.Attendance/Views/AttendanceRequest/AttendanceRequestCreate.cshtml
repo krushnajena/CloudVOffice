@@ -1,0 +1,133 @@
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@model CloudVOffice.Data.DTO.Attendance.AttendanceRequestDTO;
+@{
+	Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Attendance</h5>
+					<h6 class="sub-heading"></h6>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">  </span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="/Attendance/AttendanceRequest/AttendanceRequestCreate" method="post" autocomplete="off">
+					<div asp-ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>Employee Attendanc</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.AttendanceRequestId" type="hidden" />
+
+								<label for="EmployeeId" class="form-label">Employee</label>
+								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName" ).Items)" placeholder="Select Employee  " popupHeight="220px">
+									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+								<span asp-validation-for="EmployeeId"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="ForDate" class="form-label">For Date</label>
+								<input asp-for="@Model.ForDate" type="date" class="form-control" autofocus="autofocus" placeholder="For Date" />
+								<span asp-validation-for="ForDate"></span>
+							</div>
+
+						</div>
+
+						
+
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="CheckInTime" class="form-label">Check In Time</label>
+								<input asp-for="@Model.CheckInTime" type="time" class="form-control" autofocus="autofocus" placeholder="Check In Time" />
+								<span asp-validation-for="CheckInTime"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="CheckOutTime" class="form-label">Check Out Time</label>
+								<input asp-for="@Model.CheckOutTime" type="time" class="form-control" autofocus="autofocus" placeholder="Check Out Time" />
+								<span asp-validation-for="CheckOutTime"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
+							
+							<div class="form-group col-md-4">
+								<label for="ApprovalStatus" class="form-label">Approval Status</label>
+								<select asp-for="@Model.ApprovalStatus" class="form-control" autofocus="autofocus" placeholder="Approval Status">
+
+									<option value="0">Submitted</option>
+									<option value="1">Approved</option>
+									<option value="2">Rejected</option>
+							    </select>
+								<span asp-validation-for="ApprovalStatus"></span>
+								
+								
+							</div>
+
+						</div>
+                        <div class="form-row">
+
+
+                            <div class="form-group col-md-4">
+                                <label for="Reason" class="form-label">Reason</label>
+                                <textarea asp-for="@Model.Reason" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Reason" style="height: 150px;"></textarea>
+                                <span asp-validation-for="Reason"></span>
+                            </div>
+
+
+                        </div>
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>
+
+<script>
+	function onEmployeerfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
+	}
+</script>

@@ -17,6 +17,7 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,8 @@ namespace CloudVOffice.Services.Projects
         private readonly ILetterHeadService _letterHeadService;
         private readonly IEmailAccountService _emailAccountService;
         private readonly IEmailService _emailService;
-        public TimesheetService(ApplicationDBContext Context, ISqlRepository<Timesheet> timesheetRepo,
+		private readonly IConfiguration _configuration;
+		public TimesheetService(ApplicationDBContext Context, ISqlRepository<Timesheet> timesheetRepo,
             IProjectTaskService projectTaskService,
             IHRSettingsService hrSettingsService,
 
@@ -52,8 +54,9 @@ namespace CloudVOffice.Services.Projects
              ILetterHeadService letterHeadService,
              IEmailAccountService emailAccountService,
         IEmailService emailService,
-        IEmployeeService employeeService
-            )
+        IEmployeeService employeeService,
+		 IConfiguration configuration
+			)
         {
 
             _Context = Context;
@@ -67,8 +70,9 @@ namespace CloudVOffice.Services.Projects
             _companyDetailsService = companyDetailsService;
             _emailAccountService = emailAccountService;
             _emailService = emailService;
-         
-        }
+            _configuration = configuration;
+
+		}
 
         public List<Timesheet> GetMyTimeSheets(long EmployeeId)
         {
@@ -368,7 +372,7 @@ namespace CloudVOffice.Services.Projects
                         min1 = int.Parse(todayTimeSheet[j].DurationInHours.ToString().Split(".")[1]);
                     }
                     else
-                    {
+                    {              
                         hour1 = int.Parse(todayTimeSheet[j].DurationInHours.ToString());
 
                     }
@@ -405,8 +409,15 @@ namespace CloudVOffice.Services.Projects
             try
             {
                 var list = _Context.Timesheets.Where(x=>x.TimeSheetForDate == DateTime.Today.AddDays(-1) && x.Deleted == false).ToList();
-                var employees = _Context.Employees.Where(x=>list.All(a=>a.EmployeeId!=x.EmployeeId) && x.Deleted == false && x.Status == "Active").ToList();
-                for(int i=0;i<employees.Count;i++)
+                var aemployees = _Context.Employees.Where(x=>
+               x.Deleted == false && x.Status == "Active").ToList();
+
+
+				var employees = aemployees.Where(x => !list.Any(a => a.EmployeeId == x.EmployeeId)).ToList();
+
+				
+
+				for (int i=0;i<employees.Count;i++)
                 {
                     SendTimeSheetNotification(employees[i]);
                 }
@@ -418,9 +429,9 @@ namespace CloudVOffice.Services.Projects
         }
         private async void SendTimeSheetNotification(Employee employee)
         {
-            string baseUrl = "https://insider.appman.tech";
+            string baseUrl =_configuration["Application:appurl"];
 
-            EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName("ProjectAssignment");
+            EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName("TimesheetReminder");
             string emailTemp = emailTemplate.EmailTemplateDescription.Trim();
             CompanyDetails company = _companyDetailsService.GetCompanyDetails();
             LetterHead letter = _letterHeadService.GetLetter();

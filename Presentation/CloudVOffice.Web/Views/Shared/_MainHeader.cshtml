@@ -91,7 +91,7 @@
 								{
 									@if (@User.Claims.Any(x => x.Type == "EmployeeImage"))
 									{
-												<img class="avatar" src="~/uploads/employee/@User.Claims.Any(x => x.Type == "EmployeeImage")" alt="@User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value">
+										<img class="avatar" src="~/uploads/employee/@User.Claims.FirstOrDefault(x => x.Type == "EmployeeImage").Value" alt="@User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value">
 									}
 									else
 									{

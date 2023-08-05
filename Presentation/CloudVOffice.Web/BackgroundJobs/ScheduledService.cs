@@ -21,13 +21,13 @@ namespace CloudVOffice.BackgroundJobs
             _projectTaskService = projectTaskService;
             _timesheetService = timesheetService;
         }
-        public void RunDaily10AmISTJob()
+        public void RunDaily1015AmISTJob()
         {
             var applications = _applicationInstallationService.GetInstalledApplications();
             if(applications.Where(x=>x.PackageName == "Project.Management").ToList().Count > 0)
             {
                 _projectTaskService.TodayDueProjectTasksSendNotification();
-               // _timesheetService.TimesheetUpdateRemiderSendNotification();
+               _timesheetService.TimesheetUpdateRemiderSendNotification();
 
             }
             // Your logic to run daily at 10 AM

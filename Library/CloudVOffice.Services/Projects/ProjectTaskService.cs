@@ -15,6 +15,7 @@ using CloudVOffice.Services.EmailTemplates;
 using CloudVOffice.Services.Emp;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using Pipelines.Sockets.Unofficial.Arenas;
 using System;
@@ -39,8 +40,9 @@ namespace CloudVOffice.Services.Projects
         private readonly ILetterHeadService _letterHeadService;
         private readonly IEmailAccountService _emailAccountService;
         private readonly IEmailService _emailService;
-		
-        public ProjectTaskService(ApplicationDBContext Context, ISqlRepository<ProjectTask> projectTaskRepo,
+		private readonly IConfiguration _configuration;
+
+		public ProjectTaskService(ApplicationDBContext Context, ISqlRepository<ProjectTask> projectTaskRepo,
 
 
               IEmailTemplateService emailTemplateService,
@@ -49,8 +51,9 @@ namespace CloudVOffice.Services.Projects
              ILetterHeadService letterHeadService,
              IEmailAccountService emailAccountService,
         IEmailService emailService,
-        IEmployeeService employeeService
-            )
+        IEmployeeService employeeService,
+			 IConfiguration configuration
+			)
 		{
 
 			_Context = Context;
@@ -63,7 +66,8 @@ namespace CloudVOffice.Services.Projects
             _emailAccountService = emailAccountService;
             _emailService = emailService;
             _employeeService = employeeService;
-        }
+			_configuration = configuration;
+		}
 		public MessageEnum ProjectTaskCreate(ProjectTaskDTO projectTaskDTO)
 		{
 			var objCheck = _Context.ProjectTasks.SingleOrDefault(opt => opt.ProjectTaskId == projectTaskDTO.ProjectTaskId && opt.Deleted == false);
@@ -662,9 +666,10 @@ namespace CloudVOffice.Services.Projects
 
         private async void SendTaskNotification(string templateName,ProjectTask projectTask)
 		{
-            string baseUrl = "https://insider.appman.tech";
+			string baseUrl = _configuration["Application:appurl"];
 
-            EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName(templateName);
+
+			EmailTemplate emailTemplate = _emailTemplateService.GetEmailTemplateByName(templateName);
             string emailTemp = emailTemplate.EmailTemplateDescription.Trim();
             CompanyDetails company = _companyDetailsService.GetCompanyDetails();
             LetterHead letter = _letterHeadService.GetLetter();

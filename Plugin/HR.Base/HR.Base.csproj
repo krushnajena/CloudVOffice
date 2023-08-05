@@ -22,6 +22,8 @@
     <None Remove="Views\Department\DepartmentCreate.cshtml" />
     <None Remove="Views\Department\DepartmentView.cshtml" />
     <None Remove="Views\Designation\DesignationView.cshtml" />
+    <None Remove="Views\EmployeeGrade\CreateEmployeeGrade.cshtml" />
+    <None Remove="Views\EmployeeGrade\EmployeeGradeView.cshtml" />
     <None Remove="Views\Employee\EmployeeCreate.cshtml" />
     <None Remove="Views\EmploymentType\EmploymentTypeCreate.cshtml" />
     <None Remove="Views\EmploymentType\EmploymentTypeView.cshtml" />

@@ -94,9 +94,6 @@ namespace CloudVOffice.Core.Domain.HR.Emp
         public Department Department { get; set; }
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
-
-		
-
-        
+       
     }
 }

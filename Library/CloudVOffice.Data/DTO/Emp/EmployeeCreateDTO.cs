@@ -9,12 +9,13 @@ namespace CloudVOffice.Data.DTO.Emp
 {
     public class EmployeeCreateDTO
     {
-		public int? EmployeeId { get; set; }
+		public Int64 EmployeeId { get; set; }
 		public string EmployeeCode { get; set; }
         public string Salutation { get; set; }
         public string FirstName { get; set; }
         public string? MiddleName { get; set; }
         public string? LastName { get; set; }
+        public string FullName { get; set; }
 
         public string Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }

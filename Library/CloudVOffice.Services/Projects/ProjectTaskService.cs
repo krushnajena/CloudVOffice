@@ -569,16 +569,34 @@ namespace CloudVOffice.Services.Projects
 				{
 					if (a.TotalHoursByTimeSheet != null)
 					{
-						int hour = int.Parse(a.TotalHoursByTimeSheet.ToString().Split(".")[0]);
 
 
-						int min = int.Parse(a.TotalHoursByTimeSheet.ToString().Split(".")[1]);
 
 
-                        int hour1 = int.Parse(Hour.ToString().Split(".")[0]);
+						int hour = 0;
+						int min = 0;
+						if (a.TotalHoursByTimeSheet.ToString().Split(".").Count() == 2)
+						{
+							hour = int.Parse(a.TotalHoursByTimeSheet.ToString().Split(".")[0]);
+							min = int.Parse(a.TotalHoursByTimeSheet.ToString().Split(".")[1]);
+						}
+						else
+						{
+							hour = int.Parse(a.TotalHoursByTimeSheet.ToString());
+						}
 
+						int hour1 = 0;
 
-                        int min1 = int.Parse(Hour.ToString().Split(".")[1]);
+						int min1 = 0;
+						if (Hour.ToString().Split(".").Count() == 2)
+						{
+							 hour1 = int.Parse(Hour.ToString().Split(".")[0]);
+							min1 = int.Parse(Hour.ToString().Split(".")[1]);
+						}
+						else
+						{
+							 hour1 = int.Parse(Hour.ToString());
+						}
 
 						hour1 = hour1+hour;
 						min1 = min1+min;
@@ -605,7 +623,7 @@ namespace CloudVOffice.Services.Projects
 
 
 
-        public void TodayDueProjectTasksSendNotification()
+        public async Task TodayDueProjectTasksSendNotification()
 		{
 			try
 			{
@@ -619,7 +637,7 @@ namespace CloudVOffice.Services.Projects
 
 				for(int i=0;i<list.Count;i++)
 				{
-					SendTaskNotification("TaskDueTodayReminder", list[i]);
+					await SendTaskNotification("TaskDueTodayReminder", list[i]);
 
                 }
 				
@@ -631,7 +649,7 @@ namespace CloudVOffice.Services.Projects
 			}
 		}
 
-        public void MarkTaskOverDueAndSendNotification()
+        public async Task MarkTaskOverDueAndSendNotification()
 		{
             try
             {
@@ -651,7 +669,7 @@ namespace CloudVOffice.Services.Projects
 					task.UpdatedBy = 1;
 					task.UpdatedDate = DateTime.Now;
 					_Context.SaveChanges();
-                    SendTaskNotification("TaskOverdue", list[i]);
+                   await SendTaskNotification("TaskOverdue", list[i]);
 
                 }
 
@@ -664,7 +682,7 @@ namespace CloudVOffice.Services.Projects
         }
 
 
-        private async void SendTaskNotification(string templateName,ProjectTask projectTask)
+        private async Task SendTaskNotification(string templateName,ProjectTask projectTask)
 		{
 			string baseUrl = _configuration["Application:appurl"];
 

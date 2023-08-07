@@ -3,6 +3,7 @@ using CloudVOffice.Services.Projects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,19 +22,19 @@ namespace CloudVOffice.BackgroundJobs
             _projectTaskService = projectTaskService;
             _timesheetService = timesheetService;
         }
-        public void RunDaily1015AmISTJob()
+        public async Task RunDaily1015AmISTJob()
         {
             var applications = _applicationInstallationService.GetInstalledApplications();
             if(applications.Where(x=>x.PackageName == "Project.Management").ToList().Count > 0)
             {
-                _projectTaskService.TodayDueProjectTasksSendNotification();
-               _timesheetService.TimesheetUpdateRemiderSendNotification();
+               await _projectTaskService.TodayDueProjectTasksSendNotification();
+              await _timesheetService.TimesheetUpdateRemiderSendNotification();
 
             }
             // Your logic to run daily at 10 AM
             // This method will be executed as a recurring job
         }
-        public void RunDaily8AmISTJob()
+        public async Task RunDaily8AmISTJob()
         {
             var applications = _applicationInstallationService.GetInstalledApplications();
             if (applications.Where(x => x.PackageName == "Project.Management").ToList().Count > 0)

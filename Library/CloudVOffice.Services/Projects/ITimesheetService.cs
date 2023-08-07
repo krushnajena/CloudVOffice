@@ -29,7 +29,7 @@ namespace CloudVOffice.Services.Projects
         public List<TimeSheetLineChartModel> TimeSheetEffortAnalysis(DateTime FromDate, DateTime ToDate, Int64 EmployeeId);
 
         public List<Timesheet> GetNotRejectedTimesheetByProjectId(int ProjectId);
-        public void TimesheetUpdateRemiderSendNotification();
+        public  Task TimesheetUpdateRemiderSendNotification();
 
     }
 }

@@ -404,7 +404,7 @@ namespace CloudVOffice.Services.Projects
         {
             return _Context.Timesheets.Where(x=>x.ProjectId == ProjectId && x.TimeSheetApprovalStatus != 2 && x.Deleted == false ).ToList();
         }
-        public void TimesheetUpdateRemiderSendNotification()
+        public  async Task TimesheetUpdateRemiderSendNotification()
         {
             try
             {
@@ -419,7 +419,7 @@ namespace CloudVOffice.Services.Projects
 
 				for (int i=0;i<employees.Count;i++)
                 {
-                    SendTimeSheetNotification(employees[i]);
+                   await SendTimeSheetNotification(employees[i]);
                 }
             }
             catch
@@ -427,7 +427,7 @@ namespace CloudVOffice.Services.Projects
                 throw;
             }
         }
-        private async void SendTimeSheetNotification(Employee employee)
+        private async Task SendTimeSheetNotification(Employee employee)
         {
             string baseUrl =_configuration["Application:appurl"];
 

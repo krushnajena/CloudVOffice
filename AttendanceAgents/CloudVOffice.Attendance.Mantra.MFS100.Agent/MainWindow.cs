@@ -38,5 +38,19 @@ namespace CloudVOffice.Attendance.Mantra.MFS100.Agent
 			ManagerLogin manager = new ManagerLogin();
 			manager.ShowDialog();
 		}
+
+		private void toolStripStatusLabel5_Click(object sender, EventArgs e)
+		{
+			if(Properties.Settings.Default.ApplicationUrl == "")
+			{
+				ApplicationSetting application =  new ApplicationSetting();
+				application.ShowDialog();
+			}
+			else
+			{
+				ManagerLogin manager = new ManagerLogin();
+				manager.ShowDialog();
+			}
+		}
 	}
 }

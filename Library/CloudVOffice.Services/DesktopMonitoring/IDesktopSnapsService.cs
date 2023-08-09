@@ -14,5 +14,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
         public MessageEnum CreateDesktopSnaps(DesktopSnapsDTO desktopSnapsDTO);
         public List<DesktopSnapshot> GetSnapsByActivityId(Int64 ActivityId);
         public List<DesktopSnapshot> GetSnapsBySessionId(Int64 SessionId);
+
+        public List<DesktopSnapshot> GetSnapsForFileLog(Int64 ActivityId);
     }
 }

@@ -36,6 +36,8 @@
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.lblSerialNo = new System.Windows.Forms.ToolStripStatusLabel();
+			this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.pictureBox2 = new System.Windows.Forms.PictureBox();
 			this.lbl_Date = new System.Windows.Forms.Label();
@@ -44,8 +46,8 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.lblStatus = new System.Windows.Forms.Label();
 			this.lblQuality = new System.Windows.Forms.Label();
-			this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
-			this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
 			((System.ComponentModel.ISupportInitialize)(this.pb_Finger)).BeginInit();
 			this.statusStrip1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -75,7 +77,9 @@
             this.toolStripStatusLabel2,
             this.lblSerialNo,
             this.toolStripStatusLabel3,
-            this.toolStripSplitButton1});
+            this.toolStripSplitButton1,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel5});
 			this.statusStrip1.Location = new System.Drawing.Point(0, 288);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Size = new System.Drawing.Size(552, 22);
@@ -97,6 +101,22 @@
 			// 
 			this.lblSerialNo.Name = "lblSerialNo";
 			this.lblSerialNo.Size = new System.Drawing.Size(0, 17);
+			// 
+			// toolStripStatusLabel3
+			// 
+			this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+			this.toolStripStatusLabel3.Size = new System.Drawing.Size(37, 17);
+			this.toolStripStatusLabel3.Text = "    |     ";
+			// 
+			// toolStripSplitButton1
+			// 
+			this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+			this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+			this.toolStripSplitButton1.Size = new System.Drawing.Size(106, 20);
+			this.toolStripSplitButton1.Text = "     Register User";
+			this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
 			// 
 			// panel1
 			// 
@@ -172,21 +192,18 @@
 			this.lblQuality.Size = new System.Drawing.Size(0, 13);
 			this.lblQuality.TabIndex = 6;
 			// 
-			// toolStripSplitButton1
+			// toolStripStatusLabel4
 			// 
-			this.toolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
-			this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-			this.toolStripSplitButton1.Size = new System.Drawing.Size(106, 20);
-			this.toolStripSplitButton1.Text = "     Register User";
-			this.toolStripSplitButton1.ButtonClick += new System.EventHandler(this.toolStripSplitButton1_ButtonClick);
+			this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+			this.toolStripStatusLabel4.Size = new System.Drawing.Size(70, 17);
+			this.toolStripStatusLabel4.Text = "         |           ";
 			// 
-			// toolStripStatusLabel3
+			// toolStripStatusLabel5
 			// 
-			this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-			this.toolStripStatusLabel3.Size = new System.Drawing.Size(37, 17);
-			this.toolStripStatusLabel3.Text = "    |     ";
+			this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+			this.toolStripStatusLabel5.Size = new System.Drawing.Size(89, 17);
+			this.toolStripStatusLabel5.Text = "Set Gateway Url";
+			this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
 			// 
 			// MainWindow
 			// 
@@ -232,5 +249,7 @@
 		private System.Windows.Forms.Label lblQuality;
 		private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
 	}
 }

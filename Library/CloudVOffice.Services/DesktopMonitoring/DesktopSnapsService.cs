@@ -18,12 +18,17 @@ namespace CloudVOffice.Services.DesktopMonitoring
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<DesktopSnapshot> _desktopSnapShotRepo;
-        public DesktopSnapsService(ApplicationDBContext Context, ISqlRepository<DesktopSnapshot> desktopSnapRepo)
+		private readonly IDesktopActivityLogService _desktopActivityLogService;
+		public DesktopSnapsService(ApplicationDBContext Context, ISqlRepository<DesktopSnapshot> desktopSnapRepo,
+			IDesktopActivityLogService desktopActivityLogService
+			)
         {
 
             _Context = Context;
             _desktopSnapShotRepo = desktopSnapRepo;
-        }
+			_desktopActivityLogService=desktopActivityLogService;
+
+		}
         public MessageEnum CreateDesktopSnaps(DesktopSnapsDTO desktopSnap)
         {
             try
@@ -71,5 +76,20 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 throw;
             }
         }
-    }
+
+
+		public List<DesktopSnapshot> GetSnapsForFileLog(Int64 ActivityId)
+        {
+			try
+			{
+                var activity = _desktopActivityLogService.GetDesktopActivityLogByDesktopActivityLogId(ActivityId);
+				return _Context.DesktopSnapshots.Where(x =>   (x.SnapshotDateTime >= activity.LogDateTime.Value.AddMinutes(-2) && x.SnapshotDateTime <= activity.LogDateTime.Value.AddMinutes(2)) && x.Deleted == false).OrderBy(x => x.SnapshotDateTime).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+	}
 }

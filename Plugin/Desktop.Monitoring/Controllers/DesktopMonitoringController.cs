@@ -408,6 +408,15 @@ namespace Desktop.Monitoring.Controllers
 
                     return Ok(list);
                 }
+                else if(logType == "file")
+                {
+					var list = _desktopSnapshotSerive.GetSnapsForFileLog(Id);
+
+
+
+
+					return Ok(list);
+				}
                 else
                 {
                     var list = _desktopSnapshotSerive.GetSnapsByActivityId(Id);

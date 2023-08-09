@@ -47,7 +47,7 @@
                                     <div class="form-group col-md-12">
                                         <input asp-for="@Model.LeaveTypeId" type="hidden" />
 
-                                        <label for="LeaveTypeName" class="form-label">Leave Type Name</label>
+                                        <label for="LeaveTypeName" class="form-label">Leave Type Name&nbsp;<span style="color:red;"><b>*</b></span></label>
                                         <input asp-for="@Model.LeaveTypeName" type="text" class="form-control" autofocus="autofocus" placeholder="Leave Type Name" />
                                         <span asp-validation-for="LeaveTypeName"></span>
                                     </div>

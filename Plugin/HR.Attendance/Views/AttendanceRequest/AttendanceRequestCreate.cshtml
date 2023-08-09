@@ -46,7 +46,7 @@
 							<div class="form-group col-md-4">
 								<input asp-for="@Model.AttendanceRequestId" type="hidden" />
 
-								<label for="EmployeeId" class="form-label">Employee</label>
+								<label for="EmployeeId" class="form-label">Employee&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName" ).Items)" placeholder="Select Employee  " popupHeight="220px">
 									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>

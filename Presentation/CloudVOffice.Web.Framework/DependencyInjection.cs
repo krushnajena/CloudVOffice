@@ -93,6 +93,7 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<ILeavePeriodService, LeavePeriodService>();
 			
 			services.AddScoped<IAttendanceDeviceService, AttendanceDeviceService>();
+			services.AddScoped<IEmployeeBiometricDataService, EmployeeBiometricDataService>();
 			#endregion
 
 

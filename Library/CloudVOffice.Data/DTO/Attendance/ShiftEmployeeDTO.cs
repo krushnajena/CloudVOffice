@@ -20,14 +20,5 @@ namespace CloudVOffice.Data.DTO.Attendance
 
         public List<EmployeeCreateDTO>? EmployeeShift { get; set; }
         public string EmployeesString { get; set; }
-
-       /* public class EmployeeShiftDTO
-        {
-
-            public Int64 EmployeeId { get; set; }
-            public int? ProjectId { get; set; }
-            public string FullName { get; set; }
-            public Int64? CreatedBy { get; set; }
-        }*/
     }
 }

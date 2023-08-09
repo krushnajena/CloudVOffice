@@ -26,7 +26,7 @@ namespace HR.Attendance.Controllers
             if (leavePeriodId != null)
             {
 
-                LeavePeriod d = _leavePeriodService.GetLeavePeriodById(int.Parse(leavePeriodId.ToString()));
+				LeavePeriod d = _leavePeriodService.GetLeavePeriodById(int.Parse(leavePeriodId.ToString()));
 
                 leavePeriodDTO.FromDate = d.FromDate;
                 leavePeriodDTO.ToDate = d.ToDate;

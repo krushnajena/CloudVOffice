@@ -74,6 +74,7 @@ namespace CloudVOffice.Core.Domain.HR.Emp
 		public string? MaritalStatus { get; set; }
 		public DateTime? MarraigeDate { get; set; }
 		public string? BloodGroup { get; set; }
+
 		public string? PassportNumber { get; set; }
 		public DateTime? PassportDateOfIssue { get; set; }
 		public DateTime? PassportValidUpto { get; set; }

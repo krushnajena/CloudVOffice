@@ -45,8 +45,8 @@
 							<6div class="form-group col-md-5">
 								<input asp-for="@Model.HolidayId" type="hidden" />
 
-							
-									<label for="HolidayName" class="form-label">Holiday Name</label>
+
+                                <label for="HolidayName" class="form-label">Holiday Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 									<input asp-for="@Model.HolidayName" type="text" class="form-control" autofocus="autofocus" placeholder="Holiday Name" />
 									<span asp-validation-for="HolidayName"></span>
 								
@@ -56,7 +56,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-3">
-                                <label for="FromDate" class="form-label">From Date</label>
+                                <label for="FromDate" class="form-label">From Date&nbsp;<span style="color:red;"><b>*</b></span></label>
                                 <input asp-for="@Model.FromDate" type="date" class="form-control" autofocus="autofocus" placeholder="FromDate" />
                                 <span asp-validation-for="FromDate"></span>
                             </div>

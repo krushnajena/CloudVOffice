@@ -1,24 +1,18 @@
 ﻿using CloudVOffice.Data.DTO.DesktopMonitoring;
-using CloudVOffice.Data.DTO.Emp;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Emp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Web.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public  class DesktopSnapshotController : Controller {
+    public class DesktopSnapshotController : Controller
+    {
 
         private readonly IDesktopSnapsService _desktopSnapService;
         private readonly IEmployeeService _empolyeeService;
@@ -58,8 +52,8 @@ namespace Web.API.Controllers
                 string extn = fileInfo.Extension.ToLower();
                 Guid id = Guid.NewGuid();
                 string filename = id.ToString() + extn;
-                string newpath =  DateTime.Today.Date.ToString("dd-MMM-yyyy");
-                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"uploads\desktopsnaps\"+ EmployeeId + @"\" + newpath);
+                string newpath = DateTime.Today.Date.ToString("dd-MMM-yyyy");
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, @"uploads\desktopsnaps\" + EmployeeId + @"\" + newpath);
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
@@ -67,13 +61,13 @@ namespace Web.API.Controllers
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
                 string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
                 desktopSnapsDTO.imageUpload.CopyTo(new FileStream(imagePath, FileMode.Create));
-                desktopSnapsDTO.SnapShot =EmployeeId+"/" +newpath+"/"+ uniqueFileName;
+                desktopSnapsDTO.SnapShot = EmployeeId + "/" + newpath + "/" + uniqueFileName;
 
-                if(fileInfo.Exists)
+                if (fileInfo.Exists)
                 {
                     desktopSnapsDTO.FileSize = fileInfo.Length;
                 }
-               
+
             }
             var a = _desktopSnapService.CreateDesktopSnaps(desktopSnapsDTO);
 

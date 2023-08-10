@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Core.Domain.Pemission
+﻿namespace CloudVOffice.Core.Domain.Pemission
 {
-    public class Application:IAuditEntity, ISoftDeletedEntity
+    public class Application : IAuditEntity, ISoftDeletedEntity
     {
-        public int ApplicationId { get; set;  }
-       
+        public int ApplicationId { get; set; }
+
         public string ApplicationName { get; set; }
 
         public int? Parent { get; set; }

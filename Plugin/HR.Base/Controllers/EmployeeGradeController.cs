@@ -1,22 +1,16 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
-using CloudVOffice.Services.HR;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.Base.Controllers
 {
     [Area(AreaNames.HR)]
-    public class EmployeeGradeController :  BasePluginController
+    public class EmployeeGradeController : BasePluginController
     {
         private readonly IEmployeeGradeServices _employeeGradeService;
         public EmployeeGradeController(IEmployeeGradeServices employeeGradeService)
@@ -29,14 +23,14 @@ namespace HR.Base.Controllers
         public IActionResult CreateEmployeeGrade(int? employeeGradeId)
         {
             EmployeeGradeDTO employeeGradeDTO = new EmployeeGradeDTO();
-            
+
             if (employeeGradeId != null)
             {
 
                 EmployeeGrade d = _employeeGradeService.GetEmployeeGradeById(int.Parse(employeeGradeId.ToString()));
 
                 employeeGradeDTO.EmployeeGradeName = d.EmployeeGradeName;
-                
+
 
             }
 
@@ -91,7 +85,7 @@ namespace HR.Base.Controllers
                     }
                 }
             }
-            
+
             return View("~/Plugins/HR.Base/Views/EmployeeGrade/CreateEmployeeGrade.cshtml", employeeGradeDTO);
         }
         [Authorize(Roles = "HR Manager")]

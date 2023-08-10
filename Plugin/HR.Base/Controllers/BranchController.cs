@@ -2,27 +2,20 @@
 using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Services.HR.Master;
-using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace HR.Base.Controllers
 {
     [Area(AreaNames.HR)]
     public class BranchController : BasePluginController
     {
         private readonly IBranchService _branchService;
-        public BranchController(IBranchService branchService) {
-        
-            _branchService= branchService;
+        public BranchController(IBranchService branchService)
+        {
+
+            _branchService = branchService;
         }
         [HttpGet]
         [Authorize(Roles = "HR Manager")]
@@ -36,7 +29,7 @@ namespace HR.Base.Controllers
                 Branch d = _branchService.GetBranchByBranchId(int.Parse(branchId.ToString()));
 
                 branchDTO.BranchName = d.BranchName;
-              
+
             }
 
             return View("~/Plugins/HR.Base/Views/Branch/BranchCreate.cshtml", branchDTO);
@@ -47,10 +40,10 @@ namespace HR.Base.Controllers
         [Authorize(Roles = "HR Manager")]
         public IActionResult BranchCreate(BranchDTO branchDTO)
         {
-			branchDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            branchDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
 
-			if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (branchDTO.BranchId == null)
                 {
@@ -78,7 +71,7 @@ namespace HR.Base.Controllers
                     {
                         TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/HR/Branch/BranchView");
-					}
+                    }
                     else if (a == MessageEnum.Duplicate)
                     {
                         TempData["msg"] = MessageEnum.Duplicate;
@@ -108,7 +101,7 @@ namespace HR.Base.Controllers
         {
             Int64 DeletedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-            var a = _branchService.BranchDelete( branchId, DeletedBy);
+            var a = _branchService.BranchDelete(branchId, DeletedBy);
             TempData["msg"] = a;
             return Redirect("/HR/Branch/BranchView");
         }

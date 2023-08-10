@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
+﻿using SQLite;
+using System;
 
 
 namespace DesktopMonitoringSystem.Classes
@@ -23,5 +19,5 @@ namespace DesktopMonitoringSystem.Classes
         public bool IsAutoLogOut { get; set; }
     }
 
-   
+
 }

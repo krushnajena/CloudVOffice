@@ -1,20 +1,13 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Accounts;
-using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Accounts
 {
-	public class ChartOfAccountsService : IChartOfAccountsServices
-	{
+    public class ChartOfAccountsService : IChartOfAccountsServices
+    {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<ChartOfAccounts> _chartOfAccountsRepo;
 
@@ -47,7 +40,7 @@ namespace CloudVOffice.Services.Accounts
             }
         }
 
-        
+
         public MessageEnum ChartOfAccountsUpdate(ChartOfAccountsDTO chartOfAccountsDTO)
         {
             try
@@ -89,40 +82,40 @@ namespace CloudVOffice.Services.Accounts
 
         public MessageEnum CreateChartOfAccounts(ChartOfAccountsDTO chartOfAccountsDTO)
         {
-            
-           
-           var objCheck = _Context.ChartOfAccounts.SingleOrDefault(opt => opt.ChartOfAccountsId == chartOfAccountsDTO.ChartOfAccountsId && opt.Deleted == false);
-           try
-           {
-               if (objCheck == null)
-               {
 
-                   ChartOfAccounts chartOfAccounts = new ChartOfAccounts();
-                   chartOfAccounts.AccountName = chartOfAccountsDTO.AccountName;
-                  chartOfAccounts.AccountNumber = chartOfAccountsDTO.AccountNumber;
-                   chartOfAccounts.IsGroup = chartOfAccountsDTO.IsGroup;
-                   chartOfAccounts.RootType = chartOfAccountsDTO.RootType;
-                   chartOfAccounts.ReportType = chartOfAccountsDTO.ReportType;
-                   chartOfAccounts.ParentAccountGroupId = chartOfAccountsDTO.ParentAccountGroupId;
-                   chartOfAccounts.AccountType = chartOfAccountsDTO.AccountType;
+
+            var objCheck = _Context.ChartOfAccounts.SingleOrDefault(opt => opt.ChartOfAccountsId == chartOfAccountsDTO.ChartOfAccountsId && opt.Deleted == false);
+            try
+            {
+                if (objCheck == null)
+                {
+
+                    ChartOfAccounts chartOfAccounts = new ChartOfAccounts();
+                    chartOfAccounts.AccountName = chartOfAccountsDTO.AccountName;
+                    chartOfAccounts.AccountNumber = chartOfAccountsDTO.AccountNumber;
+                    chartOfAccounts.IsGroup = chartOfAccountsDTO.IsGroup;
+                    chartOfAccounts.RootType = chartOfAccountsDTO.RootType;
+                    chartOfAccounts.ReportType = chartOfAccountsDTO.ReportType;
+                    chartOfAccounts.ParentAccountGroupId = chartOfAccountsDTO.ParentAccountGroupId;
+                    chartOfAccounts.AccountType = chartOfAccountsDTO.AccountType;
                     chartOfAccounts.TaxRate = chartOfAccountsDTO.TaxRate;
                     chartOfAccounts.BalanceMustBe = chartOfAccountsDTO.BalanceMustBe;
                     chartOfAccounts.CreatedBy = chartOfAccountsDTO.CreatedBy;
-                   var obj = _chartOfAccountsRepo      .Insert(chartOfAccounts);
+                    var obj = _chartOfAccountsRepo.Insert(chartOfAccounts);
 
-                   return MessageEnum.Success;
-               }
-               else if (objCheck != null)
-               {
-                   return MessageEnum.Duplicate;
-               }
+                    return MessageEnum.Success;
+                }
+                else if (objCheck != null)
+                {
+                    return MessageEnum.Duplicate;
+                }
 
-               return MessageEnum.UnExpectedError;
-           }
-           catch
-           {
-               throw;
-           }
+                return MessageEnum.UnExpectedError;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public List<ChartOfAccounts> GetChartOfAccounts()
@@ -130,7 +123,7 @@ namespace CloudVOffice.Services.Accounts
 
             try
             {
-                return _Context.ChartOfAccounts.Where(x => x.Deleted == false  && x.IsGroup == true).ToList();
+                return _Context.ChartOfAccounts.Where(x => x.Deleted == false && x.IsGroup == true).ToList();
 
             }
             catch
@@ -138,7 +131,7 @@ namespace CloudVOffice.Services.Accounts
                 throw;
             }
         }
-        
+
 
         public ChartOfAccounts GetChartOfAccountsById(Int64 chartOfAccountsId)
         {
@@ -153,6 +146,6 @@ namespace CloudVOffice.Services.Accounts
             }
         }
 
-       
+
     }
 }

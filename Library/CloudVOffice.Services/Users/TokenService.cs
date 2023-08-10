@@ -3,12 +3,7 @@ using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Users
 {
@@ -32,15 +27,15 @@ namespace CloudVOffice.Services.Users
         }
         public string CreateNewRefreshToken(TokenDTO tokenDTO)
         {
-            var a = tokenDTO.ClientName.Contains("Windows") || tokenDTO.ClientName.Contains("PC") || tokenDTO.ClientName.Contains("Desktop")? _context.RefreshTokens.Where(x=> x.Deleted ==  false && x.UserId == tokenDTO.UserId && x.ClientName== tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId ).FirstOrDefault(): _context.RefreshTokens.Where(x => x.Deleted == false && x.UserId == tokenDTO.UserId && x.ClientName == tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId && x.RefreshTokenExpiryTime > DateTime.Now).FirstOrDefault();
-            if(a != null)
+            var a = tokenDTO.ClientName.Contains("Windows") || tokenDTO.ClientName.Contains("PC") || tokenDTO.ClientName.Contains("Desktop") ? _context.RefreshTokens.Where(x => x.Deleted == false && x.UserId == tokenDTO.UserId && x.ClientName == tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId).FirstOrDefault() : _context.RefreshTokens.Where(x => x.Deleted == false && x.UserId == tokenDTO.UserId && x.ClientName == tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId && x.RefreshTokenExpiryTime > DateTime.Now).FirstOrDefault();
+            if (a != null)
             {
                 return a.Refresh_Token;
             }
             else
             {
-                RefreshToken refreshToken =     new RefreshToken();
-                if(tokenDTO.ClientName.Contains("Windows")|| tokenDTO.ClientName.Contains("PC") || tokenDTO.ClientName.Contains("Desktop"))
+                RefreshToken refreshToken = new RefreshToken();
+                if (tokenDTO.ClientName.Contains("Windows") || tokenDTO.ClientName.Contains("PC") || tokenDTO.ClientName.Contains("Desktop"))
                 {
                     refreshToken.RefreshTokenExpiryTime = null;
                 }
@@ -62,8 +57,8 @@ namespace CloudVOffice.Services.Users
         public string GetRefreshToken(RefreshTokenDTO tokenDTO)
         {
 
-            var a = tokenDTO.ClientName.Contains("Windows") || tokenDTO.ClientName.Contains("PC") || tokenDTO.ClientName.Contains("Desktop") ? _context.RefreshTokens.Where(x => x.Deleted == false && x.UserId == tokenDTO.UserId && x.ClientName == tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId && x.Refresh_Token == tokenDTO.Refresh_Token).FirstOrDefault() : _context.RefreshTokens.Where(x => x.Deleted == false && x.UserId == tokenDTO.UserId && x.ClientName == tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId && x.RefreshTokenExpiryTime > DateTime.Now && x.Refresh_Token ==  tokenDTO.Refresh_Token).FirstOrDefault();
-            return a!=null?a.Refresh_Token : "";
+            var a = tokenDTO.ClientName.Contains("Windows") || tokenDTO.ClientName.Contains("PC") || tokenDTO.ClientName.Contains("Desktop") ? _context.RefreshTokens.Where(x => x.Deleted == false && x.UserId == tokenDTO.UserId && x.ClientName == tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId && x.Refresh_Token == tokenDTO.Refresh_Token).FirstOrDefault() : _context.RefreshTokens.Where(x => x.Deleted == false && x.UserId == tokenDTO.UserId && x.ClientName == tokenDTO.ClientName && x.ClientId == tokenDTO.ClientId && x.RefreshTokenExpiryTime > DateTime.Now && x.Refresh_Token == tokenDTO.Refresh_Token).FirstOrDefault();
+            return a != null ? a.Refresh_Token : "";
 
 
         }

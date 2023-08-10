@@ -1,11 +1,9 @@
-﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.Accounts;
+﻿using CloudVOffice.Core.Domain.Accounts;
+using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Accounts;
 using CloudVOffice.Services.Accounts;
-using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accounts.Base.Controllers
@@ -24,7 +22,7 @@ namespace Accounts.Base.Controllers
         public IActionResult FinancialYearCreate(int? FinancialYearId)
         {
             FinancialYearDTO FinancialYearDTO = new FinancialYearDTO();
-            
+
             if (FinancialYearId != null)
             {
 
@@ -39,7 +37,7 @@ namespace Accounts.Base.Controllers
         }
 
         [HttpPost]
-     
+
         public IActionResult FinancialYearCreate(FinancialYearDTO financialYearDTO)
         {
             financialYearDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -89,7 +87,7 @@ namespace Accounts.Base.Controllers
             return View("~/Plugins/Accounts.Base/Views/FinancialYear/FinancialYearCreate.cshtml", financialYearDTO);
         }
 
-       
+
         public IActionResult FinancialYearView()
         {
             ViewBag.financialYears = _financialYearService.GetFinancialYearList();
@@ -98,7 +96,7 @@ namespace Accounts.Base.Controllers
         }
 
         [HttpGet]
-     
+
         public IActionResult FinancialYearDelete(int financialYearId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -109,4 +107,4 @@ namespace Accounts.Base.Controllers
         }
 
     }
-}   
+}

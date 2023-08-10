@@ -36,11 +36,11 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
         public IActionResult DashBoard()
         {
             ViewBag.company = _companyDetailsService.GetCompanyDetails();
-            ViewBag.LetterHead =_letterHeadService.GetLetter();
+            ViewBag.LetterHead = _letterHeadService.GetLetter();
             ViewBag.EmailDomain = _emailDomainService.GetEmailDomains();
             ViewBag.EmailAccounts = _emailAccountService.GetEmailAccounts();
             ViewBag.AllUsers = _userService.GetAllUsers();
-            ViewBag.ActiveUsers = _userService.GetAllUsers().Where(x=>x.IsActive == true).ToList();
+            ViewBag.ActiveUsers = _userService.GetAllUsers().Where(x => x.IsActive == true).ToList();
             ViewBag.InActiveUsers = _userService.GetAllUsers().Where(x => x.IsActive == false).ToList();
             ViewBag.SystemUsers = _userService.GetAllUsers().Where(x => x.UserType == UserType.SystemUser).ToList();
             return View();

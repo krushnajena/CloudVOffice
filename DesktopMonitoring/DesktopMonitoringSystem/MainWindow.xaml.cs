@@ -1,28 +1,13 @@
-﻿using DesktopMonitoringSystem.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using Newtonsoft.Json;
-using System.Net;
-using SQLite;
-using DesktopMonitoringSystem.Classes;
-using System.Diagnostics;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-using Microsoft.Win32;
+﻿using DesktopMonitoringSystem.Classes;
 using DesktopMonitoringSystem.Models;
+using DesktopMonitoringSystem.Utils;
+using Microsoft.Win32;
+using Newtonsoft.Json;
+using SQLite;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Windows;
 
 namespace DesktopMonitoringSystem
 {
@@ -53,7 +38,7 @@ namespace DesktopMonitoringSystem
         {
             if (ApiUrls.getGatewayUrl() != "")
             {
-                if(txt_UserName.Text=="" && txt_password.Password == "")
+                if (txt_UserName.Text == "" && txt_password.Password == "")
                 {
 
                 }
@@ -62,7 +47,7 @@ namespace DesktopMonitoringSystem
                     LoginModel login = new LoginModel();
                     login.Email = txt_UserName.Text;
                     login.Password = txt_password.Password;
-                    login.ClientName= (string)Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion").GetValue("ProductName");
+                    login.ClientName = (string)Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion").GetValue("ProductName");
                     login.ClientId = System.Environment.GetEnvironmentVariable("COMPUTERNAME");
 
                     var a = await HttpClientRq.PostRequest(ApiUrls.postLogin, JsonConvert.SerializeObject(login), true);
@@ -76,18 +61,18 @@ namespace DesktopMonitoringSystem
                                                               .Trim(new char[1] { '"' });
                         var json = JsonConvert.DeserializeObject<UserTokenModel>(X);
 
-                       
+
 
                         if (json != null)
                         {
                             User user = new User();
                             user.Token = json.Token.ToString();
                             user.RefreshToken = json.RefreshToken.ToString();
-                       
+
                             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
                             connection.Insert(user);
                             RegistryKey reg = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-                      
+
                             reg.SetValue("ACTMONA", @"C:\Program Files (x86)\CloudSat Pvt Ltd\Csat Desk Monitering\ActMon\ActMon.exe");
                             MessageBox.Show("Please Restart The System For Activate Services.", "Restart Required");
                             this.Close();
@@ -107,7 +92,7 @@ namespace DesktopMonitoringSystem
                         MessageBox.Show("Invalid User Name or Password");
                     }
                 }
-                
+
             }
             else
             {
@@ -116,12 +101,12 @@ namespace DesktopMonitoringSystem
                 SettingsWindow settingsWindow = new SettingsWindow();
                 settingsWindow.Show();
             }
-            
+
         }
 
         private void btn_settings_Click(object sender, RoutedEventArgs e)
         {
-          
+
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Show();
         }

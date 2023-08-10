@@ -1,20 +1,8 @@
 ﻿using DesktopMonitoringSystem.Classes;
-using Microsoft.Data.Sqlite;
 using SQLite;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace DesktopMonitoringSystem
 {
@@ -33,7 +21,7 @@ namespace DesktopMonitoringSystem
             if (!Directory.Exists(DbContext.floderPath))
             {
                 Directory.CreateDirectory(DbContext.floderPath);
-                
+
             }
             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
             connection.CreateTable<User>();
@@ -45,9 +33,9 @@ namespace DesktopMonitoringSystem
             connection.CreateTable<DMSScreenShotLog>();
 
             var a = connection.Query<User>("select * from User").FirstOrDefault();
-            if(a != null)
+            if (a != null)
             {
-                if(a.RefreshToken != null)
+                if (a.RefreshToken != null)
                 {
                     DashBoardWindow mainWindow = new DashBoardWindow();
                     mainWindow.Show();
@@ -66,7 +54,7 @@ namespace DesktopMonitoringSystem
                 mainWindow.Show();
                 this.Close();
             }
-           
+
         }
     }
 }

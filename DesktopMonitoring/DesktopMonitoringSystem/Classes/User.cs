@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
+﻿using SQLite;
 
 namespace DesktopMonitoringSystem.Classes
 {
@@ -12,7 +7,7 @@ namespace DesktopMonitoringSystem.Classes
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int? UserId { get; set; }
-        public string? UserName { get; set; }     
+        public string? UserName { get; set; }
         public string? ApplicantName { get; set; }
 
 
@@ -50,7 +45,7 @@ namespace DesktopMonitoringSystem.Classes
         public string NoticeFilePath { get; set; }
         public int? IsLowGradeLimestone { get; set; }
         public string SMS_SENT { get; set; }
-        
+
         public string EncryptPassword { get; set; }
 
 
@@ -58,7 +53,7 @@ namespace DesktopMonitoringSystem.Classes
         public int? DesiginationId { get; set; }
         public int? deptid { get; set; }
         public int? int_LevelId { get; set; }
-  
+
         public string VCH_DISECODE { get; set; }
         public int int_DesignationId { get; set; }
         public string? DistrictId { get; set; }

@@ -5,12 +5,6 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Web.Framework;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Desktop.Monitoring.Controllers
 {
@@ -29,7 +23,7 @@ namespace Desktop.Monitoring.Controllers
         {
             _desktopActivityLogSerive = desktopActivityLogSerive;
             _employeeService = employeeService;
-            _desktoplogin= desktoplogin;
+            _desktoplogin = desktoplogin;
         }
         [Authorize(Roles = "Desktop Monitoring User, Desktop Monitoring Manager, Employee")]
         public IActionResult SuspesiosActivityLog()
@@ -90,8 +84,8 @@ namespace Desktop.Monitoring.Controllers
         }
 
 
-        
-       
+
+
 
 
         [HttpPost]
@@ -109,7 +103,7 @@ namespace Desktop.Monitoring.Controllers
         [HttpPost]
         public IActionResult GetEmployeeDayWiseEffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
         {
-          
+
             return Json(_desktopActivityLogSerive.EmployeeDayWiseEffortAnalysReport(suspesiosActivityLogDTO));
 
         }

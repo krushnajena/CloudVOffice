@@ -1,40 +1,35 @@
 ﻿using CloudVOffice.Core.Domain.Pemission;
-using CloudVOffice.Core.Domain.Projects;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Users
 {
-    public class User: IAuditEntity, ISoftDeletedEntity
+    public class User : IAuditEntity, ISoftDeletedEntity
     {
         public Int64 UserId { get; set; }
         public string FirstName { get; set; }
         public string? MiddleName { get; set; }
         public string? LastName { get; set; }
-		[NotMapped]
-		public string FullName {
+        [NotMapped]
+        public string FullName
+        {
             get
             {
-                if(MiddleName!= null && MiddleName != "")
+                if (MiddleName != null && MiddleName != "")
                 {
-					return FirstName +  " "+MiddleName + " " + LastName;
-				}
+                    return FirstName + " " + MiddleName + " " + LastName;
+                }
                 else
-                { return FirstName + " " +LastName; }
-                
+                { return FirstName + " " + LastName; }
+
             }
         }
-		public string Email { get; set; }
+        public string Email { get; set; }
         public string? Password { get; set; }
         public string? PhoneNo { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
         public int? FailedLoginAttempts { get; set; }
-   
+
         public string? LastIpAddress { get; set; }
         public DateTime? LastLoginDate { get; set; }
         public DateTime LastActivityDate { get; set; }
@@ -47,7 +42,7 @@ namespace CloudVOffice.Core.Domain.Users
         public bool Deleted { get; set; }
 
         public string? ResetPasswordToken { get; set; }
-        public DateTime? ResetPasswordTokenExpirey { get; set; }    
+        public DateTime? ResetPasswordTokenExpirey { get; set; }
         public UserType UserType
         {
             get => (UserType)UserTypeId;
@@ -58,7 +53,7 @@ namespace CloudVOffice.Core.Domain.Users
         public List<UserWiseViewMapper> UserWiseViewMapper { get; set; }
 
 
-  
+
 
 
     }

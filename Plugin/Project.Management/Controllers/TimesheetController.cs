@@ -1,5 +1,4 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 
@@ -8,11 +7,6 @@ using CloudVOffice.Services.Projects;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project.Management.Controllers
 {
@@ -26,7 +20,7 @@ namespace Project.Management.Controllers
         private readonly IProjectTaskService _projectTaskService;
         private readonly ITimesheetActivityCategoryService _timesheetActivityCategoryService;
         public TimesheetController(ITimesheetService timesheetService, IEmployeeService employeeService, IProjectActivityTypeService projectActivityTypeService, IProjectService projectService, IProjectTaskService projectTaskService,
-			 ITimesheetActivityCategoryService timesheetActivityCategoryService)
+             ITimesheetActivityCategoryService timesheetActivityCategoryService)
         {
 
             _timesheetService = timesheetService;
@@ -34,15 +28,15 @@ namespace Project.Management.Controllers
             _projectActivityTypeService = projectActivityTypeService;
             _projectService = projectService;
             _projectTaskService = projectTaskService;
-			_timesheetActivityCategoryService = timesheetActivityCategoryService;
+            _timesheetActivityCategoryService = timesheetActivityCategoryService;
 
-		}
+        }
         [HttpGet]
         public IActionResult TimesheetCreate(Int64? timesheetId)
         {
             TimesheetDTO timesheetDTO = new TimesheetDTO();
-			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
-			if (timesheetId != null)
+            ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
+            if (timesheetId != null)
             {
 
                 Timesheet d = _timesheetService.GetTimesheetByTimesheetId(Int64.Parse(timesheetId.ToString()));
@@ -107,7 +101,7 @@ namespace Project.Management.Controllers
                         TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/Projects/Timesheet/TimesheetView");
                     }
-                   
+
                     else
                     {
                         TempData["msg"] = MessageEnum.UnExpectedError;
@@ -115,16 +109,16 @@ namespace Project.Management.Controllers
                     }
                 }
             }
-			ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
+            ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 
-			return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
+            return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
         }
         public IActionResult TimesheetView()
         {
 
-           Int64 createdBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 createdBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 employeeId = _employeeService.GetEmployeeDetailsByUserId(createdBy).EmployeeId;
-           
+
             ViewBag.Timesheets = _timesheetService.GetMyTimeSheets(employeeId);
 
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetView.cshtml");

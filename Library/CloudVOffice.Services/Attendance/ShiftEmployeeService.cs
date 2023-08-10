@@ -1,9 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Attendance;
-using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.DTO.Emp;
-using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Emp;
@@ -58,9 +56,9 @@ namespace CloudVOffice.Services.Attendance
             catch
             {
                 throw;
-            }            
+            }
         }
-      
+
         public List<ShiftEmployee> GetShiftEmployeeList()
         {
             try
@@ -119,10 +117,10 @@ namespace CloudVOffice.Services.Attendance
                     var a = _Context.ShiftEmployees.Where(x => x.ShiftEmployeeId == shiftEmployeeDTO.ShiftEmployeeId).FirstOrDefault();
                     if (a != null)
                     {
-                        a.ShiftId = shiftEmployeeDTO.ShiftId;                       
-                        a.EmployeeId = shiftEmployeeDTO.EmployeeId;                       
-                        a.FromDate = shiftEmployeeDTO.FromDate;                       
-                        a.ToDate = shiftEmployeeDTO.ToDate;                       
+                        a.ShiftId = shiftEmployeeDTO.ShiftId;
+                        a.EmployeeId = shiftEmployeeDTO.EmployeeId;
+                        a.FromDate = shiftEmployeeDTO.FromDate;
+                        a.ToDate = shiftEmployeeDTO.ToDate;
                         a.UpdatedBy = shiftEmployeeDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();

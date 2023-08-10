@@ -1,4 +1,4 @@
-﻿ using CloudVOffice.Core.Infrastructure.Http;
+﻿using CloudVOffice.Core.Infrastructure.Http;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Accounts;
 using CloudVOffice.Services.Applications;
@@ -21,12 +21,6 @@ using CloudVOffice.Services.Users;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Web.Framework
 {
@@ -42,13 +36,13 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IApplicationInstallationService, ApplicationInstallationService>();
-			services.AddScoped<IHttpWebClients, HttpWebClients>();
-			services.AddScoped<IEmailAccountService, EmailAccountService>();
-			services.AddScoped<IEmailDomainService, EmailDomainService>();
+            services.AddScoped<IHttpWebClients, HttpWebClients>();
+            services.AddScoped<IEmailAccountService, EmailAccountService>();
+            services.AddScoped<IEmailDomainService, EmailDomainService>();
 
-			services.AddScoped<IEmailTemplateService, EmailTemplateService>();
-			services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
-			services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+            services.AddScoped<ICompanyDetailsService, CompanyDetailsService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddScoped<ITokenService, TokenService>();
 
@@ -56,13 +50,13 @@ namespace CloudVOffice.Web.Framework
 
 
             services.AddScoped<ILetterHeadService, LetterHeadService>();
-			
-			
-			#region HR Services
-		    #region Masters
-			services.AddScoped<IDepartmentService, DepartmentService>();
+
+
+            #region HR Services
+            #region Masters
+            services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IDesignationService, DesignationService>();
-            	services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
+            services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
             services.AddScoped<IBranchService, BranchService>();
             #endregion
 
@@ -73,53 +67,55 @@ namespace CloudVOffice.Web.Framework
 
             #region Project Services
             services.AddScoped<IProjectTypeService, ProjectTypeService>();
-			services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IProjectActivityTypeService, ProjectActivityTypeService>();
-			services.AddScoped<IProjectTaskService, ProjectTaskService>();
-			services.AddScoped<IProjectUserService, ProjectUserService>();
-			services.AddScoped<IProjectEmployeeService, ProjectEmployeeService>();
-			services.AddScoped<ITimesheetService, TimesheetService>();
-			services.AddScoped<ITimesheetActivityCategoryService, TimesheetActivityCategoryService>();
-			#endregion
+            services.AddScoped<IProjectTaskService, ProjectTaskService>();
+            services.AddScoped<IProjectUserService, ProjectUserService>();
+            services.AddScoped<IProjectEmployeeService, ProjectEmployeeService>();
+            services.AddScoped<ITimesheetService, TimesheetService>();
+            services.AddScoped<ITimesheetActivityCategoryService, TimesheetActivityCategoryService>();
+            #endregion
 
             #region Attendance
             services.AddScoped<IShiftTypeService, ShiftTypeService>();
             services.AddScoped<IHolidayService, HolidayService>();
             services.AddScoped<IHolidayDaysService, HolidayDaysService>();
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
-			services.AddScoped<IEmployeeAttendanceService, EmployeeAttendanceService>();
+            services.AddScoped<IEmployeeAttendanceService, EmployeeAttendanceService>();
             services.AddScoped<IAttendanceRequestService, AttendanceRequestService>();
-          
-			services.AddScoped<ILeavePeriodService, LeavePeriodService>();
-			
-			services.AddScoped<IAttendanceDeviceService, AttendanceDeviceService>();
-			services.AddScoped<IEmployeeBiometricDataService, EmployeeBiometricDataService>();
-			#endregion
+
+            services.AddScoped<ILeavePeriodService, LeavePeriodService>();
+
+            services.AddScoped<IAttendanceDeviceService, AttendanceDeviceService>();
+            services.AddScoped<IEmployeeBiometricDataService, EmployeeBiometricDataService>();
+            #endregion
 
 
 
-			#region DesktopLogin
-			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+            #region DesktopLogin
+            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
-			services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
+            services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
             services.AddScoped<IRestrictedApplicationService, RestrictedApplicationService>();
-		
-			
-            services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
-			#endregion
 
-			#region Accounts Services
-			services.AddScoped<IFinancialYearService, FinancialYearService>();
-           
+
+            services.AddScoped<IDesktopActivityLogService, DesktopActivityLogService>();
+            services.AddScoped<IDesktopKeystrokeService, DesktopKeystrokeService>();
+
+            #endregion
+
+            #region Accounts Services
+            services.AddScoped<IFinancialYearService, FinancialYearService>();
+
             services.AddScoped<IChartOfAccountsServices, ChartOfAccountsService>();
 
             services.AddScoped<ICustomerService, CustomerService>();
 
 
-			services.AddScoped<ICustomerGroupService, CustomerGroupService>();
-			#endregion
+            services.AddScoped<ICustomerGroupService, CustomerGroupService>();
+            #endregion
 
-			return services;
+            return services;
 
         }
     }

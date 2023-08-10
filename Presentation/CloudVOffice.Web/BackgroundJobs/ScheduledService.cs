@@ -1,11 +1,5 @@
 ﻿using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Projects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.BackgroundJobs
 {
@@ -25,10 +19,10 @@ namespace CloudVOffice.BackgroundJobs
         public async Task RunDaily1015AmISTJob()
         {
             var applications = _applicationInstallationService.GetInstalledApplications();
-            if(applications.Where(x=>x.PackageName == "Project.Management").ToList().Count > 0)
+            if (applications.Where(x => x.PackageName == "Project.Management").ToList().Count > 0)
             {
-               await _projectTaskService.TodayDueProjectTasksSendNotification();
-              await _timesheetService.TimesheetUpdateRemiderSendNotification();
+                await _projectTaskService.TodayDueProjectTasksSendNotification();
+                await _timesheetService.TimesheetUpdateRemiderSendNotification();
 
             }
             // Your logic to run daily at 10 AM
@@ -40,7 +34,7 @@ namespace CloudVOffice.BackgroundJobs
             if (applications.Where(x => x.PackageName == "Project.Management").ToList().Count > 0)
             {
                 _projectTaskService.MarkTaskOverDueAndSendNotification();
-               
+
 
             }
         }

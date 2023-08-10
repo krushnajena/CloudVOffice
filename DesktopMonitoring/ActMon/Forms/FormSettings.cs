@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ActMon.SettingsManager;
+using System;
 using System.Windows.Forms;
-using ActMon.SettingsManager;
 namespace ActMon.Forms
 {
     public partial class FormSettings : Form

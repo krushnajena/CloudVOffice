@@ -1,23 +1,17 @@
-﻿using Org.BouncyCastle.Crypto.Tls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Services.Email
+﻿namespace CloudVOffice.Services.Email
 {
     public class MailRequest
     {
         public string SenderEmail { get; set; }
-		public string MailBoxName { get; set; }
-		public string MailBoxEmail   { get; set; }
+        public string MailBoxName { get; set; }
+        public string MailBoxEmail { get; set; }
         public string Host { get; set; }
         public int Port { get; set; }
 
         public string AuthEmail { get; set; }
         public string AuthPassword { get; set; }
 
-		public string ToEmail { get; set; }
+        public string ToEmail { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
     }

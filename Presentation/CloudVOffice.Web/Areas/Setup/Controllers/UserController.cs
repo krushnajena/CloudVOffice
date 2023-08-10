@@ -5,7 +5,6 @@ using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -15,15 +14,16 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-		private readonly IRoleService _roleService;
-		public UserController(IUserService userService,
-			IRoleService roleService
-			) {
+        private readonly IRoleService _roleService;
+        public UserController(IUserService userService,
+            IRoleService roleService
+            )
+        {
 
             _userService = userService;
-            _roleService= roleService;
+            _roleService = roleService;
 
-		}
+        }
         [Authorize(Roles = "Administrator")]
         public IActionResult UserList()
         {
@@ -36,8 +36,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
         {
 
             UserCreateDTO userCreateDTO;
-		
-			var roles = _roleService.GetAllRoles();
+
+            var roles = _roleService.GetAllRoles();
 
             if (UserId == null)
             {
@@ -58,8 +58,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
             {
                 User user = _userService.GetUserByUserId(int.Parse(UserId.ToString()));
                 userCreateDTO = new UserCreateDTO();
-				userCreateDTO.UserId = user.UserId;
-				userCreateDTO.FirstName = user.FirstName;
+                userCreateDTO.UserId = user.UserId;
+                userCreateDTO.FirstName = user.FirstName;
                 userCreateDTO.MiddleName = user.MiddleName;
                 userCreateDTO.LastName = user.LastName;
                 userCreateDTO.Email = user.Email;
@@ -72,15 +72,15 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                 {
                     UserRolesDTO userRolesDTO = new UserRolesDTO();
                     userRolesDTO.IsSelected = false;
-                    for (int j=0; j < user.UserRoleMappings.Count; j++)
+                    for (int j = 0; j < user.UserRoleMappings.Count; j++)
                     {
                         if (user.UserRoleMappings[j].RoleId == roles[i].RoleId)
                         {
                             userRolesDTO.IsSelected = true;
                         }
-                       
+
                     }
-                   
+
                     userRolesDTO.RoleId = roles[i].RoleId;
                     userRolesDTO.RoleName = roles[i].RoleName;
                     userCreateDTO.roles.Add(userRolesDTO);
@@ -88,26 +88,26 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                 }
 
             }
-           
-          
-            ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
-          
-			
-            
 
-               
-			return View(userCreateDTO);
+
+            ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
+
+
+
+
+
+            return View(userCreateDTO);
         }
         [HttpPost]
-        [Authorize(Roles ="Administrator")]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> CreateUser(UserCreateDTO createUserDTO)
         {
 
             createUserDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-			if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                if(createUserDTO.UserId != null)
+                if (createUserDTO.UserId != null)
                 {
                     var a = await _userService.UpdateUser(createUserDTO);
                     if (a != null)
@@ -116,24 +116,24 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                         {
                             TempData["msg"] = MessageEnum.Updated;
 
-							return Redirect("/Setup/User/UserList");
+                            return Redirect("/Setup/User/UserList");
                         }
                         else if (a == MessageEnum.Duplicate)
                         {
-							TempData["msg"] = MessageEnum.Duplicate;
-							ModelState.AddModelError("", "User Already Exists");
+                            TempData["msg"] = MessageEnum.Duplicate;
+                            ModelState.AddModelError("", "User Already Exists");
                         }
                         else
                         {
-							TempData["msg"] = MessageEnum.UnExpectedError;
-							ModelState.AddModelError("", "Un-Expected Error");
+                            TempData["msg"] = MessageEnum.UnExpectedError;
+                            ModelState.AddModelError("", "Un-Expected Error");
                         }
 
                     }
                     else
                     {
-						TempData["msg"] = MessageEnum.UnExpectedError;
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
                 else
@@ -143,8 +143,8 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     {
                         if (a == MessageEnum.Success)
                         {
-							TempData["msg"] = MessageEnum.Success;
-							if (createUserDTO.WantToStayOnThisPage)
+                            TempData["msg"] = MessageEnum.Success;
+                            if (createUserDTO.WantToStayOnThisPage)
                             {
                                 return Redirect("/Setup/User/CreateUser");
                             }
@@ -153,39 +153,39 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                         }
                         else if (a == MessageEnum.Duplicate)
                         {
-							TempData["msg"] = MessageEnum.Duplicate;
-							ModelState.AddModelError("", "User Already Exists");
+                            TempData["msg"] = MessageEnum.Duplicate;
+                            ModelState.AddModelError("", "User Already Exists");
                         }
                         else
                         {
-							TempData["msg"] = MessageEnum.UnExpectedError;
-							ModelState.AddModelError("", "Un-Expected Error");
+                            TempData["msg"] = MessageEnum.UnExpectedError;
+                            ModelState.AddModelError("", "Un-Expected Error");
                         }
 
                     }
                     else
                     {
-						TempData["msg"] = MessageEnum.UnExpectedError;
-						ModelState.AddModelError("", "Un-Expected Error");
+                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }
-             
-            }
-			ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
 
-			return View(createUserDTO);
+            }
+            ViewBag.UserTypeList = new SelectList((System.Collections.IEnumerable)_userService.GetUserTypes(), "ID", "Name");
+
+            return View(createUserDTO);
         }
 
         [HttpGet]
         [Authorize(Roles = "Administrator")]
         public IActionResult DeleteUser(Int64 UserId)
         {
-            Int64 DeletedBy= Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
             var a = _userService.DeleteUser(UserId, DeletedBy);
             TempData["msg"] = a;
-			return Redirect("/Setup/User/UserList");
-		}
+            return Redirect("/Setup/User/UserList");
+        }
 
         public IActionResult ChangePassword()
         {

@@ -1,26 +1,24 @@
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
+using ActivityMonitor.Application;
+using ActivityMonitor.ApplicationImp;
+using ActivityMonitor.Collections;
+using DeskTime;
 //using System.Windows.Data;
 //using System.Windows.Media;
 //using System.Windows.Threading;
 using Microsoft.Win32;
-using ActivityMonitor.Application;
-using System.Windows.Automation;
-using System.Windows.Forms;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using ActivityMonitor.ApplicationImp;
-using static ActivityMonitor.ApplicationMonitor.WinApi;
-using System.Text;
-using DeskTime;
-using ActivityMonitor.Collections;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Automation;
+using System.Windows.Forms;
 //using AppMonitor.SettingsManager;
 
 namespace ActivityMonitor.ApplicationMonitor
@@ -74,12 +72,12 @@ namespace ActivityMonitor.ApplicationMonitor
         public AppMonitor()//Dispatcher dispatcher)
         {
             Data = new Applications();
-            f= new FileLog();
+            f = new FileLog();
             _appUpdater = new AppUpdater(Data, f);
             _idleInterval = 30;
 
             Session = new UserSession();
-            
+
             SystemEvents.SessionSwitch += SystemEventsSessionSwitch;
         }
 
@@ -108,12 +106,13 @@ namespace ActivityMonitor.ApplicationMonitor
 
         public void Start(int pollInterval = 1000)
         {
-            if (!_started) { 
+            if (!_started)
+            {
                 _pollInterval = pollInterval;
                 Thread thread = new Thread(new ThreadStart(this.ApplicationsUpdater));
                 if (this._started)
                     return;
-            
+
                 _requestStop = false;
                 _started = true;
                 thread.Start();
@@ -249,9 +248,9 @@ namespace ActivityMonitor.ApplicationMonitor
                     image.Dispose();
 
                 }
-                
-            
-            
+
+
+
             }
             catch (Exception ex)
             {
@@ -300,24 +299,24 @@ namespace ActivityMonitor.ApplicationMonitor
 
         }
 
-        private  void OnFileActivity(object sender, FileSystemEventArgs e)
+        private void OnFileActivity(object sender, FileSystemEventArgs e)
         {
             if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data") && !e.FullPath.StartsWith("."))
             {
                 string logMessage = $"{DateTime.Now} - {e.ChangeType}: {e.FullPath}";
                 LogToFile(new FileLog
                 {
-                   LogDateTime = DateTime.Now,
-                   Action =e.ChangeType.ToString(),
-                   Source= e.FullPath,
-                   Destination = e.Name
+                    LogDateTime = DateTime.Now,
+                    Action = e.ChangeType.ToString(),
+                    Source = e.FullPath,
+                    Destination = e.Name
 
                 });
             }
 
         }
 
-        private  void OnFileRenamed(object sender, RenamedEventArgs e)
+        private void OnFileRenamed(object sender, RenamedEventArgs e)
         {
             if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data") && !e.FullPath.StartsWith("."))
             {
@@ -330,7 +329,7 @@ namespace ActivityMonitor.ApplicationMonitor
                     Destination = e.FullPath
 
                 });
-             
+
             }
         }
 
@@ -345,28 +344,29 @@ namespace ActivityMonitor.ApplicationMonitor
             var startTimeSpan = TimeSpan.Zero;
             var periodTimeSpan = TimeSpan.FromMinutes(5);
             _started = true;
-            while (!_requestStop) { 
-            try
+            while (!_requestStop)
             {
-              
-                 var handle = WinApi.GetForegroundWindow();
-                //var handle = WinApi.GetActiveWindow();
-                int processId;
-             
-                //todo write result to trace and add try catch
-                WinApi.GetWindowThreadProcessId(new HandleRef(null, handle), out processId);
-                //var process = Process.GetProcessById(processId);
-                var process = Process.GetProcessById(WinApi.GetRealProcessID(handle));
+                try
+                {
 
-                // checking if the user is in idle mode - if so, dont update process and sum to Idle time
-                // todo refactor
-                var inputInfo = new WinApi.Lastinputinfo();
-                inputInfo.cbSize = (uint)Marshal.SizeOf(inputInfo);
-                WinApi.GetLastInputInfo(ref inputInfo);
-                var idleTime = (Environment.TickCount - inputInfo.dwTime) / 1000;
-                if (idleTime < _idleInterval && _sessionStopped == false)
-                { // If idle time is less than _idleInterval then update process
-                         if (process.ProcessName.ToLower().Contains("chrome"))
+                    var handle = WinApi.GetForegroundWindow();
+                    //var handle = WinApi.GetActiveWindow();
+                    int processId;
+
+                    //todo write result to trace and add try catch
+                    WinApi.GetWindowThreadProcessId(new HandleRef(null, handle), out processId);
+                    //var process = Process.GetProcessById(processId);
+                    var process = Process.GetProcessById(WinApi.GetRealProcessID(handle));
+
+                    // checking if the user is in idle mode - if so, dont update process and sum to Idle time
+                    // todo refactor
+                    var inputInfo = new WinApi.Lastinputinfo();
+                    inputInfo.cbSize = (uint)Marshal.SizeOf(inputInfo);
+                    WinApi.GetLastInputInfo(ref inputInfo);
+                    var idleTime = (Environment.TickCount - inputInfo.dwTime) / 1000;
+                    if (idleTime < _idleInterval && _sessionStopped == false)
+                    { // If idle time is less than _idleInterval then update process
+                        if (process.ProcessName.ToLower().Contains("chrome"))
                         {
                             var currentApplication = _appUpdater.Update(process, GetChromeActiveTabUrl());
                             if (currentApplication != null)
@@ -382,7 +382,7 @@ namespace ActivityMonitor.ApplicationMonitor
                                 CurrentApplicationTotalUsageTime = currentApplication.TotalUsageTime;
                                 CurrentApplicationPath = currentApplication.Path;
                                 CurrentApplicationIcon = currentApplication.Icon;
-                                
+
                             }
                         }
                         else if (process.ProcessName.ToLower().Contains("edge"))
@@ -402,7 +402,7 @@ namespace ActivityMonitor.ApplicationMonitor
                                 CurrentApplicationTotalUsageTime = currentApplication.TotalUsageTime;
                                 CurrentApplicationPath = currentApplication.Path;
                                 CurrentApplicationIcon = currentApplication.Icon;
-                                
+
                             }
                         }
 
@@ -428,29 +428,29 @@ namespace ActivityMonitor.ApplicationMonitor
                             }
                         }
 
-                      
+
 
                     }
-                else
-                {
-                     //Update User Idle Time
-                     Session.AddIdleSeconds(_pollInterval / 1000);
-                     NotifyPropertyChanged("IdleTime");
-                     _appUpdater.Stop(process);
+                    else
+                    {
+                        //Update User Idle Time
+                        Session.AddIdleSeconds(_pollInterval / 1000);
+                        NotifyPropertyChanged("IdleTime");
+                        _appUpdater.Stop(process);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
+                catch (Exception ex)
+                {
                     // todo logging
                     Console.WriteLine("EXC:" + ex.Message);
+                }
+
+                NotifyPropertyChanged("TotalTimeRunning");
+                NotifyPropertyChanged("TotalTimeSpentInApplications");
+
+                Thread.Sleep(_pollInterval);
             }
 
-            NotifyPropertyChanged("TotalTimeRunning");
-            NotifyPropertyChanged("TotalTimeSpentInApplications");
-
-            Thread.Sleep(_pollInterval);
-            }
-            
             //Stop Thread
             _requestStop = false;
             _started = false;
@@ -463,7 +463,7 @@ namespace ActivityMonitor.ApplicationMonitor
             get { return _data; }
             private set
             {
-                _data = value;                
+                _data = value;
             }
         }
         private FileLog _F;
@@ -476,7 +476,7 @@ namespace ActivityMonitor.ApplicationMonitor
             }
         }
 
-        
+
         public string CurrentApplicationName
         {
             get { return _currentApplicationName; }
@@ -537,7 +537,7 @@ namespace ActivityMonitor.ApplicationMonitor
         {
             get { return DateTime.Now.Subtract(_startTime); }
         }
-       
+
 
 
     }

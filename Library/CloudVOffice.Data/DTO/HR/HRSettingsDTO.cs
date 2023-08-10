@@ -1,17 +1,10 @@
-﻿
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CloudVOffice.Data.DTO.HR
+{
 
-namespace CloudVOffice.Data.DTO.HR
-{ 
-   
     public class HRSettingsDTO
     {
-		
-		public int? HRSettingsId { get; set; }
+
+        public int? HRSettingsId { get; set; }
         public double? StandardWorkingHours { get; set; }
         public double? BreakHours { get; set; }
         public int? RetirementAge { get; set; }

@@ -1,23 +1,16 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Custom;
-using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Custom;
-using CloudVOffice.Data.DTO.Recruitment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Custom
 {
-	public interface ICustomerService
-	{
-		public MessageEnum CustomerCreate(CustomerDTO customerDTO);
-		public List<Customer> GetCustomers();
-		public Customer GetCustomerByCustomerId(Int64 customerId);
-		public Customer GetCustomerByCustomerName(string customerName);
-		public MessageEnum CustomerUpdate(CustomerDTO customerDTO);
-		public MessageEnum CustomerDelete(Int64 customerId, Int64 DeletedBy);
-	}
+    public interface ICustomerService
+    {
+        public MessageEnum CustomerCreate(CustomerDTO customerDTO);
+        public List<Customer> GetCustomers();
+        public Customer GetCustomerByCustomerId(Int64 customerId);
+        public Customer GetCustomerByCustomerName(string customerName);
+        public MessageEnum CustomerUpdate(CustomerDTO customerDTO);
+        public MessageEnum CustomerDelete(Int64 customerId, Int64 DeletedBy);
+    }
 }

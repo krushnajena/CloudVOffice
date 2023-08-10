@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Core.Domain.Comunication
+﻿namespace CloudVOffice.Core.Domain.Comunication
 {
     public class EmailDomain : IAuditEntity, ISoftDeletedEntity
     {
@@ -16,9 +10,9 @@ namespace CloudVOffice.Core.Domain.Comunication
         public bool IncomingIsSsl { get; set; }
         public bool IncomingIsStartTLs { get; set; }
         public string OutingServer { get; set; }
-        public int OutgoingPort { get; set; }   
-        public bool OutgoingIsTLs { get; set;}
-        public bool OutgoingIsSsl { get; set;}
+        public int OutgoingPort { get; set; }
+        public bool OutgoingIsTLs { get; set; }
+        public bool OutgoingIsSsl { get; set; }
 
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

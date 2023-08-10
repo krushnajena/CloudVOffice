@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Data.DTO.Attendance
+﻿namespace CloudVOffice.Data.DTO.Attendance
 {
     public class AttendanceRequestDTO
     {
@@ -16,6 +10,6 @@ namespace CloudVOffice.Data.DTO.Attendance
         public string Reason { get; set; }
         public int ApprovalStatus { get; set; }//0=Submitted ,1 = Approved,2= Rejected
         public Int64 CreatedBy { get; set; }
-        
+
     }
 }

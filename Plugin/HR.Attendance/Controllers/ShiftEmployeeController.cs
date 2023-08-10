@@ -1,7 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.DTO.Emp;
-using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Web.Framework;
@@ -30,7 +29,7 @@ namespace HR.Attendance.Controllers
         public IActionResult ShiftEmployeeCreate(int? shiftEmployeeId)
 
         {
-            ShiftEmployeeDTO shiftEmployeeDTO = new ShiftEmployeeDTO();            
+            ShiftEmployeeDTO shiftEmployeeDTO = new ShiftEmployeeDTO();
 
             if (shiftEmployeeId != null)
             {
@@ -64,7 +63,7 @@ namespace HR.Attendance.Controllers
 
         }
 
-       
+
         [HttpPost]
         public IActionResult ShiftEmployeeCreate(ShiftEmployeeDTO shiftEmployeeDTO)
         {

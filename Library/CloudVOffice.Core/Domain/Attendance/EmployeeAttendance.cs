@@ -1,14 +1,9 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Attendance
 {
-    public class EmployeeAttendance:IAuditEntity, ISoftDeletedEntity
+    public class EmployeeAttendance : IAuditEntity, ISoftDeletedEntity
     {
         public Int64 EmployeeAttendanceId { get; set; }
         public Int64 EmployeeId { get; set; }

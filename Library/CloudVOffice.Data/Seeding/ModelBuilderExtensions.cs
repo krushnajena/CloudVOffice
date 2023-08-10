@@ -5,17 +5,7 @@ using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Data.Seeding
 {
@@ -485,10 +475,10 @@ namespace CloudVOffice.Data.Seeding
                 x.HasKey(e => e.EmailTemplateId);
                 x.HasData(
                       new EmailTemplate
-                    {
-                        EmailTemplateId = 1,
-                        EmailTemplateName = "WelcomeEmail",
-                        EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 1,
+                          EmailTemplateName = "WelcomeEmail",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -608,19 +598,19 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""></div> </div></span>
 </div>",
-                        CreatedBy = 1,
-                        CreatedDate = System.DateTime.Now,
-                        Deleted = false,
-                        Subject = ""
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = ""
 
 
-                    },
+                      },
 
                       new EmailTemplate
-                    {
-                        EmailTemplateId = 2,
-                        EmailTemplateName = "ProjectAssignment",
-                        EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 2,
+                          EmailTemplateName = "ProjectAssignment",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -733,16 +723,16 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                        CreatedBy = 1,
-                        CreatedDate = System.DateTime.Now,
-                        Deleted = false,
-                        Subject = "Project Assignment - {%ProjectName%}"
-                    },
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Project Assignment - {%ProjectName%}"
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId = 3,
-                           EmailTemplateName = "ProjectUn-Assignment",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 3,
+                          EmailTemplateName = "ProjectUn-Assignment",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -852,16 +842,16 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                           CreatedBy = 1,
-                           CreatedDate = System.DateTime.Now,
-                           Deleted = false,
-                           Subject = "Project Un-Assignment - {%ProjectName%}"
-                       },
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Project Un-Assignment - {%ProjectName%}"
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId = 4,
-                           EmailTemplateName = "TimesheetReminder",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 4,
+                          EmailTemplateName = "TimesheetReminder",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -965,16 +955,16 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                           CreatedBy = 1,
-                           CreatedDate = System.DateTime.Now,
-                           Deleted = false,
-                           Subject = "Timesheet Updation | Reminder!"
-                       },
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Timesheet Updation | Reminder!"
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId = 5,
-                           EmailTemplateName = "TaskOverdue",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 5,
+                          EmailTemplateName = "TaskOverdue",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -1078,17 +1068,17 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                           CreatedBy = 1,
-                           CreatedDate = System.DateTime.Now,
-                           Deleted = false,
-                           Subject = "Task Overdue"
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Task Overdue"
 
-                       },
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId= 6,
-                           EmailTemplateName = "TaskDueTodayReminder",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 6,
+                          EmailTemplateName = "TaskDueTodayReminder",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -1192,17 +1182,17 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                           CreatedBy = 1,
-                           CreatedDate = System.DateTime.Now,
-                           Deleted = false,
-                           Subject = "Reminder: Today's Task Due - {%Taskname%}"
-                       },
-					   new EmailTemplate
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Reminder: Today's Task Due - {%Taskname%}"
+                      },
+                       new EmailTemplate
                        {
-						   
-						   EmailTemplateId= 7,
-						   EmailTemplateName = "PasswordReset",
-						   EmailTemplateDescription = @"<div role=""document"">
+
+                           EmailTemplateId = 7,
+                           EmailTemplateName = "PasswordReset",
+                           EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -1315,16 +1305,16 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-						   CreatedBy = 1,
-						   CreatedDate = System.DateTime.Now,
-						   Deleted = false,
-						   Subject = "Password Reset Request"
-					   }
+                           CreatedBy = 1,
+                           CreatedDate = System.DateTime.Now,
+                           Deleted = false,
+                           Subject = "Password Reset Request"
+                       }
 
 
 
 
-					) ;
+                    );
             });
 
 

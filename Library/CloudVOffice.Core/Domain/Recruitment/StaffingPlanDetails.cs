@@ -1,17 +1,11 @@
 ﻿using CloudVOffice.Core.Domain.HR.Master;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Recruitment
 {
     public class StaffingPlanDetails : IAuditEntity, ISoftDeletedEntity
     {
-        public int StaffingPlanDetailsId { get; set; } 
+        public int StaffingPlanDetailsId { get; set; }
         public int DesignationId { get; set; }
         public int NoOfVacancies { get; set; }
         public double? EstimatedCostPerPosition { get; set; }

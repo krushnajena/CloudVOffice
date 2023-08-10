@@ -1,11 +1,7 @@
 ﻿using ActMon.Classes;
 using DesktopMonitoringSystem.Classes;
 using SQLite;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ActMon.Utils
 {
@@ -23,7 +19,7 @@ namespace ActMon.Utils
                 _clientBaseUrl = a.ClientUrl;
             }
         }
-      
+
         public static string getGatewayUrl()
         {
             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
@@ -31,7 +27,7 @@ namespace ActMon.Utils
             if (a != null)
             {
                 return a.GateWayUrl;
-              
+
             }
             else return "";
         }
@@ -57,16 +53,16 @@ namespace ActMon.Utils
         public static string updateIdelTime = getGatewayUrl() + "/api/DesktopLogin/UpdateIdelTime";
 
 
-        public static string getSessionLog     = getGatewayUrl()+ "/api/DesktopLogin/GeteLoginSessionsByUserId";
-        public static string getActivityLog    = getGatewayUrl() + "/api/DMSActivityLog/GetAcivityLogsByUserId";
-        public static string getFileOperation  = getGatewayUrl() + "/api/DMSActivityLog/GetFileLogsByUserId";
-        public static string getPrinting      = getGatewayUrl() + "/api/DMSActivityLog/GetPrintLogsByUserId";
+        public static string getSessionLog = getGatewayUrl() + "/api/DesktopLogin/GeteLoginSessionsByUserId";
+        public static string getActivityLog = getGatewayUrl() + "/api/DMSActivityLog/GetAcivityLogsByUserId";
+        public static string getFileOperation = getGatewayUrl() + "/api/DMSActivityLog/GetFileLogsByUserId";
+        public static string getPrinting = getGatewayUrl() + "/api/DMSActivityLog/GetPrintLogsByUserId";
         public static string getKeyStroke = getGatewayUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
 
-      
 
-    
-   
-        
+
+
+
+
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CloudVOffice.Services.Attendance
 {
-	public class HolidayService : IHolidayService
+    public class HolidayService : IHolidayService
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<Holiday> _holidayRepo;
@@ -21,26 +21,26 @@ namespace CloudVOffice.Services.Attendance
         }
         public MessageEnum CreateHoliday(HolidayDTO holidayDTO)
         {
-        
+
             try
             {
-                    Holiday holiday = new Holiday();
-                    holiday.HolidayName = holidayDTO.HolidayName;
-                    holiday.FromDate = holidayDTO.FromDate;
-                    holiday.ToDate = holidayDTO.ToDate;
-                    holiday.CreatedBy = holidayDTO.CreatedBy;
-                    var obj = _holidayRepo.Insert(holiday);
-                    for(int i = 0; i < holidayDTO.HolidayDays.Count; i++)
+                Holiday holiday = new Holiday();
+                holiday.HolidayName = holidayDTO.HolidayName;
+                holiday.FromDate = holidayDTO.FromDate;
+                holiday.ToDate = holidayDTO.ToDate;
+                holiday.CreatedBy = holidayDTO.CreatedBy;
+                var obj = _holidayRepo.Insert(holiday);
+                for (int i = 0; i < holidayDTO.HolidayDays.Count; i++)
+                {
+                    _holidayDaysService.CreateHolidayDays(new HolidayDaysDTO
                     {
-                        _holidayDaysService.CreateHolidayDays(new HolidayDaysDTO
-                        {
-                            Description = holidayDTO.HolidayDays[i].Description,
-                            ForDate = holidayDTO.HolidayDays[i].ForDate,
-                            HolidayId = obj.HolidayId
+                        Description = holidayDTO.HolidayDays[i].Description,
+                        ForDate = holidayDTO.HolidayDays[i].ForDate,
+                        HolidayId = obj.HolidayId
 
-                        }, holidayDTO.CreatedBy);
-                    }
-                    return MessageEnum.Success;  
+                    }, holidayDTO.CreatedBy);
+                }
+                return MessageEnum.Success;
             }
             catch
             {
@@ -91,7 +91,7 @@ namespace CloudVOffice.Services.Attendance
                         var holidayDyas = _holidayDaysService.GetHolidaysByHolidayId(a.HolidayId);
 
                         var deletedHolidayList = holidayDyas.Where(x => !holidayDTO.HolidayDays.Any(a => a.ForDate == x.ForDate && a.Description == x.Description)).ToList();
-                        for(int i = 0; i < deletedHolidayList.Count; i++)
+                        for (int i = 0; i < deletedHolidayList.Count; i++)
                         {
                             _holidayDaysService.HolidayDaysDelete(deletedHolidayList[i].HolidayDaysId, holidayDTO.CreatedBy);
                         }

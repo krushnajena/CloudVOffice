@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Data.ViewModel.DesktopMonitering
+﻿namespace CloudVOffice.Data.ViewModel.DesktopMonitering
 {
     public class DesktopLoginsViewModel
     {
@@ -13,7 +7,7 @@ namespace CloudVOffice.Data.ViewModel.DesktopMonitering
 
         public DateTime? LoginDateTime { get; set; }
         public DateTime? LogOutDateTime { get; set; }
-    
+
         public DateTime LogDate { get; set; }
 
         public string EmployeeName { get; set; }

@@ -3,11 +3,6 @@ using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.HR.Master
 {
@@ -31,7 +26,7 @@ namespace CloudVOffice.Services.HR.Master
                     _employeeGradeRepo.Insert(new EmployeeGrade()
                     {
                         EmployeeGradeName = employeeGradeDTO.EmployeeGradeName,
-                        
+
                         CreatedDate = DateTime.Now,
                         Deleted = false
                     });
@@ -80,7 +75,7 @@ namespace CloudVOffice.Services.HR.Master
                     if (a != null)
                     {
                         a.EmployeeGradeName = employeeGradeDTO.EmployeeGradeName;
-                       
+
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
                         return MessageEnum.Updated;
@@ -126,5 +121,5 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
     }
-    
+
 }

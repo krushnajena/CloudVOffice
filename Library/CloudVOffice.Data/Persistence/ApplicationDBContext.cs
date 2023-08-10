@@ -14,10 +14,8 @@ using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Core.Domain.Users;
-using CloudVOffice.Data.DTO.HR;
 using CloudVOffice.Data.Seeding;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 
 namespace CloudVOffice.Data.Persistence
@@ -36,7 +34,7 @@ namespace CloudVOffice.Data.Persistence
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
 
-        public virtual DbSet<Role> Roles  { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
 
         public virtual DbSet<User> Users { get; set; }
 
@@ -50,7 +48,7 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<UserWiseViewMapper> UserWiseViewMappers { get; set; }
 
 
-        public virtual DbSet<InstalledApplication> InstalledApplications{ get; set; }
+        public virtual DbSet<InstalledApplication> InstalledApplications { get; set; }
 
 
         public virtual DbSet<EmailDomain> EmailDomains { get; set; }
@@ -59,7 +57,7 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<EmailAccount> EmailAccounts { get; set; }
         public virtual DbSet<LetterHead> LetterHeads { get; set; }
 
-        public virtual DbSet<CompanyDetails> CompanyDetails { get; set; }   
+        public virtual DbSet<CompanyDetails> CompanyDetails { get; set; }
         public virtual DbSet<EmailTemplate> EmailTemplates { get; set; }
         #endregion
 
@@ -68,11 +66,11 @@ namespace CloudVOffice.Data.Persistence
         #region Master
         public virtual DbSet<Branch> Branches { get; set; }
 
-		public virtual DbSet<Department> Departments { get; set; }
-		public virtual DbSet<Designation> Designations { get; set; }
-		public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Designation> Designations { get; set; }
+        public virtual DbSet<EmploymentType> EmploymentTypes { get; set; }
 
-        public virtual DbSet<EmployeeGrade>  EmployeeGrades { get; set; }
+        public virtual DbSet<EmployeeGrade> EmployeeGrades { get; set; }
 
         #endregion
 
@@ -86,7 +84,7 @@ namespace CloudVOffice.Data.Persistence
         #region Attendance
 
         public virtual DbSet<ShiftType> ShiftTypes { get; set; }
-        public virtual DbSet<ShiftEmployee> ShiftEmployees{ get; set; }
+        public virtual DbSet<ShiftEmployee> ShiftEmployees { get; set; }
         public virtual DbSet<EmployeeAttendance> EmployeeAttendances { get; set; }
         public virtual DbSet<EmployeeCheckIn> EmployeeCheckIns { get; set; }
 
@@ -100,21 +98,21 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<LeavePeriod> LeavePeriods { get; set; }
 
 
-		public virtual DbSet<AttendanceDevice> AttendanceDevices { get; set; }
+        public virtual DbSet<AttendanceDevice> AttendanceDevices { get; set; }
 
-		public virtual DbSet<EmployeeBiometricData> EmployeeBiometricDatas{ get; set; }
+        public virtual DbSet<EmployeeBiometricData> EmployeeBiometricDatas { get; set; }
 
 
 
-		#endregion
+        #endregion
 
-		#region Recruitment
-		public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
+        #region Recruitment
+        public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }
 
-        public virtual DbSet<JobApplication> JobApplications{ get; set; }
+        public virtual DbSet<JobApplication> JobApplications { get; set; }
         public virtual DbSet<InterviewType> InterviewTypes { get; set; }
         //public virtual DbSet<InterFeedBackQuestions> InterFeedBackQuestions { get; set; }
         #endregion
@@ -125,10 +123,10 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectEmployee> ProjectEmployees { get; set; }
         public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
-		public virtual DbSet<ProjectActivityType> ProjectActivityTypes { get; set; }
-		public virtual DbSet<ProjectTask> ProjectTasks { get; set; }
+        public virtual DbSet<ProjectActivityType> ProjectActivityTypes { get; set; }
+        public virtual DbSet<ProjectTask> ProjectTasks { get; set; }
 
-     
+
 
 
         public virtual DbSet<Timesheet> Timesheets { get; set; }
@@ -143,7 +141,7 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<DesktopLogin> DesktopLogins { get; set; }
 
-        public virtual DbSet<RestrictedWebsite> RestrictedWebsites{ get; set; }
+        public virtual DbSet<RestrictedWebsite> RestrictedWebsites { get; set; }
         public virtual DbSet<DesktopActivityLog> DesktopActivityLogs { get; set; }
 
 
@@ -155,8 +153,8 @@ namespace CloudVOffice.Data.Persistence
         #endregion
 
         #region Accounts
-        public virtual DbSet<AccountType> AccountTypes{ get; set; }
-        public virtual DbSet<ChartOfAccounts> ChartOfAccounts{ get; set; }
+        public virtual DbSet<AccountType> AccountTypes { get; set; }
+        public virtual DbSet<ChartOfAccounts> ChartOfAccounts { get; set; }
 
         public virtual DbSet<FinancialYear> FinancialYear { get; set; }
 
@@ -301,8 +299,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<UserWiseViewMapper>()
 .Property(s => s.CreatedDate)
 .HasDefaultValueSql("getdate()");
@@ -388,8 +386,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<HRSettings>()
        .Property(s => s.CreatedDate)
        .HasDefaultValueSql("getdate()");
@@ -581,15 +579,15 @@ namespace CloudVOffice.Data.Persistence
 
             modelBuilder.Entity<Holiday>()
       .Property(s => s.CreatedDate)
-      .HasDefaultValueSql("getdate()");           
+      .HasDefaultValueSql("getdate()");
 
             modelBuilder.Entity<Holiday>()
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
-             .ValueGeneratedNever(); 
+             .ValueGeneratedNever();
 
 
-            
+
             modelBuilder.Entity<HolidayDays>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");
@@ -597,9 +595,9 @@ namespace CloudVOffice.Data.Persistence
             modelBuilder.Entity<HolidayDays>()
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
-             .ValueGeneratedNever(); 
+             .ValueGeneratedNever();
 
-            
+
             modelBuilder.Entity<LeaveType>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");
@@ -623,8 +621,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<StaffingPlanDetails>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");
@@ -633,8 +631,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<JobOpening>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");
@@ -643,8 +641,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<JobApplicationSource>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");
@@ -653,8 +651,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<JobApplication>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");
@@ -663,8 +661,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<InterviewType>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");
@@ -673,8 +671,8 @@ namespace CloudVOffice.Data.Persistence
              .Property(s => s.Deleted)
              .HasDefaultValue(false)
              .ValueGeneratedNever();
-            
-            
+
+
             modelBuilder.Entity<InterFeedBackQuestions>()
       .Property(s => s.CreatedDate)
       .HasDefaultValueSql("getdate()");

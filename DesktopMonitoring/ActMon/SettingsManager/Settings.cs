@@ -1,6 +1,5 @@
-﻿using System;
-using ActivityMonitor.Application;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
 
 namespace ActMon.SettingsManager
 {
@@ -99,8 +98,8 @@ namespace ActMon.SettingsManager
             _appExe = new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).LocalPath;
             ReadSettings();
         }
-        
-        
+
+
         /// <summary>
         /// Read Settings from Registry
         /// Settings are controllable from Group Policy
@@ -110,8 +109,9 @@ namespace ActMon.SettingsManager
 
             _dbDumpRate = 30;
             string strRegBaseKey = _regBase;
- 
-            try { 
+
+            try
+            {
                 //Settings Locked Via GPO
                 _lockSettings = regBool(Registry.GetValue(_regBaseGPO, "LockSettings", 0));
                 _hideMenuExit = regBool(Registry.GetValue(_regBaseGPO, "HideMenuExit", 0));
@@ -126,13 +126,14 @@ namespace ActMon.SettingsManager
                 _dbDumpRate = 30;
 
                 string regValue = (string)Registry.GetValue(regRootHKCU + "\\" + regKeyRun, "ActMon", "ActMon");
-                if (regValue!=null) {
-                 
-                if (regValue.ToLower() == _appExe.ToLower())
-                    Autostart = true;
+                if (regValue != null)
+                {
+
+                    if (regValue.ToLower() == _appExe.ToLower())
+                        Autostart = true;
                 }
 
-            } 
+            }
             catch (NullReferenceException)
             {
                 Console.WriteLine("Error reading configuration.");
@@ -141,7 +142,7 @@ namespace ActMon.SettingsManager
 
         private int? regInt(object intValue)
         {
-                return (int)intValue;
+            return (int)intValue;
         }
         private bool regBool(object intValue)
         {
@@ -151,28 +152,32 @@ namespace ActMon.SettingsManager
         }
         public void WriteSettings()
         {
-            try { 
+            try
+            {
                 Registry.SetValue(_regBase, "DatabaseServer", _dbServer);
                 Registry.SetValue(_regBase, "DatabaseCatalog", _dbDatabase);
                 Registry.SetValue(_regBase, "DatabaseUsername", _dbUsername);
                 Registry.SetValue(_regBase, "DatabasePassword", _dbPassword);
 
-                if (Autostart == false) {
+                if (Autostart == false)
+                {
                     using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regKeyRun, true))
                     {
                         if (key != null)
                             key.DeleteValue("ActMon");
                     }
-                } else
+                }
+                else
                 {
                     Registry.SetValue(regRootHKCU + "\\" + regKeyRun, "ActMon", _appExe);
                 }
 
-            } catch
+            }
+            catch
             {
 
             }
-            
+
         }
 
     }

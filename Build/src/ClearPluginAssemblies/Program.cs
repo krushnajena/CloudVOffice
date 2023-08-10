@@ -60,7 +60,7 @@ namespace ClearPluginAssemblies
             var saveLocalesFolders = true;
 
             var settings = args.FirstOrDefault(a => a.Contains("|")) ?? string.Empty;
-            if(string.IsNullOrEmpty(settings))
+            if (string.IsNullOrEmpty(settings))
                 return;
 
             foreach (var arg in settings.Split('|'))
@@ -83,15 +83,15 @@ namespace ClearPluginAssemblies
                         break;
                 }
             }
-            
-            if(!Directory.Exists(outputPath))
+
+            if (!Directory.Exists(outputPath))
                 return;
 
             var di = new DirectoryInfo(outputPath);
             var fileNames = di.GetFiles("*.dll", SearchOption.AllDirectories)
                 .Where(fi => !fi.FullName.Contains(@"\Plugins\"))
                 .Select(fi => fi.Name.Replace(fi.Extension, "")).ToList();
-           
+
             if (string.IsNullOrEmpty(pluginPaths) || !fileNames.Any())
             {
                 return;

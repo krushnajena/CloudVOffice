@@ -1,13 +1,4 @@
-﻿using Humanizer;
-using Microsoft.CodeAnalysis;
-using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Core.Domain.HR.Attendance
+﻿namespace CloudVOffice.Core.Domain.HR.Attendance
 {
     public class LeaveType : IAuditEntity, ISoftDeletedEntity
     {
@@ -20,7 +11,7 @@ namespace CloudVOffice.Core.Domain.HR.Attendance
         public int? MaximumCarryForwardedLeaves { get; set; }
         public int? ExpireCarryForwardedLeaves { get; set; }
 
-        public bool IsLeaveWithoutPay { get; set; } 
+        public bool IsLeaveWithoutPay { get; set; }
         public bool IsPartiallyPaidLeave { get; set; }
         public bool IsOptionalLeave { get; set; }
         public bool AllowNegativeBalance { get; set; }
@@ -31,7 +22,7 @@ namespace CloudVOffice.Core.Domain.HR.Attendance
         public int? EarningSalaryComponentId { get; set; }
         public bool IsEarnedLeave { get; set; }
         public string? EarnedLeaveFrequency { get; set; }
-        public bool BasedOnDateOfJoining { get; set; } 
+        public bool BasedOnDateOfJoining { get; set; }
         public double? Rounding { get; set; }
 
 

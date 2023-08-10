@@ -1,11 +1,6 @@
 ﻿
 using CloudVOffice.Core.Domain.HR.Master;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Recruitment
 {
@@ -24,6 +19,6 @@ namespace CloudVOffice.Core.Domain.Recruitment
 
 
         [ForeignKey("DepartmentId")]
-        public Department Department{ get; set; }
+        public Department Department { get; set; }
     }
 }

@@ -4,17 +4,17 @@ using System.Windows.Controls;
 
 namespace DesktopMonitoringSystem.UserControls
 {
-    
+
     public partial class TextInfo : UserControl
     {
         public TextInfo()
         {
             InitializeComponent();
         }
-        
+
         public string TextTop
         {
-            get { return (string)GetValue(TextTopProperty);}
+            get { return (string)GetValue(TextTopProperty); }
             set { SetValue(TextTopProperty, value); }
         }
         public static readonly DependencyProperty TextTopProperty = DependencyProperty.Register("TextTop", typeof(String), typeof(TextInfo));

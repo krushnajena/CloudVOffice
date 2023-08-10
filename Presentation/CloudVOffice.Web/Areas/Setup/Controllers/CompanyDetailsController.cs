@@ -1,10 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Company;
-using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Data.DTO.Company;
-using CloudVOffice.Data.DTO.Comunication;
 using CloudVOffice.Services.Company;
-using CloudVOffice.Services.Comunication;
 using CloudVOffice.Web.Framework;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +59,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                     TempData["msg"] = MessageEnum.AlreadyCreate;
                     return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
                 }
-               
+
             }
             return View("~/Areas/Setup/Views/CompanyDetails/CompanyDetailsCreate.cshtml", companyDetailsDTO);
 
@@ -123,7 +120,7 @@ namespace CloudVOffice.Web.Areas.Setup.Controllers
                         TempData["msg"] = MessageEnum.Updated;
                         return Redirect("/Setup/CompanyDetails/CompanyDetailsView");
                     }
-                    
+
                     else
                     {
                         TempData["msg"] = MessageEnum.UnExpectedError;

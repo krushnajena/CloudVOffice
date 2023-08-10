@@ -1,18 +1,12 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloudVOffice.Core.Domain.Comunication
 {
     public class EmailAccount : IAuditEntity, ISoftDeletedEntity
-    { 
+    {
         public int EmailAccountId { get; set; }
 
-		public string EmailAddress { get; set; }
+        public string EmailAddress { get; set; }
         public int Domain { get; set; }
         public string EmailAccountName { get; set; }
         public string EmailPassword { get; set; }
@@ -26,7 +20,7 @@ namespace CloudVOffice.Core.Domain.Comunication
         public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
-		[ForeignKey("Domain")]
-		public EmailDomain EmailDomain { get; set; }
-	}
+        [ForeignKey("Domain")]
+        public EmailDomain EmailDomain { get; set; }
+    }
 }

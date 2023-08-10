@@ -1,25 +1,16 @@
-﻿using CloudVOffice.Core.Domain.Users;
-using CloudVOffice.Data.DTO.DesktopMonitoring;
+﻿using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Emp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Web.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class DesktopLoginController: Controller
+    public class DesktopLoginController : Controller
     {
 
 
@@ -101,8 +92,8 @@ namespace Web.API.Controllers
         {
             try
             {
-             var a=   _desktopLoginService.DesktopLoginUpdateIdelTime(idelTimeUpdateDTO);
-                return Ok(a);   
+                var a = _desktopLoginService.DesktopLoginUpdateIdelTime(idelTimeUpdateDTO);
+                return Ok(a);
             }
             catch (Exception ex)
             {

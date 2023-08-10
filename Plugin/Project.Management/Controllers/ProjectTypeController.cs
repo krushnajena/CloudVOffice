@@ -1,18 +1,10 @@
-﻿    using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Master;
+﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Projects;
-using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.DTO.Projects;
-using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project.Management.Controllers
 {
@@ -29,7 +21,7 @@ namespace Project.Management.Controllers
         public IActionResult ProjectTypeCreate(int? projecttypeId)
         {
             ProjectTypeDTO projecttypeDTO = new ProjectTypeDTO();
-           
+
             if (projecttypeId != null)
             {
 
@@ -58,7 +50,7 @@ namespace Project.Management.Controllers
                     {
                         TempData["msg"] = MessageEnum.Success;
                         return Redirect("/Projects/ProjectType/ProjectTypeView");
-                    }   
+                    }
                     else if (a == MessageEnum.Duplicate)
                     {
                         TempData["msg"] = MessageEnum.Duplicate;
@@ -90,7 +82,7 @@ namespace Project.Management.Controllers
                     }
                 }
             }
-           
+
 
             return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeCreate.cshtml", projecttypeDTO);
         }

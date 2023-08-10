@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading;
-using System.Windows.Forms;
-using ActivityMonitor.ApplicationMonitor;
+﻿using ActivityMonitor.ApplicationMonitor;
 using ActMon.Database;
 using ActMon.Forms;
 using ActMon.Properties;
 using ComposerAdmin.Forms;
 using Microsoft.Win32;
+using System;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace ActMon
 {
@@ -17,13 +17,13 @@ namespace ActMon
         /// Punto di ingresso principale dell'applicazione.
         /// </summary>
         private static AppTrayIconContext TrayIcon;
-        
+
         [STAThread]
         static void Main()
         {
             //Check if running other instances of application for the same user
             String mutexName = "ActMon" + System.Security.Principal.WindowsIdentity.GetCurrent().User.AccountDomainSid;
-            Boolean createdNew;            
+            Boolean createdNew;
 
             Mutex mutex = new Mutex(true, mutexName, out createdNew);
 
@@ -34,7 +34,7 @@ namespace ActMon
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                
+
                 TrayIcon = new AppTrayIconContext();
                 Application.Run(TrayIcon);
                 Application.ApplicationExit += new System.EventHandler(AppExit);
@@ -42,7 +42,7 @@ namespace ActMon
         }
         static void AppExit(object sender, EventArgs e)
         {
-            TrayIcon.GracefulExit();            
+            TrayIcon.GracefulExit();
         }
     }
 
@@ -55,14 +55,14 @@ namespace ActMon
         private DataDumper DBDumper;
         private DB Database;
         private SettingsManager.Settings AppSettings;
-        
+
         //TODO: Refactor this
         private bool _dialogActive;
         private bool _aboutActive;
         private bool _settingsActive;
 
         private FormActivity fStats;
-        
+
         public AppTrayIconContext()
         {
             //Initialize Objects
@@ -76,12 +76,12 @@ namespace ActMon
 
                 mnu.MenuItems.Add(new MenuItem(ResFiles.GlobalRes.traymenu_Activity, OpenStats));
 
-               
+
 
                 //if (!AppSettings.HideMenuExit)
                 //    mnu.MenuItems.Add(new MenuItem(ResFiles.GlobalRes.traymenu_Exit, Exit));
-                
-                    mnu.MenuItems.Add(new MenuItem(ResFiles.GlobalRes.traymenu_About, About));
+
+                mnu.MenuItems.Add(new MenuItem(ResFiles.GlobalRes.traymenu_About, About));
 
 
                 trayIcon = new NotifyIcon()
@@ -122,13 +122,15 @@ namespace ActMon
 
         void About(object sender, EventArgs e)
         {
-            if (!_aboutActive) { 
-                using (FormAbout fAbout = new FormAbout()) {
+            if (!_aboutActive)
+            {
+                using (FormAbout fAbout = new FormAbout())
+                {
                     _aboutActive = true;
-                   
+
                     fAbout.ShowDialog();
                     _aboutActive = false;
-                } ;
+                };
             }
         }
         public void GracefulExit()
@@ -141,7 +143,8 @@ namespace ActMon
 
         void OpenSettings(Object sender, EventArgs e)
         {
-            if (!_settingsActive) { 
+            if (!_settingsActive)
+            {
                 Form fs = new Forms.FormSettings(AppSettings);
                 _settingsActive = true;
                 fs.ShowDialog();
@@ -151,13 +154,15 @@ namespace ActMon
         }
         void OpenStats(Object sender, EventArgs e)
         {
-            if (!_dialogActive) { 
+            if (!_dialogActive)
+            {
                 fStats = new Forms.FormActivity(appMon);
                 _dialogActive = true;
                 fStats.ShowDialog();
                 fStats.Dispose();
                 _dialogActive = false;
-            } else
+            }
+            else
             {
                 fStats.Restore();
             }

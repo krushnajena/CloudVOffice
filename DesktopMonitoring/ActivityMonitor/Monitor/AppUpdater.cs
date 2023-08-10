@@ -1,13 +1,13 @@
+using ActivityMonitor.Application;
+using ActivityMonitor.ApplicationImp;
+using ActivityMonitor.Collections;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using ActivityMonitor.Collections;
-using ActivityMonitor.Application;
 using System.Windows.Automation;
-using System.Collections.Generic;
-using ActivityMonitor.ApplicationImp;
 
 namespace ActivityMonitor.ApplicationMonitor
 {
@@ -42,7 +42,7 @@ namespace ActivityMonitor.ApplicationMonitor
             _fileLog = fileLog;
         }
 
-       
+
         public void Stop(Process process)
         {
             try
@@ -51,10 +51,10 @@ namespace ActivityMonitor.ApplicationMonitor
                 if (_applications[_previousApplicationName] != null &&
                         _applications[_previousApplicationName].Usage.FindLast(u => !u.IsClosed) != null)
                 {
-                   
-                   
+
+
                     _applications[_previousApplicationName].Usage.FindLast(u => !u.IsClosed).End();
-                    
+
                 }
 
                 var currentProcess = process.MainModule.FileVersionInfo.FileDescription;
@@ -62,7 +62,7 @@ namespace ActivityMonitor.ApplicationMonitor
                             _applications[currentProcess].Usage.FindLast(u => !u.IsClosed) != null)
                 {
                     _applications[currentProcess].Usage.FindLast(u => !u.IsClosed).End();
-                   
+
                 }
             }
             catch (Exception)
@@ -78,7 +78,7 @@ namespace ActivityMonitor.ApplicationMonitor
         {
             // Detect File Path: Sometimes MainModule.FileVersionInfo is not reliable
             // so we switch detection to Win API 
-            
+
             string strFileName = "";
             try
             {
@@ -88,7 +88,7 @@ namespace ActivityMonitor.ApplicationMonitor
             {
                 strFileName = WinApi.GetProcessFilename(lProcess);
             }
-            
+
             return strFileName;
         }
 
@@ -136,17 +136,17 @@ namespace ActivityMonitor.ApplicationMonitor
             _fileLog.Add(message);
             return message;
         }
-        public IApplication Update(Process process,string appurl)
+        public IApplication Update(Process process, string appurl)
         {
             //Reliably detect the process file name:
-            string strFileName = DetectFilePath(process);   
+            string strFileName = DetectFilePath(process);
             string strFileDescription = DetectFileDescription(process);
 
             try
             {
-              
 
-            
+
+
                 if (_previousApplicationName != strFileDescription)
                 {
 
@@ -154,21 +154,21 @@ namespace ActivityMonitor.ApplicationMonitor
                         _applications[_previousApplicationName].Usage.FindLast(u => !u.IsClosed) != null)
                     {
                         _applications[_previousApplicationName].Usage.FindLast(u => !u.IsClosed).End();
-                       
+
                     }
 
                     _previousApplicationName = strFileDescription;
                     string appname = "";
                     if (strFileDescription.ToLower().Contains("chrome"))
                     {
-                        appname=GetActiveTabUrl();  
+                        appname = GetActiveTabUrl();
 
                     }
-                    else if    (strFileDescription.ToLower().Contains("edge"))
-                        {
-                            appname = GetEdgeActiveTabUrl();
+                    else if (strFileDescription.ToLower().Contains("edge"))
+                    {
+                        appname = GetEdgeActiveTabUrl();
 
-                        }
+                    }
 
                     if (
                         !_applications.Contains(strFileDescription,
@@ -177,12 +177,12 @@ namespace ActivityMonitor.ApplicationMonitor
                         try
                         {
                             using (new MemoryStream())
-                            {                            
-                                var AppIcon = Icon.ExtractAssociatedIcon(strFileName);                                                                                            
+                            {
+                                var AppIcon = Icon.ExtractAssociatedIcon(strFileName);
                                 _applications.Add(
-                                new ActivityMonitor.Application.Application(strFileDescription,strFileName) { Icon = AppIcon });                                                                                           
+                                new ActivityMonitor.Application.Application(strFileDescription, strFileName) { Icon = AppIcon });
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -197,13 +197,14 @@ namespace ActivityMonitor.ApplicationMonitor
                         {
                             var usage = new ApplicationUsage { DetailedName = appname };
                             usage.Start();
-                            
+
                             _applications[strFileDescription].Usage.Add(usage);
-                        }catch(Exception ex)
+                        }
+                        catch (Exception ex)
                         {
 
                         }
-                      
+
                     }
                     else
                     {
@@ -212,12 +213,13 @@ namespace ActivityMonitor.ApplicationMonitor
                             var usage = new ApplicationUsage { DetailedName = process.MainWindowTitle };
                             usage.Start();
                             _applications[strFileDescription].Usage.Add(usage);
-                        }catch(Exception ex)
+                        }
+                        catch (Exception ex)
                         {
 
                         }
                     }
-                  
+
 
                 }
 
@@ -236,7 +238,7 @@ namespace ActivityMonitor.ApplicationMonitor
                     }
                     if (appname != "")
                     {
-                        var usage = new ApplicationUsage { DetailedName =appname };
+                        var usage = new ApplicationUsage { DetailedName = appname };
                         usage.Start();
                         _applications[strFileDescription].Usage.Add(usage);
                     }
@@ -246,7 +248,7 @@ namespace ActivityMonitor.ApplicationMonitor
                         usage.Start();
                         _applications[strFileDescription].Usage.Add(usage);
                     }
-                   
+
                 }
 
             }

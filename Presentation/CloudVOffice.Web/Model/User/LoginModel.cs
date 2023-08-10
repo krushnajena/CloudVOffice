@@ -41,6 +41,6 @@ namespace CloudVOffice.Web.Model.User
         public string? AccessToken { get; set; }
         public string? RefreshToken { get; set; }
         public string ClientName { get; set; }
-        public string ClientId { get; set; }    
+        public string ClientId { get; set; }
     }
 }

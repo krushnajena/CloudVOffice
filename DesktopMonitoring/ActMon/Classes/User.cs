@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
+﻿using SQLite;
 
 namespace DesktopMonitoringSystem.Classes
 {
@@ -20,7 +15,8 @@ namespace DesktopMonitoringSystem.Classes
         public string RefreshToken { get; set; }
 
     }
-    public class TokenModel {
+    public class TokenModel
+    {
 
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
@@ -29,7 +25,7 @@ namespace DesktopMonitoringSystem.Classes
     }
     public class NewRefreshToken
     {
-        public string RefreshToken { get; set;}
+        public string RefreshToken { get; set; }
         public string AccessToken { get; set; }
     }
 }

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Data.DTO.DesktopMonitoring
+﻿namespace CloudVOffice.Data.DTO.DesktopMonitoring
 {
     public class DesktopLoginDTO
     {
-    
+
         public Int64 EmployeeId { get; set; }
         public DateTime? LoginDateTime { get; set; }
 

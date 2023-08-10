@@ -1,17 +1,11 @@
-﻿using CloudVOffice.Core.Domain.HR.Master;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloudVOffice.Core.Domain.Recruitment
 {
     public class JobApplication : IAuditEntity, ISoftDeletedEntity
     {
         public Int64 JobApplicationId { get; set; }
-        public int JobId { get; set; }  
+        public int JobId { get; set; }
         public string ApplicantName { get; set; }
         public string EmailAddress { get; set; }
         public string PhoneNo { get; set; }

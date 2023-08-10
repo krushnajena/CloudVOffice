@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Core.Domain.Custom
+﻿namespace CloudVOffice.Core.Domain.Custom
 {
-  
+
     public class CustomerGroup : IAuditEntity, ISoftDeletedEntity
     {
         public int CustomerGroupId { get; set; }

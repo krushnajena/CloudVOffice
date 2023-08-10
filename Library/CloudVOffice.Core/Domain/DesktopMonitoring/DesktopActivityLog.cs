@@ -1,11 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.DesktopMonitoring
 {
@@ -21,7 +16,7 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         public string? AppOrWebPageName { get; set; }
         public string? TypeOfApp { get; set; }
         public DateTime? SyncedOn { get; set; }
-    
+
 
         public string? Action { get; set; }
         public string? Source { get; set; }
@@ -39,11 +34,11 @@ namespace CloudVOffice.Core.Domain.DesktopMonitoring
         {
             get
             {
-              
-               
 
-                    return DateTime.Parse(LogDateTime.ToString()).ToString("dd-MMM-yyyy");
-               
+
+
+                return DateTime.Parse(LogDateTime.ToString()).ToString("dd-MMM-yyyy");
+
 
             }
         }

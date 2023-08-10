@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace DesktopMonitoringSystem
@@ -21,16 +12,16 @@ namespace DesktopMonitoringSystem
     public partial class DashBoardWindow : Window
     {
         DateTime dt;
-       
+
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if(dt!=null)
-                lbl_Timer.Content = "Total Duration :- "+ ( DateTime.Now - dt).Hours.ToString() + ":" +  (DateTime.Now - dt).Minutes.ToString()+":" +  (DateTime.Now - dt).Seconds;
+            if (dt != null)
+                lbl_Timer.Content = "Total Duration :- " + (DateTime.Now - dt).Hours.ToString() + ":" + (DateTime.Now - dt).Minutes.ToString() + ":" + (DateTime.Now - dt).Seconds;
         }
         public DashBoardWindow()
         {
             InitializeComponent();
-          
+
             lbl_tittle.Text = "Dashboard";
 
             PagesNavigation.Navigate(new System.Uri("Pages/Home.xaml", UriKind.RelativeOrAbsolute));
@@ -38,7 +29,7 @@ namespace DesktopMonitoringSystem
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 this.DragMove();
             }
@@ -142,7 +133,7 @@ namespace DesktopMonitoringSystem
                 dispatcherTimer.Start();
             }
 
-      
+
         }
     }
 }

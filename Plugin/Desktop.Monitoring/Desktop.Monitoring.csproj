@@ -22,6 +22,7 @@
     <None Remove="Views\DesktopMonitoring\Dashboard.cshtml" />
     <None Remove="Views\DesktopMonitoring\FileLog.cshtml" />
     <None Remove="Views\DesktopMonitoring\GetSnaps.cshtml" />
+    <None Remove="Views\DesktopMonitoring\KeyStrokes.cshtml" />
     <None Remove="Views\DesktopMonitoring\MonitorUsers.cshtml" />
     <None Remove="Views\DesktopMonitoring\Track.cshtml" />
     <None Remove="Views\DesktopMonitoring\UnproductiveLog.cshtml" />

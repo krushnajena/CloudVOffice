@@ -7,18 +7,12 @@ using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.Plugins;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Web.Framework;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project.Management.Controllers
 {
     [Area(AreaNames.Projects)]
-    public class PROJECTMANAGEMENTController: Controller
+    public class PROJECTMANAGEMENTController : Controller
     {
         private readonly IApplicationInstallationService _applicationInstallationService;
         private readonly IRoleService _roleService;
@@ -33,7 +27,7 @@ namespace Project.Management.Controllers
             _httpClient = httpClient;
 
         }
-       
+
         public async Task<IActionResult> Install(Int64 CreatedBy)
         {
             string jsonPath = @".\" + CloudVOfficePluginDefaults.PathName + @"\" + InstationPath + @"\";
@@ -42,7 +36,7 @@ namespace Project.Management.Controllers
 
             _applicationInstallationService.InstallApplication(item.SystemName, CreatedBy, item.Version);
 
-          
+
 
             string rolesJsonpath = jsonPath + "roles.json";
             RoleConfig roleJson = await JsonFileReader.ReadAsync<RoleConfig>(rolesJsonpath);

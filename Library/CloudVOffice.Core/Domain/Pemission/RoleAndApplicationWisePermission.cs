@@ -1,14 +1,9 @@
 ﻿using CloudVOffice.Core.Domain.Users;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Pemission
 {
-    public class RoleAndApplicationWisePermission :IAuditEntity, ISoftDeletedEntity
+    public class RoleAndApplicationWisePermission : IAuditEntity, ISoftDeletedEntity
     {
         public Int64 RoleAndApplicationWisePermissionId { get; set; }
         public int ApplicationId { get; set; }

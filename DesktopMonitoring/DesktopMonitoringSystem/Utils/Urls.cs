@@ -1,10 +1,6 @@
 ﻿using DesktopMonitoringSystem.Classes;
 using SQLite;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesktopMonitoringSystem.Utils
 {
@@ -19,10 +15,10 @@ namespace DesktopMonitoringSystem.Utils
             if (a != null)
             {
                 _gateWayBaseUrl = a.GateWayUrl;
-              
+
             }
         }
-      
+
         public static string getGatewayUrl()
         {
             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
@@ -30,23 +26,23 @@ namespace DesktopMonitoringSystem.Utils
             if (a != null)
             {
                 return a.GateWayUrl;
-              
+
             }
             else return "";
         }
 
-     
+
 
         public static string postLogin = getGatewayUrl() + "/api/Login/Auth";
         public static string postRefreshToken = getGatewayUrl() + "/api/Login/RefreshToken";
-        public static string getSessionLog     = getGatewayUrl()+ "/api/DesktopLogin/LoginSessionsWithFilter";
-        public static string getActivityLog    = getGatewayUrl() + "/api/DesktopActivityLog/ActivityLogWithFilter";
+        public static string getSessionLog = getGatewayUrl() + "/api/DesktopLogin/LoginSessionsWithFilter";
+        public static string getActivityLog = getGatewayUrl() + "/api/DesktopActivityLog/ActivityLogWithFilter";
 
 
-        public static string getFileOperation  = getGatewayUrl() + "/api/DMSActivityLog/GetFileLogsByUserId";
-        public static string getPrinting      = getGatewayUrl() + "/api/DMSActivityLog/GetPrintLogsByUserId";
+        public static string getFileOperation = getGatewayUrl() + "/api/DMSActivityLog/GetFileLogsByUserId";
+        public static string getPrinting = getGatewayUrl() + "/api/DMSActivityLog/GetPrintLogsByUserId";
         public static string getKeyStroke = getGatewayUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
 
-      //  public static string imageUpload = getClientUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
+        //  public static string imageUpload = getClientUrl() + "/api/DMSActivityLog/GetKeyStrokLogsByUserId";
     }
 }

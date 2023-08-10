@@ -2,23 +2,23 @@
 
 namespace CloudVOffice.Web.Filters
 {
-	public class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
-	{
-		private readonly string[] _roles;
+    public class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
+    {
+        private readonly string[] _roles;
 
-		public HangfireAuthorizationFilter(params string[] roles)
-		{
-			_roles = roles;
-		}
+        public HangfireAuthorizationFilter(params string[] roles)
+        {
+            _roles = roles;
+        }
 
-		public bool Authorize(DashboardContext context)
-		{
-			var httpContext = ((AspNetCoreDashboardContext)context).HttpContext;
+        public bool Authorize(DashboardContext context)
+        {
+            var httpContext = ((AspNetCoreDashboardContext)context).HttpContext;
 
-			//Your authorization logic goes here.
+            //Your authorization logic goes here.
 
-			return true; //I'am returning true for simplicity
-		}
-	
-	}
+            return true; //I'am returning true for simplicity
+        }
+
+    }
 }

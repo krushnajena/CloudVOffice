@@ -3,11 +3,6 @@ using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Attendance
 {
@@ -102,25 +97,25 @@ namespace CloudVOffice.Services.Attendance
                     var a = _Context.LeaveTypes.Where(x => x.LeaveTypeId == leaveTypeDTO.LeaveTypeId).FirstOrDefault();
                     if (a != null)
                     {
-                        a.LeaveTypeName = leaveTypeDTO.LeaveTypeName;                       
-                        a.MaximumLeaveAllocationAllowed = leaveTypeDTO.MaximumLeaveAllocationAllowed;                       
-                        a.ApplicableAfterWorkingDays = leaveTypeDTO.ApplicableAfterWorkingDays;                       
-                        a.MaximumConsecutiveLeavesAllowed = leaveTypeDTO.MaximumConsecutiveLeavesAllowed;                       
-                        a.IsCarryForward = leaveTypeDTO.IsCarryForward;                       
-                        a.MaximumCarryForwardedLeaves = leaveTypeDTO.MaximumCarryForwardedLeaves;                       
-                        a.ExpireCarryForwardedLeaves = leaveTypeDTO.ExpireCarryForwardedLeaves;                       
-                        a.IsLeaveWithoutPay = leaveTypeDTO.IsLeaveWithoutPay;                       
-                        a.IsPartiallyPaidLeave = leaveTypeDTO.IsPartiallyPaidLeave;                       
-                        a.IsOptionalLeave = leaveTypeDTO.IsOptionalLeave;                       
-                        a.AllowNegativeBalance = leaveTypeDTO.AllowNegativeBalance;                       
-                        a.AllowOverAllocation = leaveTypeDTO.AllowOverAllocation;                       
-                        a.IsCompensatory = leaveTypeDTO.IsCompensatory;                       
-                        a.AllowEncashment = leaveTypeDTO.AllowEncashment;                       
-                        a.EncashmentThresholdDays = leaveTypeDTO.EncashmentThresholdDays;                       
-                        a.EarningSalaryComponentId = leaveTypeDTO.EarningSalaryComponentId;                       
-                        a.IsEarnedLeave = leaveTypeDTO.IsEarnedLeave;                       
-                        a.EarnedLeaveFrequency = leaveTypeDTO.EarnedLeaveFrequency;                       
-                        a.BasedOnDateOfJoining = leaveTypeDTO.BasedOnDateOfJoining;                       
+                        a.LeaveTypeName = leaveTypeDTO.LeaveTypeName;
+                        a.MaximumLeaveAllocationAllowed = leaveTypeDTO.MaximumLeaveAllocationAllowed;
+                        a.ApplicableAfterWorkingDays = leaveTypeDTO.ApplicableAfterWorkingDays;
+                        a.MaximumConsecutiveLeavesAllowed = leaveTypeDTO.MaximumConsecutiveLeavesAllowed;
+                        a.IsCarryForward = leaveTypeDTO.IsCarryForward;
+                        a.MaximumCarryForwardedLeaves = leaveTypeDTO.MaximumCarryForwardedLeaves;
+                        a.ExpireCarryForwardedLeaves = leaveTypeDTO.ExpireCarryForwardedLeaves;
+                        a.IsLeaveWithoutPay = leaveTypeDTO.IsLeaveWithoutPay;
+                        a.IsPartiallyPaidLeave = leaveTypeDTO.IsPartiallyPaidLeave;
+                        a.IsOptionalLeave = leaveTypeDTO.IsOptionalLeave;
+                        a.AllowNegativeBalance = leaveTypeDTO.AllowNegativeBalance;
+                        a.AllowOverAllocation = leaveTypeDTO.AllowOverAllocation;
+                        a.IsCompensatory = leaveTypeDTO.IsCompensatory;
+                        a.AllowEncashment = leaveTypeDTO.AllowEncashment;
+                        a.EncashmentThresholdDays = leaveTypeDTO.EncashmentThresholdDays;
+                        a.EarningSalaryComponentId = leaveTypeDTO.EarningSalaryComponentId;
+                        a.IsEarnedLeave = leaveTypeDTO.IsEarnedLeave;
+                        a.EarnedLeaveFrequency = leaveTypeDTO.EarnedLeaveFrequency;
+                        a.BasedOnDateOfJoining = leaveTypeDTO.BasedOnDateOfJoining;
                         a.Rounding = leaveTypeDTO.Rounding;
                         a.UpdatedBy = leaveTypeDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;

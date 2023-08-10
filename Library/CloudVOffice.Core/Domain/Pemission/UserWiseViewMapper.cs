@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CloudVOffice.Core.Domain.Users;
+﻿using CloudVOffice.Core.Domain.Users;
 using Newtonsoft.Json;
 
 namespace CloudVOffice.Core.Domain.Pemission
 {
-    public class UserWiseViewMapper :  IAuditEntity, ISoftDeletedEntity
+    public class UserWiseViewMapper : IAuditEntity, ISoftDeletedEntity
     {
         public Int64 UserWiseViewMapperId { get; set; }
-        public int ApplicationId { get; set; }  
+        public int ApplicationId { get; set; }
         public Int64? UserId { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

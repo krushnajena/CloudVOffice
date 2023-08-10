@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ActivityMonitor.ApplicationMonitor
 {
@@ -44,24 +41,26 @@ namespace ActivityMonitor.ApplicationMonitor
         public string ComputerName => _computerName;
         public string ComputerDomain => _computerDomain;
 
-        public long IdleSeconds {
+        public long IdleSeconds
+        {
             get => _idleTime;
-            
+
             set
             {
                 _idleTime = value;
             }
         }
-        
+
         public void AddIdleSeconds(int Seconds)
         {
             _idleTime += Seconds;
         }
         public TimeSpan IdleTime
         {
-            get {
+            get
+            {
                 return TimeSpan.FromSeconds(_idleTime);
-             }        
+            }
         }
         public UserSession()
         {
@@ -71,14 +70,14 @@ namespace ActivityMonitor.ApplicationMonitor
             System.Security.Principal.WindowsIdentity currentUser;
 
             currentUser = System.Security.Principal.WindowsIdentity.GetCurrent();
-            
+
             _userSID = currentUser.User.ToString();
             _userName = System.Environment.UserName;
             _userDomain = System.Environment.UserDomainName;
 
             _computerName = System.Environment.MachineName;
-            
-            
+
+
             try
             {
                 _computerDomain = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain().ToString();
@@ -87,7 +86,7 @@ namespace ActivityMonitor.ApplicationMonitor
             {
                 _computerDomain = "";
             }
-            
+
         }
 
         public void EndSession()

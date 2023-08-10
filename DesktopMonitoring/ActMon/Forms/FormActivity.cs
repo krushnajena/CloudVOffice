@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ActivityMonitor.ApplicationMonitor;
+using ActMon.Properties;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using ActivityMonitor.ApplicationMonitor;
-using ActMon.Properties;
 
 namespace ActMon.Forms
 {
@@ -13,13 +13,13 @@ namespace ActMon.Forms
         [DllImport("user32.dll")]
         public static extern bool LockWorkStation();
         private AppMonitor _appMon;
-        private ApplicationView _idleCtl;        
+        private ApplicationView _idleCtl;
         public FormActivity(AppMonitor AppMonitor)
         {
             InitializeComponent();
 
             _appMon = AppMonitor;
-            
+
             _idleCtl = new ApplicationView(_appMon);
             _idleCtl.ApplicationText = ResFiles.GlobalRes.caption_IdleTime;
             _idleCtl.Icon = Resources.IdleIcon.ToBitmap();
@@ -43,7 +43,7 @@ namespace ActMon.Forms
         {
             foreach (ActivityMonitor.Application.Application lApp in _appMon.Applications)
             {
-  
+
                 addFlControlIfNotExists(lApp);
             }
 
@@ -64,11 +64,11 @@ namespace ActMon.Forms
         private void addFlControlIfNotExists(ActivityMonitor.Application.Application lApp)
         {
             ApplicationView ctl;
-            
+
             foreach (ApplicationView Av in flApplicationsUsage.Controls)
             {
-              //  MessageBox.Show(lApp.App_Name);
-                if(lApp.App_Name==null || lApp.App_Name == "")
+                //  MessageBox.Show(lApp.App_Name);
+                if (lApp.App_Name == null || lApp.App_Name == "")
                 {
                     if (Av.Key == lApp.ExeName) return;
                 }
@@ -78,13 +78,13 @@ namespace ActMon.Forms
                     if (Av.Key == lApp.ExeName && Av.Application_Name == lApp.App_Name) return;
 
                 }
-                   
+
             }
 
-            ctl = new ApplicationView(lApp, _appMon);            
+            ctl = new ApplicationView(lApp, _appMon);
             flApplicationsUsage.Controls.Add(ctl);
             flApplicationsUsage.SetFlowBreak(ctl, true);
-            ctl.TriggerResize();           
+            ctl.TriggerResize();
 
         }
 

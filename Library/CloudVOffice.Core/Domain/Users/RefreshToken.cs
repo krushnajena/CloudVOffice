@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Core.Domain.Users
+﻿namespace CloudVOffice.Core.Domain.Users
 {
-    public class RefreshToken: IAuditEntity, ISoftDeletedEntity
+    public class RefreshToken : IAuditEntity, ISoftDeletedEntity
     {
         public Int64 RefreshTokenId { get; set; }
         public Int64 UserId { get; set; }

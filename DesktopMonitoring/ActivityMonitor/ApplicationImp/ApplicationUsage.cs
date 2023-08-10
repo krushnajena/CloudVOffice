@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ActivityMonitor.ApplicationImp;
+using ActivityMonitor.Collections;
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using ActivityMonitor.ApplicationImp;
-using ActivityMonitor.Collections;
 
 namespace ActivityMonitor.Application
 {
@@ -15,7 +15,7 @@ namespace ActivityMonitor.Application
         public ApplicationUsage(DateTime beginTime,
                                 DateTime endTime,
                                 List<ApplicationScreenshots> screenShots,
-                                string detailedName = ""     )
+                                string detailedName = "")
         {
             BeginTime = beginTime;
             EndTime = endTime;
@@ -49,13 +49,13 @@ namespace ActivityMonitor.Application
         public void End()
         {
             EndTime = DateTime.Now;
-           
+
             IsClosed = true;
         }
 
         public void AddScreenShot(ApplicationScreenshots screenshots)
         {
-            if(ScreenShots == null)
+            if (ScreenShots == null)
             {
                 ScreenShots = new List<ApplicationScreenshots>();
             }

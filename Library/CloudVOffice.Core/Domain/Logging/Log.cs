@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CloudVOffice.Core.Domain.Logging
+﻿namespace CloudVOffice.Core.Domain.Logging
 {
     /// <summary>
     /// Represents a log record

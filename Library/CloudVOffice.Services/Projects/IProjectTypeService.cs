@@ -1,13 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Projects;
-using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.DTO.Projects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Projects
 {

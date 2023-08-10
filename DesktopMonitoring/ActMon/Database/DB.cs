@@ -1,28 +1,20 @@
-﻿using System;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-using System.Windows.Forms.VisualStyles;
-using ActivityMonitor.Application;
+﻿using ActivityMonitor.Application;
 using ActivityMonitor.ApplicationImp;
 using ActivityMonitor.ApplicationMonitor;
-using ActMon.Classes;
 using ActMon.Utils;
 using DesktopMonitoringSystem.Classes;
 using Newtonsoft.Json;
-using SQLite;
+using System;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace ActMon.Database
 {
     public class DB
     {
-       // private SqlConnection conn;
+        // private SqlConnection conn;
         private string _dbServer;
         private string _dbUsername;
         private string _dbDatabase;
@@ -30,30 +22,30 @@ namespace ActMon.Database
 
         private bool _leaveConnectionOpen;
         private bool _isActLogRunning;
-        
+
         public DB(int connectionTimeout = 1)
         {
-            
 
-           // conn = new SqlConnection("Data Source=DESKTOP-DFU5PTJ;Initial Catalog=dms;User id=sa;Password=Software@2016");
+
+            // conn = new SqlConnection("Data Source=DESKTOP-DFU5PTJ;Initial Catalog=dms;User id=sa;Password=Software@2016");
         }
 
-       
 
 
-       
+
+
 
         public async Task<bool> RecordSession(AppMonitor appMon)
         {
             _leaveConnectionOpen = true;
 
-           await  RecordUserSession(appMon.Session);
+            await RecordUserSession(appMon.Session);
 
             try
             {
-                foreach(FileLog f in appMon.FileLogs)
+                foreach (FileLog f in appMon.FileLogs)
                 {
-                    RecordFileLog(appMon.Session.SessionID, f,  appMon.Session.ComputerName);
+                    RecordFileLog(appMon.Session.SessionID, f, appMon.Session.ComputerName);
                 }
             }
             catch
@@ -64,10 +56,10 @@ namespace ActMon.Database
             {
                 foreach (Application lApp in appMon.Applications)
                 {
-                   // RecordApplication(lApp);
-                    RecordApplicationSession(appMon.Session.SessionID, lApp, (int)appMon.Session.UserID,appMon.Session.ComputerName);
+                    // RecordApplication(lApp);
+                    RecordApplicationSession(appMon.Session.SessionID, lApp, (int)appMon.Session.UserID, appMon.Session.ComputerName);
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -75,7 +67,7 @@ namespace ActMon.Database
                 return true;
             }
             _leaveConnectionOpen = false;
-           
+
             return true;
         }
 
@@ -103,16 +95,16 @@ namespace ActMon.Database
                 return true;
             }
             else { return false; }
-           
+
         }
 
-        public async Task<bool> RecordApplicationSession(long SessionID, Application sApp,int UserId,string ComputerName)
+        public async Task<bool> RecordApplicationSession(long SessionID, Application sApp, int UserId, string ComputerName)
         {
             string sqlStr;
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             //        // Combine the base folder with your specific folder....
-                string specificFolder = Path.Combine(folder, "DMSSnaps");
+            string specificFolder = Path.Combine(folder, "DMSSnaps");
             for (int i = 0; i < sApp.Usage.Count; i++)
             {
                 if (sApp.Usage[i].IsClosed == true && sApp.Usage[i].IsSynced == false)
@@ -125,7 +117,7 @@ namespace ActMon.Database
                     dMSActivityLog.ProcessOrUrl = sApp.ExeName;
                     dMSActivityLog.AppOrWebPageName = sApp.Usage[i].DetailedName;
                     dMSActivityLog.TypeOfApp = "App";
-                    dMSActivityLog.CreatedBy =0;
+                    dMSActivityLog.CreatedBy = 0;
                     dMSActivityLog.LogType = "ActivityLog";
                     dMSActivityLog.Todatetime = sApp.Usage[i].EndTime;
                     var a = await HttpClientRq.PostRequest(ApiUrls.postActivityLog, JsonConvert.SerializeObject(dMSActivityLog));
@@ -149,19 +141,19 @@ namespace ActMon.Database
 
                                 var b = await HttpClientRq.UploadFilesAsync(ApiUrls.imageUpload, specificFolder + @"\" + sApp.Usage[i].ScreenShots[j].ScreenshotName, SessionID.ToString(), json.DesktopActivityLogId.ToString(), (DateTime)sApp.Usage[i].ScreenShots[j].SnapDatetime, "App");
 
-                           
+
                             }
 
                         }
                     }
                     //SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
                     //var x = connection.Insert(dMSActivityLog);
-                    
+
 
                     sApp.Usage[i].UpdateSyncTime(0);
 
                 }
-               
+
             }
             return true;
             //sqlStr = @"begin tran
@@ -222,7 +214,7 @@ namespace ActMon.Database
         {
             string sqlStr;
 
-      
+
             if (uSession.SessionID == 0)
             {
                 DesktopLoginDTO desktopLoginDTO = new DesktopLoginDTO
@@ -231,15 +223,15 @@ namespace ActMon.Database
                     ComputerName = uSession.ComputerName,
                     IpAddress = GetLocalIPAddress(),
                     SyncedOn = DateTime.Now,
-                    EmployeeId = 1 ,
+                    EmployeeId = 1,
                     CreatedBy = 1
 
                 };
                 var a = await HttpClientRq.PostRequest(ApiUrls.postSessionLog, JsonConvert.SerializeObject(desktopLoginDTO));
-                if(a.StatusCode == HttpStatusCode.OK)
+                if (a.StatusCode == HttpStatusCode.OK)
                 {
 
-                 //   uSession.SessionID = 1;
+                    //   uSession.SessionID = 1;
 
                     var X = a.Content.ReadAsStringAsync()
                                                              .Result
@@ -254,7 +246,7 @@ namespace ActMon.Database
 
                     }
                 }
-               
+
                 return true;
             }
             else
@@ -280,7 +272,7 @@ namespace ActMon.Database
                 //connection.Update(dmsSessionLog);
                 return true;
             }
-         
+
         }
 
         public async void SyncSessionLogData()
@@ -292,7 +284,7 @@ namespace ActMon.Database
             //    for (int i = 0; i < dmsSessionLog.Count; i++)
             //    {
 
-                   
+
             //        CreateDesktopLoginDTO createDesktopLoginDTO = new CreateDesktopLoginDTO();
             //        createDesktopLoginDTO.UserId = dmsSessionLog[i].UserId;
             //        createDesktopLoginDTO.LoginDateTime = dmsSessionLog[i].StartTime;
@@ -341,7 +333,7 @@ namespace ActMon.Database
             //        }
             //    }
             //}
-        
+
         }
 
         public async Task<bool> SyncLogDatan(DMSActivityLogVM dmsActivityLog)
@@ -409,7 +401,7 @@ namespace ActMon.Database
             //                DMSActivityLog dMSActivityLogMod = new DMSActivityLog();
             //                dMSActivityLogMod.Id = dmsActivityLog.Id;
             //                dMSActivityLogMod.IsDeleted = false;
-                           
+
 
             //                connection.Update(dMSActivityLogMod);
 
@@ -448,7 +440,7 @@ namespace ActMon.Database
 
             //}
 
-           return true;
+            return true;
         }
         public async void SyncLogData()
         {
@@ -456,7 +448,7 @@ namespace ActMon.Database
             //var dmsActivityLog = connection.Query<DMSActivityLogVM>("SELECT *,serversessionid ,DMSActivityLog.Id as ActId FROM DMSActivityLog INNER  JOIN DmsSessionLog  ON DmsSessionLog.ID = DMSActivityLog.desktoploginid WHERE DmsSessionLog.issynced=1 AND DMSActivityLog.IsDeleted=0 ").ToList();
             //if (dmsActivityLog != null)
             //{
-            
+
 
             //    for (int i = 0; i < dmsActivityLog.Count; i++)
             //    {
@@ -465,11 +457,11 @@ namespace ActMon.Database
             //        dMSActivityLogMod.IsDeleted = true;
             //        connection.Update(dMSActivityLogMod);
             //        var z=  await SyncLogDatan(dmsActivityLog[i]);
-                    
+
 
             //    }
             //}
-        
+
         }
         public async void UploadImage(DMSActivityLog activityLog)
         {

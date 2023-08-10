@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Core.Domain.HR.Master
+﻿namespace CloudVOffice.Core.Domain.HR.Master
 {
     public class EmployeeGrade : IAuditEntity, ISoftDeletedEntity
     {

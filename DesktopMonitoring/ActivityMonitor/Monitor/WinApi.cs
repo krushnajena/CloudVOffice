@@ -129,8 +129,8 @@ namespace ActivityMonitor.ApplicationMonitor
         {
             int parentProcessId;
             int childProcessId;
-            Process parentProc;            
-            
+            Process parentProc;
+
             GetWindowThreadProcessId(new HandleRef(null, WindowHandle), out parentProcessId);
             parentProc = Process.GetProcessById(parentProcessId);
 
@@ -162,12 +162,12 @@ namespace ActivityMonitor.ApplicationMonitor
                 SendMessage(hAddressBox, 0x000D, (int)(IntPtr)256, sb);
                 temp = sb.ToString();
             }
-          
+
             url = temp;
             return temp;
         }
 
-       
+
 
 
     }

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using SQLite;
-using DesktopMonitoringSystem.Classes;
+﻿using DesktopMonitoringSystem.Classes;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using SQLite;
+using System;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DesktopMonitoringSystem.Utils
 {
@@ -57,7 +55,7 @@ namespace DesktopMonitoringSystem.Utils
                 //GET Method  
                 HttpContent c = new StringContent(parameterValues, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(URI, c);
-                if(response.StatusCode == HttpStatusCode.Unauthorized)
+                if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
                     var a = connection.Query<User>("select * from User").FirstOrDefault();

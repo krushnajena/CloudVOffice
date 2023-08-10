@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace HR.Attendance.Controllers
 {
-	[Area(AreaNames.Attendance)]
+    [Area(AreaNames.Attendance)]
     public class HolidayController : BasePluginController
     {
         private readonly IHolidayService _holidayService;

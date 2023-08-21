@@ -140,5 +140,10 @@ namespace CloudVOffice.Services.Attendance
                 throw;
             }
         }
+
+        public ShiftEmployee ShiftEmployeeById(Int64 ShiftEmployeeId, DateTime FromDate)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

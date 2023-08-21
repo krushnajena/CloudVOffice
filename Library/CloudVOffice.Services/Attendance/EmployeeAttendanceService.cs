@@ -156,7 +156,7 @@ namespace CloudVOffice.Services.Attendance
                 }
                 else if (a != null)
                 {
-                    a.EmployeeAttendanceId = EmployeeId;
+                    a.EmployeeId = EmployeeId;    
                     a.AttendanceDate = AttendanceDate;                
                     a.UpdatedDate = DateTime.Now;
                     _Context.SaveChanges();

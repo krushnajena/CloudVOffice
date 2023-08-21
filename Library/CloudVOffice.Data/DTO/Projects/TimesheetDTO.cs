@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Data.DTO.Projects
+﻿namespace CloudVOffice.Data.DTO.Projects
 {
     public class TimesheetDTO
     {
@@ -33,7 +27,7 @@ namespace CloudVOffice.Data.DTO.Projects
     {
         public Int64 TimesheetId { get; set; }
         public int TimeSheetApprovalStatus { get; set; }
-        public string TimesheetApprovalRemarks { get; set;}
+        public string TimesheetApprovalRemarks { get; set; }
         public Int64 ApprovedBy { get; set; }
         public Int64 UpdatedBy { get; set; }
     }

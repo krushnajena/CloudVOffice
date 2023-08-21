@@ -26,7 +26,7 @@ namespace ActMon.Forms
 
         private void _initializeControl()
         {
-            
+
             InitializeComponent();
 
             if (_application != null)
@@ -40,7 +40,7 @@ namespace ActMon.Forms
                 lbApplicationName.DataBindings.Add("Text", _bindSrc, "Name", false);
                 lbl_appurl.DataBindings.Add("Text", _bindSrc, "App_Name", false);
                 lbAppUsage.DataBindings.Add("Text", _bindSrc, "TotalUsageTime", false);
-               
+
                 progressBarAdv1.Maximum = 1000;
                 //pbApplicationUsage.DataBindings.Add("Text", _bindSrc, "Usage", false);
 
@@ -125,8 +125,8 @@ namespace ActMon.Forms
         private void ApplicationView_Resize(object sender, EventArgs e)
         {
             lbAppUsage.Left = this.Width - lbAppUsage.Width - 10;
-            
-            progressBarAdv1.Width = lbAppUsage.Left - progressBarAdv1.Left - 10 ;
+
+            progressBarAdv1.Width = lbAppUsage.Left - progressBarAdv1.Left - 10;
         }
 
         public void TriggerResize()

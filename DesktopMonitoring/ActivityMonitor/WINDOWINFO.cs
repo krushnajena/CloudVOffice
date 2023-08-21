@@ -1,9 +1,9 @@
 namespace DeskTime
 {
-	internal struct WINDOWINFO
-	{
-		public int ownerpid;
+    internal struct WINDOWINFO
+    {
+        public int ownerpid;
 
-		public int childpid;
-	}
+        public int childpid;
+    }
 }

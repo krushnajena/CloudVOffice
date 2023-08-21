@@ -52,7 +52,7 @@
 							<div class="form-group col-md-3">
 
 
-								<label for="AccountNumber" class="form-label">Account Number</label>
+								<label for="AccountNumber" class="form-label">Account Number&nbsp;<span style="color:red"><b>*</b></span></label>
 								<input asp-for="@Model.AccountNumber" type="text" class="form-control" autofocus="autofocus" placeholder="Account Number" />
 								<span asp-validation-for="AccountNumber"></span>
 							</div>
@@ -99,7 +99,7 @@
 							<div class="form-group col-md-3">
 
 
-								<label for="TaxRate" class="form-label">TaxRate</label>
+								<label for="TaxRate" class="form-label">TaxRate&nbsp;<span style="color:red"><b>*</b></span></label>
 								<input asp-for="@Model.TaxRate" type="text" class="form-control" autofocus="autofocus" placeholder="Tax Rate" />
 								<span asp-validation-for="TaxRate"></span>
 							</div>

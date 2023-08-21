@@ -1,6 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Attendance;
 using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -33,107 +32,107 @@ namespace CloudVOffice.Services.Attendance
 				if (objCheck == null)
 				{
 
-					EmployeeAttendance employeeAttendance = new EmployeeAttendance();
-					employeeAttendance.EmployeeId = employeeAttendanceDTO.EmployeeId;
-					employeeAttendance.AttendanceDate = employeeAttendanceDTO.AttendanceDate;
-					employeeAttendance.Status = employeeAttendanceDTO.Status;
-					employeeAttendance.IsLateEntry = employeeAttendanceDTO.IsLateEntry;
-					employeeAttendance.IsEarlyExit = employeeAttendanceDTO.IsEarlyExit;
-					employeeAttendance.CreatedBy = employeeAttendanceDTO.CreatedBy;
-					var obj = _employeeAttendanceRepo.Insert(employeeAttendance);
+                    EmployeeAttendance employeeAttendance = new EmployeeAttendance();
+                    employeeAttendance.EmployeeId = employeeAttendanceDTO.EmployeeId;
+                    employeeAttendance.AttendanceDate = employeeAttendanceDTO.AttendanceDate;
+                    employeeAttendance.Status = employeeAttendanceDTO.Status;
+                    employeeAttendance.IsLateEntry = employeeAttendanceDTO.IsLateEntry;
+                    employeeAttendance.IsEarlyExit = employeeAttendanceDTO.IsEarlyExit;
+                    employeeAttendance.CreatedBy = employeeAttendanceDTO.CreatedBy;
+                    var obj = _employeeAttendanceRepo.Insert(employeeAttendance);
 
-					return MessageEnum.Success;
-				}
-				else if (objCheck != null)
-				{
-					return MessageEnum.Duplicate;
-				}
+                    return MessageEnum.Success;
+                }
+                else if (objCheck != null)
+                {
+                    return MessageEnum.Duplicate;
+                }
 
-				return MessageEnum.UnExpectedError;
-			}
-			catch
-			{
-				throw;
-			}
+                return MessageEnum.UnExpectedError;
+            }
+            catch
+            {
+                throw;
+            }
 
-		}
+        }
 
-		public MessageEnum EmployeeAttendanceDelete(Int64 employeeAttendanceId, Int64 DeletedBy)
-		{
-			try
-			{
-				var a = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == employeeAttendanceId).FirstOrDefault();
-				if (a != null)
-				{
-					a.Deleted = true;
-					a.UpdatedBy = DeletedBy;
-					a.UpdatedDate = DateTime.Now;
-					_Context.SaveChanges();
-					return MessageEnum.Deleted;
-				}
-				else
-					return MessageEnum.Invalid;
-			}
-			catch
-			{
-				throw;
-			}
-		}
+        public MessageEnum EmployeeAttendanceDelete(Int64 employeeAttendanceId, Int64 DeletedBy)
+        {
+            try
+            {
+                var a = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == employeeAttendanceId).FirstOrDefault();
+                if (a != null)
+                {
+                    a.Deleted = true;
+                    a.UpdatedBy = DeletedBy;
+                    a.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+                    return MessageEnum.Deleted;
+                }
+                else
+                    return MessageEnum.Invalid;
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
-		public MessageEnum EmployeeAttendanceUpdate(EmployeeAttendanceDTO employeeAttendanceDTO)
-		{
-			try
-			{
-				var EmployeeAttendance = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId != employeeAttendanceDTO.EmployeeAttendanceId && x.AttendanceDate == employeeAttendanceDTO.AttendanceDate && x.Deleted == false).FirstOrDefault();
-				if (EmployeeAttendance == null)
-				{
-					var a = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == employeeAttendanceDTO.EmployeeAttendanceId).FirstOrDefault();
-					if (a != null)
-					{
-						a.EmployeeId = employeeAttendanceDTO.EmployeeId;
-						a.AttendanceDate = employeeAttendanceDTO.AttendanceDate;
-						a.Status = employeeAttendanceDTO.Status;
-						a.IsLateEntry = employeeAttendanceDTO.IsLateEntry;
-						a.IsEarlyExit = employeeAttendanceDTO.IsEarlyExit;
-						
-						a.UpdatedBy = employeeAttendanceDTO.CreatedBy;
-						a.UpdatedDate = DateTime.Now;
-						_Context.SaveChanges();
-						return MessageEnum.Updated;
-					}
-					else
-						return MessageEnum.Invalid;
-				}
-				else
-				{
-					return MessageEnum.Duplicate;
-				}
+        public MessageEnum EmployeeAttendanceUpdate(EmployeeAttendanceDTO employeeAttendanceDTO)
+        {
+            try
+            {
+                var EmployeeAttendance = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId != employeeAttendanceDTO.EmployeeAttendanceId && x.AttendanceDate == employeeAttendanceDTO.AttendanceDate && x.Deleted == false).FirstOrDefault();
+                if (EmployeeAttendance == null)
+                {
+                    var a = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == employeeAttendanceDTO.EmployeeAttendanceId).FirstOrDefault();
+                    if (a != null)
+                    {
+                        a.EmployeeId = employeeAttendanceDTO.EmployeeId;
+                        a.AttendanceDate = employeeAttendanceDTO.AttendanceDate;
+                        a.Status = employeeAttendanceDTO.Status;
+                        a.IsLateEntry = employeeAttendanceDTO.IsLateEntry;
+                        a.IsEarlyExit = employeeAttendanceDTO.IsEarlyExit;
 
-			}
-			catch
-			{
-				throw;
-			}
-		}
+                        a.UpdatedBy = employeeAttendanceDTO.CreatedBy;
+                        a.UpdatedDate = DateTime.Now;
+                        _Context.SaveChanges();
+                        return MessageEnum.Updated;
+                    }
+                    else
+                        return MessageEnum.Invalid;
+                }
+                else
+                {
+                    return MessageEnum.Duplicate;
+                }
 
-		public EmployeeAttendance GetEmployeeAttendanceById(Int64 employeeAttendanceId)
-		{
-			try
-			{
-				return _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == employeeAttendanceId && x.Deleted == false).SingleOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
-			}
-			catch
-			{
-				throw;
-			}
-		}
+        public EmployeeAttendance GetEmployeeAttendanceById(Int64 employeeAttendanceId)
+        {
+            try
+            {
+                return _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == employeeAttendanceId && x.Deleted == false).SingleOrDefault();
 
-		public List<EmployeeAttendance> GetEmployeeAttendanceList()
-		{
-			try
-			{
-				return _Context.EmployeeAttendances.Where(x => x.Deleted == false).ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<EmployeeAttendance> GetEmployeeAttendanceList()
+        {
+            try
+            {
+                return _Context.EmployeeAttendances.Where(x => x.Deleted == false).ToList();
 
 			}
 			catch

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ActivityMonitor.Application;
+using System;
 using System.Drawing;
-using ActivityMonitor.Application;
 
 namespace ActivityMonitor.Collections
 {

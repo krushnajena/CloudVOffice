@@ -12,6 +12,6 @@
         public string UnInstallationUrl { get; set; }
         public List<string> Dependency { get; set; }
         public bool IsInstalled { get; set; }
-		public bool IsNewVersion { get; set; }
-	}
+        public bool IsNewVersion { get; set; }
+    }
 }

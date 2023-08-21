@@ -5,17 +5,7 @@ using CloudVOffice.Core.Domain.Pemission;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Core.Security;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Data.Seeding
 {
@@ -485,10 +475,10 @@ namespace CloudVOffice.Data.Seeding
                 x.HasKey(e => e.EmailTemplateId);
                 x.HasData(
                       new EmailTemplate
-                    {
-                        EmailTemplateId = 1,
-                        EmailTemplateName = "WelcomeEmail",
-                        EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 1,
+                          EmailTemplateName = "WelcomeEmail",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -608,19 +598,19 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""></div> </div></span>
 </div>",
-                        CreatedBy = 1,
-                        CreatedDate = System.DateTime.Now,
-                        Deleted = false,
-                        Subject = ""
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = ""
 
 
-                    },
+                      },
 
                       new EmailTemplate
-                    {
-                        EmailTemplateId = 2,
-                        EmailTemplateName = "ProjectAssignment",
-                        EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 2,
+                          EmailTemplateName = "ProjectAssignment",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -733,16 +723,16 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                        CreatedBy = 1,
-                        CreatedDate = System.DateTime.Now,
-                        Deleted = false,
-                        Subject = "Project Assignment - {%ProjectName%}"
-                    },
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Project Assignment - {%ProjectName%}"
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId = 3,
-                           EmailTemplateName = "ProjectUn-Assignment",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 3,
+                          EmailTemplateName = "ProjectUn-Assignment",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -852,16 +842,16 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                           CreatedBy = 1,
-                           CreatedDate = System.DateTime.Now,
-                           Deleted = false,
-                           Subject = "Project Un-Assignment - {%ProjectName%}"
-                       },
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Project Un-Assignment - {%ProjectName%}"
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId = 4,
-                           EmailTemplateName = "TimesheetReminder",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 4,
+                          EmailTemplateName = "TimesheetReminder",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -965,16 +955,16 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                           CreatedBy = 1,
-                           CreatedDate = System.DateTime.Now,
-                           Deleted = false,
-                           Subject = "Timesheet Updation | Reminder!"
-                       },
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Timesheet Updation | Reminder!"
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId = 5,
-                           EmailTemplateName = "TaskOverdue",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 5,
+                          EmailTemplateName = "TaskOverdue",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -1078,17 +1068,17 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
-                           CreatedBy = 1,
-                           CreatedDate = System.DateTime.Now,
-                           Deleted = false,
-                           Subject = "Task Overdue"
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Task Overdue"
 
-                       },
+                      },
                       new EmailTemplate
-                       {
-                           EmailTemplateId= 6,
-                           EmailTemplateName = "TaskDueTodayReminder",
-                           EmailTemplateDescription = @"<div role=""document"">
+                      {
+                          EmailTemplateId = 6,
+                          EmailTemplateName = "TaskDueTodayReminder",
+                          EmailTemplateDescription = @"<div role=""document"">
     <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
         <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
             <div class=""rps_ad57"">
@@ -1192,15 +1182,139 @@ namespace CloudVOffice.Data.Seeding
         </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
     </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
 </div>",
+                          CreatedBy = 1,
+                          CreatedDate = System.DateTime.Now,
+                          Deleted = false,
+                          Subject = "Reminder: Today's Task Due - {%Taskname%}"
+                      },
+                       new EmailTemplate
+                       {
+
+                           EmailTemplateId = 7,
+                           EmailTemplateName = "PasswordReset",
+                           EmailTemplateDescription = @"<div role=""document"">
+    <div class=""_rp_T4 _rp_U4 ms-font-weight-regular ms-font-color-neutralDark"" style=""display: none;""><br></div>  <div autoid=""_rp_w"" class=""_rp_T4"" style=""display: none;""><br></div>  <div autoid=""_rp_x"" class=""_rp_T4"" id=""Item.MessagePartBody"" style="""">
+        <div class=""_rp_U4 ms-font-weight-regular ms-font-color-neutralDark rpHighlightAllClass rpHighlightBodyClass"" id=""Item.MessageUniqueBody"" style=""font-family: wf_segoe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif, serif, EmojiFont;"">
+            <div class=""rps_ad57"">
+                <div>
+                    <div>
+                        <div style=""margin: 0px; padding: 0px; font-family: Verdana, Helvetica, Arial, sans-serif, serif, EmojiFont; color: rgb(103, 103, 103);"">
+                            <table cellpadding=""0"" cellspacing=""0"" style=""padding-top:0px; background-color:#FFFFFF; width:100%; border-collapse:separate"" class=""e-rte-table"">
+                                <tbody>
+                                    <tr>
+                                        <td align=""center"" class="""">
+                                            <table cellpadding=""0"" cellspacing=""0"" width=""600"" style=""padding:0px 24px 10px; background-color:white; border-collapse:separate; border:1px solid #e7e7e7; border-bottom:none"" class=""e-rte-table"">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><br></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align=""center"" style=""min-width:590px"">
+                                                            <table cellpadding=""0"" cellspacing=""0"" width=""100%"" style=""padding:20px 0 0; border-collapse:separate"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td valign=""middle"" class="""">
+                                                                            <h1 style=""color:#676767; font-weight:400; margin:0px"">Password Reset Request</h1>
+                                                                        </td>
+                                                                        <td valign=""middle"" align=""right"" width=""200px"">{%emailogo%}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td colspan=""2"" style=""text-align:center"">
+                                                                            <hr width=""100%"" style=""background-color:rgb(204,204,204); border:medium none; clear:both; display:block; font-size:0px; min-height:1px; line-height:0; margin:4px 0px 16px 0px"">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style=""min-width:590px"">
+                                                            <table class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td class="""">
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <h5 style=""font-weight:400; margin-bottom:0; font-size:16px; color:#676767"">Hello {%helloname%}</h5><div><br></div>
+                                                                                <p>We have received a request to reset your account password. To proceed with the password reset, please click on the link below:</p>
+                                                                                <div style=""margin:20px 0 0 0; text-align:center"">{%setpasswordlink%}</div>
+                                                                                <br>If you did not request a password reset, Please ignore this email. Your account will&nbsp;<span style=""background-color: transparent; text-align: inherit;"">remain secure, and no action is required.</span></div><div style=""margin-left:1.2rem; margin-bottom:1em""><span style=""background-color: transparent; text-align: inherit;""><p>For security reasons, this link will expire in 2 hours. If you&nbsp;<span style=""background-color: transparent; text-align: inherit;"">are unable to reset your password within this time frame,&nbsp;</span><span style=""background-color: transparent; text-align: inherit;"">please request another password reset.</span></p></span></div>
+                                                                         
+                                                                            <div style=""margin-left:1.2rem; margin-bottom:1em"">
+                                                                                <p style=""color:#676767; line-height:145%; margin:10px 0 0 0; font-size:16px"">
+                                                                                    {%emailsignature%}
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:center; border-top:1px solid rgb(230,230,230); padding-bottom:20px; padding-top:15px; line-height:125%; font-size:11px; margin:20px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); font-size:10px"">© Copyright {%companyname%}, {%address%} </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td align=""right"">
+                                                                            <div style="" margin:0 20px"">{%footerletterhera%}</div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <table style=""width:100%"" class=""e-rte-table"">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div style=""text-align:justify; border-top:1px solid rgb(230,230,230); padding-bottom:10px; padding-top:10px; line-height:125%; font-size:10px; margin:25px 20px 0 20px"">
+                                                                                <p style=""color:rgb(115,115,115); margin:0; font-size:10px"">
+                                                                                    The information contained in this e-mail message and/or attachments to it may contain confidential
+                                                                                    or privileged information. If you are not the intended recipient, any dissemination,use, review, distribution,
+                                                                                    printing or copying of the information contained in this email message and/or attachments to it are strictly prohibited.
+                                                                                    If you have received this communication in error, please notify us by reply e-mail or telephone and immediately
+                                                                                    and permanently delete the message and any attachments. Thank you.
+                                                                                </p>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div> <div class=""_rp_c5"" style=""display: none;""><br></div>
+    </div>  <span class=""PersonaPaneLauncher""><div ariatabindex=""-1"" class=""_pe_d _pe_62"" aria-expanded=""false"" tabindex=""-1"" aria-haspopup=""false"">  <div style=""display: none;""><br></div> </div></span>
+</div>",
                            CreatedBy = 1,
                            CreatedDate = System.DateTime.Now,
                            Deleted = false,
-                           Subject = "Reminder: Today's Task Due - {%Taskname%}"
+                           Subject = "Password Reset Request"
                        }
 
 
 
-                    ) ;
+
+                    );
             });
 
 

@@ -5,16 +5,11 @@ using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.Attendance.Controllers
 {
-	[Area(AreaNames.Attendance)]
-	public class LeaveTypeController : BasePluginController
+    [Area(AreaNames.Attendance)]
+    public class LeaveTypeController : BasePluginController
     {
         private readonly ILeaveTypeService _leaveTypeService;
         public LeaveTypeController(ILeaveTypeService leaveTypeService)

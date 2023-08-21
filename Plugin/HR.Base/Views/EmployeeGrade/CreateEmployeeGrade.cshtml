@@ -32,7 +32,7 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="Hr/EmployeeGrade/CreateEmployeeGrade" method="post" autocomplete="off">
+				<form asp-route="HR/EmployeeGrade/CreateEmployeeGrade" method="post" autocomplete="off">
 					<div asp-validation-summary="ModelOnly" class="message-error"></div>
 
 
@@ -42,8 +42,8 @@
 							<div class="form-group col-md-3">
 								<input asp-for="@Model.EmployeeGradeId" type="hidden" />
 
-								<label for="DesignationName" class="form-label">EmployeeGradeName&nbsp;<span style="color:red;"><b>*</b></span></label>
-								<input asp-for="@Model.EmployeeGradeName" type="text" class="form-control" autofocus="autofocus" placeholder="EmployeeGrade Name" />
+								<label for="DesignationName" class="form-label">Employee GradeName&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.EmployeeGradeName" type="text" class="form-control" autofocus="autofocus" placeholder="Employee Grade Name" />
 								<span asp-validation-for="EmployeeGradeName"></span>
 
 

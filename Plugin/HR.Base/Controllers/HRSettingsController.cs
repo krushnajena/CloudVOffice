@@ -1,6 +1,4 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.Company;
-using CloudVOffice.Data.DTO.Company;
 using CloudVOffice.Data.DTO.HR;
 using CloudVOffice.Services.HR;
 using CloudVOffice.Web.Framework;
@@ -14,43 +12,43 @@ namespace HR.Base.Controllers
     public class HRSettingsController : BasePluginController
     {
         private readonly IHRSettingsService _hrSettingsService;
-       
+
         public HRSettingsController(IHRSettingsService hrSettingsService)
         {
 
             _hrSettingsService = hrSettingsService;
-           
+
         }
         [Authorize(Roles = "HR Manager")]
         public IActionResult HRSettings(HRSettingsDTO hrSettingsDTO)
-		{
+        {
             if (hrSettingsDTO.HRSettingsId != null)
             {
 
-				
-				var a = _hrSettingsService.HRSettingsUpdate(hrSettingsDTO);
-				if (a == MessageEnum.Updated)
-				{
-					
-					return Redirect("/HR/HRSettings/HRSettings");
-				}
 
-				else
-				{
-					
-					ModelState.AddModelError("", "Un-Expected Error");
-				}
-				return View("~/Plugins/HR.Base/Views/HRSettings/HRSettings.cshtml", hrSettingsDTO);
-			}
-          
+                var a = _hrSettingsService.HRSettingsUpdate(hrSettingsDTO);
+                if (a == MessageEnum.Updated)
+                {
+
+                    return Redirect("/HR/HRSettings/HRSettings");
+                }
+
+                else
+                {
+
+                    ModelState.AddModelError("", "Un-Expected Error");
+                }
+                return View("~/Plugins/HR.Base/Views/HRSettings/HRSettings.cshtml", hrSettingsDTO);
+            }
+
             HRSettingsDTO d = new HRSettingsDTO();
             d = _hrSettingsService.GetHrSettings();
 
-			
-			return View("~/Plugins/HR.Base/Views/HRSettings/HRSettings.cshtml", d);
-		}
 
-		
-       
+            return View("~/Plugins/HR.Base/Views/HRSettings/HRSettings.cshtml", d);
+        }
+
+
+
     }
 }

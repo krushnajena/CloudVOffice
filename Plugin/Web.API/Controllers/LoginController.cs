@@ -1,24 +1,14 @@
 ﻿using CloudVOffice.Core.Domain.Users;
+using CloudVOffice.Data.DTO.Users;
 using CloudVOffice.Services.Authentication;
 using CloudVOffice.Services.Users;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using CloudVOffice.Web.Model.User;
-using CloudVOffice.Core.Domain.Pemission;
-using CloudVOffice.Data.DTO.Users;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.Extensions.Configuration;
-using NuGet.Common;
-using Microsoft.AspNetCore.Http.HttpResults;
+using System.Security.Claims;
+using System.Text;
 
 namespace Web.API.Controllers
 {
@@ -99,7 +89,8 @@ namespace Web.API.Controllers
 							};
                             var a = userDetails.UserRoleMappings;
                             claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));
-                            TokenDTO tokenDTO = new TokenDTO {
+                            TokenDTO tokenDTO = new TokenDTO
+                            {
                                 ClientId = model.ClientId,
                                 ClientName = model.ClientName,
                                 UserId = userDetails.UserId
@@ -161,13 +152,14 @@ namespace Web.API.Controllers
             {
                 return BadRequest("Invalid access token or refresh token");
             }
-            string? nrefreshToken = _tokenService.GetRefreshToken(new RefreshTokenDTO {
+            string? nrefreshToken = _tokenService.GetRefreshToken(new RefreshTokenDTO
+            {
                 UserId = Int64.Parse(userid),
                 ClientId = tokenModel.ClientId,
                 ClientName = tokenModel.ClientName,
                 Refresh_Token = tokenModel.RefreshToken
             });
-            if (nrefreshToken == "" || nrefreshToken == null|| nrefreshToken != tokenModel.RefreshToken)
+            if (nrefreshToken == "" || nrefreshToken == null || nrefreshToken != tokenModel.RefreshToken)
             {
                 return BadRequest("Invalid access token or refresh token");
             }

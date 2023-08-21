@@ -86,7 +86,7 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                var AttendanceRequest = _Context.AttendanceRequests.Where(x => x.AttendanceRequestId != attendanceRequestDTO.AttendanceRequestId && x.ForDate == attendanceRequestDTO.ForDate && x.Deleted == false).FirstOrDefault();
+                var AttendanceRequest = _Context.AttendanceRequests.Where(x => x.AttendanceRequestId != attendanceRequestDTO.AttendanceRequestId && x.Deleted == false).FirstOrDefault();
                 if (AttendanceRequest == null)
                 {
                     var a = _Context.AttendanceRequests.Where(x => x.AttendanceRequestId == attendanceRequestDTO.AttendanceRequestId).FirstOrDefault();
@@ -118,7 +118,7 @@ namespace CloudVOffice.Services.Attendance
             }
         }
 
-       
+
 
         public List<AttendanceRequest> GetAttendanceRequest()
         {

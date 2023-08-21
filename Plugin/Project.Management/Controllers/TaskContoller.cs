@@ -4,15 +4,9 @@ using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Projects;
-using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Project.Management.Controllers
 {
@@ -24,7 +18,7 @@ namespace Project.Management.Controllers
         private readonly IProjectService _projectService;
 
         private readonly IEmployeeService _empolyeeService;
-        
+
 
         public TaskController(IProjectTaskService projectTaskService, IProjectService projectService, IEmployeeService empolyeeService)
         {
@@ -50,7 +44,7 @@ namespace Project.Management.Controllers
                     x.DelayApprovedOn,
                     x.DelayReason,
                     x.Employee,
-                    ExpectedEndDate = x.ExpectedEndDate !=null?DateTime.Parse(  x.ExpectedEndDate.ToString()).ToString("dd-MMM-yyyy"):"",
+                    ExpectedEndDate = x.ExpectedEndDate != null ? DateTime.Parse(x.ExpectedEndDate.ToString()).ToString("dd-MMM-yyyy") : "",
                     x.ExpectedStartDate,
                     x.ExpectedTimeInHours,
                     x.TaskAssignments,
@@ -219,8 +213,8 @@ namespace Project.Management.Controllers
             return View("~/Plugins/Project.Management/Views/Task/TaskList.cshtml");
         }
 
-			
-		       
+
+
         public JsonResult GroupProjectTaskByProjectId(int ProjectId)
         {
             return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));
@@ -351,7 +345,7 @@ namespace Project.Management.Controllers
                            AssignedTo = u.AssignedTo.FullName,
                            ComplitedBy = u.Employee.FullName,
                            TaskComplitedByOthersReasonByComplitedBy = u.TaskComplitedByOthersReasonByComplitedBy,
-                           AssignedToMe = EmployeeId== u.AssignedTo.EmployeeId ? true:false
+                           AssignedToMe = EmployeeId == u.AssignedTo.EmployeeId ? true : false
 
                        };
             ViewBag.tasks = data;
@@ -378,13 +372,13 @@ namespace Project.Management.Controllers
                            ProjectCode = u.Project.ProjectCode,
                            ProjectName = u.Project.ProjectName,
                            PlannedHour = u.ExpectedTimeInHours,
-                           TotalHoursByTimeSheet= u.TotalHoursByTimeSheet,
+                           TotalHoursByTimeSheet = u.TotalHoursByTimeSheet,
                            PlannedEndDate = u.ExpectedEndDate,
                            ActualEndDate = u.ExpectedEndDate,
 
                            TaskName = u.TaskName,
                            AssignedTo = u.AssignedTo.FullName,
-                           DelayReason  = u.DelayReason
+                           DelayReason = u.DelayReason
 
                        };
             ViewBag.tasks = data;
@@ -399,7 +393,8 @@ namespace Project.Management.Controllers
             return Json(a);
         }
         [HttpPost]
-        public IActionResult DelayReasonSubmit(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO) {
+        public IActionResult DelayReasonSubmit(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO)
+        {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             projectTaskDelayReasonUpdateDTO.CreatedBy = UserId;
             var a = _projectTaskService.TaskDelayReasonUpdate(projectTaskDelayReasonUpdateDTO);

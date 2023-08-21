@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace CloudVOffice.Core.Domain.Users
 {
-    public partial class UserRoleMapping 
+    public partial class UserRoleMapping
     {
-        public int UserRoleMappingId { get;set; }
+        public int UserRoleMappingId { get; set; }
         public Int64 UserId { get; set; }
 
         /// <summary>
@@ -17,7 +12,7 @@ namespace CloudVOffice.Core.Domain.Users
         /// </summary>
         public int RoleId { get; set; }
 
-       
+
 
         [JsonIgnore]
         public Role Role { get; set; }

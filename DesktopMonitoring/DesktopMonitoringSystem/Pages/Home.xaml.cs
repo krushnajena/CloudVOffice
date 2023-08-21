@@ -1,7 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using DesktopMonitoringSystem.Classes;
-using DesktopMonitoringSystem.Models;
 using DesktopMonitoringSystem.Utils;
 
 using Newtonsoft.Json;
@@ -26,21 +25,21 @@ namespace DesktopMonitoringSystem.Pages
         public Home()
         {
 
-           // _appMon = AppMonitor;
+            // _appMon = AppMonitor;
 
-         
+
             InitializeComponent();
 
 
             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
             var a = connection.Query<User>("select * from User").FirstOrDefault();
-        
+
             if (a != null)
             {
                 GetActivityLog();
                 UserId = a.UserId.ToString();
                 UserName = a.ApplicantName;
-              //  
+                //  
             }
         }
         private void LoadColumChartData(List<DesktopActivityLog> activityLogModel)
@@ -123,9 +122,9 @@ namespace DesktopMonitoringSystem.Pages
             var json = JsonConvert.DeserializeObject<List<DesktopActivityLog>>(X);
             if (json != null)
             {
-            
+
                 LoadColumChartData(json);
-                
+
             }
 
 

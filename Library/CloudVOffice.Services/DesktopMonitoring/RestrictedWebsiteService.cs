@@ -2,14 +2,8 @@
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 
 using CloudVOffice.Data.DTO.DesktopMonitoring;
-using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.DesktopMonitoring
 {
@@ -33,7 +27,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
                     RestrictedWebsite restrictedWebsite = new RestrictedWebsite();
                     restrictedWebsite.RestrictedWebsiteName = restrictedWebsiteDTO.RestrictedWebsiteName;
-                    restrictedWebsite.DepartmentId = restrictedWebsiteDTO.DepartmentId;                  
+                    restrictedWebsite.DepartmentId = restrictedWebsiteDTO.DepartmentId;
                     restrictedWebsite.CreatedBy = restrictedWebsiteDTO.CreatedBy;
                     var obj = _restrictedWebsiteRepo.Insert(restrictedWebsite);
 
@@ -89,7 +83,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
             }
         }
 
-       
+
 
         public MessageEnum RestrictedWebsiteDelete(Int64 RestrictedWebsiteId, Int64 DeletedBy)
         {
@@ -126,7 +120,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     {
                         a.RestrictedWebsiteName = restrictedWebsiteDTO.RestrictedWebsiteName;
                         a.DepartmentId = restrictedWebsiteDTO.DepartmentId;
-                      
+
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
                         return MessageEnum.Updated;

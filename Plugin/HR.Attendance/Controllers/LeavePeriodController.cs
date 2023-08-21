@@ -22,7 +22,7 @@ namespace HR.Attendance.Controllers
         public IActionResult CreateLeavePeriod(int? leavePeriodId)
         {
             LeavePeriodDTO leavePeriodDTO = new LeavePeriodDTO();
-           
+
             if (leavePeriodId != null)
             {
 
@@ -102,7 +102,7 @@ namespace HR.Attendance.Controllers
             return View("~/Plugins/HR.Attendance/Views/LeavePeriod/LeavePeriodView.cshtml");
         }
         [HttpGet]
-        
+
         public IActionResult LeavePeriodDelete(int leavePeriodId)
         {
             int DeletedBy = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

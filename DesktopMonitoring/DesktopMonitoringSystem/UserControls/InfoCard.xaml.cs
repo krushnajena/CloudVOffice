@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace DesktopMonitoringSystem.UserControls
 {
-    
+
     public partial class InfoCard : UserControl
     {
         public InfoCard()

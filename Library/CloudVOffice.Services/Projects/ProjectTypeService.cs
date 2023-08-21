@@ -1,16 +1,8 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Core.Domain.Projects;
-using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using Microsoft.CodeAnalysis.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Projects
 {
@@ -72,7 +64,7 @@ namespace CloudVOffice.Services.Projects
                 {
                     _projecttypeRepo.Insert(new ProjectType()
                     {
-						ProjectTypeName = projecttypeDTO.ProjectTypeName,
+                        ProjectTypeName = projecttypeDTO.ProjectTypeName,
                         CreatedBy = projecttypeDTO.CreatedBy,
                         CreatedDate = DateTime.Now,
                         Deleted = false

@@ -1,0 +1,211 @@
+﻿@model CloudVOffice.Data.DTO.Attendance.ShiftEmployeeDTO;
+@using System.Collections;
+@using Newtonsoft.Json;
+@{
+    Layout = "_MainAppLayout";
+    ViewData["Title"] = "Shift Employee";
+    var DropDownList = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.Employees, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "EmployeeId", Text = "FullName" }, Change = "onChange" };
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Shift  Employee</h5>
+                    <h6 class="sub-heading"></h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+            <div class="card">
+                <form asp-route="/Attendance/ShiftEmployee/ShiftEmployeeCreate" method="post" autocomplete="off">
+                    <div asp-ation-summary="ModelOnly" class="message-error"></div>
+
+
+                    <div class="card-header"><b>Basic Info</b></div>
+                    <div class="card-body form-column col-sm-12">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+
+                                <div class="form-group col-md-4">
+                                    <input asp-for="@Model.ShiftEmployeeId" type="hidden" />
+                                    <label for="ShiftTypeId" class="form-label">Shift</label>
+                                    <ejs-dropdownlist id="ShiftTypeId" allowFiltering="true" ejs-for="@Model.ShiftId" filtering="onShiftrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.ShiftType, "ShiftTypeId", "ShiftTypeName" ).Items)" placeholder="Select a Shift" popupHeight="220px">
+                                        <e-dropdownlist-fields text="ShiftTypeName" value="ShiftTypeId"></e-dropdownlist-fields>
+                                    </ejs-dropdownlist>
+
+                                    <span asp-validation-for="ShiftId"></span>
+                                </div>
+
+                               @* <div class="form-group col-md-4">
+
+                                    <label for="EmployeeId" class="form-label">Employee</label>
+                                    <ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName" ).Items)" placeholder="Select Employee  " popupHeight="220px">
+                                        <e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+                                    </ejs-dropdownlist>
+
+                                    <span asp-validation-for="EmployeeId"></span>
+                                </div>*@
+
+                               
+                                <div class="form-group col-md-12">
+                                    <label for="EmployeeId" class="form-label">Employees</label>
+                                    <input type="hidden" asp-for="@Model.EmployeesString" id="EmployeesString" />
+                                    <ejs-grid id="Grid" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.EmployeeShift" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+                                        <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
+                                        <e-grid-columns>
+                                            <e-grid-column field="EmployeeId" Visible="false" foreignKeyField="EmployeeId" headerText="Full Name" edit="new {@@params = DropDownList }" editType="dropdownedit" width="140"></e-grid-column>
+                                            <e-grid-column field="FullName" foreignKeyField="EmployeeId" headerText="Employee Name" width="140"></e-grid-column>
+                                        </e-grid-columns>
+                                    </ejs-grid>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="FromDate" class="form-label">From Date</label>
+                                        <input asp-for="@Model.FromDate" type="date" class="form-control" autofocus="autofocus" placeholder="From Date" />
+                                        <span asp-validation-for="FromDate"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="ToDate" class="form-label">To Date</label>
+                                        <input asp-for="@Model.ToDate" type="date" class="form-control" autofocus="autofocus" placeholder="To Date" />
+                                        <span asp-validation-for="ToDate"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function onShiftrfiltering(e) {
+        var query = new ej.data.Query();
+        query = (e.text !== '') ? query.where('ShiftTypeName', 'startswith', e.text, true) : query;
+        e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.ShiftType)), query);
+    }
+</script>
+
+<script>
+    function onEmployeerfiltering(e) {
+        var query = new ej.data.Query();
+        query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+        e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
+    }
+</script>
+
+
+<script>
+    var employeeName = '';
+    function onChange(args) {
+
+        employeeName = args.itemData.FullName;
+    }
+
+    var userName = ''
+
+    function onChangeUser(args) {
+
+        userName = args.itemData.FullName;
+    }
+
+
+    function actionBegin(args) {
+        let grid = document.getElementById("Grid").ej2_instances[0];
+
+
+        if (args.requestType === 'save') {
+            args.data.FullName = employeeName
+            for (var i = 0; i < grid.columns.length; i++) {
+                if (grid.columns[i].field == "EmployeeId") {
+                    grid.columns[i].visible = false
+                    console.log(grid.columns[i]);
+                }
+                if (grid.columns[i].field == "FullName") {
+                    grid.columns[i].visible = true
+                }
+
+            }
+            if (grid.pageSettings.currentPage !== 1 && grid.editSettings.newRowPosition === 'Top') {
+                args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - grid.pageSettings.pageSize;
+            } else if (grid.editSettings.newRowPosition === 'Bottom') {
+                args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - 1;
+            }
+        }
+        else if (args.requestType === 'add' || args.requestType === 'beginEdit') {
+
+            for (var i = 0; i < grid.columns.length; i++) {
+                if (grid.columns[i].field == "EmployeeId") {
+                    grid.columns[i].visible = true;
+                }
+                if (grid.columns[i].field == "FullName") {
+                    grid.columns[i].visible = false
+                }
+
+            }
+
+        }
+    }
+
+    function actionComplete(args) {
+        if (args.requestType === 'save' || args.requestType === 'delete') {
+            let grid = document.getElementById("Grid").ej2_instances[0];
+
+            $('#EmployeesString').val(JSON.stringify(grid.currentViewData));
+        }
+
+    }
+
+</script>
+
+<style>
+    #typeddl {
+        min-width: 100px;
+    }
+</style>
+
+<style>
+    .e-dropdownbase .e-list-item {
+        overflow: visible !important;
+    }
+</style>

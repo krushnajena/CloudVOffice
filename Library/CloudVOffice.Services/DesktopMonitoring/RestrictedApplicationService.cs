@@ -4,11 +4,6 @@ using CloudVOffice.Data.DTO.DesktopMonitoring;
 
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.DesktopMonitoring
 {
@@ -33,7 +28,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     RestrictedApplication restrictedApplication = new RestrictedApplication();
                     restrictedApplication.RestrictedApplicationName = restrictedApplicationDTO.RestrictedApplicationName;
                     restrictedApplication.DepartmentId = restrictedApplicationDTO.DepartmentId;
-                    restrictedApplication.CreatedBy = restrictedApplicationDTO.CreatedBy;                 
+                    restrictedApplication.CreatedBy = restrictedApplicationDTO.CreatedBy;
                     var obj = _restrictedApplicationRepo.Insert(restrictedApplication);
 
                     return MessageEnum.Success;

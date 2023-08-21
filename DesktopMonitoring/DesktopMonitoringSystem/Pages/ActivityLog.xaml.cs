@@ -32,18 +32,18 @@ namespace DesktopMonitoringSystem.Pages
         string UserName = "";
         public ActivityLog()
         {
-           
+
 
             InitializeComponent();
 
-           
+
 
             SQLiteConnection connection = new SQLiteConnection(DbContext.databasePath);
             var a = connection.Query<User>("select * from User").FirstOrDefault();
             if (a != null)
             {
                 UserId = a.UserId.ToString();
-                UserName = a.   ApplicantName;
+                UserName = a.ApplicantName;
                 GetActivityLog();
             }
 
@@ -65,11 +65,11 @@ namespace DesktopMonitoringSystem.Pages
             {
                 bool check = false;
                 string dt = "";
-             
-                    dt = activityLogModel[i].ProcessOrUrl;
 
-                
-                
+                dt = activityLogModel[i].ProcessOrUrl;
+
+
+
                 for (int j = 0; j < keys.Count; j++)
                 {
                     if (keys[j].Key == dt)
@@ -86,7 +86,7 @@ namespace DesktopMonitoringSystem.Pages
                         DateTime? fromtime = activityLogModel[i].LogDateTime;
                         DateTime? totime = activityLogModel[i].Todatetime;
                         var hours = DateTime.Parse(totime.ToString()).Subtract(DateTime.Parse(fromtime.ToString()));
-                       
+
                         for (int k = 1; k < activityLogModel.Count; k++)
                         {
                             if (activityLogModel[k].ProcessOrUrl == dt)
@@ -95,7 +95,7 @@ namespace DesktopMonitoringSystem.Pages
                                 DateTime? atotime = activityLogModel[k].Todatetime;
                                 var ahours = DateTime.Parse(atotime.ToString()).Subtract(DateTime.Parse(afromtime.ToString()));
 
-                               // TimeSpan t2 = TimeSpan.Parse(activityLogModel.data[k].Duration);
+                                // TimeSpan t2 = TimeSpan.Parse(activityLogModel.data[k].Duration);
                                 hours = hours.Add(ahours);
 
                             }
@@ -110,7 +110,7 @@ namespace DesktopMonitoringSystem.Pages
                     }
                 }
             }
-            
+
 
             cc_activity.ItemsSource = keys;
             cc_activity.XBindingPath = "Key";
@@ -182,7 +182,7 @@ namespace DesktopMonitoringSystem.Pages
                         }
                     }
                 }
-                    
+
             }
 
 
@@ -198,8 +198,8 @@ namespace DesktopMonitoringSystem.Pages
 
         private async void GetActivityLog()
         {
-          
-              
+
+
 
 
             DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today.AddDays(1) };
@@ -211,21 +211,21 @@ namespace DesktopMonitoringSystem.Pages
                                                        //.Replace("\\", "")
                                                        //.Replace("\r\n", "'")
                                                        .Trim(new char[1] { '"' });
-          
 
 
-                var json = JsonConvert.DeserializeObject<List<DesktopActivityLog>>(X);
-               // activityLogm = json;
-                if (json != null)
-                {
-                    dg_ActivityLog.ItemsSource = json;
-                    LoadColumChartData(json);
-                    LoadWebColumChartData(json);
-                    this.DataContext = vV;
-                }
-            
-          
-          
+
+            var json = JsonConvert.DeserializeObject<List<DesktopActivityLog>>(X);
+            // activityLogm = json;
+            if (json != null)
+            {
+                dg_ActivityLog.ItemsSource = json;
+                LoadColumChartData(json);
+                LoadWebColumChartData(json);
+                this.DataContext = vV;
+            }
+
+
+
             // MessageBox.Show(json.data.Count.ToString());
 
         }
@@ -264,7 +264,7 @@ namespace DesktopMonitoringSystem.Pages
 
             images.Add(bitmap);
             //Create a new bitmap to assign our image to
-             bitmap = new BitmapImage();
+            bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             bitmap.CacheOption = BitmapCacheOption.None;
@@ -293,7 +293,7 @@ namespace DesktopMonitoringSystem.Pages
             images.Add(bitmap);
 
             //Create a new bitmap to assign our image to
-             bitmap = new BitmapImage();
+            bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             bitmap.CacheOption = BitmapCacheOption.None;
@@ -322,7 +322,7 @@ namespace DesktopMonitoringSystem.Pages
             images.Add(bitmap);
 
             //Create a new bitmap to assign our image to
-             bitmap = new BitmapImage();
+            bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             bitmap.CacheOption = BitmapCacheOption.None;
@@ -350,7 +350,7 @@ namespace DesktopMonitoringSystem.Pages
 
             images.Add(bitmap);
             //Create a new bitmap to assign our image to
-           bitmap = new BitmapImage();
+            bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
             bitmap.CacheOption = BitmapCacheOption.None;

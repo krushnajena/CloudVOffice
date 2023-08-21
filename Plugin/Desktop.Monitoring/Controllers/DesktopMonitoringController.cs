@@ -1,23 +1,12 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
-using CloudVOffice.Core.Infrastructure.Http;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
-using CloudVOffice.Services.Applications;
 using CloudVOffice.Services.DesktopMonitoring;
 using CloudVOffice.Services.Emp;
-using CloudVOffice.Services.Roles;
 using CloudVOffice.Web.Framework;
 using Desktop.Monitoring.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Newtonsoft.Json.Linq;
 using Syncfusion.EJ2.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Desktop.Monitoring.Controllers
 {
@@ -31,16 +20,19 @@ namespace Desktop.Monitoring.Controllers
         private readonly IDesktopActivityLogService _desktopActivityLogSerive;
         private readonly IDesktopSnapsService _desktopSnapshotSerive;
 
+        private readonly IDesktopKeystrokeService _desktopKeystroke;
         public DesktopMonitoringController(IEmployeeService employeeService,
             IDesktoploginSevice desktopLoginService,
             IDesktopActivityLogService desktopActivityLogSerive,
-             IDesktopSnapsService desktopSnapshotSerive
+             IDesktopSnapsService desktopSnapshotSerive,
+              IDesktopKeystrokeService desktopKeystroke
         )
         {
             _employeeService = employeeService;
             _desktopLoginService = desktopLoginService;
             _desktopActivityLogSerive = desktopActivityLogSerive;
             _desktopSnapshotSerive = desktopSnapshotSerive;
+            _desktopKeystroke = desktopKeystroke;
 
         }
         [Authorize(Roles = "Desktop Monitoring User, Desktop Monitoring Manager, Employee")]
@@ -54,12 +46,12 @@ namespace Desktop.Monitoring.Controllers
             if (employee != null)
             {
                 var login = _desktopLoginService.GetTodayLoginData(employee.EmployeeId);
-                if(login != null && login.Count>0)
+                if (login != null && login.Count > 0)
                 {
                     ViewBag.loginTime = login.FirstOrDefault().LoginDateTime.Value.ToString("hh:mm");
                     ViewBag.toalDuration = login.Sum(x => TimeSpan.Parse(x.Duration).TotalHours).ToString("00.00");
-                    ViewBag.idelDuration = login.Sum(x =>( x.IdelTime==null?TimeSpan.Parse("00:00:00"): TimeSpan.Parse(x.IdelTime.ToString())).TotalHours).ToString("00.00");
-                    var list = _desktopActivityLogSerive.UnProductiveActivityLog(new DesktopLoginFilterDTO { EmployeeId = employee.EmployeeId , FromDate = DateTime.Today, ToDate = DateTime.Today.AddDays(1)}).Sum(x=>TimeSpan.Parse( x.Duration).TotalHours);
+                    ViewBag.idelDuration = login.Sum(x => (x.IdelTime == null ? TimeSpan.Parse("00:00:00") : TimeSpan.Parse(x.IdelTime.ToString())).TotalHours).ToString("00.00");
+                    var list = _desktopActivityLogSerive.UnProductiveActivityLog(new DesktopLoginFilterDTO { EmployeeId = employee.EmployeeId, FromDate = DateTime.Today, ToDate = DateTime.Today.AddDays(1) }).Sum(x => TimeSpan.Parse(x.Duration).TotalHours);
                     ViewBag.unProuctiveHour = list.ToString("00.00");
                     List<PieChartData> chartDatas = new List<PieChartData>{
                      new PieChartData
@@ -96,11 +88,11 @@ namespace Desktop.Monitoring.Controllers
                 {
                     ViewBag.loginTime = "--:--";
                     ViewBag.toalDuration = "--:--";
-                    ViewBag.idelDuration  = "--:--";
+                    ViewBag.idelDuration = "--:--";
                     ViewBag.unProuctiveHour = "--:--";
                     List<PieChartData> chartDatas = new List<PieChartData>();
                     ViewBag.WorkDurrationPie = chartDatas;
-                   
+
                 }
 
 
@@ -108,7 +100,7 @@ namespace Desktop.Monitoring.Controllers
                 {
                     EmployeeId = employee.EmployeeId,
 
-                    FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month , 1),
+                    FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1),
                     ToDate = DateTime.Now.AddMonths(1).AddDays(-1)
                 });
 
@@ -183,11 +175,12 @@ namespace Desktop.Monitoring.Controllers
                 {
                     EmployeeId = employee.EmployeeId,
 
-                    FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month-1, 1),
+                    FromDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, 1),
                     ToDate = DateTime.Now.AddMonths(1).AddDays(-1)
                 });
                 var acta = alist.GroupBy(r => new { r.ProcessOrUrl })
-                              .Select(g => new {
+                              .Select(g => new
+                              {
                                   Duration = g.Sum(c => TimeSpan.Parse(c.Duration).TotalHours).ToString(),
 
                                   g.Key.ProcessOrUrl
@@ -209,7 +202,8 @@ namespace Desktop.Monitoring.Controllers
                 });
 
                 var wa = wlist.GroupBy(r => new { r.AppOrWebPageName })
-                              .Select(g => new {
+                              .Select(g => new
+                              {
                                   Duration = g.Sum(c => TimeSpan.Parse(c.Duration).TotalHours).ToString(),
 
                                   g.Key.AppOrWebPageName
@@ -232,7 +226,7 @@ namespace Desktop.Monitoring.Controllers
                 ViewBag.WebColumnChart = null;
             }
 
-            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Dashboard.cshtml");  
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Dashboard.cshtml");
         }
         [Authorize(Roles = "Desktop Monitoring User, Desktop Monitoring Manager, Employee")]
         public IActionResult MonitorUsers()
@@ -247,7 +241,7 @@ namespace Desktop.Monitoring.Controllers
         public IActionResult Track(Int64 EmployeeId)
         {
 
-       
+
             ViewBag.EmployeeeId = EmployeeId;
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/Track.cshtml");
         }
@@ -271,6 +265,13 @@ namespace Desktop.Monitoring.Controllers
             ViewBag.EmployeeeId = EmployeeId;
             return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/FileLog.cshtml");
         }
+
+        public IActionResult KeyStrokes(Int64 EmployeeId)
+        {
+            ViewBag.EmployeeeId = EmployeeId;
+            return View("~/Plugins/Desktop.Monitoring/Views/DesktopMonitoring/KeyStrokes.cshtml");
+
+        }
         [Authorize(Roles = "Desktop Monitoring User, Desktop Monitoring Manager, Employee")]
         public IActionResult GetSnaps(string type, string logid)
         {
@@ -290,7 +291,7 @@ namespace Desktop.Monitoring.Controllers
         {
             try
             {
-               
+
 
                 var list = _desktopLoginService.GetDesktoploginsWithDateRange(desktopLoginDTO);
 
@@ -369,6 +370,25 @@ namespace Desktop.Monitoring.Controllers
             }
         }
 
+        [HttpPost]
+
+        public IActionResult GetDesktopKeystrokeLogsWithFilter(DesktopLoginFilterDTO desktopLoginDTO)
+        {
+            try
+            {
+
+                var list = _desktopKeystroke.DesktopKeystrokeLogsWithFilter(desktopLoginDTO);
+
+
+
+
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return Accepted(new { Status = "error", ResponseMsg = ex.Message });
+            }
+        }
 
 
         [HttpPost]
@@ -399,9 +419,18 @@ namespace Desktop.Monitoring.Controllers
         {
             try
             {
-                if(logType == "Session")
+                if (logType == "Session")
                 {
                     var list = _desktopSnapshotSerive.GetSnapsBySessionId(Id);
+
+
+
+
+                    return Ok(list);
+                }
+                else if (logType == "file")
+                {
+                    var list = _desktopSnapshotSerive.GetSnapsForFileLog(Id);
 
 
 
@@ -418,7 +447,7 @@ namespace Desktop.Monitoring.Controllers
                     return Ok(list);
 
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -476,7 +505,7 @@ namespace Desktop.Monitoring.Controllers
                     }
 
                     TimeSpan t3 = TimeSpan.Parse("0:00:00");
-                    if (loginSessionModel[i].IdelTime != null )
+                    if (loginSessionModel[i].IdelTime != null)
                     {
                         t3 = TimeSpan.Parse(loginSessionModel[i].IdelTime.ToString());
                         for (int k = 1; k < loginSessionModel.Count; k++)
@@ -488,7 +517,7 @@ namespace Desktop.Monitoring.Controllers
                                     TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].IdelTime.ToString());
                                     t3 = t3.Add(t2);
                                 }
-                               
+
 
                             }
 
@@ -496,7 +525,7 @@ namespace Desktop.Monitoring.Controllers
 
 
                     }
-                    chartData.Add(new DesktopSessionLineChartData(dt.Date.ToString("dd-MM-yyyy"), double.Parse( t1.TotalHours.ToString("000.00")), double.Parse( t3.TotalHours.ToString("000.00"))));
+                    chartData.Add(new DesktopSessionLineChartData(dt.Date.ToString("dd-MM-yyyy"), double.Parse(t1.TotalHours.ToString("000.00")), double.Parse(t3.TotalHours.ToString("000.00"))));
 
                 }
             }
@@ -513,8 +542,8 @@ namespace Desktop.Monitoring.Controllers
             //    }
             //}
 
-           // ViewBag.dataSource = chartData;
-            return Json(chartData.OrderBy(x=>x.Xvalue).ToList());
+            // ViewBag.dataSource = chartData;
+            return Json(chartData.OrderBy(x => x.Xvalue).ToList());
         }
 
 
@@ -524,13 +553,14 @@ namespace Desktop.Monitoring.Controllers
         {
             var list = _desktopActivityLogSerive.GetAcivityLogsWithFilter(desktopLoginDTO);
             var a = list.GroupBy(r => new { r.ProcessOrUrl })
-                          .Select(g => new{
-                              Duration  =   g.Sum(c => TimeSpan.Parse(c.Duration).TotalHours).ToString(),
-                                        
-                                         g.Key.ProcessOrUrl
+                          .Select(g => new
+                          {
+                              Duration = g.Sum(c => TimeSpan.Parse(c.Duration).TotalHours).ToString(),
+
+                              g.Key.ProcessOrUrl
 
 
-                                     });
+                          });
 
 
 
@@ -545,7 +575,8 @@ namespace Desktop.Monitoring.Controllers
             var list = _desktopActivityLogSerive.WebActivityLog(desktopLoginDTO);
 
             var a = list.GroupBy(r => new { r.AppOrWebPageName })
-                          .Select(g => new {
+                          .Select(g => new
+                          {
                               Duration = g.Sum(c => TimeSpan.Parse(c.Duration).TotalHours).ToString(),
 
                               g.Key.AppOrWebPageName

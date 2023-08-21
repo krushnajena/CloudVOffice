@@ -3,12 +3,6 @@ using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using Microsoft.CodeAnalysis.Operations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.HR.Master
 {
@@ -69,7 +63,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-       
+
         public MessageEnum EmploymentTypeUpdate(EmploymentTypeDTO employmenttypeDTO)
         {
             try
@@ -101,7 +95,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-       
+
 
         public EmploymentType GetEmploymentTypeByEmploymentTypeId(Int64 employmenttypeId)
         {
@@ -116,7 +110,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-       
+
 
         public EmploymentType GetEmploymentTypeByEmploymentTypeName(string employmentTypeName)
         {
@@ -144,5 +138,5 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
     }
-    
+
 }

@@ -42,7 +42,7 @@
 						<div class="form-row">
 							<div class="form-group col-md-5">
 								<input asp-for="@Model.CustomerId" type="hidden" />
-								<label for="CustomerName" class="form-label">Customer Name</label>
+								<label for="CustomerName" class="form-label">Customer Name&nbsp;<span style="color:red"><b>*</b></span></label>
 								<input asp-for="@Model.CustomerName" type="text" class="form-control" autofocus="autofocus" placeholder="Customer Name" />
 								<span asp-validation-for="CustomerName"></span>
 							</div>

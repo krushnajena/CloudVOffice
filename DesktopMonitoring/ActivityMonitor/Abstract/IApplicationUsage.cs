@@ -1,6 +1,5 @@
 using ActivityMonitor.ApplicationImp;
 using System;
-using System.Collections.Generic;
 
 namespace ActivityMonitor.Collections
 {

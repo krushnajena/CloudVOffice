@@ -1,18 +1,11 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
-using CloudVOffice.Core.Domain.HR.Master;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.DesktopMonitoring
 {
     public class DesktopLogin : IAuditEntity, ISoftDeletedEntity
     {
-        public Int64 DesktopLoginId { get;set; }
+        public Int64 DesktopLoginId { get; set; }
         public Int64 EmployeeId { get; set; }
         public DateTime? LoginDateTime { get; set; }
         public DateTime? LogOutDateTime { get; set; }

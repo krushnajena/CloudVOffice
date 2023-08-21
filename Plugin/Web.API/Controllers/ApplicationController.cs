@@ -1,12 +1,6 @@
 ﻿using CloudVOffice.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Syncfusion.XlsIO.Parser.Biff_Records.Formula;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Web.API.Controllers
 {
@@ -18,7 +12,7 @@ namespace Web.API.Controllers
         private readonly IUserService _userService;
         public ApplicationController(IUserService userService)
         {
-            _userService= userService;
+            _userService = userService;
         }
 
         [Authorize]
@@ -30,6 +24,6 @@ namespace Web.API.Controllers
             return View(a);
         }
 
-       
+
     }
 }

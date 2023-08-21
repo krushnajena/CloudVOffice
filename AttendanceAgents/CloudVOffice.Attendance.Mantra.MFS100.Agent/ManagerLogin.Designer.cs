@@ -35,7 +35,7 @@
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
+			this.btn_Login = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -89,14 +89,15 @@
 			this.button1.Text = "button1";
 			this.button1.UseVisualStyleBackColor = true;
 			// 
-			// button2
+			// btn_Login
 			// 
-			this.button2.Location = new System.Drawing.Point(96, 307);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(181, 23);
-			this.button2.TabIndex = 5;
-			this.button2.Text = "button2";
-			this.button2.UseVisualStyleBackColor = true;
+			this.btn_Login.Location = new System.Drawing.Point(96, 307);
+			this.btn_Login.Name = "btn_Login";
+			this.btn_Login.Size = new System.Drawing.Size(181, 23);
+			this.btn_Login.TabIndex = 5;
+			this.btn_Login.Text = "Login";
+			this.btn_Login.UseVisualStyleBackColor = true;
+			this.btn_Login.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// ManagerLogin
 			// 
@@ -104,7 +105,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(228)))), ((int)(((byte)(236)))), ((int)(((byte)(249)))));
 			this.ClientSize = new System.Drawing.Size(537, 450);
-			this.Controls.Add(this.button2);
+			this.Controls.Add(this.btn_Login);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.textBox2);
@@ -113,6 +114,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ManagerLogin";
 			this.Text = "ManagerLogin";
+			this.Load += new System.EventHandler(this.ManagerLogin_Load);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
@@ -129,6 +131,6 @@
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.Button btn_Login;
 	}
 }

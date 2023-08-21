@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Core.Events
+﻿namespace CloudVOffice.Core.Events
 {
     public partial class EntityDeletedEvent<T> where T : BaseEntity
     {

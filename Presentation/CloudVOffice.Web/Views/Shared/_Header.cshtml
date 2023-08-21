@@ -8,9 +8,15 @@
 				</a>
 			</div>
 			<div class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-4">
-				<a href="index.html" class="logo">
-					<img src="img/unify.png" alt="Unify Admin Dashboard">
-				</a>
+				@if (User.Identity.IsAuthenticated)
+				{
+					@if (@User.Claims.Any(x => x.Type == "CompanyImage"))
+					{
+						<img class="avatar" style="height:50px;margin:10px;" src="~/uploads/setup/@User.Claims.FirstOrDefault(x => x.Type == "CompanyImage").Value" alt="@User.Claims.FirstOrDefault(x => x.Type == "CompanyName").Value">
+					}
+					
+				
+				}
 			</div>
 			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-3 col-4">
 				<ul class="header-actions">
@@ -88,7 +94,7 @@
 								{
 									@if (@User.Claims.Any(x => x.Type == "EmployeeImage"))
 									{
-										<img class="avatar" src="~/uploads/employee/@User.Claims.Any(x => x.Type == "EmployeeImage")" alt="@User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value">
+										<img class="avatar" src="~/uploads/employee/@User.Claims.FirstOrDefault(x => x.Type == "EmployeeImage").Value" alt="@User.Claims.FirstOrDefault(x => x.Type == "FirstName").Value">
 									}
 									else
 									{

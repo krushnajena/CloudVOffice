@@ -1,11 +1,8 @@
 ﻿
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
-using DesktopMonitoringSystem.Classes;
-using DesktopMonitoringSystem.Models;
 using DesktopMonitoringSystem.Utils;
 using Newtonsoft.Json;
-using Syncfusion.Themes.FluentDark.WPF;
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
@@ -32,7 +29,7 @@ namespace DesktopMonitoringSystem.Pages
             for (int i = 0; i < loginSessionModel.Count; i++)
             {
                 bool check = false;
-                DateTime dt = DateTime.Parse( loginSessionModel[i].LoginDateTime.ToString()).Date;
+                DateTime dt = DateTime.Parse(loginSessionModel[i].LoginDateTime.ToString()).Date;
                 for (int j = 0; j < keys.Count; j++)
                 {
                     if (keys[j].Key == dt.Date.ToString("dd-MM-yyyy"))
@@ -56,7 +53,7 @@ namespace DesktopMonitoringSystem.Pages
                                     TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].Duration);
                                     t1 = t1.Add(t2);
                                 }
-                                
+
 
                             }
 
@@ -74,7 +71,7 @@ namespace DesktopMonitoringSystem.Pages
             cb_sessionlog.ItemsSource = keys;
             cb_sessionlog.XBindingPath = "Key";
             cb_sessionlog.YBindingPath = "Value";
-          
+
         }
         private void LoadWordDeurationChartData(List<DesktopLogin> loginSessionModel)
         {
@@ -83,7 +80,7 @@ namespace DesktopMonitoringSystem.Pages
             for (int i = 0; i < loginSessionModel.Count; i++)
             {
                 bool check = false;
-                DateTime dt =DateTime.Parse( loginSessionModel[i].LoginDateTime.ToString()).Date;
+                DateTime dt = DateTime.Parse(loginSessionModel[i].LoginDateTime.ToString()).Date;
                 for (int j = 0; j < keys.Count; j++)
                 {
                     if (keys[j].Key.ToString() == dt.Date.ToString("dd-MM-yyyy"))
@@ -100,14 +97,14 @@ namespace DesktopMonitoringSystem.Pages
                         TimeSpan t1 = TimeSpan.Parse(loginSessionModel[i].IdelTime.ToString());
                         for (int k = 1; k < loginSessionModel.Count; k++)
                         {
-                            if (DateTime.Parse( loginSessionModel[k].LoginDateTime.ToString()).Date == dt.Date)
+                            if (DateTime.Parse(loginSessionModel[k].LoginDateTime.ToString()).Date == dt.Date)
                             {
                                 if (loginSessionModel[k].IdelTime != null)
                                 {
                                     TimeSpan t2 = TimeSpan.Parse(loginSessionModel[k].IdelTime.ToString());
                                     t1 = t1.Add(t2);
                                 }
-                             
+
 
                             }
 
@@ -134,7 +131,7 @@ namespace DesktopMonitoringSystem.Pages
             DesktopLoginFilterDTO desktopLoginFilterDTO = new DesktopLoginFilterDTO { FromDate = DateTime.Today.AddDays(-30), ToDate = DateTime.Today.AddDays(1) };
             var a = await HttpClientRq.PostRequest(ApiUrls.getSessionLog, JsonConvert.SerializeObject(desktopLoginFilterDTO));
 
-            
+
             var X = a.Content.ReadAsStringAsync()
                                                        .Result
                                                        //.Replace("\\", "")

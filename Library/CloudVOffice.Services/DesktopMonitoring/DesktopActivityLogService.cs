@@ -1,7 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.DesktopMonitoring;
 using CloudVOffice.Core.Domain.HR.Attendance;
-using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.DesktopMonitoring;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -10,13 +9,6 @@ using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR;
 using Microsoft.EntityFrameworkCore;
-using StackExchange.Profiling.Internal;
-using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.DesktopMonitoring
 {
@@ -45,8 +37,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
             _desktopactivitylogRepo = desktopactivitylogRepo;
             _employeeService = employeeService;
             _restrictedWebsiteService = restrictedWebsiteService;
-            _holiDayService=holiDayService;
-            _hrSettingsService= hrSettingsService;
+            _holiDayService = holiDayService;
+            _hrSettingsService = hrSettingsService;
             _desktopLoginService = desktoploginSevice;
             _restrictedApplicationService = restrictedApplicationService;
         }
@@ -59,32 +51,32 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 {
                     b.LogOutDateTime = desktopactivitylogDTO.Todatetime;
                     _Context.SaveChanges();
-                   
+
                 }
 
-                var a=     _desktopactivitylogRepo.Insert(new DesktopActivityLog()
-                    {
-                        EmployeeId = desktopactivitylogDTO.EmployeeId,
-                        LogType = desktopactivitylogDTO.LogType,
-                        DesktopLoginId = desktopactivitylogDTO.DesktopLoginId,
-                        LogDateTime = desktopactivitylogDTO.LogDateTime,
-                        ComputerName = desktopactivitylogDTO.ComputerName,
-                        ProcessOrUrl=desktopactivitylogDTO.ProcessOrUrl,
-                        AppOrWebPageName=desktopactivitylogDTO.AppOrWebPageName,
-                        TypeOfApp=desktopactivitylogDTO.TypeOfApp,
-                        SyncedOn = desktopactivitylogDTO.SyncedOn,
-                        Action=desktopactivitylogDTO.Action,
-                        Source=desktopactivitylogDTO.Source,
-                        Folder=desktopactivitylogDTO.Folder,
-                        FileName=desktopactivitylogDTO.FileName,
-                        PrinterName=desktopactivitylogDTO.PrinterName,
-                        Todatetime=desktopactivitylogDTO.Todatetime,
-                        CreatedBy = desktopactivitylogDTO.CreatedBy,
-                        CreatedDate = DateTime.Now,
-                        Deleted = false
-                    });
-                    return a;
-               
+                var a = _desktopactivitylogRepo.Insert(new DesktopActivityLog()
+                {
+                    EmployeeId = desktopactivitylogDTO.EmployeeId,
+                    LogType = desktopactivitylogDTO.LogType,
+                    DesktopLoginId = desktopactivitylogDTO.DesktopLoginId,
+                    LogDateTime = desktopactivitylogDTO.LogDateTime,
+                    ComputerName = desktopactivitylogDTO.ComputerName,
+                    ProcessOrUrl = desktopactivitylogDTO.ProcessOrUrl,
+                    AppOrWebPageName = desktopactivitylogDTO.AppOrWebPageName,
+                    TypeOfApp = desktopactivitylogDTO.TypeOfApp,
+                    SyncedOn = desktopactivitylogDTO.SyncedOn,
+                    Action = desktopactivitylogDTO.Action,
+                    Source = desktopactivitylogDTO.Source,
+                    Folder = desktopactivitylogDTO.Folder,
+                    FileName = desktopactivitylogDTO.FileName,
+                    PrinterName = desktopactivitylogDTO.PrinterName,
+                    Todatetime = desktopactivitylogDTO.Todatetime,
+                    CreatedBy = desktopactivitylogDTO.CreatedBy,
+                    CreatedDate = DateTime.Now,
+                    Deleted = false
+                });
+                return a;
+
             }
             catch
             {
@@ -130,15 +122,15 @@ namespace CloudVOffice.Services.DesktopMonitoring
                         a.LogDateTime = desktopactivitylogDTO.LogDateTime;
                         a.ComputerName = desktopactivitylogDTO.ComputerName;
                         a.ProcessOrUrl = desktopactivitylogDTO.ProcessOrUrl;
-                        a.AppOrWebPageName= desktopactivitylogDTO.AppOrWebPageName;
-                        a.TypeOfApp= desktopactivitylogDTO.TypeOfApp;                        
+                        a.AppOrWebPageName = desktopactivitylogDTO.AppOrWebPageName;
+                        a.TypeOfApp = desktopactivitylogDTO.TypeOfApp;
                         a.SyncedOn = desktopactivitylogDTO.SyncedOn;
-                        a.Action= desktopactivitylogDTO.Action;
-                        a.Source= desktopactivitylogDTO.Source;
-                        a.Folder= desktopactivitylogDTO.Folder;
-                        a.FileName= desktopactivitylogDTO.FileName;
-                        a.PrinterName= desktopactivitylogDTO.PrinterName;
-                        a.Todatetime= desktopactivitylogDTO.Todatetime;
+                        a.Action = desktopactivitylogDTO.Action;
+                        a.Source = desktopactivitylogDTO.Source;
+                        a.Folder = desktopactivitylogDTO.Folder;
+                        a.FileName = desktopactivitylogDTO.FileName;
+                        a.PrinterName = desktopactivitylogDTO.PrinterName;
+                        a.Todatetime = desktopactivitylogDTO.Todatetime;
                         a.UpdatedBy = desktopactivitylogDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
@@ -161,11 +153,11 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         public List<DesktopActivityLog> GetAcivityLogsWithFilter(DesktopLoginFilterDTO desktopLoginFilterDTO)
         {
-         return   _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots)
-                .Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog" 
-                && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate)
-                
-                ).OrderByDescending(l => l.LogDateTime).ToList();
+            return _Context.DesktopActivityLogs.Include(x => x.DesktopSnapshots)
+                   .Where(x => x.Deleted == false && x.EmployeeId == desktopLoginFilterDTO.EmployeeId && x.LogType == "ActivityLog"
+                   && (x.LogDateTime >= desktopLoginFilterDTO.FromDate && x.LogDateTime <= desktopLoginFilterDTO.ToDate)
+
+                   ).OrderByDescending(l => l.LogDateTime).ToList();
         }
 
         public DesktopActivityLog GetDesktopActivityLogByDesktopActivityLogId(Int64 DesktopActivityLogId)
@@ -201,8 +193,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 var dmsLogs = _Context.DesktopActivityLogs
                      .Include(r => r.Employee)
                      .Where(x => x.Deleted == false
-                    &&   (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)
-               
+                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)
+
                      ).ToList();
                 return dmsLogs.Where(x => (TimeSpan.Parse(x.Duration).TotalMinutes >= suspesiosActivityLogDTO.Duration) && employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
 
@@ -222,15 +214,15 @@ namespace CloudVOffice.Services.DesktopMonitoring
                 var dmsLogs = _Context.DesktopActivityLogs
                      .Include(r => r.Employee)
                      .Where(x => x.Deleted == false
-                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate)&& x.AppOrWebPageName!=null && x.AppOrWebPageName!=""
+                    && (x.LogDateTime >= suspesiosActivityLogDTO.FromDate && x.LogDateTime <= suspesiosActivityLogDTO.ToDate) && x.AppOrWebPageName != null && x.AppOrWebPageName != ""
 
                      ).ToList();
                 var newDmsLogs = dmsLogs.Where(x => employees.Any(v => v.EmployeeId == x.EmployeeId)).ToList();
-                List <DesktopActivityLog> ret = new List<DesktopActivityLog>();
-                for(int i=0; i< newDmsLogs.GroupBy(x=>x.EmployeeId).ToList().Count; i++)
+                List<DesktopActivityLog> ret = new List<DesktopActivityLog>();
+                for (int i = 0; i < newDmsLogs.GroupBy(x => x.EmployeeId).ToList().Count; i++)
                 {
-                    var myRestrictedWebsites = restrictedWbsiteList.Where(x=> (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false ).ToList();
-                    for(int j=0;j< myRestrictedWebsites.Count; j++)
+                    var myRestrictedWebsites = restrictedWbsiteList.Where(x => (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false).ToList();
+                    for (int j = 0; j < myRestrictedWebsites.Count; j++)
                     {
                         var check = newDmsLogs.Where(x => x.AppOrWebPageName.Contains(myRestrictedWebsites[j].RestrictedWebsiteName)).ToList();
                         if (check.Count > 0)
@@ -250,20 +242,20 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
         public List<EffortAnalysReportViewModel> EffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
         {
-            List<EffortAnalysReportViewModel> effortAnalysReportViewModels= new List<EffortAnalysReportViewModel>();
+            List<EffortAnalysReportViewModel> effortAnalysReportViewModels = new List<EffortAnalysReportViewModel>();
             var holidays = _holiDayService.GetHolidayByDates(DateTime.Parse(suspesiosActivityLogDTO.FromDate.ToString()), DateTime.Parse(suspesiosActivityLogDTO.ToDate.ToString()));
             var holiday = new List<HolidayDays>();
-            if(holidays!=null)
-                holidays.HolidayDays.Where(x=> (x.ForDate >= suspesiosActivityLogDTO.FromDate && x.ForDate <= suspesiosActivityLogDTO.ToDate) && x.Deleted == false).ToList();
+            if (holidays != null)
+                holidays.HolidayDays.Where(x => (x.ForDate >= suspesiosActivityLogDTO.FromDate && x.ForDate <= suspesiosActivityLogDTO.ToDate) && x.Deleted == false).ToList();
             int NoOfDays = (DateTime.Parse(suspesiosActivityLogDTO.ToDate.ToString()) - DateTime.Parse(suspesiosActivityLogDTO.FromDate.ToString())).Days;
             int NoOfWorkingDays = NoOfDays - holiday.Count;
             var employees = _employeeService.GetEmployeeSubContinent((Int64)suspesiosActivityLogDTO.EmployeeId).ToList();
             var hrsettings = _hrSettingsService.GetHrSettings();
-            double workingHours = (double) hrsettings.StandardWorkingHours * 60;
-            double breakeHour = (double)hrsettings.BreakHours ;
-            double systemHour = (workingHours - breakeHour)/60;
+            double workingHours = (double)hrsettings.StandardWorkingHours * 60;
+            double breakeHour = (double)hrsettings.BreakHours;
+            double systemHour = (workingHours - breakeHour) / 60;
             double totalEffortHourRequired = NoOfWorkingDays * systemHour;
-            for(int i=0; i < employees.Count; i++)
+            for (int i = 0; i < employees.Count; i++)
             {
                 var desktopSessions = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO { EmployeeId = employees[i].EmployeeId, FromDate = suspesiosActivityLogDTO.FromDate, ToDate = suspesiosActivityLogDTO.ToDate });
                 double sumOfEffortHour = desktopSessions.Sum(x => TimeSpan.Parse(x.Duration).Hours);
@@ -278,8 +270,8 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     EffortHours = sumOfEffortHour,
                     IdelHours = sumOfIdelHours,
                     ActualEffortHours = actualEffort,
-                    EffortPercentage =double.Parse(( (actualEffort / totalEffortHourRequired) * 100).ToString("0.00"))
-                }) ;
+                    EffortPercentage = double.Parse(((actualEffort / totalEffortHourRequired) * 100).ToString("0.00"))
+                });
             }
             return effortAnalysReportViewModels;
         }
@@ -288,14 +280,14 @@ namespace CloudVOffice.Services.DesktopMonitoring
         public List<EmployeeDayWiseEffortAnalysViewModel> EmployeeDayWiseEffortAnalysReport(DesktopLoginFilterDTO suspesiosActivityLogDTO)
         {
             List<EmployeeDayWiseEffortAnalysViewModel> effortAnalysReportViewModels = new List<EmployeeDayWiseEffortAnalysViewModel>();
-           
+
             var hrsettings = _hrSettingsService.GetHrSettings();
             double workingHours = (double)hrsettings.StandardWorkingHours * 60;
             double breakeHour = (double)hrsettings.BreakHours;
             double systemHour = (workingHours - breakeHour) / 60;
             var alldesktopSessions = _desktopLoginService.GetDesktoploginsWithDateRange(new DesktopLoginFilterDTO { EmployeeId = suspesiosActivityLogDTO.EmployeeId, FromDate = suspesiosActivityLogDTO.FromDate, ToDate = suspesiosActivityLogDTO.ToDate });
 
-            for (DateTime date = (DateTime)suspesiosActivityLogDTO.FromDate; date<= suspesiosActivityLogDTO.ToDate; date = date.AddDays(1))
+            for (DateTime date = (DateTime)suspesiosActivityLogDTO.FromDate; date <= suspesiosActivityLogDTO.ToDate; date = date.AddDays(1))
             {
                 var desktopSessions = alldesktopSessions.Where(x => x.LoginDateTime.Value.ToString("dd-MM-yyyy") == date.ToString("dd-MM-yyyy")).ToList();
                 if (desktopSessions.Count > 0)
@@ -316,7 +308,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                         EffortPercentage = double.Parse(((actualEffort / systemHour) * 100).ToString("0.00"))
                     });
                 }
-               
+
 
             }
 
@@ -383,7 +375,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
             try
             {
                 var restrictedApplicationList = _restrictedApplicationService.GetRestrictedApplication().ToList();
-              
+
                 var dmsLogs = _Context.DesktopActivityLogs
                      .Include(r => r.Employee)
                      .Where(x => x.Deleted == false
@@ -407,15 +399,15 @@ namespace CloudVOffice.Services.DesktopMonitoring
 
 
                 var restrictedWbsiteList = _restrictedWebsiteService.GetRestrictedWebsites().ToList();
-             
-                 dmsLogs = _Context.DesktopActivityLogs
-                     .Include(r => r.Employee)
-                     .Where(x => x.Deleted == false
-                    && (x.LogDateTime >= desktopLoginFilter.FromDate && x.LogDateTime <= desktopLoginFilter.ToDate) && x.AppOrWebPageName != null && x.AppOrWebPageName != ""
 
-                     ).ToList();
-                 newDmsLogs = dmsLogs.Where(x => desktopLoginFilter.EmployeeId == x.EmployeeId).ToList();
-               
+                dmsLogs = _Context.DesktopActivityLogs
+                    .Include(r => r.Employee)
+                    .Where(x => x.Deleted == false
+                   && (x.LogDateTime >= desktopLoginFilter.FromDate && x.LogDateTime <= desktopLoginFilter.ToDate) && x.AppOrWebPageName != null && x.AppOrWebPageName != ""
+
+                    ).ToList();
+                newDmsLogs = dmsLogs.Where(x => desktopLoginFilter.EmployeeId == x.EmployeeId).ToList();
+
                 for (int i = 0; i < newDmsLogs.GroupBy(x => x.EmployeeId).ToList().Count; i++)
                 {
                     var myRestrictedWebsites = restrictedWbsiteList.Where(x => (x.DepartmentId == null || x.DepartmentId == newDmsLogs[i].Employee.DepartmentId) && x.Deleted == false).ToList();
@@ -429,7 +421,7 @@ namespace CloudVOffice.Services.DesktopMonitoring
                     }
                 }
 
-                return ret.OrderByDescending(x=>x.LogDateTime).ToList();
+                return ret.OrderByDescending(x => x.LogDateTime).ToList();
 
             }
             catch

@@ -3,14 +3,6 @@ using CloudVOffice.Core.Domain.HR.Master;
 using CloudVOffice.Data.DTO.HR.Master;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using LinqToDB;
-using Microsoft.CodeAnalysis.Operations;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.HR.Master
 {
@@ -28,7 +20,7 @@ namespace CloudVOffice.Services.HR.Master
         {
             try
             {
-                var department = _dbContext.Departments.Where(x => x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false && x.Parent== (departmentDTO.Parent == 0 ? null : departmentDTO.Parent)).FirstOrDefault();
+                var department = _dbContext.Departments.Where(x => x.DepartmentName == departmentDTO.DepartmentName && x.Deleted == false && x.Parent == (departmentDTO.Parent == 0 ? null : departmentDTO.Parent)).FirstOrDefault();
                 if (department == null)
                 {
                     _departmentRepo.Insert(new Department()
@@ -73,7 +65,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-       
+
 
         public MessageEnum DepartmentUpdate(DepartmentDTO departmentDTO)
         {
@@ -87,7 +79,7 @@ namespace CloudVOffice.Services.HR.Master
                     if (a != null)
                     {
                         a.DepartmentName = departmentDTO.DepartmentName;
-                        a.Parent = departmentDTO.Parent==0? null: departmentDTO.Parent;
+                        a.Parent = departmentDTO.Parent == 0 ? null : departmentDTO.Parent;
                         a.IsGroup = departmentDTO.IsGroup;
                         a.UpdatedBy = departmentDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
@@ -144,7 +136,7 @@ namespace CloudVOffice.Services.HR.Master
             }
         }
 
-       
+
 
         public List<Department> GetDepartmentList()
         {
@@ -152,11 +144,11 @@ namespace CloudVOffice.Services.HR.Master
             {
 
                 return _dbContext.Departments.Where(x => x.Deleted == false).ToList();
-				
 
 
 
-			}
+
+            }
             catch
             {
                 throw;

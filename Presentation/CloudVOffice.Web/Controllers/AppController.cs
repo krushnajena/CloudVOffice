@@ -1,17 +1,15 @@
-﻿using CloudVOffice.Core.Domain.Users;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Users;
 using CloudVOffice.Services.Authentication;
+using CloudVOffice.Services.Company;
+using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Model.User;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json;
-using CloudVOffice.Core.Domain.Pemission;
-using Microsoft.AspNetCore.Identity;
-using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Services.Emp;
 
 namespace CloudVOffice.Web.Controllers
 {
@@ -20,19 +18,58 @@ namespace CloudVOffice.Web.Controllers
         private readonly IUserAuthenticationService _userauthenticationService;
         private readonly IUserService _userService;
         private readonly IEmployeeService _employeeService;
-        public AppController(IUserAuthenticationService userauthenticationService, IUserService userService, IEmployeeService employeeService)
+        private readonly ICompanyDetailsService _companyDetailsService;
+        public AppController(IUserAuthenticationService userauthenticationService,
+            IUserService userService,
+            IEmployeeService employeeService,
+            ICompanyDetailsService companyDetailsService
+            )
         {
             _userauthenticationService = userauthenticationService;
             _userService = userService;
             _employeeService = employeeService;
+            _companyDetailsService = companyDetailsService;
+
         }
         public IActionResult Login()
         {
-           
 
-			return View();
+
+            return View();
         }
-       
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        public IActionResult PasswordResetLinkSent()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var a = _userService.SendResetPasswordEmail(model.Email);
+                if (a == MessageEnum.Success)
+                {
+                    return LocalRedirect("/App/PasswordResetLinkSent");
+                }
+                else if (a == MessageEnum.Invalid)
+                {
+                    ModelState.AddModelError("Email", "User Not Exists.");
+
+                }
+                else if (a == MessageEnum.Invalid)
+                {
+                    ModelState.AddModelError("Email", "In-Active User.");
+
+                }
+            }
+            return View(model);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model, string? ReturnUrl)
@@ -43,9 +80,11 @@ namespace CloudVOffice.Web.Controllers
                 var loginResult = await _userauthenticationService.ValidateUserAsync(Email, model.Password);
                 switch (loginResult)
                 {
+
                     case UserLoginResults.Successful:
                         {
                             var userDetails = await _userService.GetUserByEmailAsync(Email);
+                            var companyDetails = _companyDetailsService.GetCompanyDetails();
 
                             var claims = new List<Claim>
                             {
@@ -58,9 +97,14 @@ namespace CloudVOffice.Web.Controllers
 							};
                             var a = userDetails.UserRoleMappings;
                             var employee = _employeeService.GetEmployeeDetailsByUserId(userDetails.UserId);
-                            if(employee!= null)
+                            if (employee != null)
                             {
-                             claims.Add(new Claim("EmployeeImage", employee.Photo));
+                                claims.Add(new Claim("EmployeeImage", employee.Photo));
+                            }
+                            if (companyDetails != null)
+                            {
+                                claims.Add(new Claim("CompanyImage", companyDetails.CompanyLogo));
+                                claims.Add(new Claim("CompanyName", companyDetails.CompanyName));
                             }
                             claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));
 
@@ -90,7 +134,7 @@ namespace CloudVOffice.Web.Controllers
             return View(model);
         }
 
-        
+
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {
@@ -119,15 +163,15 @@ namespace CloudVOffice.Web.Controllers
             setPasswordModel.Token = token;
             setPasswordModel.Email = email;
 
-			return View(setPasswordModel);
+            return View(setPasswordModel);
         }
 
         [HttpPost]
         public IActionResult SetPassword(SetPasswordModel setPasswordModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var a =_userService.SetPassword(setPasswordModel.Password, setPasswordModel.Email, setPasswordModel.Token);
+                var a = _userService.SetPassword(setPasswordModel.Password, setPasswordModel.Email, setPasswordModel.Token);
                 if (a == MessageEnum.Success)
                 {
                     return RedirectToAction("PasswordSetSuccess");
@@ -151,10 +195,7 @@ namespace CloudVOffice.Web.Controllers
         {
             return View();
         }
-        public IActionResult ForgotPassword()
-        {
-            return View();
-        }
+
 
 
 

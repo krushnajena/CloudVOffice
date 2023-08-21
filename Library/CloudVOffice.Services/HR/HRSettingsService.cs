@@ -6,7 +6,7 @@ using CloudVOffice.Data.Repository;
 
 namespace CloudVOffice.Services.HR
 {
-	public class HRSettingsService : IHRSettingsService
+    public class HRSettingsService : IHRSettingsService
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<HRSettings> _hrSettingsRepo;
@@ -21,24 +21,25 @@ namespace CloudVOffice.Services.HR
             {
                 HRSettingsDTO d = new HRSettingsDTO();
 
-				HRSettings h = _Context.HRSettings.FirstOrDefault();
+                HRSettings h = _Context.HRSettings.FirstOrDefault();
 
                 d.HRSettingsId = h.HRSettingsId;
-				d.StandardWorkingHours = h.StandardWorkingHours;
-				d.BreakHours = h.BreakHours;
-				d.RetirementAge = h.RetirementAge;
-				d.SendBirthdaysReminder = h.SendBirthdaysReminder;
-				d.SendWorkAnniversariesReminder = h.SendWorkAnniversariesReminder;
-				d.SendInterviewReminder = h.SendInterviewReminder;
-				d.SendInterviewFeedbackReminder = h.SendInterviewFeedbackReminder;
-				return d;
+                d.StandardWorkingHours = h.StandardWorkingHours;
+                d.BreakHours = h.BreakHours;
+                d.RetirementAge = h.RetirementAge;
+                d.SendBirthdaysReminder = h.SendBirthdaysReminder;
+                d.SendWorkAnniversariesReminder = h.SendWorkAnniversariesReminder;
+                d.SendInterviewReminder = h.SendInterviewReminder;
+                d.SendInterviewFeedbackReminder = h.SendInterviewFeedbackReminder;
+                return d;
             }
-            catch {
+            catch
+            {
                 throw;
             }
         }
 
-		public MessageEnum HRSettingsUpdate(HRSettingsDTO hrSettingsDTO)
+        public MessageEnum HRSettingsUpdate(HRSettingsDTO hrSettingsDTO)
         {
             try
             {
@@ -46,7 +47,7 @@ namespace CloudVOffice.Services.HR
                 var a = _Context.HRSettings.Where(x => x.HRSettingsId == hrSettingsDTO.HRSettingsId).FirstOrDefault();
                 if (a != null)
                 {
-                   
+
                     a.StandardWorkingHours = hrSettingsDTO.StandardWorkingHours;
                     a.BreakHours = hrSettingsDTO.BreakHours;
                     a.RetirementAge = hrSettingsDTO.RetirementAge;
@@ -54,8 +55,8 @@ namespace CloudVOffice.Services.HR
                     a.SendWorkAnniversariesReminder = hrSettingsDTO.SendWorkAnniversariesReminder;
                     a.SendInterviewReminder = hrSettingsDTO.SendInterviewReminder;
                     a.SendInterviewFeedbackReminder = hrSettingsDTO.SendInterviewFeedbackReminder;
-					a.UpdatedDate = DateTime.Now;
-					_Context.SaveChanges();
+                    a.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
                     return MessageEnum.Updated;
                 }
                 else

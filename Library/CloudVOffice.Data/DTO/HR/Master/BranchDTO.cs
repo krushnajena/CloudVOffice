@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Data.DTO.HR.Master
+﻿namespace CloudVOffice.Data.DTO.HR.Master
 {
     public class BranchDTO
     {

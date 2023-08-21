@@ -1,15 +1,15 @@
-﻿using System;
-using System.Drawing;
+﻿using ActivityMonitor.Collections;
+using System;
 using System.ComponentModel;
-using System.Xml.Serialization;
-using ActivityMonitor.Collections;
-using System.IO;
 using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Windows.Automation;
+using System.Xml.Serialization;
 
 namespace ActivityMonitor.Application
 {
-   
+
 
     public class Application : IApplication, INotifyPropertyChanged
     {
@@ -81,7 +81,8 @@ namespace ActivityMonitor.Application
         {
             get => _path;
 
-            set {
+            set
+            {
                 FileInfo fi = new FileInfo(value);
                 _exeName = fi.Name;
                 _path = value;

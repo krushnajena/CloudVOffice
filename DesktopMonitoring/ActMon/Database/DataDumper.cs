@@ -1,6 +1,5 @@
-﻿using System.Threading;
-
-using ActivityMonitor.ApplicationMonitor;
+﻿using ActivityMonitor.ApplicationMonitor;
+using System.Threading;
 
 namespace ActMon.Database
 {

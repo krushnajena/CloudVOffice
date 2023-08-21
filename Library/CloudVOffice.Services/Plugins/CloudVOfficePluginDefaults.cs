@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CloudVOffice.Services.Plugins
+﻿namespace CloudVOffice.Services.Plugins
 {
     public static partial class CloudVOfficePluginDefaults
     {

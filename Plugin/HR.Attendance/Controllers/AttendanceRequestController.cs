@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Domain.Common;
+﻿using CloudVOffice.Core.Domain.Attendance;
+using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Emp;
@@ -31,7 +32,7 @@ namespace HR.Attendance.Controllers
             if (AttendanceRequestId != null)
             {
 
-                var d = _attendanceRequestService.GetAttendanceRequestById(int.Parse(AttendanceRequestId.ToString()));
+                AttendanceRequest d = _attendanceRequestService.GetAttendanceRequestById(int.Parse(AttendanceRequestId.ToString()));
 
                 attendanceRequestDTO.EmployeeId = d.EmployeeId;
                 attendanceRequestDTO.ForDate = d.ForDate;
@@ -39,6 +40,9 @@ namespace HR.Attendance.Controllers
                 attendanceRequestDTO.CheckOutTime = d.CheckOutTime;
                 attendanceRequestDTO.ApprovalStatus = d.ApprovalStatus;
                 attendanceRequestDTO.Reason = d.Reason;
+                attendanceRequestDTO.ApprovedBy = d.ApprovedBy;
+                attendanceRequestDTO.ApprovedOn = d.ApprovedOn;
+                attendanceRequestDTO.ApprovalRemarks = d.ApprovalRemarks;
 
 
             }
@@ -118,5 +122,54 @@ namespace HR.Attendance.Controllers
             return Redirect("/Attendance/AttendanceRequest/AttendanceRequestView");
         }
 
+        [HttpPost]
+        public IActionResult AttendanceApproved(AttendanceApprovedDTO attendanceApprovedDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            attendanceApprovedDTO.AttendanceApprovedBy = EmployeeId;
+            attendanceApprovedDTO.UpdatedBy = UserId;
+            var a = _attendanceRequestService.AttendanceApproved(attendanceApprovedDTO);
+            return Ok(a);
+        }
+
+        public IActionResult AttendanceToValidate()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            var attendance = _attendanceRequestService.GetAttendanceToValidate(EmployeeId);
+            var data = from u in attendance
+                       select new
+                       {
+                           AttendanceRequestId = u.AttendanceRequestId,
+                           EmployeeName = u.Employee.FullName,
+                           AttendanceDate = u.ForDate,
+                           CheckInTime = u.CheckInTime,
+                           CheckOutTime = u.CheckOutTime,
+                           Reason = u.Reason,
+                       };
+            ViewBag.ToValidates = data;
+
+            return View("~/Plugins/HR.Attendance/Views/AttendanceRequest/AttendanceToValidate.cshtml");
+        }
     }
 }

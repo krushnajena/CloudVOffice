@@ -1,0 +1,189 @@
+﻿@{
+    Layout = "_MainAppLayout";
+    ViewData["Title"] = "Attendance To Validate";
+}
+@addTagHelper *, Syncfusion.EJ2
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Attendance</h5>
+                    <h6 class="sub-heading">  </h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">Attendance</div>
+                <div class="card-body">
+
+                    <ejs-grid id="GridOverview" dataSource=" ViewBag.ToValidates"
+                              allowFiltering="true" allowSorting="true"
+                              allowExcelExport="true" allowGrouping="true"
+                              allowMultiSorting="true"
+                              allowPdfExport="true"
+                              height="600" rowHeight="38"
+                              enableHover="false" enableHeaderFocus="true"
+                              enableVirtualization="true" allowSelection="true"
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})"
+                              actionComplete="actionComplete">
+                        <e-grid-editSettings allowAdding="false"
+                                             allowDeleting="false"
+                                             allowEditing="true"
+                                             mode="Dialog"
+                                             template='#dialogtemplate'>
+
+
+                        </e-grid-editSettings>
+                        <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
+                        <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
+                        <e-grid-columns>
+                            <e-grid-column field="AttendanceRequestId" visible="false" headerText="AttendanceRequestId" isPrimaryKey="true" validationRules="@(new { required=true, number=true})" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="EmployeeName" headerText="EmployeeName" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="AttendanceDate" headerText="Attendance Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CheckInTime" headerText="CheckIn Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CheckOutTime" headerText="CheckOut Time" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Reason" headerText="Reason" textAlign="Left" width="120"></e-grid-column>
+                            @*<e-grid-column field="ApprovalStatus" headerText="ApprovalStatus" template="#statusTemplate" width="100"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>*@
+                        </e-grid-columns>
+                    </ejs-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script id='dialogtemplate' type="text/x-template">
+    <div id="dialogTemp" >
+            <div class="form-row">
+
+
+
+                            <div class="form-group col-md-12">
+                                <label for="Priority" class="form-label">Take Action</label>
+                                <select id="ApprovalStatus"  class="form-control"  name="ApprovalStatus" >
+                                    <option value="1">Approved</option>
+                                    <option value="2">Rejected</option>
+
+                                </select>
+                            </div>
+
+
+                            <div class="form-group col-md-12">
+                                <label for="ApprovalRemarks" class="form-label">Remark</label>
+
+                                 <textarea id="ApprovalRemarks"  class="form-control"  name = "ApprovalRemarks"  >
+                                    </textarea>
+
+
+                            </div>
+
+            </div>
+
+
+
+    </div>
+</script>
+
+<script>
+
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
+        if (args.item.id === 'GridOverview_pdfexport') {
+            gridObj.pdfExport();
+        }
+        if (args.item.id === 'GridOverview_excelexport') {
+            gridObj.excelExport();
+        }
+        if (args.item.id === 'GridOverview_csvexport') {
+            gridObj.csvExport();
+        }
+    }
+    function exportQueryCellInfo(args) {
+        if (args.column.headerText === 'Employee Image') {
+            if (args.name === "excelQueryCellInfo") {
+                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
+            } else {
+                args.image = { base64: args.data["EmployeeImage"] };
+            }
+        }
+        if (args.column.headerText === 'Track') {
+            args.hyperLink = {
+                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
+                displayText: "Track"
+            };
+        }
+    };
+    function actionComplete(args) {
+        console.log(args);
+        if (args.requestType === 'beginEdit') {
+            var dialog = args.dialog;
+
+            dialog.header = 'Attendance Validation';
+
+        }
+        else if (args.requestType === 'save') {
+            var model = { "ApprovalRemarks": args.data.ApprovalRemarks, "ApprovalStatus": args.data.ApprovalStatus, "AttendanceRequestId": args.data.AttendanceRequestId };
+            console.log(
+                model
+            )
+            $.ajax({
+                type: "POST",
+                url: '/Attendance/AttendanceRequest/AttendanceApproved',
+                data: model,
+
+                success: function (result) {
+                    console.log(result);
+                    if (result == "10") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Attendance Request",
+                            text: "Successfully Approved.",
+                            type: "success"
+                        });
+                    }
+                    else if (result == "11") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Attendance Request",
+                            text: "Successfully Rejected.",
+                            type: "success"
+                        });
+                    }
+                    else {
+                        sweetAlert({
+                            html: true,
+                            icon: "error",
+                            title: "Attendance Request",
+                            text: message,
+                            type: "error"
+                        });
+                    }
+
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+
+    }
+
+</script>

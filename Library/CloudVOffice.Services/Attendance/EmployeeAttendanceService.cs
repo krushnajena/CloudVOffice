@@ -1,8 +1,12 @@
 ﻿using CloudVOffice.Core.Domain.Attendance;
 using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Emp;
+using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CloudVOffice.Services.Attendance
 {
@@ -10,12 +14,17 @@ namespace CloudVOffice.Services.Attendance
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<EmployeeAttendance> _employeeAttendanceRepo;
-        public EmployeeAttendanceService(ApplicationDBContext Context, ISqlRepository<EmployeeAttendance> employeeAttendanceRepo)
+        private readonly IEmployeeService _employeeService;
+        public EmployeeAttendanceService(ApplicationDBContext Context, ISqlRepository<EmployeeAttendance> employeeAttendanceRepo, IEmployeeService employeeService)
         {
 
             _Context = Context;
             _employeeAttendanceRepo = employeeAttendanceRepo;
+            _employeeService = employeeService;
         }
+
+        public long CreatedBy { get; private set; }
+
         public MessageEnum CreateEmployeeAttendance(EmployeeAttendanceDTO employeeAttendanceDTO)
         {
             var objCheck = _Context.EmployeeAttendances.SingleOrDefault(opt => opt.EmployeeAttendanceId == employeeAttendanceDTO.EmployeeAttendanceId && opt.Deleted == false);
@@ -41,6 +50,7 @@ namespace CloudVOffice.Services.Attendance
                 }
 
                 return MessageEnum.UnExpectedError;
+
             }
             catch
             {
@@ -107,6 +117,38 @@ namespace CloudVOffice.Services.Attendance
             }
         }
 
+        public MessageEnum EmployeeAttendanceUpdate(Int64 EmployeeId, DateTime AttendanceDate)
+        {
+            try
+            {
+                var a = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == EmployeeId && x.AttendanceDate == AttendanceDate).FirstOrDefault();
+
+                if (a == null)
+                {
+                    EmployeeAttendance employeeAttendance = new EmployeeAttendance();
+                    employeeAttendance.EmployeeId = EmployeeId;
+                    employeeAttendance.AttendanceDate = AttendanceDate;
+                    employeeAttendance.CreatedBy = CreatedBy;
+                    var obj = _employeeAttendanceRepo.Insert(employeeAttendance);
+                }
+                else if (a != null)
+                {
+                    a.EmployeeAttendanceId = EmployeeId;
+                    a.AttendanceDate = AttendanceDate;
+                    a.UpdatedBy = CreatedBy;
+                    a.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+                    return MessageEnum.Updated;
+                }
+                return MessageEnum.Invalid;
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         public EmployeeAttendance GetEmployeeAttendanceById(Int64 employeeAttendanceId)
         {
             try
@@ -124,7 +166,7 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                return _Context.EmployeeAttendances.Where(x => x.Deleted == false).ToList();
+                return _Context.EmployeeAttendances.Include(s => s.Employee).Where(x => x.Deleted == false).ToList();
 
             }
             catch
@@ -132,5 +174,8 @@ namespace CloudVOffice.Services.Attendance
                 throw;
             }
         }
+
+
+
     }
 }

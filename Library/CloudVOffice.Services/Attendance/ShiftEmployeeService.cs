@@ -5,6 +5,7 @@ using CloudVOffice.Data.DTO.Emp;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Emp;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace CloudVOffice.Services.Attendance
@@ -13,45 +14,33 @@ namespace CloudVOffice.Services.Attendance
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<ShiftEmployee> _shiftEmployeeRepo;
-        private readonly IEmployeeService _employeeService;
-        public ShiftEmployeeService(ApplicationDBContext Context, ISqlRepository<ShiftEmployee> shiftEmployeeRepo, IEmployeeService employeeService)
+        public ShiftEmployeeService(ApplicationDBContext Context, ISqlRepository<ShiftEmployee> shiftEmployeeRepo)
         {
 
             _Context = Context;
             _shiftEmployeeRepo = shiftEmployeeRepo;
-            _employeeService = employeeService;
+            
         }
         public MessageEnum CreateShiftEmployee(ShiftEmployeeDTO shiftEmployeeDTO)
         {
 
-            var objCheck = _Context.ShiftEmployees.SingleOrDefault(opt => opt.ShiftEmployeeId == shiftEmployeeDTO.ShiftEmployeeId && opt.Deleted == false);
             try
             {
-                if (objCheck == null)
+                var EmployeeList = JsonConvert.DeserializeObject<List<EmployeeCreateDTO>>(shiftEmployeeDTO.EmployeesString);
+
+                for (int i = 0; i < EmployeeList.Count; i++)
                 {
 
                     ShiftEmployee shiftEmployee = new ShiftEmployee();
                     shiftEmployee.ShiftId = shiftEmployeeDTO.ShiftId;
                     shiftEmployee.CreatedBy = shiftEmployeeDTO.CreatedBy;
+                    shiftEmployee.EmployeeId = EmployeeList[i].EmployeeId;
+                    shiftEmployee.FromDate = shiftEmployeeDTO.FromDate;
+                    shiftEmployee.ToDate = shiftEmployeeDTO.ToDate;
                     var obj = _shiftEmployeeRepo.Insert(shiftEmployee);
-
-                    var EmployeeList = JsonConvert.DeserializeObject<List<EmployeeCreateDTO>>(shiftEmployeeDTO.EmployeesString);
-
-                    for (int i = 0; i < EmployeeList.Count; i++)
-                    {
-                        EmployeeList[i].CreatedBy = shiftEmployeeDTO.CreatedBy;
-                        EmployeeList[i].EmployeeId = obj.EmployeeId;
-                        _employeeService.CreateEmployee(EmployeeList[i]);
-                    }
-
-                    return MessageEnum.Success;
-                }
-                else if (objCheck != null)
-                {
-                    return MessageEnum.Duplicate;
                 }
 
-                return MessageEnum.UnExpectedError;
+                return MessageEnum.Success;
             }
             catch
             {
@@ -63,7 +52,7 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                return _Context.ShiftEmployees.Where(x => x.Deleted == false).ToList();
+                return _Context.ShiftEmployees.Include(x => x.Employee).Include(x => x.ShiftType).Where(x => x.Deleted == false).ToList();
 
             }
             catch

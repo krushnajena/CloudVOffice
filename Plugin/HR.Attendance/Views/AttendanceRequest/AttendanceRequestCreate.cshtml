@@ -3,6 +3,7 @@
 @model CloudVOffice.Data.DTO.Attendance.AttendanceRequestDTO;
 @{
 	Layout = "_MainAppLayout";
+	ViewData["Title"] = "Attendance Request";
 }
 @addTagHelper *, Syncfusion.EJ2
 
@@ -46,7 +47,7 @@
 							<div class="form-group col-md-4">
 								<input asp-for="@Model.AttendanceRequestId" type="hidden" />
 
-								<label for="EmployeeId" class="form-label">Employee&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<label for="EmployeeId" class="form-label">Employee</label>
 								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName" ).Items)" placeholder="Select Employee  " popupHeight="220px">
 									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
@@ -61,7 +62,7 @@
 
 						</div>
 
-						
+
 
 						<div class="form-row">
 							<div class="form-group col-md-4">
@@ -77,7 +78,7 @@
 
 						</div>
 						<div class="form-row">
-							
+
 							<div class="form-group col-md-4">
 								<label for="ApprovalStatus" class="form-label">Approval Status</label>
 								<select asp-for="@Model.ApprovalStatus" class="form-control" autofocus="autofocus" placeholder="Approval Status">
@@ -85,24 +86,24 @@
 									<option value="0">Submitted</option>
 									<option value="1">Approved</option>
 									<option value="2">Rejected</option>
-							    </select>
+								</select>
 								<span asp-validation-for="ApprovalStatus"></span>
-								
-								
+
+
 							</div>
 
 						</div>
-                        <div class="form-row">
+						<div class="form-row">
 
 
-                            <div class="form-group col-md-4">
-                                <label for="Reason" class="form-label">Reason</label>
-                                <textarea asp-for="@Model.Reason" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Reason" style="height: 150px;"></textarea>
-                                <span asp-validation-for="Reason"></span>
-                            </div>
+							<div class="form-group col-md-4">
+								<label for="Reason" class="form-label">Reason</label>
+								<textarea asp-for="@Model.Reason" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Reason" style="height: 150px;"></textarea>
+								<span asp-validation-for="Reason"></span>
+							</div>
 
 
-                        </div>
+						</div>
 
 					</div>
 

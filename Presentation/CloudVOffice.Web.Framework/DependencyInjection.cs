@@ -83,6 +83,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
             services.AddScoped<IEmployeeAttendanceService, EmployeeAttendanceService>();
             services.AddScoped<IAttendanceRequestService, AttendanceRequestService>();
+            services.AddScoped<IShiftEmployeeService, ShiftEmployeeService>();
 
             services.AddScoped<ILeavePeriodService, LeavePeriodService>();
 

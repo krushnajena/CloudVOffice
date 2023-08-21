@@ -1,0 +1,114 @@
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@model CloudVOffice.Data.DTO.Attendance.EmployeeCheckInDTO;
+@{
+	Layout = "_MainAppLayout";
+}
+@addTagHelper *, Syncfusion.EJ2
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Attendance</h5>
+					<h6 class="sub-heading"></h6>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">  </span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="/Attendance/EmployeeCheckIn/EmployeeCheckInCreate" method="post" autocomplete="off">
+					<div asp-ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>Employee Attendance</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.EmployeeCheckInId" type="hidden" />
+
+								<label for="EmployeeId" class="form-label">Employee</label>
+								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName" ).Items)" placeholder="Select Employee  " popupHeight="220px">
+									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+								<span asp-validation-for="EmployeeId"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="ForDate" class="form-label">For Date</label>
+								<input asp-for="@Model.ForDate" type="date" class="form-control" autofocus="autofocus" placeholder="For Date" />
+								<span asp-validation-for="ForDate"></span>
+							</div>
+
+						</div>
+
+
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="LogType" class="form-label">Log Type</label>
+								<select asp-for="@Model.LogType" class="form-control" autofocus="autofocus" placeholder="Log Type">
+
+									<option value="1">In</option>
+									<option value="2">Out</option>
+									
+								</select>
+								<span asp-validation-for="LogType"></span>
+
+
+							</div>
+				
+							<div class="form-group col-md-4">
+								<label for="DeviceId" class="form-label">Device Id</label>
+								<input asp-for="@Model.DeviceId" type="text" class="form-control" autofocus="autofocus" placeholder="Device Id" />
+								<span asp-validation-for="DeviceId"></span>
+							</div>
+
+						</div>
+						
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>
+
+<script>
+	function onEmployeerfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
+	}
+</script>

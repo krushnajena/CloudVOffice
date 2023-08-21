@@ -28,7 +28,7 @@ namespace HR.Base.Controllers
             {
 
                 EmploymentType d = _employmentTypeService.GetEmploymentTypeByEmploymentTypeId(int.Parse(EmploymentTypeId.ToString()));
-
+                
                 employmenttypeDTO.EmploymentTypeName = d.EmploymentTypeName;
 
 

@@ -1,9 +1,10 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "Employee Attendance";
+    ViewData["Title"] = "EmployeeCheckIn";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
+
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -33,10 +34,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            EmployeeAttendance
+                            Employee Check In
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Attendance/EmployeeAttendance/CreateEmployeeAttendance" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Employee Attendance</a>
+                            <a href="/Attendance/EmployeeCheckIn/EmployeeCheckInCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Employee Check In</a>
 
                         </div>
                     </div>
@@ -44,7 +45,7 @@
 
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.EmployeeAttendance"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.EmployeeCheckIn"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -60,11 +61,10 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="Employee.FullName" headerText="Employee" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="AttendanceDate" headerText="Attendance Date" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="100"></e-grid-column>
-                            <e-grid-column field="IsLateEntry" headerText="IsLateEntry" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column field="IsEarlyExit" headerText="IsEarlyExit" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="ForDate" headerText="For Date" textAlign="Left" width="150"></e-grid-column>          
+                           
+                            <e-grid-column field="DeviceId" headerText="Device Id" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="LogType" headerText="LogType" template="#statusTemplate" width="100"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -86,7 +86,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "EmployeeAttendance",
+                    title: "AttendanceRequest",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -95,7 +95,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "EmployeeAttendance",
+                    title: "AttendanceRequest",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -104,7 +104,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "EmployeeAttendance",
+                    title: "AttendanceRequest",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -113,7 +113,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "EmployeeAttendance",
+                    title: "AttendanceRequest",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -122,7 +122,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "EmployeeAttendance",
+                    title: "AttendanceRequest",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -154,22 +154,25 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Attendance/EmployeeAttendance/EmployeeAttendanceDelete?EmployeeAttendanceId=" + Id;
+                window.location.href = "../../Attendance/EmployeeCheckIn/EmployeeCheckInDelete?EmployeeCheckInId=" + Id;
             }
         })
     }
 </script>
 
 
+
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Attendance/EmployeeAttendance/CreateEmployeeAttendance?EmployeeAttendanceId=${EmployeeAttendanceId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <button onClick="Delete(${EmployeeAttendanceId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+        <a href="../../Attendance/EmployeeCheckIn/EmployeeCheckInCreate?EmployeeCheckInId=${EmployeeCheckInId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${EmployeeCheckInId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
+
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
@@ -200,16 +203,19 @@
     };
 
 
-
-
     function statusDetail(e) {
-        if (e.Status == 1) {
-            return '<span class="badge badge-pill badge-success">Present</span>';
-        } else{
-            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;">Absent</span>';
-        }
+
+        if (e.LogType == 1) {
+            return '<span class="badge badge-pill badge-success">In</span>';
+        } else if (e.LogType == 2) {
+
+            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;" ">Out</span>';
+
+        } 
+
     }
 
-
-
+    
 </script>
+
+

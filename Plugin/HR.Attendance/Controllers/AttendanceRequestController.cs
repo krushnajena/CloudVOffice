@@ -121,6 +121,57 @@ namespace HR.Attendance.Controllers
             TempData["msg"] = a;
             return Redirect("/Attendance/AttendanceRequest/AttendanceRequestView");
         }
+       
+        [HttpPost]
+        public IActionResult AttendanceApproved(AttendanceApprovedDTO attendanceApprovedDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            attendanceApprovedDTO.AttendanceApprovedBy = EmployeeId;
+            attendanceApprovedDTO.UpdatedBy = UserId;
+            var a = _attendanceRequestService.AttendanceApproved(attendanceApprovedDTO);
+            return Ok(a);
+        }
+
+        public IActionResult AttendanceToValidate()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            var attendance = _attendanceRequestService.GetAttendanceToValidate(EmployeeId);
+            var data = from u in attendance
+                       select new
+                       {
+                           AttendanceRequestId = u.AttendanceRequestId,
+                           EmployeeName = u.Employee.FullName,
+                           AttendanceDate = u.ForDate,
+                           CheckInTime = u.CheckInTime,
+                           CheckOutTime = u.CheckOutTime,
+                           Reason = u.Reason,
+                       };
+            ViewBag.ToValidates = data;
+
+            return View("~/Plugins/HR.Attendance/Views/AttendanceRequest/AttendanceToValidate.cshtml");
+        }
+       
 
         [HttpPost]
         public IActionResult AttendanceApproved(AttendanceApprovedDTO attendanceApprovedDTO)
@@ -172,4 +223,5 @@ namespace HR.Attendance.Controllers
             return View("~/Plugins/HR.Attendance/Views/AttendanceRequest/AttendanceToValidate.cshtml");
         }
     }
+
 }

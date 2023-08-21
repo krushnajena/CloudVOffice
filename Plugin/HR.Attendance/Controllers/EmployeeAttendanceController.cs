@@ -9,16 +9,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Attendance.Controllers
 {
-    [Area(AreaNames.Attendance)]
-    public class EmployeeAttendanceController : BasePluginController
-    {
-        private readonly IEmployeeAttendanceService _employeeAttendanceService;
-        private readonly IEmployeeService _employeeService;
-        public EmployeeAttendanceController(IEmployeeAttendanceService employeeAttendanceService, IEmployeeService employeeService)
-        {
+	[Area(AreaNames.Attendance)]
+	public class EmployeeAttendanceController : BasePluginController
+	{
+		private readonly IEmployeeAttendanceService _employeeAttendanceService;
+		private readonly IEmployeeService _employeeService;
+		private readonly IEmployeeCheckInService _employeeCheckInService;
+		public EmployeeAttendanceController(IEmployeeAttendanceService employeeAttendanceService, IEmployeeService employeeService , IEmployeeCheckInService employeeCheckInService)
+		{
 
-            _employeeAttendanceService = employeeAttendanceService;
-            _employeeService = employeeService;
+			_employeeAttendanceService = employeeAttendanceService;
+			_employeeService = employeeService;
+            _employeeCheckInService = employeeCheckInService;
+
         }
 
         [HttpGet]

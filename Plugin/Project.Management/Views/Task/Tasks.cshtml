@@ -30,20 +30,24 @@
 
 
 <div class="main-content">
-    <div class="row gutters">
-        <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks" dragStop="ondragStop">
-            <e-kanban-columns>
-                <e-kanban-column headerText="Open" keyField="Open"></e-kanban-column>
-                <e-kanban-column headerText="Working" keyField="Working"></e-kanban-column>
-                <e-kanban-column headerText="Pending Review" keyField="PendingReview"></e-kanban-column>
-                <e-kanban-column headerText="Overdue" keyField="Overdue"></e-kanban-column>
-                <e-kanban-column headerText="Completed" keyField="Completed"></e-kanban-column>
-                <e-kanban-column headerText="Cancelled" keyField="Cancelled"></e-kanban-column>
-            </e-kanban-columns>
-            <e-kanban-cardsettings headerField="ProjectTaskId" template="#cardTemplate"></e-kanban-cardsettings>
-
-        </ejs-kanban>
-    </div>
+           
+            <div class="row gutters">
+                <ejs-kanban id="Kanban" keyField="TaskStatus" dataSource="@ViewBag.Tasks" dragStop="ondragStop">
+                    <e-kanban-columns>
+                        <e-kanban-column headerText="Open" keyField="Open"></e-kanban-column>
+                        <e-kanban-column headerText="Working" keyField="Working"></e-kanban-column>
+                        <e-kanban-column headerText="Pending Review" keyField="PendingReview"></e-kanban-column>
+                        <e-kanban-column headerText="Overdue" keyField="Overdue"></e-kanban-column>
+                        <e-kanban-column headerText="Completed" keyField="Completed"></e-kanban-column>
+                        <e-kanban-column headerText="Cancelled" keyField="Cancelled"></e-kanban-column>
+                    </e-kanban-columns>
+                    <e-kanban-cardsettings headerField="ProjectTaskId" template="#cardTemplate"></e-kanban-cardsettings>
+           
+                </ejs-kanban>
+            </div>
+       
+    
+  
 </div>
 
 
@@ -80,7 +84,7 @@
            
             success: function (result) {
                 if (result == "1") {
-                  
+                    swal("Success", "Task status updated successfully", "success");
                 }
               
                 else {

@@ -18,21 +18,12 @@
     public class AttendanceApprovedDTO
     {
         public Int64 AttendanceRequestId { get; set; }
-        public Int64 EmployeeId { get; set; }
-        public DateTime? ForDate { get; set; }
+     
         public int ApprovalStatus { get; set; }
         public string ApprovalRemarks { get; set; }
         public Int64 AttendanceApprovedBy { get; set; }
         public Int64 UpdatedBy { get; set; }
     }
+  
 }
-    public class AttendanceApprovedDTO
-    {
-        public Int64 AttendanceRequestId { get; set; }
-        public int ApprovalStatus { get; set; }
-        public string ApprovalRemarks { get; set; }
-        public Int64 AttendanceApprovedBy { get; set; }
-        public DateTime? ApprovedOn { get; set; }
-        public Int64 UpdatedBy { get; set; }
-    }
-}
+  

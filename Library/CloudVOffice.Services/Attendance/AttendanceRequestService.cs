@@ -168,12 +168,12 @@ namespace CloudVOffice.Services.Attendance
                     if (attendanceApprovedDTO.ApprovalStatus == 1)
                     {
                         var b = _employeeAttendanceService.EmployeeAttendanceUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()));
-                        var c = _Context.EmployeeCheckIns.Where(x => x.EmployeeCheckInId == attendanceApprovedDTO.EmployeeId && x.ForDate == attendanceApprovedDTO.ForDate);
+                        var c = _Context.EmployeeCheckIns.Where(x => x.EmployeeCheckInId == attendances.EmployeeId && x.ForDate == attendances.ForDate);
                         if (c == null)
                         {
                             EmployeeCheckIn employeeCheckIn = new EmployeeCheckIn();
-                            employeeCheckIn.EmployeeCheckInId = attendanceApprovedDTO.EmployeeId;
-                            employeeCheckIn.ForDate = attendanceApprovedDTO.ForDate;
+                            employeeCheckIn.EmployeeCheckInId = attendances.EmployeeId;
+                            employeeCheckIn.ForDate = attendances.ForDate;
                             var obj = _employeeCheckInRepo.Insert(employeeCheckIn);
                             return MessageEnum.Success;
                         }

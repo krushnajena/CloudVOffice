@@ -49,6 +49,8 @@ namespace ActMon.Utils
 
         public static string postSessionLog = getGatewayUrl() + "/api/DesktopLogin/CreateDesktopLoginLog";
         public static string postActivityLog = getGatewayUrl() + "/api/DesktopActivityLog/CreateActivityLog";
+
+        public static string postKeyStrokes = getGatewayUrl() + "/api/DesktopKeystroke/CreateDesktopKeystroke";
         public static string imageUpload = getGatewayUrl() + "/api/DesktopSnapshot/CreateDesktopSnaps";
         public static string updateIdelTime = getGatewayUrl() + "/api/DesktopLogin/UpdateIdelTime";
 

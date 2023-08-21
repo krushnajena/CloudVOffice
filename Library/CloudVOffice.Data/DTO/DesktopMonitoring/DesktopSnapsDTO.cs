@@ -15,4 +15,10 @@ namespace CloudVOffice.Data.DTO.DesktopMonitoring
         public IFormFile? imageUpload { get; set; }
 
     }
+    public class DesktopKeyStrokesDTO
+    {
+       public  Int64 DesktopActivityLogId{get;set;}
+       public string Keystrokes          {get;set;}
+       public Int64? CreatedBy { get; set; }
+    }
 }

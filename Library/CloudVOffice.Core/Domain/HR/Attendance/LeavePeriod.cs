@@ -2,7 +2,7 @@
 {
     public class LeavePeriod : IAuditEntity, ISoftDeletedEntity
     {
-        public int? LeavePeriodId { get; set; }
+        public int LeavePeriodId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
 

@@ -1,9 +1,10 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "Shift Employee";
+    ViewData["Title"] = "EmployeeCheckIn";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
+
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -12,8 +13,8 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Shift Employee</h5>
-                    <h6 class="sub-heading"></h6>
+                    <h5>Attendance</h5>
+
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -33,10 +34,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            Shift Types
+                            Employee Check In
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Attendance/ShiftEmployee/ShiftEmployeeCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Shift Employee</a>
+                            <a href="/Attendance/EmployeeCheckIn/EmployeeCheckInCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Employee Check In</a>
 
                         </div>
                     </div>
@@ -44,7 +45,7 @@
 
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.ShiftEmployee"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.EmployeeCheckIn"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -60,11 +61,11 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="ShiftType.ShiftTypeName" headerText="Shift" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Employee.FullName" headerText="Employee" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column field="FromDate" headerText="From Date" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column field="ToDate" headerText="To Date" textAlign="Left" width="150"></e-grid-column>
-                            <e-grid-column headerText="Action" template="#Actions" width="150"></e-grid-column>
+                            <e-grid-column field="ForDate" headerText="For Date" textAlign="Left" width="150"></e-grid-column>          
+                           
+                            <e-grid-column field="DeviceId" headerText="Device Id" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="LogType" headerText="LogType" template="#statusTemplate" width="100"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -85,7 +86,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "",
+                    title: "AttendanceRequest",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -94,7 +95,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Shift Employee",
+                    title: "AttendanceRequest",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -103,7 +104,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Shift Employee",
+                    title: "AttendanceRequest",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -112,7 +113,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "Shift Employee",
+                    title: "AttendanceRequest",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -121,7 +122,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Shift Employee",
+                    title: "AttendanceRequest",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -130,7 +131,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Shift Employee",
+                    title: "EmployeeAttendance",
                     text: message,
                     type: "error"
                 });
@@ -153,22 +154,25 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Attendance/ShiftEmployee/DeleteShiftEmployee?ShiftEmployeeId=" + Id;
+                window.location.href = "../../Attendance/EmployeeCheckIn/EmployeeCheckInDelete?EmployeeCheckInId=" + Id;
             }
         })
     }
 </script>
 
 
+
 <script id="Actions" type="text/x-template">
     <div class="link">
-
-        <button onClick="Delete(${ShiftEmployeeId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+        <a href="../../Attendance/EmployeeCheckIn/EmployeeCheckInCreate?EmployeeCheckInId=${EmployeeCheckInId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${EmployeeCheckInId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
     </div>
 </script>
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
+
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
@@ -198,4 +202,20 @@
         }
     };
 
+
+    function statusDetail(e) {
+
+        if (e.LogType == 1) {
+            return '<span class="badge badge-pill badge-success">In</span>';
+        } else if (e.LogType == 2) {
+
+            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;" ">Out</span>';
+
+        } 
+
+    }
+
+    
 </script>
+
+

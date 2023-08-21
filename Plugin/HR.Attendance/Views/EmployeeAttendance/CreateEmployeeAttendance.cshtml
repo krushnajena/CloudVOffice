@@ -3,6 +3,7 @@
 @model CloudVOffice.Data.DTO.Attendance.EmployeeAttendanceDTO;
 @{
 	Layout = "_MainAppLayout";
+	ViewData["Title"] = "Employee Attendance";
 }
 @addTagHelper *, Syncfusion.EJ2
 
@@ -36,7 +37,7 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="/n" method="post" autocomplete="off">
+				<form asp-route="/Attendance/EmployeeAttendance/CreateEmployeeAttendance" method="post" autocomplete="off">
 					<div asp-ation-summary="ModelOnly" class="message-error"></div>
 
 

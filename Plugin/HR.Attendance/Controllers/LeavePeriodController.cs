@@ -41,49 +41,57 @@ namespace HR.Attendance.Controllers
         {
             leavePeriodDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-
             if (ModelState.IsValid)
             {
-                if (leavePeriodDTO.LeavePeriodId == null)
+                bool isOverlap = _leavePeriodService.LeavePeriodOverlap(leavePeriodDTO.FromDate, leavePeriodDTO.ToDate, leavePeriodDTO.LeavePeriodId);
+
+                if (!isOverlap)
                 {
-                    var a = _leavePeriodService.CreateLeavePeriod(leavePeriodDTO);
-                    if (a == MessageEnum.Success)
+                    if (leavePeriodDTO.LeavePeriodId == null)
                     {
-                        TempData["msg"] = MessageEnum.Success;
-                        return Redirect("/Attendance/LeavePeriod/LeavePeriodView");
-                    }
-                    else if (a == MessageEnum.Duplicate)
-                    {
-                        TempData["msg"] = MessageEnum.Duplicate;
-                        ModelState.AddModelError("", "LeavePeriod Already Exists");
+                        var a = _leavePeriodService.CreateLeavePeriod(leavePeriodDTO);
+                        if (a == MessageEnum.Success)
+                        {
+                            TempData["msg"] = MessageEnum.Success;
+                            return Redirect("/Attendance/LeavePeriod/LeavePeriodView");
+                        }
+                        else if (a == MessageEnum.Duplicate)
+                        {
+                            TempData["msg"] = MessageEnum.Duplicate;
+                            ModelState.AddModelError("", "LeavePeriod Already Exists");
+                        }
+                        else
+                        {
+                            TempData["msg"] = MessageEnum.UnExpectedError;
+                            ModelState.AddModelError("", "Un-Expected Error");
+                        }
                     }
                     else
                     {
-                        TempData["msg"] = MessageEnum.UnExpectedError;
-                        ModelState.AddModelError("", "Un-Expected Error");
+                        var a = _leavePeriodService.LeavePeriodUpdate(leavePeriodDTO);
+                        if (a == MessageEnum.Updated)
+                        {
+                            TempData["msg"] = MessageEnum.Updated;
+                            return Redirect("/Attendance/LeavePeriod/LeavePeriodView");
+                        }
+                        else if (a == MessageEnum.Duplicate)
+                        {
+                            TempData["msg"] = MessageEnum.Duplicate;
+                            ModelState.AddModelError("", "LeavePeriod Already Exists");
+                        }
+                        else
+                        {
+                            TempData["msg"] = MessageEnum.UnExpectedError;
+                            ModelState.AddModelError("", "Un-Expected Error");
+                        }
                     }
                 }
                 else
                 {
-                    var a = _leavePeriodService.LeavePeriodUpdate(leavePeriodDTO);
-                    if (a == MessageEnum.Updated)
-                    {
-                        TempData["msg"] = MessageEnum.Updated;
-                        return Redirect("/Attendance/LeavePeriod/LeavePeriodView");
-                    }
-                    else if (a == MessageEnum.Duplicate)
-                    {
-                        TempData["msg"] = MessageEnum.Duplicate;
-                        ModelState.AddModelError("", "LeavePeriod Already Exists");
-                    }
-                    else
-                    {
-                        TempData["msg"] = MessageEnum.UnExpectedError;
-                        ModelState.AddModelError("", "Un-Expected Error");
-                    }
+                    TempData["msg"] = MessageEnum.Duplicate;
+                    ModelState.AddModelError("", "LeavePeriod overlaps with an existing LeavePeriod.");
                 }
             }
-
 
             return View("~/Plugins/HR.Attendance/Views/LeavePeriod/CreateLeavePeriod.cshtml", leavePeriodDTO);
         }
@@ -103,6 +111,6 @@ namespace HR.Attendance.Controllers
             TempData["msg"] = a;
             return Redirect("/Attendance/LeavePeriod/LeavePeriodView");
         }
-
+       
     }
 }

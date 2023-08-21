@@ -90,12 +90,13 @@ namespace CloudVOffice.Services.Attendance
             }
         }
 
+        
         public MessageEnum LeavePeriodUpdate(LeavePeriodDTO leavePeriodDTO)
         {
             try
             {
-                var branch = _Context.LeavePeriods.Where(x => x.LeavePeriodId != leavePeriodDTO.LeavePeriodId && x.LeavePeriodId == leavePeriodDTO.LeavePeriodId && x.Deleted == false).FirstOrDefault();
-                if (branch == null)
+                var leavePeriod = _Context.LeavePeriods.Where(x => x.LeavePeriodId != leavePeriodDTO.LeavePeriodId && x.LeavePeriodId == leavePeriodDTO.LeavePeriodId && x.Deleted == false).FirstOrDefault();
+                if (leavePeriod == null)
                 {
                     var a = _Context.LeavePeriods.Where(x => x.LeavePeriodId == leavePeriodDTO.LeavePeriodId).FirstOrDefault();
                     if (a != null)
@@ -121,5 +122,27 @@ namespace CloudVOffice.Services.Attendance
                 throw;
             }
         }
+        public bool LeavePeriodOverlap(DateTime? fromDate, DateTime? toDate, int? leavePeriodId = null)
+        {
+
+            var existingLeavePeriods = GetLeavePeriodList();
+
+            if (leavePeriodId.HasValue)
+            {
+                existingLeavePeriods = existingLeavePeriods
+                    .Where(lp => lp.LeavePeriodId != leavePeriodId)
+                    .ToList();
+            }
+
+            return existingLeavePeriods.Any(lp =>
+                (fromDate >= lp.FromDate && fromDate <= lp.ToDate) ||
+                (toDate >= lp.FromDate && toDate <= lp.ToDate) ||
+                (fromDate <= lp.FromDate && toDate >= lp.ToDate)
+            );
+
+        }
     }
 }
+
+    
+

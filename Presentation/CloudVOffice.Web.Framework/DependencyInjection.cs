@@ -83,6 +83,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
             services.AddScoped<IEmployeeAttendanceService, EmployeeAttendanceService>();
             services.AddScoped<IAttendanceRequestService, AttendanceRequestService>();
+            services.AddScoped<IShiftEmployeeService, ShiftEmployeeService>();
 
             services.AddScoped<ILeavePeriodService, LeavePeriodService>();
 
@@ -92,8 +93,10 @@ namespace CloudVOffice.Web.Framework
 
 
 
-            #region DesktopLogin
-            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+
+
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
             services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
             services.AddScoped<IRestrictedApplicationService, RestrictedApplicationService>();

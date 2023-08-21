@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "EmployeeAttendance";
+    ViewData["Title"] = "Employee Attendance";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -13,7 +13,7 @@
                 </div>
                 <div class="page-title">
                     <h5>Attendance</h5>
-                   
+
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -60,7 +60,7 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="EmployeeId" headerText="Employee Id" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Employee.FullName" headerText="Employee" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="AttendanceDate" headerText="Attendance Date" textAlign="Left" width="150"></e-grid-column>
                             <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="100"></e-grid-column>
                             <e-grid-column field="IsLateEntry" headerText="IsLateEntry" textAlign="Left" width="150"></e-grid-column>
@@ -200,16 +200,16 @@
     };
 
 
-    
+
 
     function statusDetail(e) {
         if (e.Status == 1) {
             return '<span class="badge badge-pill badge-success">Present</span>';
-        } else {
+        } else{
             return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;">Absent</span>';
         }
     }
 
 
-   
+
 </script>

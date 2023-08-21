@@ -1,9 +1,8 @@
 ﻿@using System.Collections;
 @using Newtonsoft.Json;
-@model CloudVOffice.Data.DTO.Attendance.AttendanceRequestDTO;
+@model CloudVOffice.Data.DTO.Attendance.EmployeeCheckInDTO;
 @{
 	Layout = "_MainAppLayout";
-	ViewData["Title"] = "Attendance Request";
 }
 @addTagHelper *, Syncfusion.EJ2
 
@@ -37,15 +36,15 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="/Attendance/AttendanceRequest/AttendanceRequestCreate" method="post" autocomplete="off">
+				<form asp-route="/Attendance/EmployeeCheckIn/EmployeeCheckInCreate" method="post" autocomplete="off">
 					<div asp-ation-summary="ModelOnly" class="message-error"></div>
 
 
-					<div class="card-header"><b>Employee Attendanc</b></div>
+					<div class="card-header"><b>Employee Attendance</b></div>
 					<div class="card-body">
 						<div class="form-row">
 							<div class="form-group col-md-4">
-								<input asp-for="@Model.AttendanceRequestId" type="hidden" />
+								<input asp-for="@Model.EmployeeCheckInId" type="hidden" />
 
 								<label for="EmployeeId" class="form-label">Employee</label>
 								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName" ).Items)" placeholder="Select Employee  " popupHeight="220px">
@@ -63,47 +62,28 @@
 						</div>
 
 
-
 						<div class="form-row">
 							<div class="form-group col-md-4">
-								<label for="CheckInTime" class="form-label">Check In Time</label>
-								<input asp-for="@Model.CheckInTime" type="time" class="form-control" autofocus="autofocus" placeholder="Check In Time" />
-								<span asp-validation-for="CheckInTime"></span>
-							</div>
-							<div class="form-group col-md-4">
-								<label for="CheckOutTime" class="form-label">Check Out Time</label>
-								<input asp-for="@Model.CheckOutTime" type="time" class="form-control" autofocus="autofocus" placeholder="Check Out Time" />
-								<span asp-validation-for="CheckOutTime"></span>
-							</div>
+								<label for="LogType" class="form-label">Log Type</label>
+								<select asp-for="@Model.LogType" class="form-control" autofocus="autofocus" placeholder="Log Type">
 
-						</div>
-						<div class="form-row">
-
-							<div class="form-group col-md-4">
-								<label for="ApprovalStatus" class="form-label">Approval Status</label>
-								<select asp-for="@Model.ApprovalStatus" class="form-control" autofocus="autofocus" placeholder="Approval Status">
-
-									<option value="0">Submitted</option>
-									<option value="1">Approved</option>
-									<option value="2">Rejected</option>
+									<option value="1">In</option>
+									<option value="2">Out</option>
+									
 								</select>
-								<span asp-validation-for="ApprovalStatus"></span>
+								<span asp-validation-for="LogType"></span>
 
 
 							</div>
-
-						</div>
-						<div class="form-row">
-
-
+				
 							<div class="form-group col-md-4">
-								<label for="Reason" class="form-label">Reason</label>
-								<textarea asp-for="@Model.Reason" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Reason" style="height: 150px;"></textarea>
-								<span asp-validation-for="Reason"></span>
+								<label for="DeviceId" class="form-label">Device Id</label>
+								<input asp-for="@Model.DeviceId" type="text" class="form-control" autofocus="autofocus" placeholder="Device Id" />
+								<span asp-validation-for="DeviceId"></span>
 							</div>
 
-
 						</div>
+						
 
 					</div>
 

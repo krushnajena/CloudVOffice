@@ -12,5 +12,7 @@ namespace CloudVOffice.Services.Attendance
         public AttendanceRequest GetAttendanceRequestById(Int64 attendanceRequestId);
         public MessageEnum AttendanceRequestUpdate(AttendanceRequestDTO attendanceRequestDTO);
         public MessageEnum AttendanceRequestDelete(Int64 attendanceRequestId, Int64 DeletedBy);
+        public List<AttendanceRequest> GetAttendanceToValidate(Int64 EmployeeId);
+        public MessageEnum AttendanceApproved(AttendanceApprovedDTO attendanceApprovedDTO);
     }
 }

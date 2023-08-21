@@ -1,9 +1,10 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "LeavePeriod";
+    ViewData["Title"] = "EmployeeCheckIn";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
+
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
@@ -13,7 +14,7 @@
                 </div>
                 <div class="page-title">
                     <h5>Attendance</h5>
-                    <h6 class="sub-heading">  </h6>
+
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -31,19 +32,20 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-
                     <div class="row">
                         <div class="col-md-8">
-                            Leave Period
+                            Employee Check In
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Attendance/LeavePeriod/CreateLeavePeriod" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Leave Period</a>
+                            <a href="/Attendance/EmployeeCheckIn/EmployeeCheckInCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Employee Check In</a>
+
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.LeavePeriods"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.EmployeeCheckIn"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -59,11 +61,11 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="FromDate" headerText="From Date" textAlign="Left" width="120"></e-grid-column>
-
-                            <e-grid-column field="ToDate" headerText="To Date" textAlign="Left" width="120"></e-grid-column>
-
-                            <e-grid-column headerText="Action" template="#Actions" width="50"></e-grid-column>
+                            <e-grid-column field="ForDate" headerText="For Date" textAlign="Left" width="150"></e-grid-column>          
+                           
+                            <e-grid-column field="DeviceId" headerText="Device Id" textAlign="Left" width="150"></e-grid-column>
+                            <e-grid-column field="LogType" headerText="LogType" template="#statusTemplate" width="100"></e-grid-column>
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -73,7 +75,6 @@
     </div>
 
 </div>
-
 
 @{
 
@@ -85,7 +86,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "LeavePeriod",
+                    title: "AttendanceRequest",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -94,7 +95,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "LeavePeriod",
+                    title: "AttendanceRequest",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -103,7 +104,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "LeavePeriod",
+                    title: "AttendanceRequest",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -112,7 +113,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "LeavePeriod",
+                    title: "AttendanceRequest",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -121,21 +122,20 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "LeavePeriod",
+                    title: "AttendanceRequest",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
             }
-            else  {
+            else {
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "LeavePeriod",
+                    title: "EmployeeAttendance",
                     text: message,
                     type: "error"
                 });
             }
-           
         </script>
     }
 }
@@ -154,23 +154,24 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Attendance/LeavePeriod/LeavePeriodDelete?LeavePeriodId=" + Id;
+                window.location.href = "../../Attendance/EmployeeCheckIn/EmployeeCheckInDelete?EmployeeCheckInId=" + Id;
             }
         })
     }
 </script>
 
 
+
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Attendance/LeavePeriod/CreateLeavePeriod?LeavePeriodId=${LeavePeriodId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-
-        <button onClick="Delete(${LeavePeriodId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>    </div>
+        <a href="../../Attendance/EmployeeCheckIn/EmployeeCheckInCreate?EmployeeCheckInId=${EmployeeCheckInId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${EmployeeCheckInId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+    </div>
 </script>
-
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
 
 <script>
     function toolbarClick(args) {
@@ -201,4 +202,20 @@
         }
     };
 
+
+    function statusDetail(e) {
+
+        if (e.LogType == 1) {
+            return '<span class="badge badge-pill badge-success">In</span>';
+        } else if (e.LogType == 2) {
+
+            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;" ">Out</span>';
+
+        } 
+
+    }
+
+    
 </script>
+
+

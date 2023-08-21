@@ -21,12 +21,15 @@ namespace HR.Attendance.Controllers
 	{
 		private readonly IEmployeeAttendanceService _employeeAttendanceService;
 		private readonly IEmployeeService _employeeService;
-		public EmployeeAttendanceController(IEmployeeAttendanceService employeeAttendanceService, IEmployeeService employeeService)
+		private readonly IEmployeeCheckInService _employeeCheckInService;
+		public EmployeeAttendanceController(IEmployeeAttendanceService employeeAttendanceService, IEmployeeService employeeService , IEmployeeCheckInService employeeCheckInService)
 		{
 
 			_employeeAttendanceService = employeeAttendanceService;
 			_employeeService = employeeService;
-		}
+            _employeeCheckInService = employeeCheckInService;
+
+        }
 
 		[HttpGet]
 		public IActionResult CreateEmployeeAttendance(int? EmployeeAttendanceId)

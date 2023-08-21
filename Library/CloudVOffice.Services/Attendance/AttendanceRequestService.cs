@@ -1,8 +1,13 @@
 ﻿using CloudVOffice.Core.Domain.Attendance;
 using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Emp;
+using LinqToDB;
+using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace CloudVOffice.Services.Attendance
 {
@@ -10,12 +15,18 @@ namespace CloudVOffice.Services.Attendance
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<AttendanceRequest> _attendanceRequestRepo;
-        public AttendanceRequestService(ApplicationDBContext Context, ISqlRepository<AttendanceRequest> attendanceRequestRepo)
+        private readonly ISqlRepository<EmployeeCheckIn> _employeeCheckInRepo;
+        private readonly IEmployeeAttendanceService _employeeAttendanceService;
+       
+        public AttendanceRequestService(ApplicationDBContext Context, ISqlRepository<AttendanceRequest> attendanceRequestRepo, ISqlRepository<EmployeeCheckIn> employeeCheckInRepo, IEmployeeAttendanceService employeeAttendanceService)
         {
 
             _Context = Context;
             _attendanceRequestRepo = attendanceRequestRepo;
+            _employeeAttendanceService = employeeAttendanceService;
+            _employeeCheckInRepo = employeeCheckInRepo;
         }
+
         public MessageEnum AttendanceRequestCreate(AttendanceRequestDTO attendanceRequestDTO)
         {
             var objCheck = _Context.AttendanceRequests.SingleOrDefault(opt => opt.AttendanceRequestId == attendanceRequestDTO.AttendanceRequestId && opt.Deleted == false);
@@ -113,7 +124,7 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                return _Context.AttendanceRequests.Where(x => x.Deleted == false).ToList();
+                return _Context.AttendanceRequests.Include(x => x.Employee).Where(x => x.Deleted == false).ToList();
 
             }
             catch
@@ -122,7 +133,7 @@ namespace CloudVOffice.Services.Attendance
             }
         }
 
-        public AttendanceRequest GetAttendanceRequestById(long attendanceRequestId)
+        public AttendanceRequest GetAttendanceRequestById(Int64 attendanceRequestId)
         {
             try
             {
@@ -135,6 +146,77 @@ namespace CloudVOffice.Services.Attendance
             }
         }
 
-       
+        public MessageEnum AttendanceApproved(AttendanceApprovedDTO attendanceApprovedDTO)
+        {
+            try
+            {
+                var attendances = _Context.AttendanceRequests.Where(x => x.AttendanceRequestId == attendanceApprovedDTO.AttendanceRequestId && x.Deleted == false).FirstOrDefault();
+
+                if (attendances != null)
+                {
+                   
+
+                    attendances.ApprovalStatus = attendanceApprovedDTO.ApprovalStatus;
+                    attendances.ApprovalRemarks = attendanceApprovedDTO.ApprovalRemarks;
+                    attendances.ApprovedOn = DateTime.Now;
+                    attendances.ApprovedBy = attendanceApprovedDTO.AttendanceApprovedBy;
+                    attendances.UpdatedBy = attendanceApprovedDTO.UpdatedBy;
+                    attendances.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+                    
+                    var a = attendanceApprovedDTO.ApprovalStatus == 1? MessageEnum.Approved : MessageEnum.Rejected;
+                    if (attendanceApprovedDTO.ApprovalStatus == 1)
+                    {
+                        var b = _employeeAttendanceService.EmployeeAttendanceUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()));
+                        var c = _Context.EmployeeCheckIns.Where(x => x.EmployeeCheckInId == attendanceApprovedDTO.EmployeeId && x.ForDate == attendanceApprovedDTO.ForDate);
+                        if (c == null)
+                        {
+                            EmployeeCheckIn employeeCheckIn = new EmployeeCheckIn();
+                            employeeCheckIn.EmployeeCheckInId = attendanceApprovedDTO.EmployeeId;
+                            employeeCheckIn.ForDate = attendanceApprovedDTO.ForDate;
+                            var obj = _employeeCheckInRepo.Insert(employeeCheckIn);
+                            return MessageEnum.Success;
+                        }
+                        else
+                        {
+                            return MessageEnum.Invalid;
+                        }
+
+
+
+                    }
+
+                    return a;
+                }
+                else
+                {
+                    return MessageEnum.Invalid;
+
+                }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<AttendanceRequest> GetAttendanceToValidate(Int64 EmployeeId)
+        {
+            try
+            {
+                var attendanceRequest = _Context.AttendanceRequests
+                                                .Include(x => x.Employee)
+                                                .Where(x => x.ApprovalStatus == 0
+                                                        && x.Deleted == false
+                                                        && x.Employee.ReportingAuthority == EmployeeId)
+                                                .ToList();
+
+                return attendanceRequest;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

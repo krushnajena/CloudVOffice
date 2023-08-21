@@ -19,7 +19,8 @@ namespace CloudVOffice.Services.Attendance
 			public EmployeeAttendance GetEmployeeAttendanceById(Int64 EmployeeAttendanceId);
 			public MessageEnum EmployeeAttendanceUpdate(EmployeeAttendanceDTO employeeAttendanceDTO);
 			public MessageEnum EmployeeAttendanceDelete(Int64 EmployeeAttendanceId, Int64 DeletedBy);
-		
-	}
+		    public MessageEnum EmployeeAttendanceUpdate(Int64 EmployeeId, DateTime AttendanceDate); 
+
+    }
 }
 

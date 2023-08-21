@@ -4,6 +4,7 @@ using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,13 @@ namespace CloudVOffice.Services.Attendance
 	{
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<EmployeeAttendance> _employeeAttendanceRepo;
+		
 		public EmployeeAttendanceService(ApplicationDBContext Context, ISqlRepository<EmployeeAttendance> employeeAttendanceRepo)
 		{
 
 			_Context = Context;
 			_employeeAttendanceRepo = employeeAttendanceRepo;
+			
 		}
 		public MessageEnum CreateEmployeeAttendance(EmployeeAttendanceDTO employeeAttendanceDTO)
 		{
@@ -138,5 +141,36 @@ namespace CloudVOffice.Services.Attendance
 				throw;
 			}
 		}
-	}
+        public MessageEnum EmployeeAttendanceUpdate(Int64 EmployeeId, DateTime AttendanceDate)
+        {
+            try
+            {
+                var a = _Context.EmployeeAttendances.Where(x => x.EmployeeAttendanceId == EmployeeId && x.AttendanceDate == AttendanceDate).FirstOrDefault();
+
+                if (a == null)
+                {
+                    EmployeeAttendance employeeAttendance = new EmployeeAttendance();
+                    employeeAttendance.EmployeeId = EmployeeId;
+                    employeeAttendance.AttendanceDate = AttendanceDate;         
+                    var obj = _employeeAttendanceRepo.Insert(employeeAttendance);
+                    return MessageEnum.Success;
+                }
+                else if (a != null)
+                {
+                    a.EmployeeAttendanceId = EmployeeId;
+                    a.AttendanceDate = AttendanceDate;                
+                    a.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+                    return MessageEnum.Updated;
+                }
+                return MessageEnum.Invalid;
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+    }
 }

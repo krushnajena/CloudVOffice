@@ -40,7 +40,7 @@ namespace Desktop.Monitoring.Controllers
         {
             Int64 userId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Employee employee = _employeeService.GetEmployeeDetailsByUserId(userId);
-            ViewBag.palettes = new string[] { "#61EFCD", "#4472c4", "#9e480e", "#CA765A", "#2485FA", "#F57D7D", "#C152D2",
+            ViewBag.palettes = new string[] { "#C4C24A", "#4472c4", "#9e480e", "#CA765A", "#2485FA", "#F57D7D", "#C152D2",
                 "#8854D9", "#3D4EB8", "#00BCD7", "#CDDE1F", "#ed7d31", "#ffc000", "#70ad47", "#5b9bd5", "#c1c1c1", "#6f6fe2", "#e269ae",  "#FEC200", "#997300" };
             List<DesktopSessionLineChartData> chartData = new List<DesktopSessionLineChartData>();
             if (employee != null)

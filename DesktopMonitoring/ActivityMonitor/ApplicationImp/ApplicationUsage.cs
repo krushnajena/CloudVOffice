@@ -27,7 +27,11 @@ namespace ActivityMonitor.Application
         [XmlAttribute]
         public string DetailedName { get; set; }
 
+
+
         public List<ApplicationScreenshots> ScreenShots { get; set; }
+        [XmlAttribute]
+        public string Keystrokes { get; set; }
         [XmlAttribute]
         public DateTime BeginTime { get; set; }
 
@@ -62,6 +66,14 @@ namespace ActivityMonitor.Application
             ScreenShots.Add(screenshots);
         }
 
+
+
+        public void AddKeystrokes(string keystrokes)
+        {
+
+            Keystrokes = Keystrokes + keystrokes  ;
+           
+        }
 
         public void UpdateSyncTime(int _SyncId)
         {

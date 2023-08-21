@@ -104,4 +104,11 @@ namespace DesktopMonitoringSystem.Classes
         public string TypeOfApp { get; set; }
         public DateTime? SyncedOn { get; set; }
     }
+
+    public class DesktopKeyStrokesDTO
+    {
+        public Int64 DesktopActivityLogId { get; set; }
+        public string Keystrokes { get; set; }
+       
+    }
 }

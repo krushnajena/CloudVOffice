@@ -41,6 +41,7 @@ namespace CloudVOffice.Web
         {
 
 
+
             services.AddDbContext<ApplicationDBContext>(options =>
             {
                 //The name of the connection string is taken from appsetting.json under ConnectionStrings

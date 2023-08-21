@@ -1,5 +1,6 @@
 ﻿using ActivityMonitor.ApplicationMonitor;
 using ActMon.Properties;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -117,7 +118,9 @@ namespace ActMon.Forms
         private void btn_stopMonitering_Click(object sender, EventArgs e)
         {
             _appMon.Session.EndSession();
+          
             Process.Start(@"C:\WINDOWS\system32\rundll32.exe", "user32.dll,LockWorkStation");
         }
+       
     }
 }

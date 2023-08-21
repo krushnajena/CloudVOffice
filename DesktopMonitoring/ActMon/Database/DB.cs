@@ -143,6 +143,15 @@ namespace ActMon.Database
 
 
                             }
+                            if (sApp.Usage[i].Keystrokes != null  && sApp.Usage[i].Keystrokes!="")
+                            {
+                                DesktopKeyStrokesDTO desktopKeyStrokesDTO = new DesktopKeyStrokesDTO();
+                                desktopKeyStrokesDTO.DesktopActivityLogId = json.DesktopActivityLogId;
+                                desktopKeyStrokesDTO.Keystrokes = sApp.Usage[i].Keystrokes;
+                                var c = await HttpClientRq.PostRequest(ApiUrls.postKeyStrokes, JsonConvert.SerializeObject(desktopKeyStrokesDTO));
+                            }
+                      //      string str = sApp.Usage[i].Keystrokes;
+                          
 
                         }
                     }

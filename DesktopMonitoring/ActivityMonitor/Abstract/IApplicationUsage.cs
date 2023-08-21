@@ -10,6 +10,8 @@ namespace ActivityMonitor.Collections
         void Start();
         void End();
         void AddScreenShot(ApplicationScreenshots screenshots);
+        void AddKeystrokes(string keystrokes);
+
         TimeSpan Total { get; }
         bool IsClosed { get; }
     }

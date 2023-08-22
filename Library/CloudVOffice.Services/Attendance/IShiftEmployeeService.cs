@@ -11,6 +11,6 @@ namespace CloudVOffice.Services.Attendance
         public ShiftEmployee GetShiftEmployeeById(Int64 shiftEmployeeId);
         public MessageEnum ShiftEmployeeUpdate(ShiftEmployeeDTO shiftEmployeeDTO);
         public MessageEnum ShiftEmployeeDelete(Int64 shiftEmployeeId, Int64 DeletedBy);
-        public ShiftEmployee ShiftEmployeeById(Int64 ShiftEmployeeId,DateTime FromDate);
+        public ShiftEmployee GetShiftByEmployeeId(Int64 EmployeeId,DateTime FromDate);
     }
 }

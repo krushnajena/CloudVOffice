@@ -89,14 +89,15 @@ namespace CloudVOffice.Web.Framework
 
             services.AddScoped<IAttendanceDeviceService, AttendanceDeviceService>();
             services.AddScoped<IEmployeeBiometricDataService, EmployeeBiometricDataService>();
+            services.AddScoped<IEmployeeCheckInService, EmployeeCheckInService>();
             #endregion
 
 
 
 
 
-			#region DesktopLogin
-			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+            #region DesktopLogin
+            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
             services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
             services.AddScoped<IRestrictedApplicationService, RestrictedApplicationService>();

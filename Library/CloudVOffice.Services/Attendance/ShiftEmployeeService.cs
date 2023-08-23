@@ -129,5 +129,21 @@ namespace CloudVOffice.Services.Attendance
                 throw;
             }
         }
+
+        public ShiftEmployee GetShiftByEmployeeId(Int64 EmployeeId, DateTime FromDate)
+
+
+        {
+            try
+            {
+                return _Context.ShiftEmployees.
+                    Include(x=>x.ShiftType)
+                    .Where(x => x.EmployeeId == EmployeeId && x.FromDate<=  FromDate  && x.ToDate>= FromDate && x.Deleted == false).OrderByDescending(x=>x.ShiftEmployeeId).FirstOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

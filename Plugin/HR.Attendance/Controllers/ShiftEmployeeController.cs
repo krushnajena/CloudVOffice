@@ -41,16 +41,7 @@ namespace HR.Attendance.Controllers
 
 
 
-                /*var a = _employeeService.GetEmployeeById(int.Parse(shiftEmployeeId.ToString()));
-                shiftEmployeeDTO.EmployeeShift = new List<EmployeeCreateDTO>();
-                for (int i = 0; i < a.Count; i++)
-                {
-                    shiftEmployeeDTO.EmployeeShift.Add(new EmployeeCreateDTO
-                    {
-                        FullName = a[i].Employee.FullName,
-                        EmployeeId = a[i].EmployeeId,
-                    });
-                }*/
+               
             }
 
             var shiftType = _shiftTypeService.GetShiftTypeList();

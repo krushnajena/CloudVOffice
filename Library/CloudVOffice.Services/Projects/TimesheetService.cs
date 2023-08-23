@@ -17,7 +17,9 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Immutable;
 using System.Text;
 
 namespace CloudVOffice.Services.Projects
@@ -46,13 +48,14 @@ namespace CloudVOffice.Services.Projects
 
 
               IEmailTemplateService emailTemplateService,
-             IHttpContextAccessor httpContextAccessor,
-             ICompanyDetailsService companyDetailsService,
-             ILetterHeadService letterHeadService,
-             IEmailAccountService emailAccountService,
-        IEmailService emailService,
-        IEmployeeService employeeService,
-         IConfiguration configuration
+              IHttpContextAccessor httpContextAccessor,
+              ICompanyDetailsService companyDetailsService,
+              ILetterHeadService letterHeadService,
+              IEmailAccountService emailAccountService,
+              IEmailService emailService,
+            
+              IConfiguration configuration
+            
             )
         {
 
@@ -68,6 +71,7 @@ namespace CloudVOffice.Services.Projects
             _emailAccountService = emailAccountService;
             _emailService = emailService;
             _configuration = configuration;
+           
 
         }
 
@@ -477,9 +481,6 @@ namespace CloudVOffice.Services.Projects
             });
 
         }
-        public List<ProjectEmployeeWiseEffortReportViewModel> ProjectEmployeeWiseEffortReport(Int64 EmployeeId, Int64 UserId)
-        {
-
-        }
+        
     }
 }

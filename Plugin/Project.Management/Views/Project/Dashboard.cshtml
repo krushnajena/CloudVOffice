@@ -2,6 +2,8 @@
     Layout = "_MainAppLayout";
     ViewData["Title"] = "Dashboard";
     ViewData["Title"] = "Project Management DashBoard";
+    var palettess = new String[] { "#d44b1e", "#e9f502", "#c029f2", "#3975f7", "#14db6a", "#fc7b0a" };
+    var palettesss = new String[] { "#4CB5F5", "#6AB187" };
 
 }
 @addTagHelper *, Syncfusion.EJ2
@@ -107,7 +109,7 @@
                 <div class="card-header">Effort Analysys</div>
                 <div class="card-body">
 
-                    <ejs-chart id="monthcontainer" title="Effort Analysys">
+                    <ejs-chart id="monthcontainer" title="Effort Analysys" palettes="palettess">
                         <e-chart-tooltipsettings enable="true">
                         </e-chart-tooltipsettings>
                         <e-chart-primaryxaxis valueType="@Syncfusion.EJ2.Charts.ValueType.DateTime"
@@ -150,7 +152,7 @@
             <div class="card">
                 <div class="card-header">Project Analysys</div>
                 <div class="card-body">
-                    <ejs-chart id="lineContainer"  title="Projects" enableSideBySidePlacement="false">
+                    <ejs-chart id="lineContainer" title="Projects" enableSideBySidePlacement="false" palettes="palettess">
                         <e-chart-tooltipsettings enable="true" shared="true">
                         </e-chart-tooltipsettings>
                         <e-chart-legendsettings visible="true">
@@ -209,7 +211,7 @@
             <div class="card">
                 <div class="card-header">Project Time Uses Analysys</div>
                 <div class="card-body">
-                    <ejs-chart id="projectTimeSheetlineContainer"  title="Effort Hours" enableSideBySidePlacement="false">
+                    <ejs-chart id="projectTimeSheetlineContainer" title="Effort Hours" enableSideBySidePlacement="false" palettes="palettesss">
                         <e-chart-tooltipsettings enable="true" shared="true">
                         </e-chart-tooltipsettings>
                         <e-chart-legendsettings visible="true">

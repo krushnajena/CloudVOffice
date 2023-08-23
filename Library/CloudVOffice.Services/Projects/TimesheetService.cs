@@ -17,7 +17,9 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Immutable;
 using System.Text;
 
 namespace CloudVOffice.Services.Projects
@@ -37,6 +39,8 @@ namespace CloudVOffice.Services.Projects
         private readonly IEmailAccountService _emailAccountService;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
+        private readonly IEmployeeService _employeeService;
+        private readonly IProjectService _projectService;
         public TimesheetService(ApplicationDBContext Context, ISqlRepository<Timesheet> timesheetRepo,
             IProjectTaskService projectTaskService,
             IHRSettingsService hrSettingsService,
@@ -45,13 +49,14 @@ namespace CloudVOffice.Services.Projects
 
 
               IEmailTemplateService emailTemplateService,
-             IHttpContextAccessor httpContextAccessor,
-             ICompanyDetailsService companyDetailsService,
-             ILetterHeadService letterHeadService,
-             IEmailAccountService emailAccountService,
-        IEmailService emailService,
-        IEmployeeService employeeService,
-         IConfiguration configuration
+              IHttpContextAccessor httpContextAccessor,
+              ICompanyDetailsService companyDetailsService,
+              ILetterHeadService letterHeadService,
+              IEmailAccountService emailAccountService,
+              IEmailService emailService,
+              IEmployeeService employeeService,
+              IConfiguration configuration,
+              IProjectService projectService
             )
         {
 
@@ -67,6 +72,8 @@ namespace CloudVOffice.Services.Projects
             _emailAccountService = emailAccountService;
             _emailService = emailService;
             _configuration = configuration;
+            _employeeService = employeeService;
+            _projectService = projectService;
 
         }
 
@@ -476,5 +483,34 @@ namespace CloudVOffice.Services.Projects
             });
 
         }
+
+        public void GetEffortHoursReport(Int64 EmployeeId, Int64 UserId, int Month, int Year)
+        {
+            try
+            {
+                var employees = _employeeService.GetEmployeeSubContinent(EmployeeId);
+
+                var myProject = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+                for ( int j = 0; j < myProject.Count; j++)
+                {
+                    var emp = myProject[j].ProjectEmployees.ToList();
+                    for (int i=0;i< emp.Count; i++)
+                    {
+                        employees.Add(emp[i].Employee);
+
+                    } 
+                }
+
+                var distEmployee = employees.Distinct().ToList();
+
+                 return;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+       
     }
 }

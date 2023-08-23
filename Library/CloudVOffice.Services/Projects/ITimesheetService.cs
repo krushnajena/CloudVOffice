@@ -21,7 +21,7 @@ namespace CloudVOffice.Services.Projects
         public List<Timesheet> GetTimeSheetWitDateRange(DateTime FromDate, DateTime ToDate, Int64 EmployeeId);
 
         public List<TimeSheetLineChartModel> TimeSheetEffortAnalysis(DateTime FromDate, DateTime ToDate, Int64 EmployeeId);
-
+        public void GetEffortHoursReport(Int64 EmployeeId, Int64 UserId, int Month, int Year);
         public List<Timesheet> GetNotRejectedTimesheetByProjectId(int ProjectId);
         public Task TimesheetUpdateRemiderSendNotification();
 

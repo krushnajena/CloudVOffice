@@ -76,6 +76,7 @@ namespace CloudVOffice.Services.Projects
                 return _Context.Projects
                     .Include(e => e.Employee)
                     .Include(s => s.ProjectEmployees)
+                    .ThenInclude(d => d.Employee)
                     .Include(t => t.ProjectUsers)
                     .Where(x => x.Deleted == false && (x.ProjectManager == EmployeeId
                     || x.ProjectEmployees.Any(d => d.EmployeeId == EmployeeId && d.Deleted == false)
@@ -448,6 +449,172 @@ namespace CloudVOffice.Services.Projects
 
             }
 
+        }
+
+        public List<ProjectTaskSummeryReportViewModel> ProjectTaskSummeryReport(Int64 EmployeeId, Int64 UserId)
+        {
+            var projects = GetMyAssignedProject(EmployeeId, UserId);
+            List<ProjectTaskSummeryReportViewModel> report = new List<ProjectTaskSummeryReportViewModel>();
+            for (int i = 0; i < projects.Count; i++)
+            {
+                var tasks = _projectTaskService.ProjectTaskByProjectId(projects[i].ProjectId);
+                ProjectTaskSummeryReportViewModel pr = new ProjectTaskSummeryReportViewModel();
+                pr.ProjectCode = projects[i].ProjectCode;
+                pr.ProjectName = projects[i].ProjectName;
+                pr.Open = tasks.Where(x => x.TaskStatus == "Open").ToList().Count.ToString();
+                pr.Working = tasks.Where(x => x.TaskStatus == "Working").ToList().Count.ToString();
+                pr.PendingReview = tasks.Where(x => x.TaskStatus == "PendingReview").ToList().Count.ToString();
+                pr.Overdue = tasks.Where(x => x.TaskStatus == "Overdue").ToList().Count.ToString();
+                pr.Completed = tasks.Where(x => x.TaskStatus == "Completed").ToList().Count.ToString();
+                pr.Canceled = tasks.Where(x => x.TaskStatus == "Canceled").ToList().Count.ToString();
+                pr.Employees = new List<ProjectTaskSummeryReportViewModel>();
+                var EMP = projects[i].ProjectEmployees.ToList();
+                for (int j = 0; j < EMP.Count; j++)
+                {
+
+
+                    ProjectTaskSummeryReportViewModel pr1 = new ProjectTaskSummeryReportViewModel();
+                    pr1.ProjectCode = EMP[j].Employee.EmployeeCode;
+                    pr1.ProjectName = EMP[j].Employee.FullName;
+                    pr1.Open = tasks.Where(x => x.TaskStatus == "Open" && x.EmployeeId == EMP[j].EmployeeId).ToList().Count.ToString();
+                    pr1.Working = tasks.Where(x => x.TaskStatus == "Working" && x.EmployeeId == EMP[j].EmployeeId).ToList().Count.ToString();
+                    pr1.PendingReview = tasks.Where(x => x.TaskStatus == "PendingReview" && x.EmployeeId == EMP[j].EmployeeId).ToList().Count.ToString();
+                    pr1.Overdue = tasks.Where(x => x.TaskStatus == "Overdue" && x.EmployeeId == EMP[j].EmployeeId).ToList().Count.ToString();
+                    pr1.Completed = tasks.Where(x => x.TaskStatus == "Completed" && x.ComplitedBy == EMP[j].EmployeeId).ToList().Count.ToString();
+                    pr1.Canceled = tasks.Where(x => x.TaskStatus == "Canceled" && x.AssignedBy == EMP[j].EmployeeId).ToList().Count.ToString();
+                    pr.Employees.Add(pr1);
+                }
+                report.Add(pr);
+
+            }
+            return report;
+        }
+
+        public List<ProjectEmployeeWiseEffortReportViewModel> ProjectEmployeeWiseEffortReport(Int64 EmployeeId, Int64 UserId)
+        {
+            var projects = GetMyAssignedProject(EmployeeId, UserId);
+            List<ProjectEmployeeWiseEffortReportViewModel> report = new List<ProjectEmployeeWiseEffortReportViewModel>();
+            for (int i = 0; i < projects.Count; i++)
+            {
+                var timesheet = _timeSheetService.GetNotRejectedTimesheetByProjectId(projects[i].ProjectId);
+                ProjectEmployeeWiseEffortReportViewModel pr = new ProjectEmployeeWiseEffortReportViewModel();
+                pr.ProjectCode = projects[i].ProjectCode;
+                pr.ProjectName = projects[i].ProjectName;
+                pr.PlannedEffortHours = projects[i].EffortHourRequired.ToString();
+
+              
+
+               double totatlTimeSpent = 0.0;
+                for (int j = 0; j < timesheet.Count; j++)
+                {
+                    int hour = 0;
+                    int min = 0;
+
+                    if (totatlTimeSpent.ToString().Split(".").Count() == 2)
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
+                        min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString());
+
+                    }
+                    int hour1 = 0;
+                    int min1 = 0;
+
+                    if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                    {
+                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                        min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
+
+                    }
+
+
+
+
+
+                    hour1 = hour1 + hour;
+                    min1 = min1 + min;
+                    TimeSpan hours = TimeSpan.FromMinutes(min1);
+                    hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                    int min2 = int.Parse(hours.ToString("mm"));
+                    string finalno = hour1.ToString() + "." + min2.ToString();
+                    totatlTimeSpent = double.Parse(finalno);
+                }
+                pr.UsedEffortHours = totatlTimeSpent.ToString();
+
+                pr.EffortPercentage = totatlTimeSpent / int.Parse( projects[i].EffortHourRequired.ToString()) *100;
+                var EMP = projects[i].ProjectEmployees.ToList();
+                pr.Employees = new List<ProjectEmployeeWiseEffortReportViewModel>();
+                for (int k=0;k<EMP.Count;k++)
+                {
+                    var etimesheet = timesheet.Where(x => x.EmployeeId == EMP[i].EmployeeId).ToList();
+                    ProjectEmployeeWiseEffortReportViewModel pr1 = new ProjectEmployeeWiseEffortReportViewModel();
+                    pr1.ProjectCode = EMP[k].Employee.EmployeeCode;
+                    pr1.ProjectName = EMP[k].Employee.FullName;
+                    pr1.PlannedEffortHours = "";
+
+
+
+                    double etotatlTimeSpent = 0.0;
+                    for (int j = 0; j < etimesheet.Count; j++)
+                    {
+                        int hour = 0;
+                        int min = 0;
+
+                        if (etotatlTimeSpent.ToString().Split(".").Count() == 2)
+                        {
+                            hour = int.Parse(etotatlTimeSpent.ToString().Split(".")[0]);
+                            min = int.Parse(etotatlTimeSpent.ToString().Split(".")[1]);
+                        }
+                        else
+                        {
+                            hour = int.Parse(etotatlTimeSpent.ToString());
+
+                        }
+                        int hour1 = 0;
+                        int min1 = 0;
+
+                        if (etimesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                        {
+                            hour1 = int.Parse(etimesheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                            min1 = int.Parse(etimesheet[j].DurationInHours.ToString().Split(".")[1]);
+                        }
+                        else
+                        {
+                            hour1 = int.Parse(etimesheet[j].DurationInHours.ToString());
+
+                        }
+
+
+
+
+
+                        hour1 = hour1 + hour;
+                        min1 = min1 + min;
+                        TimeSpan hours = TimeSpan.FromMinutes(min1);
+                        hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                        int min2 = int.Parse(hours.ToString("mm"));
+                        string finalno = hour1.ToString() + "." + min2.ToString();
+                        etotatlTimeSpent = double.Parse(finalno);
+                    }
+                    pr1.UsedEffortHours = etotatlTimeSpent.ToString();
+                    pr1.EffortPercentage = etotatlTimeSpent / totatlTimeSpent * 100;
+                    pr.Employees.Add(pr1);
+
+                }
+                report.Add(pr);
+            }
+            return report;
         }
 
     }

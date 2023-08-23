@@ -1,20 +1,24 @@
 ﻿
 using CloudVOffice.BackgroundJobs;
+using CloudVOffice.Core.Infrastructure.Applications;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Services.Plugins;
 using CloudVOffice.Web.Filters;
 using CloudVOffice.Web.Framework;
+using FluentValidation;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Syncfusion.Licensing;
 using System.Reflection;
 using System.Text;
@@ -105,16 +109,28 @@ namespace CloudVOffice.Web
 
 
             services.AddHttpContextAccessor();
-            services.AddMvcCore();
-            services.AddControllersWithViews().AddNewtonsoftJson(delegate (MvcNewtonsoftJsonOptions options)
+            var mvcBuilder = services.AddControllersWithViews();
+            mvcBuilder.AddRazorRuntimeCompilation();
+
+            services.AddRazorPages();
+            mvcBuilder.AddNewtonsoftJson(delegate (MvcNewtonsoftJsonOptions options)
             {
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-            services.AddRazorPages();
-            services.AddMvc();
+           
 
-            string[] subdirs = Directory.GetDirectories(CloudVOfficePluginDefaults.PathName);
 
+            //services.AddMvcCore();
+            //services.AddControllersWithViews().AddNewtonsoftJson(delegate (MvcNewtonsoftJsonOptions options)
+            //{
+            //    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            //});
+            //services.AddRazorPages();
+            //services.AddMvc();
+
+
+          
+            var mvcCoreBuilder = services.AddMvcCore();
             foreach (string folder in Directory.GetDirectories(CloudVOfficePluginDefaults.PathName))
             {
 
@@ -123,12 +139,21 @@ namespace CloudVOffice.Web
                 {
                     Assembly assembly2 = Assembly.LoadFrom(dllPath);
                     AssemblyPart part2 = new AssemblyPart(assembly2);
-                    services.AddControllersWithViews().PartManager.ApplicationParts.Add(part2);
+
+                    services.AddControllersWithViews().AddRazorRuntimeCompilation().PartManager.ApplicationParts.Add(part2);
+                    string depsPathPath = CloudVOfficePluginDefaults.PathName + @"\" + folder.Split(@"\")[1].ToString() + @"\" + folder.Split(@"\")[1].ToString() + ".deps.json";
+                    if (File.Exists(depsPathPath))
+                    {
+                        File.Delete(depsPathPath);
+                    }
+                 
                 }
             }
 
 
+           
 
+            mvcBuilder.AddControllersAsServices();
             services.AddInfrastructure(configRoot);
 
             // services.AddScoped(IAuthenticationService, AuthenticationService);

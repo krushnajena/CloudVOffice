@@ -24,6 +24,7 @@ namespace CloudVOffice.Services.Projects
 
         public List<Timesheet> GetNotRejectedTimesheetByProjectId(int ProjectId);
         public Task TimesheetUpdateRemiderSendNotification();
+        public List<ProjectEmployeeWiseEffortReportViewModel> ProjectEmployeeWiseEffortReport(Int64 EmployeeId, Int64 UserId);
 
     }
 }

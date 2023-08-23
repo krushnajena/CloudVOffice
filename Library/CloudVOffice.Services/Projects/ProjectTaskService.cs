@@ -6,6 +6,7 @@ using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Data.ViewModel.Projects;
 using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Services.Email;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Pipelines.Sockets.Unofficial.Arenas;
+using System.Collections.Generic;
 using System.Text;
 
 namespace CloudVOffice.Services.Projects
@@ -33,7 +35,7 @@ namespace CloudVOffice.Services.Projects
         private readonly IEmailAccountService _emailAccountService;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
-
+      
         public ProjectTaskService(ApplicationDBContext Context, ISqlRepository<ProjectTask> projectTaskRepo,
 
 
@@ -45,6 +47,7 @@ namespace CloudVOffice.Services.Projects
         IEmailService emailService,
         IEmployeeService employeeService,
              IConfiguration configuration
+           
             )
         {
 
@@ -59,6 +62,7 @@ namespace CloudVOffice.Services.Projects
             _emailService = emailService;
             _employeeService = employeeService;
             _configuration = configuration;
+           
         }
         public MessageEnum ProjectTaskCreate(ProjectTaskDTO projectTaskDTO)
         {
@@ -741,8 +745,7 @@ namespace CloudVOffice.Services.Projects
 
         }
 
-
-
+     
 
 
 

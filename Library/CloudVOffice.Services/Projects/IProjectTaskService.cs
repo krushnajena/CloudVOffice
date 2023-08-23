@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
+using CloudVOffice.Data.ViewModel.Projects;
 
 namespace CloudVOffice.Services.Projects
 {
@@ -36,5 +37,6 @@ namespace CloudVOffice.Services.Projects
         public Task TodayDueProjectTasksSendNotification();
 
         public Task MarkTaskOverDueAndSendNotification();
+
     }
 }

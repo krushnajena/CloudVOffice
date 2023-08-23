@@ -22,6 +22,9 @@ namespace CloudVOffice.Services.Projects
 
 
 
+        public List<ProjectTaskSummeryReportViewModel> ProjectTaskSummeryReport(Int64 EmployeeId, Int64 UserId);
+
+        public List<ProjectEmployeeWiseEffortReportViewModel> ProjectEmployeeWiseEffortReport(Int64 EmployeeId, Int64 UserId);
 
     }
 }

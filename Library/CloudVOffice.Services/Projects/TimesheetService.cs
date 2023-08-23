@@ -37,6 +37,7 @@ namespace CloudVOffice.Services.Projects
         private readonly IEmailAccountService _emailAccountService;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
+
         public TimesheetService(ApplicationDBContext Context, ISqlRepository<Timesheet> timesheetRepo,
             IProjectTaskService projectTaskService,
             IHRSettingsService hrSettingsService,
@@ -474,6 +475,10 @@ namespace CloudVOffice.Services.Projects
                 Body = stringBuilder.ToString()
 
             });
+
+        }
+        public List<ProjectEmployeeWiseEffortReportViewModel> ProjectEmployeeWiseEffortReport(Int64 EmployeeId, Int64 UserId)
+        {
 
         }
     }

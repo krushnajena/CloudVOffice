@@ -274,7 +274,26 @@
             "Children": [
 
             ]
-          }
+          },
+          {
+            "ApplicationName": "Project Task Summery Report",
+            "Url": "/Projects/Task/ProjectTaskSummeryReport",
+            "IsGroup": false,
+            "IconImageUrl": "",
+            "IconClass": "icon-event_note",
+            "AreaName": "Projects",
+            "Roles": [
+              "Project Manager",
+              "Project User"
+
+            ],
+            "Children": [
+
+            ]
+          },
+
+
+          
         ]
       }
 

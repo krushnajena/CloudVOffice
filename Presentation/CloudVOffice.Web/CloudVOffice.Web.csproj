@@ -393,6 +393,9 @@
 
 	
 	</ItemGroup>
+	
+	
+	
 	<ItemGroup>
 	  <ProjectReference Include="..\CloudVOffice.Web.Framework\CloudVOffice.Web.Framework.csproj" />
 	</ItemGroup>

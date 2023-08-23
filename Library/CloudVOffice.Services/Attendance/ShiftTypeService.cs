@@ -51,6 +51,7 @@ namespace CloudVOffice.Services.Attendance
 
         }
 
+        
         public ShiftType GetShiftTypeById(Int64 shiftTypeId)
         {
             try
@@ -75,6 +76,19 @@ namespace CloudVOffice.Services.Attendance
             {
                 throw;
             }
+        }
+
+        public ShiftType GetDefaultShiftType()
+        {
+            try
+            {
+                return _Context.ShiftTypes.Where(x => x.Deleted == false && x.IsDefaultShift == true).FirstOrDefault();
+            }
+            catch
+            {
+                throw;
+            }
+           
         }
 
         public MessageEnum ShiftTypeDelete(Int64 shiftTypeId, Int64 DeletedBy)

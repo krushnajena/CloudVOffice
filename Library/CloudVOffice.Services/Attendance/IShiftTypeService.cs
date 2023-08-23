@@ -11,5 +11,6 @@ namespace CloudVOffice.Services.Attendance
         public ShiftType GetShiftTypeById(Int64 shiftTypeId);
         public MessageEnum ShiftTypeUpdate(ShiftTypeDTO shiftTypeDTO);
         public MessageEnum ShiftTypeDelete(Int64 shiftTypeId, Int64 DeletedBy);
+        public ShiftType GetDefaultShiftType();
     }
 }

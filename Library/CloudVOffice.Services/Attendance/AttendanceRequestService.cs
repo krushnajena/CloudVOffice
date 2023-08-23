@@ -155,7 +155,7 @@ namespace CloudVOffice.Services.Attendance
                 if (attendances != null)
                 {
 
-
+                        
                     attendances.ApprovalStatus = attendanceApprovedDTO.ApprovalStatus;
                     attendances.ApprovalRemarks = attendanceApprovedDTO.ApprovalRemarks;
                     attendances.ApprovedOn = DateTime.Now;
@@ -168,7 +168,7 @@ namespace CloudVOffice.Services.Attendance
                     if (attendanceApprovedDTO.ApprovalStatus == 1)
                     {
                         var b = _employeeAttendanceService.GetEmployeeAttendanceUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
-
+                        return b;
                     }
 
                     return a;
@@ -182,7 +182,7 @@ namespace CloudVOffice.Services.Attendance
             }
             catch
             {
-                throw;
+                throw;  
             }
 
         }

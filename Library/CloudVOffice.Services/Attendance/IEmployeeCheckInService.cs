@@ -11,6 +11,7 @@ namespace CloudVOffice.Services.Attendance
         public EmployeeCheckIn GetEmployeeCheckInById(Int64 employeeCheckInId);
         public MessageEnum EmployeeCheckInUpdate(EmployeeCheckInDTO employeeCheckInDTO);
         public MessageEnum EmployeeCheckInDelete(Int64 employeeCheckInId, Int64 DeletedBy);
+        public MessageEnum GetEmployeeCheckInUpdate(Int64 EmployeeId, DateTime ForDate, TimeSpan CheckInTime, TimeSpan CheckOutTime);
         
     }
 }

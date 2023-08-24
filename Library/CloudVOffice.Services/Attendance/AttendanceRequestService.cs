@@ -17,14 +17,16 @@ namespace CloudVOffice.Services.Attendance
         private readonly ISqlRepository<AttendanceRequest> _attendanceRequestRepo;
         private readonly ISqlRepository<EmployeeCheckIn> _employeeCheckInRepo;
         private readonly IEmployeeAttendanceService _employeeAttendanceService;
+        private readonly IEmployeeCheckInService _employeeCheckInService;
 
-        public AttendanceRequestService(ApplicationDBContext Context, ISqlRepository<AttendanceRequest> attendanceRequestRepo, ISqlRepository<EmployeeCheckIn> employeeCheckInRepo, IEmployeeAttendanceService employeeAttendanceService)
+        public AttendanceRequestService(ApplicationDBContext Context, ISqlRepository<AttendanceRequest> attendanceRequestRepo, ISqlRepository<EmployeeCheckIn> employeeCheckInRepo, IEmployeeAttendanceService employeeAttendanceService , IEmployeeCheckInService employeeCheckInService)
         {
 
             _Context = Context;
             _attendanceRequestRepo = attendanceRequestRepo;
             _employeeAttendanceService = employeeAttendanceService;
             _employeeCheckInRepo = employeeCheckInRepo;
+            _employeeCheckInService = employeeCheckInService;
         }
 
         public MessageEnum AttendanceRequestCreate(AttendanceRequestDTO attendanceRequestDTO)
@@ -154,8 +156,7 @@ namespace CloudVOffice.Services.Attendance
 
                 if (attendances != null)
                 {
-
-
+  
                     attendances.ApprovalStatus = attendanceApprovedDTO.ApprovalStatus;
                     attendances.ApprovalRemarks = attendanceApprovedDTO.ApprovalRemarks;
                     attendances.ApprovedOn = DateTime.Now;
@@ -168,10 +169,15 @@ namespace CloudVOffice.Services.Attendance
                     if (attendanceApprovedDTO.ApprovalStatus == 1)
                     {
                         var b = _employeeAttendanceService.GetEmployeeAttendanceUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
+                        
+                        var c = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
+                        var d = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()),attendances.CheckInTime,attendances.CheckOutTime);
 
+                        return b;
+                        
                     }
-
                     return a;
+                   
                 }
                 else
                 {
@@ -182,7 +188,7 @@ namespace CloudVOffice.Services.Attendance
             }
             catch
             {
-                throw;
+                throw;  
             }
 
         }

@@ -94,7 +94,7 @@
 
 
                     <ejs-grid id="GridOverview"
-                              allowFiltering="true" allowSorting="true"
+                              allowFiltering="true" allowSorting="true" allowResizing="true" autoFit="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
                               allowPdfExport="true"
@@ -102,6 +102,7 @@
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
                               created="search"
+                              dataBound="dataBound"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
 
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
@@ -250,4 +251,7 @@
         });
     }
 
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
 </script>

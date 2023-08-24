@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.RestrictedApplication"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.RestrictedApplication" allowResizing="true" autoFit="true"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -49,6 +49,7 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
+                              dataBound="dataBound"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
@@ -189,5 +190,9 @@
             };
         }
     };
+
+     function dataBound(args) {
+        this.autoFitColumns();
+    }
 
 </script>

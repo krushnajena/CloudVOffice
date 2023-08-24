@@ -74,7 +74,7 @@
 
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" allowFiltering="true" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true"
+                    <ejs-grid id="GridOverview" allowFiltering="true" allowResizing="true" autoFit="true" dataBound="dataBound" allowSorting="true" allowExcelExport="true" allowGrouping="true" allowMultiSorting="true" allowPdfExport="true" height="600" rowHeight="38" enableHover="false" enableHeaderFocus="true" enableVirtualization="true" allowSelection="true"
                               pdfQueryCellInfo="exportQueryCellInfo" toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport" , "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
 
@@ -212,5 +212,9 @@
                 }
             }
         });
+    }
+
+    function dataBound(args) {
+        this.autoFitColumns();
     }
 </script>

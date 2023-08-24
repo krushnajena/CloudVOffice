@@ -61,10 +61,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web.Framework\CloudVOffice.Web.Framework.csproj" />
 		<ProjectReference Include="..\..\Presentation\CloudVOffice.Web\CloudVOffice.Web.csproj" />
 	</ItemGroup>

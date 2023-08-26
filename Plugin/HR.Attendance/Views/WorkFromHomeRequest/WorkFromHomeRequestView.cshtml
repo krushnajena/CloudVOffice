@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "Company Details";
+    ViewData["Title"] = "WorkFromHome Request";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -12,13 +12,13 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Company Detalis</h5>
-                    <h6 class="sub-heading"> </h6>
+                    <h5>WorkFromHome Request</h5>
+                    <h6 class="sub-heading">  </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login"> </span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
@@ -29,39 +29,42 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-
                     <div class="row">
-                        <div class="col-md-10">
-                            Company Details
+                        <div class="col-md-6">
+                            WorkFromHome Request
                         </div>
-                        <div class="col-md-2 text-right float-right">
-                            <a href="/Setup/CompanyDetails/CompanyDetailsCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Company</a>
+
+                        <div class="col-md-6 text-right float-right">
+                            <a href="~/Attendance/WorkFromHomeRequest/WorkFromHomeRequestCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add WorkFromHomeRequestCreate</a>
                         </div>
                     </div>
-                    </div>
+                </div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.CompanyDetails"
+
+
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.workFromHomeRequest"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
                               allowPdfExport="true"
                               height="600" rowHeight="38"
+                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
-                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="CompanyName" headerText="Company Name" textAlign="Left" width="350"></e-grid-column>
-                            <e-grid-column field="DateOfIncorporation" headerText="DateOfIncorporation" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="City" headerText="City" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="State" headerText="State" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Country" headerText="Country" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="PostalCode" headerText="PostalCode" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="EmailAddress" headerText="EmailAddress" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="PhoneNumber" headerText="PhoneNumber" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="Employee.FullName" headerText="Employee" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="FromDate" headerText="FromDate" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ToDate" headerText="ToDate" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Reason" headerText="Reason" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ApprovalStatus" headerText="Approval Status" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ApprovedBy" headerText="Approved By" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ApprovedDate" headerText="Approved Date" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ApprovalRemark" headerText="Approval Remark" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -78,19 +81,19 @@
         <script type="text/javascript">
             const message = "@TempData["msg"]";
             if (message == "@((int)MessageEnum.Success)") {
-                   sweetAlert({
-                                    html: true,
-                                    icon: "success",
-                                    title: "Company",
-                                    text: "Successfully created.",
-                                    type: "success"
-                                });
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "Attendance Request",
+                    text: "Successfully created.",
+                    type: "success"
+                });
             }
             else if (message == "@((int)MessageEnum.Updated)") {
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Company",
+                    title: "WorkFromHome Request",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -99,25 +102,17 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Company",
+                    title: "WorkFromHome Request",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
             }
-            else if (message == "@((int)MessageEnum.AlreadyCreate)" ) {
-                sweetAlert({
-                    html: true,
-                    icon: "warning",
-                    title: "Company",
-                    text: "You Have Already Created a Company. You can add only one company.",
-                    type: "warning"
-                });
-            }
+
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "Company",
+                    title: "WorkFromHome Request",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -126,16 +121,16 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Company",
+                    title: "WorkFromHome Request",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
             }
-            else{
+            else {
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Company",
+                    title: "WorkFromHome Request",
                     text: message,
                     type: "error"
                 });
@@ -143,9 +138,8 @@
         </script>
     }
 }
-
 <script type="text/javascript">
-    function Delete(companyId) {
+    function Delete(Id) {
         swal({
             title: "Are you sure?",
             text: "You will not be able to recover this data!",
@@ -158,27 +152,30 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Setup/CompanyDetails/CompanyDetailsDelete?CompanyDetailsId=" +companyId;
+                window.location.href = "../../Attendance/WorkFromHomeRequest/WorkFromHomeRequestDelete?WorkFromHomeRequestId=" + Id;
             }
         })
     }
 </script>
 <script id="Actions" type="text/x-template">
-    <div class="link">
-        <a href="../../Setup/CompanyDetails/CompanyDetailsCreate?CompanyDetailsId=${CompanyDetailsId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+    ${deleteAction(data)}
 
-         <button onClick="Delete(${CompanyDetailsId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
-     
-    </div>
-    
 </script>
 
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
-</script>
 <script>
 
-                  
+    function deleteAction(e) {
+        if (e.ApprovalStatus == 0) {
+            return '  <div class="link"><button onClick = "Delete(' + e.WorkFromHomeRequestId + ')" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button> </div>';
+        } else if (e.ApprovalStatus == 1) {
+            return '<span class="badge badge-pill badge-success" > Approved </span>';
+        }
+        else if (e.ApprovalStatus == 2) {
+            return '<span class="badge badge-pill badge-dark">Rejected</span>';
+        }
+
+
+    }
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {

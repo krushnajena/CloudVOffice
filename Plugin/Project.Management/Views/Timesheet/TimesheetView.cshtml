@@ -49,6 +49,7 @@
                               allowMultiSorting="true"
                               allowPdfExport="true"
                               height="600" rowHeight="38"
+                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
@@ -215,4 +216,7 @@
         }
     };
 
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
 </script>

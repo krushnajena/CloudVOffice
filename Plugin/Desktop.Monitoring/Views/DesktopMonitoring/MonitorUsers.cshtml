@@ -33,7 +33,7 @@
                 <div class="card-header">Employee</div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.Employees"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Employees" allowResizing="true" autoFit="true"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -41,6 +41,7 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
+                              dataBound="dataBound"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
 
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
@@ -54,7 +55,7 @@
                             <e-grid-column field="FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
 
                             <e-grid-column field="Department.DepartmentName" headerText="Department" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Desgnation.DesgnationName" headerText="Desgnation" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Designation.DesignationName" headerText="Designation" textAlign="Left" width="120"></e-grid-column>
 
                             <e-grid-column field="Status" headerText="Status" textAlign="Left" width="120"></e-grid-column>
 
@@ -125,4 +126,8 @@
 
     }
 
+
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
 </script>

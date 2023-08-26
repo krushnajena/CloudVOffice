@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Attendance;
+using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -151,6 +152,18 @@ namespace CloudVOffice.Services.Attendance
                 }
                 else
                     return MessageEnum.Invalid;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<LeaveType> GetLeaveTypesByAllowEncashment(bool allowEncashment)
+        {
+            try
+            {
+                return _Context.LeaveTypes.Where(x => x.Deleted == false && x.AllowEncashment == allowEncashment).ToList();
             }
             catch
             {

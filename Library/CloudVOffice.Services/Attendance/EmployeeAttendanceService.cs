@@ -4,17 +4,10 @@ using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Attendance
 {
-	public class EmployeeAttendanceService : IEmployeeAttendanceService
+    public class EmployeeAttendanceService : IEmployeeAttendanceService
 	{
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<EmployeeAttendance> _employeeAttendanceRepo;

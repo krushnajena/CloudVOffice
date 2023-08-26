@@ -117,25 +117,25 @@ namespace HR.Attendance.Controllers
 //        {
 //            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
-//            var a = _attendanceRequestService.AttendanceRequestDelete(attendanceRequestId, DeletedBy);
-//            TempData["msg"] = a;
-//            return Redirect("/Attendance/AttendanceRequest/AttendanceRequestView");
-//        }
+            var a = _attendanceRequestService.AttendanceRequestDelete(attendanceRequestId, DeletedBy);
+            TempData["msg"] = a;
+            return Redirect("/Attendance/AttendanceRequest/AttendanceRequestView");
+        }
 
-//        [HttpPost]
-//        public IActionResult AttendanceApproved(AttendanceApprovedDTO attendanceApprovedDTO)
-//        {
-//            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-//            Int64 EmployeeId;
-//            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
-//            if (employee != null)
-//            {
-//                EmployeeId = employee.EmployeeId;
-//            }
-//            else
-//            {
-//                EmployeeId = 0;
-//            }
+        [HttpPost]
+        public IActionResult AttendanceApproved(AttendanceApprovedDTO attendanceApprovedDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
 
 //            attendanceApprovedDTO.AttendanceApprovedBy = EmployeeId;
 //            attendanceApprovedDTO.UpdatedBy = UserId;
@@ -169,24 +169,23 @@ namespace HR.Attendance.Controllers
 //                       };
 //            ViewBag.ToValidates = data;
 
-//            return View("~/Plugins/HR.Attendance/Views/AttendanceRequest/AttendanceToValidate.cshtml");
-//        }
+            return View("~/Plugins/HR.Attendance/Views/AttendanceRequest/AttendanceToValidate.cshtml");
+        }
 
 
 
 
 
-//        Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-//        Int64 EmployeeId;
-//        var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
-//            if (employee != null)
-//            {
-//                EmployeeId = employee.EmployeeId;
-//            }
-//            else
-//            {
-//                EmployeeId = 0;
-//            }
+    }
+}
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
 
 //attendanceApprovedDTO.AttendanceApprovedBy = EmployeeId;
 //attendanceApprovedDTO.UpdatedBy = UserId;

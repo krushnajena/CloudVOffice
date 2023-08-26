@@ -39,7 +39,9 @@
     <None Remove="Views\TimesheetActivityCategory\TimesheetActivityCategoryCreate.cshtml" />
     <None Remove="Views\TimesheetActivityCategory\TimesheetActivityCategoryView.cshtml" />
     <None Remove="Views\Timesheet\GetTimeSheetsToValidate.cshtml" />
+    <None Remove="Views\Timesheet\ProjectWiseEffortHourReport.cshtml" />
     <None Remove="Views\Timesheet\TimesheetCreate.cshtml" />
+    <None Remove="Views\Timesheet\TimesheetReport.cshtml" />
     <None Remove="Views\Timesheet\TimeSheetsToValidate.cshtml" />
     <None Remove="Views\Timesheet\TimesheetView.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />

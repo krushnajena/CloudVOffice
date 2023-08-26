@@ -51,7 +51,8 @@ namespace Project.Management.Controllers
                     x.TaskName,
                     x.TaskStatus,
                     x.AssignedTo,
-                    x.TaskDescription
+                    TaskDescription =   x.TaskDescription!=null ?x.TaskDescription:"",
+                    x.ProjectTaskId
                 }
                 ).ToList();
             ViewBag.ProjectId = ProjectId;

@@ -20,6 +20,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Immutable;
+using System.Data;
 using System.Text;
 
 namespace CloudVOffice.Services.Projects
@@ -39,13 +40,14 @@ namespace CloudVOffice.Services.Projects
         private readonly IEmailAccountService _emailAccountService;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
-
+        private readonly IProjectService _projectService;
+        private readonly IEmployeeService _employeeService;
         public TimesheetService(ApplicationDBContext Context, ISqlRepository<Timesheet> timesheetRepo,
             IProjectTaskService projectTaskService,
             IHRSettingsService hrSettingsService,
 
 
-
+            IProjectService projectService,
 
               IEmailTemplateService emailTemplateService,
               IHttpContextAccessor httpContextAccessor,
@@ -54,8 +56,9 @@ namespace CloudVOffice.Services.Projects
               IEmailAccountService emailAccountService,
               IEmailService emailService,
             
-              IConfiguration configuration
-            
+              IConfiguration configuration,
+              IEmployeeService employeeService
+
             )
         {
 
@@ -71,8 +74,9 @@ namespace CloudVOffice.Services.Projects
             _emailAccountService = emailAccountService;
             _emailService = emailService;
             _configuration = configuration;
-           
 
+            _projectService = projectService;
+            _employeeService= employeeService;
         }
 
         public List<Timesheet> GetMyTimeSheets(long EmployeeId)
@@ -193,27 +197,134 @@ namespace CloudVOffice.Services.Projects
             var objCheck = _Context.Timesheets.SingleOrDefault(opt => opt.TimesheetId == timesheetDTO.TimesheetId && opt.Deleted == false);
             try
             {
+                if (timesheetDTO.ProjectId != null)
+                {
+                    var projects = _projectService.GetProjectByProjectId(Int64.Parse(timesheetDTO.ProjectId.ToString()));
+                    if (projects != null)
+                    {
+                        var timesheet = GetNotRejectedTimesheetByProjectId(projects.ProjectId);
+
+                        double totatlTimeSpent = 0.0;
+                        for (int j = 0; j < timesheet.Count; j++)
+                        {
+                            int hour = 0;
+                            int min = 0;
+
+                            if (totatlTimeSpent.ToString().Split(".").Count() == 2)
+                            {
+                                hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
+                                min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
+                            }
+                            else
+                            {
+                                hour = int.Parse(totatlTimeSpent.ToString());
+
+                            }
+                            int hour1 = 0;
+                            int min1 = 0;
+
+                            if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                            {
+                                hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                                min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
+                            }
+                            else
+                            {
+                                hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
+
+                            }
 
 
 
-                Timesheet timesheet = new Timesheet();
-                timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
-                timesheet.EmployeeId = timesheetDTO.EmployeeId;
-                timesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
-                timesheet.ActivityId = timesheetDTO.ActivityId;
-                timesheet.ProjectId = timesheetDTO.ProjectId;
-                timesheet.TaskId = timesheetDTO.TaskId;
-                timesheet.FromTime = timesheetDTO.FromTime;
-                timesheet.ToTime = timesheetDTO.ToTime;
-                timesheet.DurationInHours = timesheetDTO.DurationInHours;
-                timesheet.Description = timesheetDTO.Description;
-                timesheet.IsBillable = timesheetDTO.IsBillable;
-                timesheet.HourlyRate = timesheetDTO.HourlyRate;
-                timesheet.TimeSheetApprovalStatus = 0;
 
 
-                timesheet.CreatedBy = timesheetDTO.CreatedBy;
-                var obj = _timesheetRepo.Insert(timesheet);
+                            hour1 = hour1 + hour;
+                            min1 = min1 + min;
+                            TimeSpan hours = TimeSpan.FromMinutes(min1);
+                            hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                            int min2 = int.Parse(hours.ToString("mm"));
+                            string finalno = hour1.ToString() + "." + min2.ToString();
+                            totatlTimeSpent = double.Parse(finalno);
+                        }
+                        if (totatlTimeSpent< projects.EffortHourRequired)
+                        {
+                            Timesheet ntimesheet = new Timesheet();
+                            ntimesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
+                            ntimesheet.EmployeeId = timesheetDTO.EmployeeId;
+                            ntimesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
+                            ntimesheet.ActivityId = timesheetDTO.ActivityId;
+                            ntimesheet.ProjectId = timesheetDTO.ProjectId;
+                            ntimesheet.TaskId = timesheetDTO.TaskId;
+                            ntimesheet.FromTime = timesheetDTO.FromTime;
+                            ntimesheet.ToTime = timesheetDTO.ToTime;
+                            ntimesheet.DurationInHours = timesheetDTO.DurationInHours;
+                            ntimesheet.Description = timesheetDTO.Description;
+                            ntimesheet.IsBillable = timesheetDTO.IsBillable;
+                            ntimesheet.HourlyRate = timesheetDTO.HourlyRate;
+                            ntimesheet.TimeSheetApprovalStatus = 0;
+
+
+                            ntimesheet.CreatedBy = timesheetDTO.CreatedBy;
+
+                            var obj = _timesheetRepo.Insert(ntimesheet);
+                        }
+                        else
+                        {
+
+                            return MessageEnum.HourConsumed;
+                        }
+                    }
+                    else
+                    {
+
+                        Timesheet timesheet = new Timesheet();
+                        timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
+                        timesheet.EmployeeId = timesheetDTO.EmployeeId;
+                        timesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
+                        timesheet.ActivityId = timesheetDTO.ActivityId;
+                        timesheet.ProjectId = timesheetDTO.ProjectId;
+                        timesheet.TaskId = timesheetDTO.TaskId;
+                        timesheet.FromTime = timesheetDTO.FromTime;
+                        timesheet.ToTime = timesheetDTO.ToTime;
+                        timesheet.DurationInHours = timesheetDTO.DurationInHours;
+                        timesheet.Description = timesheetDTO.Description;
+                        timesheet.IsBillable = timesheetDTO.IsBillable;
+                        timesheet.HourlyRate = timesheetDTO.HourlyRate;
+                        timesheet.TimeSheetApprovalStatus = 0;
+
+
+                        timesheet.CreatedBy = timesheetDTO.CreatedBy;
+
+                        var obj = _timesheetRepo.Insert(timesheet);
+                    }
+                }
+                else
+                {
+                    Timesheet timesheet = new Timesheet();
+                    timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
+                    timesheet.EmployeeId = timesheetDTO.EmployeeId;
+                    timesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
+                    timesheet.ActivityId = timesheetDTO.ActivityId;
+                    timesheet.ProjectId = timesheetDTO.ProjectId;
+                    timesheet.TaskId = timesheetDTO.TaskId;
+                    timesheet.FromTime = timesheetDTO.FromTime;
+                    timesheet.ToTime = timesheetDTO.ToTime;
+                    timesheet.DurationInHours = timesheetDTO.DurationInHours;
+                    timesheet.Description = timesheetDTO.Description;
+                    timesheet.IsBillable = timesheetDTO.IsBillable;
+                    timesheet.HourlyRate = timesheetDTO.HourlyRate;
+                    timesheet.TimeSheetApprovalStatus = 0;
+
+
+                    timesheet.CreatedBy = timesheetDTO.CreatedBy;
+
+                    var obj = _timesheetRepo.Insert(timesheet);
+                }
+            
+
+            
 
 
 
@@ -395,7 +506,9 @@ namespace CloudVOffice.Services.Projects
                 timeSheetLineChartModels.Add(new TimeSheetLineChartModel
                 {
                     ForDate = dt,
-                    EffortPercentage = double.Parse(((totatlTimeSpent / systemHour) * 100).ToString("0.00"))
+                    EffortPercentage = double.Parse(((totatlTimeSpent / systemHour) * 100).ToString("0.00")),
+
+                    effortduration = totatlTimeSpent
                 });
 
 
@@ -481,6 +594,253 @@ namespace CloudVOffice.Services.Projects
             });
 
         }
-        
+
+
+
+
+        public List<ProjectWiseTimesheetEffortAnalysys> GetProjectWiseTimesheetEffortAnalysys(Int64 EmployeeId, Int64 UserId)
+        {
+            List<ProjectWiseTimesheetEffortAnalysys> projectWiseTimesheetEffortAnalysys = new List<ProjectWiseTimesheetEffortAnalysys>();
+            var myOpenProjects = _projectService.GetMyAssignedProject(EmployeeId, UserId).Where(x => x.Status == "Open").ToList();
+
+            for (int i = 0; i < myOpenProjects.Count; i++)
+            {
+                var timesheet = GetNotRejectedTimesheetByProjectId(myOpenProjects[i].ProjectId).ToList();
+                double totatlTimeSpent = 0.0;
+                for (int j = 0; j < timesheet.Count; j++)
+                {
+                    int hour = 0;
+                    int min = 0;
+
+                    if (totatlTimeSpent.ToString().Split(".").Count() == 2)
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
+                        min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString());
+
+                    }
+                    int hour1 = 0;
+                    int min1 = 0;
+
+                    if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                    {
+                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                        min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
+
+                    }
+
+
+
+
+
+                    hour1 = hour1 + hour;
+                    min1 = min1 + min;
+                    TimeSpan hours = TimeSpan.FromMinutes(min1);
+                    hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                    int min2 = int.Parse(hours.ToString("mm"));
+                    string finalno = hour1.ToString() + "." + min2.ToString();
+                    totatlTimeSpent = double.Parse(finalno);
+                }
+                projectWiseTimesheetEffortAnalysys.Add(new ProjectWiseTimesheetEffortAnalysys
+                {
+                    ProjectName = myOpenProjects[i].ProjectName,
+                    ProjectCode = myOpenProjects[i].ProjectCode,
+                    PlannedEffortHours = (double)myOpenProjects[i].EffortHourRequired,
+                    EffotHourUsed = totatlTimeSpent
+
+                });
+            }
+
+            return projectWiseTimesheetEffortAnalysys;
+
+        }
+
+        public List<ProjectEmployeeWiseEffortReportViewModel> ProjectEmployeeWiseEffortReport(Int64 EmployeeId, Int64 UserId)
+        {
+            var projects = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+            List<ProjectEmployeeWiseEffortReportViewModel> report = new List<ProjectEmployeeWiseEffortReportViewModel>();
+            for (int i = 0; i < projects.Count; i++)
+            {
+                var timesheet = GetNotRejectedTimesheetByProjectId(projects[i].ProjectId);
+                ProjectEmployeeWiseEffortReportViewModel pr = new ProjectEmployeeWiseEffortReportViewModel();
+                pr.ProjectCode = projects[i].ProjectCode;
+                pr.ProjectName = projects[i].ProjectName;
+                pr.PlannedEffortHours = projects[i].EffortHourRequired.ToString();
+
+
+
+                double totatlTimeSpent = 0.0;
+                for (int j = 0; j < timesheet.Count; j++)
+                {
+                    int hour = 0;
+                    int min = 0;
+
+                    if (totatlTimeSpent.ToString().Split(".").Count() == 2)
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
+                        min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour = int.Parse(totatlTimeSpent.ToString());
+
+                    }
+                    int hour1 = 0;
+                    int min1 = 0;
+
+                    if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                    {
+                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                        min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
+                    }
+                    else
+                    {
+                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
+
+                    }
+
+
+
+
+
+                    hour1 = hour1 + hour;
+                    min1 = min1 + min;
+                    TimeSpan hours = TimeSpan.FromMinutes(min1);
+                    hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                    int min2 = int.Parse(hours.ToString("mm"));
+                    string finalno = hour1.ToString() + "." + min2.ToString();
+                    totatlTimeSpent = double.Parse(finalno);
+                }
+                pr.UsedEffortHours = totatlTimeSpent.ToString();
+
+                pr.EffortPercentage = Double.Parse((totatlTimeSpent / int.Parse(projects[i].EffortHourRequired.ToString()) * 100).ToString("0.00"));
+                var EMP = projects[i].ProjectEmployees.ToList();
+                pr.Employees = new List<ProjectEmployeeWiseEffortReportViewModel>();
+                for (int k = 0; k < EMP.Count; k++)
+                {
+                    var etimesheet = timesheet.Where(x => x.EmployeeId == EMP[k].EmployeeId).ToList();
+                    ProjectEmployeeWiseEffortReportViewModel pr1 = new ProjectEmployeeWiseEffortReportViewModel();
+                    pr1.ProjectCode = EMP[k].Employee.EmployeeCode;
+                    pr1.ProjectName = EMP[k].Employee.FullName;
+                    pr1.PlannedEffortHours = "";
+
+
+
+                    double etotatlTimeSpent = 0.0;
+                    for (int j = 0; j < etimesheet.Count; j++)
+                    {
+                        int hour = 0;
+                        int min = 0;
+
+                        if (etotatlTimeSpent.ToString().Split(".").Count() == 2)
+                        {
+                            hour = int.Parse(etotatlTimeSpent.ToString().Split(".")[0]);
+                            min = int.Parse(etotatlTimeSpent.ToString().Split(".")[1]);
+                        }
+                        else
+                        {
+                            hour = int.Parse(etotatlTimeSpent.ToString());
+
+                        }
+                        int hour1 = 0;
+                        int min1 = 0;
+
+                        if (etimesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                        {
+                            hour1 = int.Parse(etimesheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                            min1 = int.Parse(etimesheet[j].DurationInHours.ToString().Split(".")[1]);
+                        }
+                        else
+                        {
+                            hour1 = int.Parse(etimesheet[j].DurationInHours.ToString());
+
+                        }
+
+
+
+
+
+                        hour1 = hour1 + hour;
+                        min1 = min1 + min;
+                        TimeSpan hours = TimeSpan.FromMinutes(min1);
+                        hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                        int min2 = int.Parse(hours.ToString("mm"));
+                        string finalno = hour1.ToString() + "." + min2.ToString();
+                        etotatlTimeSpent = double.Parse(finalno);
+                    }
+                    pr1.UsedEffortHours = etotatlTimeSpent.ToString();
+                    pr1.EffortPercentage = double.Parse((etotatlTimeSpent / totatlTimeSpent * 100).ToString("0.00"));
+                    pr.Employees.Add(pr1);
+
+                }
+                report.Add(pr);
+            }
+            return report;
+        }
+
+
+
+        public DataTable GetEffortHoursReport(Int64 EmployeeId, Int64 UserId, int Month, int Year)
+        {
+            DataTable report = new DataTable();
+            int days = DateTime.DaysInMonth(Year, Month);
+            report.Columns.Add("Employee Code");
+            report.Columns.Add("Employee Name");
+            for (int i = 1; i <= days; i++)
+            {
+                DateTime date = new DateTime(Year, Month, i);
+                report.Columns.Add(i.ToString() + "(" + date.DayOfWeek + ")");
+            }
+
+
+            var employees = _employeeService.GetEmployeeSubContinent(EmployeeId);
+
+            var myProject = _projectService.GetMyAssignedProject(EmployeeId, UserId);
+            for (int j = 0; j < myProject.Count; j++)
+            {
+                var emp = myProject[j].ProjectEmployees.ToList();
+                for (int i = 0; i < emp.Count; i++)
+                {
+                    employees.Add(emp[i].Employee);
+
+                }
+            }
+
+            var distEmployee = employees.DistinctBy(x => x.EmployeeId).Where(x => x.Status == "Active").ToList();
+            for (int i = 0; i < distEmployee.Count; i++)
+            {
+                var timesheet = TimeSheetEffortAnalysis(
+                    new DateTime(Year, Month, 1),
+                  new DateTime(Year, Month, days),
+                  distEmployee[i].EmployeeId
+                 ).ToList();
+                DataRow dr = report.NewRow();
+                dr[0] = distEmployee[i].EmployeeCode;
+                dr[1] = distEmployee[i].FullName;
+                for (int j = 0; j < timesheet.Count; j++)
+                {
+                    dr[j + 2] = timesheet[j].effortduration + "(" + timesheet[j].EffortPercentage + "%)";
+                }
+
+                report.Rows.Add(dr);
+            }
+
+
+            return report;
+        }
+
     }
 }

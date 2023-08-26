@@ -8,6 +8,7 @@ using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Project.Management.Controllers
 {
     [Area(AreaNames.Projects)]
@@ -64,7 +65,26 @@ namespace Project.Management.Controllers
 
         }
 
+        public IActionResult ProjectWiseEffortHourReport()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
 
+            ViewBag.report = _timesheetService.ProjectEmployeeWiseEffortReport(EmployeeId, UserId);
+            return View("~/Plugins/Project.Management/Views/TimeSheet/ProjectWiseEffortHourReport.cshtml");
+        }
+
+
+      
 
         [HttpPost]
         public IActionResult TimesheetCreate(TimesheetDTO timesheetDTO)
@@ -166,13 +186,47 @@ namespace Project.Management.Controllers
             return View("~/Plugins/Project.Management/Views/Timesheet/TimeSheetsToValidate.cshtml");
         }
 
-        public IActionResult ProjectWiseEffortHourReport()
-        {
-            return View();
-        }
+        //public IActionResult ProjectWiseEffortHourReport()
+        //{
+        //    return View();
+        //}
         public IActionResult TimesheetReport()
         {
-            return View();
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            TimesheetReportModel timesheetRepor = new TimesheetReportModel();
+            timesheetRepor.Month = DateTime.Today.Month;
+            timesheetRepor.Year = DateTime.Today.Year;
+            ViewBag.report = _timesheetService.GetEffortHoursReport(EmployeeId,UserId,DateTime.Today.Month,DateTime.Today.Year);
+            return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetReport.cshtml", timesheetRepor);
+        }
+
+
+        [HttpPost]
+        public IActionResult TimesheetReport(TimesheetReportModel timesheetReport)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            ViewBag.report = _timesheetService.GetEffortHoursReport(EmployeeId, UserId, timesheetReport.Month, timesheetReport.Year);
+            return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetReport.cshtml" , timesheetReport);
         }
 
         [HttpPost]

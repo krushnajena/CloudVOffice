@@ -48,6 +48,7 @@
                               allowPdfExport="true"
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
+                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
@@ -193,5 +194,9 @@
             };
         }
     };
+
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
 
 </script>

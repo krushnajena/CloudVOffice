@@ -100,12 +100,12 @@
                                             <span asp-validation-for="IsLeaveWithoutPay"></span>
                                         </div>
 
-                                        <div class="form-group col-md-12">
+
+                                        <div class="form-group col-md-12" id="IsLeaveWithoutPayWork" style="display:block">
                                             <label for="IsPartiallyPaidLeave" class="form-label">Is Partially Paid Leave</label>
                                             <input asp-for="@Model.IsPartiallyPaidLeave" type="checkbox" id="IsPartiallyPaidLeave" class="form-control" autofocus="autofocus" placeholder="Is Partially Paid Leave" />
                                             <span asp-validation-for="IsPartiallyPaidLeave"></span>
                                         </div>
-
 
                                         <div class="form-group col-md-12">
                                             <label for="IsOptionalLeave" class="form-label">Is Optional Leave</label>
@@ -210,7 +210,7 @@
 
 </div>
 <script>
-                    .form - section.section - head, .form - dashboard - section.section - head {
+                        .form - section.section - head, .form - dashboard - section.section - head {
         font - size: var(--text - base);
         width: 100 %;
         padding: var(--padding - sm) var(--padding - md);
@@ -260,11 +260,11 @@
             if (IsEarnedLeaveCheckbox.checked) {
 
                 IsEarnedLeaveWork.style.display = "block";
-                earningSalaryComponentId.style.display = "block";
+                Rounding.style.display = "block";
             } else {
 
                 IsEarnedLeaveWork.style.display = "none";
-                earningSalaryComponentId.style.display = "none";
+                Rounding.style.display = "none";
             }
         });
 
@@ -273,3 +273,30 @@
     });
 </script>
 
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        var IsPartiallyPaidLeaveCheckbox = document.getElementById("IsLeaveWithoutPay");
+        var IsLeaveWithoutPayWork = document.getElementById("IsLeaveWithoutPayWork");
+        var IsPartiallyPaidLeave = document.getElementById("IsPartiallyPaidLeave");
+
+
+        IsPartiallyPaidLeaveCheckbox.addEventListener("change", function () {
+            if (IsPartiallyPaidLeaveCheckbox.checked) {
+
+                IsLeaveWithoutPayWork.style.display = "none";
+                IsPartiallyPaidLeave.style.display = "none";
+
+            } else {
+
+
+                IsLeaveWithoutPayWork.style.display = "block";
+                IsPartiallyPaidLeave.style.display = "block";
+            }
+        });
+
+
+        IsPartiallyPaidLeaveCheckbox.dispatchEvent(new Event("change"));
+    });
+</script>

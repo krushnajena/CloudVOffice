@@ -48,6 +48,7 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
+                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
                         <e-grid-editSettings allowAdding="false" allowDeleting="false" allowEditing="true" mode="Dialog" template='#dialogtemplate'></e-grid-editSettings>
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
@@ -108,5 +109,9 @@
             };
         }
     };
+
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
 
 </script>

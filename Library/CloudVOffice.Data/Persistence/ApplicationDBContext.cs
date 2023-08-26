@@ -101,13 +101,17 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<AttendanceDevice> AttendanceDevices { get; set; }
 
         public virtual DbSet<EmployeeBiometricData> EmployeeBiometricDatas { get; set; }
+		public virtual DbSet<WorkFromHomeRequest> WorkFromHomeRequests { get; set; }
+
+
+		
 
 
 
-        #endregion
+		#endregion
 
-        #region Recruitment
-        public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
+		#region Recruitment
+		public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }
@@ -570,7 +574,19 @@ namespace CloudVOffice.Data.Persistence
     .WithMany()
     .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Seed();
+
+
+			modelBuilder.Entity<WorkFromHomeRequest>()
+ .HasOne(r => r.Employee)
+ .WithMany()
+ .OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Entity<WorkFromHomeRequest>()
+ .HasOne(r => r.Approver)
+ .WithMany()
+ .OnDelete(DeleteBehavior.Restrict);
+
+			modelBuilder.Seed();
 
 
 

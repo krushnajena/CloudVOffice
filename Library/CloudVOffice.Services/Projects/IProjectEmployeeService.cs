@@ -16,7 +16,7 @@ namespace CloudVOffice.Services.Projects
 
         public List<ProjectEmployee> ProjectEmployeeByProjectId(int ProjectId);
 
-        public MessageEnum ReleaseResource(ReleaseResourceDTO releaseResourceDTO);
+     //   public MessageEnum ReleaseResource(ReleaseResourceDTO releaseResourceDTO);
 
 
 

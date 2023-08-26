@@ -31,4 +31,10 @@
         public Int64 ApprovedBy { get; set; }
         public Int64 UpdatedBy { get; set; }
     }
+
+    public class TimesheetReportModel
+    {
+        public int Month { get; set; }
+        public int Year { get; set; }
+    }
 }

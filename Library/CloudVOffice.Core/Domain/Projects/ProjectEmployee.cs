@@ -9,6 +9,8 @@ namespace CloudVOffice.Core.Domain.Projects
         public Int64 EmployeeId { get; set; }
         public int ProjectId { get; set; }
 
+        public bool IsResourceReleased { get; set; }
+        public DateTime? ResourceReleseDate { get; set; }
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public Int64? UpdatedBy { get; set; }

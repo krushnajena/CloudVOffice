@@ -87,7 +87,7 @@ namespace Projects.Management.Controller
             ViewBag.projectSummery = _projectService.GetProjectTaskColumnChart(EmployeeId, UserId);
 
 
-            ViewBag.projectEffortUsesAnalysys = _projectService.GetProjectWiseTimesheetEffortAnalysys(
+            ViewBag.projectEffortUsesAnalysys = _timesheetService.GetProjectWiseTimesheetEffortAnalysys(
 
           employee.EmployeeId, UserId
         ).ToList();

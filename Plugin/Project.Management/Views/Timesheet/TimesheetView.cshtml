@@ -108,7 +108,15 @@
                     type: "success"
                 });
             }
-           
+            else if (message == "@((int)MessageEnum.HourConsumed)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Time sheet",
+                    text: "Effort Hour Consumed. Please discuss with your Project Manager.",
+                    type: "error"
+                });
+            }
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,
@@ -127,6 +135,7 @@
                     type: "error"
                 });
             }
+           
             else {
                 sweetAlert({
                     html: true,

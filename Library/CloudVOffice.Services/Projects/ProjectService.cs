@@ -2,6 +2,7 @@
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.EmailTemplates;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
@@ -16,7 +17,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Pipelines.Sockets.Unofficial.Arenas;
+using System.Data;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CloudVOffice.Services.Projects
 {
@@ -29,7 +32,7 @@ namespace CloudVOffice.Services.Projects
 
         private readonly IProjectEmployeeService _projectEmployeeService;
         private readonly IProjectTaskService _projectTaskService;
-        private readonly ITimesheetService _timeSheetService;
+      //  private readonly ITimesheetService _timeSheetService;
         private readonly IEmployeeService _employeeService;
         private readonly IEmailTemplateService _emailTemplateService;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -40,7 +43,7 @@ namespace CloudVOffice.Services.Projects
         public ProjectService(ApplicationDBContext Context, ISqlRepository<Project> projectRepo,
              IProjectEmployeeService projectEmployeeService,
              IProjectUserService projectUserService, IProjectTaskService projectTaskService,
-             ITimesheetService timeSheetService,
+            // ITimesheetService timeSheetService,
 
 
               IEmailTemplateService emailTemplateService,
@@ -58,7 +61,7 @@ namespace CloudVOffice.Services.Projects
             _projectUserService = projectUserService;
             _projectEmployeeService = projectEmployeeService;
             _projectTaskService = projectTaskService;
-            _timeSheetService = timeSheetService;
+           // _timeSheetService = timeSheetService;
             _emailTemplateService = emailTemplateService;
             _httpContextAccessor = httpContextAccessor;
             _letterHeadService = letterHeadService;
@@ -301,72 +304,7 @@ namespace CloudVOffice.Services.Projects
             return columnChartModels;
 
         }
-        public List<ProjectWiseTimesheetEffortAnalysys> GetProjectWiseTimesheetEffortAnalysys(Int64 EmployeeId, Int64 UserId)
-        {
-            List<ProjectWiseTimesheetEffortAnalysys> projectWiseTimesheetEffortAnalysys = new List<ProjectWiseTimesheetEffortAnalysys>();
-            var myOpenProjects = GetMyAssignedProject(EmployeeId, UserId).Where(x => x.Status == "Open").ToList();
-
-            for (int i = 0; i < myOpenProjects.Count; i++)
-            {
-                var timesheet = _timeSheetService.GetNotRejectedTimesheetByProjectId(myOpenProjects[i].ProjectId).ToList();
-                double totatlTimeSpent = 0.0;
-                for (int j = 0; j < timesheet.Count; j++)
-                {
-                    int hour = 0;
-                    int min = 0;
-
-                    if (totatlTimeSpent.ToString().Split(".").Count() == 2)
-                    {
-                        hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
-                        min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
-                    }
-                    else
-                    {
-                        hour = int.Parse(totatlTimeSpent.ToString());
-
-                    }
-                    int hour1 = 0;
-                    int min1 = 0;
-
-                    if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
-                    {
-                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
-
-
-                        min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
-                    }
-                    else
-                    {
-                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
-
-                    }
-
-
-
-
-
-                    hour1 = hour1 + hour;
-                    min1 = min1 + min;
-                    TimeSpan hours = TimeSpan.FromMinutes(min1);
-                    hour1 = hour1 + int.Parse(hours.ToString("hh"));
-                    int min2 = int.Parse(hours.ToString("mm"));
-                    string finalno = hour1.ToString() + "." + min2.ToString();
-                    totatlTimeSpent = double.Parse(finalno);
-                }
-                projectWiseTimesheetEffortAnalysys.Add(new ProjectWiseTimesheetEffortAnalysys
-                {
-                    ProjectName = myOpenProjects[i].ProjectName,
-                    ProjectCode = myOpenProjects[i].ProjectCode,
-                    PlannedEffortHours = (double)myOpenProjects[i].EffortHourRequired,
-                    EffotHourUsed = totatlTimeSpent
-
-                });
-            }
-
-            return projectWiseTimesheetEffortAnalysys;
-
-        }
-
+    
 
         private async void SendProjectAssignmentNotification(ProjectDTO projectDTO)
         {
@@ -490,132 +428,7 @@ namespace CloudVOffice.Services.Projects
             return report;
         }
 
-        public List<ProjectEmployeeWiseEffortReportViewModel> ProjectEmployeeWiseEffortReport(Int64 EmployeeId, Int64 UserId)
-        {
-            var projects = GetMyAssignedProject(EmployeeId, UserId);
-            List<ProjectEmployeeWiseEffortReportViewModel> report = new List<ProjectEmployeeWiseEffortReportViewModel>();
-            for (int i = 0; i < projects.Count; i++)
-            {
-                var timesheet = _timeSheetService.GetNotRejectedTimesheetByProjectId(projects[i].ProjectId);
-                ProjectEmployeeWiseEffortReportViewModel pr = new ProjectEmployeeWiseEffortReportViewModel();
-                pr.ProjectCode = projects[i].ProjectCode;
-                pr.ProjectName = projects[i].ProjectName;
-                pr.PlannedEffortHours = projects[i].EffortHourRequired.ToString();
-
-              
-
-               double totatlTimeSpent = 0.0;
-                for (int j = 0; j < timesheet.Count; j++)
-                {
-                    int hour = 0;
-                    int min = 0;
-
-                    if (totatlTimeSpent.ToString().Split(".").Count() == 2)
-                    {
-                        hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
-                        min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
-                    }
-                    else
-                    {
-                        hour = int.Parse(totatlTimeSpent.ToString());
-
-                    }
-                    int hour1 = 0;
-                    int min1 = 0;
-
-                    if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
-                    {
-                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
-
-
-                        min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
-                    }
-                    else
-                    {
-                        hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
-
-                    }
-
-
-
-
-
-                    hour1 = hour1 + hour;
-                    min1 = min1 + min;
-                    TimeSpan hours = TimeSpan.FromMinutes(min1);
-                    hour1 = hour1 + int.Parse(hours.ToString("hh"));
-                    int min2 = int.Parse(hours.ToString("mm"));
-                    string finalno = hour1.ToString() + "." + min2.ToString();
-                    totatlTimeSpent = double.Parse(finalno);
-                }
-                pr.UsedEffortHours = totatlTimeSpent.ToString();
-
-                pr.EffortPercentage = totatlTimeSpent / int.Parse( projects[i].EffortHourRequired.ToString()) *100;
-                var EMP = projects[i].ProjectEmployees.ToList();
-                pr.Employees = new List<ProjectEmployeeWiseEffortReportViewModel>();
-                for (int k=0;k<EMP.Count;k++)
-                {
-                    var etimesheet = timesheet.Where(x => x.EmployeeId == EMP[i].EmployeeId).ToList();
-                    ProjectEmployeeWiseEffortReportViewModel pr1 = new ProjectEmployeeWiseEffortReportViewModel();
-                    pr1.ProjectCode = EMP[k].Employee.EmployeeCode;
-                    pr1.ProjectName = EMP[k].Employee.FullName;
-                    pr1.PlannedEffortHours = "";
-
-
-
-                    double etotatlTimeSpent = 0.0;
-                    for (int j = 0; j < etimesheet.Count; j++)
-                    {
-                        int hour = 0;
-                        int min = 0;
-
-                        if (etotatlTimeSpent.ToString().Split(".").Count() == 2)
-                        {
-                            hour = int.Parse(etotatlTimeSpent.ToString().Split(".")[0]);
-                            min = int.Parse(etotatlTimeSpent.ToString().Split(".")[1]);
-                        }
-                        else
-                        {
-                            hour = int.Parse(etotatlTimeSpent.ToString());
-
-                        }
-                        int hour1 = 0;
-                        int min1 = 0;
-
-                        if (etimesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
-                        {
-                            hour1 = int.Parse(etimesheet[j].DurationInHours.ToString().Split(".")[0]);
-
-
-                            min1 = int.Parse(etimesheet[j].DurationInHours.ToString().Split(".")[1]);
-                        }
-                        else
-                        {
-                            hour1 = int.Parse(etimesheet[j].DurationInHours.ToString());
-
-                        }
-
-
-
-
-
-                        hour1 = hour1 + hour;
-                        min1 = min1 + min;
-                        TimeSpan hours = TimeSpan.FromMinutes(min1);
-                        hour1 = hour1 + int.Parse(hours.ToString("hh"));
-                        int min2 = int.Parse(hours.ToString("mm"));
-                        string finalno = hour1.ToString() + "." + min2.ToString();
-                        etotatlTimeSpent = double.Parse(finalno);
-                    }
-                    pr1.UsedEffortHours = etotatlTimeSpent.ToString();
-                    pr1.EffortPercentage = etotatlTimeSpent / totatlTimeSpent * 100;
-                    pr.Employees.Add(pr1);
-
-                }
-                report.Add(pr);
-            }
-            return report;
-        }
+      
 
     }
 }

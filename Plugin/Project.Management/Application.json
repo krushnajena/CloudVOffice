@@ -180,7 +180,7 @@
 
           {
             "ApplicationName": "Task Delay Validation",
-            "Url": "/Projects/Task/DelayValidation",
+            "Url": "/Projects/Task/TasksForDelayValidation",
             "IsGroup": false,
             "IconImageUrl": "",
             "IconClass": "icon-event_note",

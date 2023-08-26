@@ -159,6 +159,9 @@ namespace CloudVOffice.Services.Projects
             }
         }
 
-
+        public MessageEnum ReleaseResource(ReleaseResourceDTO releaseResourceDTO)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

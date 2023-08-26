@@ -1,4 +1,5 @@
-﻿namespace CloudVOffice.Data.DTO.Projects
+﻿
+namespace CloudVOffice.Data.DTO.Projects
 {
     public class ProjectTaskDTO
     {

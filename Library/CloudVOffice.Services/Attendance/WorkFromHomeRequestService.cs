@@ -57,8 +57,7 @@ namespace CloudVOffice.Services.Attendance
                     workFromHomeRequest.EmployeeId = workFromHomeRequestDTO.EmployeeId;
                     workFromHomeRequest.FromDate = workFromHomeRequestDTO.FromDate;
                     workFromHomeRequest.ToDate = workFromHomeRequestDTO.ToDate;
-                    workFromHomeRequest.Reason = workFromHomeRequestDTO.Reason;
-                    workFromHomeRequest.ApprovalStatus = workFromHomeRequestDTO.ApprovalStatus;
+                   
                     
                     var obj = _workFromHomeRequestRepo.Insert(workFromHomeRequest);
 
@@ -112,7 +111,7 @@ namespace CloudVOffice.Services.Attendance
                         a.FromDate = workFromHomeRequestDTO.FromDate;
                         a.ToDate = workFromHomeRequestDTO.ToDate;
                         a.Reason = workFromHomeRequestDTO.Reason;
-                        a.ApprovalStatus = workFromHomeRequestDTO.ApprovalStatus;
+                       
                         a.UpdatedBy = workFromHomeRequestDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();

@@ -58,7 +58,6 @@ namespace CloudVOffice.Services.Attendance
                     workFromHomeRequest.FromDate = workFromHomeRequestDTO.FromDate;
                     workFromHomeRequest.ToDate = workFromHomeRequestDTO.ToDate;
                    
-                    
                     var obj = _workFromHomeRequestRepo.Insert(workFromHomeRequest);
 
                     return MessageEnum.Success;

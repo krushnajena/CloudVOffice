@@ -35,6 +35,8 @@
 		<None Remove="Views\ShiftEmployee\ShiftEmployeeView.cshtml" />
 		<None Remove="Views\ShiftTypeCreate.cshtml" />
 		<None Remove="Views\ShiftTypeView.cshtml" />
+		<None Remove="Views\WorkFromHomeRequest\WorkFromHomeRequestCreate.cshtml" />
+		<None Remove="Views\WorkFromHomeRequest\WorkFromHomeRequestView.cshtml" />
 	</ItemGroup>
 
 	<ItemGroup>

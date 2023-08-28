@@ -44,21 +44,14 @@
 					<div class="card-header"><b>WorkFromHome Request</b></div>
 					<div class="card-body">
 						<div class="form-row">
-							<div class="form-group col-md-4">
+							<div class="form-group col-md-3">
 								<input asp-for="@Model.WorkFromHomeRequestId" type="hidden" />
-
-								<label for="ForDate" class="form-label">Employee</label>
-								<input asp-for="@Model.EmployeeId" type="text" class="form-control" autofocus="autofocus" placeholder="Employee" />
-								<span asp-validation-for="EmployeeId"></span>
+								<span asp-validation-for="WorkFromHomeRequestId"></span>
 							</div>
-							
-
 						</div>
-
-
-
 						<div class="form-row">
 							<div class="form-group col-md-4">
+								
 								<label for="FromDate" class="form-label">From Date</label>
 								<input asp-for="@Model.FromDate" type="date" class="form-control" autofocus="autofocus" placeholder="From Date" />
 								<span asp-validation-for="FromDate"></span>
@@ -82,40 +75,22 @@
 									<option value="2">Rejected</option>
 								</select>
 								<span asp-validation-for="ApprovalStatus"></span>
-
-
+								
+								
 							</div>
 
 						</div>
+						
 						<div class="form-row">
-
-
-							<div class="form-group col-md-4">
-								<label for="ApprovedBy" class="form-label">ApprovedBy</label>
-								<input asp-for="@Model.ApprovedBy" type="text" class="form-control" autofocus="autofocus" placeholder="ApprovedBy" />
-								<span asp-validation-for="ApprovedBy"></span>
-							</div>
-
-							<div class="form-group col-md-4">
-								<label for="ApprovedDate" class="form-label">Approved Date</label>
-								<input asp-for="@Model.ApprovedDate" type="date" class="form-control" autofocus="autofocus" placeholder="Approved Date" />
-								<span asp-validation-for="ApprovedDate"></span>
-							</div>
-						</div>
-						<div class="form-row">
-						<div class="form-group col-md-4">
+						    <div class="form-group col-md-4">
 								<label for="Reason" class="form-label">Reason</label>
 								<textarea asp-for="@Model.Reason" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Reason" style="height: 150px;"></textarea>
 								<span asp-validation-for="Reason"></span>
-						</div>
+						   </div>
 
-							<div class="form-group col-md-4">
-								<label for="ApprovalRemark" class="form-label">Approval Remark</label>
-								<textarea asp-for="@Model.ApprovalRemark" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="ApprovalRemark" style="height: 150px;"></textarea>
-								<span asp-validation-for="ApprovalRemark"></span>
-							</div>
+							
 						</div>
-
+						
 					</div>
 
 					<div class="card-body">
@@ -136,10 +111,4 @@
 
 </div>
 
-<script>
-	function onEmployeerfiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employees)), query);
-	}
-</script>
+

@@ -2,6 +2,7 @@
 using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Services.Attendance;
+using CloudVOffice.Services.Emp;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,11 @@ namespace HR.Attendance.Controllers
     public class WorkFromHomeRequestController : BasePluginController
     {
         private readonly IWorkFromHomeRequestService _workFromHomeRequestService;
-        public WorkFromHomeRequestController(IWorkFromHomeRequestService workFromHomeRequestService)
+        private readonly IEmployeeService _employeeService;
+        public WorkFromHomeRequestController(IWorkFromHomeRequestService workFromHomeRequestService , IEmployeeService employeeService)
         {
             _workFromHomeRequestService = workFromHomeRequestService;
+            _employeeService = employeeService;
         }
 
         [HttpGet]
@@ -37,6 +40,9 @@ namespace HR.Attendance.Controllers
                 workFromHomeRequestDTO.Reason = d.Reason;
                 workFromHomeRequestDTO.ApprovalStatus = d.ApprovalStatus;
                 workFromHomeRequestDTO.ApprovedBy = d.ApprovedBy;
+                workFromHomeRequestDTO.ApprovalRemark = d.ApprovalRemark;
+                workFromHomeRequestDTO.ApprovedDate = d.ApprovedDate;
+              
             }
 
             return View("~/Plugins/HR.Attendance/Views/WorkFromHomeRequest/WorkFromHomeRequestCreate.cshtml", workFromHomeRequestDTO);
@@ -45,10 +51,11 @@ namespace HR.Attendance.Controllers
         }
 
         [HttpPost]
+
         public IActionResult WorkFromHomeRequestCreate(WorkFromHomeRequestDTO workFromHomeRequestDTO)
         {
             workFromHomeRequestDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
-
+            workFromHomeRequestDTO.EmployeeId = _employeeService.GetEmployeeDetailsByUserId(workFromHomeRequestDTO.CreatedBy).EmployeeId;
 
             if (ModelState.IsValid)
             {
@@ -91,9 +98,11 @@ namespace HR.Attendance.Controllers
                     }
                 }
             }
-            return View("~/Plugins/HR.Attendance/Views/WorkFromHomeRequest/WorkFromHomeRequestCreate.cshtml", workFromHomeRequestDTO);
-        }
 
+
+            return View("~/Plugins/HR.Attendance/Views/WorkFromHomeRequest/WorkFromHomeRequestCreate.cshtml", workFromHomeRequestDTO);
+
+        }
         public IActionResult WorkFromHomeRequestView()
         {
             ViewBag.workFromHomeRequest = _workFromHomeRequestService.GetWorkFromHomeRequestList();
@@ -109,6 +118,53 @@ namespace HR.Attendance.Controllers
             var a = _workFromHomeRequestService.WorkFromHomeRequestDelete(workFromHomeRequestId, DeletedBy);
             TempData["msg"] = a;
             return Redirect("/Attendance/WorkFromHomeRequest/WorkFromHomeRequestView");
+        }
+        public IActionResult WorkFromHomeRequestApproved(WorkFromHomeRequestApprovedDTO workFromHomeRequestApprovedDTO)
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            workFromHomeRequestApprovedDTO.WorkFromHomeApprovedBy = EmployeeId;
+            workFromHomeRequestApprovedDTO.UpdatedBy = UserId;
+            var a = _workFromHomeRequestService.WorkFromHomeRequestApproved(workFromHomeRequestApprovedDTO);
+            return Ok(a);
+        }
+
+        public IActionResult WorkFromHomeRequestToValidate()
+        {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+            var workFromHomeRequest = _workFromHomeRequestService.GetWorkFromHomeRequestToValidate(EmployeeId);
+            var data = from u in workFromHomeRequest
+                       select new
+                       {
+                           WorkFromHomeRequestId = u.WorkFromHomeRequestId,
+                           EmployeeName = u.Employee.FullName,
+                           FromDate = u.FromDate,
+                           ToDate = u.ToDate,
+                           Reason = u.Reason,
+                       };
+            ViewBag.ToValidates = data;
+
+            return View("~/Plugins/HR.Attendance/Views/WorkFromHomeRequest/WorkFromHomeRequestToValidate.cshtml");
         }
 
     }

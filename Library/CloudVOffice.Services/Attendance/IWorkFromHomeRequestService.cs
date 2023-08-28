@@ -17,5 +17,7 @@ namespace CloudVOffice.Services.Attendance
         public WorkFromHomeRequest GetWorkFromHomeRequestById(Int64 workFromHomeRequestId);
         public MessageEnum WorkFromHomeRequestUpdate(WorkFromHomeRequestDTO workFromHomeRequestDTO);
         public MessageEnum WorkFromHomeRequestDelete(Int64 workFromHomeRequestId, Int64 DeletedBy);
+        public List<WorkFromHomeRequest> GetWorkFromHomeRequestToValidate(Int64 EmployeeId);
+        public MessageEnum WorkFromHomeRequestApproved( WorkFromHomeRequestApprovedDTO workFromHomeRequestApprovedDTO);
     }
 }

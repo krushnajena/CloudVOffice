@@ -49,35 +49,12 @@
                 </div>
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.ChartOfAccounts"
-                              allowFiltering="true" allowSorting="true"
-                              allowExcelExport="true" allowGrouping="true"
-                              allowMultiSorting="true"
-                              allowPdfExport="true"
-                              height="600" rowHeight="38"
-                              enableHover="false" enableHeaderFocus="true"
-                              allowResizing="true" autoFit="true" dataBound="dataBound"
-                              enableVirtualization="true" allowSelection="true"
-                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
-
-                        <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
-
-                        <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
-                        <e-grid-columns>
-
-
-                            <e-grid-column field="AccountName" headerText="Account Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="AccountNumber" headerText="Account Number" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="IsGroup" headerText="IsGroup" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="RootType" headerText="Root Type" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ReportType" headerText="Report Type" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ParentAccountGroupId" headerText="ParentAccountGroup Id" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="AccountType" headerText="Account Type" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="TaxRate" headerText="TaxRate" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="BalanceMustBe" headerText="BalanceMustBe" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
-                        </e-grid-columns>
-                    </ejs-grid>
+                         <ejs-treegrid id="GridOverview" dataSource="ViewBag.ChartOfAccounts" height="380" childMapping="Children" treeColumnIndex="1">
+                        <e-treegrid-columns>
+                            <e-treegrid-column field="AccountName" headerText="Project Code" textAlign="Right" width="95"></e-treegrid-column>
+                           
+                        </e-treegrid-columns>
+                    </ejs-treegrid>
 
                 </div>
             </div>

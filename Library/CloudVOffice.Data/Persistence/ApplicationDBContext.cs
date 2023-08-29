@@ -419,6 +419,12 @@ namespace CloudVOffice.Data.Persistence
              .ValueGeneratedNever();
 
 
+            modelBuilder.Entity<ChartOfAccounts>()
+                    .HasOne(e => e.Parent)       // Employee has one Manager
+                    .WithMany(e => e.Subordinates) // Manager has many Subordinates
+                    .HasForeignKey(e => e.ParentAccountGroupId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<FinancialYear>()
   .Property(s => s.CreatedDate)
   .HasDefaultValueSql("getdate()");
@@ -576,15 +582,7 @@ namespace CloudVOffice.Data.Persistence
 
 
 
-			modelBuilder.Entity<WorkFromHomeRequest>()
- .HasOne(r => r.Employee)
- .WithMany()
- .OnDelete(DeleteBehavior.Restrict);
-
-			modelBuilder.Entity<WorkFromHomeRequest>()
- .HasOne(r => r.Approver)
- .WithMany()
- .OnDelete(DeleteBehavior.Restrict);
+		
 
 			modelBuilder.Seed();
 

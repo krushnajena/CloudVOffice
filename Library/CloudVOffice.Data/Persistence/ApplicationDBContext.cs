@@ -582,6 +582,11 @@ namespace CloudVOffice.Data.Persistence
 
 
 
+			modelBuilder.Entity<WorkFromHomeRequest>()
+ .HasOne(r => r.Employee)
+ .WithMany()
+ .OnDelete(DeleteBehavior.Restrict);
+
 		
 
 			modelBuilder.Seed();

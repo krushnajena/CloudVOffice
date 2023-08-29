@@ -47,7 +47,7 @@ namespace CloudVOffice.Services.Attendance
 
         public MessageEnum WorkFromHomeRequestCreate(WorkFromHomeRequestDTO workFromHomeRequestDTO)
         {
-            var objCheck = _Context.WorkFromHomeRequests.SingleOrDefault(opt => opt.WorkFromHomeRequestId == workFromHomeRequestDTO.WorkFromHomeRequestId && opt.Deleted == false);
+            var objCheck = _Context.WorkFromHomeRequests.SingleOrDefault(opt => opt.EmployeeId == workFromHomeRequestDTO.EmployeeId && opt.FromDate == workFromHomeRequestDTO.FromDate && opt.ToDate == workFromHomeRequestDTO.ToDate && (opt.ApprovalStatus != 0 || opt.ApprovalStatus != 1) && opt.Deleted == false);
             try
             {
                 if (objCheck == null)

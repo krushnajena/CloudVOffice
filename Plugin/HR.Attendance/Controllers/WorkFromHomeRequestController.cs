@@ -156,6 +156,7 @@ namespace HR.Attendance.Controllers
                        {
                            WorkFromHomeRequestId = u.WorkFromHomeRequestId,
                            EmployeeName = u.Employee.FullName,
+                           EmployeeCode = u.Employee.EmployeeCode,
                            FromDate = u.FromDate,
                            ToDate = u.ToDate,
                            Reason = u.Reason,

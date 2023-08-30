@@ -23,7 +23,7 @@ namespace CloudVOffice.Data.DTO.Attendance
     {
         public Int64 WorkFromHomeRequestId { get; set; }
         public int ApprovalStatus { get; set; }
-        public Int64 WorkFromHomeApprovedBy { get; set; }
+        public Int64? WorkFromHomeApprovedBy { get; set; }
         public DateTime? ApprovedDate { get; set; }
         public string? ApprovalRemark { get; set; }
         public Int64 UpdatedBy { get; set; }

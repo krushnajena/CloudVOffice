@@ -57,7 +57,7 @@ namespace CloudVOffice.Services.Attendance
                     workFromHomeRequest.EmployeeId = workFromHomeRequestDTO.EmployeeId;
                     workFromHomeRequest.FromDate = workFromHomeRequestDTO.FromDate;
                     workFromHomeRequest.ToDate = workFromHomeRequestDTO.ToDate;
-                   
+                    workFromHomeRequest.Reason = workFromHomeRequestDTO.Reason;
                     var obj = _workFromHomeRequestRepo.Insert(workFromHomeRequest);
 
                     return MessageEnum.Success;
@@ -130,7 +130,7 @@ namespace CloudVOffice.Services.Attendance
                 throw;
             }
         }
-        public List<WorkFromHomeRequest> GetWorkFromHomeRequestToValidate(long EmployeeId)
+        public List<WorkFromHomeRequest> GetWorkFromHomeRequestToValidate(Int64 EmployeeId)
         {
             try
             {

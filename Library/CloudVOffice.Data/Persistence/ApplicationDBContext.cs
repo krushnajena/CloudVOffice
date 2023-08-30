@@ -104,14 +104,16 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<WorkFromHomeRequest> WorkFromHomeRequests { get; set; }
 
 
-		
+
+        public virtual DbSet<LeavePolicy> LeavePolicies { get; set; }
+
+        public virtual DbSet<LeavePolicyDetails> LeavePolicyDetails{ get; set; }
 
 
+        #endregion
 
-		#endregion
-
-		#region Recruitment
-		public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
+        #region Recruitment
+        public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }

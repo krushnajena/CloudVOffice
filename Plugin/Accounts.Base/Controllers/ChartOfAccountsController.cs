@@ -98,6 +98,7 @@ namespace Accounts.Base.Controllers
         }
         public IActionResult ChartOfAccountsView()
         {
+            
             ViewBag.ChartOfAccounts = _chartOfAccountsService.GetChartOfAccounts();
 
             return View("~/Plugins/Accounts.Base/Views/ChartOfAccounts/ChartOfAccountsView.cshtml");

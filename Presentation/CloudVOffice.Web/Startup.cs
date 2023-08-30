@@ -115,6 +115,7 @@ namespace CloudVOffice.Web
             services.AddRazorPages();
             mvcBuilder.AddNewtonsoftJson(delegate (MvcNewtonsoftJsonOptions options)
             {
+               
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
            

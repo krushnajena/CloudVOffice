@@ -1,5 +1,6 @@
 ﻿using CloudVOffice.Core.Domain.Accounts;
 using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Data.DTO.Accounts;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
@@ -124,20 +125,22 @@ namespace CloudVOffice.Services.Accounts
 
             try
             {
-                return _Context.ChartOfAccounts
-                    .FromSqlRaw(@"WITH ChartOfAccountsH AS (
-    SELECT *
-    FROM ChartOfAccounts
-    WHERE ParentAccountGroupId IS NULL
-    
-    UNION ALL
-    
-    SELECT e.*
-    FROM ChartOfAccounts e
-    JOIN ChartOfAccountsH eh ON e.ParentAccountGroupId = eh.ParentAccountGroupId
-)
-SELECT * FROM ChartOfAccountsH;").ToList();
 
+                var chartOfAccounts = new List<ChartOfAccounts>();
+              
+                var c= _Context.ChartOfAccounts.Where(x=>x.ParentAccountGroupId == null && x.Deleted == false).ToList();
+
+
+                foreach (var nemployee in c)
+                {
+                   
+                    List<ChartOfAccounts> cr= GetSubChartOfAccounts(nemployee.ChartOfAccountsId);
+                    nemployee.Subordinates = cr;
+                    chartOfAccounts.Add(nemployee);
+                }
+
+
+                return chartOfAccounts;
             }
             catch
             {
@@ -146,6 +149,27 @@ SELECT * FROM ChartOfAccountsH;").ToList();
         }
 
 
+
+        private List<ChartOfAccounts> GetSubChartOfAccounts(long AccountsId)
+        {
+            var chartOfAccounts = new List<ChartOfAccounts>();
+            //result.Add(employee);
+            var employees = _Context.ChartOfAccounts
+               
+                .Where(e => e.ParentAccountGroupId == AccountsId && e.Deleted == false)
+                .ToList();
+
+
+            foreach (var nemployee in employees)
+            {
+
+                List<ChartOfAccounts> cr = GetSubChartOfAccounts(nemployee.ChartOfAccountsId);
+                nemployee.Subordinates = cr;
+                chartOfAccounts.Add(nemployee);
+            }
+
+            return chartOfAccounts;
+        }
 
         public ChartOfAccounts GetChartOfAccountsById(Int64 chartOfAccountsId)
         {

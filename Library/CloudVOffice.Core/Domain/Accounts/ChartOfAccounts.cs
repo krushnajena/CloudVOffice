@@ -1,5 +1,7 @@
 ﻿
 
+using Newtonsoft.Json;
+
 namespace CloudVOffice.Core.Domain.Accounts
 {
     public class ChartOfAccounts : IAuditEntity, ISoftDeletedEntity
@@ -20,6 +22,7 @@ namespace CloudVOffice.Core.Domain.Accounts
         public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
+        [JsonIgnore]
         public ChartOfAccounts Parent { get; set; }
 
         public ICollection<ChartOfAccounts> Subordinates { get; set; } = new List<ChartOfAccounts>();

@@ -3,6 +3,7 @@ using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project.Management.Controllers
@@ -15,8 +16,9 @@ namespace Project.Management.Controllers
         {
             _timesheetActivityCategoryService = timesheetActivityCategoryService;
         }
-
-        public IActionResult TimesheetActivityCategoryCreate(int? TimesheetActivityCategoryId)
+        [HttpGet]
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetActivityCategoryCreate(int? TimesheetActivityCategoryId)
         {
             TimesheetActivityCategoryDTO timesheetActivityCategory = new TimesheetActivityCategoryDTO();
             if (TimesheetActivityCategoryId != null)
@@ -75,7 +77,8 @@ namespace Project.Management.Controllers
             }
             return View("~/Plugins/Project.Management/Views/TimesheetActivityCategory/TimesheetActivityCategoryCreate.cshtml", timesheetActivityCategoryDTO);
         }
-        public IActionResult TimesheetActivityCategoryView()
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetActivityCategoryView()
         {
             ViewBag.timesheetActivityCategories = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
 
@@ -83,7 +86,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpGet]
-        public IActionResult TimesheetActivityCategoryDelete(int timesheetActivityCategoryId)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetActivityCategoryDelete(int timesheetActivityCategoryId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 

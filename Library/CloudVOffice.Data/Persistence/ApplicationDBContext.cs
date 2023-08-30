@@ -97,7 +97,7 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<LeaveType> LeaveTypes { get; set; }
         public virtual DbSet<LeavePeriod> LeavePeriods { get; set; }
 
-
+        
         public virtual DbSet<AttendanceDevice> AttendanceDevices { get; set; }
 
         public virtual DbSet<EmployeeBiometricData> EmployeeBiometricDatas { get; set; }

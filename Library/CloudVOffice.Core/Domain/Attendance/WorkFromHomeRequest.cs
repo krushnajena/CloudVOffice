@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.Projects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +15,7 @@ namespace CloudVOffice.Core.Domain.Attendance
 		public Int64 EmployeeId { get; set; }
 		public DateTime? FromDate { get; set; }	
 		public DateTime? ToDate { get; set;}
-		public string Reason { get; set; }	
+		public string? Reason { get; set; }	
 		public int ApprovalStatus { get; set; } //0 - Submitted, 1- Approved , 2- Rejected
 		public Int64? ApprovedBy { get; set; }
 		public DateTime? ApprovedDate { get; set; }
@@ -31,5 +32,5 @@ namespace CloudVOffice.Core.Domain.Attendance
 		[ForeignKey("ApprovedBy")]
 		public Employee Approver { get; set; }
 
-	}
+    }
 }

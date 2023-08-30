@@ -1,4 +1,6 @@
-﻿namespace CloudVOffice.Core.Domain.Accounts
+﻿
+
+namespace CloudVOffice.Core.Domain.Accounts
 {
     public class ChartOfAccounts : IAuditEntity, ISoftDeletedEntity
     {
@@ -18,6 +20,8 @@
         public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
-        public ICollection<ChartOfAccounts> Children { get; set; }
+        public ChartOfAccounts Parent { get; set; }
+
+        public ICollection<ChartOfAccounts> Subordinates { get; set; } = new List<ChartOfAccounts>();
     }
 }

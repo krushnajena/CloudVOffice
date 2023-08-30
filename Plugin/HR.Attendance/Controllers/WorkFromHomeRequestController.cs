@@ -39,9 +39,7 @@ namespace HR.Attendance.Controllers
                 workFromHomeRequestDTO.ToDate = d.ToDate;
                 workFromHomeRequestDTO.Reason = d.Reason;
                 workFromHomeRequestDTO.ApprovalStatus = d.ApprovalStatus;
-                workFromHomeRequestDTO.ApprovedBy = d.ApprovedBy;
-                workFromHomeRequestDTO.ApprovalRemark = d.ApprovalRemark;
-                workFromHomeRequestDTO.ApprovedDate = d.ApprovedDate;
+             
               
             }
 
@@ -159,6 +157,7 @@ namespace HR.Attendance.Controllers
                            WorkFromHomeRequestId = u.WorkFromHomeRequestId,
                             
                            EmployeeName = u.Employee.FullName,
+                           EmployeeCode = u.Employee.EmployeeCode,
                            FromDate = u.FromDate,
                            ToDate = u.ToDate,
                            Reason = u.Reason,

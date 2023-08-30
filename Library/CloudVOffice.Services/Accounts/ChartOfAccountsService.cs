@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Accounts;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudVOffice.Services.Accounts
 {
@@ -123,7 +124,19 @@ namespace CloudVOffice.Services.Accounts
 
             try
             {
-                return _Context.ChartOfAccounts.Where(x => x.Deleted == false && x.IsGroup == true).ToList();
+                return _Context.ChartOfAccounts
+                    .FromSqlRaw(@"WITH ChartOfAccountsH AS (
+    SELECT *
+    FROM ChartOfAccounts
+    WHERE ParentAccountGroupId IS NULL
+    
+    UNION ALL
+    
+    SELECT e.*
+    FROM ChartOfAccounts e
+    JOIN ChartOfAccountsH eh ON e.ParentAccountGroupId = eh.ParentAccountGroupId
+)
+SELECT * FROM ChartOfAccountsH;").ToList();
 
             }
             catch
@@ -131,6 +144,7 @@ namespace CloudVOffice.Services.Accounts
                 throw;
             }
         }
+
 
 
         public ChartOfAccounts GetChartOfAccountsById(Int64 chartOfAccountsId)

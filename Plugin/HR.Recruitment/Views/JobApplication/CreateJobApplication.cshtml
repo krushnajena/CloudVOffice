@@ -86,12 +86,12 @@
 
 							<div class="form-group col-md-4">
 								<label for="CV" class="form-label">CV</label>
-								<input asp-for="@Model.CV" type="file" class="form-control" autofocus="autofocus" placeholder="CV" />
+								<input asp-for="@Model.CVDOC" type="file" class="form-control" autofocus="autofocus" placeholder="CV" />
 								<span asp-validation-for="CV"></span>
 								@{
 									if (Model.CV != null)
 									{
-										<img src="/uploads/JobApplication/@Model.CV" style="height:100px; width:100px" />
+										<img src="/uploads/jobapplication/@Model.CV" style="height:100px; width:100px" />
 										<input type="hidden" asp-for="@Model.CV">
 									}
 								}

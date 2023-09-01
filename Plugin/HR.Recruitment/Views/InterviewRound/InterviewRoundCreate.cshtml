@@ -1,0 +1,114 @@
+﻿@model CloudVOffice.Data.DTO.Recruitment.InterviewRoundDTO;
+@{
+	Layout = "_MainAppLayout";
+	ViewData["Title"] = "InterviewRound";
+	var interviewType = new SelectList((IEnumerable)ViewBag.InterviewType, "InterviewTypeId", "InterviewTypeName");
+	var desgination = new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName");
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Interview Round</h5>
+				
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Recruitment/InterviewRound/InterviewRoundCreate" method="post" autocomplete="off">
+					<div asp-
+						 ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>Interview Round</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.InterviewRoundId" type="hidden" />
+
+								<label for="InterviewRoundName" class="form-label">Interview Round Name</label>
+								<input asp-for="@Model.InterviewRoundName" type="text" class="form-control" autofocus="autofocus" placeholder="Interview Round Name" />
+								<span asp-validation-for="InterviewRoundName"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="InterviewTypeId" class="form-label">Interview Type</label>
+								<ejs-dropdownlist id="InterviewTypeId" allowFiltering="true" ejs-for="@Model.InterviewTypeId" filtering="onInterviewTyperfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.InterviewType, "InterviewTypeId", "InterviewTypeName").Items)" placeholder="Select Interview Type" popupHeight="220px">
+									<e-dropdownlist-fields text="InterviewTypeName" value="InterviewTypeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="InterviewTypeId"></span>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-4">
+
+								<label for="DesignationId" class="form-label">Designation</label>
+								<ejs-dropdownlist id="DesignationId" allowFiltering="true" ejs-for="@Model.DesignationId" filtering="onDesignationrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName").Items)" placeholder="Select Designation" popupHeight="220px">
+									<e-dropdownlist-fields text="DesignationName" value="DesignationId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+								<span asp-validation-for="DesignationId"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="InterviewRoundOrder" class="form-label">Interview Round Order</label>
+								<input asp-for="@Model.InterviewRoundOrder" type="text" class="form-control" autofocus="autofocus" placeholder="Interview Round Order" />
+								<span asp-validation-for="InterviewRoundOrder"></span>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>
+
+<script>
+	function onInterviewTyperfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('InterviewTypeName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.InterviewType)), query);
+	}
+</script>
+
+<script>
+	function onDesignationrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('DesignationName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Designation)), query);
+	}
+</script>

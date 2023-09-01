@@ -19,12 +19,14 @@ namespace HR.Recruitment.Controllers
         private readonly IJobOpeningService _jobOpeningService;
         private readonly IDepartmentService _departmentService;
         private readonly IDesignationService _designationService;
-        public JobOpeningController(IJobOpeningService jobOpeningService, IDepartmentService departmentService , IDesignationService designationService)
+        private readonly ISkillSetService _skillSetService;
+        public JobOpeningController(IJobOpeningService jobOpeningService, IDepartmentService departmentService , IDesignationService designationService, ISkillSetService skillSetService)
         {
 
             _jobOpeningService = jobOpeningService;
             _departmentService = departmentService;
             _designationService = designationService;
+            _skillSetService = skillSetService;
         }
         [HttpGet]
          public IActionResult JobOpeningCreate(int? jobOpeningId)
@@ -34,9 +36,10 @@ namespace HR.Recruitment.Controllers
 			ViewBag.Department = department;
 			var desgination = _designationService.GetDesignationList();
 			ViewBag.Designation = desgination;
+            var skillSet = _skillSetService.GetSkillSetList();
+            ViewBag.skillSet = skillSet;
 
-
-			if (jobOpeningId != null)
+            if (jobOpeningId != null)
             {
 
                 var d = _jobOpeningService.GetJobOpeningByJobOpeningId(int.Parse(jobOpeningId.ToString()));
@@ -44,6 +47,7 @@ namespace HR.Recruitment.Controllers
                 jobOpeningDTO.JobTitle = d.JobTitle; 
                 jobOpeningDTO.DepartmentId = d.DepartmentId;
                 jobOpeningDTO.DesignationId = d.DesignationId;
+                jobOpeningDTO.SkillSetId = d.SkillSetId;
                 jobOpeningDTO.Status = d.Status;
                 jobOpeningDTO.Description = d.Description;
                 jobOpeningDTO.SalaryLowerRange = d.SalaryLowerRange;
@@ -107,7 +111,9 @@ namespace HR.Recruitment.Controllers
 			ViewBag.Department = department;
 			var desgination = _designationService.GetDesignationList();
 			ViewBag.Designation = desgination;
-			return View("~/Plugins/HR.Recruitment/Views/JobOpening/JobOpeningCreate.cshtml", jobOpeningDTO);
+            var skillSet = _skillSetService.GetSkillSetList();
+            ViewBag.skillSet = skillSet;
+            return View("~/Plugins/HR.Recruitment/Views/JobOpening/JobOpeningCreate.cshtml", jobOpeningDTO);
         }
         public IActionResult JobOpeningView()
         {

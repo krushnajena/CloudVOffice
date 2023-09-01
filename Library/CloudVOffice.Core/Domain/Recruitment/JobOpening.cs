@@ -28,6 +28,9 @@ namespace CloudVOffice.Core.Domain.Recruitment
         [ForeignKey("DesignationId")]
         public Designation Designation { get; set; }
 
+        [ForeignKey("SkillSetId")]
+        public SkillSet SkillSet { get; set; }
+
 
     }
 }

@@ -32,7 +32,8 @@ namespace CloudVOffice.Services.Recruitment
                     jobOpening.JobTitle = jobOpeningDTO.JobTitle;
                     jobOpening.DepartmentId = jobOpeningDTO.DepartmentId;
                     jobOpening.DesignationId = jobOpeningDTO.DesignationId;
-                    jobOpening.Status = jobOpeningDTO.Status;
+					jobOpening.SkillSetId = jobOpeningDTO.SkillSetId;
+					jobOpening.Status = jobOpeningDTO.Status;
                     jobOpening.Description = jobOpeningDTO.Description;
                     jobOpening.SalaryLowerRange = jobOpeningDTO.SalaryLowerRange;
                     jobOpening.SalaryUpperRange = jobOpeningDTO.SalaryUpperRange;
@@ -116,7 +117,8 @@ namespace CloudVOffice.Services.Recruitment
                         a.JobTitle = jobOpeningDTO.JobTitle;
                         a.DepartmentId = jobOpeningDTO.DepartmentId;
                         a.DesignationId = jobOpeningDTO.DesignationId;
-                        a.Status = jobOpeningDTO.Status;
+						a.SkillSetId = jobOpeningDTO.SkillSetId;
+						a.Status = jobOpeningDTO.Status;
                         a.Description = jobOpeningDTO.Description;
                         a.SalaryLowerRange = jobOpeningDTO.SalaryLowerRange;
                         a.SalaryUpperRange = jobOpeningDTO.SalaryUpperRange;

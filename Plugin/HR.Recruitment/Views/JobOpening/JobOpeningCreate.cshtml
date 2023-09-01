@@ -72,42 +72,57 @@
 								<span asp-validation-for="DesignationId"></span>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="Status" class="form-label">Status&nbsp;<span style="color:red;"><b>*</b></span></label>
-								<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
-									<option value="1">Open</option>
-									<option value="2">Closed</option>
-									
-								</select>
+
+								<label for="SkillSetId" class="form-label">SkillSet</label>
+								<ejs-dropdownlist id="SkillSetId" allowFiltering="true" ejs-for="@Model.SkillSetId" filtering="onSkillSetrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.skillSet, "SkillSetId", "SkillName").Items)" placeholder="Select SkillSet" popupHeight="220px">
+									<e-dropdownlist-fields text="SkillName" value="SkillSetId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+								<span asp-validation-for="SkillSetId"></span>
 							</div>
+							
 						</div>
 
 						
 						<div class="form-row">
 
+							<div class="form-group col-md-4">
+								<label for="Status" class="form-label">Status&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
+									<option value="1">Open</option>
+									<option value="2">Closed</option>
 
-							<div class="form-group col-md-8">
-								<label for="Description" class="form-label">Description</label>
-								<textarea asp-for="@Model.Description" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Description" style="height: 150px;"></textarea>
-								<span asp-validation-for="Description"></span>
+								</select>
 							</div>
-
-
-						</div>
-
-						<div class="form-row">
+							
 							<div class="form-group col-md-4">
 								<label for="SalaryLowerRange" class="form-label">Salary Lower Range</label>
 								<input asp-for="@Model.SalaryLowerRange" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Lower Range" />
 								<span asp-validation-for="SalaryLowerRange"></span>
 							</div>
+
+						</div>
+
+						<div class="form-row">
+							
 							<div class="form-group col-md-4">
 								<label for="SalaryUpperRange" class="form-label">Salary Upper Range</label>
 								<input asp-for="@Model.SalaryUpperRange" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Upper Range" />
 								<span asp-validation-for="SalaryUpperRange"></span>
 							</div>
+							
 						</div>
 
-						
+
+						<div class="form-row">
+
+							
+							<div class="form-group col-md-4">
+								<label for="Description" class="form-label">Description</label>
+								<textarea asp-for="@Model.Description" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Description" style="height: 150px;"></textarea>
+								<span asp-validation-for="Description"></span>
+							</div>
+						</div>
 
 					</div>
 
@@ -127,7 +142,7 @@
 		</div>
 	</div>
 
-</div>
+</div>t
 <script>
 	function onDepartmentrfiltering(e) {
 		var query = new ej.data.Query();
@@ -141,5 +156,12 @@
 		var query = new ej.data.Query();
 		query = (e.text !== '') ? query.where('DesignationName', 'startswith', e.text, true) : query;
 		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Designation)), query);
+	}
+</script>
+<script>
+	function onSkillSetrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('SkillName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.skillSet)), query);
 	}
 </script>

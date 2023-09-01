@@ -8,7 +8,7 @@ namespace CloudVOffice.Data.DTO.Attendance
 {
 	public class LeavePolicyDetailsDTO
 	{
-		public int LeavePolicyDetailsId { get; set; }
+		public int? LeavePolicyDetailsId { get; set; }
 		public int LeavePolicyId { get; set; }
 		public int LeaveTypeId { get; set; }
 		public int NoOfLeaves { get; set; }

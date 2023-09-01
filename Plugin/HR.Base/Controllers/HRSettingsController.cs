@@ -5,7 +5,7 @@ using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+    
 namespace HR.Base.Controllers
 {
     [Area(AreaNames.HR)]

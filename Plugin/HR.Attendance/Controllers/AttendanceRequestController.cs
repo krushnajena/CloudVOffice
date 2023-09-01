@@ -94,7 +94,7 @@ namespace HR.Attendance.Controllers
                     }
                     else
                     {
-                        TempData["msg"] = MessageEnum.UnExpectedError;
+                        TempData["msg"] = MessageEnum.UnExpectedError;  
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
                 }

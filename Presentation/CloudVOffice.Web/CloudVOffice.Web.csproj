@@ -36,6 +36,7 @@
 		<Folder Include="Areas\Setup\Models\" />
 		<Folder Include="Plugins\" />
 		<Folder Include="wwwroot\uploads\employee\" />
+		<Folder Include="wwwroot\uploads\jobapplication\" />
 
 
 	</ItemGroup>

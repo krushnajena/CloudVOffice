@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "JobApplication";
+
+    ViewData["Title"] = "InterviewPanelMember";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -12,13 +13,13 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>JobApplication</h5>
-                    <h6 class="sub-heading">  </h6>
+                    <h5>InterviewPanel Member</h5>
+
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">  </span>
+                    <span class="last-login"></span>
                 </div>
             </div>
         </div>
@@ -31,27 +32,27 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-
                     <div class="row">
                         <div class="col-md-8">
-                            Job Application
+                            InterviewPanel Member
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Recruitment/JobApplication/CreateJobApplication" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Job Application</a>
+                            <a href="Recruitment/InterviewPanelMember/InterviewPanelMemberCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add InterviewPanel Member</a>
 
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.jobApplication"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.interviewPanelMember"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
                               allowPdfExport="true"
                               height="600" rowHeight="38"
-                              enableHover="false" enableHeaderFocus="true"
                               allowResizing="true" autoFit="true" dataBound="dataBound"
+                              enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
 
@@ -60,19 +61,9 @@
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
 
-                            <e-grid-column field="JobOpening" headerText="Job Opening" textAlign="Left" width="120"></e-grid-column>
 
-                            <e-grid-column field="ApplicantName" headerText="Applicant Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="EmailAddress" headerText="Email Address" textAlign="Left" width="120"></e-grid-column>
-
-                            <e-grid-column field="PhoneNo" headerText="Phone No" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="JobApplicationSource" headerText="Job Application Source" textAlign="Left" width="120"></e-grid-column>
-
-                            <e-grid-column field="CV" headerText="CV" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="SalaryExpectation" headerText="Salary Expectation" textAlign="Left" width="120"></e-grid-column>
-
-                            <e-grid-column field="SalaryExpectationLowerRange" headerText="Salary Expectation Lower Range" textAlign="Left" width="120"></e-grid-column>
-
+                            <e-grid-column field="InterviewRoundId" headerText="Interview Round Id" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="EmployeeId" headerText="EmployeeId" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -84,7 +75,6 @@
 
 </div>
 
-
 @{
 
     if (TempData["msg"] != null)
@@ -95,7 +85,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobApplication",
+                    title: "InterviewPanelMember",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -104,7 +94,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobApplication",
+                    title: "InterviewPanelMember",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -113,7 +103,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobApplication",
+                    title: "InterviewPanelMember",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -122,7 +112,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "JobApplication",
+                    title: "InterviewPanelMember",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -131,7 +121,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "JobApplication",
+                    title: "InterviewPanelMember",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -140,7 +130,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "JobApplication",
+                    title: "InterviewPanelMember",
                     text: message,
                     type: "error"
                 });
@@ -163,7 +153,7 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Recruitment/JobApplication/JobApplicationDelete?JobApplicationId=" + Id;
+                window.location.href = "../../Recruitment/InterviewPanelMember/InterviewPanelMemberDelete?InterviewPanelMemberId=" + Id;
             }
         })
     }
@@ -172,15 +162,13 @@
 
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Recruitment/JobApplication/CreateJobApplication?JobApplicationId=${JobApplicationId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-
-        <button onClick="Delete(${JobApplicationId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>    </div>
+        <a href="../../Recruitment/InterviewPanelMember/InterviewPanelMemberCreate?InterviewPanelMemberId=${InterviewPanelMemberId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${InterviewPanelMemberId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+    </div>
 </script>
-
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
-
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
@@ -213,4 +201,5 @@
     function dataBound(args) {
         this.autoFitColumns();
     }
+
 </script>

@@ -17,6 +17,8 @@
 		<None Remove="roles.json" />
 		<None Remove="Views\InterFeedBackQuestions\InterFeedBackQuestionsCreate.cshtml" />
 		<None Remove="Views\InterFeedBackQuestions\InterFeedBackQuestionsView.cshtml" />
+		<None Remove="Views\InterviewPanelMember\InterviewPanelMemberCreate.cshtml" />
+		<None Remove="Views\InterviewPanelMember\InterviewPanelMemberView.cshtml" />
 		<None Remove="Views\InterviewRound\InterviewRoundCreate.cshtml" />
 		<None Remove="Views\InterviewRound\InterviewRoundView.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningCreate.cshtml" />

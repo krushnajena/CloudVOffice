@@ -6,6 +6,8 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 
+@using System.Collections;
+@using Newtonsoft.Json;
 <header class="main-heading">
 	<div class="container-fluid">
 		<div class="row">
@@ -14,8 +16,8 @@
 					<i class="icon-laptop_windows"></i>
 				</div>
 				<div class="page-title">
-					<h5>CRM Dashboard</h5>
-					<h6 class="sub-heading">Welcome to Unify Admin Template</h6>
+					<h5>Job Application</h5>
+					
 				</div>
 			</div>
 			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -33,35 +35,40 @@
 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
 			<div class="card">
-				<form asp-route="Recruitment/JobApplication/CreateJobApplication" method="post" autocomplete="off">
+				<form asp-route="Recruitment/JobApplication/CreateJobApplication" method="post" autocomplete="off" enctype="multipart/form-data">
 					<div asp-
 						 ation-summary="ModelOnly" class="message-error"></div>
 
 
-					<div class="card-header"><b>Basic Info</b></div>
+					<div class="card-header"><b>Job Application</b></div>
 					<div class="card-body">
 						<div class="form-row">
-							<div class="form-group col-md-5">
+							<div class="form-group col-md-4">
 								<input asp-for="@Model.JobApplicationId" type="hidden" />
 
-								<label for="JobId" class="form-label">Job Id</label>
-								<input asp-for="@Model.JobId" type="text" class="form-control" autofocus="autofocus" placeholder="Job Id" />
-								<span asp-validation-for="JobId"></span>
+								
+									<label for="ApplicantName" class="form-label">Applicant Name</label>
+									<input asp-for="@Model.ApplicantName" type="text" class="form-control" autofocus="autofocus" placeholder="Applicant Name" />
+									<span asp-validation-for="ApplicantName"></span>
+								
 							</div>
-							<div class="form-group col-md-5">
-								<label for="ApplicantName" class="form-label">Applicant Name</label>
-								<input asp-for="@Model.ApplicantName" type="text" class="form-control" autofocus="autofocus" placeholder="Applicant Name" />
-								<span asp-validation-for="ApplicantName"></span>
+							
+							<div class="form-group col-md-4">
+								<label for="JobApplicationSourceId" class="form-label">JobApplicationSource</label>
+								<ejs-dropdownlist id="JobApplicationSourceId" allowFiltering="true" ejs-for="@Model.JobApplicationSourceId" filtering="onJobApplicationSourcerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobApplicationSource, "JobApplicationSourceId", "SourceName").Items)" placeholder="Select JobApplicationSource" popupHeight="220px">
+									<e-dropdownlist-fields text="SourceName" value="JobApplicationSourceId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="JobApplicationSourceId"></span>
 							</div>
 						</div>
 
 						<div class="form-row">
-							<div class="form-group col-md-5">
+							<div class="form-group col-md-4">
 								<label for="EmailAddress" class="form-label">Email Address</label>
 								<input asp-for="@Model.EmailAddress" type="text" class="form-control" autofocus="autofocus" placeholder="Email Address" />
 								<span asp-validation-for="EmailAddress"></span>
 							</div>
-							<div class="form-group col-md-5">
+							<div class="form-group col-md-4">
 								<label for="PhoneNo" class="form-label">Phone No</label>
 								<input asp-for="@Model.PhoneNo" type="text" class="form-control" autofocus="autofocus" placeholder="Phone No" />
 								<span asp-validation-for="PhoneNo"></span>
@@ -69,36 +76,45 @@
 						</div>
 
 						<div class="form-row">
-							<div class="form-group col-md-5">
-								<label for="JobApplicationSourceId" class="form-label">JobApplication Source Id</label>
-								<input asp-for="@Model.JobApplicationSourceId" type="text" class="form-control" autofocus="autofocus" placeholder="Job Application Source Id" />
-								<span asp-validation-for="JobApplicationSourceId"></span>
+							<div class="form-group col-md-4">
+								<label for="JobId" class="form-label">Job Opening</label>
+								<ejs-dropdownlist id="JobOpeningId" allowFiltering="true" ejs-for="@Model.JobId" filtering="onJobOpeningrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobOpening, "JobOpeningId", "JobTitle").Items)" placeholder="Select Job Opening" popupHeight="220px">
+									<e-dropdownlist-fields text="JobTitle" value="JobOpeningId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="JobId"></span>
 							</div>
 
-							<div class="form-group col-md-5">
+							<div class="form-group col-md-4">
 								<label for="CV" class="form-label">CV</label>
-								<input asp-for="@Model.CV" type="text" class="form-control" autofocus="autofocus" placeholder="CV" />
+								<input asp-for="@Model.CVDOC" type="file" class="form-control" autofocus="autofocus" placeholder="CV" />
 								<span asp-validation-for="CV"></span>
+								@{
+									if (Model.CV != null)
+									{
+										<img src="/uploads/jobapplication/@Model.CV" style="height:100px; width:100px" />
+										<input type="hidden" asp-for="@Model.CV">
+									}
+								}
 							</div>
 
 						</div>
 
 						<div class="form-row">
-							<div class="form-group col-md-5">
+							<div class="form-group col-md-4">
 								<label for="SalaryExpectation" class="form-label">Salary Expectation</label>
 								<input asp-for="@Model.SalaryExpectation" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Expectation" />
 								<span asp-validation-for="SalaryExpectation"></span>
 							</div>
-							<div class="form-group col-md-5">
+							<div class="form-group col-md-4">
 								<label for="SalaryExpectationLowerRange" class="form-label">Salary Expectation Lower Range</label>
 								<input asp-for="@Model.SalaryExpectationLowerRange" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Expectation Lower Range" />
-								<span asp-validation-for="CV"></span>
+								<span asp-validation-for="SalaryExpectationLowerRange"></span>
 							</div>
 						</div>
 
 						<div class="form-row">
 
-							<div class="form-group col-md-12">
+							<div class="form-group col-md-8">
 								<label for="TagDescription" class="form-label">Tag Description</label>
 								<textarea asp-for="@Model.TagDescription" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Tag Description" style="height: 150px;"></textarea>
 								<span asp-validation-for="TagDescription"></span>
@@ -125,3 +141,18 @@
 	</div>
 
 </div>
+<script>
+	function onJobApplicationSourcerfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('SourceName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.jobApplicationSource)), query);
+	}
+</script>
+
+<script>
+	function onJobOpeningrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('JobTitle', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.JobOpening)), query);
+	}
+</script>

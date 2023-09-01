@@ -83,6 +83,7 @@ namespace CloudVOffice.Web.Framework
 
 			services.AddScoped<IInterviewRoundService, InterviewRoundService>();
 			services.AddScoped<IInterFeedBackQuestionsService, InterFeedBackQuestionsService>();
+			services.AddScoped<IInterviewPanelMemberService, InterviewPanelMemberService>();
 
             #endregion
 

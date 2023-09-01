@@ -1,4 +1,6 @@
-﻿namespace CloudVOffice.Data.DTO.Recruitment
+﻿using Microsoft.AspNetCore.Http;
+
+namespace CloudVOffice.Data.DTO.Recruitment
 {
     public class JobApplicationDTO
     {
@@ -14,5 +16,6 @@
         public double? SalaryExpectationLowerRange { get; set; }
 
         public Int64 CreatedBy { get; set; }
-    }
+		public IFormFile? CVDOC { get; set; }
+	}
 }

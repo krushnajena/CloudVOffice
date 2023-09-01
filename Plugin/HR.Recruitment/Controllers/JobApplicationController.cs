@@ -1,12 +1,14 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Attendance;
+using CloudVOffice.Data.DTO.Company;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -21,15 +23,27 @@ namespace HR.Recruitment.Controllers
 	public class JobApplicationController:BasePluginController
 	{
 		private readonly IJobApplicationService _jobApplicationService;
-		public JobApplicationController(IJobApplicationService jobApplicationService)
+		private readonly IJobApplicationSourceService _jobApplicationSourceService;
+		private readonly IJobOpeningService _jobOpeningService;
+		private readonly IWebHostEnvironment _hostingEnvironment;
+		public JobApplicationController(IJobApplicationService jobApplicationService, IJobApplicationSourceService jobApplicationSourceService , IJobOpeningService jobOpeningService, IWebHostEnvironment hostingEnvironment)
 		{
 
 			_jobApplicationService = jobApplicationService;
+			_jobApplicationSourceService = jobApplicationSourceService;
+			_jobOpeningService = jobOpeningService;
+			_hostingEnvironment = hostingEnvironment;
 		}
 		[HttpGet]
 		public IActionResult CreateJobApplication(int? jobApplicationId)
 		{
 			JobApplicationDTO jobApplicationDTO = new JobApplicationDTO();
+
+			var jobApplicationSource = _jobApplicationSourceService.GetJobApplicationSourceList();
+			ViewBag.JobApplicationSource = jobApplicationSource;
+			var jobOpening = _jobOpeningService.GetJobOpeningsList();
+			ViewBag.JobOpening = jobOpening;
+
 			if (jobApplicationId != null)
 			{
 
@@ -60,6 +74,23 @@ namespace HR.Recruitment.Controllers
 
 			if (ModelState.IsValid)
 			{
+				if (jobApplicationDTO.CVDOC != null)
+				{
+					FileInfo fileInfo = new FileInfo(jobApplicationDTO.CVDOC.FileName);
+					string extn = fileInfo.Extension.ToLower();
+					Guid id = Guid.NewGuid();
+					string filename = id.ToString() + extn;
+
+					string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads/JobApplication");
+					if (!Directory.Exists(uploadsFolder))
+					{
+						Directory.CreateDirectory(uploadsFolder);
+					}
+					string uniqueFileName = Guid.NewGuid().ToString() + "_" + filename;
+					string imagePath = Path.Combine(uploadsFolder, uniqueFileName);
+					jobApplicationDTO.CVDOC.CopyTo(new FileStream(imagePath, FileMode.Create));
+					jobApplicationDTO.CV = uniqueFileName;
+				}
 				if (jobApplicationDTO.JobApplicationId == null)
 				{
 					var a = _jobApplicationService.JobApplicationCreate(jobApplicationDTO);
@@ -99,10 +130,14 @@ namespace HR.Recruitment.Controllers
 					}
 				}
 			}
+			var jobApplicationSource = _jobApplicationSourceService.GetJobApplicationSourceList();
+			ViewBag.JobApplicationSource = jobApplicationSource;
+			var jobOpening = _jobOpeningService.GetJobOpeningsList();
+			ViewBag.JobOpening = jobOpening;
 			return View("~/Plugins/HR.Recruitment/Views/JobApplication/CreateJobApplication.cshtml", jobApplicationDTO);
 		}
 
-		/* [Authorize(Roles = "HR Manager")]*/
+		
 		public IActionResult JobApplicationView()
 		{
 			ViewBag.jobApplication = _jobApplicationService.GetJobApplicationList();

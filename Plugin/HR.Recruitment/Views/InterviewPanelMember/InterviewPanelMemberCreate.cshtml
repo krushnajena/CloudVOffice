@@ -1,0 +1,104 @@
+﻿@model CloudVOffice.Data.DTO.Recruitment.InterviewPanelMemberDTO;
+@{
+	Layout = "_MainAppLayout";
+	ViewData["Title"] = "InterviewPanelMember";
+	var interviewRound = new SelectList((IEnumerable)ViewBag.InterviewRound, "InterviewRoundId", "InterviewRoundName");
+	var employee = new SelectList((IEnumerable)ViewBag.Employee, "EmployeeId", "FullName");
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>InterviewPanel Member</h5>
+
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Recruitment/InterviewPanelMember/InterviewPanelMemberCreate" method="post" autocomplete="off">
+					<div asp-
+						 ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>InterviewPanel Member</b></div>
+					<div class="card-body">
+						<div class="form-row">							
+							<div class="form-group col-md-4">
+
+								<input asp-for="@Model.InterviewPanelMemberId" type="hidden" />
+
+								<label for="InterviewRoundId" class="form-label">Interview Round</label>
+								<ejs-dropdownlist id="InterviewRoundId" allowFiltering="true" ejs-for="@Model.InterviewRoundId" filtering="onInterviewRoundrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.InterviewRound, "InterviewRoundId", "InterviewRoundName").Items)" placeholder="Select InterviewRound Id" popupHeight="220px">
+									<e-dropdownlist-fields text="InterviewRoundName" value="InterviewRoundId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="InterviewRoundId"></span>
+							</div>
+						
+							<div class="form-group col-md-4">
+
+								<label for="EmployeeId" class="form-label">Employee</label>
+								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.EmployeeId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employee, "EmployeeId", "FullName").Items)" placeholder="Select Designation" popupHeight="220px">
+									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+								<span asp-validation-for="EmployeeId"></span>
+							</div>
+							
+						</div>
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>
+
+<script>
+	function onInterviewRoundrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('InterviewRoundName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.InterviewRound)), query);
+	}
+</script>
+
+<script>
+	function onEmployeerfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employee)), query);
+	}
+</script>

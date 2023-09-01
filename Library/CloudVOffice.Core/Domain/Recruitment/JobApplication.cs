@@ -14,8 +14,13 @@ namespace CloudVOffice.Core.Domain.Recruitment
         public string? CV { get; set; }
         public double? SalaryExpectation { get; set; }
         public double? SalaryExpectationLowerRange { get; set; }
+        public int Status { get; set; } = 0; //0=Submitted, 1= Interview In-Progress,2=ShortListed,3=Rejected, 4= Offer Letter Sent , 5= Offer Accepted,6 = Offer Rejected
+        public int? RejectedInInterviewRoundId { get; set; }    
+       public string? OfferRejecttionReason { get; set; }
+        public DateTime? OfferRejectedOn { get; set; }
+		public DateTime? OfferAccepteddOn { get; set; }
 
-        public Int64 CreatedBy { get; set; }
+		public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }

@@ -4,6 +4,7 @@ using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project.Management.Controllers
@@ -18,7 +19,8 @@ namespace Project.Management.Controllers
             _projecttypeService = projecttypeService;
         }
         [HttpGet]
-        public IActionResult ProjectTypeCreate(int? projecttypeId)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult ProjectTypeCreate(int? projecttypeId)
         {
             ProjectTypeDTO projecttypeDTO = new ProjectTypeDTO();
 
@@ -36,7 +38,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProjectTypeCreate(ProjectTypeDTO projecttypeDTO)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult ProjectTypeCreate(ProjectTypeDTO projecttypeDTO)
         {
             projecttypeDTO.CreatedBy = (int)Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
@@ -86,14 +89,15 @@ namespace Project.Management.Controllers
 
             return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeCreate.cshtml", projecttypeDTO);
         }
-
-        public IActionResult ProjectTypeView()
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult ProjectTypeView()
         {
             ViewBag.projecttypes = _projecttypeService.GetProjectTypes();
 
             return View("~/Plugins/Project.Management/Views/ProjectType/ProjectTypeView.cshtml");
         }
-        public IActionResult ProjectTypeDelete(int projectTypeId)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult ProjectTypeDelete(int projectTypeId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 

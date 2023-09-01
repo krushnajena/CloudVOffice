@@ -29,6 +29,7 @@
 		<None Remove="Views\Holiday\HolidayView.cshtml" />
 		<None Remove="Views\LeavePeriod\CreateLeavePeriod.cshtml" />
 		<None Remove="Views\LeavePeriod\LeavePeriodView.cshtml" />
+		<None Remove="Views\LeavePolicyDetails\LeavePolicyDetailsCreate.cshtml" />
 		<None Remove="Views\LeaveType\LeaveTypeCreate.cshtml" />
 		<None Remove="Views\LeaveType\LeaveTypeView.cshtml" />
 		<None Remove="Views\ShiftEmployee\ShiftEmployeeCreate.cshtml" />

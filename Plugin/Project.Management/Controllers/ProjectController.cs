@@ -49,6 +49,7 @@ namespace Projects.Management.Controller
 
 
         }
+        [Authorize (Roles = "Project Manager, Project User ,Employee ,Customer")]
         public IActionResult Dashboard()
         {
             //_timesheetService.TimesheetUpdateRemiderSendNotification();
@@ -95,8 +96,8 @@ namespace Projects.Management.Controller
             return View("~/Plugins/Project.Management/Views/Project/Dashboard.cshtml");
         }
         [HttpGet]
-        [Authorize(Roles = "Project Manager")]
-        public IActionResult ProjectCreate(int? projectId)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectCreate(int? projectId)
         {
             ProjectDTO projectDTO = new ProjectDTO();
 
@@ -174,8 +175,10 @@ namespace Projects.Management.Controller
             return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
 
         }
+
         [HttpPost]
-        public IActionResult ProjectCreate(ProjectDTO projectDTO)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectCreate(ProjectDTO projectDTO)
         {
             projectDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             if (projectDTO.ProjectEmployeeString != null && projectDTO.ProjectEmployeeString != "")
@@ -244,7 +247,8 @@ namespace Projects.Management.Controller
 
             return View("~/Plugins/Project.Management/Views/Project/ProjectCreate.cshtml", projectDTO);
         }
-        public IActionResult ProjectView()
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectView()
         {
             ViewBag.Projects = _projectService.GetProjects();
 
@@ -253,7 +257,8 @@ namespace Projects.Management.Controller
 
 
         [HttpGet]
-        public IActionResult ProjectDelete(Int64 projectId)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectDelete(Int64 projectId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
@@ -262,6 +267,7 @@ namespace Projects.Management.Controller
             return Redirect("~/Plugins/Project.Management/Views/Project/ProjectView");
         }
 
+        [Authorize(Roles = "Employee,Project Manager,Project User,Customer")]
         public IActionResult MyProjects()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

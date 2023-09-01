@@ -58,8 +58,6 @@ namespace CloudVOffice.Services.Attendance
                     workFromHomeRequest.FromDate = workFromHomeRequestDTO.FromDate;
                     workFromHomeRequest.ToDate = workFromHomeRequestDTO.ToDate;
                     workFromHomeRequest.Reason = workFromHomeRequestDTO.Reason;
-                    workFromHomeRequest.ApprovalStatus = workFromHomeRequestDTO.ApprovalStatus;
-                    
                     var obj = _workFromHomeRequestRepo.Insert(workFromHomeRequest);
 
                     return MessageEnum.Success;
@@ -112,7 +110,7 @@ namespace CloudVOffice.Services.Attendance
                         a.FromDate = workFromHomeRequestDTO.FromDate;
                         a.ToDate = workFromHomeRequestDTO.ToDate;
                         a.Reason = workFromHomeRequestDTO.Reason;
-                        a.ApprovalStatus = workFromHomeRequestDTO.ApprovalStatus;
+                       
                         a.UpdatedBy = workFromHomeRequestDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
                         _Context.SaveChanges();
@@ -132,7 +130,7 @@ namespace CloudVOffice.Services.Attendance
                 throw;
             }
         }
-        public List<WorkFromHomeRequest> GetWorkFromHomeRequestToValidate(long EmployeeId)
+        public List<WorkFromHomeRequest> GetWorkFromHomeRequestToValidate(Int64 EmployeeId)
         {
             try
             {

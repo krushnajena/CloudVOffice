@@ -6,6 +6,7 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project.Management.Controllers
@@ -27,6 +28,7 @@ namespace Project.Management.Controllers
             _projectService = projectService;
             _empolyeeService = empolyeeService;
         }
+        [Authorize(Roles = "Project Manager,Employee,Project User")]
         public IActionResult Tasks(int ProjectId)
         {
             var a = _projectTaskService.ProjectTaskByProjectId(ProjectId);
@@ -74,7 +76,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpGet]
-        public IActionResult TaskCreate(Int64? projectTaskId)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult TaskCreate(Int64? projectTaskId)
         {
             ProjectTaskDTO projectTaskDTO = new ProjectTaskDTO();
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -124,7 +127,8 @@ namespace Project.Management.Controllers
 
         }
         [HttpPost]
-        public IActionResult TaskCreate(ProjectTaskDTO projectTaskDTO)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult TaskCreate(ProjectTaskDTO projectTaskDTO)
         {
 
 
@@ -182,7 +186,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpGet]
-        public IActionResult TaskList()
+		[Authorize(Roles = "Project Manager,Employee,Project User")]
+		public IActionResult TaskList()
         {
 
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -220,8 +225,8 @@ namespace Project.Management.Controllers
         {
             return Json(_projectTaskService.GroupProjectTaskByProjectId(ProjectId));
         }
-
-        public IActionResult TaskDelayReport()
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TaskDelayReport()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -252,8 +257,8 @@ namespace Project.Management.Controllers
             ViewBag.DelayReport = data;
             return View("~/Plugins/Project.Management/Views/Task/TaskDelayReport.cshtml");
         }
-
-        public IActionResult TaskComplitedByOthersReport()
+		[Authorize(Roles = "Employee")]
+		public IActionResult TaskComplitedByOthersReport()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -285,8 +290,8 @@ namespace Project.Management.Controllers
             ViewBag.tasks = data;
             return View("~/Plugins/Project.Management/Views/Task/TaskComplitedByOthersReport.cshtml");
         }
-
-        public IActionResult MyTaskDelayList()
+		[Authorize(Roles = "Employee")]
+		public IActionResult MyTaskDelayList()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -318,8 +323,8 @@ namespace Project.Management.Controllers
             ViewBag.DelayTask = data;
             return View("~/Plugins/Project.Management/Views/Task/MyTaskDelayList.cshtml");
         }
-
-        public IActionResult MYTaskComplitedByOthersReport()
+		[Authorize(Roles = "Employee")]
+		public IActionResult MYTaskComplitedByOthersReport()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -352,6 +357,7 @@ namespace Project.Management.Controllers
             ViewBag.tasks = data;
             return View("~/Plugins/Project.Management/Views/Task/MYTaskComplitedByOthersReport.cshtml");
         }
+        [Authorize(Roles = "Project Manager")]
         public IActionResult TasksForDelayValidation()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -386,8 +392,8 @@ namespace Project.Management.Controllers
             return View("~/Plugins/Project.Management/Views/Task/TasksForDelayValidation.cshtml");
 
         }
-
-        public IActionResult ProjectTaskSummeryReport()
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult ProjectTaskSummeryReport()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -411,7 +417,8 @@ namespace Project.Management.Controllers
             return Json(a);
         }
         [HttpPost]
-        public IActionResult DelayReasonSubmit(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult DelayReasonSubmit(ProjectTaskDelayReasonUpdateDTO projectTaskDelayReasonUpdateDTO)
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             projectTaskDelayReasonUpdateDTO.CreatedBy = UserId;
@@ -420,7 +427,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpPost]
-        public IActionResult TaskComplitedByOthersReasonUpdate(TaskComplitedByOthersReasonUpdateDTO taskComplitedByOthersReasonUpdateDTO)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TaskComplitedByOthersReasonUpdate(TaskComplitedByOthersReasonUpdateDTO taskComplitedByOthersReasonUpdateDTO)
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -440,7 +448,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectTaskStatusUpdate(ProjectTaskDTO projectTaskDTO)
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -460,6 +469,7 @@ namespace Project.Management.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Project Manager")]
         public IActionResult TaskDelayApproval(TaskApprovalDTO timesheetApprovalDTO)
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

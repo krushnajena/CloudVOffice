@@ -2,7 +2,7 @@
 {
     public class LeavePolicyDetails : IAuditEntity, ISoftDeletedEntity
     {
-        public int LeavePolicyDetailsId { get; set; }
+        public int? LeavePolicyDetailsId { get; set; }
         public int LeavePolicyId { get; set; }
         public int LeaveTypeId { get; set; }
         public int NoOfLeaves { get; set; }

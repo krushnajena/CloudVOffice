@@ -102,7 +102,7 @@ namespace HR.Attendance.Controllers
 
         }
         public IActionResult WorkFromHomeRequestView()
-        {
+        {   
             ViewBag.workFromHomeRequest = _workFromHomeRequestService.GetWorkFromHomeRequestList();
 
             return View("~/Plugins/HR.Attendance/Views/WorkFromHomeRequest/WorkFromHomeRequestView.cshtml");
@@ -155,6 +155,7 @@ namespace HR.Attendance.Controllers
                        select new
                        {
                            WorkFromHomeRequestId = u.WorkFromHomeRequestId,
+                            
                            EmployeeName = u.Employee.FullName,
                            EmployeeCode = u.Employee.EmployeeCode,
                            FromDate = u.FromDate,

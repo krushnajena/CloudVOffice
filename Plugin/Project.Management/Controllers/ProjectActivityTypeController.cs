@@ -4,6 +4,7 @@ using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project.Management.Controllers
@@ -23,7 +24,8 @@ namespace Project.Management.Controllers
 
         }
         [HttpGet]
-        public IActionResult ProjectActivityTypeCreate(int? projectActivityTypeId)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectActivityTypeCreate(int? projectActivityTypeId)
         {
             ProjectActivityTypeDTO projectActivityTypeDTO = new ProjectActivityTypeDTO();
             ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
@@ -42,7 +44,8 @@ namespace Project.Management.Controllers
 
         }
         [HttpPost]
-        public IActionResult ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO)
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectActivityTypeCreate(ProjectActivityTypeDTO projectActivityTypeDTO)
         {
             projectActivityTypeDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
@@ -86,14 +89,15 @@ namespace Project.Management.Controllers
             ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
             return View("~/Plugins/Project.Management/Views/ProjectActivityType/ProjectActivityTypeCreate.cshtml", projectActivityTypeDTO);
         }
-        public IActionResult ProjectActivityTypeView()
+		[Authorize(Roles = "Project Manager, Project User")]
+		public IActionResult ProjectActivityTypeView()
         {
             ViewBag.projectActivityTypes = _projectActivityTypeService.GetProjectActivityTypes();
 
             return View("~/Plugins/Project.Management/Views/ProjectActivityType/ProjectActivityTypeView.cshtml");
         }
-
-        [HttpGet]
+		[Authorize(Roles = "Project Manager, Project User")]
+		[HttpGet]
         public IActionResult ProjectActivityTypeDelete(Int64 projectActivityTypeId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());

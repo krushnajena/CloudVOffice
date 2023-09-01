@@ -6,6 +6,7 @@ using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -33,7 +34,8 @@ namespace Project.Management.Controllers
 
         }
         [HttpGet]
-        public IActionResult TimesheetCreate(Int64? timesheetId)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetCreate(Int64? timesheetId)
         {
             TimesheetDTO timesheetDTO = new TimesheetDTO();
             ViewBag.ActivityCategory = _timesheetActivityCategoryService.GetTimesheetActivityCategories();
@@ -64,7 +66,7 @@ namespace Project.Management.Controllers
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
 
         }
-
+        [Authorize(Roles = "Project Manager,Project User")]
         public IActionResult ProjectWiseEffortHourReport()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -87,7 +89,8 @@ namespace Project.Management.Controllers
       
 
         [HttpPost]
-        public IActionResult TimesheetCreate(TimesheetDTO timesheetDTO)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetCreate(TimesheetDTO timesheetDTO)
         {
             timesheetDTO.CreatedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             timesheetDTO.EmployeeId = _employeeService.GetEmployeeDetailsByUserId(timesheetDTO.CreatedBy).EmployeeId;
@@ -133,7 +136,8 @@ namespace Project.Management.Controllers
 
             return View("~/Plugins/Project.Management/Views/Timesheet/TimesheetCreate.cshtml", timesheetDTO);
         }
-        public IActionResult TimesheetView()
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetView()
         {
 
             Int64 createdBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
@@ -145,7 +149,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpGet]
-        public IActionResult TimesheetDelete(Int64 timesheetId)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetDelete(Int64 timesheetId)
         {
             Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
 
@@ -153,8 +158,8 @@ namespace Project.Management.Controllers
             TempData["msg"] = a;
             return Redirect("/Projects/Timesheet/TimesheetView");
         }
-
-        public IActionResult TimeSheetsToValidate()
+		[Authorize(Roles = "Project Manager")]
+		public IActionResult TimeSheetsToValidate()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -186,11 +191,12 @@ namespace Project.Management.Controllers
             return View("~/Plugins/Project.Management/Views/Timesheet/TimeSheetsToValidate.cshtml");
         }
 
-        //public IActionResult ProjectWiseEffortHourReport()
-        //{
-        //    return View();
-        //}
-        public IActionResult TimesheetReport()
+		//public IActionResult ProjectWiseEffortHourReport()
+		//{
+		//    return View();
+		//}
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetReport()
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -212,7 +218,8 @@ namespace Project.Management.Controllers
 
 
         [HttpPost]
-        public IActionResult TimesheetReport(TimesheetReportModel timesheetReport)
+		[Authorize(Roles = "Project Manager,Project User")]
+		public IActionResult TimesheetReport(TimesheetReportModel timesheetReport)
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;
@@ -230,7 +237,8 @@ namespace Project.Management.Controllers
         }
 
         [HttpPost]
-        public IActionResult TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO)
+		[Authorize(Roles = "Project Manager")]
+		public IActionResult TimesheetApproval(TimesheetApprovalDTO timesheetApprovalDTO)
         {
             Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
             Int64 EmployeeId;

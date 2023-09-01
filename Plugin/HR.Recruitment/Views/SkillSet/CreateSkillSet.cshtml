@@ -1,0 +1,85 @@
+﻿@model CloudVOffice.Data.DTO.Recruitment.SkillSetDTO;
+@{
+	Layout = "_MainAppLayout";
+	ViewData["Title"] = "SkillSet";
+	
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Skill Set</h5>
+
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">Last Login: 2 hours ago</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Recruitment/SkillSet/CreateSkillSet" method="post" autocomplete="off">
+					<div asp-
+						 ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>SkillSet</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.SkillSetId" type="hidden" />
+
+								<label for="SkillName" class="form-label">SkillName</label>
+								<input asp-for="@Model.SkillName" type="text" class="form-control" autofocus="autofocus" placeholder="SkillName" />
+								<span asp-validation-for="SkillName"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.SkillSetId" type="hidden" />
+
+								<label for="SkillDescription" class="form-label">SkillDescription</label>
+								<input asp-for="@Model.SkillDescription" type="text" class="form-control" autofocus="autofocus" placeholder="SkillDescription" />
+								<span asp-validation-for="SkillDescription"></span>
+							</div>
+
+
+						</div>
+
+
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>

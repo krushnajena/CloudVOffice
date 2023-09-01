@@ -127,6 +127,10 @@ namespace CloudVOffice.Data.Persistence
 		public virtual DbSet<JobApplication> JobApplications { get; set; }
 
 
+		public virtual DbSet<InterviewPanelMember> InterviewPanelMembers { get; set; }
+		
+
+
 		#endregion
 		#endregion
 
@@ -602,6 +606,12 @@ namespace CloudVOffice.Data.Persistence
  .HasOne(r => r.InterviewRound)
  .WithMany()
  .OnDelete(DeleteBehavior.Restrict);
+
+
+			modelBuilder.Entity<InterviewPanelMember>()
+.HasOne(r => r.InterviewRound)
+.WithMany()
+.OnDelete(DeleteBehavior.Restrict);
 
 
 

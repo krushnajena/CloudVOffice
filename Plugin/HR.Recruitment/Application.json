@@ -1,6 +1,6 @@
 {
 
-  "ApplicationName": "HR",
+  "ApplicationName": "HR Requirement",
   "Url": "/HR/Hr/Dashboard",
   "IconImageUrl": "/Plugin/HR.Base/logo.png",
   "IconClass": "",
@@ -17,7 +17,7 @@
       "Roles": [ "HR Manager", "HR User" ],
       "Children": [
         {
-          "ApplicationName": "Branch",  
+          "ApplicationName": "Branch",
           "IsGroup": false,
           "Url": "/Hr/Branch/BranchView",
           "IconImageUrl": "",

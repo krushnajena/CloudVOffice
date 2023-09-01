@@ -115,17 +115,23 @@ namespace CloudVOffice.Data.Persistence
         #region Recruitment
         public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
+
         public virtual DbSet<JobOpening> JobOpenings { get; set; }
         public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }
-
-        public virtual DbSet<JobApplication> JobApplications { get; set; }
         public virtual DbSet<InterviewType> InterviewTypes { get; set; }
-        //public virtual DbSet<InterFeedBackQuestions> InterFeedBackQuestions { get; set; }
-        #endregion
-        #endregion
+      
 
-        #region Project
-        public virtual DbSet<ProjectType> ProjectTypes { get; set; }
+        public virtual DbSet<SkillSet> SkillSets { get; set; }
+        public virtual DbSet<InterviewRound> InterviewRounds { get; set; }
+		public virtual DbSet<InterFeedBackQuestions> InterFeedBackQuestions { get; set; }
+		public virtual DbSet<JobApplication> JobApplications { get; set; }
+
+
+		#endregion
+		#endregion
+
+		#region Project
+		public virtual DbSet<ProjectType> ProjectTypes { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectEmployee> ProjectEmployees { get; set; }
         public virtual DbSet<ProjectUser> ProjectUsers { get; set; }
@@ -589,7 +595,15 @@ namespace CloudVOffice.Data.Persistence
  .WithMany()
  .OnDelete(DeleteBehavior.Restrict);
 
-		
+
+
+
+			modelBuilder.Entity<InterFeedBackQuestions>()
+ .HasOne(r => r.InterviewRound)
+ .WithMany()
+ .OnDelete(DeleteBehavior.Restrict);
+
+
 
 			modelBuilder.Seed();
 

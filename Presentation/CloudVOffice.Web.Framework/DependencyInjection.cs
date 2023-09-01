@@ -15,7 +15,7 @@ using CloudVOffice.Services.HR;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Projects;
-
+using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 
@@ -64,6 +64,24 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IHRSettingsService, HRSettingsService>();
             services.AddScoped<IEmployeeGradeServices, EmployeeGradeService>();
             #endregion
+
+
+
+            #region Requirement
+            services.AddScoped<IInterviewTypeService, InterviewTypeService>();
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
+            services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
+
+            services.AddScoped<IInterviewTypeService, InterviewTypeService>();
+            services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
+            services.AddScoped<IStaffingPlanService, StaffingPlanService>();
+			services.AddScoped<IJobOpeningService, JobOpeningService>();
+
+			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
+
+            #endregion
+
+           
 
             #region Project Services
             services.AddScoped<IProjectTypeService, ProjectTypeService>();

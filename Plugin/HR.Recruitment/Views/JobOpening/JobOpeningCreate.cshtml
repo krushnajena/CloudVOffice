@@ -1,0 +1,145 @@
+﻿@model CloudVOffice.Data.DTO.Recruitment.JobOpeningDTO;
+@{
+	Layout = "_MainAppLayout";
+	ViewData["Title"] = "JobOpening";
+	var DepartmentList = new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName");
+	var DesignationList = new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName");
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Job Opening</h5>
+				
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">Last Login: 2 hours ago</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Recruitment/JobOpening/JobOpeningCreate" method="post" autocomplete="off">
+					<div asp-
+						 ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>Job Opening</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.JobOpeningId" type="hidden" />
+
+								<label for="JobTitle" class="form-label">Job Title</label>
+								<input asp-for="@Model.JobTitle" type="text" class="form-control" autofocus="autofocus" placeholder="Job Title" />
+								<span asp-validation-for="JobTitle"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="DepartmentId" class="form-label">Department</label>
+								<ejs-dropdownlist id="DepartmentId" allowFiltering="true" ejs-for="@Model.DepartmentId" filtering="onDepartmentrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName").Items)" placeholder="Select Department" popupHeight="220px">
+									<e-dropdownlist-fields text="DepartmentName" value="DepartmentId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="DepartmentId"></span>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-4">
+
+								<label for="DesignationId" class="form-label">Designation</label>
+								<ejs-dropdownlist id="DesignationId" allowFiltering="true" ejs-for="@Model.DesignationId" filtering="onDesignationrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName").Items)" placeholder="Select Designation" popupHeight="220px">
+									<e-dropdownlist-fields text="DesignationName" value="DesignationId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+								<span asp-validation-for="DesignationId"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="Status" class="form-label">Status&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
+									<option value="1">Open</option>
+									<option value="2">Closed</option>
+									
+								</select>
+							</div>
+						</div>
+
+						
+						<div class="form-row">
+
+
+							<div class="form-group col-md-8">
+								<label for="Description" class="form-label">Description</label>
+								<textarea asp-for="@Model.Description" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Description" style="height: 150px;"></textarea>
+								<span asp-validation-for="Description"></span>
+							</div>
+
+
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="SalaryLowerRange" class="form-label">Salary Lower Range</label>
+								<input asp-for="@Model.SalaryLowerRange" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Lower Range" />
+								<span asp-validation-for="SalaryLowerRange"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="SalaryUpperRange" class="form-label">Salary Upper Range</label>
+								<input asp-for="@Model.SalaryUpperRange" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Upper Range" />
+								<span asp-validation-for="SalaryUpperRange"></span>
+							</div>
+						</div>
+
+						
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>
+<script>
+	function onDepartmentrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('DepartmentName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Department)), query);
+	}
+</script>
+
+<script>
+	function onDesignationrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('DesignationName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Designation)), query);
+	}
+</script>

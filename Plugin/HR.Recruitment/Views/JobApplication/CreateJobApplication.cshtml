@@ -78,8 +78,8 @@
 						<div class="form-row">
 							<div class="form-group col-md-4">
 								<label for="JobId" class="form-label">Job Opening</label>
-								<ejs-dropdownlist id="JobId" allowFiltering="true" ejs-for="@Model.JobId" filtering="onJobOpeningrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobOpening, "JobId", "JobName").Items)" placeholder="Select Job Opening" popupHeight="220px">
-									<e-dropdownlist-fields text="JobName" value="JobId"></e-dropdownlist-fields>
+								<ejs-dropdownlist id="JobOpeningId" allowFiltering="true" ejs-for="@Model.JobId" filtering="onJobOpeningrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobOpening, "JobOpeningId", "JobTitle").Items)" placeholder="Select Job Opening" popupHeight="220px">
+									<e-dropdownlist-fields text="JobTitle" value="JobOpeningId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="JobId"></span>
 							</div>
@@ -152,7 +152,7 @@
 <script>
 	function onJobOpeningrfiltering(e) {
 		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('JobName', 'startswith', e.text, true) : query;
+		query = (e.text !== '') ? query.where('JobTitle', 'startswith', e.text, true) : query;
 		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.JobOpening)), query);
 	}
 </script>

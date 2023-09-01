@@ -77,6 +77,8 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IStaffingPlanService, StaffingPlanService>();
 			services.AddScoped<IJobOpeningService, JobOpeningService>();
 
+
+			services.AddScoped<ISkillSetService, SkillSetService>();
 			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
 
             #endregion
@@ -109,14 +111,18 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IEmployeeBiometricDataService, EmployeeBiometricDataService>();
             services.AddScoped<IEmployeeCheckInService, EmployeeCheckInService>();
             services.AddScoped<IWorkFromHomeRequestService, WorkFromHomeRequestService>();
-            #endregion
+
+			
+			services.AddScoped<ILeavePolicyDetailsService, LeavePolicyDetailsService>();
+
+			#endregion
 
 
 
 
 
-            #region DesktopLogin
-            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+			#region DesktopLogin
+			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
             services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
             services.AddScoped<IRestrictedApplicationService, RestrictedApplicationService>();

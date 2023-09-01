@@ -17,6 +17,8 @@
 		<None Remove="roles.json" />
 		<None Remove="Views\JobOpening\JobOpeningCreate.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningView.cshtml" />
+		<None Remove="Views\SkillSet\CreateSkillSet.cshtml" />
+		<None Remove="Views\SkillSet\SkillSetView.cshtml" />
 	
 	</ItemGroup>
 

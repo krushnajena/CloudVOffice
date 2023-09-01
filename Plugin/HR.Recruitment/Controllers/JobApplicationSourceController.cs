@@ -91,7 +91,7 @@ namespace HR.Recruitment.Controllers
             }
             return View("~/Plugins/HR.Recruitment/Views/JobApplicationSource/JobApplicationSourceCreate.cshtml", jobApplicationSourceDTO);
         }
-        //[Authorize(Roles = "HR Manager")]
+        
         public IActionResult JobApplicationSourceView()
         {
             ViewBag.jobApplicationSource = _jobApplicationSourceService.GetJobApplicationSourceList();

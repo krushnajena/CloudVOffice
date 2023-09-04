@@ -154,5 +154,10 @@ namespace HR.Recruitment.Controllers
 			TempData["msg"] = a;
 			return Redirect("/Recruitment/JobApplication/JobApplicationView");
 		}
+
+		public JsonResult GetJobApplicationsByJobId(int JobId)
+		{
+			return Json(_jobApplicationService.GetJobApplicationsByJobId(JobId));
+		}
 	}
 }

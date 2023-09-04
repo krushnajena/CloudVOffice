@@ -23,6 +23,7 @@
 		<None Remove="Views\InterviewRound\InterviewRoundView.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningCreate.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningView.cshtml" />
+		<None Remove="Views\ScheduleInterview\ScheduleInterView.cshtml" />
 		<None Remove="Views\SkillSet\CreateSkillSet.cshtml" />
 		<None Remove="Views\SkillSet\SkillSetView.cshtml" />
 	

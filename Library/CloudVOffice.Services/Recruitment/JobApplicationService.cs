@@ -138,5 +138,10 @@ namespace CloudVOffice.Services.Recruitment
 				throw;
 			}
 		}
+
+		public List<JobApplication> GetJobApplicationsByJobId(int JobId)
+		{
+			return _Context.JobApplications.Where(x=>x.JobId== JobId && x.Deleted ==  false && (x.Status ==  0 || x.Status == 1  )).ToList();
+		}
 	}
 }

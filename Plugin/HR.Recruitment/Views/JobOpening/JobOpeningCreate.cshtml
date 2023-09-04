@@ -4,6 +4,7 @@
 	ViewData["Title"] = "JobOpening";
 	var DepartmentList = new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName");
 	var DesignationList = new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName");
+	var SkillSetList = new SelectList((IEnumerable)ViewBag.skillSet, "SkillSetId", "SkillName");
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -87,7 +88,7 @@
 						<div class="form-row">
 
 							<div class="form-group col-md-4">
-								<label for="Status" class="form-label">Status&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<label for="Status" class="form-label">Status</label>
 								<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
 									<option value="1">Open</option>
 									<option value="2">Closed</option>

@@ -5,15 +5,10 @@ using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.Recruitment.Controllers
 {
-    [Area(AreaNames.Recruitment)]
+	[Area(AreaNames.Recruitment)]
     public class JobOpeningController : BasePluginController
     {
         private readonly IJobOpeningService _jobOpeningService;
@@ -30,7 +25,7 @@ namespace HR.Recruitment.Controllers
         }
         [HttpGet]
          public IActionResult JobOpeningCreate(int? jobOpeningId)
-        {
+          {
             JobOpeningDTO jobOpeningDTO = new JobOpeningDTO();
 			var department = _departmentService.GetDepartmentList();
 			ViewBag.Department = department;
@@ -58,7 +53,7 @@ namespace HR.Recruitment.Controllers
 			
 			return View("~/Plugins/HR.Recruitment/Views/JobOpening/JobOpeningCreate.cshtml", jobOpeningDTO);
 
-        }
+         }
 
         [HttpPost]
         public IActionResult JobOpeningCreate(JobOpeningDTO jobOpeningDTO)

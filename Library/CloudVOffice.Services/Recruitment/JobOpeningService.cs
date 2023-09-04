@@ -3,11 +3,7 @@ using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudVOffice.Services.Recruitment
 {
@@ -72,6 +68,7 @@ namespace CloudVOffice.Services.Recruitment
             try
             {
                 return _Context.JobOpenings.Where(x => x.Deleted == false).ToList();
+
 
             }
             catch

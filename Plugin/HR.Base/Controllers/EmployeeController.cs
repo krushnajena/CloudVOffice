@@ -129,7 +129,7 @@ namespace HR.Base.Controllers
                     employeeCreateDTO.imageUpload.CopyTo(new FileStream(imagePath, FileMode.Create));
                     employeeCreateDTO.Photo = uniqueFileName;
                 }
-                if (employeeCreateDTO.EmployeeId == null)
+                if (employeeCreateDTO.EmployeeId == 0)
                 {
                     var a = _empolyeeService.CreateEmployee(employeeCreateDTO);
 
@@ -170,7 +170,7 @@ namespace HR.Base.Controllers
                 }
             }
 
-            ViewBag.Employee = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmployees(), "EmployeeId", "EmployeeName");
+                ViewBag.Employee = new SelectList((System.Collections.IEnumerable)_empolyeeService.GetEmployees(), "EmployeeId", "EmployeeName");
             var department = _departmentService.GetDepartmentList();
             var desgination = _designationService.GetDesignationList();
             var branch = _branchService.GetBranches();

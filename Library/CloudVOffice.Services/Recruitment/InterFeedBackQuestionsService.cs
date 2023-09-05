@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,7 +68,10 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                return _Context.InterFeedBackQuestions.Where(x => x.Deleted == false).ToList();
+                return _Context.InterFeedBackQuestions
+                    .Include(x => x.Designation)
+                    .Include(x => x.InterviewRound)
+                    .Where(x => x.Deleted == false).ToList();
 
             }
             catch

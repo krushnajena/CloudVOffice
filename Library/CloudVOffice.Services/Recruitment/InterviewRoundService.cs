@@ -68,7 +68,10 @@ namespace CloudVOffice.Services.Recruitment
 		{
 			try
 			{
-				return _Context.InterviewRounds.Where(x => x.Deleted == false).ToList();
+				return _Context.InterviewRounds
+					.Include(x => x.InterviewType)
+					.Include(x => x.Designation)
+					.Where(x => x.Deleted == false).ToList();
 
 			}
 			catch

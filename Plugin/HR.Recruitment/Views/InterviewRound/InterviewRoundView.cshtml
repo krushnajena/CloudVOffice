@@ -37,7 +37,7 @@
                             Interview Round
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="Recruitment/InterviewRound/InterviewRoundCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Interview Round</a>
+                            <a href="/Recruitment/InterviewRound/InterviewRoundCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Job Application</a>
 
                         </div>
                     </div>
@@ -63,8 +63,8 @@
 
 
                             <e-grid-column field="InterviewRoundName" headerText="Interview Round Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="InterviewTypeId" headerText="InterviewTypeId" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="DesignationId" headerText="DesignationId" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="InterviewType.InterviewTypeName" headerText="InterviewTypeId" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Designation.DesignationName" headerText="DesignationId" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="InterviewRoundOrder" headerText="InterviewRoundOrder" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>

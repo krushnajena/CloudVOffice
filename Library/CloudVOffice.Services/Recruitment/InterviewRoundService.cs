@@ -133,5 +133,10 @@ namespace CloudVOffice.Services.Recruitment
 				throw;
 			}
 		}
+
+		public List<InterviewRound> GetInterviewRoundsByDesignationId(int DesignationId)
+		{
+			return _Context.InterviewRounds.Where(x=>x.DesignationId == DesignationId && x.Deleted == false).OrderBy(a=>a.InterviewRoundOrder).ToList();
+		}
 	}
 }

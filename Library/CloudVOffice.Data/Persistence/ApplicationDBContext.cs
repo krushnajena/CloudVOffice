@@ -128,8 +128,13 @@ namespace CloudVOffice.Data.Persistence
 
 
 		public virtual DbSet<InterviewPanelMember> InterviewPanelMembers { get; set; }
-		
 
+
+
+
+		public virtual DbSet<InterviewFeedbackAnswer> InterviewFeedbackAnswers { get; set; }
+		public virtual DbSet<InterviewPanel> InterviewPanels { get; set; }
+		public virtual DbSet<InterviewSchedule> InterviewSchedules { get; set; }
 
 		#endregion
 		#endregion

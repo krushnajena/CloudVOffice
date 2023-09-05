@@ -149,7 +149,7 @@
 														<div class="col-md-6">
 															<div class="form-row">
 																<div class="form-group col-md-6">
-
+																	<input asp-for="@Model.EmployeeId" type="hidden" />
 																	<label for="EmployeeCode" class="form-label">EmployeeCode&nbsp;<span style="color:red;"><b>*</b></span></label>
 																	<input asp-for="@Model.EmployeeCode" type="text" class="form-control" autofocus="autofocus" placeholder="Employee Code" />
 																	<span asp-validation-for="EmployeeCode"></span>

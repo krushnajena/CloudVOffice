@@ -12,7 +12,7 @@ namespace CloudVOffice.Data.DTO.Recruitment
         public string JobTitle { get; set; }
         public int? DepartmentId { get; set; }
         public int? DesignationId { get; set; }
-		public int? SkillSetId { get; set; }
+		public int SkillSetId { get; set; }
 		public int Status { get; set; }
         public string Description { get; set; }
         public double? SalaryLowerRange { get; set; }

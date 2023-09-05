@@ -1,10 +1,10 @@
 {
 
   "ApplicationName": "HR Requirement",
-  "Url": "/HR/Hr/Dashboard",
-  "IconImageUrl": "/Plugin/HR.Base/logo.png",
+  "Url": "/Recruitment/Recruitment/Dashboard",
+  "IconImageUrl": "/Plugin/HR.Recruitment/logo.png",
   "IconClass": "",
-  "AreaName": "HR",
+  "AreaName": "Recruitment",
   "Roles": [ "HR Manager", "HR User" ],
   "Children": [
     {
@@ -13,61 +13,96 @@
       "IsGroup": true,
       "IconImageUrl": "",
       "IconClass": "icon-event_note",
-      "AreaName": "HR",
+      "AreaName": "Recruitment",
       "Roles": [ "HR Manager", "HR User" ],
       "Children": [
         {
-          "ApplicationName": "Branch",
+          "ApplicationName": "SkillSet",
           "IsGroup": false,
-          "Url": "/Hr/Branch/BranchView",
+          "Url": "/Recruitment/SkillSet/SkillSetView",
           "IconImageUrl": "",
           "IconClass": "icon-event_note",
-          "AreaName": "HR",
+          "AreaName": "Recruitment",
           "Roles": [ "HR Manager" ]
         },
         {
-          "ApplicationName": "Department",
+          "ApplicationName": "JobOpening",
           "IsGroup": false,
-          "Url": "/Hr/Department/DepartmentView",
+          "Url": "/Recruitment/JobOpening/JobOpeningView",
           "IconImageUrl": "",
           "IconClass": "icon-event_note",
-          "AreaName": "HR",
+          "AreaName": "Recruitment",
           "Roles": [ "HR Manager" ]
         },
         {
-          "ApplicationName": "Designation",
+          "ApplicationName": "JobApplicationSource",
           "IsGroup": false,
-          "Url": "/Hr/Designation/DesignationView",
+          "Url": "/Recruitment/JobApplicationSource/JobApplicationSourceView",
           "IconImageUrl": "",
           "IconClass": "icon-event_note",
-          "AreaName": "HR",
+          "AreaName": "Recruitment",
           "Roles": [ "HR Manager" ]
         },
         {
-          "ApplicationName": "Employment Type",
+          "ApplicationName": "JobApplication",
           "IsGroup": false,
-          "Url": "/Hr/EmploymentType/EmploymentTypeView",
+          "Url": "/Recruitment/JobApplication/JobApplicationView",
           "IconImageUrl": "",
           "IconClass": "icon-event_note",
-          "AreaName": "HR",
+          "AreaName": "Recruitment",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "InterviewType",
+          "IsGroup": false,
+          "Url": "/Recruitment/InterviewType/InterviewTypeView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Recruitment",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "InterviewPanelMember",
+          "IsGroup": false,
+          "Url": "/Recruitment/InterviewPanelMember/InterviewPanelMemberView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Recruitment",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "ScheduleInterview",
+          "IsGroup": false,
+          "Url": "/Recruitment/ScheduleInterview/ScheduleInterview",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Recruitment",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "InterviewRound",
+          "IsGroup": false,
+          "Url": "/Recruitment/InterviewRound/InterviewRoundView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Recruitment",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "InterFeedBackQuestions",
+          "IsGroup": false,
+          "Url": "/Recruitment/InterFeedBackQuestions/InterFeedBackQuestionsView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Recruitment",
           "Roles": [ "HR Manager" ]
         }
-
 
       ]
 
     },
     {
-      "ApplicationName": "Employee",
-      "Url": "/Hr/Employee/EmployeeView",
-      "IsGroup": false,
-      "IconImageUrl": "",
-      "IconClass": "icon-event_note",
-      "AreaName": "HR",
-      "Roles": [ "HR Manager", "HR User" ],
-      "Children": [
-
-      ]
+     
 
     }
 

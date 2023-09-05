@@ -37,7 +37,7 @@
                             InterFeedBack Questions
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="Recruitment/InterFeedBackQuestions/InterFeedBackQuestionsCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add InterFeedBack Questions</a>
+                            <a href="/Recruitment/InterFeedBackQuestions/InterFeedBackQuestionsCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add InterFeedBack Questions</a>
 
                         </div>
                     </div>
@@ -62,8 +62,8 @@
                         <e-grid-columns>
 
 
-                            <e-grid-column field="DesignationId" headerText="Designation" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="InterviewRoundId" headerText="InterviewRound" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Designation.DesignationName" headerText="Designation" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="InterviewRound.InterviewRoundName" headerText="InterviewRound" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Question" headerText="Question" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Mark" headerText="Mark" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>

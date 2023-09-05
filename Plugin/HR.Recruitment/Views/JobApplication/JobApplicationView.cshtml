@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "JobApplication";
+    ViewData["Title"] = "Job Application";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -60,13 +60,13 @@
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
 
-                            <e-grid-column field="JobOpening" headerText="Job Opening" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="JobOpening.JobTitle" headerText="Job Opening" textAlign="Left" width="120"></e-grid-column>
 
                             <e-grid-column field="ApplicantName" headerText="Applicant Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="EmailAddress" headerText="Email Address" textAlign="Left" width="120"></e-grid-column>
 
                             <e-grid-column field="PhoneNo" headerText="Phone No" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="JobApplicationSource" headerText="Job Application Source" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="JobApplicationSource.SourceName" headerText="Job Application Source" textAlign="Left" width="120"></e-grid-column>
 
                             <e-grid-column field="CV" headerText="CV" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="SalaryExpectation" headerText="Salary Expectation" textAlign="Left" width="120"></e-grid-column>

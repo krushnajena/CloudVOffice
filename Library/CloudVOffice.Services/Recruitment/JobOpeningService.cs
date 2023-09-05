@@ -67,7 +67,11 @@ namespace CloudVOffice.Services.Recruitment
 
             try
             {
-                return _Context.JobOpenings.Where(x => x.Deleted == false).ToList();
+                return _Context.JobOpenings
+                    .Include(x=> x.Department)
+                    .Include(x=> x.Designation)
+                    .Include(x=> x.SkillSet)
+                    .Where(x => x.Deleted == false).ToList();
 
 
             }

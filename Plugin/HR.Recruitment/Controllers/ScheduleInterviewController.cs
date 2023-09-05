@@ -14,15 +14,33 @@ namespace HR.Recruitment.Controllers
 	public class ScheduleInterviewController : BasePluginController
 	{
 		private readonly IJobOpeningService _jobOpeningService;
-		public ScheduleInterviewController(IJobOpeningService jobOpeningService)
+
+		private readonly IScheduleInterviewService _scheduleInterviewService;
+		public ScheduleInterviewController(IJobOpeningService jobOpeningService,
+
+			IScheduleInterviewService scheduleInterviewService
+			)
 		{
 			_jobOpeningService= jobOpeningService;
+			_scheduleInterviewService = scheduleInterviewService;
 		}
 
 		public IActionResult ScheduleInterView()
 		{
 			ViewBag.JobOpenings = _jobOpeningService.GetJobOpeningsList();
 			return View("~/Plugins/HR.Recruitment/Views/ScheduleInterview/ScheduleInterview.cshtml");
+		}
+
+		public IActionResult ScheduleInterviewCreate(Int64 RoundId, Int64 JobId, Int64 ApplicationId)
+		{
+			ViewBag.RoundId = RoundId;
+			ViewBag.JobId = JobId;
+			ViewBag.ApplicationId = ApplicationId;
+			return View("~/Plugins/HR.Recruitment/Views/ScheduleInterview/ScheduleInterviewCreate.cshtml");
+		}
+		public JsonResult GetInterViewRoundsForSchedule(int JobId, long ApplicationId)
+		{
+			return Json(_scheduleInterviewService.GetInterViewRoundsForSchedule(JobId, ApplicationId));
 		}
 	}
 }

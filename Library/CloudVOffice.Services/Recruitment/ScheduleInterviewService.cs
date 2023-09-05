@@ -46,7 +46,7 @@ namespace CloudVOffice.Services.Recruitment
 			for(int i = 0; i < interviewRounds.Count; i++)
 			{
 				var inertview  = _Context.InterviewSchedules.Where(x=>x.ApplicationId == ApplicationId && x.JobId == JobId && x.RoundId == interviewRounds[i].InterviewRoundId).ToList();
-				int flag = 1;
+				int flag = 0;
 				int status = 0;
 				if (inertview.Count > 0)
 				{
@@ -72,7 +72,7 @@ namespace CloudVOffice.Services.Recruitment
 						}
 						if(reccount > nrec && i == 0)
 						{
-							flag = 3;
+							flag = 4;
 						}
 						
 					}
@@ -118,24 +118,25 @@ namespace CloudVOffice.Services.Recruitment
 								}
 								if (reccount > nrec && i == 0)
 								{
-									flag = 3;
+									flag = 2;
 								}
 
 							}
 							else if (interviewSc.Status == 2)
 							{
-								flag = 1;
+								flag = 0;
 							}
 							else if (interviewSc.Status == 3 || interviewSc.Status == 4)
 							{
-								flag = 1;
+								flag = 0;
 							}
 
 						}
 						else
 						{
-							flag = 2;
+							flag = 0;
 						}
+						
 					}
 					else
 					{
@@ -170,7 +171,7 @@ namespace CloudVOffice.Services.Recruitment
 			}
 
 
-			return result;
+			return result.OrderBy(x=>x.Order).ToList();
 
 		}
 	}

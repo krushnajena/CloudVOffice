@@ -42,7 +42,7 @@ namespace HR.Recruitment.Controllers
                 jobOpeningDTO.JobTitle = d.JobTitle; 
                 jobOpeningDTO.DepartmentId = d.DepartmentId;
                 jobOpeningDTO.DesignationId = d.DesignationId;
-                jobOpeningDTO.SkillSetId = d.SkillSetId;
+                jobOpeningDTO.SkillSetId  = int.Parse(d.SkillSetId.ToString());
                 jobOpeningDTO.Status = d.Status;
                 jobOpeningDTO.Description = d.Description;
                 jobOpeningDTO.SalaryLowerRange = d.SalaryLowerRange;

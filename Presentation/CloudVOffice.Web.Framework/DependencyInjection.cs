@@ -85,12 +85,22 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IInterFeedBackQuestionsService, InterFeedBackQuestionsService>();
 			services.AddScoped<IInterviewPanelMemberService, InterviewPanelMemberService>();
 
-            #endregion
 
-           
 
-            #region Project Services
-            services.AddScoped<IProjectTypeService, ProjectTypeService>();
+			services.AddScoped<IInterviewPanelService, InterviewPanelService>();
+			services.AddScoped<IScheduleInterviewService, ScheduleInterviewService>();
+		
+
+
+
+
+
+			#endregion
+
+
+
+			#region Project Services
+			services.AddScoped<IProjectTypeService, ProjectTypeService>();
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IProjectActivityTypeService, ProjectActivityTypeService>();
             services.AddScoped<IProjectTaskService, ProjectTaskService>();
@@ -147,6 +157,10 @@ namespace CloudVOffice.Web.Framework
 
             services.AddScoped<ICustomerGroupService, CustomerGroupService>();
             #endregion
+
+
+
+
 
             return services;
 

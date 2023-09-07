@@ -109,33 +109,25 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                var jobOpening = _Context.JobOpenings.Where(x => x.JobOpeningId != jobOpeningDTO.JobOpeningId && x.Deleted == false).FirstOrDefault();
-                if (jobOpening == null)
+                var a = _Context.JobOpenings.Where(x => x.JobOpeningId == jobOpeningDTO.JobOpeningId).FirstOrDefault();
+                if (a != null)
                 {
-                    var a = _Context.JobOpenings.Where(x => x.JobOpeningId == jobOpeningDTO.JobOpeningId).FirstOrDefault();
-                    if (a != null)
-                    {
-                        a.JobTitle = jobOpeningDTO.JobTitle;
-                        a.DepartmentId = jobOpeningDTO.DepartmentId;
-                        a.DesignationId = jobOpeningDTO.DesignationId;
-						a.SkillSetId = jobOpeningDTO.SkillSetId;
-						a.Status = jobOpeningDTO.Status;
-                        a.Description = jobOpeningDTO.Description;
-                        a.SalaryLowerRange = jobOpeningDTO.SalaryLowerRange;
-                        a.SalaryUpperRange = jobOpeningDTO.SalaryUpperRange;
-                        a.UpdatedBy = jobOpeningDTO.CreatedBy;
-                        a.UpdatedDate = DateTime.Now;
+                    a.JobTitle = jobOpeningDTO.JobTitle;
+                    a.DepartmentId = jobOpeningDTO.DepartmentId;
+                    a.DesignationId = jobOpeningDTO.DesignationId;
+                    a.SkillSetId = jobOpeningDTO.SkillSetId;
+                    a.Status = jobOpeningDTO.Status;
+                    a.Description = jobOpeningDTO.Description;
+                    a.SalaryLowerRange = jobOpeningDTO.SalaryLowerRange;
+                    a.SalaryUpperRange = jobOpeningDTO.SalaryUpperRange;
+                    a.UpdatedBy = jobOpeningDTO.CreatedBy;
+                    a.UpdatedDate = DateTime.Now;
 
-                        _Context.SaveChanges();
-                        return MessageEnum.Updated;
-                    }
-                    else
-                        return MessageEnum.Invalid;
+                    _Context.SaveChanges();
+                    return MessageEnum.Updated;
                 }
                 else
-                {
-                    return MessageEnum.Duplicate;
-                }
+                    return MessageEnum.Invalid;
 
             }
             catch

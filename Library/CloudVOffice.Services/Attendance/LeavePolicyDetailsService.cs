@@ -1,8 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
+using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +17,13 @@ namespace CloudVOffice.Services.Attendance
 	{
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<LeavePolicyDetails> _leavePolicyDetailsRepo;
+		
 		public LeavePolicyDetailsService(ApplicationDBContext Context, ISqlRepository<LeavePolicyDetails> leavePolicyDetailsRepo)
 		{
 
 			_Context = Context;
 			_leavePolicyDetailsRepo = leavePolicyDetailsRepo;
+			
 		}
 		public MessageEnum LeavePolicyDetailsCreate(LeavePolicyDetailsDTO leavePolicyDetailsDTO)
 		{
@@ -35,11 +39,12 @@ namespace CloudVOffice.Services.Attendance
 					leavePolicyDetails.AllocationMode = leavePolicyDetailsDTO.AllocationMode;
 					leavePolicyDetails.CreatedBy = leavePolicyDetailsDTO.CreatedBy;
 					var obj = _leavePolicyDetailsRepo.Insert(leavePolicyDetails);
+					
 					return MessageEnum.Success;
 
 				}
-				else if(objCheck != null)
-			    {
+				else if (objCheck != null)
+				{
 					return MessageEnum.Duplicate;
 				}
 				return MessageEnum.UnExpectedError;
@@ -71,10 +76,10 @@ namespace CloudVOffice.Services.Attendance
 			{
 				throw;
 			}
-		 
+
 		}
 
-		
+
 
 		public MessageEnum LeavePolicyDetailsDelete(int leavePolicyDetailsId, Int64 DeletedBy)
 		{
@@ -105,10 +110,10 @@ namespace CloudVOffice.Services.Attendance
 			try
 			{
 				var leavePolicyDetails = _Context.LeavePolicyDetails.Where(x => x.LeavePolicyDetailsId != leavePolicyDetailsDTO.LeavePolicyDetailsId && x.Deleted == false).FirstOrDefault();
-				if (leavePolicyDetails == null) 
+				if (leavePolicyDetails == null)
 				{
 					var a = _Context.LeavePolicyDetails.Where(x => x.LeavePolicyDetailsId == leavePolicyDetailsDTO.LeavePolicyDetailsId).FirstOrDefault();
-					if(a != null)
+					if (a != null)
 					{
 						a.LeavePolicyId = leavePolicyDetailsDTO.LeavePolicyId;
 						a.LeaveTypeId = leavePolicyDetailsDTO.LeaveTypeId;

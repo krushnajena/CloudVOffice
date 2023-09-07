@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
@@ -20,6 +21,7 @@ namespace CloudVOffice.Services.Projects
             _projectEmployeeRepo = projectEmployeeRepo;
         }
 
+       
         public ProjectEmployee GetProjectEmployeeByFullName(string fullName)
         {
             throw new NotImplementedException();
@@ -163,5 +165,6 @@ namespace CloudVOffice.Services.Projects
         {
             throw new NotImplementedException();
         }
+       
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HR.Attendance.Controllers
 {
     [Area(AreaNames.Attendance)]
-    public class AttendanceRequestController : BasePluginController
+    public class AttendanceRequestController : BasePluginController 
     {
         private readonly IAttendanceRequestService _attendanceRequestService;
         private readonly IEmployeeService _employeeService;

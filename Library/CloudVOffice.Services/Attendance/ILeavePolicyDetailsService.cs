@@ -13,10 +13,10 @@ namespace CloudVOffice.Services.Attendance
 	{
 		public MessageEnum LeavePolicyDetailsCreate(LeavePolicyDetailsDTO leavePolicyDetailsDTO);
 		public List<LeavePolicyDetails> GetLeavePolicyDetailsList();
-		public LeavePolicyDetails GetLeavePolicyDetailsById(int leavePolicyDetailsId);
+		public LeavePolicyDetails GetLeavePolicyDetailsById(int leavePolicyId);
 		public MessageEnum LeavePolicyDetailsUpdate (LeavePolicyDetailsDTO leavePolicyDetailsDTO);
 		public MessageEnum LeavePolicyDetailsDelete(int leavePolicyDetailsId , Int64 DeletedBy);
 
-
+		
 	}
 }

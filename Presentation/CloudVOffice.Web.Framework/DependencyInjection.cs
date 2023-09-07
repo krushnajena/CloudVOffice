@@ -101,7 +101,8 @@ namespace CloudVOffice.Web.Framework
 
             services.AddScoped<IRecruitClientService, RecruitClientService>();
             services.AddScoped<IRecruitClientDocumentService, RecruitClientDocumentService>();
-;
+            services.AddScoped<IRecruitClientContactService, RecruitClientContactService>();
+            ;
             #endregion
 
 

@@ -113,6 +113,22 @@ namespace CloudVOffice.Data.Persistence
         #endregion
 
         #region Recruitment
+
+        public virtual DbSet<RecruitClient> RecruitClients { get; set; }
+        public virtual DbSet<RecruitClientDocument> RecruitClientDocuments { get; set; }
+        public virtual DbSet<RecruitClientContact> RecruitClientContacts { get; set; }
+
+
+
+
+
+
+
+
+
+
+
+
         public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
 
@@ -128,8 +144,13 @@ namespace CloudVOffice.Data.Persistence
 
 
 		public virtual DbSet<InterviewPanelMember> InterviewPanelMembers { get; set; }
-		
 
+
+
+
+		public virtual DbSet<InterviewFeedbackAnswer> InterviewFeedbackAnswers { get; set; }
+		public virtual DbSet<InterviewPanel> InterviewPanels { get; set; }
+		public virtual DbSet<InterviewSchedule> InterviewSchedules { get; set; }
 
 		#endregion
 		#endregion

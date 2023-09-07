@@ -16,5 +16,7 @@ namespace CloudVOffice.Services.Recruitment
 		public InterviewRound GetInterviewRoundById(int interviewRoundId);
 		public MessageEnum InterviewRoundUpdate(InterviewRoundDTO interviewRoundDTO);
 		public MessageEnum InterviewRoundDelete(int interviewRoundId, Int64 DeletedBy);
+
+		public List<InterviewRound> GetInterviewRoundsByDesignationId(int DesignationId);
 	}
 }

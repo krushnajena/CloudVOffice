@@ -23,7 +23,12 @@
 		<None Remove="Views\InterviewRound\InterviewRoundView.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningCreate.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningView.cshtml" />
+		<None Remove="Views\RecruitClientDocument\RecruitClientDocumentCreate.cshtml" />
+		<None Remove="Views\RecruitClientDocument\RecruitClientDocumentView.cshtml" />
+		<None Remove="Views\RecruitClient\RecruitClientCreate.cshtml" />
+		<None Remove="Views\RecruitClient\RecruitClientView.cshtml" />
 		<None Remove="Views\ScheduleInterview\ScheduleInterView.cshtml" />
+		<None Remove="Views\ScheduleInterview\ScheduleInterviewCreate.cshtml" />
 		<None Remove="Views\SkillSet\CreateSkillSet.cshtml" />
 		<None Remove="Views\SkillSet\SkillSetView.cshtml" />
 	

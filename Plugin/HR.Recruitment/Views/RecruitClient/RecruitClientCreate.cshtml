@@ -1,0 +1,169 @@
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@model CloudVOffice.Data.DTO.Recruitment.RecruitClientDTO;
+@{
+    Layout = "_MainAppLayout";
+    ViewData["Title"] = "Recruit Client";
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Recruit</h5>
+                    <h6 class="sub-heading"></h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+            <div class="card">
+                <form asp-route="/Recruitment/RecruitClient/RecruitClientCreate" method="post" autocomplete="off">
+                    <div asp-ation-summary="ModelOnly" class="message-error"></div>
+
+
+                    <div class="card-header"><b>Basic Info</b></div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <input asp-for="@Model.RecruitClientId" type="hidden" />
+
+                                <label for="ClientName" class="form-label">Client Name</label>
+                                <input asp-for="@Model.ClientName" type="text" class="form-control" autofocus="autofocus" placeholder="Client Name" />
+                                <span asp-validation-for="ClientName"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="ContactNo" class="form-label">ContactNo </label>
+                                <input asp-for="@Model.ContactNo" type="text" class="form-control" autofocus="autofocus" placeholder="Contact No" />
+                                <span asp-validation-for="ContactNo"></span>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+                                <label for="EmployeeId" class="form-label">Account Manager</label>
+                                <ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.AccountManagerId" filtering="onAccountManagerrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.AccountManager, "EmployeeId", "FullName").Items)" placeholder="Select Account Manager" popupHeight="220px">
+                                    <e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+                                </ejs-dropdownlist>
+                                <span asp-validation-for="AccountManagerId"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="Website" class="form-label">Website</label>
+                                <input asp-for="@Model.Website" type="text" class="form-control" autofocus="autofocus" placeholder="Website" />
+                                <span asp-validation-for="Website"></span>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="Fax" class="form-label">Fax</label>
+                                <input asp-for="@Model.Fax" type="text" class="form-control" autofocus="autofocus" placeholder="Fax" />
+                                <span asp-validation-for="Fax"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="About" class="form-label">About</label>
+                                <input asp-for="@Model.About" type="text" class="form-control" autofocus="autofocus" placeholder="About" />
+                                <span asp-validation-for="About"></span>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="BillingAddressLine1" class="form-label">Billing Address Line1</label>
+                                <input asp-for="@Model.BillingAddressLine1" type="text" class="form-control" autofocus="autofocus" placeholder="Billing Address Line1" />
+                                <span asp-validation-for="BillingAddressLine1"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="BillingAddressLine2" class="form-label">Billing Address Line2</label>
+                                <input asp-for="@Model.BillingAddressLine2" type="text" class="form-control" autofocus="autofocus" placeholder="Billing Address Line 2" />
+                                <span asp-validation-for="BillingAddressLine2"></span>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="BillingCity" class="form-label">Billing City</label>
+                                <input asp-for="@Model.BillingCity" type="text" class="form-control" autofocus="autofocus" placeholder="Billing City" />
+                                <span asp-validation-for="BillingCity"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="BillingState" class="form-label">Billing State</label>
+                                <input asp-for="@Model.BillingState" type="text" class="form-control" autofocus="autofocus" placeholder="Billing State" />
+                                <span asp-validation-for="BillingState"></span>
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label for="BillingCountry" class="form-label">Billing Country</label>
+                                <input asp-for="@Model.BillingCountry" type="text" class="form-control" autofocus="autofocus" placeholder="Billing Country" />
+                                <span asp-validation-for="BillingCountry"></span>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <label for="BillingPostalCode" class="form-label">Billing Postal Code</label>
+                                <input asp-for="@Model.BillingPostalCode" type="text" class="form-control" autofocus="autofocus" placeholder="Billing Postal Code" />
+                                <span asp-validation-for="BillingPostalCode"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    function onAccountManagerrfiltering(e) {
+        var query = new ej.data.Query();
+        query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+        e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.AccountManager)), query);
+    }
+</script>

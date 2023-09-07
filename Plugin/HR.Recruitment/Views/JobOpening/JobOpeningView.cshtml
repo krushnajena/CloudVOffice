@@ -1,5 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
+    ViewData["Title"] = "Job Opening";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -17,7 +18,7 @@
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">Last Login: 2 hours ago</span>
+                    <span class="last-login"> </span>
                 </div>
             </div>
         </div>
@@ -31,11 +32,11 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             Job Opening
                         </div>
-                        <div class="col-md-2 text-right float-right">
-                            <a href="/  " class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Job Opening</a>
+                        <div class="col-md-4 text-right float-right">
+                            <a href="/Recruitment/JobOpening/JobOpeningCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Job Opening</a>
 
                         </div>
                     </div>
@@ -59,9 +60,9 @@
                         <e-grid-columns>
 
                             <e-grid-column field="JobTitle" headerText="Job Title" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Department" headerText="Department" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Designation" headerText="Designation" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="SkillSetId" headerText="SkillSet" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Department.DepartmentName" headerText="Department" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Designation.DesignationName" headerText="Designation" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="SkillSet.SkillName" headerText="SkillSet" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="200"></e-grid-column>
                             <e-grid-column field="Description" headerText="Description" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="SalaryLowerRange" headerText="Salary Lower Range" textAlign="Left" width="200"></e-grid-column>
@@ -199,5 +200,17 @@
             };
         }
     };
-    
+
+    function statusDetail(e) {
+        if (e.Status == 1) {
+            return '<span class="badge badge-pill badge-success">Open</span>';
+        } else {
+            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;">Closed</span>';
+        }
+    }
+
+</script>
+
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
 </script>

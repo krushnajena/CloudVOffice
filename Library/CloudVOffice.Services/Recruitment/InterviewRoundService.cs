@@ -68,7 +68,10 @@ namespace CloudVOffice.Services.Recruitment
 		{
 			try
 			{
-				return _Context.InterviewRounds.Where(x => x.Deleted == false).ToList();
+				return _Context.InterviewRounds
+					.Include(x => x.InterviewType)
+					.Include(x => x.Designation)
+					.Where(x => x.Deleted == false).ToList();
 
 			}
 			catch
@@ -132,6 +135,11 @@ namespace CloudVOffice.Services.Recruitment
 			{
 				throw;
 			}
+		}
+
+		public List<InterviewRound> GetInterviewRoundsByDesignationId(int DesignationId)
+		{
+			return _Context.InterviewRounds.Where(x=>x.DesignationId == DesignationId && x.Deleted == false).OrderBy(a=>a.InterviewRoundOrder).ToList();
 		}
 	}
 }

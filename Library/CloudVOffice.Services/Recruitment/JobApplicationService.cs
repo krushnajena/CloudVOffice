@@ -71,7 +71,9 @@ namespace CloudVOffice.Services.Recruitment
 			try
 			{
 				return _Context.JobApplications
-					.Include(x => x.JobOpening).Where(x => x.Deleted == false).ToList();
+					.Include(x => x.JobOpening)
+					.Include(x => x.JobApplicationSource)
+					.Where(x => x.Deleted == false).ToList();
 
 			}
 			catch

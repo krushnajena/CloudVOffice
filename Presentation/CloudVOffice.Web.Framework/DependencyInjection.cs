@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Core.Infrastructure.Http;
+﻿using CloudVOffice.Core.Domain.Recruitment;
+using CloudVOffice.Core.Infrastructure.Http;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Services.Accounts;
 using CloudVOffice.Services.Applications;
@@ -85,9 +86,25 @@ namespace CloudVOffice.Web.Framework
 			services.AddScoped<IInterFeedBackQuestionsService, InterFeedBackQuestionsService>();
 			services.AddScoped<IInterviewPanelMemberService, InterviewPanelMemberService>();
 
+
+
+			services.AddScoped<IInterviewPanelService, InterviewPanelService>();
+			services.AddScoped<IScheduleInterviewService, ScheduleInterviewService>();
+
+
+
+            services.AddScoped<IScheduleInterviewService, ScheduleInterviewService>();
+            services.AddScoped<IScheduleInterviewService, ScheduleInterviewService>();
+
+
+
+
+            services.AddScoped<IRecruitClientService, RecruitClientService>();
+            services.AddScoped<IRecruitClientDocumentService, RecruitClientDocumentService>();
+;
             #endregion
 
-           
+
 
             #region Project Services
             services.AddScoped<IProjectTypeService, ProjectTypeService>();
@@ -147,6 +164,10 @@ namespace CloudVOffice.Web.Framework
 
             services.AddScoped<ICustomerGroupService, CustomerGroupService>();
             #endregion
+
+
+
+
 
             return services;
 

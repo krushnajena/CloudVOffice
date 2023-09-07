@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Emp;
 using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Data.DTO.Projects;
 
@@ -16,9 +17,9 @@ namespace CloudVOffice.Services.Projects
 
         public List<ProjectEmployee> ProjectEmployeeByProjectId(int ProjectId);
 
-     //   public MessageEnum ReleaseResource(ReleaseResourceDTO releaseResourceDTO);
+        //   public MessageEnum ReleaseResource(ReleaseResourceDTO releaseResourceDTO);
 
-
+      
 
     }
 }

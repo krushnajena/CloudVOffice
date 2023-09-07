@@ -1,0 +1,206 @@
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@model CloudVOffice.Data.DTO.Attendance.LeavePolicyDTO;
+@{
+	Layout = "_MainAppLayout";
+	ViewData["Title"] = "LeavePolicyDetails";
+	var EmployeeGradeList = new SelectList((IEnumerable)ViewBag.employeeGrades, "EmployeeGradeId", "EmployeeGradeName");
+	var LeavePeriodList = new SelectList((IEnumerable)ViewBag.LeavePeriods, "LeavePeriodId");
+	var LeavePolicys = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.leaveType, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "LeaveTypeId", Text = "LeaveTypeName" }, Change = "onChange" };
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Leave Policy Details</h5>
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login">  </span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+			<div class="card">
+				<form asp-route="Attendance/LeavePolicy/LeavePolicyCreate" method="post" autocomplete="off">
+					<div asp-validation-summary="ModelOnly" class="message-error"></div>
+					<div class="card-header"><b>Leave Policy Details</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<input asp-for="@Model.LeavePolicyId" type="hidden" />
+								<span asp-validation-for="LeavePolicyId"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="LeavePeriodId" class="form-label">Leave Type &nbsp;<span style="color:red;"><b>*</b></span></label>
+
+								<ejs-dropdownlist id="LeavePeriodId" allowFiltering="true" ejs-for="@Model.LeavePeriodId" filtering="onLeavePeriodrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.LeavePeriods, "LeavePeriodId").Items)" placeholder="Select a LeavePeriod" popupHeight="220px">
+									<e-dropdownlist-fields text="LeavePeriodId" value="LeavePeriodId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="LeavePeriodId"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label for="EmployeeGradeId" class="form-label">Employee Grade &nbsp;<span style="color:red;"><b>*</b></span></label>
+
+								<ejs-dropdownlist id="EmployeeGradeId" allowFiltering="true" ejs-for="@Model.EmployeeGradeId" filtering="onEmployeeGraderfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.employeeGrades, "EmployeeGradeId", "EmployeeGradeName").Items)" placeholder="Select a EmployeeGrade" popupHeight="220px">
+									<e-dropdownlist-fields text="EmployeeGradeName" value="EmployeeGradeId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+								<span asp-validation-for="EmployeeGradeId"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
+
+							<div class="form-group col-md-6">
+								<label for="EstimatedCost" class="form-label">Leave Type</label>
+								<input type="hidden" asp-for="@Model.LeavePolicyDetailsString" id="LeavePolicyString" />
+								<ejs-grid id="Grid" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.LeavePolicyDetailsString" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+									<e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
+
+									<e-grid-columns>
+										<e-grid-column field="LeaveTypeId" Visible="false" foreignKeyField="LeaveTypeId" headerText="Leave Type Name" edit="new {@@params = LeavePolicyDetails }" editType="dropdownedit" width="140"></e-grid-column>
+										<e-grid-column field="LeaveTypeId" foreignKeyField="LeaveTypeId" headerText="Leave Type Name" width="140"></e-grid-column>
+									</e-grid-columns>
+
+								</ejs-grid>
+
+								<div class="form-group col-md-3">
+									<label for="NoOfLeaves" class="form-label">No Of Leaves&nbsp;<span style="color:red;"><b>*</b></span></label>
+									<input asp-for="@Model.LeavePolicyDetailsString" type="text" class="form-control" autofocus="autofocus" placeholder="No Of Leaves" />
+									
+								</div>
+								<div class="form-group col-md-3">
+									<label for="AllocationMode" class="form-label">Allocation Mode&nbsp;<span style="color:red;"><b>*</b></span></label>
+									<select input asp-for="@Model.LeavePolicyDetailsString" type="text" class="form-control" autofocus="autofocus" placeholder="Allocation Mode">
+										<option value="1">Annual</option>
+										<option value="2">Monthly</option>
+
+									</select>
+								</div>
+							</div>
+
+
+						</div>
+
+					</div>
+					<div class="card-body">
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	function onLeavePeriodrfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('LeavePeriod', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.LeavePeriods)), query);
+	}
+
+	function onEmployeeGraderfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('EmployeeGradeName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.employeeGrades)), query);
+	}
+
+
+</script>
+<script>
+
+	var employeeName = '';
+	function onChange(args) {
+
+		employeeName = args.itemData.EmployeeGradeName;
+	}
+	
+
+
+	function actionBegin(args) {
+		let grid = document.getElementById("Grid").ej2_instances[0];
+
+
+		if (args.requestType === 'save') {
+			args.data.LeaveTypeName = leaveTypeName
+			for (var i = 0; i < grid.columns.length; i++) {
+				if (grid.columns[i].field == "LeaveTypeId") {
+					grid.columns[i].visible = false
+					console.log(grid.columns[i]);
+				}
+				if (grid.columns[i].field == "LeaveTypeName") {
+					grid.columns[i].visible = true
+				}
+
+			}
+			if (grid.pageSettings.currentPage !== 1 && grid.editSettings.newRowPosition === 'Top') {
+				args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - grid.pageSettings.pageSize;
+			} else if (grid.editSettings.newRowPosition === 'Bottom') {
+				args.index = (grid.pageSettings.currentPage * grid.pageSettings.pageSize) - 1;
+			}
+		}
+		else if (args.requestType === 'add' || args.requestType === 'beginEdit') {
+
+			for (var i = 0; i < grid.columns.length; i++) {
+				if (grid.columns[i].field == "LeaveTypeId") {
+					grid.columns[i].visible = true;
+				}
+				if (grid.columns[i].field == "LeaveTypeName") {
+					grid.columns[i].visible = false
+				}
+
+			}
+
+		}
+	}
+
+	function actionComplete(args) {
+		if (args.requestType === 'save' || args.requestType === 'delete') {
+			let grid = document.getElementById("Grid").ej2_instances[0];
+
+			$('#LeavePolicyDetailsString').val(JSON.stringify(grid.currentViewData));
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+</script>
+
+<style>
+	#typeddl {
+		min-width: 100px;
+	}
+</style>
+
+<style>
+	.e-dropdownbase .e-list-item {
+		overflow: visible !important;
+	}
+</style>

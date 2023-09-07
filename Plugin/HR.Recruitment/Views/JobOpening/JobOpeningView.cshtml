@@ -35,7 +35,7 @@
                             Job Opening
                         </div>
                         <div class="col-md-2 text-right float-right">
-                            <a href="/Recruitment/JobOpening/JobOpeningCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Job Opening</a>
+                            <a href="/  " class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Job Opening</a>
 
                         </div>
                     </div>
@@ -58,12 +58,11 @@
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
 
-
                             <e-grid-column field="JobTitle" headerText="Job Title" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Department" headerText="Department" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Designation" headerText="Designation" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="SkillSetId" headerText="SkillSet" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Status" headerText="Status" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="200"></e-grid-column>
                             <e-grid-column field="Description" headerText="Description" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="SalaryLowerRange" headerText="Salary Lower Range" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="SalaryUpperRange" headerText="Salary Upper Range" textAlign="Left" width="200"></e-grid-column>
@@ -200,5 +199,5 @@
             };
         }
     };
-
+    
 </script>

@@ -1,4 +1,7 @@
-﻿namespace CloudVOffice.Core.Domain.HR.Attendance
+﻿using CloudVOffice.Core.Domain.Projects;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CloudVOffice.Core.Domain.HR.Attendance
 {
     public class LeavePolicyDetails : IAuditEntity, ISoftDeletedEntity
     {
@@ -12,5 +15,8 @@
         public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
+
+      
+      
     }
 }

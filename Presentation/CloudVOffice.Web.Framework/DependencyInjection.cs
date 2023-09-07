@@ -106,7 +106,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IHolidayDaysService, HolidayDaysService>();
             services.AddScoped<ILeaveTypeService, LeaveTypeService>();
             services.AddScoped<IEmployeeAttendanceService, EmployeeAttendanceService>();
-            services.AddScoped<IAttendanceRequestService, AttendanceRequestService>();
+            services.AddScoped<IAttendanceRequestService, AttendanceRequestService>();  
             services.AddScoped<IShiftEmployeeService, ShiftEmployeeService>();
 
             services.AddScoped<ILeavePeriodService, LeavePeriodService>();
@@ -116,17 +116,17 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IEmployeeCheckInService, EmployeeCheckInService>();
             services.AddScoped<IWorkFromHomeRequestService, WorkFromHomeRequestService>();
 
-			
+			services.AddScoped<ILeavePolicyService, LeavePolicyService> ();
 			services.AddScoped<ILeavePolicyDetailsService, LeavePolicyDetailsService>();
 
-			#endregion
+            #endregion
 
 
 
 
 
-			#region DesktopLogin
-			services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
+            #region DesktopLogin
+            services.AddScoped<IDesktoploginSevice, DesktoploginSevice>();
             services.AddScoped<IDesktopSnapsService, DesktopSnapsService>();
             services.AddScoped<IRestrictedWebsiteService, RestrictedWebsiteService>();
             services.AddScoped<IRestrictedApplicationService, RestrictedApplicationService>();

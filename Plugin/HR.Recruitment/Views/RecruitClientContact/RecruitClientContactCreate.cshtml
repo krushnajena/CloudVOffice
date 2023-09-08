@@ -1,0 +1,137 @@
+﻿@model CloudVOffice.Data.DTO.Recruitment.RecruitClientContactDTO;
+@{
+	Layout = "_MainAppLayout";
+	ViewData["Title"] = "RecruitClientDocument";
+	var RecruitClientList = new SelectList((IEnumerable)ViewBag.RecruitClient, "RecruitClientId", "ClientName");
+
+
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>RecruitClient Contact</h5>
+
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Recruitment/RecruitClientContact/RecruitClientContactCreate" method="post" autocomplete="off">
+					<div asp-
+						 ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>RecruitClientContact</b></div>
+					<div class="card-body">
+						<div class="form-row">
+
+							<div class="form-group col-md-4">
+							<label for="RecruitClientId" class="form-label">RecruitClientId</label>
+							<ejs-dropdownlist id="RecruitClientId" allowFiltering="true" ejs-for="@Model.RecruitClientId" filtering="onRecruitClientfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.RecruitClient, "RecruitClientId", "ClientName").Items)" placeholder="Select RecruitClient" popupHeight="220px">
+									<e-dropdownlist-fields text="ClientName" value="RecruitClientId"></e-dropdownlist-fields>
+							</ejs-dropdownlist>
+							<span asp-validation-for="RecruitClientId"></span>
+							</div>
+
+
+							<div class="form-group col-md-4">
+								<label for="ContactName" class="form-label">ContactName</label>
+								<input asp-for="@Model.ContactName" type="text" class="form-control" autofocus="autofocus" placeholder="ContactName" />
+								<span asp-validation-for="ContactName"></span>
+							</div>
+
+						</div>
+						
+
+
+
+						<div class="form-row">
+
+
+							
+
+							<div class="form-group col-md-4">
+								<label for="ContactEmail" class="form-label">Contact Email</label>
+								<input asp-for="@Model.ContactEmail" type="text" class="form-control" autofocus="autofocus" placeholder="ContactEmail" />
+								<span asp-validation-for="ContactEmail"></span>
+							</div>
+
+
+							<div class="form-group col-md-4">
+								<label for="ContactPhone" class="form-label">ContactPhone</label>
+								<input asp-for="@Model.ContactPhone" type="text" class="form-control" autofocus="autofocus" placeholder="ContactPhone" />
+								<span asp-validation-for="ContactPhone"></span>
+							</div>
+
+
+						</div>
+
+
+						<div class="form-row">
+
+
+
+							<div class="form-group col-md-4">
+								<label for="DepartmentName" class="form-label">DepartmentName</label>
+								<input asp-for="@Model.DepartmentName" type="text" class="form-control" autofocus="autofocus" placeholder="DepartmentName" />
+								<span asp-validation-for="DepartmentName"></span>
+							</div>
+
+							<div class="form-group col-md-4">
+								<label for="JobTitle" class="form-label">JobTitle</label>
+								<input asp-for="@Model.JobTitle" type="text" class="form-control" autofocus="autofocus" placeholder="JobTitle" />
+								<span asp-validation-for="JobTitle"></span>
+							</div>
+
+						</div>
+						
+
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>t
+<script>
+	function onRecruitClientfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('ClientName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.RecruitClient)), query);
+	}
+</script>

@@ -1,10 +1,21 @@
-﻿namespace CloudVOffice.Core.Domain.HR.Attendance
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CloudVOffice.Core.Domain.HR.Attendance
 {
     public class LeavePeriod : IAuditEntity, ISoftDeletedEntity
     {
         public int LeavePeriodId { get; set; }
-        public DateTime? FromDate { get; set; }
-        public DateTime? ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
+		[NotMapped]
+		public string LeavePeriodName {
+
+			get
+			{
+				 return FromDate.ToString("dd-MMM-yyyy") + "-" + ToDate.ToString("dd-MMM-yyyy"); 
+
+			}
+		}
 
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

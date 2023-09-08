@@ -54,10 +54,20 @@ namespace HR.Attendance.Controllers
 				leavePolicyDTO.LeavePolicyDetails = new List<LeavePolicyDetailsDTO>();
 			}
 			var leavePeriod = _leavePeriodService.GetLeavePeriodList();
+			List<object> AllocationMode =  new List<object>();
+			AllocationMode.Add(new {
+				Text = "Annual",
+				Value = 1
+			});
+			AllocationMode.Add(new
+			{
+				Text = "Monthly",
+				Value = 2
+			});
 			ViewBag.LeavePeriods = leavePeriod;
-
+			ViewBag.LeaveAllocationMode = AllocationMode;
 			ViewBag.employeeGrades = _employeeGradeServices.GetEmployeeGradeList();
-
+			ViewBag.LeaveTypes = _leaveTypeService.GetLeaveTypeList();
 
 			return View("~/Plugins/HR.Attendance/Views/LeavePolicy/LeavePolicyCreate.cshtml", leavePolicyDTO);
 		}

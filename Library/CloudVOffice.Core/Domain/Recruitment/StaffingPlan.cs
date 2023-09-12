@@ -1,4 +1,5 @@
 ﻿
+using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Core.Domain.HR.Master;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,5 +21,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
 
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
+
+        public ICollection<StaffingPlanDetails> StaffingPlanDetails { get; set; }
     }
 }

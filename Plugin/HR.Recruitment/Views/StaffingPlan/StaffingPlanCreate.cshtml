@@ -5,6 +5,9 @@
 	Layout = "_MainAppLayout";
 	ViewData["Title"] = "StaffingPlan";
 	var DepartmentList = new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName");
+
+	var StaffingPlanDetails = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.Users, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "EmployeeId", Text = "FullName" }, Change = "onChange" };
+
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -69,6 +72,22 @@
 							</div>
 							
 						</div>
+
+						<div class="card-header"><b>Staffing Plan Details</b></div>
+						<div class="form-group col-md-12">
+							<label for="EstimatedCost" class="form-label">Staffing Plan Details</label>
+							<input type="hidden" asp-for="@Model.StaffingPlanDetailsString" id="StaffingPlanDetailsString" />
+							<ejs-grid id="GridUsers" actionComplete="actionCompleteUser" actionBegin="actionBeginUsers" dataSource="@Model.StaffingPlanDetails" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+								<e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
+
+								<e-grid-columns>
+									<e-grid-column field="EmployeeId" Visible="false" foreignKeyField="EmployeeId" headerText="Full Name" edit="new {@@params = StaffingPlanDetails }" editType="dropdownedit" width="140"></e-grid-column>
+									<e-grid-column field="FullName" foreignKeyField="EmployeeId" headerText="Employee Name" width="140"></e-grid-column>
+								</e-grid-columns>
+							</ejs-grid>
+
+
+						</div>
 					</div>
 
 					<div class="card-body">
@@ -98,5 +117,57 @@
 		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Department)), query);
 	}
 
+
+</script>
+
+<script>
+		var employeeName = '';
+	function onChange(args) {
+
+		employeeName = args.itemData.FullName;
+	}
+
+
+	function actionBeginUsers(args) {
+		let grid = document.getElementById("GridUsers").ej2_instances[0];
+
+		
+		if (args.requestType === 'save') {
+			args.data.FullName = employeeName
+			for (var i = 0; i < grid.columns.length; i++) {
+				if (grid.columns[i].field == "EmployeeId") {
+					grid.columns[i].visible = false
+
+				}
+				if (grid.columns[i].field == "FullName") {
+					grid.columns[i].visible = true
+				}
+
+			}
+
+		}
+		else if (args.requestType === 'add' || args.requestType === 'beginEdit') {
+
+			for (var i = 0; i < grid.columns.length; i++) {
+				if (grid.columns[i].field == "EmployeeId") {
+					grid.columns[i].visible = true;
+				}
+				if (grid.columns[i].field == "FullName") {
+					grid.columns[i].visible = false
+				}
+
+			}
+
+		}
+	}
+
+	function actionCompleteUser(args) {
+		if (args.requestType === 'save' || args.requestType === 'delete') {
+			let grid = document.getElementById("GridUsers").ej2_instances[0];
+
+			$('#StaffingPlanDetailsString').val(JSON.stringify(grid.currentViewData));
+		}
+
+	}
 
 </script>

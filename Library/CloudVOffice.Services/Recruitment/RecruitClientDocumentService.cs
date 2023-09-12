@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,13 @@ namespace CloudVOffice.Services.Recruitment
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<RecruitClientDocument> _recruitClientDocumentRepo;
-        public RecruitClientDocumentService(ApplicationDBContext Context, ISqlRepository<RecruitClientDocument> recruitClientDocumentRepo)
-        {
 
+        public RecruitClientDocumentService (ApplicationDBContext Context, ISqlRepository<RecruitClientDocument> recruitClientDocumentRepo)
+        {
             _Context = Context;
             _recruitClientDocumentRepo = recruitClientDocumentRepo;
         }
+
         public RecruitClientDocument GetRecruitClientDocumentById(long recruitClientDocumentId)
         {
             try
@@ -56,10 +58,9 @@ namespace CloudVOffice.Services.Recruitment
                 if (objCheck == null)
                 {
                     RecruitClientDocument recruitClientDocument = new RecruitClientDocument();
-
                     recruitClientDocument.RecruitClientId = recruitClientDocumentDTO.RecruitClientId;
                     recruitClientDocument.DocumentType = recruitClientDocumentDTO.DocumentType;
-                    recruitClientDocument.RecruitClientId = recruitClientDocumentDTO.RecruitClientId;
+                    recruitClientDocument.Document = recruitClientDocumentDTO.Document;
                     recruitClientDocument.CreatedBy = recruitClientDocumentDTO.CreatedBy;
                     var obj = _recruitClientDocumentRepo.Insert(recruitClientDocument);
                     return MessageEnum.Success;
@@ -80,7 +81,7 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                var a = _Context.RecruitClientDocuments.Where(x => x.RecruitClientId == recruitClientDocumentId).FirstOrDefault();
+                var a = _Context.RecruitClientDocuments.Where(x => x.RecruitClientDocumentId == recruitClientDocumentId).FirstOrDefault();
                 if (a != null)
                 {
                     a.Deleted = true;
@@ -102,13 +103,12 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                var recruitClientDocument = _Context.RecruitClientDocuments.Where(x => x.RecruitClientDocumentId != recruitClientDocumentDTO.RecruitClientDocumentId && x.Deleted == false).FirstOrDefault();
-                if (recruitClientDocument == null)
+                var recruitClientDocuments = _Context.RecruitClientDocuments.Where(x => x.RecruitClientDocumentId != recruitClientDocumentDTO.RecruitClientDocumentId && x.Document == recruitClientDocumentDTO.Document && x.Deleted == false).FirstOrDefault();
+                if (recruitClientDocuments == null)
                 {
-                    var a = _Context.RecruitClientDocuments.Where(x => x.RecruitClientDocumentId == recruitClientDocumentDTO.RecruitClientDocumentId).FirstOrDefault();
+                    var a = _Context.RecruitClientDocuments.Where(x => x.RecruitClientDocumentId == recruitClientDocumentDTO.RecruitClientDocumentId ).FirstOrDefault();
                     if (a != null)
                     {
-
                         a.RecruitClientId = recruitClientDocumentDTO.RecruitClientId;
                         a.DocumentType = recruitClientDocumentDTO.DocumentType;
                         a.Document = recruitClientDocumentDTO.Document;

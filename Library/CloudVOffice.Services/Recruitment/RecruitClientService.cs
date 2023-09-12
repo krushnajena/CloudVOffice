@@ -3,6 +3,8 @@ using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +17,13 @@ namespace CloudVOffice.Services.Recruitment
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<RecruitClient> _recruitClientRepo;
-        public RecruitClientService(ApplicationDBContext Context, ISqlRepository<RecruitClient> recruitClientRepo)
+        private readonly IRecruitClientDocumentService _recruitClientDocumentService;
+        public RecruitClientService(ApplicationDBContext Context, ISqlRepository<RecruitClient> recruitClientRepo, IRecruitClientDocumentService recruitClientDocumentService)
         {
 
             _Context = Context;
             _recruitClientRepo = recruitClientRepo;
+            _recruitClientDocumentService = recruitClientDocumentService;
         }
         public MessageEnum RecruitClientCreate(RecruitClientDTO recruitClientDTO)
         {
@@ -44,6 +48,20 @@ namespace CloudVOffice.Services.Recruitment
                     recruitClient.BillingPostalCode = recruitClientDTO.BillingPostalCode;
                     recruitClient.CreatedBy = recruitClientDTO.CreatedBy;
                     var obj = _recruitClientRepo.Insert(recruitClient);
+                   
+
+                    for (int i = 0; i < recruitClientDTO.FileNames.Count; i++)
+                    {
+                        _recruitClientDocumentService.RecruitClientDocumentCreate(new RecruitClientDocumentDTO
+                        {
+                            RecruitClientId =obj.RecruitClientId,
+                            DocumentType = "Contract Document",
+                            Document = recruitClientDTO.FileNames[i],
+                            CreatedBy = recruitClientDTO.CreatedBy
+                            });
+                    }
+
+
                     return MessageEnum.Success;
                 }
                 else if (objCheck != null)
@@ -75,7 +93,7 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                return _Context.RecruitClients.Where(x => x.Deleted == false).ToList();
+                return _Context.RecruitClients.Include(x => x.Employee) .Where(x => x.Deleted == false).ToList();
 
             }
             catch
@@ -110,7 +128,7 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId != recruitClientDTO.RecruitClientId && x.Deleted == false).FirstOrDefault();
+                var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId != recruitClientDTO.RecruitClientId && x.ClientName == recruitClientDTO.ClientName && x.Deleted == false).FirstOrDefault();
                 if (recruitClient == null)
                 {
                     var a = _Context.RecruitClients.Where(x => x.RecruitClientId == recruitClientDTO.RecruitClientId).FirstOrDefault();
@@ -133,6 +151,7 @@ namespace CloudVOffice.Services.Recruitment
                         a.UpdatedDate = DateTime.Now;
 
                         _Context.SaveChanges();
+                       
                         return MessageEnum.Updated;
                     }
                     else

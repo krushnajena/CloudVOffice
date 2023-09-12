@@ -13,5 +13,6 @@ namespace CloudVOffice.Services.Recruitment
         public StaffingPlanDetails GetStaffingPlanDetailsById(Int64 staffingPlanDetailsId);
         public MessageEnum StaffingPlanDetailsUpdate(StaffingPlanDetailsDTO staffingPlanDetailsDTO);
         public MessageEnum StaffingPlanDetailsDelete(Int64 staffingPlanDetailsId, Int64 DeletedBy);
+        public List<StaffingPlanDetails> StaffingPlanDetailsByStaffingPlanId(int StaffingPlanId);
     }
 }

@@ -1,4 +1,4 @@
-﻿@model CloudVOffice.Data.DTO.Recruitment.RecruitClientContactDTO;
+﻿@* @model CloudVOffice.Data.DTO.Recruitment.RecruitClientContactDTO;
 @{
 	Layout = "_MainAppLayout";
 	ViewData["Title"] = "RecruitClientDocument";
@@ -127,7 +127,7 @@
 		</div>
 	</div>
 
-</div>t
+</div>
 <script>
 	function onRecruitClientfiltering(e) {
 		var query = new ej.data.Query();
@@ -135,3 +135,4 @@
 		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.RecruitClient)), query);
 	}
 </script>
+ *@

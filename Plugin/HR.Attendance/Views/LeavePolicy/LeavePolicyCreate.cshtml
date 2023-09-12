@@ -6,7 +6,9 @@
 	ViewData["Title"] = "LeavePolicyDetails";
 	var EmployeeGradeList = new SelectList((IEnumerable)ViewBag.employeeGrades, "EmployeeGradeId", "EmployeeGradeName");
 	var LeavePeriodList = new SelectList((IEnumerable)ViewBag.LeavePeriods, "LeavePeriodId");
-	var LeavePolicys = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.leaveType, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "LeaveTypeId", Text = "LeaveTypeName" }, Change = "onChange" };
+	var LeaveTypes = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.LeaveTypes, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "LeaveTypeId", Text = "LeaveTypeName" }, Change = "onChange" };
+	var LeaveAllocationMode = new Syncfusion.EJ2.DropDowns.DropDownList() { DataSource = ViewBag.LeaveAllocationMode, Query = "new ej.data.Query()", AllowFiltering = true, Fields = new Syncfusion.EJ2.DropDowns.DropDownListFieldSettings() { Value = "Value", Text = "Text" }, Change = "onChangeLeaveAllocationMode" };
+
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -49,7 +51,7 @@
 								<label for="LeavePeriodId" class="form-label">Leave Type &nbsp;<span style="color:red;"><b>*</b></span></label>
 
 								<ejs-dropdownlist id="LeavePeriodId" allowFiltering="true" ejs-for="@Model.LeavePeriodId" filtering="onLeavePeriodrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.LeavePeriods, "LeavePeriodId").Items)" placeholder="Select a LeavePeriod" popupHeight="220px">
-									<e-dropdownlist-fields text="LeavePeriodId" value="LeavePeriodId"></e-dropdownlist-fields>
+									<e-dropdownlist-fields text="LeavePeriodName" value="LeavePeriodId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="LeavePeriodId"></span>
 							</div>
@@ -70,30 +72,27 @@
 
 							<div class="form-group col-md-6">
 								<label for="EstimatedCost" class="form-label">Leave Type</label>
-								<input type="hidden" asp-for="@Model.LeavePolicyDetailsString" id="LeavePolicyString" />
-								<ejs-grid id="Grid" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.LeavePolicyDetailsString" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
+								<input type="hidden" asp-for="@Model.LeavePolicyDetailsString" id="LeavePolicyDetailsString" />
+								<ejs-grid id="Grid" actionComplete="actionComplete" actionBegin="actionBegin" dataSource="@Model.LeavePolicyDetails" toolbar="@(new List<string>() { "Add", "Edit", "Delete", "Update", "Cancel" })">
 									<e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" newRowPosition="Top"></e-grid-editSettings>
 
 									<e-grid-columns>
-										<e-grid-column field="LeaveTypeId" Visible="false" foreignKeyField="LeaveTypeId" headerText="Leave Type Name" edit="new {@@params = LeavePolicyDetails }" editType="dropdownedit" width="140"></e-grid-column>
-										<e-grid-column field="LeaveTypeId" foreignKeyField="LeaveTypeId" headerText="Leave Type Name" width="140"></e-grid-column>
+										<e-grid-column field="LeaveTypeId" Visible="false" foreignKeyField="LeaveTypeId" headerText="Leave Type Name" edit="new {@@params = LeaveTypes }" editType="dropdownedit" width="140"></e-grid-column>
+										<e-grid-column field="LeaveTypeName" foreignKeyField="LeaveTypeId" headerText="Leave Type Name" width="140"></e-grid-column>
+
+
+
+										<e-grid-column field="AllocationMode" Visible="false" foreignKeyField="AllocationMode" headerText="Allocation Mode" edit="new {@@params = LeaveAllocationMode }" editType="dropdownedit" width="140"></e-grid-column>
+										<e-grid-column field="LeaveAllocationMode" foreignKeyField="AllocationMode" headerText="Allocation Mode" width="140"></e-grid-column>
+
+										<e-grid-column field="NoOfLeaves" headerText="No Of Leaves" width="140"></e-grid-column>
+
 									</e-grid-columns>
 
 								</ejs-grid>
 
-								<div class="form-group col-md-3">
-									<label for="NoOfLeaves" class="form-label">No Of Leaves&nbsp;<span style="color:red;"><b>*</b></span></label>
-									<input asp-for="@Model.LeavePolicyDetailsString" type="text" class="form-control" autofocus="autofocus" placeholder="No Of Leaves" />
-									
-								</div>
-								<div class="form-group col-md-3">
-									<label for="AllocationMode" class="form-label">Allocation Mode&nbsp;<span style="color:red;"><b>*</b></span></label>
-									<select input asp-for="@Model.LeavePolicyDetailsString" type="text" class="form-control" autofocus="autofocus" placeholder="Allocation Mode">
-										<option value="1">Annual</option>
-										<option value="2">Monthly</option>
-
-									</select>
-								</div>
+							
+							
 							</div>
 
 
@@ -129,12 +128,16 @@
 </script>
 <script>
 
-	var employeeName = '';
+	var leaveTypeName = '';
 	function onChange(args) {
 
-		employeeName = args.itemData.EmployeeGradeName;
+		leaveTypeName = args.itemData.LeaveTypeName;
 	}
-	
+
+	var leaveAlocationName = ''
+	function onChangeLeaveAllocationMode(args){
+		leaveAlocationName = args.itemData.Text;
+	}
 
 
 	function actionBegin(args) {
@@ -143,6 +146,7 @@
 
 		if (args.requestType === 'save') {
 			args.data.LeaveTypeName = leaveTypeName
+			args.data.LeaveAllocationMode = leaveAlocationName
 			for (var i = 0; i < grid.columns.length; i++) {
 				if (grid.columns[i].field == "LeaveTypeId") {
 					grid.columns[i].visible = false
@@ -150,6 +154,13 @@
 				}
 				if (grid.columns[i].field == "LeaveTypeName") {
 					grid.columns[i].visible = true
+				}
+
+				if (grid.columns[i].field == "AllocationMode") {
+					grid.columns[i].visible = false;
+				}
+				if (grid.columns[i].field == "LeaveAllocationMode") {
+					grid.columns[i].visible = true;
 				}
 
 			}
@@ -166,7 +177,16 @@
 					grid.columns[i].visible = true;
 				}
 				if (grid.columns[i].field == "LeaveTypeName") {
-					grid.columns[i].visible = false
+					grid.columns[i].visible = false;
+				}
+
+
+
+				if (grid.columns[i].field == "AllocationMode") {
+					grid.columns[i].visible = true;
+				}
+				if (grid.columns[i].field == "LeaveAllocationMode") {
+					grid.columns[i].visible = false;
 				}
 
 			}

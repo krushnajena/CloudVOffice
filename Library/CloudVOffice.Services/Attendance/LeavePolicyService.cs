@@ -23,7 +23,7 @@ namespace CloudVOffice.Services.Attendance
 		}
         public MessageEnum LeavePolicyCreate(LeavePolicyDTO leavePolicyDTO)
         {
-            var objCheck = _Context.LeavePolicies.SingleOrDefault(opt => opt.LeavePolicyId == leavePolicyDTO.LeavePolicyId && opt.Deleted == false);
+            var objCheck = _Context.LeavePolicies.SingleOrDefault(opt => opt.EmployeeGradeId == leavePolicyDTO.EmployeeGradeId && opt.LeavePeriodId == leavePolicyDTO.LeavePeriodId && opt.Deleted == false);
             try
             {
                 if (objCheck == null)
@@ -35,14 +35,13 @@ namespace CloudVOffice.Services.Attendance
                    
                     leavePolicy.CreatedBy = leavePolicyDTO.CreatedBy;
                     var obj = _leavePolicyRepo.Insert(leavePolicy);
-					var leavePolicyDetails = JsonConvert.DeserializeObject<List<LeavePolicyDetailsDTO>>(leavePolicyDTO.LeavePolicyDetailsString);
-
-					for (int i = 0; i < leavePolicyDetails.Count; i++)
+					
+					for (int i = 0; i < leavePolicyDTO.LeavePolicyDetails.Count; i++)
 					{
-						leavePolicyDetails[i].CreatedBy = leavePolicyDTO.CreatedBy;
-						leavePolicyDetails[i].LeavePolicyId = obj.LeavePolicyId;
+						leavePolicyDTO.LeavePolicyDetails[i].CreatedBy = leavePolicyDTO.CreatedBy;
+						leavePolicyDTO.LeavePolicyDetails[i].LeavePolicyId = obj.LeavePolicyId;
 
-						_leavePolicyDetailsService.LeavePolicyDetailsCreate(leavePolicyDetails[i]);
+						_leavePolicyDetailsService.LeavePolicyDetailsCreate(leavePolicyDTO.LeavePolicyDetails[i]);
 					}
 					return MessageEnum.Success;
 					

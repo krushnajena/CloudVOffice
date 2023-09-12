@@ -33,11 +33,11 @@ namespace CloudVOffice.Services.Attendance
 				if (objCheck == null)
 				{
 					LeavePolicyDetails leavePolicyDetails = new LeavePolicyDetails();
-					leavePolicyDetails.LeavePolicyId = leavePolicyDetailsDTO.LeavePolicyId;
+					leavePolicyDetails.LeavePolicyId = (int)leavePolicyDetailsDTO.LeavePolicyId;
 					leavePolicyDetails.LeaveTypeId = leavePolicyDetailsDTO.LeaveTypeId;
 					leavePolicyDetails.NoOfLeaves = leavePolicyDetailsDTO.NoOfLeaves;
 					leavePolicyDetails.AllocationMode = leavePolicyDetailsDTO.AllocationMode;
-					leavePolicyDetails.CreatedBy = leavePolicyDetailsDTO.CreatedBy;
+					leavePolicyDetails.CreatedBy = (long)leavePolicyDetailsDTO.CreatedBy;
 					var obj = _leavePolicyDetailsRepo.Insert(leavePolicyDetails);
 					
 					return MessageEnum.Success;
@@ -115,7 +115,7 @@ namespace CloudVOffice.Services.Attendance
 					var a = _Context.LeavePolicyDetails.Where(x => x.LeavePolicyDetailsId == leavePolicyDetailsDTO.LeavePolicyDetailsId).FirstOrDefault();
 					if (a != null)
 					{
-						a.LeavePolicyId = leavePolicyDetailsDTO.LeavePolicyId;
+						a.LeavePolicyId = (int)leavePolicyDetailsDTO.LeavePolicyId;
 						a.LeaveTypeId = leavePolicyDetailsDTO.LeaveTypeId;
 						a.NoOfLeaves = leavePolicyDetailsDTO.NoOfLeaves;
 						a.AllocationMode = leavePolicyDetailsDTO.AllocationMode;

@@ -3,13 +3,22 @@ using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
+using static LinqToDB.Common.Configuration;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Transactions;
+using CloudVOffice.Data.DTO.Attendance;
+using System.Diagnostics;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CloudVOffice.Services.Recruitment
 {
@@ -48,19 +57,18 @@ namespace CloudVOffice.Services.Recruitment
                     recruitClient.BillingPostalCode = recruitClientDTO.BillingPostalCode;
                     recruitClient.CreatedBy = recruitClientDTO.CreatedBy;
                     var obj = _recruitClientRepo.Insert(recruitClient);
-                   
+
 
                     for (int i = 0; i < recruitClientDTO.FileNames.Count; i++)
                     {
                         _recruitClientDocumentService.RecruitClientDocumentCreate(new RecruitClientDocumentDTO
                         {
-                            RecruitClientId =obj.RecruitClientId,
+                            RecruitClientId = obj.RecruitClientId,
                             DocumentType = "Contract Document",
                             Document = recruitClientDTO.FileNames[i],
                             CreatedBy = recruitClientDTO.CreatedBy
-                            });
+                        });
                     }
-
 
                     return MessageEnum.Success;
                 }
@@ -93,7 +101,7 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                return _Context.RecruitClients.Include(x => x.Employee) .Where(x => x.Deleted == false).ToList();
+                return _Context.RecruitClients.Include(x => x.Employee).Where(x => x.Deleted == false).ToList();
 
             }
             catch
@@ -106,17 +114,31 @@ namespace CloudVOffice.Services.Recruitment
         {
             try
             {
-                var a = _Context.RecruitClients.Where(x => x.RecruitClientId == recruitClientId).FirstOrDefault();
-                if (a != null)
+                var recruitClient = _Context.RecruitClients
+                    .Include(a => a.RecruitClientDocuments)
+                    .FirstOrDefault(y => y.RecruitClientId == recruitClientId);
+
+                if (recruitClient != null)
                 {
-                    a.Deleted = true;
-                    a.UpdatedBy = DeletedBy;
-                    a.UpdatedDate = DateTime.Now;
+
+                    recruitClient.Deleted = true;
+                    recruitClient.UpdatedBy = DeletedBy;
+                    recruitClient.UpdatedDate = DateTime.Now;
+
+                    foreach (var recruitClientDocument in recruitClient.RecruitClientDocuments)
+                    {
+                        recruitClientDocument.Deleted = true;
+                        recruitClientDocument.UpdatedBy = DeletedBy;
+                        recruitClientDocument.UpdatedDate = DateTime.Now;
+                    }
+
                     _Context.SaveChanges();
                     return MessageEnum.Deleted;
                 }
                 else
+                {
                     return MessageEnum.Invalid;
+                }
             }
             catch
             {
@@ -124,17 +146,17 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
 
+      
         public MessageEnum RecruitClientUpdate(RecruitClientDTO recruitClientDTO)
         {
             try
             {
-                var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId != recruitClientDTO.RecruitClientId && x.ClientName == recruitClientDTO.ClientName && x.Deleted == false).FirstOrDefault();
+                var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId != recruitClientDTO.RecruitClientId && x.RecruitClientId == recruitClientDTO.RecruitClientId && x.Deleted == false).FirstOrDefault();
                 if (recruitClient == null)
                 {
                     var a = _Context.RecruitClients.Where(x => x.RecruitClientId == recruitClientDTO.RecruitClientId).FirstOrDefault();
                     if (a != null)
                     {
-
                         a.ClientName = recruitClientDTO.ClientName;
                         a.ContactNo = recruitClientDTO.ContactNo;
                         a.AccountManagerId = recruitClientDTO.AccountManagerId;
@@ -151,7 +173,26 @@ namespace CloudVOffice.Services.Recruitment
                         a.UpdatedDate = DateTime.Now;
 
                         _Context.SaveChanges();
-                       
+
+
+                       /* foreach (var recruitClientDocument in recruitClient.RecruitClientDocuments)
+                        {
+                            recruitClientDocument.Deleted = true;
+                            recruitClientDocument.UpdatedBy = recruitClientDTO.CreatedBy;
+                            recruitClientDocument.UpdatedDate = DateTime.Now;
+                        }
+
+                        for (int i = 0; i < recruitClientDTO.FileNames.Count; i++)
+                        {
+                            _recruitClientDocumentService.DeleteByClientId(new RecruitClientDocumentDTO
+                            {
+                                RecruitClientId = recruitClientDTO.RecruitClientId[i],
+                                DocumentType = "Contract Document",
+                                Document = recruitClientDTO.FileNames[i],
+                                CreatedBy = recruitClientDTO.CreatedBy
+                            });
+                        }*/
+
                         return MessageEnum.Updated;
                     }
                     else
@@ -168,5 +209,6 @@ namespace CloudVOffice.Services.Recruitment
                 throw;
             }
         }
+
     }
 }

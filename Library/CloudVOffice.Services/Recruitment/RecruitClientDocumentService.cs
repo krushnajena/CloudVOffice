@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
@@ -126,6 +127,18 @@ namespace CloudVOffice.Services.Recruitment
                     return MessageEnum.Duplicate;
                 }
 
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<RecruitClient> DeleteByClientId(int RecruitClientId)
+        {
+            try
+            {
+                return _Context.RecruitClients.Where(x => x.RecruitClientId == RecruitClientId && x.Deleted == false).ToList();
             }
             catch
             {

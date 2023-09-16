@@ -1,4 +1,5 @@
 ﻿@using System.Collections;
+@using Microsoft.IdentityModel.Tokens;
 @using Newtonsoft.Json;
 @model CloudVOffice.Data.DTO.Recruitment.RecruitClientDTO;
 @{
@@ -37,7 +38,7 @@
 
             <div class="card">
                 <form asp-route="/Recruitment/RecruitClient/RecruitClientCreate" method="post" autocomplete="off" enctype="multipart/form-data">
-                    <div asp-ation-summary="ModelOnly" class="message-error"></div>
+                    <div asp-validation-summary="ModelOnly" class="message-error"></div>
 
 
                     <div class="card-header"><b>Basic Info</b></div>
@@ -141,9 +142,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-5">
-                               @*  <label for="Document" class="form-label">Document</label>
-                                <input multiple asp-for="@Model.DocumentUpload" type="file" class="form-control" autofocus="autofocus" placeholder="Document" />
-                                <span asp-validation-for="DocumentUpload"></span> *@
+                             
 
                                 <label for="DocumentUpload" class="form-label">Document</label>
                                 <input  asp-for="@Model.DocumentUpload" multiple type="file" class="form-control" autofocus="autofocus" placeholder="Document" />
@@ -152,9 +151,11 @@
                                     if (Model.DocumentUpload != null)
                                     {
                                         <img src="/uploads/RecruitClientDocument/@Model.DocumentUpload" style="height:100px; width:100px" />
+
                                         <input type="hidden" asp-for="@Model.DocumentUpload">
                                     }
                                 }
+
                             </div>
                         </div>
 

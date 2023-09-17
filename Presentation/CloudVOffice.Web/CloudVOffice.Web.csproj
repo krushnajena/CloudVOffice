@@ -37,6 +37,7 @@
 		<Folder Include="Plugins\" />
 		<Folder Include="wwwroot\uploads\employee\" />
 		<Folder Include="wwwroot\uploads\jobapplication\" />
+		<Folder Include="wwwroot\uploads\RecruitClientDocument\" />
 
 
 	</ItemGroup>

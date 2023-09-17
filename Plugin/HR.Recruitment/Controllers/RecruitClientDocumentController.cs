@@ -1,6 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Data.DTO.Recruitment;
-using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
@@ -18,20 +17,23 @@ namespace HR.Recruitment.Controllers
     {
         private readonly IRecruitClientDocumentService _recruitClientDocumentService;
         private readonly IRecruitClientService _recruitClientService;
+
         public RecruitClientDocumentController(IRecruitClientDocumentService recruitClientDocumentService, IRecruitClientService recruitClientService)
         {
             _recruitClientDocumentService = recruitClientDocumentService;
             _recruitClientService = recruitClientService;
-            
         }
+
         [HttpGet]
         public IActionResult RecruitClientDocumentCreate(int? recruitClientDocumentId)
         {
-            RecruitClientDocumentDTO recruitClientDocumentDTO = new RecruitClientDocumentDTO();
-            var recruitClient = _recruitClientService.GetRecruitClientList();
-            ViewBag.RecruitClient = recruitClient;
+            RecruitClientDocumentDTO recruitClientDocumentDTO = new RecruitClientDocumentDTO();            
 
-            if (recruitClientDocumentId != null)
+            var recruitClientDocument = _recruitClientService.GetRecruitClientList();
+            ViewBag.RecruitClientDocument = recruitClientDocument;
+
+
+            if (recruitClientDocumentId == null)
             {
 
                 var d = _recruitClientDocumentService.GetRecruitClientDocumentById(int.Parse(recruitClientDocumentId.ToString()));
@@ -65,7 +67,7 @@ namespace HR.Recruitment.Controllers
                     else if (a == MessageEnum.Duplicate)
                     {
                         TempData["msg"] = MessageEnum.Duplicate;
-                        ModelState.AddModelError("", "Recruit Client Document Already Exists");
+                        ModelState.AddModelError("", "RecruitClientDocument Already Exists");
                     }
                     else
                     {
@@ -84,7 +86,7 @@ namespace HR.Recruitment.Controllers
                     else if (a == MessageEnum.Duplicate)
                     {
                         TempData["msg"] = MessageEnum.Duplicate;
-                        ModelState.AddModelError("", "Recruit Client Document Already Exists");
+                        ModelState.AddModelError("", "RecruitClientDocument Already Exists");
                     }
                     else
                     {
@@ -94,8 +96,8 @@ namespace HR.Recruitment.Controllers
                 }
             }
 
-            var recruitClient = _recruitClientService.GetRecruitClientList();
-            ViewBag.RecruitClient = recruitClient;
+            var recruitClientDocument = _recruitClientService.GetRecruitClientList();
+            ViewBag.RecruitClientDocument = recruitClientDocument;
 
             return View("~/Plugins/HR.Recruitment/Views/RecruitClientDocument/RecruitClientDocumentCreate.cshtml", recruitClientDocumentDTO);
         }

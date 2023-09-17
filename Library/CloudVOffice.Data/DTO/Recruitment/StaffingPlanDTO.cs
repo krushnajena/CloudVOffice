@@ -16,7 +16,8 @@ namespace CloudVOffice.Data.DTO.Recruitment
 
     public class StaffingPlanDetailsDTO
     {
-        public int StaffingPlanId { get; set; }
+		public int? StaffingPlanDetailsId { get; set; }
+		public int? StaffingPlanId { get; set; }
         public int DesignationId { get; set; }
         public int NoOfVacancies { get; set; }
         public double? EstimatedCostPerPosition { get; set; }

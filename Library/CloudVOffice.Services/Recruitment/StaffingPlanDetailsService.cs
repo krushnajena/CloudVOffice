@@ -1,11 +1,10 @@
 ﻿using CloudVOffice.Core.Domain.Common;
-
 using CloudVOffice.Core.Domain.Recruitment;
 
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudVOffice.Services.Recruitment
 {
@@ -21,7 +20,7 @@ namespace CloudVOffice.Services.Recruitment
         }
         public MessageEnum CreateStaffingPlanDetails(StaffingPlanDetailsDTO staffingPlanDetailsDTO)
         {
-            var objCheck = _Context.StaffingPlanDetails.SingleOrDefault(opt => opt.StaffingPlanDetailsId == staffingPlanDetailsDTO.StaffingPlanId && opt.Deleted == false);
+            var objCheck = _Context.StaffingPlanDetails.SingleOrDefault(opt => opt.StaffingPlanDetailsId == staffingPlanDetailsDTO.StaffingPlanDetailsId && opt.Deleted == false);
             try
             {
                 if (objCheck == null)
@@ -123,6 +122,18 @@ namespace CloudVOffice.Services.Recruitment
                     return MessageEnum.Duplicate;
                 }
 
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public List<StaffingPlanDetails> StaffingPlanDetailsByStaffingPlanId(int StaffingPlanId)
+        {
+            try
+            {
+                return _Context.StaffingPlanDetails.Where(X => X.StaffingPlanId == StaffingPlanId && X.Deleted == false).ToList();
             }
             catch
             {

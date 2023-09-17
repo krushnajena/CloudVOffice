@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.Projects;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,7 +38,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
         [ForeignKey("AccountManagerId")]
         public Employee Employee{ get; set; }
 
+		public ICollection<RecruitClientDocument> RecruitClientDocuments { get; set; }
 
-
-    }
+	}
 }

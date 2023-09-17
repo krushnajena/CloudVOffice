@@ -1,5 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
+using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
@@ -12,41 +14,59 @@ namespace HR.Recruitment.Controllers
     public class JobOpeningController : BasePluginController
     {
         private readonly IJobOpeningService _jobOpeningService;
-        private readonly IDepartmentService _departmentService;
-        private readonly IDesignationService _designationService;
-        private readonly ISkillSetService _skillSetService;
-        public JobOpeningController(IJobOpeningService jobOpeningService, IDepartmentService departmentService , IDesignationService designationService, ISkillSetService skillSetService)
+		private readonly IEmployeeService _employeeService;
+		private readonly IRecruitClientContactService _recruitClientContactService;
+        private readonly IRecruitClientService _recruitClientService;
+
+
+
+        public JobOpeningController(IJobOpeningService jobOpeningService, IEmployeeService employeeService, IRecruitClientContactService recruitClientContactService, IRecruitClientService recruitClientService)
         {
 
             _jobOpeningService = jobOpeningService;
-            _departmentService = departmentService;
-            _designationService = designationService;
-            _skillSetService = skillSetService;
+			_employeeService = employeeService;
+            _recruitClientContactService = recruitClientContactService;
+            _recruitClientService = recruitClientService;
+
+
         }
-        [HttpGet]
+		[HttpGet]
          public IActionResult JobOpeningCreate(int? jobOpeningId)
           {
             JobOpeningDTO jobOpeningDTO = new JobOpeningDTO();
-			var department = _departmentService.GetDepartmentList();
-			ViewBag.Department = department;
-			var desgination = _designationService.GetDesignationList();
-			ViewBag.Designation = desgination;
-            var skillSet = _skillSetService.GetSkillSetList();
-            ViewBag.skillSet = skillSet;
+			var employee = _employeeService.GetEmployees();
+			ViewBag.Employee = employee;
+
+			var recruitClientContact = _recruitClientContactService.GetRecruitClientContactList();
+			ViewBag.RecruitClientContact = recruitClientContact;
+            var recruitClient = _recruitClientService.GetRecruitClientList();
+            ViewBag.RecruitClient = recruitClient;
+
 
             if (jobOpeningId != null)
             {
 
                 var d = _jobOpeningService.GetJobOpeningByJobOpeningId(int.Parse(jobOpeningId.ToString()));
-
-                jobOpeningDTO.JobTitle = d.JobTitle; 
-                jobOpeningDTO.DepartmentId = d.DepartmentId;
-                jobOpeningDTO.DesignationId = d.DesignationId;
-                jobOpeningDTO.SkillSetId  = int.Parse(d.SkillSetId.ToString());
-                jobOpeningDTO.Status = d.Status;
-                jobOpeningDTO.Description = d.Description;
-                jobOpeningDTO.SalaryLowerRange = d.SalaryLowerRange;
-                jobOpeningDTO.SalaryUpperRange = d.SalaryUpperRange;
+				jobOpeningDTO.JobOpType = d.JobOpType;
+				jobOpeningDTO.ClientID = d.ClientID;
+				jobOpeningDTO.ContactId = d.ContactId;
+				jobOpeningDTO.HiringManagerId = d.HiringManagerId;
+				jobOpeningDTO.JobTitle = d.JobTitle;
+				jobOpeningDTO.DateOpened = d.DateOpened;
+				jobOpeningDTO.TargetDate = d.TargetDate;
+				jobOpeningDTO.JobType = d.JobType;
+				jobOpeningDTO.WorkExperience = d.WorkExperience;
+				jobOpeningDTO.City = d.City;
+				jobOpeningDTO.RevenuePerPosition = d.RevenuePerPosition;
+				jobOpeningDTO.NumberofPositions = d.NumberofPositions;
+				jobOpeningDTO.ExpectedRevenue = d.ExpectedRevenue;
+				jobOpeningDTO.ActualRevenue = d.ActualRevenue;
+				jobOpeningDTO.Status = d.Status;
+				jobOpeningDTO.JobDescription = d.JobDescription;
+				jobOpeningDTO.Requirements = d.Requirements;
+				jobOpeningDTO.Benefits = d.Benefits;
+				jobOpeningDTO.PublishOnWebsite = d.PublishOnWebsite;
+			
                
 
             }
@@ -102,12 +122,14 @@ namespace HR.Recruitment.Controllers
                     }
                 }
             }
-			var department = _departmentService.GetDepartmentList();
-			ViewBag.Department = department;
-			var desgination = _designationService.GetDesignationList();
-			ViewBag.Designation = desgination;
-            var skillSet = _skillSetService.GetSkillSetList();
-            ViewBag.skillSet = skillSet;
+			var employee = _employeeService.GetEmployees();
+			ViewBag.Employee = employee;
+            var recruitClientContact = _recruitClientContactService.GetRecruitClientContactList();
+            ViewBag.RecruitClientContact = recruitClientContact;
+            var recruitClient = _recruitClientService.GetRecruitClientList();
+            ViewBag.RecruitClient = recruitClient;
+
+
             return View("~/Plugins/HR.Recruitment/Views/JobOpening/JobOpeningCreate.cshtml", jobOpeningDTO);
         }
         public IActionResult JobOpeningView()

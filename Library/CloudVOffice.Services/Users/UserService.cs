@@ -1,4 +1,4 @@
-﻿using CloudVOffice.Core.Domain.Common;
+﻿    using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.EmailTemplates;

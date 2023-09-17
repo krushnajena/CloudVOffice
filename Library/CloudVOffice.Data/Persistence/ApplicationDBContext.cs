@@ -614,8 +614,14 @@ namespace CloudVOffice.Data.Persistence
     .OnDelete(DeleteBehavior.Restrict);
 
 
+            modelBuilder.Entity<JobOpening>()
+.HasOne(r => r.Employee)
+.WithMany()
+.OnDelete(DeleteBehavior.Restrict);
 
-			modelBuilder.Entity<WorkFromHomeRequest>()
+
+
+            modelBuilder.Entity<WorkFromHomeRequest>()
  .HasOne(r => r.Employee)
  .WithMany()
  .OnDelete(DeleteBehavior.Restrict);

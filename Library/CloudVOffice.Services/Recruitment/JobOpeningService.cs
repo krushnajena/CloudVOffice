@@ -25,15 +25,26 @@ namespace CloudVOffice.Services.Recruitment
                 if (objCheck == null)
                 {
                     JobOpening jobOpening = new JobOpening();
-                    jobOpening.JobTitle = jobOpeningDTO.JobTitle;
-                    jobOpening.DepartmentId = jobOpeningDTO.DepartmentId;
-                    jobOpening.DesignationId = jobOpeningDTO.DesignationId;
-					jobOpening.SkillSetId = jobOpeningDTO.SkillSetId;
-					jobOpening.Status = jobOpeningDTO.Status;
-                    jobOpening.Description = jobOpeningDTO.Description;
-                    jobOpening.SalaryLowerRange = jobOpeningDTO.SalaryLowerRange;
-                    jobOpening.SalaryUpperRange = jobOpeningDTO.SalaryUpperRange;
-                    jobOpening.CreatedBy = jobOpeningDTO.CreatedBy;
+                    jobOpening.JobOpType = jobOpeningDTO.JobOpType;
+                    jobOpening.ClientID = jobOpeningDTO.ClientID;
+                    jobOpening.ContactId = jobOpeningDTO.ContactId;
+					jobOpening.HiringManagerId = jobOpeningDTO.HiringManagerId;
+					jobOpening.JobTitle = jobOpeningDTO.JobTitle;
+                    jobOpening.DateOpened = jobOpeningDTO.DateOpened;
+                    jobOpening.TargetDate = jobOpeningDTO.TargetDate;
+                    jobOpening.JobType = jobOpeningDTO.JobType;
+					jobOpening.WorkExperience = jobOpeningDTO.WorkExperience;
+					jobOpening.City = jobOpeningDTO.City;
+					jobOpening.RevenuePerPosition = jobOpeningDTO.RevenuePerPosition;
+					jobOpening.NumberofPositions = jobOpeningDTO.NumberofPositions;
+					jobOpening.ExpectedRevenue = jobOpeningDTO.ExpectedRevenue;
+					jobOpening.ActualRevenue = jobOpeningDTO.ActualRevenue;
+                    jobOpening.Status = jobOpeningDTO.Status;
+					jobOpening.JobDescription = jobOpeningDTO.JobDescription;
+					jobOpening.Requirements = jobOpeningDTO.Requirements;
+					jobOpening.Benefits = jobOpeningDTO.Benefits;
+					jobOpening.PublishOnWebsite = jobOpeningDTO.PublishOnWebsite;
+					jobOpening.CreatedBy = jobOpeningDTO.CreatedBy;
                     var obj = _jobOpeningRepo.Insert(jobOpening);
                     return MessageEnum.Success;
                 }
@@ -65,21 +76,16 @@ namespace CloudVOffice.Services.Recruitment
         public List<JobOpening> GetJobOpeningsList()
         {
 
-            try
-            {
-                return _Context.JobOpenings
-                    .Include(x=> x.Department)
-                    .Include(x=> x.Designation)
-                    .Include(x=> x.SkillSet)
-                    .Where(x => x.Deleted == false).ToList();
+			try
+			{
+				return _Context.JobOpenings.Where(x => x.Deleted == false).ToList();
 
-
-            }
-            catch
-            {
-                throw;
-            }
-        }
+			}
+			catch
+			{
+				throw;
+			}
+		}
 
        
 
@@ -112,15 +118,26 @@ namespace CloudVOffice.Services.Recruitment
                 var a = _Context.JobOpenings.Where(x => x.JobOpeningId == jobOpeningDTO.JobOpeningId).FirstOrDefault();
                 if (a != null)
                 {
+                    a.JobOpType = jobOpeningDTO.JobOpType;
+                    a.ClientID = jobOpeningDTO.ClientID;
+                    a.ContactId = jobOpeningDTO.ContactId;
+                    a.HiringManagerId = jobOpeningDTO.HiringManagerId;
                     a.JobTitle = jobOpeningDTO.JobTitle;
-                    a.DepartmentId = jobOpeningDTO.DepartmentId;
-                    a.DesignationId = jobOpeningDTO.DesignationId;
-                    a.SkillSetId = jobOpeningDTO.SkillSetId;
-                    a.Status = jobOpeningDTO.Status;
-                    a.Description = jobOpeningDTO.Description;
-                    a.SalaryLowerRange = jobOpeningDTO.SalaryLowerRange;
-                    a.SalaryUpperRange = jobOpeningDTO.SalaryUpperRange;
-                    a.UpdatedBy = jobOpeningDTO.CreatedBy;
+                    a.DateOpened = jobOpeningDTO.DateOpened;
+                    a.TargetDate = jobOpeningDTO.TargetDate;
+                    a.JobType = jobOpeningDTO.JobType;
+					a.WorkExperience = jobOpeningDTO.WorkExperience;
+					a.City = jobOpeningDTO.City;
+					a.RevenuePerPosition = jobOpeningDTO.RevenuePerPosition;
+					a.NumberofPositions = jobOpeningDTO.NumberofPositions;
+					a.ExpectedRevenue = jobOpeningDTO.ExpectedRevenue;
+					a.ActualRevenue = jobOpeningDTO.ActualRevenue;
+					a.Status = jobOpeningDTO.Status;
+					a.JobDescription = jobOpeningDTO.JobDescription;
+					a.Requirements = jobOpeningDTO.Requirements;
+					a.Benefits = jobOpeningDTO.Benefits;
+					a.PublishOnWebsite = jobOpeningDTO.PublishOnWebsite;
+					a.UpdatedBy = jobOpeningDTO.CreatedBy;
                     a.UpdatedDate = DateTime.Now;
 
                     _Context.SaveChanges();

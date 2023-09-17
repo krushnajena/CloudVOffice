@@ -10,7 +10,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
 {
     public  class RecruitClientDocument : IAuditEntity, ISoftDeletedEntity
     {
-        public Int64 RecruitClientDocumentId { get; set; }
+        public Int64 RecruitClientDocumentId { get; set; } new 
         public int RecruitClientId { get; set; }
         public string DocumentType { get; set; }
         public string Document { get; set; }

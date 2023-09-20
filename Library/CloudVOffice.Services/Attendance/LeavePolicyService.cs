@@ -204,17 +204,21 @@ namespace CloudVOffice.Services.Attendance
                     .Include(x => x.LeavePolicyDetails)
                     .Where(x => x.LeavePolicyId == leavePolicyDTO.LeavePolicyId && x.Deleted == false).FirstOrDefault();
 
-                if (leavePolicy == null)
+                if (leavePolicy != null)
                 {
-                   
+
+                    leavePolicy.LeavePeriodId = leavePolicyDTO.LeavePeriodId;
+                    leavePolicy.EmployeeGradeId = leavePolicyDTO.EmployeeGradeId;
+                    leavePolicy.UpdatedBy = leavePolicyDTO.CreatedBy;
+                    leavePolicy.UpdatedDate = DateTime.Now;
+                }
+                else
+                {
                     return MessageEnum.Invalid;
+
                 }
 
                
-                leavePolicy.LeavePeriodId = leavePolicyDTO.LeavePeriodId;
-                leavePolicy.EmployeeGradeId = leavePolicyDTO.EmployeeGradeId;
-                leavePolicy.UpdatedBy = leavePolicyDTO.CreatedBy;
-                leavePolicy.UpdatedDate = DateTime.Now;
 
                 if (leavePolicyDTO.LeavePolicyDetails != null)
                 {

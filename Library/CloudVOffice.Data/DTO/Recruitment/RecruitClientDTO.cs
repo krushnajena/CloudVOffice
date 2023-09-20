@@ -1,6 +1,9 @@
-﻿using System;
+﻿using CloudVOffice.Core.Domain.Recruitment;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,5 +29,10 @@ namespace CloudVOffice.Data.DTO.Recruitment
 
 
         public Int64 CreatedBy { get; set; }
+
+        public List<IFormFile?>? DocumentUpload { get; set; }
+        public List<string?>? FileNames { get; set; }
+
+
     }
 }

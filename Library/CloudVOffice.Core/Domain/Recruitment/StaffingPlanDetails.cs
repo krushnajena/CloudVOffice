@@ -6,6 +6,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
     public class StaffingPlanDetails : IAuditEntity, ISoftDeletedEntity
     {
         public int StaffingPlanDetailsId { get; set; }
+        public int? StaffingPlanId { get; set; }
         public int DesignationId { get; set; }
         public int NoOfVacancies { get; set; }
         public double? EstimatedCostPerPosition { get; set; }

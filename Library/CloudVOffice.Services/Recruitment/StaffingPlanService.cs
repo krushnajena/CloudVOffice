@@ -1,10 +1,12 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.Projects;
 using CloudVOffice.Core.Domain.Recruitment;
 
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace CloudVOffice.Services.Recruitment
 {
@@ -13,11 +15,13 @@ namespace CloudVOffice.Services.Recruitment
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<StaffingPlan> _staffingPlanRepo;
-        public StaffingPlanService(ApplicationDBContext Context, ISqlRepository<StaffingPlan> staffingPlanRepo)
+        private readonly IStaffingPlanDetailsService _staffingPlanDetailsService;
+        public StaffingPlanService(ApplicationDBContext Context, ISqlRepository<StaffingPlan> staffingPlanRepo, IStaffingPlanDetailsService staffingPlanDetailsService)
         {
 
             _Context = Context;
             _staffingPlanRepo = staffingPlanRepo;
+            _staffingPlanDetailsService = staffingPlanDetailsService;
         }
         public MessageEnum StaffingPlanCreate(StaffingPlanDTO staffingPlanDTO)
         {
@@ -34,6 +38,15 @@ namespace CloudVOffice.Services.Recruitment
                     staffingPlan.DepartmentId = staffingPlanDTO.DepartmentId;                  
                     staffingPlan.CreatedBy = staffingPlanDTO.CreatedBy;
                     var obj = _staffingPlanRepo.Insert(staffingPlan);
+                    var StaffingPlanDetails = JsonConvert.DeserializeObject<List<StaffingPlanDetailsDTO>>(staffingPlanDTO.StaffingPlanDetailsString);
+
+                    for (int i = 0; i < StaffingPlanDetails.Count; i++)
+                    {
+                        StaffingPlanDetails[i].CreatedBy = staffingPlanDTO.CreatedBy;
+                        StaffingPlanDetails[i].StaffingPlanId = obj.StaffingPlanId;
+
+                        _staffingPlanDetailsService.CreateStaffingPlanDetails(StaffingPlanDetails[i]);
+                    }
 
                     return MessageEnum.Success;
                 }

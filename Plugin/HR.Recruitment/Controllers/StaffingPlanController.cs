@@ -2,11 +2,14 @@
 using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.DTO.Recruitment;
+using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
 
 namespace HR.Recruitment.Controllers
 {
@@ -15,18 +18,21 @@ namespace HR.Recruitment.Controllers
     {
         private readonly IStaffingPlanService _staffingPlanService;
 		private readonly IDepartmentService _departmentService;
+		private readonly IStaffingPlanDetailsService _staffingPlanDetailsService;
+		private readonly IEmployeeService _employeeService;
 
         private readonly IDesignationService _designationService;
 		public StaffingPlanController(IStaffingPlanService staffingPlanService, IDepartmentService departmentService,
-           IDesignationService designationService 
-            
-            )
+           IDesignationService designationService, IStaffingPlanDetailsService staffingPlanDetailsService, IEmployeeService employeeService
+
+			)
         {
 
             _staffingPlanService = staffingPlanService;
             _departmentService = departmentService;
             _designationService = designationService;
-
+            _staffingPlanDetailsService = staffingPlanDetailsService;
+            _employeeService = employeeService;
 
         }
         [HttpGet]
@@ -37,6 +43,9 @@ namespace HR.Recruitment.Controllers
 			var department = _departmentService.GetDepartmentList();
 			ViewBag.Department = department;
 
+			var employees = _employeeService.GetEmployees();
+			ViewBag.Employees = employees;
+
 			if (staffingPlanId != null)
             {
 
@@ -46,7 +55,25 @@ namespace HR.Recruitment.Controllers
                 staffingPlanDTO.FromDate = d.FromDate;
                 staffingPlanDTO.ToDate = d.ToDate;
                 staffingPlanDTO.DepartmentId = d.DepartmentId;
-               
+
+
+                var StaffingPlanDetails = _staffingPlanDetailsService.StaffingPlanDetailsByStaffingPlanId(int.Parse(staffingPlanId.ToString()));
+                staffingPlanDTO.StaffingPlanDetails = new List<StaffingPlanDetailsDTO>();
+                for (int i = 0; i < StaffingPlanDetails.Count; i++)
+                {
+                    staffingPlanDTO.StaffingPlanDetails.Add(new StaffingPlanDetailsDTO
+                    {
+                        DesignationId = StaffingPlanDetails[i].DesignationId,
+                        NoOfVacancies = StaffingPlanDetails[i].NoOfVacancies,
+                        EstimatedCostPerPosition = StaffingPlanDetails[i].EstimatedCostPerPosition,
+                        StaffingPlanId = StaffingPlanDetails[i].StaffingPlanId,
+
+                    });
+                }
+
+
+
+                staffingPlanDTO.StaffingPlanDetailsString = JsonConvert.SerializeObject(staffingPlanDTO.StaffingPlanDetails);
 
             }
             else
@@ -105,6 +132,9 @@ namespace HR.Recruitment.Controllers
                     }
                 }
             }
+
+			var employees = _employeeService.GetEmployees();
+			ViewBag.Employees = employees;
 
 			var department = _departmentService.GetDepartmentList();
 			ViewBag.Department = department;

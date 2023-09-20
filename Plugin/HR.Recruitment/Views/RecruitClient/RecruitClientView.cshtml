@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "Recruit Client";
+    ViewData["Title"] = "RecruitClient";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -12,13 +12,13 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Recruit Client</h5>
+                    <h5>Recruitment</h5>
 
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login">  </span>
+                    <span class="last-login"> </span>
                 </div>
             </div>
         </div>
@@ -33,10 +33,10 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-8">
-                            Recruit Client
+                            RecruitClient
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Recruitment/RecruitClient/RecruitClientCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Recruit Client</a>
+                            <a href="/Recruitment/RecruitClient/RecruitClientCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add RecruitClient</a>
 
                         </div>
                     </div>
@@ -51,7 +51,6 @@
                               allowPdfExport="true"
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
-                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
 
@@ -61,18 +60,11 @@
                         <e-grid-columns>
 
 
+
                             <e-grid-column field="ClientName" headerText="Client Name" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ContactNo" headerText="ContactNo" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="AccountManagerId" headerText="Account Manager" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Website" headerText="Website" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Fax" headerText="Fax" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="About" headerText="About" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="ContactNo" headerText="Contact No" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Employee.FullName" headerText="Account Manager" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="BillingAddressLine1" headerText="Billing Address Line1" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="BillingAddressLine2" headerText="Billing Address Line2" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="BillingCity" headerText="Billing City" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="BillingState" headerText="Billing State" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="BillingCountry" headerText="Billing Country" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="BillingPostalCode" headerText="Billing Postal Code" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -205,11 +197,8 @@
                 displayText: "Track"
             };
         }
-    }:
+    };
 
 
-    function dataBound(args) {
-        this.autoFitColumns();
-    }
 
 </script>

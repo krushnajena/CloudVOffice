@@ -1,4 +1,5 @@
 ﻿@using System.Collections;
+@using Microsoft.IdentityModel.Tokens;
 @using Newtonsoft.Json;
 @model CloudVOffice.Data.DTO.Recruitment.RecruitClientDTO;
 @{
@@ -36,8 +37,8 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
             <div class="card">
-                <form asp-route="/Recruitment/RecruitClient/RecruitClientCreate" method="post" autocomplete="off">
-                    <div asp-ation-summary="ModelOnly" class="message-error"></div>
+                <form asp-route="/Recruitment/RecruitClient/RecruitClientCreate" method="post" autocomplete="off" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="message-error"></div>
 
 
                     <div class="card-header"><b>Basic Info</b></div>
@@ -139,6 +140,25 @@
                             </div>
                         </div>
 
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                             
+
+                                <label for="DocumentUpload" class="form-label">Document</label>
+                                <input  asp-for="@Model.DocumentUpload" multiple type="file" class="form-control" autofocus="autofocus" placeholder="Document" />
+                                <span asp-validation-for="DocumentUpload"></span>
+                                @{
+                                    if (Model.DocumentUpload != null)
+                                    {
+                                        <img src="/uploads/RecruitClientDocument/@Model.DocumentUpload" style="height:100px; width:100px" />
+
+                                        <input type="hidden" asp-for="@Model.DocumentUpload">
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="card-body">
@@ -166,4 +186,56 @@
         query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
         e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.AccountManager)), query);
     }
+</script>
+
+<script>
+    var employeeName = '';
+    function onChange(args) {
+
+        employeeName = args.itemData.FullName;
+    }
+
+
+    function actionBeginUsers(args) {
+        let grid = document.getElementById("GridUsers").ej2_instances[0];
+
+
+        if (args.requestType === 'save') {
+            args.data.FullName = employeeName
+            for (var i = 0; i < grid.columns.length; i++) {
+                if (grid.columns[i].field == "EmployeeId") {
+                    grid.columns[i].visible = false
+
+                }
+                if (grid.columns[i].field == "FullName") {
+                    grid.columns[i].visible = true
+                }
+
+            }
+
+        }
+        else if (args.requestType === 'add' || args.requestType === 'beginEdit') {
+
+            for (var i = 0; i < grid.columns.length; i++) {
+                if (grid.columns[i].field == "EmployeeId") {
+                    grid.columns[i].visible = true;
+                }
+                if (grid.columns[i].field == "FullName") {
+                    grid.columns[i].visible = false
+                }
+
+            }
+
+        }
+    }
+
+    function actionCompleteUser(args) {
+        if (args.requestType === 'save' || args.requestType === 'delete') {
+            let grid = document.getElementById("GridUsers").ej2_instances[0];
+
+            $('#RecruitClientDocumentsString').val(JSON.stringify(grid.currentViewData));
+        }
+
+    }
+
 </script>

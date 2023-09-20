@@ -15,8 +15,10 @@ namespace CloudVOffice.Core.Domain.HR.Attendance
         public Int64? UpdatedBy { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
+        [ForeignKey("LeaveTypeId")]
+        public LeaveType LeaveType { get; set; }
 
-      
-      
+
+
     }
 }

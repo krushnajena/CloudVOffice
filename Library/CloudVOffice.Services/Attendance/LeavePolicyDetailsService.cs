@@ -4,6 +4,8 @@ using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Data.ViewModel.Attendance;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -17,17 +19,19 @@ namespace CloudVOffice.Services.Attendance
 	{
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<LeavePolicyDetails> _leavePolicyDetailsRepo;
-		
+	   
 		public LeavePolicyDetailsService(ApplicationDBContext Context, ISqlRepository<LeavePolicyDetails> leavePolicyDetailsRepo)
+			
 		{
 
 			_Context = Context;
 			_leavePolicyDetailsRepo = leavePolicyDetailsRepo;
-			
-		}
+           
+
+        }
 		public MessageEnum LeavePolicyDetailsCreate(LeavePolicyDetailsDTO leavePolicyDetailsDTO)
 		{
-			var objCheck = _Context.LeavePolicyDetails.SingleOrDefault(x => x.LeavePolicyDetailsId == leavePolicyDetailsDTO.LeavePolicyDetailsId && x.Deleted == false);
+			var objCheck = _Context.LeavePolicyDetails.SingleOrDefault(x => x.LeavePolicyId == leavePolicyDetailsDTO.LeavePolicyId && x.LeaveTypeId == leavePolicyDetailsDTO.LeaveTypeId && x.Deleted == false);
 			try
 			{
 				if (objCheck == null)
@@ -39,7 +43,7 @@ namespace CloudVOffice.Services.Attendance
 					leavePolicyDetails.AllocationMode = leavePolicyDetailsDTO.AllocationMode;
 					leavePolicyDetails.CreatedBy = (long)leavePolicyDetailsDTO.CreatedBy;
 					var obj = _leavePolicyDetailsRepo.Insert(leavePolicyDetails);
-					
+
 					return MessageEnum.Success;
 
 				}
@@ -71,7 +75,10 @@ namespace CloudVOffice.Services.Attendance
 			try
 			{
 				return _Context.LeavePolicyDetails.Where(x => x.Deleted == false).ToList();
-			}
+
+
+
+            }
 			catch
 			{
 				throw;
@@ -139,5 +146,38 @@ namespace CloudVOffice.Services.Attendance
 				throw;
 			}
 		}
+
+		public List<LeavePolicy> GetLeavePolicyByLeavePolicyId(int leavePolicyId)
+		{
+			try
+			{
+				return _Context.LeavePolicies.Where(x => x.LeavePolicyId == leavePolicyId && x.Deleted == false).ToList();
+
+
+
+
+
+            }
+			catch
+			{
+				throw;
+			}
+		}
+
+		public List<LeavePolicyDetails> GetLeavePolicyDetailsByLeavePolicyId(int leavePolicyId)
+		{
+			try
+			{
+				return _Context.LeavePolicyDetails
+					.Include(x => x.LeaveType)
+					.Where(x => x.LeavePolicyId == leavePolicyId && x.Deleted == false).ToList();
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+
 	}
 }

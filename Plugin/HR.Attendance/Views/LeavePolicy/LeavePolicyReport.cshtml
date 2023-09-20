@@ -1,0 +1,197 @@
+﻿@using System.Collections;
+@using Newtonsoft.Json;
+@using CloudVOffice.Core.Domain.Common;
+@{
+    Layout = "_MainAppLayout";
+    ViewData["Title"] = "Leave Policy Report";
+
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Leave Policy Report</h5>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+    @{
+        Object populationValue = "populationValue";
+    }
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">Leave Policy Report</div>
+                <div class="card-body">
+
+                    <ejs-treegrid id="TreeGrid" dataSource="ViewBag.report" height="380" childMapping="Leaves" treeColumnIndex="0"
+                                  queryCellInfo="queryCellInfo">
+                        <e-treegrid-columns>
+                            <e-treegrid-column field="LeavePeriodName" headerText="Leave Period Name" textAlign="Right" width="95"></e-treegrid-column>
+                            <e-treegrid-column field="EmployeeGradeName" headerText="Employee Grade Name" width="220"></e-treegrid-column>
+                            <e-treegrid-column field="LeaveTypeName" headerText="Leave Type Name" textAlign="Right" width="115"></e-treegrid-column>
+                            <e-treegrid-column field="AllocationMode" headerText="Allocation Mode" textAlign="Right" width="115"></e-treegrid-column>
+                            <e-treegrid-column field="NoOfLeaves" headerText="No Of Leaves" textAlign="Right" width="115"></e-treegrid-column>
+                            <e-treegrid-column headerText="Action" template="#Actions" width="115"></e-treegrid-column>
+                        </e-treegrid-columns>
+                    </ejs-treegrid>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@{
+
+    if (TempData["msg"] != null)
+    {
+        <script type="text/javascript">
+            const message = "@TempData["msg"]";
+            if (message == "@((int)MessageEnum.Success)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "LeavePolicy",
+                    text: "Successfully created.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Updated)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "LeavePolicy",
+                    text: "Successfully updated.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Deleted)") {
+                sweetAlert({
+                    html: true,
+                    icon: "success",
+                    title: "LeavePolicy",
+                    text: "Successfully Deleted.",
+                    type: "success"
+                });
+            }
+            else if (message == "@((int)MessageEnum.UnExpectedError)") {
+                sweetAlert({
+                    html: true,
+                    icon: "danger",
+                    title: "LeavePolicy",
+                    text: "There is somthing going wrong.",
+                    type: "danger"
+                });
+            }
+            else if (message == "@((int)MessageEnum.Error)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "LeavePolicy",
+                    text: "There is somthing going wrong.",
+                    type: "error"
+                });
+            }
+            else {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "LeavePolicy",
+                    text: message,
+                    type: "error"
+                });
+            }
+        </script>
+    }
+}
+
+<script type="text/javascript">
+    function Delete(Id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this data!",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            confirmButtonColor: "#DD6B55",
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location.href = "../../Attendance/LeavePolicy/LeavePolicyDelete?LeavePolicyId=" + Id;
+            }
+        })
+    }
+</script>
+
+<script id="Actions" type="text/x-template">
+    <div class="link">
+        <a href="../../Attendance/LeavePolicy/LeavePolicyCreate?LeavePolicyId=${LeavePolicyId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+        <button onClick="Delete(${LeavePolicyId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
+    </div>
+</script>
+   
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+
+</script>
+<script>
+    function queryCellInfo(args) {
+
+        if (args.column.field === 'EffortPercentage') {
+            if (args.data[args.column.field] <= 4) {
+                ej.base.addClass([args.cell.querySelector('.bar')], ['progressdisable']);
+            }
+
+            if (!isNaN(args.data[args.column.field])) {
+                args.cell.querySelector('.barlabel').textContent = args.data[args.column.field] + '%';
+                (args.cell.querySelector('.bar')).style.width = args.data[args.column.field] + '%';
+            }
+            else {
+                args.cell.querySelector('.barlabel').textContent = '0%';
+                (args.cell.querySelector('.bar')).style.width = '0%';
+            }
+
+        }
+    }
+
+</script>
+
+
+
+
+
+<script>
+$(document).ready(function () {
+  
+    var rows = $("#TreeGrid .e-row");
+
+    for (var i = 0; i < rows.length; i++) {
+        if (i % 2 === 0) {
+            
+            $(rows[i]).find(".link").show();
+        } else {
+         
+            $(rows[i]).find(".link").hide();
+        }
+    }
+});
+</script>

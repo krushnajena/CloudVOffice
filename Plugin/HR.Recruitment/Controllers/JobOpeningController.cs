@@ -127,5 +127,11 @@ namespace HR.Recruitment.Controllers
             return Redirect("/Recruitment/JobOpening/JobOpeningView");
         }
 
-    }
+
+		public IActionResult JobOpeningViewDetails(int jobOpeningId)
+        {
+            return View("~/Plugins/HR.Recruitment/Views/JobOpening/JobOpeningViewDetails.cshtml");
+        }
+
+	}
 }

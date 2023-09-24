@@ -1,6 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
+using CloudVOffice.Data.Migrations;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Web.Framework;
@@ -13,19 +14,21 @@ namespace HR.Attendance.Controllers
 	[Area(AreaNames.Attendance)]
 	public class LeavePolicyController : BasePluginController
 	{
-		private readonly ILeavePolicyDetailsService _leavePolicyDetailsService;
+
 		private readonly ILeavePolicyService _leavePolicyService;
 		private readonly ILeaveTypeService _leaveTypeService;
 		private readonly IEmployeeGradeServices _employeeGradeServices;
 		private readonly ILeavePeriodService _leavePeriodService;
-		public LeavePolicyController(ILeavePolicyDetailsService leavePolicyDetailsService, ILeavePolicyService leavePolicyService, ILeaveTypeService leaveTypeService, IEmployeeGradeServices employeeGradeServices , ILeavePeriodService leavePeriodService)
+	
+		public LeavePolicyController(ILeavePolicyService leavePolicyService, ILeaveTypeService leaveTypeService, IEmployeeGradeServices employeeGradeServices, ILeavePeriodService leavePeriodService)
 		{
 
-			_leavePolicyDetailsService = leavePolicyDetailsService;
+
 			_leavePolicyService = leavePolicyService;
 			_leaveTypeService = leaveTypeService;
 			_employeeGradeServices = employeeGradeServices;
 			_leavePeriodService = leavePeriodService;
+			
 		}
 		[HttpGet]
 		public IActionResult LeavePolicyCreate(int? leavePolicyId)
@@ -44,7 +47,7 @@ namespace HR.Attendance.Controllers
 					{
 
 						LeavePolicyId = leavePolicyDetails[i].LeavePolicyId,
-						
+
 					});
 				}
 				leavePolicyDTO.LeavePolicyDetailsString = JsonConvert.SerializeObject(leavePolicyDTO.LeavePolicyDetailsString);
@@ -54,8 +57,9 @@ namespace HR.Attendance.Controllers
 				leavePolicyDTO.LeavePolicyDetails = new List<LeavePolicyDetailsDTO>();
 			}
 			var leavePeriod = _leavePeriodService.GetLeavePeriodList();
-			List<object> AllocationMode =  new List<object>();
-			AllocationMode.Add(new {
+			List<object> AllocationMode = new List<object>();
+			AllocationMode.Add(new
+			{
 				Text = "Annual",
 				Value = 1
 			});
@@ -90,7 +94,7 @@ namespace HR.Attendance.Controllers
 					if (a == MessageEnum.Success)
 					{
 						TempData["msg"] = MessageEnum.Success;
-						return Redirect("/Attendance/LeavePolicy/LeavePolicyView");
+						return Redirect("/Attendance/LeavePolicy/LeavePolicyReport");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
@@ -109,7 +113,7 @@ namespace HR.Attendance.Controllers
 					if (a == MessageEnum.Updated)
 					{
 						TempData["msg"] = MessageEnum.Updated;
-						return Redirect("/Attendance/LeavePolicy/LeavePolicyView");
+						return Redirect("/Attendance/LeavePolicy/LeavePolicyReport");
 					}
 					else if (a == MessageEnum.Duplicate)
 					{
@@ -133,5 +137,27 @@ namespace HR.Attendance.Controllers
 			return View("~/Plugins/HR.Attendance/Views/LeavePolicy/LeavePolicyCreate.cshtml", leavePolicyDTO);
 
 		}
-	}
+		public IActionResult LeavePolicyDelete(int leavePolicyId)
+		{
+            Int64 DeletedBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+			var a = _leavePolicyService.LeavePolicyDelete(leavePolicyId, DeletedBy);
+            TempData["msg"] = a;
+            return Redirect("/Attendance/LeavePolicy/LeavePolicyReport");
+        }
+
+        public IActionResult LeavePolicyReport()
+        {
+			ViewBag.report = _leavePolicyService.LeavePolicyReport();
+
+			return View("~/Plugins/HR.Attendance/Views/LeavePolicy/LeavePolicyReport.cshtml");
+		}
+
+       
+
+
+
+    }
+
+
+
 }

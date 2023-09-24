@@ -3,6 +3,7 @@ using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudVOffice.Services.Attendance
 {
@@ -10,11 +11,13 @@ namespace CloudVOffice.Services.Attendance
     {
         private readonly ApplicationDBContext _Context;
         private readonly ISqlRepository<LeavePeriod> _leavePeriodRepo;
+        
         public LeavePeriodService(ApplicationDBContext Context, ISqlRepository<LeavePeriod> leavePeriodRepo)
         {
 
             _Context = Context;
             _leavePeriodRepo = leavePeriodRepo;
+           
         }
         public MessageEnum CreateLeavePeriod(LeavePeriodDTO leavePeriodDTO)
         {
@@ -60,6 +63,8 @@ namespace CloudVOffice.Services.Attendance
             try
             {
                 return _Context.LeavePeriods.Where(x => x.Deleted == false).ToList();
+
+
 
             }
             catch

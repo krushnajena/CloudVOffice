@@ -147,9 +147,9 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IEmployeeCheckInService, EmployeeCheckInService>();
             services.AddScoped<IWorkFromHomeRequestService, WorkFromHomeRequestService>();
 
-			services.AddScoped<ILeavePolicyService, LeavePolicyService> ();
-			services.AddScoped<ILeavePolicyDetailsService, LeavePolicyDetailsService>();
-
+            services.AddScoped<ILeavePolicyService, LeavePolicyService>();
+            services.AddScoped<ILeavePolicyDetailsService, LeavePolicyDetailsService>();
+            
             #endregion
 
 

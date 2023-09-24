@@ -5,6 +5,7 @@ using CloudVOffice.Data.DTO.Company;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Services.Attendance;
 using CloudVOffice.Services.Recruitment;
+using CloudVOffice.Services.Recruitment.JO;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace HR.Recruitment.Controllers
 {
-	[Area(AreaNames.Recruitment)]
+    [Area(AreaNames.Recruitment)]
 	public class JobApplicationController:BasePluginController
 	{
 		private readonly IJobApplicationService _jobApplicationService;

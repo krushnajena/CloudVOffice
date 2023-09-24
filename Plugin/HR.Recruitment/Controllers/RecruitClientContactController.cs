@@ -123,6 +123,12 @@ namespace HR.Recruitment.Controllers
             return Redirect("/Recruitment/RecruitClientContact/RecruitClientContactView");
         }
 
+        [HttpGet]
+        public JsonResult GetContactsByClientId(int clientId)
+        {
+            return Json(_recruitClientContactService.GetClientContractByClientId(clientId));
+        }
+
 
     }
 }

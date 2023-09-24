@@ -17,6 +17,7 @@ using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Services.Recruitment;
+using CloudVOffice.Services.Recruitment.JO;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
 
@@ -69,6 +70,21 @@ namespace CloudVOffice.Web.Framework
 
 
             #region Requirement
+
+            services.AddScoped<IRecruitClientService, RecruitClientService>();
+            services.AddScoped<IRecruitClientDocumentService, RecruitClientDocumentService>();
+            services.AddScoped<IRecruitClientContactService, RecruitClientContactService>();
+
+
+            services.AddScoped<ISkillSetService, SkillSetService>();
+
+            services.AddScoped<IJobOpeningService, JobOpeningService>();
+            services.AddScoped<IJobOpeningSkillService, JobOpeningSkillService>();
+            services.AddScoped<IJobOpeningTagService, JobOpeningTagService>();
+
+
+
+
             services.AddScoped<IInterviewTypeService, InterviewTypeService>();
             services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
@@ -76,10 +92,10 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IInterviewTypeService, InterviewTypeService>();
             services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
             services.AddScoped<IStaffingPlanService, StaffingPlanService>();
-			services.AddScoped<IJobOpeningService, JobOpeningService>();
+			
 
 
-			services.AddScoped<ISkillSetService, SkillSetService>();
+			
 			services.AddScoped<IStaffingPlanService, StaffingPlanService>();
 
 			services.AddScoped<IInterviewRoundService, InterviewRoundService>();
@@ -99,9 +115,6 @@ namespace CloudVOffice.Web.Framework
 
 
 
-            services.AddScoped<IRecruitClientService, RecruitClientService>();
-            services.AddScoped<IRecruitClientDocumentService, RecruitClientDocumentService>();
-            services.AddScoped<IRecruitClientContactService, RecruitClientContactService>();
             ;
             #endregion
 

@@ -32,6 +32,8 @@ namespace CloudVOffice.Data.DTO.Recruitment
 		public string? Requirements { get; set; }
 		public string? Benefits { get; set; }
 		public bool PublishOnWebsite { get; set; }
+		public List<int>? Skills { get; set; }
+		public List<Int64>? Tags { get; set; }
 
 		public Int64 CreatedBy { get; set; }
     }

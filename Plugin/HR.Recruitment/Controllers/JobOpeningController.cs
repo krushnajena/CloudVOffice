@@ -4,30 +4,32 @@ using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Recruitment;
+using CloudVOffice.Services.Recruitment.JO;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HR.Recruitment.Controllers
 {
-	[Area(AreaNames.Recruitment)]
+    [Area(AreaNames.Recruitment)]
     public class JobOpeningController : BasePluginController
     {
         private readonly IJobOpeningService _jobOpeningService;
 		private readonly IEmployeeService _employeeService;
 		private readonly IRecruitClientContactService _recruitClientContactService;
         private readonly IRecruitClientService _recruitClientService;
+        private readonly ISkillSetService _skillSetService;
 
 
 
-        public JobOpeningController(IJobOpeningService jobOpeningService, IEmployeeService employeeService, IRecruitClientContactService recruitClientContactService, IRecruitClientService recruitClientService)
+        public JobOpeningController(IJobOpeningService jobOpeningService, IEmployeeService employeeService, IRecruitClientContactService recruitClientContactService, IRecruitClientService recruitClientService, ISkillSetService skillSetService)
         {
 
             _jobOpeningService = jobOpeningService;
 			_employeeService = employeeService;
             _recruitClientContactService = recruitClientContactService;
             _recruitClientService = recruitClientService;
-
+            _skillSetService = skillSetService;
 
         }
 		[HttpGet]
@@ -37,11 +39,10 @@ namespace HR.Recruitment.Controllers
 			var employee = _employeeService.GetEmployees();
 			ViewBag.Employee = employee;
 
-			var recruitClientContact = _recruitClientContactService.GetRecruitClientContactList();
-			ViewBag.RecruitClientContact = recruitClientContact;
+		
             var recruitClient = _recruitClientService.GetRecruitClientList();
             ViewBag.RecruitClient = recruitClient;
-
+            ViewBag.Skills = _skillSetService.GetSkillSetList();
 
             if (jobOpeningId != null)
             {

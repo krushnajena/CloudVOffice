@@ -2,6 +2,7 @@
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
 using CloudVOffice.Data.ViewModel.Recurt;
+using CloudVOffice.Services.Recruitment.JO;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Services.Recruitment
 {
-	public class ScheduleInterviewService : IScheduleInterviewService
+    public class ScheduleInterviewService : IScheduleInterviewService
 	{
 		private readonly IJobOpeningService _jobOpeningService;
 		private readonly IJobApplicationService _jobApplicationService;

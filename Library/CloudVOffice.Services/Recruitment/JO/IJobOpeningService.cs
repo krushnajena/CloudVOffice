@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudVOffice.Services.Recruitment
+namespace CloudVOffice.Services.Recruitment.JO
 {
     public interface IJobOpeningService
     {
@@ -15,6 +15,6 @@ namespace CloudVOffice.Services.Recruitment
         public List<JobOpening> GetJobOpeningsList();
         public JobOpening GetJobOpeningByJobOpeningId(int jobOpeningId);
         public MessageEnum JobOpeningUpdate(JobOpeningDTO jobOpeningDTO);
-        public MessageEnum JobOpeningDelete(int jobOpeningId, Int64 DeletedBy);
+        public MessageEnum JobOpeningDelete(int jobOpeningId, long DeletedBy);
     }
 }

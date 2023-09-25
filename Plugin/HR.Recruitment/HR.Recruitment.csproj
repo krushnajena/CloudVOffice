@@ -15,6 +15,8 @@
 		<None Remove="Application.json" />
 		<None Remove="plugin.json" />
 		<None Remove="roles.json" />
+		<None Remove="Views\Candidate\CandidateCreate.cshtml" />
+		<None Remove="Views\Candidate\CandidateView.cshtml" />
 		<None Remove="Views\InterFeedBackQuestions\InterFeedBackQuestionsCreate.cshtml" />
 		<None Remove="Views\InterFeedBackQuestions\InterFeedBackQuestionsView.cshtml" />
 		<None Remove="Views\InterviewPanelMember\InterviewPanelMemberCreate.cshtml" />

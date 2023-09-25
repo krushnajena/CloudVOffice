@@ -244,7 +244,7 @@ namespace CloudVOffice.Services.Recruitment
                     recruitClient.UpdatedBy = recruitClientDTO.CreatedBy;
                     recruitClient.UpdatedDate = DateTime.Now;
 
-                    if (recruitClientDTO.RecruitClientDocuments != null)
+                   /* if (recruitClientDTO.RecruitClientDocuments != null)
                     {
                         foreach (var detailsDTO in recruitClientDTO.RecruitClientDocuments)
                         {
@@ -263,7 +263,7 @@ namespace CloudVOffice.Services.Recruitment
                                 return MessageEnum.Invalid;
                             }
                         }
-                    }
+                    }*/
                     _Context.SaveChanges();
 
                     return MessageEnum.Updated;

@@ -13,7 +13,7 @@
                 </div>
                 <div class="page-title">
                     <h5>Job Opening</h5>
-                   
+
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
@@ -52,6 +52,7 @@
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
                               enableVirtualization="true" allowSelection="true"
+                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
 
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
@@ -60,25 +61,14 @@
                         <e-grid-columns>
                             template="#statusTemplate"
 
-                            <e-grid-column field="JobOpType" headerText="JobOp Type" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ClientID" headerText="ClientID" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ContactId" headerText="ContactId" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="HiringManagerId" headerText="HiringManagerId" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="JobTitle" headerText="JobTitle" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="DateOpened" headerText="Date Opened" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="JobOpType" headerText="JobOp Type" template="#JobOpTypeTemplate" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="JobTitle" headerText="JobTitle" template="#JobTitleActions" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="TargetDate" headerText="Target Date" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="JobType" headerText="Job Type" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="WorkExperience" headerText="WorkExperience" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="City" headerText="City" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="RevenuePerPosition" headerText="Revenue PerPosition" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="NumberofPositions" headerText="NumberofPositions" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="ExpectedRevenue" headerText="ExpectedRevenue" textAlign="Left" width="200"></e-grid-column>
-                           <e-grid-column field="ActualRevenue" headerText="ActualRevenue" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="200"></e-grid-column>
-                            <e-grid-column field="JobDescription" headerText="JobDescription" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="City" headerText="City" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="RecruitClient.ClientName" headerText="ClientID" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="RecruitClientContact.ContactName" headerText="ContactId" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Requirements" headerText="Requirements" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Benefits" headerText="Benefits" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="PublishOnWebsite" headerText="PublishOnWebsite" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -87,7 +77,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 
 @{
@@ -221,8 +211,37 @@
         }
     }
 
+
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
 </script>
 
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
+</script>
+
+
+<script id="JobOpTypeTemplate" type="text/x-template">
+    ${JobOpTypeDetail(data)}
+</script>
+
+<script>
+    function JobOpTypeDetail(e) {
+        if (e.Status == 1) {
+            return '<span class="badge badge-pill">OffSore</span>';
+        } else {
+            return '<span class="badge badge-pill" style="background-color: red; color: white;">Onsore</span>';
+        }
+    }
+
+</script>
+
+
+
+
+<script id="JobTitleActions" type="text/x-template">
+    <div class="link">
+        <a href="../../Recruitment/JobOpening/JobOpeningCreate?JobOpeningId=${JobOpeningId}">${JobTitle}</a>
+    </div>
 </script>

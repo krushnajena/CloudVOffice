@@ -175,23 +175,7 @@ namespace CloudVOffice.Services.Recruitment
                         _Context.SaveChanges();
 
 
-                       /* foreach (var recruitClientDocument in recruitClient.RecruitClientDocuments)
-                        {
-                            recruitClientDocument.Deleted = true;
-                            recruitClientDocument.UpdatedBy = recruitClientDTO.CreatedBy;
-                            recruitClientDocument.UpdatedDate = DateTime.Now;
-                        }
-
-                        for (int i = 0; i < recruitClientDTO.FileNames.Count; i++)
-                        {
-                            _recruitClientDocumentService.DeleteByClientId(new RecruitClientDocumentDTO
-                            {
-                                RecruitClientId = recruitClientDTO.RecruitClientId[i],
-                                DocumentType = "Contract Document",
-                                Document = recruitClientDTO.FileNames[i],
-                                CreatedBy = recruitClientDTO.CreatedBy
-                            });
-                        }*/
+                       
 
                         return MessageEnum.Updated;
                     }
@@ -209,6 +193,6 @@ namespace CloudVOffice.Services.Recruitment
                 throw;
             }
         }
-
+       
     }
 }

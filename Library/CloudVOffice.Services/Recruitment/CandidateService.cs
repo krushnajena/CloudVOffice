@@ -47,6 +47,7 @@ namespace CloudVOffice.Services.Recruitment
 					candidate.CurrentSalary = candidateDTO.CurrentSalary;
 					candidate.Cv = candidateDTO.Cv;
 					candidate.ApplicationSourceId = candidateDTO.ApplicationSourceId;
+					candidate.Status = candidateDTO.Status;
 					candidate.CreatedBy = candidateDTO.CreatedBy;
 					var obj = _candidateRepo.Insert(candidate);
 					return MessageEnum.Success;
@@ -132,6 +133,7 @@ namespace CloudVOffice.Services.Recruitment
 						a.CurrentSalary = candidateDTO.CurrentSalary;
 						a.Cv = candidateDTO.Cv;
 						a.ApplicationSourceId = candidateDTO.ApplicationSourceId;
+						a.Status = candidateDTO.Status;
 						a.UpdatedBy = candidateDTO.CreatedBy;
 						a.UpdatedDate = DateTime.Now;
 

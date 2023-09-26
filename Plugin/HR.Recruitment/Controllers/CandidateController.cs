@@ -1,18 +1,9 @@
-﻿using CloudVOffice.Services.Emp;
-using CloudVOffice.Services.Recruitment.JO;
-using CloudVOffice.Services.Recruitment;
+﻿using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CloudVOffice.Data.DTO.Recruitment;
 using Microsoft.AspNetCore.Mvc;
 using CloudVOffice.Core.Domain.Common;
-using CloudVOffice.Core.Domain.Recruitment;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting.Internal;
 using CloudVOffice.Web.Framework;
 
 namespace HR.Recruitment.Controllers
@@ -54,7 +45,7 @@ namespace HR.Recruitment.Controllers
 				candidateDTO.CurrentSalary = d.CurrentSalary;
 				candidateDTO.Cv = d.Cv;
 				candidateDTO.ApplicationSourceId = d.ApplicationSourceId;
-
+				candidateDTO.Status = d.Status;
 
 
 

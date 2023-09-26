@@ -1,8 +1,11 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Core.Domain.Recruitment;
+using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.DTO.Emp;
 using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.DTO.Recruitment;
+using CloudVOffice.Data.Migrations;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Web.Framework;
@@ -42,7 +45,7 @@ namespace HR.Recruitment.Controllers
 		{
 			RecruitClientDTO recruitClientDTO = new RecruitClientDTO();
 
-			
+
 
 			if (recruitClientId != null)
 			{
@@ -63,9 +66,26 @@ namespace HR.Recruitment.Controllers
 				recruitClientDTO.BillingPostalCode = d.BillingPostalCode;
 
 
-			}
-						
+				/* var recruitClientDocuments = _RecruitClientService.GetRecruitClientById(int.Parse(recruitClientId.ToString()));
+				 recruitClientDTO.RecruitClientDocuments = new List<RecruitClientDocumentDTO>();
 
+
+				 for (int i = 0; i < recruitClientDocuments.Count; i++)
+				 {
+					 recruitClientDTO.RecruitClientDocuments.Add(new RecruitClientDocumentDTO
+					 {
+
+						 RecruitClientId = recruitClientDocuments[i].RecruitClientId,
+
+					 });
+				 }
+				 recruitClientDTO.RecruitClientDocumentsString = JsonConvert.SerializeObject(recruitClientDTO.RecruitClientDocumentsString);*/
+				/*  }
+				  else
+				  {
+					  recruitClientDTO.RecruitClientDocuments = new List<RecruitClientDocumentDTO>();
+				  }*/
+			}
             var employee = _employeeService.GetEmployees();
             ViewBag.AccountManager = employee;
 

@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "Job Opening";
+    ViewData["Title"] = "Job Application";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -12,13 +12,13 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Job Opening</h5>
-
+                    <h5>Candidate</h5>
+                    <h6 class="sub-heading">  </h6>
                 </div>
             </div>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="right-actions">
-                    <span class="last-login"> </span>
+                    <span class="last-login">  </span>
                 </div>
             </div>
         </div>
@@ -31,44 +31,56 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
+
                     <div class="row">
                         <div class="col-md-8">
-                            Job Opening
+                            Candidate
                         </div>
                         <div class="col-md-4 text-right float-right">
-                            <a href="/Recruitment/JobOpening/JobOpeningCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i>Add Job Opening</a>
+                            <a href="/Recruitment/Candidate/CandidateCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Candidate </a>
 
                         </div>
                     </div>
                 </div>
-
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.JobOpening"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Candidate"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
                               allowPdfExport="true"
                               height="600" rowHeight="38"
                               enableHover="false" enableHeaderFocus="true"
-                              enableVirtualization="true" allowSelection="true"
                               allowResizing="true" autoFit="true" dataBound="dataBound"
+                              enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
 
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            template="#statusTemplate"
 
-                            <e-grid-column field="JobOpType" headerText="JobOp Type" template="#JobOpTypeTemplate" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="JobTitle" headerText="JobTitle" template="#JobTitleActions" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="TargetDate" headerText="Target Date" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="200"></e-grid-column>
-                            <e-grid-column field="City" headerText="City" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="RecruitClient.ClientName" headerText="ClientID" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="RecruitClientContact.ContactName" headerText="ContactId" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Requirements" headerText="Requirements" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="FirstName" headerText="FirstName" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="MiddleName" headerText="Middle Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="LastName" headerText="LastName" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="Email" headerText="Email" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MobileNo" headerText="MobileNo" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="StreetAddress" headerText="StreetAddress" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="City" headerText="City" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="ExperienceinYears" headerText="ExperienceinYears" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="HighestQualification" headerText="Highest Qualification" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CurrentJob" headerText="CurrentJob" textAlign="Left" width="120"></e-grid-column>
+
+                            <e-grid-column field="CurrentEmployer" headerText="CurrentEmployer" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ExpectedSalary" headerText="ExpectedSalary" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="CurrentSalary" headerText="CurrentSalary" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Cv" headerText="Cv" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="ApplicationSourceId.JobApplicationSource" headerText="ApplicationSource" textAlign="Left" width="120"></e-grid-column>
+
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -80,6 +92,7 @@
 
 </div>
 
+
 @{
 
     if (TempData["msg"] != null)
@@ -90,7 +103,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobOpening",
+                    title: "Candidate",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -99,7 +112,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobOpening",
+                    title: "Candidate",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -108,7 +121,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "JobOpening",
+                    title: "Candidate",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -117,7 +130,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "JobOpening",
+                    title: "Candidate",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -126,7 +139,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "JobOpening",
+                    title: "Candidate",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
@@ -135,7 +148,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "JobOpening",
+                    title: "Candidate",
                     text: message,
                     type: "error"
                 });
@@ -158,7 +171,7 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Recruitment/JobOpening/JobOpeningDelete?JobOpeningId=" + Id;
+                window.location.href = "../../Recruitment/Candidate/CandidateDelete?CandidateId=" + Id;
             }
         })
     }
@@ -167,13 +180,15 @@
 
 <script id="Actions" type="text/x-template">
     <div class="link">
-        <a href="../../Recruitment/JobOpening/JobOpeningCreate?JobOpeningId=${JobOpeningId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
-        <button onClick="Delete(${JobOpeningId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>
-    </div>
+        <a href="../../Recruitment/Candidate/CandidateCreate?CandidateId=${CandidateId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+
+        <button onClick="Delete(${CandidateId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>    </div>
 </script>
+
 <script id="statusTemplate" type="text/x-template">
     ${statusDetail(data)}
 </script>
+
 <script>
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
@@ -203,45 +218,7 @@
         }
     };
 
-    function statusDetail(e) {
-        if (e.Status == 1) {
-            return '<span class="badge badge-pill badge-success">Open</span>';
-        } else {
-            return '<span class="badge badge-pill badge-danger" style="background-color: red; color: white;">Closed</span>';
-        }
-    }
-
-
     function dataBound(args) {
         this.autoFitColumns();
     }
-</script>
-
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
-</script>
-
-
-<script id="JobOpTypeTemplate" type="text/x-template">
-    ${JobOpTypeDetail(data)}
-</script>
-
-<script>
-    function JobOpTypeDetail(e) {
-        if (e.Status == 1) {
-            return '<span class="badge badge-pill">OffSore</span>';
-        } else {
-            return '<span class="badge badge-pill" style="background-color: red; color: white;">Onsore</span>';
-        }
-    }
-
-</script>
-
-
-
-
-<script id="JobTitleActions" type="text/x-template">
-    <div class="link">
-        <a href="../../Recruitment/JobOpening/JobOpeningCreate?JobOpeningId=${JobOpeningId}">${JobTitle}</a>
-    </div>
 </script>

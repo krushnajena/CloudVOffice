@@ -1,0 +1,208 @@
+﻿
+@model CloudVOffice.Data.DTO.Recruitment.CandidateDTO;
+@{
+	Layout = "_MainAppLayout";
+	ViewData["Title"] = "Job Application";
+}
+@addTagHelper *, Syncfusion.EJ2
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@using System.Collections;
+@using Newtonsoft.Json;
+<header class="main-heading">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+				<div class="page-icon">
+					<i class="icon-laptop_windows"></i>
+				</div>
+				<div class="page-title">
+					<h5>Recruitment</h5>
+
+				</div>
+			</div>
+			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+				<div class="right-actions">
+					<span class="last-login"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+
+<div class="main-content">
+	<div class="row gutters">
+		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+			<div class="card">
+				<form asp-route="Recruitment/Candidate/CandidateCreate" method="post" autocomplete="off" enctype="multipart/form-data">
+					<div asp-
+						 ation-summary="ModelOnly" class="message-error"></div>
+
+
+					<div class="card-header"><b>Candidate</b></div>
+					<div class="card-body">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<input asp-for="@Model.CandidateId" type="hidden" />
+
+
+								<label for="FirstName" class="form-label">FirstName&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.FirstName" type="text" class="form-control" autofocus="autofocus" placeholder="FirstName" />
+								<span asp-validation-for="FirstName"></span>
+
+							</div>
+							<div class="form-group col-md-4">
+								<label for="MiddleName" class="form-label">MiddleName&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.MiddleName" type="text" class="form-control" autofocus="autofocus" placeholder="MiddleName" />
+								<span asp-validation-for="MiddleName"></span>
+							</div>
+
+
+						</div>
+
+
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="LastName" class="form-label">LastName&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.LastName" type="text" class="form-control" autofocus="autofocus" placeholder="LastName" />
+								<span asp-validation-for="LastName"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="Email" class="form-label">Email&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.Email" type="text" class="form-control" autofocus="autofocus" placeholder="Email" />
+								<span asp-validation-for="Email"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="MobileNo" class="form-label">MobileNo&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.MobileNo" type="text" class="form-control" autofocus="autofocus" placeholder="MobileNo" />
+								<span asp-validation-for="MobileNo"></span>
+							</div>
+
+
+							<div class="form-group col-md-4">
+								<label for="StreetAddress" class="form-label">StreetAddress&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<input asp-for="@Model.StreetAddress" type="text" class="form-control" autofocus="autofocus" placeholder="StreetAddress" />
+								<span asp-validation-for="StreetAddress"></span>
+							</div>
+
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="ApplicationSourceId" class="form-label">ApplicationSourceId&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<ejs-dropdownlist id="ApplicationSourceId" allowFiltering="true" ejs-for="@Model.MiddleName" filtering="onJobApplicationSourcerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobApplicationSource, "JobApplicationSourceId", "SourceName").Items)" placeholder="Select JobApplicationSource" popupHeight="220px">
+									<e-dropdownlist-fields text="SourceName" value="JobApplicationSourceId"></e-dropdownlist-fields>
+								</ejs-dropdownlist>
+
+							</div>
+							
+							<div class="form-group col-md-4">
+								<label for="HighestQualification" class="form-label">HighestQualification</label>
+								<select asp-for="@Model.HighestQualification" type="text" class="form-control" autofocus="autofocus" placeholder="HighestQualification">
+									<option value="M.C.A.">M.C.A.</option>
+									<option value="B.E.">B.E.</option>
+									<option value="B.SC.">B.SC.</option>
+									<option value="M.S.">M.S.</option>
+									<option value="B.Tech">B.Tech</option>
+
+
+
+								</select>
+
+							</div>
+
+							
+
+						</div>
+
+						
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="City" class="form-label">City</label>
+								<input asp-for="@Model.City" type="text" class="form-control" autofocus="autofocus" placeholder="City" />
+								<span asp-validation-for="City"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="ExperienceinYears" class="form-label">Experiencein Years</label>
+								<input asp-for="@Model.ExperienceinYears" type="text" class="form-control" autofocus="autofocus" placeholder="ExperienceinYears" />
+								<span asp-validation-for="ExperienceinYears"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="CurrentJob" class="form-label">CurrentJob</label>
+								<select asp-for="@Model.CurrentJob" type="text" class="form-control" autofocus="autofocus" placeholder="Current Job">
+									<option value="Fresher">fresher</option>
+									<option value="Project-Lead">Project-Lead</option>
+									<option value="Project-Manager">Project-Manager</option>
+									
+
+
+								</select>
+
+							</div>
+							<div class="form-group col-md-4">
+								<label for="CurrentEmployer" class="form-label">CurrentEmployer</label>
+								<input asp-for="@Model.CurrentEmployer" type="text" class="form-control" autofocus="autofocus" placeholder="CurrentEmployer" />
+								<span asp-validation-for="CurrentEmployer"></span>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="ExpectedSalary" class="form-label">ExpectedSalary</label>
+								<input asp-for="@Model.ExpectedSalary" type="text" class="form-control" autofocus="autofocus" placeholder="ExpectedSalary" />
+								<span asp-validation-for="ExpectedSalary"></span>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="CurrentSalary" class="form-label">Current Salary</label>
+								<input asp-for="@Model.CurrentSalary" type="text" class="form-control" autofocus="autofocus" placeholder="Current Salary" />
+								<span asp-validation-for="CurrentSalary"></span>
+							</div>
+						</div>
+
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="CV" class="form-label">CV</label>
+							<input asp-for="@Model.CVDOC" type="file" class="form-control" autofocus="autofocus" placeholder="Cv" />
+							<span asp-validation-for="Cv"></span>
+							@{
+								if (Model.Cv != null)
+								{
+									<img src="/uploads/Candidate/@Model.Cv" style="height:100px; width:100px" />
+									<input type="hidden" asp-for="@Model.Cv">
+								}
+							}
+						</div>
+
+					</div>
+
+					<div class="card-body">
+
+						<div class="col-lg-2 col-md-2 col-sm-12">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+</div>
+<script>
+	function onJobApplicationSourcerfiltering(e) {
+		var query = new ej.data.Query();
+		query = (e.text !== '') ? query.where('SourceName', 'startswith', e.text, true) : query;
+		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.jobApplicationSource)), query);
+	}
+</script>
+

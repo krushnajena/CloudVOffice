@@ -102,7 +102,11 @@ namespace CloudVOffice.Services.Recruitment.JO
 
             try
             {
-                return _Context.JobOpenings.Where(x => x.Deleted == false).ToList();
+                return _Context.JobOpenings
+                    .Include(x => x.RecruitClient)
+                    .Include(x => x.RecruitClientContact)
+                    .Include(x => x.Employee)
+                    .Where(x => x.Deleted == false).ToList();
 
             }
             catch

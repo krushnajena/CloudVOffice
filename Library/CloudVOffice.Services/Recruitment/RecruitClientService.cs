@@ -72,7 +72,7 @@ namespace CloudVOffice.Services.Recruitment
                             CreatedBy = recruitClientDTO.CreatedBy
                         });
                     }
-
+                    
                     return MessageEnum.Success;
                 }
                 else if (objCheck != null)
@@ -149,86 +149,13 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
 
-        /* public MessageEnum RecruitClientUpdate(RecruitClientDTO recruitClientDTO)
-         {
-             try
-             {
-                 var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId == recruitClientDTO.RecruitClientId).FirstOrDefault();
-                 if (recruitClient != null)
-                 {
-                     recruitClient.ClientName = recruitClientDTO.ClientName;
-                     recruitClient.ContactNo = recruitClientDTO.ContactNo;
-                     recruitClient.AccountManagerId = recruitClientDTO.AccountManagerId;
-                     recruitClient.Website = recruitClientDTO.Website;
-                     recruitClient.Fax = recruitClientDTO.Fax;
-                     recruitClient.About = recruitClientDTO.About;
-                     recruitClient.BillingAddressLine1 = recruitClientDTO.BillingAddressLine1;
-                     recruitClient.BillingAddressLine2 = recruitClientDTO.BillingAddressLine2;
-                     recruitClient.BillingCity = recruitClientDTO.BillingCity;
-                     recruitClient.BillingState = recruitClientDTO.BillingState;
-                     recruitClient.BillingCountry = recruitClientDTO.BillingCountry;
-                     recruitClient.BillingPostalCode = recruitClientDTO.BillingPostalCode;
-                     recruitClient.UpdatedBy = recruitClientDTO.CreatedBy;
-                     recruitClient.UpdatedDate = DateTime.Now;
-
-                     _Context.SaveChanges();
-
-                     *//*
-                      foreach (var recruitClientDocumentDTO in recruitClientDTO.RecruitClientDocuments)
-                      {
-                          var recruitClientDocument = _Context.RecruitClientDocuments
-                              .Where(d => d.RecruitClientDocumentId == recruitClientDocumentDTO.RecruitClientDocumentId)
-                              .FirstOrDefault();
-
-                          if (recruitClientDocument != null)
-                          {
-                              recruitClientDocument.RecruitClientId = recruitClientDocumentDTO.RecruitClientId;
-                              recruitClientDocument.DocumentType = recruitClientDocumentDTO.DocumentType;
-                              recruitClientDocument.Document = recruitClientDocumentDTO.Document;
-                              recruitClientDocument.UpdatedBy = recruitClientDocumentDTO.CreatedBy;
-                              recruitClientDocument.UpdatedDate = DateTime.Now;
-
-                              _Context.SaveChanges();
-                          }
-                          else
-                          {
-
-                              transaction.Rollback(); 
-                              return MessageEnum.Invalid;
-                          }
-                      }
-
-                    */
-        /*
-
-
-                    return MessageEnum.Updated;
-                }
-                else
-                {
-                    return MessageEnum.Invalid;
-                }
-            }
-            catch
-            {
-
-
-                throw;
-            }
-
-        }*/
-
         public MessageEnum RecruitClientUpdate(RecruitClientDTO recruitClientDTO)
         {
             try
             {
-                var recruitClient = _Context.RecruitClients.Include(y => y.RecruitClientDocuments)
-                    .Where(x => x.RecruitClientId == recruitClientDTO.RecruitClientId)
-                    .FirstOrDefault();
-
+                var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId == recruitClientDTO.RecruitClientId).FirstOrDefault();
                 if (recruitClient != null)
                 {
-                    
                     recruitClient.ClientName = recruitClientDTO.ClientName;
                     recruitClient.ContactNo = recruitClientDTO.ContactNo;
                     recruitClient.AccountManagerId = recruitClientDTO.AccountManagerId;
@@ -244,26 +171,13 @@ namespace CloudVOffice.Services.Recruitment
                     recruitClient.UpdatedBy = recruitClientDTO.CreatedBy;
                     recruitClient.UpdatedDate = DateTime.Now;
 
-                   /* if (recruitClientDTO.RecruitClientDocuments != null)
+                    var recruitClientDocument = _Context.RecruitClientDocuments.FirstOrDefault(x => x.RecruitClientId == recruitClientDTO.RecruitClientId);
+                    if (recruitClientDocument != null)
                     {
-                        foreach (var detailsDTO in recruitClientDTO.RecruitClientDocuments)
-                        {
-                            var recruitClientDocument = recruitClient.RecruitClientDocuments
-                                .Where(d => d.RecruitClientId == detailsDTO.RecruitClientId).FirstOrDefault();
-
-                            if (recruitClientDocument != null)
-                            {
-                                recruitClientDocument.DocumentType = detailsDTO.DocumentType;
-                                recruitClientDocument.Document = detailsDTO.Document;
-                                recruitClientDocument.UpdatedBy = detailsDTO.CreatedBy;
-                                recruitClientDocument.UpdatedDate = DateTime.Now;
-                            }
-                            else
-                            {
-                                return MessageEnum.Invalid;
-                            }
-                        }
-                    }*/
+                        recruitClientDocument.Deleted = true;
+                        recruitClientDocument.UpdatedBy = recruitClientDTO.CreatedBy;
+                        recruitClientDocument.UpdatedDate = DateTime.Now;
+                    }
                     _Context.SaveChanges();
 
                     return MessageEnum.Updated;
@@ -275,9 +189,13 @@ namespace CloudVOffice.Services.Recruitment
             }
             catch
             {
+
+
                 throw;
             }
+
         }
 
+        
     }
 }

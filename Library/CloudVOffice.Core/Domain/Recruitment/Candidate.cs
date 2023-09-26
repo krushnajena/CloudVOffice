@@ -15,7 +15,22 @@ namespace CloudVOffice.Core.Domain.Recruitment
         public string FirstName { get; set; }
         public string? MiddleName { get; set; }  
         public string? LastName { get; set; }
-        public string? Email { get; set; }
+
+		[NotMapped]
+		public string FullName
+		{
+			get
+			{
+				if (MiddleName != null && MiddleName != "")
+				{
+					return FirstName + " " + MiddleName + " " + LastName;
+				}
+				else
+				{ return FirstName + " " + LastName; }
+
+			}
+		}
+		public string? Email { get; set; }
         public string? MobileNo { get; set; }
         public string? StreetAddress { get; set; }
         public string? City { get; set; }

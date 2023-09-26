@@ -93,11 +93,11 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-4">
-								<label for="ApplicationSourceId" class="form-label">ApplicationSourceId&nbsp;<span style="color:red;"><b>*</b></span></label>
-								<ejs-dropdownlist id="ApplicationSourceId" allowFiltering="true" ejs-for="@Model.MiddleName" filtering="onJobApplicationSourcerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobApplicationSource, "JobApplicationSourceId", "SourceName").Items)" placeholder="Select JobApplicationSource" popupHeight="220px">
+								<label for="JobApplicationSourceId" class="form-label">JobApplicationSource&nbsp;<span style="color:red;"><b>*</b></span></label>
+								<ejs-dropdownlist id="JobApplicationSourceId" allowFiltering="true" ejs-for="@Model.ApplicationSourceId" filtering="onJobApplicationSourcerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobApplicationSource, "JobApplicationSourceId", "SourceName").Items)" placeholder="Select JobApplicationSource" popupHeight="220px">
 									<e-dropdownlist-fields text="SourceName" value="JobApplicationSourceId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
-
+								<span asp-validation-for="ApplicationSourceId"></span>
 							</div>
 							
 							<div class="form-group col-md-4">
@@ -163,23 +163,23 @@
 								<span asp-validation-for="CurrentSalary"></span>
 							</div>
 						</div>
-
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-4">
-							<label for="CV" class="form-label">CV</label>
-							<input asp-for="@Model.CVDOC" type="file" class="form-control" autofocus="autofocus" placeholder="Cv" />
-							<span asp-validation-for="Cv"></span>
-							@{
-								if (Model.Cv != null)
-								{
-									<img src="/uploads/Candidate/@Model.Cv" style="height:100px; width:100px" />
-									<input type="hidden" asp-for="@Model.Cv">
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="CV" class="form-label">CV</label>
+								<input asp-for="@Model.CVDOC" type="file" class="form-control" autofocus="autofocus" placeholder="Cv" />
+								<span asp-validation-for="Cv"></span>
+								@{
+									if (Model.Cv != null)
+									{
+										<img src="/uploads/Candidate/@Model.Cv" style="height:100px; width:100px" />
+										<input type="hidden" asp-for="@Model.Cv">
+									}
 								}
-							}
-						</div>
+							</div>
 
+						</div>
 					</div>
+					
 
 					<div class="card-body">
 

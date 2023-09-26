@@ -65,27 +65,9 @@ namespace HR.Recruitment.Controllers
 				recruitClientDTO.BillingCountry = d.BillingCountry;
 				recruitClientDTO.BillingPostalCode = d.BillingPostalCode;
 
-
-				/* var recruitClientDocuments = _RecruitClientService.GetRecruitClientById(int.Parse(recruitClientId.ToString()));
-				 recruitClientDTO.RecruitClientDocuments = new List<RecruitClientDocumentDTO>();
-
-
-				 for (int i = 0; i < recruitClientDocuments.Count; i++)
-				 {
-					 recruitClientDTO.RecruitClientDocuments.Add(new RecruitClientDocumentDTO
-					 {
-
-						 RecruitClientId = recruitClientDocuments[i].RecruitClientId,
-
-					 });
-				 }
-				 recruitClientDTO.RecruitClientDocumentsString = JsonConvert.SerializeObject(recruitClientDTO.RecruitClientDocumentsString);*/
-				/*  }
-				  else
-				  {
-					  recruitClientDTO.RecruitClientDocuments = new List<RecruitClientDocumentDTO>();
-				  }*/
 			}
+		
+
             var employee = _employeeService.GetEmployees();
             ViewBag.AccountManager = employee;
 

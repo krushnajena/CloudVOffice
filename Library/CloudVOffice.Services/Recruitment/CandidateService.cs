@@ -85,17 +85,34 @@ namespace CloudVOffice.Services.Recruitment
 			}
 		}
 
-        public MessageEnum CandidateDelete(long candidateId, long DeletedBy)
+        public MessageEnum CandidateDelete(Int64 candidateId, Int64 DeletedBy)
         {
-            throw new NotImplementedException();
-        }
+			try
+			{
+				var a = _Context.Candidates.Where(x => x.CandidateId == candidateId).FirstOrDefault();
+				if (a != null)
+				{
+					a.Deleted = true;
+					a.UpdatedBy = DeletedBy;
+					a.UpdatedDate = DateTime.Now;
+					_Context.SaveChanges();
+					return MessageEnum.Deleted;
+				}
+				else
+					return MessageEnum.Invalid;
+			}
+			catch
+			{
+				throw;
+			}
+		}
 
         public MessageEnum CandidateUpdate(CandidateDTO candidateDTO)
 		{
 			try
 			{
-				var Candidate = _Context.Candidates.Where(x => x.CandidateId != candidateDTO.CandidateId && x.Deleted == false).FirstOrDefault();
-				if (Candidate == null)
+				var candidate = _Context.Candidates.Where(x => x.CandidateId != candidateDTO.CandidateId && x.FirstName == candidateDTO.FirstName && x.MiddleName == candidateDTO.MiddleName && x.LastName == candidateDTO.LastName && x.Deleted == false).FirstOrDefault();
+				if (candidate == null)
 				{
 					var a = _Context.Candidates.Where(x => x.CandidateId == candidateDTO.CandidateId).FirstOrDefault();
 					if (a != null)
@@ -111,7 +128,7 @@ namespace CloudVOffice.Services.Recruitment
 						a.HighestQualification = candidateDTO.HighestQualification;
 						a.CurrentJob = candidateDTO.CurrentJob;
 						a.CurrentEmployer = candidateDTO.CurrentEmployer;
-					    a.ExpectedSalary = candidateDTO.ExpectedSalary;
+						a.ExpectedSalary = candidateDTO.ExpectedSalary;
 						a.CurrentSalary = candidateDTO.CurrentSalary;
 						a.Cv = candidateDTO.Cv;
 						a.ApplicationSourceId = candidateDTO.ApplicationSourceId;

@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.Recruitment;
+using CloudVOffice.Data.DTO.Attendance;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -34,5 +35,6 @@ namespace CloudVOffice.Data.DTO.Recruitment
         public List<string?>? FileNames { get; set; }
 
 
+        
     }
 }

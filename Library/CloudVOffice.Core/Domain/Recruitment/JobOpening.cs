@@ -47,6 +47,8 @@ namespace CloudVOffice.Core.Domain.Recruitment
 
         [ForeignKey("ClientID")]
         public RecruitClient RecruitClient { get; set; }
+        public ICollection<JobOpeningSkill> JobOpeningSkills { get; set;}
+        public ICollection<JobOpeningTag> JobOpeningTags { get; set;}
 
 
 

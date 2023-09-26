@@ -67,8 +67,18 @@ namespace HR.Recruitment.Controllers
 				jobOpeningDTO.Requirements = d.Requirements;
 				jobOpeningDTO.Benefits = d.Benefits;
 				jobOpeningDTO.PublishOnWebsite = d.PublishOnWebsite;
-			
-               
+                var skills = d.JobOpeningSkills.ToList();
+                jobOpeningDTO.Skills = new List<int>();
+               for (int i = 0; i < skills.Count; i++)
+                {
+                    jobOpeningDTO.Skills.Add(skills[i].SkillId);
+                }
+                var tags = d.JobOpeningTags.ToList();
+                jobOpeningDTO.Tags = new List<Int64>();
+                for (int i = 0; i < tags.Count; i++)
+                {
+                    jobOpeningDTO.Tags.Add(tags[i].TagId);
+                }
 
             }
 			
@@ -153,7 +163,8 @@ namespace HR.Recruitment.Controllers
 
 		public IActionResult JobOpeningViewDetails(int jobOpeningId)
         {
-            return View("~/Plugins/HR.Recruitment/Views/JobOpening/JobOpeningViewDetails.cshtml");
+            var d = _jobOpeningService.GetJobOpeningByJobOpeningId(int.Parse(jobOpeningId.ToString()));
+            return View("~/Plugins/HR.Recruitment/Views/JobOpening/JobOpeningViewDetails.cshtml", d);
         }
 
 	}

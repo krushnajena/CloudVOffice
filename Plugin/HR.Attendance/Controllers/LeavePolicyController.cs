@@ -36,19 +36,24 @@ namespace HR.Attendance.Controllers
 			LeavePolicyDTO leavePolicyDTO = new LeavePolicyDTO();
 			if (leavePolicyId != null)
 			{
-				LeavePolicy d = _leavePolicyService.GetLeavePolicyByLeavePolicyId(int.Parse(leavePolicyId.ToString()));
-				leavePolicyDTO.LeavePeriodId = d.LeavePeriodId;
-				leavePolicyDTO.EmployeeGradeId = d.EmployeeGradeId;
-				var leavePolicyDetails = _leavePolicyService.LeavePolicyByLeavePolicyId(int.Parse(leavePolicyId.ToString()));
-				leavePolicyDTO.LeavePolicyDetails = new List<LeavePolicyDetailsDTO>();
-				for (int i = 0; i < leavePolicyDetails.Count; i++)
+				var leavePolicyDetails = _leavePolicyService.GetLeavePolicyByLeavePolicyId(int.Parse(leavePolicyId.ToString()));
+                leavePolicyDTO.LeavePeriodId = leavePolicyDetails.LeavePeriodId;
+                leavePolicyDTO.EmployeeGradeId = leavePolicyDetails.EmployeeGradeId;
+                leavePolicyDTO.LeavePolicyDetails = new List<LeavePolicyDetailsDTO>();
+				var pd = leavePolicyDetails.LeavePolicyDetails.ToList();
+
+                for (int i = 0; i < leavePolicyDetails.LeavePolicyDetails.Count; i++)
 				{
 					leavePolicyDTO.LeavePolicyDetails.Add(new LeavePolicyDetailsDTO
 					{
 
-						LeavePolicyId = leavePolicyDetails[i].LeavePolicyId,
-
-					});
+						LeavePolicyId = pd[i].LeavePolicyId,
+                        LeaveTypeId = pd[i].LeaveTypeId,
+						NoOfLeaves = pd[i].NoOfLeaves,
+						LeaveTypeName = pd[i].LeaveType.LeaveTypeName,
+						AllocationMode = pd[i].AllocationMode,
+                        LeaveAllocationMode = pd[i].AllocationMode==1?"Annual":"Monthly"
+                    });
 				}
 				leavePolicyDTO.LeavePolicyDetailsString = JsonConvert.SerializeObject(leavePolicyDTO.LeavePolicyDetailsString);
 			}
@@ -56,6 +61,7 @@ namespace HR.Attendance.Controllers
 			{
 				leavePolicyDTO.LeavePolicyDetails = new List<LeavePolicyDetailsDTO>();
 			}
+			
 			var leavePeriod = _leavePeriodService.GetLeavePeriodList();
 			List<object> AllocationMode = new List<object>();
 			AllocationMode.Add(new

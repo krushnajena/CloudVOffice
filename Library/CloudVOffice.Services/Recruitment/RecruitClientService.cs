@@ -146,7 +146,7 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
 
-      
+
         public MessageEnum RecruitClientUpdate(RecruitClientDTO recruitClientDTO)
         {
             try
@@ -175,7 +175,7 @@ namespace CloudVOffice.Services.Recruitment
                         _Context.SaveChanges();
 
 
-                       
+
 
                         return MessageEnum.Updated;
                     }
@@ -194,5 +194,7 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
        
+
+
     }
 }

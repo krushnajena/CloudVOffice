@@ -86,7 +86,11 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                return _Context.LeavePolicies.Where(x => x.LeavePolicyId == leavePolicyId && x.Deleted == false).SingleOrDefault();
+                return _Context.LeavePolicies
+                    .Include(x => x.LeavePolicyDetails)
+                    .ThenInclude(x => x.LeaveType)
+                    .Where(x => x.LeavePolicyId == leavePolicyId && x.Deleted == false).FirstOrDefault();
+
 
             }
             catch
@@ -97,18 +101,7 @@ namespace CloudVOffice.Services.Attendance
 
 
         
-        public List<LeavePolicy> LeavePolicyByLeavePolicyId(int leavePolicyId)
-        {
-            try
-            {
-                return _Context.LeavePolicies.Where(x => x.LeavePolicyId == leavePolicyId && x.Deleted == false).ToList();
-
-            }
-            catch
-            {
-                throw;
-            }
-        }
+      
 
         public List<LeavePolicyDetails> GetLeavePolicyDetailsByLeavePolicyId(int leavePolicyId)
         {

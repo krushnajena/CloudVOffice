@@ -42,14 +42,15 @@
                     <ejs-treegrid id="TreeGrid" dataSource="ViewBag.report" height="380" childMapping="Leaves" treeColumnIndex="0"
                                   queryCellInfo="queryCellInfo">
                         <e-treegrid-columns>
-                            <e-treegrid-column field="LeavePeriodName" headerText="Leave Period Name" textAlign="Right" width="95"></e-treegrid-column>
-                            <e-treegrid-column field="EmployeeGradeName" headerText="Employee Grade Name" width="220"></e-treegrid-column>
-                            <e-treegrid-column field="LeaveTypeName" headerText="Leave Type Name" textAlign="Right" width="115"></e-treegrid-column>
-                            <e-treegrid-column field="AllocationMode" headerText="Allocation Mode" textAlign="Right" width="115"></e-treegrid-column>
-                            <e-treegrid-column field="NoOfLeaves" headerText="No Of Leaves" textAlign="Right" width="115"></e-treegrid-column>
-                            <e-treegrid-column headerText="Action" template="#Actions" width="115"></e-treegrid-column>
+                            <e-treegrid-column field="LeavePeriodName" headerText="Leave Period Name" textAlign="Center" width="150"></e-treegrid-column>
+                            <e-treegrid-column field="EmployeeGradeName" headerText="Employee Grade Name" textAlign="Center" width="200"></e-treegrid-column>
+                            <e-treegrid-column field="LeaveTypeName" headerText="Leave Type Name" textAlign="Center" width="115"></e-treegrid-column>
+                            <e-treegrid-column headerText="Allocation Mode" template="#AllocationModeTemplate" textAlign="Center" width="115"></e-treegrid-column>
+                            <e-treegrid-column field="NoOfLeaves" headerText="No Of Leaves" textAlign="Center" width="115"></e-treegrid-column>
+                            <e-treegrid-column headerText="Action" template="#Actions" textAlign="Center" width="60"></e-treegrid-column>
                         </e-treegrid-columns>
                     </ejs-treegrid>
+                    
                    
                 </div>
             </div>
@@ -178,7 +179,6 @@
 
 
 
-
 <script>
 $(document).ready(function () {
   
@@ -194,4 +194,20 @@ $(document).ready(function () {
         }
     }
 });
+</script>
+<script id="AllocationModeTemplate" type="text/x-template">
+    ${AllocationModeDetail(data)}
+</script>
+<script>
+    
+
+    function AllocationModeDetail(data) {
+        if (data.AllocationMode == 1) {
+            return '<span>Annual</span>';
+        } else if (data.AllocationMode == 2) {
+            return '<span>Monthly</span>';
+        } else {
+            return '';
+        }
+    }
 </script>

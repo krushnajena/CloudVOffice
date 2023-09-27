@@ -197,6 +197,7 @@ namespace CloudVOffice.Services.Projects
             var objCheck = _Context.Timesheets.SingleOrDefault(opt => opt.TimesheetId == timesheetDTO.TimesheetId && opt.Deleted == false);
             try
             {
+                
                 if (timesheetDTO.ProjectId != null)
                 {
                     var projects = _projectService.GetProjectByProjectId(Int64.Parse(timesheetDTO.ProjectId.ToString()));
@@ -322,7 +323,7 @@ namespace CloudVOffice.Services.Projects
 
                     var obj = _timesheetRepo.Insert(timesheet);
                 }
-            
+               
 
             
 

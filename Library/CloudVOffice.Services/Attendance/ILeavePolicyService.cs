@@ -14,8 +14,7 @@ namespace CloudVOffice.Services.Attendance
     {
         public MessageEnum LeavePolicyCreate(LeavePolicyDTO leavePolicyDTO);
         public List<LeavePolicy>GetLeavePolicies();
-        public LeavePolicy GetLeavePolicyByLeavePolicyId(int leavePolicyId);
-        public List<LeavePolicy> LeavePolicyByLeavePolicyId(int leavePolicyId);       
+        public LeavePolicy GetLeavePolicyByLeavePolicyId(int leavePolicyId);      
         public MessageEnum LeavePolicyUpdate(LeavePolicyDTO leavePolicyDTO);
         public MessageEnum LeavePolicyDelete(int leavePolicyId, Int64 DeletedBy);
       

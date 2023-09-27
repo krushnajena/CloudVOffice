@@ -110,6 +110,11 @@ namespace Project.Management.Controllers
                         TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "Timesheet Already Exists");
                     }
+                    else if(a == MessageEnum.BackMonthNotAllow)
+                    {
+                        TempData["msg"] = MessageEnum.BackMonthNotAllow;
+                        return Redirect("/Projects/Timesheet/TimesheetView");
+                    }
                     else
                     {
                         TempData["msg"] = MessageEnum.UnExpectedError;
@@ -178,7 +183,7 @@ namespace Project.Management.Controllers
                        select new
                        {
                            TimesheetId = u.TimesheetId,
-                           Timesheetdate = u.CreatedDate,
+                           TimeSheetForDate = u.TimeSheetForDate.Value.ToString("dd-MMM-yyyy"),
                            EmployeeName = u.Employee.FullName,
                            ActvityCategory = u.TimesheetActivityCategory.TimesheetActivityCategoryName,
                            ActvityName = u.ProjectActivityType.ProjectActivityName,

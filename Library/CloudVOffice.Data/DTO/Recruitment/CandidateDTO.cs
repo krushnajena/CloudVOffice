@@ -26,7 +26,8 @@ namespace CloudVOffice.Data.DTO.Recruitment
 		public double? CurrentSalary { get; set; }
 		public string? Cv { get; set; }
 		public int? ApplicationSourceId { get; set; }
-		public Int64 CreatedBy { get; set; }
+        public int Status { get; set; } = 1; //1=New, 2=Blacklisted , 3= Hired,4= Rejected,5 = Offered
+        public Int64 CreatedBy { get; set; }
 		public IFormFile? CVDOC { get; set; }
 	}
 }

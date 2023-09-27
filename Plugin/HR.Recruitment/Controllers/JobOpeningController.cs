@@ -1,4 +1,4 @@
-﻿using CloudVOffice.Core.Domain.Common;
+﻿    using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Services.Emp;

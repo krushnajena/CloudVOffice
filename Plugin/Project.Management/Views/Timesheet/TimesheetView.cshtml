@@ -85,7 +85,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Time sheet",
+                    title: "Timesheet",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -94,7 +94,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Time sheet",
+                    title: "Timesheet",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -103,7 +103,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Time sheet",
+                    title: "Timesheet",
                     text: "Successfully Deleted.",
                     type: "success"
                 });
@@ -112,7 +112,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Time sheet",
+                    title: "Timesheet",
                     text: "Effort Hour Consumed. Please discuss with your Project Manager.",
                     type: "error"
                 });
@@ -121,7 +121,7 @@
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "Time sheet",
+                    title: "Timesheet",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -130,17 +130,25 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Time sheet",
+                    title: "Timesheet",
                     text: "There is somthing going wrong.",
                     type: "error"
                 });
             }
-           
+            else if (message == "@((int)MessageEnum.BackMonthNotAllow)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Timesheet",
+                    text: "You cannot Create Privous Month Timesheet.",
+                    type: "error"
+                });
+            }
             else {
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Time sheet",
+                    title: "Timesheet",
                     text: message,
                     type: "error"
                 });

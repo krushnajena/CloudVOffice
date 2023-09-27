@@ -58,15 +58,27 @@
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
+                            template="#statusTemplate"
 
-                            <e-grid-column field="JobTitle" headerText="Job Title" textAlign="Left" width="200"></e-grid-column>
-                           @* <e-grid-column field="Department.DepartmentName" headerText="Department" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="Designation.DesignationName" headerText="Designation" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="SkillSet.SkillName" headerText="SkillSet" textAlign="Left" width="200"></e-grid-column>*@
+                            <e-grid-column field="JobOpType" headerText="JobOp Type" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="ClientID" headerText="ClientID" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="ContactId" headerText="ContactId" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="HiringManagerId" headerText="HiringManagerId" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="JobTitle" headerText="JobTitle" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="DateOpened" headerText="Date Opened" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="TargetDate" headerText="Target Date" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="JobType" headerText="Job Type" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="WorkExperience" headerText="WorkExperience" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="City" headerText="City" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="RevenuePerPosition" headerText="Revenue PerPosition" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="NumberofPositions" headerText="NumberofPositions" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="ExpectedRevenue" headerText="ExpectedRevenue" textAlign="Left" width="200"></e-grid-column>
+                           <e-grid-column field="ActualRevenue" headerText="ActualRevenue" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column field="Status" headerText="Status" template="#statusTemplate" width="200"></e-grid-column>
-                            <e-grid-column field="Description" headerText="Description" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="SalaryLowerRange" headerText="Salary Lower Range" textAlign="Left" width="200"></e-grid-column>
-                            <e-grid-column field="SalaryUpperRange" headerText="Salary Upper Range" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="JobDescription" headerText="JobDescription" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Requirements" headerText="Requirements" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="Benefits" headerText="Benefits" textAlign="Left" width="200"></e-grid-column>
+                            <e-grid-column field="PublishOnWebsite" headerText="PublishOnWebsite" textAlign="Left" width="200"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>

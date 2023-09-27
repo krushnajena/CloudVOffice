@@ -17,5 +17,7 @@ namespace CloudVOffice.Services.Recruitment
         public RecruitClientContact GetRecruitClientContactId(int RecruitClientContactId);
         public MessageEnum RecruitClientContactUpdate(RecruitClientContactDTO recruitClientContactDTO);
         public MessageEnum RecruitClientContactDelete(int RecruitClientContactId, Int64 DeletedBy);
+
+        public List<RecruitClientContact> GetClientContractByClientId(int ClientId);    
     }
 }

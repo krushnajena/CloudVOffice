@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace CloudVOffice.Core.Domain.Recruitment
 {
-    public  class RecruitClientDocument : IAuditEntity, ISoftDeletedEntity
+    public class JobOpeningTag : IAuditEntity, ISoftDeletedEntity
     {
-        public Int64 RecruitClientDocumentId { get; set; } new 
-        public int RecruitClientId { get; set; }
-        public string DocumentType { get; set; }
-        public string Document { get; set; }
+        public Int64 JobOpeningTagId { get; set; }
+        public int JobId { get; set; }
+        public Int64 TagId { get; set; }
 
         public Int64 CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
@@ -21,8 +20,13 @@ namespace CloudVOffice.Core.Domain.Recruitment
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-        [ForeignKey("RecruitClientId")]
-        public RecruitClient RecruitClient { get; set; }
+
+
+        [ForeignKey("JobId")]
+        public JobOpening JobOpening { get; set; }
+
+        [ForeignKey("TagId")]
+        public Employee Employee { get; set; }
 
     }
 }

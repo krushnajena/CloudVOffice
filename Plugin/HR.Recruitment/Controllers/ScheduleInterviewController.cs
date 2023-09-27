@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Services.Recruitment;
+using CloudVOffice.Services.Recruitment.JO;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HR.Recruitment.Controllers
 {
-	[Area(AreaNames.Recruitment)]
+    [Area(AreaNames.Recruitment)]
 	public class ScheduleInterviewController : BasePluginController
 	{
 		private readonly IJobOpeningService _jobOpeningService;

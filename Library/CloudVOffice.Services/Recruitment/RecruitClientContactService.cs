@@ -106,6 +106,11 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
 
+        public List<RecruitClientContact> GetClientContractByClientId(int ClientId)
+        {
+            return _Context.RecruitClientContacts.Where(x=>x.Deleted == false && x.RecruitClientId== ClientId).ToList();
+        }
+
         public MessageEnum RecruitClientContactUpdate(RecruitClientContactDTO recruitClientContactDTO)
         {
             try

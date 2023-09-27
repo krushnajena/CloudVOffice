@@ -47,15 +47,15 @@
 							<div class="form-group col-md-4">
 								<input asp-for="@Model.JobApplicationId" type="hidden" />
 
-								
-									<label for="ApplicantName" class="form-label">Applicant Name</label>
+
+								<label for="ApplicantName" class="form-label">Applicant Name&nbsp;<span style="color:red;"><b>*</b></span></label>
 									<input asp-for="@Model.ApplicantName" type="text" class="form-control" autofocus="autofocus" placeholder="Applicant Name" />
 									<span asp-validation-for="ApplicantName"></span>
 								
 							</div>
 							
 							<div class="form-group col-md-4">
-								<label for="JobApplicationSourceId" class="form-label">JobApplicationSource</label>
+								<label for="JobApplicationSourceId" class="form-label">JobApplicationSource&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<ejs-dropdownlist id="JobApplicationSourceId" allowFiltering="true" ejs-for="@Model.JobApplicationSourceId" filtering="onJobApplicationSourcerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobApplicationSource, "JobApplicationSourceId", "SourceName").Items)" placeholder="Select JobApplicationSource" popupHeight="220px">
 									<e-dropdownlist-fields text="SourceName" value="JobApplicationSourceId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
@@ -65,12 +65,12 @@
 
 						<div class="form-row">
 							<div class="form-group col-md-4">
-								<label for="EmailAddress" class="form-label">Email Address</label>
+								<label for="EmailAddress" class="form-label">Email Address&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.EmailAddress" type="text" class="form-control" autofocus="autofocus" placeholder="Email Address" />
 								<span asp-validation-for="EmailAddress"></span>
 							</div>
 							<div class="form-group col-md-4">
-								<label for="PhoneNo" class="form-label">Phone No</label>
+								<label for="PhoneNo" class="form-label">Phone No&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<input asp-for="@Model.PhoneNo" type="text" class="form-control" autofocus="autofocus" placeholder="Phone No" />
 								<span asp-validation-for="PhoneNo"></span>
 							</div>
@@ -116,7 +116,7 @@
 						<div class="form-row">
 
 							<div class="form-group col-md-8">
-								<label for="TagDescription" class="form-label">Tag Description</label>
+								<label for="TagDescription" class="form-label">Tag Description&nbsp;<span style="color:red;"><b>*</b></span></label>
 								<textarea asp-for="@Model.TagDescription" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Tag Description" style="height: 150px;"></textarea>
 								<span asp-validation-for="TagDescription"></span>
 							</div>

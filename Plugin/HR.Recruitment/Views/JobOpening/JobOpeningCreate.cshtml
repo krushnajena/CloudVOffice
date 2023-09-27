@@ -1,10 +1,8 @@
 ﻿@model CloudVOffice.Data.DTO.Recruitment.JobOpeningDTO;
 @{
-	Layout = "_MainAppLayout";
-	ViewData["Title"] = "JobOpening";
-	var DepartmentList = new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName");
-	var DesignationList = new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName");
-	var SkillSetList = new SelectList((IEnumerable)ViewBag.skillSet, "SkillSetId", "SkillName");
+    Layout = "_MainAppLayout";
+    ViewData["Title"] = "JobOpening";
+
 }
 @addTagHelper *, Syncfusion.EJ2
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -12,155 +10,393 @@
 @using System.Collections;
 @using Newtonsoft.Json;
 <header class="main-heading">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
-				<div class="page-icon">
-					<i class="icon-laptop_windows"></i>
-				</div>
-				<div class="page-title">
-					<h5>Job Opening</h5>
-				
-				</div>
-			</div>
-			<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
-				<div class="right-actions">
-					<span class="last-login"></span>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Job Opening</h5>
+
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login"></span>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 
 <div class="main-content">
-	<div class="row gutters">
-		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
-			<div class="card">
-				<form asp-route="Recruitment/JobOpening/JobOpeningCreate" method="post" autocomplete="off">
-					<div asp-
-						 ation-summary="ModelOnly" class="message-error"></div>
+            <div class="card">
+                <form asp-route="Recruitment/JobOpening/JobOpeningCreate" method="post" autocomplete="off">
+                    <div asp-
+                         ation-summary="ModelOnly" class="message-error"></div>
 
 
-					<div class="card-header"><b>Job Opening</b></div>
-					<div class="card-body">
-						<div class="form-row">
-							<div class="form-group col-md-4">
-								<input asp-for="@Model.JobOpeningId" type="hidden" />
+                    <div class="card-header"><b>Job Opening</b></div>
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="JobOpType" class="form-label">Job Type</label>
 
-								<label for="JobTitle" class="form-label">Job Title</label>
-								<input asp-for="@Model.JobTitle" type="text" class="form-control" autofocus="autofocus" placeholder="Job Title" />
-								<span asp-validation-for="JobTitle"></span>
-							</div>
-							<div class="form-group col-md-4">
-								<label for="DepartmentId" class="form-label">Department</label>
-								<ejs-dropdownlist id="DepartmentId" allowFiltering="true" ejs-for="@Model.DepartmentId" filtering="onDepartmentrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Department, "DepartmentId", "DepartmentName").Items)" placeholder="Select Department" popupHeight="220px">
-									<e-dropdownlist-fields text="DepartmentName" value="DepartmentId"></e-dropdownlist-fields>
-								</ejs-dropdownlist>
-								<span asp-validation-for="DepartmentId"></span>
-							</div>
-						</div>
+                                <select asp-for="@Model.JobOpType" type="text" class="form-control" autofocus="autofocus" placeholder="JobOpType">
+                                    <option value="1">OffSore</option>
+                                    <option value="2">Onsore</option>
 
-						<div class="form-row">
-							<div class="form-group col-md-4">
+                                </select>
 
-								<label for="DesignationId" class="form-label">Designation</label>
-								<ejs-dropdownlist id="DesignationId" allowFiltering="true" ejs-for="@Model.DesignationId" filtering="onDesignationrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Designation, "DesignationId", "DesignationName").Items)" placeholder="Select Designation" popupHeight="220px">
-									<e-dropdownlist-fields text="DesignationName" value="DesignationId"></e-dropdownlist-fields>
-								</ejs-dropdownlist>
-
-								<span asp-validation-for="DesignationId"></span>
-							</div>
-							<div class="form-group col-md-4">
-
-								<label for="SkillSetId" class="form-label">SkillSet</label>
-								<ejs-dropdownlist id="SkillSetId" allowFiltering="true" ejs-for="@Model.SkillSetId" filtering="onSkillSetrfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.skillSet, "SkillSetId", "SkillName").Items)" placeholder="Select SkillSet" popupHeight="220px">
-									<e-dropdownlist-fields text="SkillName" value="SkillSetId"></e-dropdownlist-fields>
-								</ejs-dropdownlist>
-
-								<span asp-validation-for="SkillSetId"></span>
-							</div>
-							
-						</div>
-
-						
-						<div class="form-row">
-
-							<div class="form-group col-md-4">
-								<label for="Status" class="form-label">Status</label>
-								<select input asp-for="@Model.Status" type="text" class="form-control" autofocus="autofocus" placeholder="Status">
-									<option value="1">Open</option>
-									<option value="2">Closed</option>
-
-								</select>
-							</div>
-							
-							<div class="form-group col-md-4">
-								<label for="SalaryLowerRange" class="form-label">Salary Lower Range</label>
-								<input asp-for="@Model.SalaryLowerRange" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Lower Range" />
-								<span asp-validation-for="SalaryLowerRange"></span>
-							</div>
-
-						</div>
-
-						<div class="form-row">
-							
-							<div class="form-group col-md-4">
-								<label for="SalaryUpperRange" class="form-label">Salary Upper Range</label>
-								<input asp-for="@Model.SalaryUpperRange" type="text" class="form-control" autofocus="autofocus" placeholder="Salary Upper Range" />
-								<span asp-validation-for="SalaryUpperRange"></span>
-							</div>
-							
-						</div>
-
-						<div class="form-row">
-
-							<div class="form-group col-md-4">
-								<label for="Description" class="form-label">Description</label>
-								<textarea asp-for="@Model.Description" type="text" class="input-with-feedback form-control" data-fieldtype="Small Text" autofocus="autofocus" placeholder="Description" style="height: 150px;"></textarea>
-								<span asp-validation-for="Description"></span>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="card-body">
-
-						<div class="col-lg-2 col-md-2 col-sm-12">
-							<button type="submit" class="btn btn-primary">Save</button>
-						</div>
-					</div>
-
-				</form>
-
-			</div>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="OffSore">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
 
 
 
-		</div>
-	</div>
+                                            <label for="RecruitClientId" class="form-label">Client</label>
+                                            <ejs-dropdownlist id="ClientID" allowFiltering="true" ejs-for="@Model.ClientID" filtering="onRecruitClientfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.RecruitClient, "RecruitClientId", "ClientName").Items)" placeholder="Select Client Name" popupHeight="220px" change="onChangeClient">
+                                                <e-dropdownlist-fields text="ClientName" value="RecruitClientId"></e-dropdownlist-fields>
+                                            </ejs-dropdownlist>
+                                            <span asp-validation-for="ClientID"></span>
+
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+
+
+
+                                            <label for="ContactId" class="form-label">Contact</label>
+                                            <ejs-dropdownlist id="ContactId" allowFiltering="true" ejs-for="@Model.ContactId" placeholder="Select Contact Name" popupHeight="220px">
+                                                <e-dropdownlist-fields text="contactName" value="recruitClientContactId"></e-dropdownlist-fields>
+                                            </ejs-dropdownlist>
+                                            <span asp-validation-for="ContactId"></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+
+
+
+                                <label for="JobTitle" class="form-label">JobTitle&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <input asp-for="@Model.JobTitle" type="text" class="form-control" autofocus="autofocus" placeholder="JobTitle" />
+                                <span as-validation-for="JobTitle"></span>
+
+                            </div>
+                            <div class="form-group col-md-3">
+
+                                <label for="EmployeeId" class="form-label">Hiring Manager</label>
+                                <ejs-dropdownlist id="HiringManagerId" allowFiltering="true" ejs-for="@Model.HiringManagerId" filtering="onEmployeefiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employee, "EmployeeId", "FullName").Items)" placeholder="Select HiringManager Name" popupHeight="220px">
+                                    <e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+                                </ejs-dropdownlist>
+
+                                <span asp-validation-for="HiringManagerId"></span>
+                            </div>
+
+
+
+                            <div class="form-group col-md-3">
+
+
+
+                                <label for="Tags" class="form-label">Tags</label>
+                                <ejs-multiselect id="Tags" ejs-for="@Model.Tags" allowFiltering="true" dataSource="@(new SelectList((IEnumerable)ViewBag.Employee, "EmployeeId", "FullName").Items)" placeholder="Select Skills" popupHeight="220px">
+                                    <e-multiselect-fields text="FullName" value="EmployeeId"></e-multiselect-fields>
+                                </ejs-multiselect>
+                                <span asp-validation-for="Tags"></span>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+
+
+
+                                <label for="DateOpened" class="form-label">DateOpened&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <input asp-for="@Model.DateOpened" type="date" class="form-control" autofocus="autofocus" placeholder="DateOpened" />
+                                <span as-validation-for="DateOpened"></span>
+
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="TargetDate" class="form-label">Target Date</label>
+                                <input asp-for="@Model.TargetDate" type="date" class="form-control" autofocus="autofocus" placeholder="Target Date" />
+                                <span asp-validation-for="TargetDate"></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="JobType" class="form-label">JobType</label>
+                                <select input asp-for="@Model.JobType" type="text" class="form-control" autofocus="autofocus" placeholder="JobOpType">
+                                    <option value="None">None</option>
+                                    <option value="Full time">Full time</option>
+                                    <option value="Part time">Part time</option>
+                                    <option value="Any">Any</option>
+                                    <option value="Permanent">Permanent</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Temporary">Temporary</option>
+                                    <option value="Training">Training</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                    <option value="Seasonal">Sessonsl</option>
+                                    <option value="Freelance">Freelance</option>
+
+
+                                </select>
+                            </div>
+
+
+
+
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-md-3">
+                                <label for="WorkExperience" class="form-label">WorkExperience</label>
+                                <select input asp-for="@Model.WorkExperience" type="text" class="form-control" autofocus="autofocus" placeholder="WorkExperience">
+                                    <option value="Fresher">Fresher</option>
+                                    <option value="0-1 year">0-1 year</option>
+                                    <option value="1-3 years">1-3 years</option>
+                                    <option value="4-5 years">4-5 years</option>
+                                    <option value="5+ years">5+ years</option>
+
+
+
+
+                                </select>
+
+
+
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="City" class="form-label">City</label>
+                                <input asp-for="@Model.City" type="text" class="form-control" autofocus="autofocus" placeholder="City" />
+                                <span asp-validation-for="City"></span>
+                            </div>
+
+
+                            <div class="form-group col-md-3">
+
+
+
+                                <label for="Skills" class="form-label">Skills</label>
+                                <ejs-multiselect id="Skills" ejs-for="@Model.Skills" allowFiltering="true" dataSource="@(new SelectList((IEnumerable)ViewBag.Skills, "SkillSetId", "SkillName").Items)" placeholder="Select Skills" popupHeight="220px">
+                                    <e-multiselect-fields text="SkillName" value="SkillSetId"></e-multiselect-fields>
+                                </ejs-multiselect>
+                                <span asp-validation-for="Skills"></span>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="form-row">
+
+
+                            <div class="form-group col-md-3">
+                                <label for="Status" class="form-label">Status</label>
+                                <select asp-for="@Model.Status" class="form-control">
+                                    <option value="1">Open</option>
+                                    <option value="2">Closed</option>
+                                    <option value="2">Canceled</option>
+                                </select>
+
+                                <span asp-validation-for="Status"></span>
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="card-header"><b>Forecast Details</b></div>
+                        <div class="card-body">
+
+                            <div class="form-row">
+
+
+                                <div class="form-group col-md-3">
+                                    <label for="RevenuePerPosition" class="form-label">RevenuePerPosition</label>
+                                    <input asp-for="@Model.RevenuePerPosition" type="text" class="form-control" autofocus="autofocus" placeholder="RevenuePerPosition" id="RevenuePerPosition" />
+                                    <span asp-validation-for="RevenuePerPosition"></span>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="NumberofPositions" class="form-label">NumberofPositions</label>
+                                    <input asp-for="@Model.NumberofPositions" type="text" class="form-control" autofocus="autofocus" placeholder="NumberofPositions" id="NumberofPositions" />
+                                    <span asp-validation-for="NumberofPositions"></span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+
+
+                                <div class="form-group col-md-3">
+                                    <label for="ExpectedRevenue" class="form-label">ExpectedRevenue</label>
+                                    <input asp-for="@Model.ExpectedRevenue" type="text" class="form-control" autofocus="autofocus" placeholder="ExpectedRevenue" />
+                                    <span asp-validation-for="ExpectedRevenue"></span>
+                                </div>
+
+
+                                <div class="form-group col-md-3">
+                                    <label for="ActualRevenue" class="form-label">ActualRevenue</label>
+                                    <input asp-for="@Model.ActualRevenue" type="text" class="form-control" autofocus="autofocus" placeholder="ActualRevenue" />
+                                    <span asp-validation-for="ActualRevenue"></span>
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="card-header"><b>Description Information </b></div>
+                        <div class="card-body">
+
+                            <div class="form-row">
+
+
+                                <div class="form-group col-md-4">
+                                    <label for="JobDescription" class="form-label">JobDescription&nbsp;<span style="color:red;"><b>*</b></span></label>
+
+                                    <ejs-richtexteditor id="JobDescription" ejs-for="@Model.JobDescription">
+                                        <e-content-template>
+
+
+                                        </e-content-template>
+                                    </ejs-richtexteditor>
+                                    <span asp-validation-for="JobDescription"></span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-4">
+                                    <label for="Benefits" class="form-label">Benefits&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                    <ejs-richtexteditor id="Benefits" ejs-for="@Model.Benefits">
+                                        <e-content-template>
+
+
+                                        </e-content-template>
+                                    </ejs-richtexteditor>
+                                    <span asp-validation-for="Benefits"></span>
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="card-body">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" asp-for="@Model.PublishOnWebsite">
+                                Want To Publish On Website
+                            </label>
+                        </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+        </div>
+    </div>
 
 </div>t
 <script>
-	function onDepartmentrfiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('DepartmentName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Department)), query);
-	}
+    function onEmployeefiltering(e) {
+        var query = new ej.data.Query();
+        query = (e.text !== '') ? query.where('FullName', 'startswith', e.text, true) : query;
+        e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Employee)), query);
+    }
 </script>
 
 <script>
-	function onDesignationrfiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('DesignationName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.Designation)), query);
-	}
+    function onRecruitClientfiltering(e) {
+        var query = new ej.data.Query();
+        query = (e.text !== '') ? query.where('ClientName', 'startswith', e.text, true) : query;
+        e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.RecruitClient)), query);
+    }
 </script>
 <script>
-	function onSkillSetrfiltering(e) {
-		var query = new ej.data.Query();
-		query = (e.text !== '') ? query.where('SkillName', 'startswith', e.text, true) : query;
-		e.updateData(@Html.Raw(JsonConvert.SerializeObject(ViewBag.skillSet)), query);
-	}
+    $(document).ready(function () {
+
+        if ($('#RevenuePerPosition').val() !== '') {
+            $('#NumberofPositions').prop('readonly', true);
+        }
+
+
+        $('#RevenuePerPosition').on('input', function () {
+
+            if ($(this).val() !== '') {
+                $('#NumberofPositions').prop('readonly', true);
+            } else {
+                $('#NumberofPositions').prop('readonly', false);
+            }
+        });
+    });
+
+    function onChangeClient(args) {
+        $.ajax({
+            type: "GET",
+            url: '/Recruitment/RecruitClientContact/GetContactsByClientId',
+            data: { clientId: args.value },
+            contentType: "application/json;",
+            dataType: "json",
+            success: function (result) {
+
+                var conatctDropDown = document.getElementById("ContactId").ej2_instances[0];
+                conatctDropDown.dataSource = result;
+                //cityDropDown.refresh();
+                conatctDropDown.dataBind();
+
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+
+
+    $("#JobOpType").change(function () {
+        if ($('#JobOpType').val() == '1') {
+            $('#OffSore').show();
+        } else {
+            $('#OffSore').hide();
+        }
+
+    });
 </script>
+

@@ -19,6 +19,9 @@ using System.Transactions;
 using CloudVOffice.Data.DTO.Attendance;
 using System.Diagnostics;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Reflection.Metadata;
+using Azure.Security.KeyVault.Keys;
+using CloudVOffice.Core.Domain.HR.Attendance;
 
 namespace CloudVOffice.Services.Recruitment
 {
@@ -69,7 +72,7 @@ namespace CloudVOffice.Services.Recruitment
                             CreatedBy = recruitClientDTO.CreatedBy
                         });
                     }
-
+                    
                     return MessageEnum.Success;
                 }
                 else if (objCheck != null)
@@ -146,55 +149,54 @@ namespace CloudVOffice.Services.Recruitment
             }
         }
 
-
+      
         public MessageEnum RecruitClientUpdate(RecruitClientDTO recruitClientDTO)
         {
             try
             {
-                var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId != recruitClientDTO.RecruitClientId && x.RecruitClientId == recruitClientDTO.RecruitClientId && x.Deleted == false).FirstOrDefault();
-                if (recruitClient == null)
+                var recruitClient = _Context.RecruitClients.Where(x => x.RecruitClientId == recruitClientDTO.RecruitClientId).FirstOrDefault();
+                if (recruitClient != null)
                 {
-                    var a = _Context.RecruitClients.Where(x => x.RecruitClientId == recruitClientDTO.RecruitClientId).FirstOrDefault();
-                    if (a != null)
+                    recruitClient.ClientName = recruitClientDTO.ClientName;
+                    recruitClient.ContactNo = recruitClientDTO.ContactNo;
+                    recruitClient.AccountManagerId = recruitClientDTO.AccountManagerId;
+                    recruitClient.Website = recruitClientDTO.Website;
+                    recruitClient.Fax = recruitClientDTO.Fax;
+                    recruitClient.About = recruitClientDTO.About;
+                    recruitClient.BillingAddressLine1 = recruitClientDTO.BillingAddressLine1;
+                    recruitClient.BillingAddressLine2 = recruitClientDTO.BillingAddressLine2;
+                    recruitClient.BillingCity = recruitClientDTO.BillingCity;
+                    recruitClient.BillingState = recruitClientDTO.BillingState;
+                    recruitClient.BillingCountry = recruitClientDTO.BillingCountry;
+                    recruitClient.BillingPostalCode = recruitClientDTO.BillingPostalCode;
+                    recruitClient.UpdatedBy = recruitClientDTO.CreatedBy;
+                    recruitClient.UpdatedDate = DateTime.Now;
+
+                    var recruitClientDocument = _Context.RecruitClientDocuments.FirstOrDefault(x => x.RecruitClientId == recruitClientDTO.RecruitClientId);
+                    if (recruitClientDocument != null)
                     {
-                        a.ClientName = recruitClientDTO.ClientName;
-                        a.ContactNo = recruitClientDTO.ContactNo;
-                        a.AccountManagerId = recruitClientDTO.AccountManagerId;
-                        a.Website = recruitClientDTO.Website;
-                        a.Fax = recruitClientDTO.Fax;
-                        a.About = recruitClientDTO.About;
-                        a.BillingAddressLine1 = recruitClientDTO.BillingAddressLine1;
-                        a.BillingAddressLine2 = recruitClientDTO.BillingAddressLine2;
-                        a.BillingCity = recruitClientDTO.BillingCity;
-                        a.BillingState = recruitClientDTO.BillingState;
-                        a.BillingCountry = recruitClientDTO.BillingCountry;
-                        a.BillingPostalCode = recruitClientDTO.BillingPostalCode;
-                        a.UpdatedBy = recruitClientDTO.CreatedBy;
-                        a.UpdatedDate = DateTime.Now;
-
-                        _Context.SaveChanges();
-
-
-
-
-                        return MessageEnum.Updated;
+                        recruitClientDocument.Deleted = true;
+                        recruitClientDocument.UpdatedBy = recruitClientDTO.CreatedBy;
+                        recruitClientDocument.UpdatedDate = DateTime.Now;
                     }
-                    else
-                        return MessageEnum.Invalid;
+                    _Context.SaveChanges();
+
+                    return MessageEnum.Updated;
                 }
                 else
                 {
-                    return MessageEnum.Duplicate;
+                    return MessageEnum.Invalid;
                 }
-
             }
             catch
             {
+
+
                 throw;
             }
+
         }
-       
 
-
+        
     }
 }

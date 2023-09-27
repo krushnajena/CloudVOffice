@@ -197,89 +197,113 @@ namespace CloudVOffice.Services.Projects
             var objCheck = _Context.Timesheets.SingleOrDefault(opt => opt.TimesheetId == timesheetDTO.TimesheetId && opt.Deleted == false);
             try
             {
-                
-                if (timesheetDTO.ProjectId != null)
-                {
-                    var projects = _projectService.GetProjectByProjectId(Int64.Parse(timesheetDTO.ProjectId.ToString()));
-                    if (projects != null)
+                if(timesheetDTO.TimeSheetForDate.Value.Month == DateTime.Now.Month) {
+
+                    if (timesheetDTO.ProjectId != null)
                     {
-                        var timesheet = GetNotRejectedTimesheetByProjectId(projects.ProjectId);
-
-                        double totatlTimeSpent = 0.0;
-                        for (int j = 0; j < timesheet.Count; j++)
+                        var projects = _projectService.GetProjectByProjectId(Int64.Parse(timesheetDTO.ProjectId.ToString()));
+                        if (projects != null)
                         {
-                            int hour = 0;
-                            int min = 0;
+                            var timesheet = GetNotRejectedTimesheetByProjectId(projects.ProjectId);
 
-                            if (totatlTimeSpent.ToString().Split(".").Count() == 2)
+                            double totatlTimeSpent = 0.0;
+                            for (int j = 0; j < timesheet.Count; j++)
                             {
-                                hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
-                                min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
+                                int hour = 0;
+                                int min = 0;
+
+                                if (totatlTimeSpent.ToString().Split(".").Count() == 2)
+                                {
+                                    hour = int.Parse(totatlTimeSpent.ToString().Split(".")[0]);
+                                    min = int.Parse(totatlTimeSpent.ToString().Split(".")[1]);
+                                }
+                                else
+                                {
+                                    hour = int.Parse(totatlTimeSpent.ToString());
+
+                                }
+                                int hour1 = 0;
+                                int min1 = 0;
+
+                                if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
+                                {
+                                    hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
+
+
+                                    min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
+                                }
+                                else
+                                {
+                                    hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
+
+                                }
+
+
+
+
+
+                                hour1 = hour1 + hour;
+                                min1 = min1 + min;
+                                TimeSpan hours = TimeSpan.FromMinutes(min1);
+                                hour1 = hour1 + int.Parse(hours.ToString("hh"));
+                                int min2 = int.Parse(hours.ToString("mm"));
+                                string finalno = hour1.ToString() + "." + min2.ToString();
+                                totatlTimeSpent = double.Parse(finalno);
+                            }
+                            if (totatlTimeSpent < projects.EffortHourRequired)
+                            {
+                                Timesheet ntimesheet = new Timesheet();
+                                ntimesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
+                                ntimesheet.EmployeeId = timesheetDTO.EmployeeId;
+                                ntimesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
+                                ntimesheet.ActivityId = timesheetDTO.ActivityId;
+                                ntimesheet.ProjectId = timesheetDTO.ProjectId;
+                                ntimesheet.TaskId = timesheetDTO.TaskId;
+                                ntimesheet.FromTime = timesheetDTO.FromTime;
+                                ntimesheet.ToTime = timesheetDTO.ToTime;
+                                ntimesheet.DurationInHours = timesheetDTO.DurationInHours;
+                                ntimesheet.Description = timesheetDTO.Description;
+                                ntimesheet.IsBillable = timesheetDTO.IsBillable;
+                                ntimesheet.HourlyRate = timesheetDTO.HourlyRate;
+                                ntimesheet.TimeSheetApprovalStatus = 0;
+
+
+                                ntimesheet.CreatedBy = timesheetDTO.CreatedBy;
+
+                                var obj = _timesheetRepo.Insert(ntimesheet);
                             }
                             else
                             {
-                                hour = int.Parse(totatlTimeSpent.ToString());
 
+                                return MessageEnum.HourConsumed;
                             }
-                            int hour1 = 0;
-                            int min1 = 0;
-
-                            if (timesheet[j].DurationInHours.ToString().Split(".").Count() == 2)
-                            {
-                                hour1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[0]);
-
-
-                                min1 = int.Parse(timesheet[j].DurationInHours.ToString().Split(".")[1]);
-                            }
-                            else
-                            {
-                                hour1 = int.Parse(timesheet[j].DurationInHours.ToString());
-
-                            }
-
-
-
-
-
-                            hour1 = hour1 + hour;
-                            min1 = min1 + min;
-                            TimeSpan hours = TimeSpan.FromMinutes(min1);
-                            hour1 = hour1 + int.Parse(hours.ToString("hh"));
-                            int min2 = int.Parse(hours.ToString("mm"));
-                            string finalno = hour1.ToString() + "." + min2.ToString();
-                            totatlTimeSpent = double.Parse(finalno);
-                        }
-                        if (totatlTimeSpent< projects.EffortHourRequired)
-                        {
-                            Timesheet ntimesheet = new Timesheet();
-                            ntimesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
-                            ntimesheet.EmployeeId = timesheetDTO.EmployeeId;
-                            ntimesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
-                            ntimesheet.ActivityId = timesheetDTO.ActivityId;
-                            ntimesheet.ProjectId = timesheetDTO.ProjectId;
-                            ntimesheet.TaskId = timesheetDTO.TaskId;
-                            ntimesheet.FromTime = timesheetDTO.FromTime;
-                            ntimesheet.ToTime = timesheetDTO.ToTime;
-                            ntimesheet.DurationInHours = timesheetDTO.DurationInHours;
-                            ntimesheet.Description = timesheetDTO.Description;
-                            ntimesheet.IsBillable = timesheetDTO.IsBillable;
-                            ntimesheet.HourlyRate = timesheetDTO.HourlyRate;
-                            ntimesheet.TimeSheetApprovalStatus = 0;
-
-
-                            ntimesheet.CreatedBy = timesheetDTO.CreatedBy;
-
-                            var obj = _timesheetRepo.Insert(ntimesheet);
                         }
                         else
                         {
 
-                            return MessageEnum.HourConsumed;
+                            Timesheet timesheet = new Timesheet();
+                            timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
+                            timesheet.EmployeeId = timesheetDTO.EmployeeId;
+                            timesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
+                            timesheet.ActivityId = timesheetDTO.ActivityId;
+                            timesheet.ProjectId = timesheetDTO.ProjectId;
+                            timesheet.TaskId = timesheetDTO.TaskId;
+                            timesheet.FromTime = timesheetDTO.FromTime;
+                            timesheet.ToTime = timesheetDTO.ToTime;
+                            timesheet.DurationInHours = timesheetDTO.DurationInHours;
+                            timesheet.Description = timesheetDTO.Description;
+                            timesheet.IsBillable = timesheetDTO.IsBillable;
+                            timesheet.HourlyRate = timesheetDTO.HourlyRate;
+                            timesheet.TimeSheetApprovalStatus = 0;
+
+
+                            timesheet.CreatedBy = timesheetDTO.CreatedBy;
+
+                            var obj = _timesheetRepo.Insert(timesheet);
                         }
                     }
                     else
                     {
-
                         Timesheet timesheet = new Timesheet();
                         timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
                         timesheet.EmployeeId = timesheetDTO.EmployeeId;
@@ -300,38 +324,13 @@ namespace CloudVOffice.Services.Projects
 
                         var obj = _timesheetRepo.Insert(timesheet);
                     }
+                    return MessageEnum.Success;
                 }
                 else
                 {
-                    Timesheet timesheet = new Timesheet();
-                    timesheet.TimeSheetForDate = timesheetDTO.TimeSheetForDate;
-                    timesheet.EmployeeId = timesheetDTO.EmployeeId;
-                    timesheet.TimesheetActivityType = timesheetDTO.TimesheetActivityType;
-                    timesheet.ActivityId = timesheetDTO.ActivityId;
-                    timesheet.ProjectId = timesheetDTO.ProjectId;
-                    timesheet.TaskId = timesheetDTO.TaskId;
-                    timesheet.FromTime = timesheetDTO.FromTime;
-                    timesheet.ToTime = timesheetDTO.ToTime;
-                    timesheet.DurationInHours = timesheetDTO.DurationInHours;
-                    timesheet.Description = timesheetDTO.Description;
-                    timesheet.IsBillable = timesheetDTO.IsBillable;
-                    timesheet.HourlyRate = timesheetDTO.HourlyRate;
-                    timesheet.TimeSheetApprovalStatus = 0;
-
-
-                    timesheet.CreatedBy = timesheetDTO.CreatedBy;
-
-                    var obj = _timesheetRepo.Insert(timesheet);
+                    return MessageEnum.BackMonthNotAllow;
                 }
                
-
-            
-
-
-
-
-
-                return MessageEnum.Success;
             }
             catch
             {

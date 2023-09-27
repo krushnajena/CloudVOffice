@@ -79,7 +79,15 @@ namespace CloudVOffice.Services.Recruitment.JO
         {
             try
             {
-                return _Context.JobOpenings.Where(x => x.JobOpeningId == jobOpeningId && x.Deleted == false).SingleOrDefault();
+                return _Context.JobOpenings
+                    .Include(x=>x.JobOpeningTags.Where(n => n.Deleted == false))
+                    .ThenInclude(a=>a.Employee)
+                    .Include(x=>x.JobOpeningSkills.Where(n => n.Deleted == false))
+                    .ThenInclude(a=>a.SkillSet)
+                    .Include(x=>x.RecruitClient)
+                      .Include(x => x.RecruitClientContact)
+                      .Include(x=>x.Employee)
+                    .Where(x => x.JobOpeningId == jobOpeningId && x.Deleted == false).SingleOrDefault();
 
             }
             catch
@@ -94,7 +102,11 @@ namespace CloudVOffice.Services.Recruitment.JO
 
             try
             {
-                return _Context.JobOpenings.Where(x => x.Deleted == false).ToList();
+                return _Context.JobOpenings
+                    .Include(x => x.RecruitClient)
+                    .Include(x => x.RecruitClientContact)
+                    .Include(x => x.Employee)
+                    .Where(x => x.Deleted == false).ToList();
 
             }
             catch
@@ -157,6 +169,18 @@ namespace CloudVOffice.Services.Recruitment.JO
                     a.UpdatedDate = DateTime.Now;
 
                     _Context.SaveChanges();
+                    _jobOpeningSkillService.RemoveUnListedSkills(jobOpeningDTO.Skills, (int)jobOpeningDTO.JobOpeningId, jobOpeningDTO.CreatedBy);
+                    for (int i = 0; i < jobOpeningDTO.Skills.Count; i++)
+                    {
+                        _jobOpeningSkillService.CreateJobOpeningSkill((int)jobOpeningDTO.JobOpeningId, jobOpeningDTO.Skills[i], jobOpeningDTO.CreatedBy);
+                    }
+
+                    _jobOpeningTagService.RemoveUnListedTags(jobOpeningDTO.Tags, (int)jobOpeningDTO.JobOpeningId, jobOpeningDTO.CreatedBy);
+                    for (int i = 0; i < jobOpeningDTO.Tags.Count; i++)
+                    {
+                        _jobOpeningTagService.CreateJobOpeningTag((int)jobOpeningDTO.JobOpeningId, jobOpeningDTO.Tags[i], jobOpeningDTO.CreatedBy);
+                    }
+
                     return MessageEnum.Updated;
                 }
                 else

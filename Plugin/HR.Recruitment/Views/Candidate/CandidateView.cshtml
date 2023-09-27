@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "_MainAppLayout";
-    ViewData["Title"] = "Time Sheet";
+    ViewData["Title"] = "Job Application";
 }
 @addTagHelper *, Syncfusion.EJ2
 @using CloudVOffice.Core.Domain.Common;
@@ -12,7 +12,7 @@
                     <i class="icon-laptop_windows"></i>
                 </div>
                 <div class="page-title">
-                    <h5>Timesheet</h5>
+                    <h5>Candidate</h5>
                     <h6 class="sub-heading">  </h6>
                 </div>
             </div>
@@ -24,57 +24,58 @@
         </div>
     </div>
 </header>
+
+
 <div class="main-content">
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-6">
-                            Timesheet
-                        </div>
 
-                        <div class="col-md-6 text-right float-right">
-                            <a href="~/Projects/Timesheet/TimesheetCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add  Timesheet</a>
+                    <div class="row">
+                        <div class="col-md-8">
+                            Candidate
+                        </div>
+                        <div class="col-md-4 text-right float-right">
+                            <a href="/Recruitment/Candidate/CandidateCreate" class="btn btn-success btn-sm"><i class="icon icon-add"></i> Add Candidate </a>
+
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                  
 
-
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.Timesheets"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Candidate"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
                               allowPdfExport="true"
                               height="600" rowHeight="38"
-                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               enableHover="false" enableHeaderFocus="true"
+                              allowResizing="true" autoFit="true" dataBound="dataBound"
                               enableVirtualization="true" allowSelection="true"
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
+
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                        
-                            <e-grid-column field="TimeSheetForDate" headerText="TimeSheet ForDate" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="TimesheetActivityCategory.TimesheetActivityCategoryName" headerText="Activity Category" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ProjectActivityType.ProjectActivityName" headerText="Activity" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Project.ProjectName" headerText="Project" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ProjectTask.TaskName" headerText="Task Name" textAlign="Left" width="120"></e-grid-column>
-                          
-                            <e-grid-column field="DurationInHours" headerText="Duration In Hours" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Description" headerText="Description" textAlign="Left" width="200"></e-grid-column>
-                           
+                            <e-grid-column field="FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="StreetAddress" headerText="Street Address" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
+
                 </div>
             </div>
         </div>
     </div>
 
 </div>
+
+
 @{
 
     if (TempData["msg"] != null)
@@ -85,7 +86,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Timesheet",
+                    title: "Candidate",
                     text: "Successfully created.",
                     type: "success"
                 });
@@ -94,7 +95,7 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Timesheet",
+                    title: "Candidate",
                     text: "Successfully updated.",
                     type: "success"
                 });
@@ -103,25 +104,16 @@
                 sweetAlert({
                     html: true,
                     icon: "success",
-                    title: "Timesheet",
+                    title: "Candidate",
                     text: "Successfully Deleted.",
                     type: "success"
-                });
-            }
-            else if (message == "@((int)MessageEnum.HourConsumed)") {
-                sweetAlert({
-                    html: true,
-                    icon: "error",
-                    title: "Timesheet",
-                    text: "Effort Hour Consumed. Please discuss with your Project Manager.",
-                    type: "error"
                 });
             }
             else if (message == "@((int)MessageEnum.UnExpectedError)") {
                 sweetAlert({
                     html: true,
                     icon: "danger",
-                    title: "Timesheet",
+                    title: "Candidate",
                     text: "There is somthing going wrong.",
                     type: "danger"
                 });
@@ -130,17 +122,8 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Timesheet",
+                    title: "Candidate",
                     text: "There is somthing going wrong.",
-                    type: "error"
-                });
-            }
-            else if (message == "@((int)MessageEnum.BackMonthNotAllow)") {
-                sweetAlert({
-                    html: true,
-                    icon: "error",
-                    title: "Timesheet",
-                    text: "You cannot Create Privous Month Timesheet.",
                     type: "error"
                 });
             }
@@ -148,7 +131,7 @@
                 sweetAlert({
                     html: true,
                     icon: "error",
-                    title: "Timesheet",
+                    title: "Candidate",
                     text: message,
                     type: "error"
                 });
@@ -156,6 +139,7 @@
         </script>
     }
 }
+
 <script type="text/javascript">
     function Delete(Id) {
         swal({
@@ -170,32 +154,25 @@
             dangerMode: true,
         }).then(function (isConfirm) {
             if (isConfirm) {
-                window.location.href = "../../Projects/Timesheet/TimesheetDelete?TimesheetId=" + Id;
+                window.location.href = "../../Recruitment/Candidate/CandidateDelete?CandidateId=" + Id;
             }
         })
     }
 </script>
+
+
 <script id="Actions" type="text/x-template">
-      ${deleteAction(data)}
-  
+    <div class="link">
+        <a href="../../Recruitment/Candidate/CandidateCreate?CandidateId=${CandidateId}"><i class="icon-pencil3" style="font-size:22px"></i></a> &nbsp;&nbsp;&nbsp;
+
+        <button onClick="Delete(${CandidateId})" style="background: transparent;border: none;"><i class="icon-trash" style="font-size:22px"></i></button>    </div>
+</script>
+
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
 </script>
 
 <script>
-
-    function deleteAction(e) {
-        if (e.TimeSheetApprovalStatus == 0) {
-            return '  <div class="link"><button onClick = "Delete(' + e.TimesheetId + ')" style = "background: transparent;border: none;" > <i class="icon-trash" style = "font-size:22px" > </i></button> </div>';
-        } else   if (e.TimeSheetApprovalStatus == 1) {
-            return '<span class="badge badge-pill badge-success" > Approved </span>';
-        }
-        else if (e.TimeSheetApprovalStatus == 2) {
-            return '<span class="badge badge-pill badge-dark">Rejected</span>';
-        }
-
-
-    
-
-    }
     function toolbarClick(args) {
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
@@ -228,3 +205,32 @@
         this.autoFitColumns();
     }
 </script>
+
+
+
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+</script>
+
+<script>
+
+    function statusDetail(e) {
+        if (e.Status == 1) {
+            return '<span>New</span>';
+        } else if (e.Status == 2) {
+            return '<span> Blacklisted </span>';
+        }
+        else if (e.Status == 3) {
+            return '<span>Hired</span>';
+        }
+        else if (e.Status == 4) {
+            return '<span>Rejected</span>';
+        }
+        else if (e.Status == 5) {
+            return '<span>Offered</span>';
+        }
+
+
+
+    }
+    </script>

@@ -88,6 +88,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IInterviewTypeService, InterviewTypeService>();
             services.AddScoped<IJobApplicationService, JobApplicationService>();
             services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
+            services.AddScoped<ICandidateService, CandidateService>();
 
             services.AddScoped<IInterviewTypeService, InterviewTypeService>();
             services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();

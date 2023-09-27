@@ -48,13 +48,13 @@
                                 <input asp-for="@Model.CandidateId" type="hidden" />
 
 
-                                <label for="FirstName" class="form-label">FirstName&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <label for="FirstName" class="form-label">First Name&nbsp;<span style="color:red;"><b>*</b></span></label>
                                 <input asp-for="@Model.FirstName" type="text" class="form-control" autofocus="autofocus" placeholder="FirstName" />
                                 <span asp-validation-for="FirstName"></span>
 
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="MiddleName" class="form-label">MiddleName&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <label for="MiddleName" class="form-label">Middle Name</label>
                                 <input asp-for="@Model.MiddleName" type="text" class="form-control" autofocus="autofocus" placeholder="MiddleName" />
                                 <span asp-validation-for="MiddleName"></span>
                             </div>
@@ -65,12 +65,12 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="LastName" class="form-label">LastName&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <label for="LastName" class="form-label">Last Name&nbsp;<span style="color:red;"><b>*</b></span></label>
                                 <input asp-for="@Model.LastName" type="text" class="form-control" autofocus="autofocus" placeholder="LastName" />
                                 <span asp-validation-for="LastName"></span>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="JobApplicationSourceId" class="form-label">JobApplicationSource&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <label for="JobApplicationSourceId" class="form-label">JobApplication Source&nbsp;<span style="color:red;"><b>*</b></span></label>
                                 <ejs-dropdownlist id="JobApplicationSourceId" allowFiltering="true" ejs-for="@Model.ApplicationSourceId" filtering="onJobApplicationSourcerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.JobApplicationSource, "JobApplicationSourceId", "SourceName").Items)" placeholder="Select JobApplicationSource" popupHeight="220px">
                                     <e-dropdownlist-fields text="SourceName" value="JobApplicationSourceId"></e-dropdownlist-fields>
                                 </ejs-dropdownlist>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="MobileNo" class="form-label">MobileNo&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <label for="MobileNo" class="form-label">Mobile No&nbsp;<span style="color:red;"><b>*</b></span></label>
                                 <input asp-for="@Model.MobileNo" type="text" class="form-control" autofocus="autofocus" placeholder="MobileNo" />
                                 <span asp-validation-for="MobileNo"></span>
                             </div>
@@ -101,7 +101,7 @@
                                 <span asp-validation-for="City"></span>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="StreetAddress" class="form-label">StreetAddress&nbsp;<span style="color:red;"><b>*</b></span></label>
+                                <label for="StreetAddress" class="form-label">Street Address&nbsp;<span style="color:red;"><b>*</b></span></label>
                                 <input asp-for="@Model.StreetAddress" type="text" class="form-control" autofocus="autofocus" placeholder="StreetAddress" />
                                 <span asp-validation-for="StreetAddress"></span>
                             </div>
@@ -114,7 +114,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="HighestQualification" class="form-label">HighestQualification</label>
+                                <label for="HighestQualification" class="form-label">Highest Qualification</label>
                                 <select asp-for="@Model.HighestQualification" type="text" class="form-control" autofocus="autofocus" placeholder="HighestQualification">
                                     <option value="M.C.A.">M.C.A.</option>
                                     <option value="B.E.">B.E.</option>
@@ -125,7 +125,7 @@
 
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="CurrentJob" class="form-label">CurrentJob</label>
+                                <label for="CurrentJob" class="form-label">Current Job</label>
                                 <select asp-for="@Model.CurrentJob" type="text" class="form-control" autofocus="autofocus" placeholder="Current Job">
                                     <option value="Fresher">fresher</option>
                                     <option value="Project-Lead">Project-Lead</option>
@@ -137,12 +137,12 @@
                         <div class="form-row">
                             
                             <div class="form-group col-md-4">
-                                <label for="CurrentEmployer" class="form-label">CurrentEmployer</label>
+                                <label for="CurrentEmployer" class="form-label">Current Employer</label>
                                 <input asp-for="@Model.CurrentEmployer" type="text" class="form-control" autofocus="autofocus" placeholder="CurrentEmployer" />
                                 <span asp-validation-for="CurrentEmployer"></span>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="ExperienceinYears" class="form-label">Experiencein Years</label>
+                                <label for="ExperienceinYears" class="form-label">Experience in Years</label>
                                 <input asp-for="@Model.ExperienceinYears" type="text" class="form-control" autofocus="autofocus" placeholder="ExperienceinYears" />
                                 <span asp-validation-for="ExperienceinYears"></span>
                             </div>
@@ -161,7 +161,7 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-4">
-                                <label for="ExpectedSalary" class="form-label">ExpectedSalary</label>
+                                <label for="ExpectedSalary" class="form-label">Expected Salary</label>
                                 <input asp-for="@Model.ExpectedSalary" type="text" class="form-control" autofocus="autofocus" placeholder="ExpectedSalary" />
                                 <span asp-validation-for="ExpectedSalary"></span>
                             </div>

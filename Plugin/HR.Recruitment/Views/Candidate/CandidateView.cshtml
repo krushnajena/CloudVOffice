@@ -60,10 +60,10 @@
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
                             <e-grid-column field="FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="StreetAddress" headerText="StreetAddress" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="MobileNo" headerText="MobileNo" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="JobApplicationSource.SourceName" headerText="ApplicationSource" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Status" headerText="Status" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="StreetAddress" headerText="Street Address" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -205,3 +205,32 @@
         this.autoFitColumns();
     }
 </script>
+
+
+
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+</script>
+
+<script>
+
+    function statusDetail(e) {
+        if (e.Status == 1) {
+            return '<span>New</span>';
+        } else if (e.Status == 2) {
+            return '<span> Blacklisted </span>';
+        }
+        else if (e.Status == 3) {
+            return '<span>Hired</span>';
+        }
+        else if (e.Status == 4) {
+            return '<span>Rejected</span>';
+        }
+        else if (e.Status == 5) {
+            return '<span>Offered</span>';
+        }
+
+
+
+    }
+    </script>

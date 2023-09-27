@@ -64,28 +64,6 @@ namespace CloudVOffice.Services.Recruitment
 			}
 		}
 
-		public MessageEnum CandidateDelete(int candidateId, Int64 DeletedBy)
-		{
-			try
-			{
-				var a = _Context.Candidates.Where(x => x.CandidateId == candidateId).FirstOrDefault();
-				if (a != null)
-				{
-					a.Deleted = true;
-					a.UpdatedBy = DeletedBy;
-					a.UpdatedDate = DateTime.Now;
-					_Context.SaveChanges();
-					return MessageEnum.Deleted;
-				}
-				else
-					return MessageEnum.Invalid;
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
         public MessageEnum CandidateDelete(Int64 candidateId, Int64 DeletedBy)
         {
 			try

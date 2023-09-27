@@ -128,7 +128,7 @@ namespace CloudVOffice.Data.Persistence
 
 
         public virtual DbSet<Candidate> Candidates { get; set; }
-
+        public virtual DbSet<CandidateSkill> CandidateSkills { get; set; }
 
 
 

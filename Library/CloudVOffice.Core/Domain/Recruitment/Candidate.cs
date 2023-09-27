@@ -53,6 +53,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
         [ForeignKey("ApplicationSourceId")]
         public JobApplicationSource JobApplicationSource{ get; set; }
 
+        public ICollection<CandidateSkill> CandidateSkills { get; set; }
 
 
 

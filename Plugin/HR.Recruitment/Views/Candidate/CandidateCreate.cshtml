@@ -134,6 +134,15 @@
                             </div>
                             
                         </div>
+                       
+
+                          
+                            
+
+                            
+
+
+                        
                         <div class="form-row">
                             
                             <div class="form-group col-md-4">
@@ -157,6 +166,19 @@
                                     <option value="4">Rejected</option>
                                     <option value="5">Offered</option>
                                 </select>
+                            </div>
+
+
+                            <div class="form-group col-md-4">
+
+
+
+                                <label for="Skills" class="form-label">Skills</label>
+                                <ejs-multiselect id="Skills" ejs-for="@Model.Skills" allowFiltering="true" dataSource="@(new SelectList((IEnumerable)ViewBag.Skills, "SkillSetId", "SkillName").Items)" placeholder="Select Skills" popupHeight="220px">
+                                    <e-multiselect-fields text="SkillName" value="SkillSetId"></e-multiselect-fields>
+                                </ejs-multiselect>
+                                <span asp-validation-for="Skills"></span>
+
                             </div>
                         </div>
                         <div class="form-row">

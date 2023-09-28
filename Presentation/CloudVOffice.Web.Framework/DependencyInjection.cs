@@ -82,6 +82,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IJobOpeningService, JobOpeningService>();
             services.AddScoped<IJobOpeningSkillService, JobOpeningSkillService>();
             services.AddScoped<IJobOpeningTagService, JobOpeningTagService>();
+            services.AddScoped<ICandidateSkillService, CandidateSkillService>();
 
             services.AddScoped<ICandidateService, CandidateService>();
 

@@ -118,7 +118,7 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<RecruitClientDocument> RecruitClientDocuments { get; set; }
         public virtual DbSet<RecruitClientContact> RecruitClientContacts { get; set; }
         public virtual DbSet<SkillSet> SkillSets { get; set; }
-
+        public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }
 
 
 
@@ -130,20 +130,23 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<Candidate> Candidates { get; set; }
         public virtual DbSet<CandidateSkill> CandidateSkills { get; set; }
 
+        public virtual DbSet<JobApplication> JobApplications { get; set; }
+        public virtual DbSet<JobApplicationStatus> JobApplicationStatuses{ get; set; }
+
+
 
 
         public virtual DbSet<StaffingPlan> StaffingPlans { get; set; }
         public virtual DbSet<StaffingPlanDetails> StaffingPlanDetails { get; set; }
 
-    
-        public virtual DbSet<JobApplicationSource> JobApplicationSources { get; set; }
+
         public virtual DbSet<InterviewType> InterviewTypes { get; set; }
       
 
      
         public virtual DbSet<InterviewRound> InterviewRounds { get; set; }
 		public virtual DbSet<InterFeedBackQuestions> InterFeedBackQuestions { get; set; }
-		public virtual DbSet<JobApplication> JobApplications { get; set; }
+		
 
 
 		public virtual DbSet<InterviewPanelMember> InterviewPanelMembers { get; set; }
@@ -622,6 +625,17 @@ namespace CloudVOffice.Data.Persistence
 .WithMany()
 .OnDelete(DeleteBehavior.Restrict);
 
+
+
+            modelBuilder.Entity<JobApplication>()
+.HasOne(r => r.Candidate)
+.WithMany()
+.OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<JobApplication>()
+.HasOne(r => r.Employee)
+.WithMany()
+.OnDelete(DeleteBehavior.Restrict);
 
 
             modelBuilder.Entity<WorkFromHomeRequest>()

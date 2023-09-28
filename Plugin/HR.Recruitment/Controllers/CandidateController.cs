@@ -11,19 +11,27 @@ namespace HR.Recruitment.Controllers
     [Area(AreaNames.Recruitment)]
     public class CandidateController : BasePluginController
 	{
+
 		private readonly ICandidateService _candidateService;
 		private readonly IJobApplicationSourceService _jobApplicationSourceService;
 		private readonly IWebHostEnvironment _hostingEnvironment;
-		public CandidateController(ICandidateService candidateService, IJobApplicationSourceService jobApplicationSourceService, IWebHostEnvironment hostingEnvironment)
+		private readonly ISkillSetService _skillSetService;
+		public CandidateController(ICandidateService candidateService, IJobApplicationSourceService jobApplicationSourceService, IWebHostEnvironment hostingEnvironment, ISkillSetService skillSetService)
 		{
 			_candidateService = candidateService;
 			_jobApplicationSourceService = jobApplicationSourceService;
 			_hostingEnvironment = hostingEnvironment;
+			_skillSetService = skillSetService;
 		}
 		public IActionResult CandidateCreate(int? candidateId)
 		{
 			var jobApplicationSource = _jobApplicationSourceService.GetJobApplicationSourceList();
 			ViewBag.JobApplicationSource = jobApplicationSource;
+			var skillSetService = _skillSetService.GetSkillSetList();
+			ViewBag.skillSet = skillSetService;
+
+			ViewBag.Skills = _skillSetService.GetSkillSetList();
+
 
 			CandidateDTO candidateDTO = new CandidateDTO();
 			if (candidateId != null)
@@ -46,6 +54,12 @@ namespace HR.Recruitment.Controllers
 				candidateDTO.Cv = d.Cv;
 				candidateDTO.ApplicationSourceId = d.ApplicationSourceId;
 				candidateDTO.Status = d.Status;
+				var skills = d.CandidateSkills.ToList();
+				candidateDTO.Skills = new List<int>();
+				for (int i = 0; i < skills.Count; i++)
+				{
+					candidateDTO.Skills.Add(skills[i].SkillId);
+				}
 
 
 
@@ -121,6 +135,8 @@ namespace HR.Recruitment.Controllers
 			var jobApplicationSource = _jobApplicationSourceService.GetJobApplicationSourceList();
 			ViewBag.JobApplicationSource = jobApplicationSource;
 
+			var skillSetService = _skillSetService.GetSkillSetList();
+			ViewBag.skillSet = skillSetService;
 
 
 			return View("~/Plugins/HR.Recruitment/Views/Candidate/CandidateCreate.cshtml", candidateDTO);

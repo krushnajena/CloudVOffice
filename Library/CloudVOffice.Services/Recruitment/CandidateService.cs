@@ -17,12 +17,14 @@ namespace CloudVOffice.Services.Recruitment
 	{
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<Candidate> _candidateRepo;
+        private readonly ICandidateSkillService _candidateSkillService;
 
-		public CandidateService(ApplicationDBContext Context, ISqlRepository<Candidate> candidateRepo)
+        public CandidateService(ApplicationDBContext Context, ISqlRepository<Candidate> candidateRepo, ICandidateSkillService candidateSkillService)
 		{
 			_Context = Context;
 			_candidateRepo = candidateRepo;
-		}
+            _candidateSkillService = candidateSkillService;
+        }
 
 		public MessageEnum CandidateCreate(CandidateDTO candidateDTO)
 		{
@@ -50,6 +52,11 @@ namespace CloudVOffice.Services.Recruitment
 					candidate.Status = candidateDTO.Status;
 					candidate.CreatedBy = candidateDTO.CreatedBy;
 					var obj = _candidateRepo.Insert(candidate);
+					for (int i = 0; i < candidateDTO.Skills.Count; i++)
+					{
+						_candidateSkillService.CreateCandidateSkill((int)obj.CandidateId, candidateDTO.Skills[i],candidateDTO.CreatedBy);
+
+					}
 					return MessageEnum.Success;
 				}
 				else if (objCheck != null)
@@ -116,6 +123,10 @@ namespace CloudVOffice.Services.Recruitment
 						a.UpdatedDate = DateTime.Now;
 
 						_Context.SaveChanges();
+						for (int i = 0; i < candidateDTO.Skills.Count; i++) 
+						{
+                            _candidateSkillService.CreateCandidateSkill((int)candidateDTO.CandidateId, candidateDTO.Skills[i], candidateDTO.CreatedBy);
+                        }
 						return MessageEnum.Updated;
 					}
 					else
@@ -135,7 +146,7 @@ namespace CloudVOffice.Services.Recruitment
 
 		public Candidate GetCandidateById(Int64 candidateId)
 		{
-			return _Context.Candidates.Where(x => x.CandidateId == candidateId && x.Deleted == false).SingleOrDefault();
+			return _Context.Candidates.Include(x=>x.CandidateSkills.Where(a=>a.Deleted == false)).Where(x => x.CandidateId == candidateId && x.Deleted == false).SingleOrDefault();
 		}
 
 		public List<Candidate> GetCandidateList()

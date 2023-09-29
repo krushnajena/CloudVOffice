@@ -163,5 +163,13 @@ namespace CloudVOffice.Services.Recruitment
 				throw;
 			}
 		}
-	}
+        public List<Candidate> GetCandidateListBySkillSetAndExpLevel(List<int> SkillSet, int ExpLevel)
+		{
+			return _Context.Candidates
+				.Include(x=>x.CandidateSkills.Where(a=>a.Deleted == false && SkillSet.Contains(a.SkillId)) )
+				.ThenInclude(a=>a.SkillSet)
+				.Where(x=>x.Deleted == false && x.ExperienceinYears >= ExpLevel && x.CandidateSkills.Count >0 ).ToList();
+		}
+
+    }
 }

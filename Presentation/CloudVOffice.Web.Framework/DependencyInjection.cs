@@ -17,6 +17,7 @@ using CloudVOffice.Services.HR.Master;
 using CloudVOffice.Services.Permissions;
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Services.Recruitment;
+using CloudVOffice.Services.Recruitment.JA;
 using CloudVOffice.Services.Recruitment.JO;
 using CloudVOffice.Services.Roles;
 using CloudVOffice.Services.Users;
@@ -83,14 +84,19 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped<IJobOpeningTagService, JobOpeningTagService>();
             services.AddScoped<ICandidateSkillService, CandidateSkillService>();
 
+            services.AddScoped<ICandidateService, CandidateService>();
+
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
+            services.AddScoped<IJobApplicationStatusService, JobApplicatonStatusService>();
+
+
 
 
 
             services.AddScoped<IInterviewTypeService, InterviewTypeService>();
-            services.AddScoped<IJobApplicationService, JobApplicationService>();
+          
             services.AddScoped<IJobApplicationSourceService, JobApplicationSourceService>();
-            services.AddScoped<ICandidateService, CandidateService>();
-
+           
             services.AddScoped<IInterviewTypeService, InterviewTypeService>();
             services.AddScoped<IStaffingPlanDetailsService, StaffingPlanDetailsService>();
             services.AddScoped<IStaffingPlanService, StaffingPlanService>();
@@ -107,14 +113,7 @@ namespace CloudVOffice.Web.Framework
 
 
 			services.AddScoped<IInterviewPanelService, InterviewPanelService>();
-			services.AddScoped<IScheduleInterviewService, ScheduleInterviewService>();
-
-
-
-            services.AddScoped<IScheduleInterviewService, ScheduleInterviewService>();
-            services.AddScoped<IScheduleInterviewService, ScheduleInterviewService>();
-
-
+		
 
 
             ;

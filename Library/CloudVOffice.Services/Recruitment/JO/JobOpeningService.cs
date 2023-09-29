@@ -106,6 +106,10 @@ namespace CloudVOffice.Services.Recruitment.JO
                     .Include(x => x.RecruitClient)
                     .Include(x => x.RecruitClientContact)
                     .Include(x => x.Employee)
+                    .Include(x=>x.JobOpeningSkills.Where(a=>a.Deleted ==false))
+                    .ThenInclude(x=>x.SkillSet)
+                    .Include(x=>x.JobOpeningTags.Where(a => a.Deleted == false))
+                    .ThenInclude(x=>x.Employee)
                     .Where(x => x.Deleted == false).ToList();
 
             }

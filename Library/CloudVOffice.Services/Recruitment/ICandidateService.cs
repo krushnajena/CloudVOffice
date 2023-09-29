@@ -16,5 +16,6 @@ namespace CloudVOffice.Services.Recruitment
 		public Candidate GetCandidateById(Int64 candidateId);
 		public MessageEnum CandidateUpdate(CandidateDTO candidateDTO);
 		public MessageEnum CandidateDelete(Int64 candidateId, Int64 DeletedBy);
+		public List<Candidate> GetCandidateListBySkillSetAndExpLevel(List<int> SkillSet, int ExpLevel);
 	}
 }

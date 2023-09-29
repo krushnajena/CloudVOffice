@@ -18,8 +18,7 @@ namespace CloudVOffice.Core.Domain.Recruitment
         public DateTime? UpdatedDate { get; set; }
         public bool Deleted { get; set; }
 
-        [ForeignKey("CandidateId")]
-        public Candidate Candidate{ get; set; }
+      
 
         [ForeignKey("SkillId")]
         public SkillSet SkillSet { get; set; }

@@ -23,6 +23,7 @@
 		<None Remove="Views\InterviewPanelMember\InterviewPanelMemberView.cshtml" />
 		<None Remove="Views\InterviewRound\InterviewRoundCreate.cshtml" />
 		<None Remove="Views\InterviewRound\InterviewRoundView.cshtml" />
+		<None Remove="Views\JobApplication\CandidateApplicationsStatus.cshtml" />
 		<None Remove="Views\JobApplication\JobApplication.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningCreate.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningView.cshtml" />

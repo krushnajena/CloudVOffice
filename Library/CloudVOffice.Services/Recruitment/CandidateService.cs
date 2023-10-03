@@ -3,6 +3,8 @@ using CloudVOffice.Core.Domain.Recruitment;
 using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using CloudVOffice.Services.Recruitment.JA;
+using CloudVOffice.Services.Recruitment.JO;
 using Microsoft.AspNetCore.Routing.Matching;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,12 +20,14 @@ namespace CloudVOffice.Services.Recruitment
 		private readonly ApplicationDBContext _Context;
 		private readonly ISqlRepository<Candidate> _candidateRepo;
         private readonly ICandidateSkillService _candidateSkillService;
+        private readonly IJobApplicationService _jobApplicationService;
 
-        public CandidateService(ApplicationDBContext Context, ISqlRepository<Candidate> candidateRepo, ICandidateSkillService candidateSkillService)
+        public CandidateService(ApplicationDBContext Context, ISqlRepository<Candidate> candidateRepo, ICandidateSkillService candidateSkillService, IJobApplicationService jobApplicationService)
 		{
 			_Context = Context;
 			_candidateRepo = candidateRepo;
             _candidateSkillService = candidateSkillService;
+			_jobApplicationService = jobApplicationService;
         }
 
 		public MessageEnum CandidateCreate(CandidateDTO candidateDTO)
@@ -170,6 +174,5 @@ namespace CloudVOffice.Services.Recruitment
 				.ThenInclude(a=>a.SkillSet)
 				.Where(x=>x.Deleted == false && x.ExperienceinYears >= ExpLevel && x.CandidateSkills.Count >0 ).ToList();
 		}
-
     }
 }

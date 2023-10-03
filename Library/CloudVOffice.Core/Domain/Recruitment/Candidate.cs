@@ -56,6 +56,5 @@ namespace CloudVOffice.Core.Domain.Recruitment
         public ICollection<CandidateSkill> CandidateSkills { get; set; }
 
 
-
     }
 }

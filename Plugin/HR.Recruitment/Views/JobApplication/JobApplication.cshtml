@@ -63,8 +63,8 @@
                             <e-grid-column field="JobApplicationId" headerText="JobApplication" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="JobId" headerText="Job" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="CandidateId" headerText="Candidate" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Created" headerText="Created" textAlign="Left" width="120"></e-grid-column>
-                           @* <e-grid-column field="CurrentStatus" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>*@
+                            <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
                            
                         </e-grid-columns>
                     </ejs-grid>
@@ -119,7 +119,7 @@
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
             gridObj.pdfExport();
-        }
+        }                      
         if (args.item.id === 'GridOverview_excelexport') {
             gridObj.excelExport();
         }

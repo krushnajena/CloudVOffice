@@ -64,7 +64,7 @@ namespace CloudVOffice.Services.Recruitment.JA
             }
         }
 
-        public JobApplication GetJobApplicationById(long jobApplicationId)
+        public JobApplication GetJobApplicationById(Int64 jobApplicationId)
         {
             try
             {

@@ -155,6 +155,8 @@
                             title: "Attendance Request",
                             text: "Successfully Approved.",
                             type: "success"
+                        }).then(function () {
+                            window.location.reload();
                         });
                     }
                     else if (result == "11") {
@@ -164,6 +166,8 @@
                             title: "Attendance Request",
                             text: "Successfully Rejected.",
                             type: "success"
+                        }).then(function () {
+                            window.location.reload();
                         });
                     }
                     else {

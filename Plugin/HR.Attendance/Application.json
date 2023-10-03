@@ -19,7 +19,7 @@
         {
           "ApplicationName": "Leave Policy",
           "IsGroup": false,
-          "Url": "/Attendance/LeavePolicy/LeavePolicyView",
+          "Url": "/Attendance/LeavePolicy/LeavePolicyReport",
           "IconImageUrl": "",
           "IconClass": "icon-event_note",
           "AreaName": "Attendance",
@@ -121,7 +121,7 @@
         }
               ]
 
-    }
+    },
     {
       "ApplicationName": "Work From Home Request",
       "Url": "/Attendance/WorkFromHomeRequest/WorkFromHomeRequestView",

@@ -126,7 +126,7 @@ namespace CloudVOffice.Services.Recruitment.JA
                     {
                         a.JobId = jobApplicationDTO.JobId;
                         a.CandidateId = jobApplicationDTO.CandidateId;
-                        a.CandidateId = jobApplicationDTO.CandidateId;
+                      
                         a.UpdatedBy = jobApplicationDTO.CreatedBy;
                         a.UpdatedDate = DateTime.Now;
 

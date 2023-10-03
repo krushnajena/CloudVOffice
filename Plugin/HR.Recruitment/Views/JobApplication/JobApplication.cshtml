@@ -32,6 +32,10 @@
             <div class="card">
                 @Html.Partial("../Shared/_ReqProcessLinks.cshtml", (string)ViewBag.Jobid.ToString())
             </div>
+           @* <div class="card">
+                @Html.Partial("../Shared/_ReqProcessLinks.cshtml", (string)(ViewBag.Jobid ?? "Default").ToString())
+
+            </div>*@
         </div>
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
             <div class="card">
@@ -60,12 +64,13 @@
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                            <e-grid-column field="JobApplicationId" headerText="JobApplication" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="JobId" headerText="Job" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="CandidateId" headerText="Candidate" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Created" headerText="Created" textAlign="Left" width="120"></e-grid-column>
-                           @* <e-grid-column field="CurrentStatus" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>*@
-                           
+                         
+                            <e-grid-column field="FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="StreetAddress" headerText="Street Address" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
+                         
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -84,7 +89,7 @@
 
              <div class="form-group col-md-12">
                  <label for="Priority" class="form-label">Take Action</label>
-                 <select id="TimeSheetApprovalStatus"  class="form-control"  name="TimeSheetApprovalStatus" >
+                 <select id="JobApplicationStatus"  class="form-control"  name="JobApplicationStatus" >
                      <option value="1">Applied</option>
                      <option value="2">Submit For Screening</option>
                  </select>
@@ -155,6 +160,7 @@
             console.log(
                 model
             )
+           
             $.ajax({
                 type: "POST",
                 url: '/Recruitment/JobApplication/JobApplicationCreate',
@@ -199,6 +205,8 @@
         }
 
     }
+
+
 
 
 

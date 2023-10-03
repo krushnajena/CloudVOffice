@@ -49,7 +49,6 @@
 						<div class="form-row">
 							<div class="form-group col-md-4">
 								<input asp-for="@Model.HRSettingsId" type="hidden" />
-
 								<label for="StandardWorkingHours" class="form-label">StandardWorkingHours </label>
 								<input asp-for="@Model.StandardWorkingHours" type="text" class="form-control" autofocus="autofocus" placeholder="StandardWorkingHours" />
 								<span asp-validation-for="StandardWorkingHours"></span>
@@ -72,7 +71,7 @@
 							<div class="form-group col-md-4">
 
 								<label for="SendBirthdaysReminder" class="form-label">Send Birthdays Reminder</label>
-								<input asp-for="@Model.SendBirthdaysReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Birthdays Reminder" />
+								<input asp-for="@Model.SendBirthdaysReminder" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Send Birthdays Reminder" />
 								<span asp-validation-for="SendBirthdaysReminder"></span>
 							</div>
 
@@ -81,13 +80,13 @@
 							<div class="form-group col-md-4">
 
 								<label for="SendWorkAnniversariesReminder" class="form-label">Send Work Anniversaries Reminder</label>
-								<input asp-for="@Model.SendWorkAnniversariesReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Work Anniversaries Reminder" />
+								<input asp-for="@Model.SendWorkAnniversariesReminder" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Send Work Anniversaries Reminder" />
 								<span asp-validation-for="SendWorkAnniversariesReminder"></span>
 							</div>
 							<div class="form-group col-md-4">
 
 								<label for="SendInterviewReminder" class="form-label">Send Interview Reminder</label>
-								<input asp-for="@Model.SendInterviewReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Interview Reminder" />
+								<input asp-for="@Model.SendInterviewReminder" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Send Interview Reminder" />
 								<span asp-validation-for="SendInterviewReminder"></span>
 							</div>
 
@@ -96,7 +95,7 @@
 							<div class="form-group col-md-4">
 
 								<label for="SendInterviewFeedbackReminder" class="form-label">Send Interview Feedback Reminder</label>
-								<input asp-for="@Model.SendInterviewFeedbackReminder" type="text" class="form-control" autofocus="autofocus" placeholder="Send Interview Feedback Reminder" />
+								<input asp-for="@Model.SendInterviewFeedbackReminder" type="checkbox" class="form-control" autofocus="autofocus" placeholder="Send Interview Feedback Reminder" />
 								<span asp-validation-for="SendInterviewFeedbackReminder"></span>
 							</div>
 							

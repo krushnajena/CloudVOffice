@@ -1,4 +1,5 @@
-﻿using CloudVOffice.Data.DTO.Recruitment;
+﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Data.DTO.Recruitment;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Services.Recruitment.JA;
 using CloudVOffice.Services.Recruitment.JO;
@@ -19,53 +20,57 @@ namespace HR.Recruitment.Controllers
         private readonly IJobApplicationService _jobApplicationService;
         private readonly IJobOpeningService _jobOpeningService;
         private readonly ICandidateService _candidateService;
-        public JobApplicationController(IJobApplicationService jobApplicationService, IJobOpeningService jobOpeningService, ICandidateService candidateService)
-        { 
+        private readonly IJobApplicationStatusService _jobApplicationStatusService;
+        public JobApplicationController(IJobApplicationService jobApplicationService, IJobOpeningService jobOpeningService,
+            ICandidateService candidateService, IJobApplicationStatusService jobApplicationStatusService)
+        {
             _jobApplicationService = jobApplicationService;
             _jobOpeningService = jobOpeningService;
             _candidateService = candidateService;
+            _jobApplicationStatusService = jobApplicationStatusService;
         }
         public IActionResult JobApplication(int JobId)
         {
             var job = _jobOpeningService.GetJobOpeningByJobOpeningId(JobId);
-            List<int> skills = new List<int>();
-           var skil = job.JobOpeningSkills.ToList();
-            for(int i=0;i< skil.Count; i++)
-            {
-                skills.Add(skil[i].SkillId);
-            }
-            int exp = 0;
-            if(job.WorkExperience == "Fresher")
-            {
-                exp = 0;
-            }
-            else if (job.WorkExperience == "0-1 year")
-            {
-                exp = 0;
-            }
-            else if (job.WorkExperience == "1-3 years")
-            {
-                exp = 1;
-            }
-            else if (job.WorkExperience == "4-5 years")
-            {
-                exp = 4;
-            }
-            else if (job.WorkExperience == "5+ years")
-            {
-                exp = 5;
-            }
-              
+           
+             List<int> skills = new List<int>();
+            var skil = job.JobOpeningSkills.ToList();
+             for(int i=0;i< skil.Count; i++)
+             {
+                 skills.Add(skil[i].SkillId);
+             }
+             int exp = 0;
+             if(job.WorkExperience == "Fresher")
+             {
+                 exp = 0;
+             }
+             else if (job.WorkExperience == "0-1 year")
+             {
+                 exp = 0;
+             }
+             else if (job.WorkExperience == "1-3 years")
+             {
+                 exp = 1;
+             }
+             else if (job.WorkExperience == "4-5 years")
+             {
+                 exp = 4;
+             }
+             else if (job.WorkExperience == "5+ years")
+             {
+                 exp = 5;
+             }
 
-            var canddate = _candidateService.GetCandidateListBySkillSetAndExpLevel(skills, exp);
 
-            ViewBag.Candidate = canddate;
-            ViewBag.Jobid = JobId;
+             var canddate = _candidateService.GetCandidateListBySkillSetAndExpLevel(skills, exp);
+
+             ViewBag.Candidate = canddate;
+             ViewBag.Jobid = JobId;
 
             return View("~/Plugins/HR.Recruitment/Views/JobApplication/JobApplication.cshtml");
         }
-        public IActionResult JobApplicationCreate(JobApplicationDTO jobApplicationDTO)
-        { 
+        public JsonResult JobApplicationCreate(JobApplicationDTO jobApplicationDTO)
+        {
             var a = _jobApplicationService.JobApplicationCreate(jobApplicationDTO);
             return Json(a);
         }

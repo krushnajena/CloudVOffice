@@ -54,12 +54,11 @@
                               toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
                         <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
-                        <e-grid-columns>          
+                        <e-grid-columns>
+                            <e-grid-column field="ProjectCode" headerText="Project Code" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="ProjectName" headerText="Project Name" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Status" headerText="Status" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="EndDate" headerText="End Date" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="ProjectType.ProjectTypeName" headerText="Project Type" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="EstimatedCost" headerText="Estimated Cost" textAlign="Left" width="120"></e-grid-column>                
+                            <e-grid-column field="ProjectType.ProjectTypeName" headerText="Project Type" textAlign="Left" width="120"></e-grid-column>    
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>

@@ -121,7 +121,7 @@
         }
               ]
 
-    }
+    },
     {
       "ApplicationName": "Work From Home Request",
       "Url": "/Attendance/WorkFromHomeRequest/WorkFromHomeRequestView",

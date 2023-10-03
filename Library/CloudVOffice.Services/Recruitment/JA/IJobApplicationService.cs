@@ -16,5 +16,6 @@ namespace CloudVOffice.Services.Recruitment.JA
         public JobApplication GetJobApplicationById(long jobApplicationId);
         public MessageEnum JobApplicationUpdate(JobApplicationDTO jobApplicationDTO);
         public MessageEnum JobApplicationDelete(long jobApplicationId, long DeletedBy);
+        public List<JobApplication> GetCandidateByJobApplication(int JobId);
     }
 }

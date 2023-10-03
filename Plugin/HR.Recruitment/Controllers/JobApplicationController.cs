@@ -70,6 +70,13 @@ namespace HR.Recruitment.Controllers
             return Json(a);
         }
 
+        public IActionResult CandidateApplicationsStatus(int JobId)
+        {
+            var a = _jobApplicationService.GetCandidateByJobApplication(JobId);
+            ViewBag.candidateApplications = a;
+            return View("~/Plugins/HR.Recruitment/Views/JobApplication/CandidateApplicationsStatus.cshtml");
+        }
+
     }
 }
 

@@ -147,5 +147,20 @@ namespace CloudVOffice.Services.Recruitment.JA
                 throw;
             }
         }
+
+        public List<JobApplication> GetCandidateByJobApplication(int JobId)
+        {
+            try
+            {
+                 return _Context.JobApplications
+                .Include(x => x.Candidate)
+                .Where(x => x.JobId == JobId && x.CurrentStatus == 1 && !x.Deleted)
+                .ToList();
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 }

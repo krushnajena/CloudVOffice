@@ -5,10 +5,97 @@
   "IconImageUrl": "/Plugin/HR.Attendance/logo.png",
   "IconClass": "",
   "AreaName": "Attendance",
-  "Roles": [ "HR Manager", "HR User","Employee" ],
+  "Roles": [ "HR Manager" ],
   "Children": [
     {
-      "ApplicationName": "Master",
+      "ApplicationName": "Attendance",
+      "Url": "",
+      "IsGroup": true,
+      "IconImageUrl": "",
+      "IconClass": "icon-event_note",
+      "AreaName": "Attendance",
+      "Roles": [ "HR Manager" ],
+      "Children": [
+
+        {
+          "ApplicationName": "Attendance Request",
+          "IsGroup": false,
+          "Url": "/Attendance/AttendanceRequest/AttendanceRequestView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "Employee" ]
+        },
+        {
+          "ApplicationName": "Attendance Device",
+          "IsGroup": false,
+          "Url": "/Attendance/AttendanceDevice/AttendanceDeviceView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "Employee" ]
+        },
+        {
+          "ApplicationName": "Employee Attendance",
+          "IsGroup": false,
+          "Url": "/Attendance/EmployeeAttendance/EmployeeAttendanceView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "Employee" ]
+        },
+        {
+          "ApplicationName": "Attendance Request",
+          "IsGroup": false,
+          "Url": "/Attendance/AttendanceRequest/AttendanceRequestView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "Employee" ]
+        },
+        {
+          "ApplicationName": "Employee Check In",
+          "IsGroup": false,
+          "Url": "/Attendance/EmployeeCheckIn/EmployeeCheckInView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "Employee" ]
+        },
+        {
+          "ApplicationName": "Holyday",
+          "IsGroup": false,
+          "Url": "/Attendance/Holiday/HolidayView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "Shift Employee",
+          "IsGroup": false,
+          "Url": "/Attendance/ShiftEmployee/ShiftEmployeeView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "HR Manager" ]
+        },
+        {
+          "ApplicationName": "Shift Type",
+          "IsGroup": false,
+          "Url": "/Attendance/ShiftType/ShiftTypeView",
+          "IconImageUrl": "",
+          "IconClass": "icon-event_note",
+          "AreaName": "Attendance",
+          "Roles": [ "HR Manager" ]
+        }
+
+      ]
+
+    },
+
+    {
+      "ApplicationName": "Leave",
       "Url": "",
       "IsGroup": true,
       "IconImageUrl": "",
@@ -42,73 +129,19 @@
           "IconClass": "icon-event_note",
           "AreaName": "Attendance",
           "Roles": [ "HR Manager" ]
-        },
-        {
-          "ApplicationName": "Shift Employee",
-          "IsGroup": false,
-          "Url": "/Attendance/ShiftEmployee/ShiftEmployeeView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Attendance",
-          "Roles": [ "HR Manager" ]
-        },
-        {
-          "ApplicationName": "Shift Type",
-          "IsGroup": false,
-          "Url": "/Attendance/ShiftType/ShiftTypeView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Attendance",
-          "Roles": [ "HR Manager" ]
-        },
-        {
-          "ApplicationName": "Holyday",
-          "IsGroup": false,
-          "Url": "/Attendance/Holiday/HolidayView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Attendance",
-          "Roles": [ "HR Manager" ]
-        },
-        {
-          "ApplicationName": "Employee Check In",
-          "IsGroup": false,
-          "Url": "/Attendance/EmployeeCheckIn/EmployeeCheckInView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Attendance",
-          "Roles": [ "Employee" ]
-        },
-        {
-          "ApplicationName": "Attendance Device",
-          "IsGroup": false,
-          "Url": "/Attendance/AttendanceDevice/AttendanceDeviceView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Attendance",
-          "Roles": [ "Employee" ]
-        },
-        {
-          "ApplicationName": "Employee Attendance",
-          "IsGroup": false,
-          "Url": "/Attendance/EmployeeAttendance/EmployeeAttendanceView",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Attendance",
-          "Roles": [ "Employee" ]
         }
-       
-      ]
 
+
+      ]
     },
     {
-      "ApplicationName": "Attendance Request",
-      "Url": "/Attendance/AttendanceRequest/AttendanceRequestView",
-      "IsGroup": false,
+      "ApplicationName": "Approval",
+      "Url": "",
+      "IsGroup": true,
       "IconImageUrl": "",
       "IconClass": "icon-event_note",
       "AreaName": "Attendance",
-      "Roles": [ "Employee" ],
+      "Roles": [ "HR Manager" ],
       "Children": [
         {
           "ApplicationName": "Attendance To Validate",
@@ -119,30 +152,39 @@
           "AreaName": "Attendance",
           "Roles": [ "Employee" ]
         }
-              ]
-
-    },
-    {
-      "ApplicationName": "Work From Home Request",
-      "Url": "/Attendance/WorkFromHomeRequest/WorkFromHomeRequestView",
-      "IsGroup": false,
-      "IconImageUrl": "",
-      "IconClass": "icon-event_note",
-      "AreaName": "Attendance",
-      "Roles": [ "Employee" ],
-      "Children": [
-        {
-          "ApplicationName": "Work From Home Request To Validate",
-          "IsGroup": false,
-          "Url": "/Attendance/AttendanceRequest/AttendanceToValidate",
-          "IconImageUrl": "",
-          "IconClass": "icon-event_note",
-          "AreaName": "Attendance",
-          "Roles": [ "Employee" ]
-        }
       ]
 
     }
+    //{
+    //  "ApplicationName": "Work From Home",
+    //  "Url": "",
+    //  "IsGroup": true,
+    //  "IconImageUrl": "",
+    //  "IconClass": "icon-event_note",
+    //  "AreaName": "Attendance",
+    //  "Roles": [ "HR Manager" ],
+    //  "Children": [
+    //    {
+    //      "ApplicationName": "Work From Home Request",
+    //      "IsGroup": false,
+    //      "Url": "/Attendance/WorkFromHomeRequest/WorkFromHomeRequestView",
+    //      "IconImageUrl": "",
+    //      "IconClass": "icon-event_note",
+    //      "AreaName": "Attendance",
+    //      "Roles": [ "Employee" ]
+    //    },
+    //    {
+    //      "ApplicationName": "Work From Home Request To Validate",
+    //      "IsGroup": false,
+    //      "Url": "/Attendance/AttendanceRequest/AttendanceToValidate",
+    //      "IconImageUrl": "",
+    //      "IconClass": "icon-event_note",
+    //      "AreaName": "Attendance",
+    //      "Roles": [ "Employee" ]
+    //    }
+    //  ]
+
+    //}
   ]
 
 }

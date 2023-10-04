@@ -48,7 +48,8 @@ namespace CloudVOffice.Services.Recruitment.JA
                         StatusUpBy = 1,
                         Comment = jobApplicationDTO.Comment,
                         EmployeeId = jobApplicationDTO.TagId,
-                        CreatedBy = jobApplicationDTO.CreatedBy
+                        CreatedBy = jobApplicationDTO.CreatedBy,
+                        
                     }) ;
                     return MessageEnum.Success;
                 }

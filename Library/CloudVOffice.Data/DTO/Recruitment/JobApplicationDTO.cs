@@ -4,7 +4,7 @@ namespace CloudVOffice.Data.DTO.Recruitment
 {
     public class JobApplicationDTO
     {
-        public Int64 JobApplicationId { get; set; }
+        public Int64? JobApplicationId { get; set; }
         public int JobId { get; set; }
         public Int64 CandidateId { get; set; }
         public Int64 TagId { get; set; }

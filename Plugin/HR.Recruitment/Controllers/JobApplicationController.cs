@@ -1,5 +1,7 @@
 ﻿using CloudVOffice.Core.Domain.Common;
+using CloudVOffice.Data.DTO.Projects;
 using CloudVOffice.Data.DTO.Recruitment;
+using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Services.Recruitment.JA;
 using CloudVOffice.Services.Recruitment.JO;
@@ -21,13 +23,15 @@ namespace HR.Recruitment.Controllers
         private readonly IJobOpeningService _jobOpeningService;
         private readonly ICandidateService _candidateService;
         private readonly IJobApplicationStatusService _jobApplicationStatusService;
+        private readonly IEmployeeService _employeeService;
         public JobApplicationController(IJobApplicationService jobApplicationService, IJobOpeningService jobOpeningService,
-            ICandidateService candidateService, IJobApplicationStatusService jobApplicationStatusService)
+            ICandidateService candidateService, IJobApplicationStatusService jobApplicationStatusService, IEmployeeService employeeService)
         {
             _jobApplicationService = jobApplicationService;
             _jobOpeningService = jobOpeningService;
             _candidateService = candidateService;
             _jobApplicationStatusService = jobApplicationStatusService;
+            _employeeService = employeeService;
         }
         public IActionResult JobApplication(int JobId)
         {
@@ -71,7 +75,25 @@ namespace HR.Recruitment.Controllers
         }
         public JsonResult JobApplicationCreate(JobApplicationDTO jobApplicationDTO)
         {
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            jobApplicationDTO.TagId = EmployeeId;
+            jobApplicationDTO.CreatedBy = UserId;
+            jobApplicationDTO.Created  = DateTime.Now;
+            Guid obj = Guid.NewGuid();
+            jobApplicationDTO.ApplicationViewToken = obj.ToString();
             var a = _jobApplicationService.JobApplicationCreate(jobApplicationDTO);
+
             return Json(a);
         }
 

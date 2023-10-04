@@ -28,18 +28,18 @@
 
 <div class="main-content">
     <div class="row gutters">
-         <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
             <div class="card">
                 @Html.Partial("../Shared/_ReqProcessLinks.cshtml", (string)ViewBag.Jobid.ToString())
             </div>
-           @* <div class="card">
-                @Html.Partial("../Shared/_ReqProcessLinks.cshtml", (string)(ViewBag.Jobid ?? "Default").ToString())
+            @* <div class="card">
+            @Html.Partial("../Shared/_ReqProcessLinks.cshtml", (string)(ViewBag.Jobid ?? "Default").ToString())
 
             </div>*@
         </div>
         <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
             <div class="card">
-           
+
                 <div class="card-body">
 
                     <ejs-grid id="GridOverview" dataSource="ViewBag.Candidate"
@@ -51,7 +51,7 @@
                               enableHover="false" enableHeaderFocus="true"
                               allowResizing="true" autoFit="true" dataBound="dataBound"
                               enableVirtualization="true" allowSelection="true"
-                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})"     
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})"
                               actionComplete="actionComplete">
                         <e-grid-editSettings allowAdding="false"
                                              allowDeleting="false"
@@ -64,13 +64,13 @@
 
                         <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
                         <e-grid-columns>
-                         
+
                             <e-grid-column field="FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="StreetAddress" headerText="Street Address" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
-                         
+
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -124,7 +124,7 @@
         var gridObj = document.getElementById("GridOverview").ej2_instances[0];
         if (args.item.id === 'GridOverview_pdfexport') {
             gridObj.pdfExport();
-        }                      
+        }
         if (args.item.id === 'GridOverview_excelexport') {
             gridObj.excelExport();
         }
@@ -156,11 +156,11 @@
 
         }
         else if (args.requestType === 'save') {
-            var model = { "Comment": args.data.Comment, "CurrentStatus": args.data.CurrentStatus, "JobApplicationId": args.data.JobApplicationId };
+            var model = { "Comment": args.data.Comment, "CandidateId": args.data.CandidateId, "JobId": @ViewBag.JobId };
             console.log(
                 model
             )
-           
+
             $.ajax({
                 type: "POST",
                 url: '/Recruitment/JobApplication/JobApplicationCreate',
@@ -168,7 +168,7 @@
 
                 success: function (result) {
                     console.log(result);
-                    if (result == "10") {
+                    if (result == "15") {
                         sweetAlert({
                             html: true,
                             icon: "success",
@@ -177,7 +177,7 @@
                             type: "success"
                         });
                     }
-                    else if (result == "11") {
+                    else if (result == "16") {
                         sweetAlert({
                             html: true,
                             icon: "success",
@@ -218,10 +218,6 @@
 
 
 
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
-</script>
-
 <script>
 
     function statusDetail(e) {
@@ -245,19 +241,6 @@
     }
 
 
-    function actionComplete(args) {
-        console.log(args);
-        if (args.requestType === 'beginEdit') {
-            var dialog = args.dialog;
 
-            dialog.header = 'Associate Job Opening';
-
-        }
-        else if (args.requestType === 'save') {
-          
-
-        }
-
-    }
 
 </script>

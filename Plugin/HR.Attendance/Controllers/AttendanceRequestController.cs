@@ -108,7 +108,9 @@ namespace HR.Attendance.Controllers
         }
         public IActionResult AttendanceRequestView()
         {
-            ViewBag.AttendanceRequest = _attendanceRequestService.GetAttendanceRequest();
+            Int64 createdBy = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 employeeId = _employeeService.GetEmployeeDetailsByUserId(createdBy).EmployeeId;
+            ViewBag.AttendanceRequest = _attendanceRequestService.GetAttendanceRequests(employeeId);
 
             return View("~/Plugins/HR.Attendance/Views/AttendanceRequest/AttendanceRequestView.cshtml");
         }

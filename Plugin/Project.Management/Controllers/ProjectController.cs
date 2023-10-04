@@ -162,6 +162,7 @@ namespace Projects.Management.Controller
             {
                 projectDTO.ProjectEmployees = new List<ProjectEmployeeDTO>();
                 projectDTO.ProjectUsers = new List<ProjectUserDTO>();
+                projectDTO.ProjectCode = "PROJ000" +( _projectService.GetProjects().Count + 1).ToString();
             }
 
             ViewBag.ProjectTypes = _projectTypeService.GetProjectTypes();

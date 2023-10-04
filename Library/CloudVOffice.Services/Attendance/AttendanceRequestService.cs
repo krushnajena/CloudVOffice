@@ -211,6 +211,18 @@ namespace CloudVOffice.Services.Attendance
             }
         }
 
+        public List<AttendanceRequest> GetAttendanceRequests(Int64 EmployeeId)
+        {
+            try
+            {
+                var attendance = _Context.AttendanceRequests.Where(x => x.EmployeeId ==  EmployeeId).ToList();
+                return attendance;
+            }
+            catch
+            {
+                throw;
+            }
+        }
     }
 
     }

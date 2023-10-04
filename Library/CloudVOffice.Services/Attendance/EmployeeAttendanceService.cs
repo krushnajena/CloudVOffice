@@ -4,6 +4,7 @@ using CloudVOffice.Core.Domain.HR.Attendance;
 using CloudVOffice.Data.DTO.Attendance;
 using CloudVOffice.Data.Persistence;
 using CloudVOffice.Data.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloudVOffice.Services.Attendance
 {
@@ -129,7 +130,9 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                return _Context.EmployeeAttendances.Where(x => x.Deleted == false).ToList();
+                return _Context.EmployeeAttendances
+                    .Include(s => s.Employee)
+                    .Where(x => x.Deleted == false).ToList();
 
 			}
 			catch

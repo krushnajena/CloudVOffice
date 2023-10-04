@@ -16,6 +16,7 @@
 		<None Remove="logo.png" />
 		<None Remove="plugin.json" />
 		<None Remove="roles.json" />
+		<None Remove="Views\AttendanceDashboard\Dashboard.cshtml" />
 		<None Remove="Views\AttendanceDevice\AttendanceDeviceView.cshtml" />
 		<None Remove="Views\AttendanceDevice\CreateAttendanceDevice.cshtml" />
 		<None Remove="Views\AttendanceRequest\AttendanceRequestCreate.cshtml" />

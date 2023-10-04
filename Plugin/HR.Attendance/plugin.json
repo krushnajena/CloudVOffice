@@ -1,14 +1,14 @@
 ﻿{
-  "Group": "HR",
+  "Group": "Attendance",
   "FriendlyName": "HR Attendance",
   "SystemName": "HR.Attendance",
-  "Version": 0.3,
-  "SupportedVersions": [ "0.1" ],
+  "Version": 2.7,
+  "SupportedVersions": [ "2.4" ],
   "Author": "Appman team",
   "DisplayOrder": 1,
   "FileName": "HR.Attendance.dll",
-  "Description": "Basic Employee Record Management System.",
-  "InstallationUrl": "/HR/HRAttendance/Install",
-  "UnInstallationUrl": "/HR/HRAttendance/Installation/UnInstall",
+  "Description": "Employee Attendance Record Management System.",
+  "InstallationUrl": "/Attendance/AttendanceInstall/Install",
+  "UnInstallationUrl": "/Attendance/AttendanceInstall/Installation/UnInstall",
   "Dependency": []
 }

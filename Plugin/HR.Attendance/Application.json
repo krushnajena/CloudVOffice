@@ -5,7 +5,7 @@
   "IconImageUrl": "/Plugin/HR.Attendance/logo.png",
   "IconClass": "",
   "AreaName": "Attendance",
-  "Roles": [ "HR Manager" ],
+  "Roles": [ "HR Manager", "Employee", "HR User" ],
   "Children": [
     {
       "ApplicationName": "Attendance",
@@ -14,7 +14,7 @@
       "IconImageUrl": "",
       "IconClass": "icon-event_note",
       "AreaName": "Attendance",
-      "Roles": [ "HR Manager" ],
+      "Roles": [ "HR Manager", "Employee", "HR User" ],
       "Children": [
 
         {
@@ -101,7 +101,7 @@
       "IconImageUrl": "",
       "IconClass": "icon-event_note",
       "AreaName": "Attendance",
-      "Roles": [ "HR Manager" ],
+      "Roles": [ "HR Manager", "Employee", "HR User" ],
       "Children": [
         {
           "ApplicationName": "Leave Policy",
@@ -141,7 +141,7 @@
       "IconImageUrl": "",
       "IconClass": "icon-event_note",
       "AreaName": "Attendance",
-      "Roles": [ "HR Manager" ],
+      "Roles": [ "HR Manager", "Employee", "HR User" ],
       "Children": [
         {
           "ApplicationName": "Attendance To Validate",
@@ -155,36 +155,7 @@
       ]
 
     }
-    //{
-    //  "ApplicationName": "Work From Home",
-    //  "Url": "",
-    //  "IsGroup": true,
-    //  "IconImageUrl": "",
-    //  "IconClass": "icon-event_note",
-    //  "AreaName": "Attendance",
-    //  "Roles": [ "HR Manager" ],
-    //  "Children": [
-    //    {
-    //      "ApplicationName": "Work From Home Request",
-    //      "IsGroup": false,
-    //      "Url": "/Attendance/WorkFromHomeRequest/WorkFromHomeRequestView",
-    //      "IconImageUrl": "",
-    //      "IconClass": "icon-event_note",
-    //      "AreaName": "Attendance",
-    //      "Roles": [ "Employee" ]
-    //    },
-    //    {
-    //      "ApplicationName": "Work From Home Request To Validate",
-    //      "IsGroup": false,
-    //      "Url": "/Attendance/AttendanceRequest/AttendanceToValidate",
-    //      "IconImageUrl": "",
-    //      "IconClass": "icon-event_note",
-    //      "AreaName": "Attendance",
-    //      "Roles": [ "Employee" ]
-    //    }
-    //  ]
-
-    //}
+   
   ]
 
 }

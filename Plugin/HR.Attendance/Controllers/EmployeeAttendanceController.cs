@@ -107,7 +107,7 @@ namespace HR.Attendance.Controllers
 
             return View("~/Plugins/HR.Attendance/Views/EmployeeAttendance/CreateEmployeeAttendance.cshtml", employeeAttendanceDTO);
         }
-        [Authorize(Roles = "HR Manager")]
+        [Authorize(Roles = "HR Manager , Employee")]
         public IActionResult EmployeeAttendanceView()
         {
             ViewBag.employeeAttendance = _employeeAttendanceService.GetEmployeeAttendanceList();

@@ -67,7 +67,7 @@
                             <e-grid-column field="MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
-
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -89,12 +89,7 @@
 
 
 
-<script id="Actions" type="text/x-template">
-    <div class="link">
-        <a href="../../uploads/Candidate/$(Cv) " download><i class="icon-get_app" style="font-size:22px"></i></a>
-        
-    </div>
-</script>
+
 
 
 
@@ -174,7 +169,7 @@
 
         }
         else if (args.requestType === 'save') {
-            var model = { "Comment": args.data.Comment, "CandidateId": args.data.CandidateId, "JobId": @ViewBag.JobId };
+            var model = { "Comment": args.data.Comment,  "CandidateId": args.data.CandidateId, "JobId": @ViewBag.JobId };
             console.log(
                 model
             )
@@ -193,6 +188,8 @@
                             title: "Job Application",
                             text: "Successfully Applied.",
                             type: "success"
+                        }).then(function () {
+                            window.location.reload();
                         });
                     }
                     else if (result == "16") {
@@ -202,6 +199,8 @@
                             title: "Job Application",
                             text: "Successfully Submit For Screening.",
                             type: "success"
+                        }).then(function () {
+                            window.location.reload();
                         });
                     }
                     else {
@@ -209,9 +208,8 @@
                             html: true,
                             icon: "error",
                             title: "Job Application",
-                            text: message,
+                            text: "Unexpected result: " + result, 
                             type: "error"
-                        });
                     }
 
                 },

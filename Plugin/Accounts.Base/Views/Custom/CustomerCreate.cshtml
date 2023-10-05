@@ -58,9 +58,9 @@
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-5">
-								<label for="EmployeeId" class="form-label">Employee</label>
-								<ejs-dropdownlist id="EmployeeId" allowFiltering="true" ejs-for="@Model.AccountManagerId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.Employees, "EmployeeId", "FullName").Items)" placeholder="Select Employee" popupHeight="220px">
-									<e-dropdownlist-fields text="FullName" value="EmployeeId"></e-dropdownlist-fields>
+								<label for="EmployeeId" class="form-label">Account Manager</label>
+								<ejs-dropdownlist id="UserId" allowFiltering="true" ejs-for="@Model.AccountManagerId" filtering="onEmployeerfiltering" dataSource="@(new SelectList((IEnumerable)ViewBag.User, "UserId", "FullName").Items)" placeholder="Select Account Manager" popupHeight="220px">
+									<e-dropdownlist-fields text="FullName" value="UserId"></e-dropdownlist-fields>
 								</ejs-dropdownlist>
 								<span asp-validation-for="AccountManagerId"></span>
 							</div>

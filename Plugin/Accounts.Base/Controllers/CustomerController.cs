@@ -3,6 +3,7 @@
 using CloudVOffice.Data.DTO.Custom;
 using CloudVOffice.Services.Custom;
 using CloudVOffice.Services.Emp;
+using CloudVOffice.Services.Users;
 using CloudVOffice.Web.Framework;
 using CloudVOffice.Web.Framework.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,14 @@ namespace Accounts.Base.Controllers
         private readonly ICustomerService _CustomerService;
         private readonly ICustomerGroupService _CustomerGroupService;
         private readonly IEmployeeService _empolyeeService;
-        public CustomerController(ICustomerService CustomerService, ICustomerGroupService customerGroupService, IEmployeeService employeeService)
+        private readonly IUserService _userService;
+		public CustomerController(ICustomerService CustomerService, ICustomerGroupService customerGroupService, IEmployeeService employeeService, IUserService userService )
         {
 
             _CustomerService = CustomerService;
             _CustomerGroupService = customerGroupService;
             _empolyeeService = employeeService;
+            _userService = userService;
         }
         [HttpGet]
         public IActionResult CustomerCreate(Int64? customerId)
@@ -33,7 +36,10 @@ namespace Accounts.Base.Controllers
             var employee = _empolyeeService.GetEmployees();
             ViewBag.Employees = employee;
 
-            if (customerId != null)
+			var User = _userService.GetAllUsers();
+			ViewBag.User = User;
+
+			if (customerId != null)
             {
 
                 var d = _CustomerService.GetCustomerByCustomerId(int.Parse(customerId.ToString()));

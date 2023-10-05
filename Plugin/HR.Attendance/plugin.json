@@ -2,7 +2,7 @@
   "Group": "Attendance",
   "FriendlyName": "HR Attendance",
   "SystemName": "HR.Attendance",
-  "Version": 2.7,
+  "Version": 2.8,
   "SupportedVersions": [ "2.4" ],
   "Author": "Appman team",
   "DisplayOrder": 1,

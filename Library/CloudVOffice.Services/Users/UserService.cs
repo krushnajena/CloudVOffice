@@ -1,4 +1,4 @@
-﻿    using CloudVOffice.Core.Domain.Common;
+﻿using CloudVOffice.Core.Domain.Common;
 using CloudVOffice.Core.Domain.Company;
 using CloudVOffice.Core.Domain.Comunication;
 using CloudVOffice.Core.Domain.EmailTemplates;
@@ -15,6 +15,7 @@ using CloudVOffice.Services.EmailTemplates;
 using CloudVOffice.Services.Permissions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 using System.Text;
 
 
@@ -84,73 +85,116 @@ namespace CloudVOffice.Services.Users
             var user = _context.Users.Include(s => s.UserRoleMappings).ThenInclude(a => a.Role)
 
              .Where(x => x.UserId == UserId).SingleOrDefault();
-            List<Application> application = new List<Application>();
+
+            List<int> roles = new List<int>();
             for (int i = 0; i < user.UserRoleMappings.Count; i++)
             {
-                var pmenu = _context.UserWiseViewMappers
+                roles.Add(user.UserRoleMappings[i].RoleId);
+            }
+
+            List<Application> application = new List<Application>();
+
+             var pmenu = _context.RoleAndApplicationWisePermissions
+                .Include(a => a.Application)
+                .Where(x => roles.Contains(x.RoleId) && x.Deleted == false && x.Application.Parent == null).ToList();
+             
+            
+            for (int j = 0, pc = 0; j < pmenu.Count; j++)
+            {
+                if (application.Where(x => x.ApplicationId == pmenu[j].ApplicationId).ToList().Count == 0)
+                {
+                    pmenu[j].Application.Children = new List<Application>();
+
+                    application.Add(pmenu[j].Application);
+
+                    var smenu = _context.RoleAndApplicationWisePermissions
                     .Include(a => a.Application)
-                    .Where(x => x.UserId == UserId && x.Deleted == false && x.Application.Parent == null).ToList();
-                for (int j = 0; j < pmenu.Count; j++)
-                {
-                    if (application.Where(x => x.ApplicationId == pmenu[j].ApplicationId).ToList().Count == 0)
-                    {
-                        pmenu[j].Application.Children = new List<Application>();
+                    .Where(x => roles.Contains(x.RoleId) && x.Deleted == false && x.Application.Parent == pmenu[j].ApplicationId).ToList();
 
-                        application.Add(pmenu[j].Application);
-                    }
-                }
-                for (int j = 0; j < application.Count; j++)
-                {
-                    var smenu = _context.UserWiseViewMappers
-                        .Include(a => a.Application)
-                        .Where(x => x.UserId == UserId && x.Deleted == false && x.Application.Parent == application[j].ApplicationId).ToList();
-                    for (int k = 0; k < smenu.Count; k++)
+                    for (int k = 0, sc = 0; k < smenu.Count; k++)
                     {
-                        var slist = application[j].Children;
-                        if (application[j].Children != null && application[j].Children.Count > 0)
-                        {
-                            int sapplicationId = smenu[k].ApplicationId;
-
-                            if (slist.Where(x => x.ApplicationId == sapplicationId).ToList().Count == 0)
-                            {
-                                smenu[k].Application.Children = new List<Application>();
-                                application[j].Children.Add(smenu[k].Application);
-                            }
-                        }
-                        else
+                        int ApplicationId = smenu[k].ApplicationId;
+                        var appli = application[pc];
+                        var Sappcheck = appli.Children.Where(x => x.ApplicationId == ApplicationId).ToList();
+                        if (Sappcheck.Count == 0)
                         {
                             smenu[k].Application.Children = new List<Application>();
-
-                            application[j].Children.Add(smenu[k].Application);
-                        }
-
-                        var tmenu = _context.UserWiseViewMappers
+                            application[pc].Children.Add(smenu[k].Application);
+                            var tmenu = _context.RoleAndApplicationWisePermissions
                             .Include(a => a.Application)
-                            .Where(x => x.UserId == UserId && x.Deleted == false && x.Application.Parent == application[j].Children[k].ApplicationId).ToList();
-                        for (int l = 0; l < tmenu.Count; l++)
-                        {
-                            var tlist = application[j].Children[k].Children;
-                            if (tlist != null && tlist.Count > 0)
-                            {
-                                int tapplicationId = tmenu[l].ApplicationId;
+                            .Where(x => roles.Contains(x.RoleId) && x.Deleted == false && x.Application.Parent == smenu[k].ApplicationId).ToList();
 
-                                if (tlist.Where(x => x.ApplicationId == tmenu[l].ApplicationId).ToList().Count == 0)
+                            for (int l = 0; l < tmenu.Count; l++)
+                            {
+                                var tappcheck = application[pc].Children[sc].Children.Where(x => x.ApplicationId == tmenu[l].ApplicationId).ToList();
+                                if (tappcheck.Count == 0)
                                 {
-                                    var napplication = tmenu[l].Application;
-                                    application[j].Children[k].Children.Add(napplication);
+                                    tmenu[l].Application.Children = new List<Application>();
+                                    application[pc].Children[sc].Children.Add(tmenu[l].Application);
                                 }
-                            }
-                            else
-                            {
-                                var napplication = tmenu[l].Application;
-                                application[j].Children[k].Children.Add(napplication);
-                            }
 
+                            }
+                            sc = sc + 1;
                         }
+                   
+
+
                     }
+                    pc = pc + 1;
+
                 }
 
+
             }
+            //for (int j = 0; j < application.Count; j++)
+            //{
+
+            //    for (int k = 0; k < smenu.Count; k++)
+            //    {
+
+            //        if (application[j].Children != null && application[j].Children.Count > 0)
+            //        {
+            //            int sapplicationId = smenu[k].ApplicationId;
+
+            //            if (slist.Where(x => x.ApplicationId == sapplicationId).ToList().Count == 0)
+            //            {
+            //                smenu[k].Application.Children = new List<Application>();
+            //                application[j].Children.Add(smenu[k].Application);
+            //            }
+            //        }
+            //        else
+            //        {
+            //            smenu[k].Application.Children = new List<Application>();
+
+            //            application[j].Children.Add(smenu[k].Application);
+            //        }
+
+            //         for (int l = 0; l < tmenu.Count; l++)
+            //        {
+            //            var tlist = application[j].Children[k].Children;
+            //            if (tlist != null && tlist.Count > 0)
+            //            {
+            //                int tapplicationId = tmenu[l].ApplicationId;
+
+            //                if (tlist.Where(x => x.ApplicationId == tmenu[l].ApplicationId).ToList().Count == 0)
+            //                {
+            //                    var napplication = tmenu[l].Application;
+            //                    application[j].Children[k].Children.Add(napplication);
+            //                }
+            //            }
+            //            else
+            //            {
+            //                var napplication = tmenu[l].Application;
+            //                application[j].Children[k].Children.Add(napplication);
+            //            }
+
+            //        }
+            //    }
+            //}
+
+
+
+
             return application;
 
         }

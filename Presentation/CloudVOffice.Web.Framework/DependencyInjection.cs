@@ -14,7 +14,7 @@ using CloudVOffice.Services.EmailTemplates;
 using CloudVOffice.Services.Emp;
 using CloudVOffice.Services.HR;
 using CloudVOffice.Services.HR.Master;
-using CloudVOffice.Services.Permissions;
+
 using CloudVOffice.Services.Projects;
 using CloudVOffice.Services.Recruitment;
 using CloudVOffice.Services.Recruitment.JA;
@@ -35,7 +35,7 @@ namespace CloudVOffice.Web.Framework
             services.AddScoped(typeof(ISqlRepository<>), typeof(SqlRepository<>));
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserViewPermissions, UserViewPermissionService>();
+         
             services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IApplicationInstallationService, ApplicationInstallationService>();

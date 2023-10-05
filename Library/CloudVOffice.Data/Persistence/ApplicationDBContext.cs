@@ -45,8 +45,7 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<RoleAndApplicationWisePermission> RoleAndApplicationWisePermissions { get; set; }
 
-        public virtual DbSet<UserWiseViewMapper> UserWiseViewMappers { get; set; }
-
+    
 
         public virtual DbSet<InstalledApplication> InstalledApplications { get; set; }
 
@@ -267,14 +266,6 @@ namespace CloudVOffice.Data.Persistence
 
 
 
-            modelBuilder.Entity<UserWiseViewMapper>()
-      .Property(s => s.CreatedDate)
-      .HasDefaultValueSql("getdate()");
-
-            modelBuilder.Entity<UserWiseViewMapper>()
-             .Property(s => s.Deleted)
-             .HasDefaultValue(false)
-             .ValueGeneratedNever();
 
 
 
@@ -345,14 +336,7 @@ namespace CloudVOffice.Data.Persistence
              .ValueGeneratedNever();
 
 
-            modelBuilder.Entity<UserWiseViewMapper>()
-.Property(s => s.CreatedDate)
-.HasDefaultValueSql("getdate()");
-
-            modelBuilder.Entity<UserWiseViewMapper>()
-             .Property(s => s.Deleted)
-             .HasDefaultValue(false)
-             .ValueGeneratedNever();
+      
 
             #endregion
 

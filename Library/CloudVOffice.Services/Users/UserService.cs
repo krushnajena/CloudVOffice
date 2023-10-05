@@ -12,7 +12,7 @@ using CloudVOffice.Services.Company;
 using CloudVOffice.Services.Comunication;
 using CloudVOffice.Services.Email;
 using CloudVOffice.Services.EmailTemplates;
-using CloudVOffice.Services.Permissions;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Math.EC.Rfc7748;
@@ -26,8 +26,8 @@ namespace CloudVOffice.Services.Users
         private readonly ApplicationDBContext _context;
         private readonly ISqlRepository<User> _userRepo;
         private readonly ISqlRepository<UserRoleMapping> _userrolemappingRepo;
-        private readonly ISqlRepository<UserWiseViewMapper> _userViewmappingRepo;
-        private readonly IUserViewPermissions _userViewPermissions;
+    
+    
         private readonly IEmailTemplateService _emailTemplateService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ICompanyDetailsService _companyDetailsService;
@@ -37,7 +37,7 @@ namespace CloudVOffice.Services.Users
         public UserService(ApplicationDBContext context,
             ISqlRepository<User> userRepo,
             ISqlRepository<UserRoleMapping> userrolemappingRepo,
-            IUserViewPermissions userViewPermissions,
+         
              IEmailTemplateService emailTemplateService,
              IHttpContextAccessor httpContextAccessor,
              ICompanyDetailsService companyDetailsService,
@@ -49,7 +49,7 @@ namespace CloudVOffice.Services.Users
             _context = context;
             _userRepo = userRepo;
             _userrolemappingRepo = userrolemappingRepo;
-            _userViewPermissions = userViewPermissions;
+         
             _emailTemplateService = emailTemplateService;
             _httpContextAccessor = httpContextAccessor;
             _letterHeadService = letterHeadService;
@@ -226,7 +226,7 @@ namespace CloudVOffice.Services.Users
                         if (userCreateDTO.roles[i].IsSelected == true)
                         {
                             AssignRole(obj.UserId, userCreateDTO.roles[i].RoleId);
-                            _userViewPermissions.AssignViewPermissions(obj.UserId, userCreateDTO.roles[i].RoleId);
+                         
                         }
 
                     }
@@ -252,7 +252,7 @@ namespace CloudVOffice.Services.Users
         {
             var user = _context.Users
                 .Include(x => x.UserRoleMappings)
-                .Include(x => x.UserWiseViewMapper)
+             
                 .SingleOrDefault(opt => opt.UserId == userCreateDTO.UserId && opt.Deleted == false);
             if (user != null)
             {
@@ -272,7 +272,7 @@ namespace CloudVOffice.Services.Users
                 for (int i = 0; i < UnAsignedRoles.Count; i++)
                 {
                     UnAssignRole(user.UserId, UnAsignedRoles[i].RoleId);
-                    _userViewPermissions.UnAssignViewPermissions(user.UserId, userCreateDTO.roles[i].RoleId);
+                   
 
                 }
                 for (int i = 0; i < userCreateDTO.roles.Count; i++)
@@ -280,7 +280,7 @@ namespace CloudVOffice.Services.Users
                     if (userCreateDTO.roles[i].IsSelected == true)
                     {
                         AssignRole(user.UserId, userCreateDTO.roles[i].RoleId);
-                        _userViewPermissions.AssignViewPermissions(user.UserId, userCreateDTO.roles[i].RoleId);
+                      
                     }
 
                 }

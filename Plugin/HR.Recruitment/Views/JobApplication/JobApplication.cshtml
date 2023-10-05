@@ -67,7 +67,7 @@
                             <e-grid-column field="MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
-
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -89,12 +89,7 @@
 
 
 
-<script id="Actions" type="text/x-template">
-    <div class="link">
-        <a href="../../uploads/Candidate/$(Cv) " download><i class="icon-get_app" style="font-size:22px"></i></a>
-        
-    </div>
-</script>
+
 
 
 

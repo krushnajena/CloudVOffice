@@ -106,7 +106,7 @@ namespace CloudVOffice.Web
                 .UseSqlServerStorage(configRoot.GetConnectionString("ConnStringMssql")));
             // Add the processing server as IHostedService
             services.AddHangfireServer();
-
+            services.AddMemoryCache();
 
             services.AddHttpContextAccessor();
             var mvcBuilder = services.AddControllersWithViews();

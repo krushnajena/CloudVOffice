@@ -3,7 +3,9 @@
 @using System.Collections.Generic;
 @using Microsoft.AspNetCore.Http
 @using CloudVOffice.Services.Users;
+@using Microsoft.Extensions.Caching.Memory;
 @inject IUserService _userService;
+@inject IMemoryCache _cache;
 <aside class="app-side fixed" id="app-side">
     <!-- BEGIN .side-content -->
     <div class="side-content ">
@@ -24,8 +26,16 @@
                 <ul class="unifyMenu" id="unifyMenu">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        var nmenu =   _userService.GetUserMenu(Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
-                         var menujson = Newtonsoft.Json.JsonConvert.SerializeObject(nmenu);
+                        string cacheKey = $"UserData_{User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()}";
+                        if (!_cache.TryGetValue(cacheKey, out List<Application> nmenu))
+                        {
+                            nmenu = _userService.GetUserMenu(Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
+
+                            // Store the data in the cache with a specific expiration time (e.g., 15 minutes)
+                            _cache.Set(cacheKey, nmenu, TimeSpan.FromMinutes(15));
+                        }
+
+                        var menujson = Newtonsoft.Json.JsonConvert.SerializeObject(nmenu);
                             JsonConvert.DeserializeObject<List<Application>>(menujson);
                         var menu = menujson;
                         {

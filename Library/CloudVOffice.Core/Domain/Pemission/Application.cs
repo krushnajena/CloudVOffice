@@ -21,6 +21,6 @@
         public List<Application> Children { get; set; }
 
         public ICollection<RoleAndApplicationWisePermission> RoleAndModuleWisePermission { get; set; }
-        public ICollection<UserWiseViewMapper> UserWiseViewMapper { get; set; }
+     
     }
 }

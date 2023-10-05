@@ -45,8 +45,7 @@ namespace CloudVOffice.Data.Persistence
 
         public virtual DbSet<RoleAndApplicationWisePermission> RoleAndApplicationWisePermissions { get; set; }
 
-        public virtual DbSet<UserWiseViewMapper> UserWiseViewMappers { get; set; }
-
+    
 
         public virtual DbSet<InstalledApplication> InstalledApplications { get; set; }
 
@@ -204,10 +203,11 @@ namespace CloudVOffice.Data.Persistence
         public virtual DbSet<CustomerGroup> CustomerGroups { get; set; }
 
         public virtual DbSet<Customer> Customers { get; set; }
+		public virtual DbSet<SupplierGroup> SupplierGroups { get; set; }
 
-        #endregion
+		#endregion
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             #region Base
@@ -266,14 +266,6 @@ namespace CloudVOffice.Data.Persistence
 
 
 
-            modelBuilder.Entity<UserWiseViewMapper>()
-      .Property(s => s.CreatedDate)
-      .HasDefaultValueSql("getdate()");
-
-            modelBuilder.Entity<UserWiseViewMapper>()
-             .Property(s => s.Deleted)
-             .HasDefaultValue(false)
-             .ValueGeneratedNever();
 
 
 
@@ -344,14 +336,7 @@ namespace CloudVOffice.Data.Persistence
              .ValueGeneratedNever();
 
 
-            modelBuilder.Entity<UserWiseViewMapper>()
-.Property(s => s.CreatedDate)
-.HasDefaultValueSql("getdate()");
-
-            modelBuilder.Entity<UserWiseViewMapper>()
-             .Property(s => s.Deleted)
-             .HasDefaultValue(false)
-             .ValueGeneratedNever();
+      
 
             #endregion
 
@@ -507,10 +492,19 @@ namespace CloudVOffice.Data.Persistence
              .HasDefaultValue(false)
              .ValueGeneratedNever();
 
-            #endregion
+			modelBuilder.Entity<SupplierGroup>()
+	.Property(s => s.CreatedDate)
+	.HasDefaultValueSql("getdate()");
 
-            #region Project
-            modelBuilder.Entity<ProjectType>()
+			modelBuilder.Entity<SupplierGroup>()
+			 .Property(s => s.Deleted)
+			 .HasDefaultValue(false)
+			 .ValueGeneratedNever();
+
+			#endregion
+
+			#region Project
+			modelBuilder.Entity<ProjectType>()
     .Property(s => s.CreatedDate)
     .HasDefaultValueSql("getdate()");
 

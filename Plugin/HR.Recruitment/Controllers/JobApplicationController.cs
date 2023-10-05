@@ -97,7 +97,7 @@ namespace HR.Recruitment.Controllers
             return Json(a);
         }
 
-        public IActionResult CandidateApplicationsStatus(int JobId)
+        public IActionResult SendAppl(int JobId)
         {
             var a = _jobApplicationService.GetCandidateByJobApplication(JobId);
             ViewBag.candidateApplications = a;

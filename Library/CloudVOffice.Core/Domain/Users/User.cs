@@ -50,9 +50,7 @@ namespace CloudVOffice.Core.Domain.Users
         }
 
         public List<UserRoleMapping> UserRoleMappings { get; set; }
-        public List<UserWiseViewMapper> UserWiseViewMapper { get; set; }
-
-
+  
 
 
 

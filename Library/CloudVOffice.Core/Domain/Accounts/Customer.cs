@@ -1,4 +1,5 @@
 ﻿using CloudVOffice.Core.Domain.HR.Emp;
+using CloudVOffice.Core.Domain.Users;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloudVOffice.Core.Domain.Custom
@@ -33,7 +34,7 @@ namespace CloudVOffice.Core.Domain.Custom
         public CustomerGroup CustomerGroup { get; set; }
 
         [ForeignKey("AccountManagerId")]
-        public Employee Employee { get; set; }
+        public User User { get; set; }
 
 
     }

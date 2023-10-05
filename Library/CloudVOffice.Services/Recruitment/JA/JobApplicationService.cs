@@ -44,14 +44,22 @@ namespace CloudVOffice.Services.Recruitment.JA
                     _jobApplicationStatusService.CreateJobApplicationStatus(new JobApplicationStatusDTO
                     {
                         JobApplicationId = obj.JobApplicationId,
-                        Status = 1,
+                        Status = jobApplicationDTO.CurrentStatus,
                         StatusUpBy = 1,
                         Comment = jobApplicationDTO.Comment,
                         EmployeeId = jobApplicationDTO.TagId,
                         CreatedBy = jobApplicationDTO.CreatedBy,
                         
                     }) ;
-                    return MessageEnum.Success;
+                    if(jobApplicationDTO.CurrentStatus == 1)
+                    {
+                            return MessageEnum.Applied;
+                    }
+                    else if (jobApplicationDTO.CurrentStatus == 2)
+                    {
+                        return MessageEnum.SubmitForScreening;
+                    }
+
                 }
                 else if (objCheck != null)
                 {

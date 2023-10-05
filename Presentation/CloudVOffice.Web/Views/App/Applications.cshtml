@@ -2,7 +2,9 @@
 @using CloudVOffice.Core.Domain.Pemission;
 @using System.Collections.Generic;
 @using CloudVOffice.Services.Users;
+@using Microsoft.Extensions.Caching.Memory;
 @inject IUserService _userService;
+@inject IMemoryCache _cache;
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -18,7 +20,15 @@
 
             @if (User.Identity.IsAuthenticated)
             {
-                var nmenu =   _userService.GetUserMenu(Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
+                string cacheKey = $"UserData_{User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()}";
+                if (!_cache.TryGetValue(cacheKey, out List<Application> nmenu))
+                {
+                    nmenu = _userService.GetUserMenu(Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()));
+
+                    // Store the data in the cache with a specific expiration time (e.g., 15 minutes)
+                    _cache.Set(cacheKey, nmenu, TimeSpan.FromMinutes(15));
+                }
+                
                 var menujson = Newtonsoft.Json.JsonConvert.SerializeObject(nmenu);
                             JsonConvert.DeserializeObject<List<Application>>(menujson);
                 var menu = menujson;

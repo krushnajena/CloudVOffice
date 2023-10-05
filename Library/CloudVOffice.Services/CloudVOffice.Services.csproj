@@ -27,4 +27,8 @@
     <ProjectReference Include="..\CloudVOffice.Data\CloudVOffice.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Permissions\" />
+  </ItemGroup>
+
 </Project>

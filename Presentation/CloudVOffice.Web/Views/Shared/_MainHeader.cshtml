@@ -1,4 +1,9 @@
-﻿<header class="app-header">
+﻿@using Microsoft.Extensions.Caching.Memory;
+@using CloudVOffice.Services.Company;
+@using CloudVOffice.Core.Domain.Company;
+@inject IMemoryCache _cache;
+@inject ICompanyDetailsService _companyDetailsService
+<header class="app-header">
 	<div class="container-fluid">
 		<div class="row ">
 			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col">
@@ -12,15 +17,24 @@
 			</div>
 		
 			<div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col">
-				@if (User.Identity.IsAuthenticated)
-				{
-					@if (@User.Claims.Any(x => x.Type == "CompanyImage"))
+				@{
+					string cacheKey = $"CompanyLogo";
+					if (!_cache.TryGetValue(cacheKey, out CompanyDetails
+					codetails))
 					{
-						<img class="avatar" style="height:50px;margin:10px;" src="~/uploads/setup/@User.Claims.FirstOrDefault(x => x.Type == "CompanyImage").Value" alt="@User.Claims.FirstOrDefault(x => x.Type == "CompanyName").Value">
+						codetails = _companyDetailsService.GetCompanyDetails();
+
+						// Store the data in the cache with a specific expiration time (e.g., 15 minutes)
+						_cache.Set(cacheKey, codetails, TimeSpan.FromMinutes(15));
 					}
 
+					if (codetails != null)
+					{
+						<img class="avatar" style="height:50px;margin:10px;" src="~/uploads/setup/@codetails.CompanyLogo" alt="@codetails.CompanyName">
+					}
 
 				}
+				
 			</div>
 			<div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col">
 				<ul class="header-actions">

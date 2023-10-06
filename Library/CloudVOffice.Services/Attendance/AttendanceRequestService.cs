@@ -171,7 +171,7 @@ namespace CloudVOffice.Services.Attendance
                         var b = _employeeAttendanceService.GetEmployeeAttendanceUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
 
                         var c = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
-                        var d = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
+                        //var d = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()),attendances.CheckInTime,attendances.CheckOutTime);
 
                         return b;
 

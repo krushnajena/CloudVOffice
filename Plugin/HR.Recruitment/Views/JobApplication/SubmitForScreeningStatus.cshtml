@@ -1,0 +1,264 @@
+﻿@{
+    Layout = "_MainAppLayout";
+    ViewData["Title"] = "Job Application";
+}
+@addTagHelper *, Syncfusion.EJ2
+@using CloudVOffice.Core.Domain.Common;
+<header class="main-heading">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <div class="page-icon">
+                    <i class="icon-laptop_windows"></i>
+                </div>
+                <div class="page-title">
+                    <h5>Candidate</h5>
+                    <h6 class="sub-heading">  </h6>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                <div class="right-actions">
+                    <span class="last-login">  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="main-content">
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+            <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.candidateApplications"
+                              allowFiltering="true" allowSorting="true"
+                              allowExcelExport="true" allowGrouping="true"
+                              allowMultiSorting="true"
+                              allowPdfExport="true"
+                              height="600" rowHeight="38"
+                              enableHover="false" enableHeaderFocus="true"
+                              allowResizing="true" autoFit="true" dataBound="dataBound"
+                              enableVirtualization="true" allowSelection="true"
+                              toolbarClick="toolbarClick" toolbar="@(new List<string>() {"ExcelExport", "PdfExport", "CsvExport" ,"Search"})">
+                        <e-grid-editSettings allowAdding="false"
+                                             allowDeleting="false"
+                                             allowEditing="true"
+                                             mode="Dialog"
+                                             template='#dialogtemplate'>
+
+
+                        </e-grid-editSettings>
+
+                        <e-grid-filtersettings type="Menu"></e-grid-filtersettings>
+
+                        <e-grid-selectionsettings persistSelection="true" type="Multiple" checkboxOnly="true"></e-grid-selectionsettings>
+                        <e-grid-columns>
+                            <e-grid-column field="Candidate.FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Candidate.StreetAddress" headerText="Street Address" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Candidate.MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
+                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
+                          
+                        </e-grid-columns>
+                    </ejs-grid>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+</script>
+
+<script id='dialogtemplate' type="text/x-template">
+    <div id="dialogTemp" >
+         <div class="form-row">
+
+
+             <div class="form-group col-md-12">
+                 <label for="Priority" class="form-label">Take Action</label>
+                 <select id="Status"  class="form-control"  name="Status" >
+                     <option value="1">Submit Screening Status</option>
+                     <option value="2">Rejected</option>
+                 </select>
+             </div>
+
+
+             <div class="form-group col-md-12">
+                 <label for="Comment" class="form-label">Comment</label>
+
+                  <textarea id="Comment"  class="form-control"  name = "Comment"  >
+                     </textarea>
+
+
+             </div>
+
+         </div>
+
+
+
+     </div>
+</script>
+
+
+<script id="statusTemplate" type="text/x-template">
+    ${statusDetail(data)}
+</script>
+
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
+        if (args.item.id === 'GridOverview_pdfexport') {
+            gridObj.pdfExport();
+        }
+        if (args.item.id === 'GridOverview_excelexport') {
+            gridObj.excelExport();
+        }
+        if (args.item.id === 'GridOverview_csvexport') {
+            gridObj.csvExport();
+        }
+    }
+    function exportQueryCellInfo(args) {
+        if (args.column.headerText === 'Employee Image') {
+            if (args.name === "excelQueryCellInfo") {
+                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
+            } else {
+                args.image = { base64: args.data["EmployeeImage"] };
+            }
+        }
+        if (args.column.headerText === 'Track') {
+            args.hyperLink = {
+                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
+                displayText: "Track"
+            };
+        }
+    };
+
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
+</script>
+
+
+
+
+
+<script>
+    function toolbarClick(args) {
+        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
+        if (args.item.id === 'GridOverview_pdfexport') {
+            gridObj.pdfExport();
+        }
+        if (args.item.id === 'GridOverview_excelexport') {
+            gridObj.excelExport();
+        }
+        if (args.item.id === 'GridOverview_csvexport') {
+            gridObj.csvExport();
+        }
+    }
+    function exportQueryCellInfo(args) {
+        if (args.column.headerText === 'Employee Image') {
+            if (args.name === "excelQueryCellInfo") {
+                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
+            } else {
+                args.image = { base64: args.data["EmployeeImage"] };
+            }
+        }
+        if (args.column.headerText === 'Track') {
+            args.hyperLink = {
+                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
+                displayText: "Track"
+            };
+        }
+    };
+    function actionComplete(args) {
+        console.log(args);
+        if (args.requestType === 'beginEdit') {
+            var dialog = args.dialog;
+
+            dialog.header = 'JobApplication Validation';
+
+        }
+        else if (args.requestType === 'save') {
+            var model = {
+                "Comment": args.data.Comment, "CandidateId": args.data.CandidateId, "JobId": @ViewBag.JobId , "CurrentStatus": args.data.Status
+            }
+            console.log(
+                model
+            )
+
+            $.ajax({
+                type: "POST",
+                url: '/Recruitment/JobApplication/SubmitForScreeningStatus',
+                data: model,
+
+                success: function (result) {
+                    console.log(result);
+                    if (result == "16") {
+                        sweetAlert({
+                            html: true,
+                            icon: "success",
+                            title: "Job Application",
+                            text: "Successfully Submit For Screening.",
+                            type: "success"
+                        }).then(function () {
+                            window.location.reload();
+                        });;
+                    }
+                    else if (result == "11") {
+                        sweetAlert({
+                            html: true,
+                            icon: "Rejected",
+                            title: "Job Application",
+                            text: "Rejected.",
+                            type: "Rejected"
+                        }).then(function () {
+                            window.location.reload();
+                        });;
+                    }
+                    else if (result == "3") {
+                        sweetAlert({
+                            html: true,
+                            icon: "warning",
+                            title: "Job Application",
+                            text: "Already Submitted.",
+                            type: "warning"
+                        }).then(function () {
+                            window.location.reload();
+                        });;
+                    }
+                    else {
+                        sweetAlert({
+                            html: true,
+                            icon: "error",
+                            title: "Job Application",
+                            text: "Failed",
+                            type: "error"
+                        }).then(function () {
+                            window.location.reload();
+                        });;
+                    }
+
+                },
+                error: function () {
+
+                }
+            });
+
+        }
+
+    }
+
+
+    function dataBound(args) {
+        this.autoFitColumns();
+    }
+</script>

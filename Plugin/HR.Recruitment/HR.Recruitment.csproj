@@ -25,6 +25,7 @@
 		<None Remove="Views\InterviewRound\InterviewRoundView.cshtml" />
 		<None Remove="Views\JobApplication\CandidateApplicationsStatus.cshtml" />
 		<None Remove="Views\JobApplication\JobApplication.cshtml" />
+		<None Remove="Views\JobApplication\SubmitForScreeningStatus.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningCreate.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningView.cshtml" />
 		<None Remove="Views\JobOpening\JobOpeningViewDetails.cshtml" />

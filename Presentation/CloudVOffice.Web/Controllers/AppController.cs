@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using System.Security.Claims;
 
 namespace CloudVOffice.Web.Controllers
@@ -19,16 +20,19 @@ namespace CloudVOffice.Web.Controllers
         private readonly IUserService _userService;
         private readonly IEmployeeService _employeeService;
         private readonly ICompanyDetailsService _companyDetailsService;
+        private readonly IMemoryCache _cache;
         public AppController(IUserAuthenticationService userauthenticationService,
             IUserService userService,
             IEmployeeService employeeService,
-            ICompanyDetailsService companyDetailsService
+            ICompanyDetailsService companyDetailsService,
+            IMemoryCache memoryCache
             )
         {
             _userauthenticationService = userauthenticationService;
             _userService = userService;
             _employeeService = employeeService;
             _companyDetailsService = companyDetailsService;
+            _cache = memoryCache;
 
         }
         public IActionResult Login()
@@ -84,8 +88,7 @@ namespace CloudVOffice.Web.Controllers
                     case UserLoginResults.Successful:
                         {
                             var userDetails = await _userService.GetUserByEmailAsync(Email);
-                            var companyDetails = _companyDetailsService.GetCompanyDetails();
-
+                         
                             var claims = new List<Claim>
                             {
                                 new Claim(ClaimTypes.Email, userDetails.Email),
@@ -101,11 +104,7 @@ namespace CloudVOffice.Web.Controllers
                             {
                                 claims.Add(new Claim("EmployeeImage", employee.Photo));
                             }
-                            if (companyDetails != null)
-                            {
-                                claims.Add(new Claim("CompanyImage", companyDetails.CompanyLogo));
-                                claims.Add(new Claim("CompanyName", companyDetails.CompanyName));
-                            }
+                           
                             claims.AddRange(userDetails.UserRoleMappings.Select(role => new Claim(ClaimTypes.Role, role.Role.RoleName)));
 
                             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -139,6 +138,12 @@ namespace CloudVOffice.Web.Controllers
         public async Task<IActionResult> LogOut()
         {
             //SignOutAsync is Extension method for SignOut    
+         
+            if (User.Identity.IsAuthenticated)
+            {
+                string cacheKey = $"UserData_{User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString()}";
+                _cache.Remove(cacheKey);
+            }
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             //Redirect to home page    
             return LocalRedirect("/App/Login");

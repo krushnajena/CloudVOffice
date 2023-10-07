@@ -163,7 +163,7 @@ namespace CloudVOffice.Services.Recruitment.JA
             {
                  return _Context.JobApplications
                 .Include(x => x.Candidate)
-                .Where(x => x.JobId == JobId && x.CurrentStatus == 1 && !x.Deleted)
+                .Where(x => x.JobId == JobId && x.CurrentStatus == 1 && x.Deleted == false)
                 .ToList();
             }
             catch

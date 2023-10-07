@@ -97,11 +97,12 @@ namespace HR.Recruitment.Controllers
             return Json(a);
         }
 
-        public IActionResult SendAppl(int JobId)
+        public IActionResult SubmitForScreeningStatus(int JobId)
         {
             var a = _jobApplicationService.GetCandidateByJobApplication(JobId);
             ViewBag.candidateApplications = a;
-            return View("~/Plugins/HR.Recruitment/Views/JobApplication/CandidateApplicationsStatus.cshtml");
+            
+            return View("~/Plugins/HR.Recruitment/Views/JobApplication/SubmitForScreeningStatus.cshtml");
         }
 
     }

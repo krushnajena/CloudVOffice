@@ -101,6 +101,7 @@ namespace HR.Recruitment.Controllers
         {
             var a = _jobApplicationService.GetCandidateByJobApplication(JobId);
             ViewBag.candidateApplications = a;
+            ViewBag.Jobid = JobId;
             
             return View("~/Plugins/HR.Recruitment/Views/JobApplication/SubmitForScreeningStatus.cshtml");
         }

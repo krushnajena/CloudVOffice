@@ -29,7 +29,9 @@
 <div class="main-content">
     <div class="row gutters">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-
+            <div class="card">
+                @Html.Partial("../Shared/_ReqProcessLinks.cshtml", (string)ViewBag.Jobid.ToString())
+            </div>
             <div class="card">
                 <div class="card-header">
                 </div>
@@ -61,9 +63,9 @@
                             <e-grid-column field="Candidate.FullName" headerText="Full Name" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Candidate.StreetAddress" headerText="Street Address" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Candidate.MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>
-                            <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
-                          
+                            @*<e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>*@
+                          @*  <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>*@
+                            <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
 
@@ -74,8 +76,10 @@
 
 </div>
 
-<script id="statusTemplate" type="text/x-template">
-    ${statusDetail(data)}
+<script id="Actions" type="text/x-template">
+    <div class="link">
+        <a href="../../uploads/Candidate/${Cv}" download><i class="icon-download3" style="font-size:22px"></i></a>
+    </div>
 </script>
 
 <script id='dialogtemplate' type="text/x-template">
@@ -261,4 +265,30 @@
     function dataBound(args) {
         this.autoFitColumns();
     }
+</script>
+<script>
+
+    function statusDetail(e) {
+        if (e.Status == 1) {
+            return '<span>New</span>';
+        } else if (e.Status == 2) {
+            return '<span> Blacklisted </span>';
+        }
+        else if (e.Status == 3) {
+            return '<span>Hired</span>';
+        }
+        else if (e.Status == 4) {
+            return '<span>Rejected</span>';
+        }
+        else if (e.Status == 5) {
+            return '<span>Offered</span>';
+        }
+
+
+
+    }
+
+
+
+
 </script>

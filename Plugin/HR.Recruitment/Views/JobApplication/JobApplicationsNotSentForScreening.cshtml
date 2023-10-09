@@ -38,7 +38,7 @@
                
                 <div class="card-body">
 
-                    <ejs-grid id="GridOverview" dataSource="ViewBag.candidateApplications"
+                    <ejs-grid id="GridOverview" dataSource="ViewBag.Candidate"
                               allowFiltering="true" allowSorting="true"
                               allowExcelExport="true" allowGrouping="true"
                               allowMultiSorting="true"
@@ -65,7 +65,7 @@
                             <e-grid-column field="Candidate.StreetAddress" headerText="Street Address" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column field="Candidate.MobileNo" headerText="Mobile No" textAlign="Left" width="120"></e-grid-column>
                             @*<e-grid-column field="JobApplicationSource.SourceName" headerText="Application Source" textAlign="Left" width="120"></e-grid-column>*@
-                          @*  <e-grid-column field="Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>*@
+                            <e-grid-column field="Candidate.Status" headerText="Status" template="#statusTemplate" textAlign="Left" width="120"></e-grid-column>
                             <e-grid-column headerText="Action" template="#Actions" width="100"></e-grid-column>
                         </e-grid-columns>
                     </ejs-grid>
@@ -118,39 +118,7 @@
     ${statusDetail(data)}
 </script>
 
-<script>
-    function toolbarClick(args) {
-        var gridObj = document.getElementById("GridOverview").ej2_instances[0];
-        if (args.item.id === 'GridOverview_pdfexport') {
-            gridObj.pdfExport();
-        }
-        if (args.item.id === 'GridOverview_excelexport') {
-            gridObj.excelExport();
-        }
-        if (args.item.id === 'GridOverview_csvexport') {
-            gridObj.csvExport();
-        }
-    }
-    function exportQueryCellInfo(args) {
-        if (args.column.headerText === 'Employee Image') {
-            if (args.name === "excelQueryCellInfo") {
-                args.image = { height: 75, base64: args.data["EmployeeImage"], width: 75 };
-            } else {
-                args.image = { base64: args.data["EmployeeImage"] };
-            }
-        }
-        if (args.column.headerText === 'Track') {
-            args.hyperLink = {
-                target: "../../DMS/DesktopLogin/Track?id=" + args.data["erpUser"],
-                displayText: "Track"
-            };
-        }
-    };
 
-    function dataBound(args) {
-        this.autoFitColumns();
-    }
-</script>
 
 
 

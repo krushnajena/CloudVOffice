@@ -101,7 +101,7 @@ namespace CloudVOffice.Services.Recruitment.JA
 
 
 
-        public MessageEnum JobApplicationDelete(long jobApplicationId, long DeletedBy)
+        public MessageEnum JobApplicationDelete(Int64 jobApplicationId, Int64 DeletedBy)
         {
             try
             {
@@ -123,41 +123,8 @@ namespace CloudVOffice.Services.Recruitment.JA
             }
         }
 
-        public MessageEnum JobApplicationUpdate(JobApplicationDTO jobApplicationDTO)
-        {
-            try
-            {
-                var jobApplication = _Context.JobApplications.Where(x => x.JobApplicationId != jobApplicationDTO.JobApplicationId && x.JobId == jobApplicationDTO.JobId && x.Deleted == false).FirstOrDefault();
-                if (jobApplication == null)
-                {
-                    var a = _Context.JobApplications.Where(x => x.JobApplicationId == jobApplicationDTO.JobApplicationId).FirstOrDefault();
-                    if (a != null)
-                    {
-                        a.JobId = jobApplicationDTO.JobId;
-                        a.CandidateId = jobApplicationDTO.CandidateId;
-                      
-                        a.UpdatedBy = jobApplicationDTO.CreatedBy;
-                        a.UpdatedDate = DateTime.Now;
-
-                        _Context.SaveChanges();
-                        return MessageEnum.Updated;
-                    }
-                    else
-                        return MessageEnum.Invalid;
-                }
-                else
-                {
-                    return MessageEnum.Duplicate;
-                }
-
-            }
-            catch
-            {
-                throw;
-            }
-        }
-
-        public List<JobApplication> GetCandidateByJobApplication(int JobId)
+       
+        public List<JobApplication> JobApplicationsNotSentForScreening(int JobId)
         {
             try
             {
@@ -171,5 +138,44 @@ namespace CloudVOffice.Services.Recruitment.JA
                 throw;
             }
         }
+        public MessageEnum SubmitForScreeningStatus(JobApplicationDTO jobApplicationDTO)
+        {
+            try
+            {
+
+                var a = _Context.JobApplications.Where(x => x.JobId == jobApplicationDTO.JobId ).FirstOrDefault();
+                if (a != null)
+                {
+                   
+                    a.CurrentStatus = jobApplicationDTO.CurrentStatus;
+                    a.UpdatedBy = jobApplicationDTO.CreatedBy;
+                    a.UpdatedDate = DateTime.Now;
+                    _Context.SaveChanges();
+                    return MessageEnum.Updated;
+
+
+                }
+                var b = _Context.JobApplicationStatuses.Where(x => x.JobApplicationId == jobApplicationDTO.JobApplicationId).FirstOrDefault();
+
+                _jobApplicationStatusService.CreateJobApplicationStatus(new JobApplicationStatusDTO
+                {
+                    JobApplicationId = (Int64)jobApplicationDTO.JobApplicationId,
+                    Status = jobApplicationDTO.CurrentStatus,
+                    StatusUpBy = 1,
+                    Comment = jobApplicationDTO.Comment,
+                    EmployeeId = jobApplicationDTO.TagId,
+                    CreatedBy = jobApplicationDTO.CreatedBy,
+
+                });
+                return MessageEnum.Success;
+
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+
     }
 }

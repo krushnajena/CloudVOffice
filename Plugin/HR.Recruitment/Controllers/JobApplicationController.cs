@@ -40,7 +40,7 @@ namespace HR.Recruitment.Controllers
              List<int> skills = new List<int>();
             var skil = job.JobOpeningSkills.ToList();
              for(int i=0;i< skil.Count; i++)
-             {
+             {          
                  skills.Add(skil[i].SkillId);
              }
              int exp = 0;
@@ -97,14 +97,45 @@ namespace HR.Recruitment.Controllers
             return Json(a);
         }
 
-        public IActionResult SubmitForScreeningStatus(int JobId)
+        
+
+        [HttpPost]
+        public JsonResult SubmitForScreeningStatus(JobApplicationDTO jobApplicationDTO)
         {
-            var a = _jobApplicationService.GetCandidateByJobApplication(JobId);
-            ViewBag.candidateApplications = a;
-            ViewBag.Jobid = JobId;
-            
-            return View("~/Plugins/HR.Recruitment/Views/JobApplication/SubmitForScreeningStatus.cshtml");
+            Int64 UserId = Int64.Parse(User.Claims.FirstOrDefault(x => x.Type == "UserId").Value.ToString());
+            Int64 EmployeeId;
+            var employee = _employeeService.GetEmployeeDetailsByUserId(UserId);
+            if (employee != null)
+            {
+                EmployeeId = employee.EmployeeId;
+            }
+            else
+            {
+                EmployeeId = 0;
+            }
+
+            jobApplicationDTO.TagId = EmployeeId;
+            jobApplicationDTO.CreatedBy = UserId;
+            jobApplicationDTO.Created = DateTime.Now;
+            Guid obj = Guid.NewGuid();
+            jobApplicationDTO.ApplicationViewToken = obj.ToString();
+            var a = _jobApplicationService.SubmitForScreeningStatus(jobApplicationDTO);
+     
+
+            return Json(a);
         }
+        public IActionResult JobApplicationsNotSentForScreening(int JobId)
+        {
+            
+            var canddate = _jobApplicationService.JobApplicationsNotSentForScreening(JobId);
+
+            ViewBag.Candidate = canddate;
+            ViewBag.Jobid = JobId;
+
+            return View("~/Plugins/HR.Recruitment/Views/JobApplication/JobApplicationsNotSentForScreening.cshtml");
+        }
+
+
 
     }
 }

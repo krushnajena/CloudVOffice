@@ -8,7 +8,7 @@ namespace CloudVOffice.Data.DTO.Accounts
 {
 	public class SupplierGroupDTO
 	{
-		public int SupplierGroupId { get; set; }
+		public int? SupplierGroupId { get; set; }
 		public string SupplierGroupName { get; set; }
 		public Int64 CreatedBy { get; set; }
 	}

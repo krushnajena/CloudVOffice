@@ -72,8 +72,13 @@ namespace HR.Attendance.Controllers
                     {
                         TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "AttendanceRequest Already Exists");
-                    }
-                    else
+					}
+					else if (a == MessageEnum.Exists)
+					{
+						TempData["msg"] = MessageEnum.Exists;
+						ModelState.AddModelError("", "AttendanceRequest Already Exists");
+					}
+					else
                     {
                         TempData["msg"] = MessageEnum.UnExpectedError;
                         ModelState.AddModelError("", "Un-Expected Error");
@@ -92,11 +97,12 @@ namespace HR.Attendance.Controllers
                         TempData["msg"] = MessageEnum.Duplicate;
                         ModelState.AddModelError("", "AttendanceRequest Already Exists");
                     }
-                    else
+					else
                     {
                         TempData["msg"] = MessageEnum.UnExpectedError;  
                         ModelState.AddModelError("", "Un-Expected Error");
                     }
+
                 }
             }
 

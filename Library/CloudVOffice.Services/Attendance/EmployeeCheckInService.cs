@@ -136,23 +136,21 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                var a = _Context.EmployeeCheckIns.Where(x => x.EmployeeId == EmployeeId &&  x.ForDate == ForDate && x.Deleted == false).FirstOrDefault();
-                if (a == null)
-                {
+                
                     EmployeeCheckIn employeeCheckIn1 = new EmployeeCheckIn();
                     employeeCheckIn1.EmployeeId = EmployeeId;
-                    employeeCheckIn1.ForDate = ForDate;
+                    employeeCheckIn1.ForDate = ForDate + CheckInTime;
                     employeeCheckIn1.LogType = 1;    
                     var obj1 =_employeeCheckInRepo.Insert(employeeCheckIn1);               
 
                     EmployeeCheckIn employeeCheckIn2 = new EmployeeCheckIn();
                     employeeCheckIn2.EmployeeId = EmployeeId;
-                    employeeCheckIn2.ForDate = ForDate;
+                    employeeCheckIn2.ForDate = ForDate + CheckOutTime;
                     employeeCheckIn2.LogType = 2;
                     var obj2 = _employeeCheckInRepo.Insert(employeeCheckIn2);
                     return MessageEnum.Success;
 
-                }
+                
                
                 return MessageEnum.Invalid;
 

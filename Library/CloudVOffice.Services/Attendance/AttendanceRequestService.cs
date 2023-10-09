@@ -19,7 +19,7 @@ namespace CloudVOffice.Services.Attendance
         private readonly IEmployeeAttendanceService _employeeAttendanceService;
         private readonly IEmployeeCheckInService _employeeCheckInService;
 
-        public AttendanceRequestService(ApplicationDBContext Context, ISqlRepository<AttendanceRequest> attendanceRequestRepo, ISqlRepository<EmployeeCheckIn> employeeCheckInRepo, IEmployeeAttendanceService employeeAttendanceService , IEmployeeCheckInService employeeCheckInService)
+        public AttendanceRequestService(ApplicationDBContext Context, ISqlRepository<AttendanceRequest> attendanceRequestRepo, ISqlRepository<EmployeeCheckIn> employeeCheckInRepo, IEmployeeAttendanceService employeeAttendanceService, IEmployeeCheckInService employeeCheckInService)
         {
 
             _Context = Context;
@@ -31,7 +31,7 @@ namespace CloudVOffice.Services.Attendance
 
         public MessageEnum AttendanceRequestCreate(AttendanceRequestDTO attendanceRequestDTO)
         {
-            var objCheck = _Context.AttendanceRequests.SingleOrDefault(opt => opt.AttendanceRequestId == attendanceRequestDTO.AttendanceRequestId && opt.Deleted == false);
+            var objCheck = _Context.AttendanceRequests.SingleOrDefault(opt => opt.ForDate == attendanceRequestDTO.ForDate && opt.Deleted == false && opt.EmployeeId == attendanceRequestDTO.EmployeeId && (attendanceRequestDTO.ApprovalStatus == 0 || attendanceRequestDTO.ApprovalStatus == 1));
             try
             {
                 if (objCheck == null)
@@ -156,7 +156,7 @@ namespace CloudVOffice.Services.Attendance
 
                 if (attendances != null)
                 {
-  
+
                     attendances.ApprovalStatus = attendanceApprovedDTO.ApprovalStatus;
                     attendances.ApprovalRemarks = attendanceApprovedDTO.ApprovalRemarks;
                     attendances.ApprovedOn = DateTime.Now;
@@ -169,15 +169,15 @@ namespace CloudVOffice.Services.Attendance
                     if (attendanceApprovedDTO.ApprovalStatus == 1)
                     {
                         var b = _employeeAttendanceService.GetEmployeeAttendanceUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
-                        
+
                         var c = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()), attendances.CheckInTime, attendances.CheckOutTime);
-                        var d = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()),attendances.CheckInTime,attendances.CheckOutTime);
+                        //var d = _employeeCheckInService.GetEmployeeCheckInUpdate(attendances.EmployeeId, DateTime.Parse(attendances.ForDate.ToString()),attendances.CheckInTime,attendances.CheckOutTime);
 
                         return b;
-                        
+
                     }
                     return a;
-                   
+
                 }
                 else
                 {
@@ -188,7 +188,7 @@ namespace CloudVOffice.Services.Attendance
             }
             catch
             {
-                throw;  
+                throw;
             }
 
         }
@@ -215,7 +215,7 @@ namespace CloudVOffice.Services.Attendance
         {
             try
             {
-                var attendance = _Context.AttendanceRequests.Where(x => x.EmployeeId ==  EmployeeId).ToList();
+                var attendance = _Context.AttendanceRequests.Where(x => x.EmployeeId == EmployeeId).ToList();
                 return attendance;
             }
             catch
@@ -225,5 +225,5 @@ namespace CloudVOffice.Services.Attendance
         }
     }
 
-    }
+}
 

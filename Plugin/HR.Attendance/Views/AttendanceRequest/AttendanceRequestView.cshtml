@@ -123,6 +123,15 @@
                     type: "error"
                 });
             }
+            else if (message == "@((int)MessageEnum.Error)") {
+                sweetAlert({
+                    html: true,
+                    icon: "error",
+                    title: "Attendance Request",
+                    text: "There is somthing going wrong.",
+                    type: "error"
+                });
+            }
             else {
                 sweetAlert({
                     html: true,
